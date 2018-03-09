@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Freie Aufgabe hinzufügen</h2>
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let task of freeTasks">
+      <h3 mat-line> {{task.title}} </h3>
+      <p mat-line>
+        <span *ngIf="task.debt">Standardaufgabe</span>
+        <span *ngIf="!task.debt">Sonderaufgabe</span>
+      </p>
+      <p mat-line>
+        <span>Gold: {{task.gold}}, </span>
+        <span>XP: {{task.xp}}</span>
+      </p>
+      <button mat-icon-button (click)="addTask(task)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <h2 *ngIf="freeTasks?.length==0">Keine freien Aufgaben vorhanden!</h2>
+</mat-dialog-content>
+

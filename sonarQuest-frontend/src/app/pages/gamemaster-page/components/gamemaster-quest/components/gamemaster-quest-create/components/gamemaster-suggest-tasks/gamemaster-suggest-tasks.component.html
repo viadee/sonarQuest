@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Quest-Vorschlag</h2>
+<mat-dialog-content>
+  <div flex>
+    <mat-select placeholder="Bedingung" value="condition" [(ngModel)]="condition" floatPlaceholder="true" name="condition" class="full-width">
+      <mat-option value="gold">Gold</mat-option>
+      <mat-option value="xp">XP</mat-option>
+    </mat-select>
+  </div>
+  <div flex>
+    <mat-input-container class="full-width">
+      <input matInput placeholder="Menge"  type="number" [(ngModel)]="amount">
+    </mat-input-container>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="suggestTasks()">generieren</button>
+</mat-dialog-actions>

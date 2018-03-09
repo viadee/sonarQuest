@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Neues Abenteuer</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Titel" [(ngModel)]="title">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="gold">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="xp">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Erzählung" [(ngModel)]="story"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div layout="column" layout-padding>
+  <div flex>
+    <mat-select placeholder="Welt für Questsauswahl" [(ngModel)]="world" floatPlaceholder="true" name="world" class="full-width">
+      <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
+    </mat-select>
+  </div>
+  </div>
+  <div layout="row">
+    <h3>Quests</h3>
+    <div flex></div>
+    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeQuest()"><mat-icon>add</mat-icon></button>
+  </div>
+  <mat-list>
+    <mat-list-item *ngFor="let quest of quests">
+      <h3 mat-line> {{quest?.title}} </h3>
+      <p mat-line>
+        <span>Gold: {{quest?.gold}}, </span>
+        <span>XP: {{quest?.xp}}</span>
+      </p>
+      <button mat-icon-button (click)="removeQuest(quest)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="createAdventure()">Abenteuer erstellen</button>
+</mat-dialog-actions>

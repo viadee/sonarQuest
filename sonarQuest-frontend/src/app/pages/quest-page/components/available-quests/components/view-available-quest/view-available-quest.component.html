@@ -1,0 +1,35 @@
+
+<mat-dialog-content>
+    <h3>{{quest.title}}</h3>
+  <div layout="row">
+    <div flex>
+      <b>Gold: </b>{{quest.gold}}
+    </div>
+    <div flex>
+     <b>XP: </b> {{quest.xp}}
+    </div>
+  </div>
+
+  <div class="storyContainer">
+        {{quest.story}}
+  </div>
+  <mat-divider></mat-divider>
+    <h3>Aufgaben</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let task of quest.tasks">
+      <h3 mat-line> {{task?.title}} </h3>
+      <p mat-line>
+        <span>Gold: {{task?.gold}}, </span>
+        <span>XP: {{task?.xp}}</span>
+      </p>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<div layout="row" class="buttonRow">
+      <div flex></div>
+      <div>
+          <button mat-raised-button color="primary" (click)="participateInQuest()">beitreten</button>
+      </div>
+      <div flex></div>
+</div>

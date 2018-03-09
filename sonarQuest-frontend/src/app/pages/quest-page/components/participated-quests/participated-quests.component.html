@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-content>
+    <div layout-padding>
+      <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+          <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+            <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-card-title" style="margin:0">Meine Quests</span>
+          </span>
+        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
+                       flex>
+        </td-search-box>
+      </div>
+      <mat-divider></mat-divider>
+      <td-data-table #dataTable [data]="filteredData" [columns]="columns"
+                     [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <button mat-icon-button (click)="viewQuest(row)">
+              <mat-icon class="icon">zoom_in</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </td-data-table>
+      <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>Keine Einträge</h3>
+      </div>
+      <td-paging-bar #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
+        <span td-paging-bar-label hide-xs>Einträge pro Seite:</span> {{pagingBar.range}} <span hide-xs>von {{pagingBar.total}}</span>
+      </td-paging-bar>
+    </div>
+  </mat-card-content>
+</mat-card>  

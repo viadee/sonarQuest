@@ -1,0 +1,1631 @@
+{
+  "total": 51,
+  "p": 1,
+  "ps": 100,
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 100,
+    "total": 51
+  },
+  "issues": [
+    {
+      "key": "AV1ztVs0xDKVD-yzyCXM",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarRace.java",
+      "componentId": 15072,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "2 duplicated blocks of code must be removed.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs1xDKVD-yzyCXN",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarRace.java",
+      "componentId": 15072,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs3xDKVD-yzyCXO",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs3xDKVD-yzyCXP",
+      "rule": "squid:S00107",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 59,
+      "textRange": {
+        "startLine": 59,
+        "endLine": 59,
+        "startOffset": 11,
+        "endOffset": 20
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Constructor has 8 parameters, which is greater than 7 authorized.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "brain-overload"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs3xDKVD-yzyCXQ",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs3xDKVD-yzyCXR",
+      "rule": "squid:UselessImportCheck",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 6,
+      "textRange": {
+        "startLine": 6,
+        "endLine": 6,
+        "startOffset": 0,
+        "endOffset": 44
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Remove this unused import 'javax.validation.constraints.NotNull'.",
+      "effort": "2min",
+      "debt": "2min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "unused"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs4xDKVD-yzyCXS",
+      "rule": "squid:S1948",
+      "severity": "CRITICAL",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 29,
+      "textRange": {
+        "startLine": 29,
+        "endLine": 29,
+        "startOffset": 18,
+        "endOffset": 23
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Make \"level\" transient or serializable.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "cwe",
+        "serialization"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "BUG"
+    },
+    {
+      "key": "AV1ztVs4xDKVD-yzyCXT",
+      "rule": "squid:S1948",
+      "severity": "CRITICAL",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 36,
+      "textRange": {
+        "startLine": 36,
+        "endLine": 36,
+        "startOffset": 24,
+        "endOffset": 35
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Make \"avatarClass\" transient or serializable.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "cwe",
+        "serialization"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "BUG"
+    },
+    {
+      "key": "AV1ztVs4xDKVD-yzyCXU",
+      "rule": "squid:S1948",
+      "severity": "CRITICAL",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 40,
+      "textRange": {
+        "startLine": 40,
+        "endLine": 40,
+        "startOffset": 23,
+        "endOffset": 33
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Make \"avatarRace\" transient or serializable.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "cwe",
+        "serialization"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "BUG"
+    },
+    {
+      "key": "AV1ztVs4xDKVD-yzyCXV",
+      "rule": "squid:S1948",
+      "severity": "CRITICAL",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "componentId": 15073,
+      "project": "com.viadee:sonarQuest",
+      "line": 44,
+      "textRange": {
+        "startLine": 44,
+        "endLine": 44,
+        "startOffset": 27,
+        "endOffset": 36
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Make \"artefacts\" transient or serializable.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "cwe",
+        "serialization"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "BUG"
+    },
+    {
+      "key": "AV1ztVs6xDKVD-yzyCXW",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "componentId": 15074,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs6xDKVD-yzyCXX",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "componentId": 15074,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs6xDKVD-yzyCXY",
+      "rule": "squid:UselessImportCheck",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "componentId": 15074,
+      "project": "com.viadee:sonarQuest",
+      "line": 6,
+      "textRange": {
+        "startLine": 6,
+        "endLine": 6,
+        "startOffset": 0,
+        "endOffset": 44
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Remove this unused import 'javax.validation.constraints.NotNull'.",
+      "effort": "2min",
+      "debt": "2min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "unused"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs9xDKVD-yzyCXZ",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Skill.java",
+      "componentId": 15075,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVs9xDKVD-yzyCXa",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Skill.java",
+      "componentId": 15075,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsDxDKVD-yzyCWy",
+      "rule": "squid:S1068",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "componentId": 15056,
+      "project": "com.viadee:sonarQuest",
+      "line": 21,
+      "textRange": {
+        "startLine": 21,
+        "endLine": 21,
+        "startOffset": 29,
+        "endOffset": 32
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Remove this unused \"log\" private field.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "cert",
+        "unused"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsLxDKVD-yzyCWz",
+      "rule": "squid:S00105",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "componentId": 15056,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "Replace all tab characters in this file by sequences of white-spaces.",
+      "effort": "2min",
+      "debt": "2min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsMxDKVD-yzyCW0",
+      "rule": "squid:S1186",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "componentId": 15056,
+      "project": "com.viadee:sonarQuest",
+      "line": 29,
+      "textRange": {
+        "startLine": 29,
+        "endLine": 29,
+        "startOffset": 13,
+        "endOffset": 16
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "suspicious"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsMxDKVD-yzyCW1",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "componentId": 15056,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 29
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsMxDKVD-yzyCW2",
+      "rule": "squid:S1312",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "componentId": 15056,
+      "project": "com.viadee:sonarQuest",
+      "line": 21,
+      "textRange": {
+        "startLine": 21,
+        "endLine": 21,
+        "startOffset": 29,
+        "endOffset": 32
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename the \"log\" logger to comply with the format \"LOG(?:GER)?\".",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsUxDKVD-yzyCW3",
+      "rule": "squid:S1226",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarClassController.java",
+      "componentId": 15058,
+      "project": "com.viadee:sonarQuest",
+      "line": 47,
+      "textRange": {
+        "startLine": 47,
+        "endLine": 47,
+        "startOffset": 12,
+        "endOffset": 26
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Introduce a new variable instead of reusing the parameter \"avatarClassDto\".",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "misra",
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsWxDKVD-yzyCW4",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarClassController.java",
+      "componentId": 15058,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 41
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsYxDKVD-yzyCW5",
+      "rule": "squid:S1226",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarRaceController.java",
+      "componentId": 15059,
+      "project": "com.viadee:sonarQuest",
+      "line": 47,
+      "textRange": {
+        "startLine": 47,
+        "endLine": 47,
+        "startOffset": 12,
+        "endOffset": 25
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Introduce a new variable instead of reusing the parameter \"avatarRaceDto\".",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "misra",
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsYxDKVD-yzyCW6",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarRaceController.java",
+      "componentId": 15059,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 41
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsaxDKVD-yzyCW7",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/DeveloperController.java",
+      "componentId": 15060,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 41
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsdxDKVD-yzyCW8",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/LevelController.java",
+      "componentId": 15061,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 41
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsgxDKVD-yzyCW9",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/SkillController.java",
+      "componentId": 15062,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 41
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsjxDKVD-yzyCW-",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarClassDto.java",
+      "componentId": 15064,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "2 duplicated blocks of code must be removed.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsjxDKVD-yzyCW_",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarClassDto.java",
+      "componentId": 15064,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVslxDKVD-yzyCXA",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarRaceDto.java",
+      "componentId": 15065,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "2 duplicated blocks of code must be removed.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVslxDKVD-yzyCXB",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarRaceDto.java",
+      "componentId": 15065,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsoxDKVD-yzyCXC",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "componentId": 15066,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsoxDKVD-yzyCXD",
+      "rule": "squid:S00107",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "componentId": 15066,
+      "project": "com.viadee:sonarQuest",
+      "line": 34,
+      "textRange": {
+        "startLine": 34,
+        "endLine": 34,
+        "startOffset": 11,
+        "endOffset": 23
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Constructor has 9 parameters, which is greater than 7 authorized.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "brain-overload"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsoxDKVD-yzyCXE",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "componentId": 15066,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsqxDKVD-yzyCXF",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/LevelDto.java",
+      "componentId": 15067,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsrxDKVD-yzyCXG",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/LevelDto.java",
+      "componentId": 15067,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVstxDKVD-yzyCXH",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/SkillDto.java",
+      "componentId": 15068,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "1 duplicated blocks of code must be removed.",
+      "effort": "20min",
+      "debt": "20min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVstxDKVD-yzyCXI",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/SkillDto.java",
+      "componentId": 15068,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVswxDKVD-yzyCXJ",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Artefact.java",
+      "componentId": 15070,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsyxDKVD-yzyCXK",
+      "rule": "common-java:DuplicatedBlocks",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarClass.java",
+      "componentId": 15071,
+      "project": "com.viadee:sonarQuest",
+      "flows": [],
+      "status": "OPEN",
+      "message": "2 duplicated blocks of code must be removed.",
+      "effort": "30min",
+      "debt": "30min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "pitfall"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVsyxDKVD-yzyCXL",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarClass.java",
+      "componentId": 15071,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtAxDKVD-yzyCXb",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/ArtefactRepository.java",
+      "componentId": 15077,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtCxDKVD-yzyCXc",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/AvatarClassRepository.java",
+      "componentId": 15078,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtExDKVD-yzyCXd",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/AvatarRaceRepository.java",
+      "componentId": 15079,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtGxDKVD-yzyCXe",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/DeveloperRepository.java",
+      "componentId": 15080,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtIxDKVD-yzyCXf",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/LevelRepository.java",
+      "componentId": 15081,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtKxDKVD-yzyCXg",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/SkillRepository.java",
+      "componentId": 15082,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 42
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian.schacht@viadee.de",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtOxDKVD-yzyCXh",
+      "rule": "squid:S1068",
+      "severity": "MAJOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "componentId": 15084,
+      "project": "com.viadee:sonarQuest",
+      "line": 11,
+      "textRange": {
+        "startLine": 11,
+        "endLine": 11,
+        "startOffset": 32,
+        "endOffset": 51
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Remove this unused \"developerRepository\" private field.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "cert",
+        "unused"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtOxDKVD-yzyCXi",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "componentId": 15084,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtOxDKVD-yzyCXj",
+      "rule": "squid:UselessImportCheck",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "componentId": 15084,
+      "project": "com.viadee:sonarQuest",
+      "line": 3,
+      "textRange": {
+        "startLine": 3,
+        "endLine": 3,
+        "startOffset": 0,
+        "endOffset": 48
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Remove this unused import 'com.viadee.sonarQuest.entities.Developer'.",
+      "effort": "2min",
+      "debt": "2min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "unused"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "AV1ztVtQxDKVD-yzyCXk",
+      "rule": "squid:S00120",
+      "severity": "MINOR",
+      "component": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/LevelService.java",
+      "componentId": 15085,
+      "project": "com.viadee:sonarQuest",
+      "line": 1,
+      "textRange": {
+        "startLine": 1,
+        "endLine": 1,
+        "startOffset": 8,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Rename this package name to match the regular expression '^[a-z]+(\\.[a-z][a-z0-9]*)*$'.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "florian@florians-mbp.fritz.box",
+      "tags": [
+        "convention"
+      ],
+      "creationDate": "2017-07-24T10:27:27+0200",
+      "updateDate": "2017-07-24T10:27:27+0200",
+      "type": "CODE_SMELL"
+    }
+  ],
+  "components": [
+    {
+      "id": 15070,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Artefact.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWf",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "Artefact.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/Artefact.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/Artefact.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15071,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarClass.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWg",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarClass.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/AvatarClass.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/AvatarClass.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15072,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/AvatarRace.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWh",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarRace.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/AvatarRace.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/AvatarRace.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15073,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWi",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "Developer.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/Developer.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15066,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWb",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "DeveloperDto.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "path": "src/main/java/com/viadee/sonarQuest/dtos/DeveloperDto.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15067,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/LevelDto.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWc",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "LevelDto.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/dtos/LevelDto.java",
+      "path": "src/main/java/com/viadee/sonarQuest/dtos/LevelDto.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15068,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/SkillDto.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWd",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "SkillDto.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/dtos/SkillDto.java",
+      "path": "src/main/java/com/viadee/sonarQuest/dtos/SkillDto.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15065,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarRaceDto.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWa",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarRaceDto.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/dtos/AvatarRaceDto.java",
+      "path": "src/main/java/com/viadee/sonarQuest/dtos/AvatarRaceDto.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15064,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/dtos/AvatarClassDto.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWZ",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarClassDto.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/dtos/AvatarClassDto.java",
+      "path": "src/main/java/com/viadee/sonarQuest/dtos/AvatarClassDto.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15060,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/DeveloperController.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWV",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "DeveloperController.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/controllers/DeveloperController.java",
+      "path": "src/main/java/com/viadee/sonarQuest/controllers/DeveloperController.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15061,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/LevelController.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWW",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "LevelController.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/controllers/LevelController.java",
+      "path": "src/main/java/com/viadee/sonarQuest/controllers/LevelController.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15062,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/SkillController.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWX",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "SkillController.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/controllers/SkillController.java",
+      "path": "src/main/java/com/viadee/sonarQuest/controllers/SkillController.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15058,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarClassController.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWT",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarClassController.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/controllers/AvatarClassController.java",
+      "path": "src/main/java/com/viadee/sonarQuest/controllers/AvatarClassController.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15059,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/controllers/AvatarRaceController.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWU",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarRaceController.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/controllers/AvatarRaceController.java",
+      "path": "src/main/java/com/viadee/sonarQuest/controllers/AvatarRaceController.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15054,
+      "key": "com.viadee:sonarQuest",
+      "uuid": "AV1ztVR4N4qLZ9ybW0Rb",
+      "enabled": true,
+      "qualifier": "TRK",
+      "name": "SonarQuest",
+      "longName": "SonarQuest"
+    },
+    {
+      "id": 15056,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "uuid": "AV1ztVpqxDKVD-yzyCWR",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "SonarQuestApplication.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "path": "src/main/java/com/viadee/sonarQuest/SonarQuestApplication.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15082,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/SkillRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWr",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "SkillRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/SkillRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/SkillRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15084,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWt",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "DeveloperService.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "path": "src/main/java/com/viadee/sonarQuest/services/DeveloperService.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15085,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/services/LevelService.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWu",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "LevelService.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/services/LevelService.java",
+      "path": "src/main/java/com/viadee/sonarQuest/services/LevelService.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15078,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/AvatarClassRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWn",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarClassRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/AvatarClassRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/AvatarClassRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15079,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/AvatarRaceRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWo",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "AvatarRaceRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/AvatarRaceRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/AvatarRaceRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15080,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/DeveloperRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWp",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "DeveloperRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/DeveloperRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/DeveloperRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15081,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/LevelRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWq",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "LevelRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/LevelRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/LevelRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15074,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWj",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "Level.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/Level.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15075,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/entities/Skill.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWk",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "Skill.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/entities/Skill.java",
+      "path": "src/main/java/com/viadee/sonarQuest/entities/Skill.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    },
+    {
+      "id": 15077,
+      "key": "com.viadee:sonarQuest:src/main/java/com/viadee/sonarQuest/repositories/ArtefactRepository.java",
+      "uuid": "AV1ztVprxDKVD-yzyCWm",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "ArtefactRepository.java",
+      "longName": "src/main/java/com/viadee/sonarQuest/repositories/ArtefactRepository.java",
+      "path": "src/main/java/com/viadee/sonarQuest/repositories/ArtefactRepository.java",
+      "projectId": 15054,
+      "subProjectId": 15054
+    }
+  ]
+}

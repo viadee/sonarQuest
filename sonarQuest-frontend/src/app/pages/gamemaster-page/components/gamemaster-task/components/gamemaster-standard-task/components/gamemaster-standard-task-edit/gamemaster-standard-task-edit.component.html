@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Standardaufgabe bearbeiten</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Titel" [(ngModel)]="standardTask.title">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="standardTask.gold">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="standardTask.xp">
+      </mat-input-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="updateStandardTask()">speichern</button>
+</mat-dialog-actions>

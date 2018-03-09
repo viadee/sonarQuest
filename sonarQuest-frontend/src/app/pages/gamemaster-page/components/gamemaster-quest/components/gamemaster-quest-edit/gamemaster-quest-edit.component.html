@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>Quest bearbeiten</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Titel" [(ngModel)]="quest.title">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="quest.gold">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="quest.xp">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Erzählung" [(ngModel)]="quest.story"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div layout="row">
+    <h3>Aufgaben</h3>
+    <div flex></div>
+    <div style="padding-top: 5%">
+      <span >Gold: {{calculateGoldAmountOfTasks()}}</span>
+    </div>
+      <div flex></div>
+    <div style="padding-top: 5%">
+      <span>XP: {{calculateXpAmountOfTasks()}}</span>
+    </div>
+    <div flex></div>
+    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeTask()"><mat-icon>add</mat-icon></button>
+    <div flex="5"></div>
+    <button style="padding-top:2.5%" mat-icon-button (click)="suggestTasks()"><mat-icon>lightbulb_outline</mat-icon></button>
+  </div>
+  <mat-list>
+    <mat-list-item *ngFor="let task of quest.tasks">
+      <h3 mat-line> {{task?.title}} </h3>
+      <p mat-line>
+        <span *ngIf="task?.debt">Standardaufgabe</span>
+        <span *ngIf="!task?.debt">Sonderaufgabe</span>
+      </p>
+      <p mat-line>
+        <span>Gold: {{task?.gold}}, </span>
+        <span>XP: {{task?.xp}}</span>
+      </p>
+      <button mat-icon-button (click)="removeTask(task)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="editQuest()">speichern</button>
+</mat-dialog-actions>

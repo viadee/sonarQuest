@@ -1,0 +1,61 @@
+<div layout="row" layout-margin>
+  <div flex>
+    <mat-card>
+      <div layout="row">
+        <div flex="50">
+          <div layout="row">
+            <div flex layout-margin>
+              <img style="max-width:100%; max-height:100%;margin:9%" src="http://via.placeholder.com/200x200">
+            </div>
+            <div flex="70">
+              <div layout="column" layout-padding>
+                <div flex>
+                  <mat-card-title>{{developer?.username}}</mat-card-title>
+                  <mat-card-subtitle>{{developer?.avatarClass.name}}</mat-card-subtitle>
+                  <mat-card-subtitle>{{developer?.avatarRace.name}}</mat-card-subtitle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div flex layout-margin>
+          <div layout="row" layout-margin>
+            <div flex="50">
+              <div layout="column">
+                <div flex>Level:</div>
+                <div flex style="font-weight:bold; font-size:20pt">{{developer?.level.name}}</div>
+                <div layout="row">
+                  <div flex></div>
+                  <div flex-end>{{developer?.xp}}/{{developer?.level.max}} XP</div>
+                </div>
+                <mat-progress-bar flex mode="determinate" value=50></mat-progress-bar>
+              </div>
+            </div>
+            <div flex></div>
+            <div flex>
+              <div layout="column">
+                <div flex>Gold:</div>
+                <div flex style="font-weight:bold; font-size:20pt">{{developer?.gold}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <p>{{developer?.aboutMe}}</p>
+        <mat-divider></mat-divider>
+        <h3>Artefakte</h3>
+        <mat-grid-list cols="4" rowHeight="3:1">
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-candle ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-mirror ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-rune-stone ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-slash-ring ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-trophy ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-potion ra-3x"></i></mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

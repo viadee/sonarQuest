@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Sonderaufgabe bearbeiten</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Titel" [(ngModel)]="specialTask.title">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="specialTask.gold">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="specialTask.xp">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Auftrag" [(ngModel)]="specialTask.message"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="updateSpecialTask()">speichern</button>
+</mat-dialog-actions>

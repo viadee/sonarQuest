@@ -1,0 +1,15 @@
+.username-toolbar{
+    font-size: 12pt
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.vertical-align{
+    display: flex;
+    align-items: center;
+  justify-content: center;
+}

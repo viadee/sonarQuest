@@ -1,0 +1,38 @@
+{
+    "APP_COMPONENT": {
+        "STARTPAGE": "Startpage",
+        "MY_AVATAR": "My Avatar",
+        "ADVENTURES": "Adventures",
+        "QUESTS": "Quests",
+        "MARKETPLACE": "Marketplace",
+        "GAMEMASTER": "Gamemaster"
+    },
+    "ADVENTURE_PAGE": {
+        "MY_ADVENTURES": "My Adventures",
+        "AVAILABLE_ADVENTURES": "Available Adventures"
+    },
+    "TABLE": {
+        "COLUMNS": {
+            "TITLE": "Title",
+            "GOLD": "Gold",
+            "XP": "XP",
+            "STORY": "Story",
+            "STATUS": "Status"
+        },
+        "INFO": {
+            "NO_ENTRIES": "no entries",
+            "OF": "of",
+            "ENTRIES_PER_PAGE": "entries per page"
+        }
+    },
+    "GAMEMASTER_PAGE":{
+        "WORLDS":"Worlds",
+        "ADVENTURES":"Adventures",
+        "QUESTS":"Quests",
+        "TASKS": "Tasks"
+    },
+    "GAMEMASTER_ADVENTURE":{
+        "NEW_ADVENTURE":"New Adventure",
+        "ADVENTURES":"Adventures"
+    }
+}
