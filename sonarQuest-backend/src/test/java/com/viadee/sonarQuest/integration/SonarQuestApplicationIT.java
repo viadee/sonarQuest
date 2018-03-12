@@ -87,7 +87,7 @@ public class SonarQuestApplicationIT {
         final ExternalRessourceService mockedExternalRessourceService = mock(ExternalRessourceService.class);
 
         final World externalMockedWorld = new World("SonarDungeon", "com.viadee:sonarQuest", false);
-        final List externalMockedWorlds = new ArrayList();
+        final List<World> externalMockedWorlds = new ArrayList<>();
         assertTrue(externalMockedWorlds.add(externalMockedWorld));
         when(mockedExternalRessourceService.generateWorldsFromSonarQubeProjects()).thenReturn(externalMockedWorlds);
 
@@ -96,15 +96,10 @@ public class SonarQuestApplicationIT {
         final World sonarDungeon = worldRepository.findOne((long) 1);
         assertEquals("updateWorlds does not work", "SonarDungeon", sonarDungeon.getName());
 
-        /*
-        *
-        *
-        * */
-
         // Update StandardTasks
         StandardTask externalMockedStandardTask = new StandardTask("Issue1", TaskStates.OPEN, (long) 10, (long) 7, null,
                 sonarDungeon, "12345", "component", "CRITICAL", "CODE_SMELL", 100);
-        final List externalMockedStandardTasks = new ArrayList();
+        final List<StandardTask> externalMockedStandardTasks = new ArrayList<>();
         assertTrue(externalMockedStandardTasks.add(externalMockedStandardTask));
         when(mockedExternalRessourceService.generateStandardTasksFromSonarQubeIssuesForWorld(sonarDungeon))
                 .thenReturn(externalMockedStandardTasks);
@@ -115,11 +110,6 @@ public class SonarQuestApplicationIT {
         assertEquals("updateStandardTasks does not work (Title)", "Issue1", issue1.getTitle());
         assertEquals("updateStandardTasks does not work (Status)", TaskStates.CREATED, issue1.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Create Sonderaufgabe
         final SpecialTaskDto sonderAufgabeDto = new SpecialTaskDto(null, "TestSonderaufgabe", null, (long) 11, (long) 7,
                 null, null, "Löst diese Aufgabe möglichst schnell!");
@@ -127,11 +117,6 @@ public class SonarQuestApplicationIT {
         Task sonderAufgabe = taskRepository.findById(2);
         assertEquals("createSpecialTask does not work (Title)", "TestSonderaufgabe", sonderAufgabe.getTitle());
         assertEquals("createSpecialTask does not work (Status)", TaskStates.CREATED, sonderAufgabe.getStatus());
-
-        /*
-        *
-        *
-        * */
 
         // Create Quest
         final QuestDto questDto = new QuestDto(null, "EpicQuest", "Dies ist eine epische Quest", null, (long) 20,
@@ -141,20 +126,10 @@ public class SonarQuestApplicationIT {
         assertEquals("createQuest does not work (Title)", "EpicQuest", epicQuest.getTitle());
         assertEquals("createQuest does not work (Status)", QuestStates.OPEN, epicQuest.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Add World to Quest
         questController.addWorld((long) 1, (long) 1);
         epicQuest = questRepository.findOne((long) 1);
         assertEquals("addWorld does not work", "SonarDungeon", epicQuest.getWorld().getName());
-
-        /*
-        *
-        *
-        * */
 
         // Create Adventure
         final AdventureDto adventureDto = new AdventureDto(null, "TestAbenteuer", "Dies ist ein gefährliches Abenteuer",
@@ -164,22 +139,12 @@ public class SonarQuestApplicationIT {
         assertEquals("createAdventure does not work (Title)", "TestAbenteuer", testAbenteuer.getTitle());
         assertEquals("createAdventure does not work (Status)", AdventureStates.OPEN, testAbenteuer.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Add issue1 to Quest
         taskController.addToQuest((long) 1, (long) 1);
         epicQuest = questRepository.findOne((long) 1);
         List<Task> epicQuestTasks = epicQuest.getTasks();
         assertEquals("addToQuest does not work (Title)", "Issue1", epicQuestTasks.get(0).getTitle());
         assertEquals("addToQuest does not work (Status)", TaskStates.OPEN, epicQuestTasks.get(0).getStatus());
-
-        /*
-        *
-        *
-        * */
 
         // Add Sonderaufgabe to Quest
         taskController.addToQuest((long) 2, (long) 1);
@@ -188,32 +153,16 @@ public class SonarQuestApplicationIT {
         assertEquals("addToQuest does not work (Title)", "TestSonderaufgabe", epicQuestTasks.get(1).getTitle());
         assertEquals("addToQuest does not work (Status)", TaskStates.OPEN, epicQuestTasks.get(1).getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Add Adventure to Quest
         adventureController.addQuest((long) 1, (long) 1);
         epicQuest = questRepository.findOne((long) 1);
         assertEquals("addQuestToAdventure does not work", "TestAbenteuer", epicQuest.getAdventure().getTitle());
 
-        /*
-        *
-        *
-        * */
-
         // Add sonarHero123 to TestAbenteuer
         adventureController.addDeveloper((long) 1, (long) 1);
         testAbenteuer = adventureRepository.findOne((long) 1);
         final Developer sonarHero123 = developerRepository.findById((long) 1);
-        assertEquals("addDeveloperToAdventure does not work", "sonarHero123",
-                testAbenteuer.getDevelopers().get(0).getUsername());
-
-        /*
-        *
-        *
-        * */
+        assertEquals("addDeveloperToAdventure does not work", "sonarHero123", sonarHero123);
 
         // Add Participation sonarHero123, EpicQuest
         participationController.createParticipation((long) 1, (long) 1);
@@ -223,11 +172,6 @@ public class SonarQuestApplicationIT {
                 participations.get(0).getQuest().getTitle());
         assertEquals("createParticipation does not work (Developer)", "sonarHero123",
                 participations.get(0).getDeveloper().getUsername());
-
-        /*
-        *
-        *
-        * */
 
         // Add Participation to issue1
         issue1 = taskRepository.findOne((long) 1);
@@ -240,11 +184,6 @@ public class SonarQuestApplicationIT {
                 issue1.getParticipation().getDeveloper().getUsername());
         assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Add Participation to sonderAufgabe
         sonderAufgabe = taskRepository.findOne((long) 2);
         assertNull("addParticipationToTask does not work (Quest)", sonderAufgabe.getParticipation());
@@ -256,20 +195,10 @@ public class SonarQuestApplicationIT {
                 sonderAufgabe.getParticipation().getDeveloper().getUsername());
         assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, sonderAufgabe.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Set Sonderaufgabe to SOLVED
         taskController.solveSpecialTask((long) 2);
         sonderAufgabe = taskRepository.findOne((long) 2);
         assertEquals("solveSpecialTask does not work (Status)", TaskStates.SOLVED, sonderAufgabe.getStatus());
-
-        /*
-        *
-        *
-        * */
 
         // Check Gratification
         // Gold= 10 (Ausgangswert) + 11 (Sonderaufgabe) + 2 (Magier) + 1(Schwert) = 24
@@ -277,11 +206,6 @@ public class SonarQuestApplicationIT {
         Developer developer = developerRepository.findOne((long) 1);
         assertEquals("Gratification does not work (Gold)", Long.valueOf(24), developer.getGold());
         assertEquals("Gratification does not work (XP)", Long.valueOf(12), developer.getXp());
-
-        /*
-        *
-        *
-        * */
 
         // Update StandardTasks (again)
         externalMockedStandardTask = new StandardTask("Issue1", TaskStates.SOLVED, (long) 10, (long) 7, null,
@@ -297,22 +221,13 @@ public class SonarQuestApplicationIT {
         assertEquals("updateStandardTasks does not work (Title)", "Issue1", issue1.getTitle());
         assertEquals("updateStandardTasks does not work (Status)", TaskStates.SOLVED, issue1.getStatus());
 
-        /*
-        *
-        *
-        * */
-
         // Check Gratification
-        // Gold= 24 (Ausgangswert) + 10 (Aufgabe) + 2(Magier) + 1(Schwert) + 20 (Quest) + 30 (Abenteuer) = 87
+        // Gold= 24 (Ausgangswert) + 10 (Aufgabe) + 2(Magier) + 1(Schwert) + 20 (Quest)
+        // + 30 (Abenteuer) = 87
         // Xp = 12 (Ausgangswert) + 7 (Aufgabe) + 30 (Quest) + 40 (Abenteuer) = 89
         developer = developerRepository.findOne((long) 1);
         assertEquals("Gratification does not work (Gold)", Long.valueOf(87), developer.getGold());
         assertEquals("Gratification does not work (XP)", Long.valueOf(89), developer.getXp());
-
-        /*
-        *
-        *
-        * */
 
         // Check Status of epicQuest and testAbenteuer
         epicQuest = questRepository.findOne((long) 1);
