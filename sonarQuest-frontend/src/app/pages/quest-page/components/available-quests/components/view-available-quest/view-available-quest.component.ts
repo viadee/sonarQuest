@@ -1,3 +1,4 @@
+import { Developer } from './../../../../../../Interfaces/Developer.d';
 import { DeveloperService } from './../../../../../../services/developer.service';
 import { ParticipationService } from './../../../../../../services/participation.service';
 import { Quest } from './../../../../../../Interfaces/Quest';
@@ -13,6 +14,7 @@ import { AvailableQuestsComponent } from '../../available-quests.component';
 })
 export class ViewAvailableQuestComponent implements OnInit {
 
+  developer: Developer;
   constructor(
     private dialogRef: MatDialogRef<AvailableQuestsComponent>,
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
@@ -21,17 +23,18 @@ export class ViewAvailableQuestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.developerService.getMyAvatar()
+      .subscribe(developer => {
+        this.developer = developer
+      })
   }
 
-  participateInQuest(){
-    this.developerService.getMyAvatar()
-    .then(developer=>{
-      return this.participationService.createParticipation(developer,this.quest)
-    })
-    .then((msg)=>{
-      console.log(msg)
-      this.dialogRef.close();
-    })
+  participateInQuest() {
+    return this.participationService.createParticipation(this.developer, this.quest)
+      .then((msg) => {
+        console.log(msg)
+        this.dialogRef.close();
+      })
   }
 
 }

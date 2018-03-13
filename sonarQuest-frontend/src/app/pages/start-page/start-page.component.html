@@ -117,9 +117,9 @@
             </div>
             <div layout="row">
               <div flex></div>
-              <div flex-end>{{developer?.xp}}/{{developer?.level.max}} XP ({{xpPercent()}}%)</div>
+              <div flex-end>{{developer?.xp}}/{{developer?.level.max}} XP ({{XPpercent}}%)</div>
             </div>
-            <mat-progress-bar flex mode="determinate" [value]="xpPercent()"></mat-progress-bar>
+            <mat-progress-bar flex mode="determinate" [value]="XPpercent"></mat-progress-bar>
           </div>
         </div>
         <div flex>

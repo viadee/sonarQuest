@@ -36,29 +36,34 @@ export class AppComponent {
     this.translate.get("APP_COMPONENT").subscribe((page_names)=>{
       this.pageNames = page_names;
     })  
-    this.developerService.getMyAvatar().then(developer => this.developer = developer);
+    this.developerService.getMyAvatar().subscribe(developer => this.developer = developer);
     this.worldService.getWorlds().then(worlds => {
       this.worlds = worlds.filter(world => world.active === true)
       this.selectedWorld = worlds[0]
     });
   }
 
-  showPageTitle(url: string): string {
-    switch (url) {
-      case '/start':
-        return this.pageNames.START_PAGE;
-      case '/myAvatar':
-        return this.pageNames.MY_AVATAR;
-      case '/adventures':
-        return this.pageNames.ADVENTURES;
-      case '/quests':
-        return this.pageNames.QUESTS;
-      case '/marketplace':
-        return this.pageNames.MARKETPLACE;
-      case '/gamemaster':
-        return this.pageNames.GAMEMASTER;
-      default:
-        return '';
+  determinePageTitle(url: string): string {
+    if(this.pageNames){
+      switch (url) {
+        case '/start':
+          return this.pageNames.STARTPAGE;
+        case '/myAvatar':
+          return this.pageNames.MY_AVATAR;
+        case '/adventures':
+          return this.pageNames.ADVENTURES;
+        case '/quests':
+          return this.pageNames.QUESTS;
+        case '/marketplace':
+          return this.pageNames.MARKETPLACE;
+        case '/gamemaster':
+          return this.pageNames.GAMEMASTER;
+        default:
+          return '';
+      }
+    }else{
+      return ""
     }
+    
   }
 }

@@ -17,13 +17,13 @@ export class ParticipatedQuestsComponent implements OnInit {
 
   participatedQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Titel', width: {min:80}},
-    { name: 'gold', label: 'Gold', width: {min:40}},
-    { name: 'xp', label: 'XP', width: {min:40}},
-    { name: 'story', label: 'Erzählung', width: {min:200}},
-    { name: 'adventure.title', label: 'Abenteuer', width: {min:80}},
-    { name: 'status', label: 'Status', width: {min:60}},
-    { name: 'edit', label: '', width: {min:60}}
+    { name: 'title', label: 'Titel', width: { min: 80 } },
+    { name: 'gold', label: 'Gold', width: { min: 40 } },
+    { name: 'xp', label: 'XP', width: { min: 40 } },
+    { name: 'story', label: 'Erzählung', width: { min: 200 } },
+    { name: 'adventure.title', label: 'Abenteuer', width: { min: 80 } },
+    { name: 'status', label: 'Status', width: { min: 60 } },
+    { name: 'edit', label: '', width: { min: 60 } }
   ]
 
   // Sort / Filter / Paginate variables
@@ -43,31 +43,31 @@ export class ParticipatedQuestsComponent implements OnInit {
     private developerService: DeveloperService,
     private participationService: ParticipationService,
     private _dataTableService: TdDataTableService,
-    private dialog: MatDialog) { 
-      this.participationService.participationUpdated$.subscribe(()=>{
-        this.ngOnInit()
-      })
-    }
+    private dialog: MatDialog) {
+    this.participationService.participationUpdated$.subscribe(() => {
+      this.ngOnInit()
+    })
+  }
 
 
 
   ngOnInit() {
-    this.developerService.getMyAvatar().then(developer=>{
-      return this.loadQuests(this.worldService.getCurrentWorld(),developer)
-    }).then(()=>{
-      this.filter()
+    this.developerService.getMyAvatar().subscribe(developer => {
+      this.loadQuests(this.worldService.getCurrentWorld(), developer)
+        .then(() => {
+          this.filter()
+        })
     })
-    ;
   }
 
-  loadQuests(world,developer){
-    return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(world,developer).then(quests => {
-     this.participatedQuests = quests;
+  loadQuests(world, developer) {
+    return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(world, developer).then(quests => {
+      this.participatedQuests = quests;
     });
   }
 
-  viewQuest(quest: Quest){
-    this.dialog.open(ViewParticipatedQuestComponent,{data: quest,width:"500px"}).afterClosed().subscribe(()=>{
+  viewQuest(quest: Quest) {
+    this.dialog.open(ViewParticipatedQuestComponent, { data: quest, width: "500px" }).afterClosed().subscribe(() => {
     })
   }
 
@@ -94,7 +94,7 @@ export class ParticipatedQuestsComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

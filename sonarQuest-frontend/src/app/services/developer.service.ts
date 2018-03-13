@@ -1,30 +1,30 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment";
-import {HttpModule, Http, Response} from "@angular/http";
-import {Developer} from "../Interfaces/Developer";
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { environment } from "../../environments/environment";
+import { HttpModule, Http, Response } from "@angular/http";
+import { Developer } from "../Interfaces/Developer";
 
 @Injectable()
 export class DeveloperService {
 
-  myAvatar: Developer;
+  developerSubject: Subject<Developer>;
 
   constructor(public http: Http) {
+    this.developerSubject= new Subject();
   }
 
-  getMyAvatar(): Promise<Developer> {
-    if (this.myAvatar) {
-      return Promise.resolve(this.myAvatar);
-    } else {
-      return this.http.get(`${environment.endpoint}/developer/1`)
-        .toPromise()
-        .then(response => {
-          this.myAvatar = this.extractData(response);
-          return this.myAvatar;
-        })
-        .catch(this.handleError);
-    }
+  getMyAvatar(): Observable<Developer> {
+    this.http.get(`${environment.endpoint}/developer/1`)
+      .map(this.extractData)
+      .subscribe(
+        result => this.developerSubject.next(result),
+        err => this.developerSubject.error(err)
+      );
+    return this.developerSubject;
+
   }
-  
+
 
   private extractData(res: Response) {
     let body = res.json();

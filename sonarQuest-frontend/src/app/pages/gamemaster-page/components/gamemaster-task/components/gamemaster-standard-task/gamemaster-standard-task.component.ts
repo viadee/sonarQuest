@@ -1,3 +1,4 @@
+import { WorldService } from './../../../../../../services/world.service';
 import { Component, OnInit } from '@angular/core';
 import {
   IPageChangeEvent,
@@ -41,6 +42,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
   constructor(
     private standardTaskService: StandardTaskService,
     private _dataTableService: TdDataTableService,
+    private worldService: WorldService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -56,6 +58,12 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   editStandardTask(standardTask){
     this.dialog.open(GamemasterStandardTaskEditComponent,{width:"500px", data: standardTask}).afterClosed().subscribe(()=>this.loadTasks());
+  }
+
+  refreshStandardTasks(){
+    this.standardTaskService.refreshStandardTask( this.worldService.getCurrentWorld()).then(()=>{
+      this.standardTaskService.getStandardTasks();
+    })
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

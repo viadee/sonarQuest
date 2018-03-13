@@ -30,52 +30,56 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   ngOnInit() {
     this.tasks = this.quest.tasks;
-    this.developerService.getMyAvatar().then(dev =>{
+    this.developerService.getMyAvatar().subscribe(dev => {
       this.developer = dev;
     })
   }
 
-  addParticipation(task: Task){
-    return this.taskService.addParticipation(task,this.developer,this.quest)
-    .then(()=>{
-      return this.questService.getQuest(this.quest.id)
-    }).then((updatedQuest: Quest)=>{
-      this.quest = updatedQuest;
-      this.tasks = updatedQuest.tasks
-    })
+  addParticipation(task: Task) {
+    return this.taskService.addParticipation(task, this.developer, this.quest)
+      .then(() => {
+        return this.questService.getQuest(this.quest.id)
+      }).then((updatedQuest: Quest) => {
+        this.quest = updatedQuest;
+        this.tasks = updatedQuest.tasks
+      })
   }
 
-  removeParticipation(task: Task){
+  removeParticipation(task: Task) {
     return this.taskService.removeParticipation(task)
-    .then(()=>{
-      return this.questService.getQuest(this.quest.id)
-    }).then((updatedQuest: Quest)=>{
-      this.quest = updatedQuest;
-      this.tasks = updatedQuest.tasks
-    })
+      .then(() => {
+        return this.questService.getQuest(this.quest.id)
+      }).then((updatedQuest: Quest) => {
+        this.quest = updatedQuest;
+        this.tasks = updatedQuest.tasks
+      })
   }
 
   participatingDeveloper(task: Task): Developer {
     let developer = null;
-    let participations: Participation[] = this.quest.participations
-    participations.forEach((participation)=>{
-      if(participation.tasks.map(task=>task.id).includes(task.id)){
-        developer = participation.developer;
-      }
-    })
+    if (this.developer) {
+      let participations: Participation[] = this.quest.participations
+      participations.forEach((participation) => {
+        if (participation.tasks.map(task => task.id).includes(task.id)) {
+          developer = participation.developer;
+        }
+      })
+    }
     return developer;
   }
 
   participatingDeveloperIsLoggedInDeveloper(task: Task): Boolean {
     let result = false;
-    let participations: Participation[] = this.quest.participations
-    participations.forEach((participation)=>{
-      if(participation.tasks.map(task=>task.id).includes(task.id)){
-        if(this.developer.id == participation.developer.id){
-          result=true;
+    if (this.developer) {
+      let participations: Participation[] = this.quest.participations
+      participations.forEach((participation) => {
+        if (participation.tasks.map(task => task.id).includes(task.id)) {
+          if (this.developer.id == participation.developer.id) {
+            result = true;
+          }
         }
-      }
-    })
+      })
+    }
     return result;
   }
 

@@ -13,7 +13,7 @@ export class MyAvatarPageComponent implements OnInit {
   constructor( public developerService: DeveloperService) { }
 
   ngOnInit() {
-    this.developerService.getMyAvatar().then(developer => this.developer = developer)
+    this.developerService.getMyAvatar().subscribe(developer => this.developer = developer)
   }
 
 }

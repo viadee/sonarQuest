@@ -45,7 +45,7 @@ export class AdventurePageComponent implements OnInit {
         { name: 'status', label: col_names.STATUS },
         { name: 'edit', label: '' }]
     });
-    this.developerService.getMyAvatar().then(developer => {
+    this.developerService.getMyAvatar().subscribe(developer => {
       this.developer = developer;
       this.world = this.worldService.getCurrentWorld();
       return this.loadAdventures(this.world, this.developer)

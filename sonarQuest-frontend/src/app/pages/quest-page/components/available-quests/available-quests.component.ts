@@ -53,8 +53,8 @@ export class AvailableQuestsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.developerService.getMyAvatar().then(developer=>{
-      this.developer= developer;
+    this.developerService.getMyAvatar().subscribe(dev=>{
+      this.developer= dev;
       this.world = this.worldService.getCurrentWorld();
       return this.loadQuests(this.world,this.developer)
     })

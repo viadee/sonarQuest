@@ -1,3 +1,4 @@
+import { World } from './../Interfaces/World';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers,Response} from "@angular/http";
 import {environment} from "../../environments/environment";
@@ -39,6 +40,10 @@ export class StandardTaskService {
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
+  }
+
+  refreshStandardTask(world: World): Promise <any>{
+    return this.http.get(`${environment.endpoint}/task/updateStandardTasks/${world.id}`).toPromise().catch(this.handleError)
   }
 
   private extractData(res: Response) {
