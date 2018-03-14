@@ -49,6 +49,7 @@ public class SonarQuestApplication implements CommandLineRunner{
 		taskController.updateStandardTasksForWorld((long)1);
 
 		//Create Quests
+
 		QuestDto quest1 = new QuestDto(null,"Quest1","Dies ist eine Quest",null,(long)5,(long) 10,null,null,null,null);
 		QuestDto quest2 = new QuestDto(null,"Quest2","Dies ist auch eine Quest",null,(long)10,(long) 20,null,null,null,null);
 		QuestDto quest3 = new QuestDto(null,"Quest3","Dies ist eine epische Quest",null,(long)20,(long) 30,null,null,null,null);

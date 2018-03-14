@@ -4,9 +4,7 @@ package com.viadee.sonarQuest.controllers;
 import com.viadee.sonarQuest.constants.AdventureStates;
 import com.viadee.sonarQuest.dtos.AdventureDto;
 import com.viadee.sonarQuest.entities.Adventure;
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Quest;
-import com.viadee.sonarQuest.helpers.Settings;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
@@ -47,7 +45,6 @@ public class AdventureController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<AdventureDto> getAllAdventures(){
-    	if (Settings.DEBUG) System.out.println("AdventureController.getAllAdventures() started");
         return this.adventureRepository.findAll().stream().map(adventure -> toAdventureDto(adventure)).collect(Collectors.toList());
     }
 	
@@ -70,6 +67,7 @@ public class AdventureController {
         return this.adventureRepository.save(new Adventure(adventureDto.getTitle(),adventureDto.getStory(), AdventureStates.OPEN,adventureDto.getGold(),adventureDto.getXp()));
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Adventure updateAdventure(@PathVariable(value = "id") Long id, @RequestBody AdventureDto adventureDto) {
         Adventure adventure = this.adventureRepository.findOne(id);
@@ -122,8 +120,7 @@ public class AdventureController {
     @RequestMapping(value = "/{adventureId}/addDeveloper/{developerId}",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AdventureDto addDeveloper(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-        
-    	Adventure adventure = adventureService.addDeveloperToAdventure(adventureId, developerId);
+        Adventure adventure = adventureService.addDeveloperToAdventure(adventureId, developerId);
     			
         return toAdventureDto(adventure);
     }
@@ -133,8 +130,7 @@ public class AdventureController {
     @RequestMapping(value = "/{adventureId}/addDeveloperAndGetFullList/{developerId}",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public List<List<AdventureDto>> addDeveloperAndGetFullList(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-        
-    	Adventure adventure = adventureService.addDeveloperToAdventure(adventureId, developerId);
+        Adventure adventure = adventureService.addDeveloperToAdventure(adventureId, developerId);
     	List<List<Adventure>> adventures = this.adventureService.getAllAdventuresForWorldAndDeveloper(worldRepository.findOne(adventure.getWorld().getId()), developerRepository.findOne(developerId));
         
         return AdventureDto.toAdventuresDto(adventures);
@@ -150,8 +146,6 @@ public class AdventureController {
      */
     @RequestMapping(value = "/{adventureId}/deleteDeveloper/{developerId}",method = RequestMethod.DELETE)
     public AdventureDto deleteDeveloper(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-    	if (Settings.DEBUG) System.out.println("AdventureController.deleteDeveloper(adventureId, developerId) started");
-    	
     	Adventure adventure = adventureService.removeDeveloperFromAdventure(adventureId, developerId);
         
         return toAdventureDto(adventure);
@@ -165,8 +159,6 @@ public class AdventureController {
      */
     @RequestMapping(value = "/{adventureId}/deleteDeveloperAndGetFullList/{developerId}", method = RequestMethod.POST)
     public List<List<AdventureDto>> deleteDeveloperAndGetFullList(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-    	if (Settings.DEBUG) System.out.println("AdventureController.deleteDeveloperAndGetFullList(adventureId, developerId) started");
-    	
     	Adventure adventure = adventureService.removeDeveloperFromAdventure(adventureId, developerId);
         List<List<Adventure>> adventures = this.adventureService.getAllAdventuresForWorldAndDeveloper(worldRepository.findOne(adventure.getWorld().getId()), developerRepository.findOne(developerId));
         
