@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Abenteuer bearbeiten</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Titel" [(ngModel)]="adventure.title">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="adventure.gold">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="adventure.xp">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Erzählung" [(ngModel)]="adventure.story"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div layout="row">
+    <h3>Aufgaben</h3>
+    <div flex></div>
+    <div style="padding-top: 5%">
+      <!-- <span >Gold: {{calculateGoldAmountOfTasks()}}</span> -->
+    </div>
+      <div flex></div>
+    <div style="padding-top: 5%">
+      <!-- <span>XP: {{calculateXpAmountOfQuest()}}</span> -->
+    </div>
+    <div flex></div>
+    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeQuest()"><mat-icon>add</mat-icon></button>
+    <div flex="5"></div>
+    <!-- <button style="padding-top:2.5%" mat-icon-button (click)="suggestTasks()"><mat-icon>lightbulb_outline</mat-icon></button> -->
+  </div>
+  <mat-list>
+    <mat-list-item *ngFor="let quest of adventure.quests">
+      <h3 mat-line> {{quest?.title}} </h3>
+      <p mat-line>
+        <span>Gold: {{quest?.gold}}, </span>
+        <span>XP: {{quest?.xp}}</span>
+      </p>
+      <button mat-icon-button (click)="removeQuest(quest)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="editAdventure()">speichern</button>
+</mat-dialog-actions>

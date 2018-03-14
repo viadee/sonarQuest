@@ -23,6 +23,10 @@ export class WorldService {
         .catch(this.handleError);
 
   }
+  
+  getWorld(): World{
+    return this.currentWorld
+  }
 
   updateWorld(world: World): Promise<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });

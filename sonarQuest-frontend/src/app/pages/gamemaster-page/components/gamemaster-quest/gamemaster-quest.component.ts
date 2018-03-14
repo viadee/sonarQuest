@@ -58,7 +58,6 @@ export class GamemasterQuestComponent implements OnInit {
   private subscribeToQuests(){
     return this.questService.getQuests().subscribe(quests => {
      this.data = quests;
-     console.log(this.data)
      this.filter();
     });
   }

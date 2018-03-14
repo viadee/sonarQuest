@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.dtos.QuestDto;
+import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
@@ -42,6 +44,9 @@ public class QuestController {
 
     @Autowired
     private TaskRepository taskRepository;
+    
+    @Autowired
+    private AdventureRepository adventureRepository;
 
     @Autowired
     private DeveloperRepository developerRepository;
@@ -123,6 +128,19 @@ public class QuestController {
         }
         return toQuestDto(quest);
     }
+    
+    @CrossOrigin
+    @RequestMapping(value = "/{questId}/addAdventure/{adventureId}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestDto addAdventure(@PathVariable(value = "questId") final Long questId, @PathVariable(value = "adventureId") final Long adventureId) {
+        Quest quest = this.questRepository.findOne(questId);
+        if (quest != null) {
+            final Adventure adventure = this.adventureRepository.findOne(adventureId);
+            quest.setAdventure(adventure);
+            quest = this.questRepository.save(quest);
+        }
+        return toQuestDto(quest);
+    }
 
     @RequestMapping(value = "/{questId}/deleteWorld", method = RequestMethod.DELETE)
     public void deleteWorld(@PathVariable(value = "questId") final Long questId) {
@@ -133,7 +151,8 @@ public class QuestController {
         }
     }
 
-    @RequestMapping(value = "/{questId}/deleteAdventure", method = RequestMethod.DELETE)
+    @CrossOrigin
+    @RequestMapping(value = "/{questId}/removeAdventure", method = RequestMethod.DELETE)
     public void deleteAdventure(@PathVariable(value = "questId") final Long questId) {
         final Quest quest = this.questRepository.findOne(questId);
         if (quest != null) {

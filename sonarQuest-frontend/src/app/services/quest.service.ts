@@ -1,3 +1,4 @@
+import { Adventure } from './../Interfaces/Adventure';
 import { Subject } from 'rxjs/Subject';
 import { Developer } from './../Interfaces/Developer.d';
 import { Task } from 'app/Interfaces/Task';
@@ -124,6 +125,45 @@ export class QuestService {
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
+  }
+
+  
+  identifyNewTasks(oldQuests: Quest[], currentQuests: Quest[]): Quest[]{
+    return this.questDifference(currentQuests, oldQuests);
+  }
+
+  identifyDeselectedTasks(oldQuests: Quest[], currentQuests: Quest[]): Quest[]{
+    return this.questDifference(oldQuests, currentQuests);
+  }
+
+  private questDifference(list1: Quest[], list2: Quest[]){
+    return list1.filter(x => !list2.includes(x));
+  }
+
+  calculateGoldAmountOfQuests(quests: Quest[]): number {
+    return quests.map(quest => quest.gold).reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  }
+
+  calculateXpAmountOfQuests(quests: Quest[]): number {
+    return quests.map(quest => quest.xp).reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  }
+
+  addToAdventure(quest: Quest, adventure: Adventure): Promise<any> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addAdventure/${adventure.id}`, null, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  deleteFromAdventure(quest: any): Promise<any> {
+    return this.http.delete(`${environment.endpoint}/quest/${quest.id}/removeAdventure`)
+      .toPromise()
   }
 
 }

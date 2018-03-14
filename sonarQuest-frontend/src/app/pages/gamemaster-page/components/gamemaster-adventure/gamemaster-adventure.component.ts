@@ -1,3 +1,5 @@
+import { GamemasterAdventureEditComponent } from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
+import { Adventure } from './../../../../Interfaces/Adventure';
 import { Component, OnInit } from '@angular/core';
 import {
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
@@ -58,6 +60,13 @@ export class GamemasterAdventureComponent implements OnInit {
       this.loadAdventures();
       this.questService.refreshQuests();
     });
+  }
+
+  editAdventure(adventure: Adventure){
+    this.dialog.open(GamemasterAdventureEditComponent,{data: adventure, width: "500px"}).afterClosed().subscribe(()=>{
+      this.loadAdventures();
+      this.adventureService.refreshAdventures();
+    })
   }
 
 
