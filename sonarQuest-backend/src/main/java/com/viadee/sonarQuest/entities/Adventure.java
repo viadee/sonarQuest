@@ -132,8 +132,6 @@ public class Adventure {
     }
 
     public void addDeveloper(Developer developer) {
-    	if (Settings.DEBUG) System.out.println("Adventure.addDeveloper(developer) started");
-    	
     	List<Developer> developers = this.getDevelopers();
     	
     	if (developers == null) {

@@ -1,3 +1,4 @@
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { ViewParticipatedQuestComponent } from './pages/quest-page/components/participated-quests/components/view-participated-quest/view-participated-quest.component';
 import { GamemasterQuestEditComponent } from './pages/gamemaster-page/components/gamemaster-quest/components/gamemaster-quest-edit/gamemaster-quest-edit.component';
 import { QuestPageComponent } from './pages/quest-page/quest-page.component';
@@ -54,6 +55,10 @@ import { ParticipationService } from './services/participation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { AdminDeveloperComponent } from './pages/admin-page/components/admin-developer/admin-developer.component';
+import { AdminDeveloperCreateComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-create/admin-developer-create.component';
+import { AdminDeveloperEditComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
+import { AdminDeveloperDeleteComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-delete/admin-developer-delete.component';
 
 
 // AoT requires an exported function for factories
@@ -70,6 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdventurePageComponent,
     QuestPageComponent,
     MarketplacePageComponent,
+    AdminPageComponent,
+    AdminDeveloperComponent,
     MyAvatarPageComponent,
     GamemasterPageComponent,
     GamemasterWorldComponent,
@@ -92,7 +99,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ParticipatedQuestsComponent,
     AvailableQuestsComponent,
     ViewAvailableQuestComponent,
-    ViewParticipatedQuestComponent
+    ViewParticipatedQuestComponent,
+    AdminDeveloperComponent,
+    AdminDeveloperCreateComponent,
+    AdminDeveloperEditComponent,
+    AdminDeveloperDeleteComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -107,7 +118,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterAddFreeQuestComponent,
     GamemasterQuestEditComponent,
     ViewAvailableQuestComponent,
-    ViewParticipatedQuestComponent
+    ViewParticipatedQuestComponent,
+    AdminDeveloperCreateComponent,
+    AdminDeveloperEditComponent,
+    AdminDeveloperDeleteComponent
   ],
   imports: [
     BrowserModule,

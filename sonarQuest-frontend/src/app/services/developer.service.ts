@@ -2,17 +2,17 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
-import { HttpModule, Http, Response } from "@angular/http";
+import { HttpModule, Http, Response, RequestOptions, Headers } from "@angular/http";
 import { Developer } from "../Interfaces/Developer";
 
 @Injectable()
 export class DeveloperService {
 
-  developerSubject: Subject<Developer>;
+  developerSubject: Subject<Developer>   = new Subject();
+  developers:       Subject<Developer[]> = new Subject();
+  developers$                            = this.developers.asObservable();
 
-  constructor(public http: Http) {
-    this.developerSubject= new Subject();
-  }
+  constructor(public http: Http) {  }
 
   getMyAvatar(): Observable<Developer> {
     this.http.get(`${environment.endpoint}/developer/1`)
@@ -22,9 +22,41 @@ export class DeveloperService {
         err => this.developerSubject.error(err)
       );
     return this.developerSubject;
-
   }
 
+  getDevelopers(): Observable<Developer[]>{
+    this.http.get(`${environment.endpoint}/developer`)
+      .map(this.extractData)
+      .subscribe(
+        value => {this.developers.next(value)},
+        err   => {this.developers.error(err)}
+      );
+     return this.developers
+  }
+
+
+  createDeveloper(developer: any): Promise<Developer> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(`${environment.endpoint}/developer/`, developer, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateDeveloper(developer: Developer): Promise<Developer> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${environment.endpoint}/developer/${developer.id}`, developer, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  deleteDeveloper(developer: Developer): Promise<any>{
+    return this.http.delete(`${environment.endpoint}/developer/${developer.id}`)
+      .toPromise()
+  }
 
   private extractData(res: Response) {
     let body = res.json();

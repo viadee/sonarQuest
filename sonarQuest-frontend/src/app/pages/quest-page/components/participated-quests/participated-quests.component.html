@@ -3,7 +3,7 @@
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
           <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-            <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-card-title" style="margin:0">Meine Quests</span>
+            <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">Meine Quests</span>
           </span>
         <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
                        flex>

@@ -9,7 +9,6 @@ import { environment } from "../../environments/environment";
 export class ParticipationService {
 
   private participationUpdateSource = new Subject<string>();
-
   participationUpdated$ = this.participationUpdateSource.asObservable();
 
   constructor(public http: Http) { }

@@ -1,3 +1,4 @@
+import { AdminPageComponent } from './../pages/admin-page/admin-page.component';
 import { MarketplacePageComponent } from '../pages/marketplace-page/marketplace-page.component';
 import { QuestPageComponent } from './../pages/quest-page/quest-page.component';
 import { AdventurePageComponent} from '../pages/adventure-page/adventure-page.component';
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     { path: 'quests', component: QuestPageComponent },
     { path: 'marketplace', component: MarketplacePageComponent },
     { path: 'gamemaster', component: GamemasterPageComponent },
+    { path: 'admin', component: AdminPageComponent },
     { path: '', redirectTo: '/start', pathMatch: 'full' },
 ];
 @NgModule({

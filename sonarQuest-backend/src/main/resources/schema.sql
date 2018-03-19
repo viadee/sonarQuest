@@ -68,7 +68,8 @@ CREATE TABLE Developer (
   picture         VARCHAR(256),
   about_me         VARCHAR(256),
   avatar_class_id INTEGER,
-  avatar_race_id  INTEGER
+  avatar_race_id  INTEGER,
+  deleted	  BOOLEAN	DEFAULT FALSE
 );
 
 ALTER TABLE Developer

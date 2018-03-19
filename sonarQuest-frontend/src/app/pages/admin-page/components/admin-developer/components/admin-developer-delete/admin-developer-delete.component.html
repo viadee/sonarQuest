@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{'ADMIN_PAGE.DELETE_DEVELOPER' | translate}}</h2>
+
+<mat-divider></mat-divider>
+
+<p>
+    {{'DEVELOPER.DEVELOPER' | translate}}: <strong>{{developer.username}}</strong><br>
+    {{'DEVELOPER.GOLD' | translate}}: {{developer.gold}} | {{'DEVELOPER.XP' | translate}}: {{developer.xp}}
+</p>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions>
+    <button mat-button (click)="cancel()">
+        <mat-icon class="icon">cancel</mat-icon>{{'GLOBAL.CANCEL' | translate}}
+      </button>
+    <button mat-button color="primary" (click)="delete()">
+      <mat-icon class="icon">delete</mat-icon>{{'GLOBAL.DELETE' | translate}}
+    </button>
+</mat-dialog-actions>
+
+

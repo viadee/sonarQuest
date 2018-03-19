@@ -4,10 +4,8 @@ import com.viadee.sonarQuest.constants.AdventureStates;
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Developer;
-import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.helpers.Settings;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
@@ -15,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdventureService {
@@ -52,7 +48,6 @@ public class AdventureService {
     }
     
 	public List<List<Adventure>> getAllAdventuresForWorldAndDeveloper(World world, Developer developer) {
-    	if (Settings.DEBUG) System.out.println("AdventureService.getAllAdventuresForWorldAndDeveloper(world,developer) started");
     	
     	List<Developer>   developers = new ArrayList<>();
     	List<List<Adventure>> result = new ArrayList<>();

@@ -63,9 +63,16 @@ public class Developer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "developer")
     private List<Participation> participations;
 
+    @Column(name = "deleted")
+	private Boolean deleted = false;
+
     public Developer() {
     }
 
+    public Developer(final String username) {
+    	this.username = username;
+    }
+    
     public Developer(final String username, final Long gold, final Long xp, final Level level, final String picture,
             final String aboutMe, final AvatarClass avatarClass, final AvatarRace avatarRace) {
         this.username = username;
@@ -217,4 +224,12 @@ public class Developer {
         Validate.isTrue(xp >= 0);
         this.xp += xp;
     }
+
+	public boolean isDeleted() {		
+		return deleted;
+	}
+	
+	public void setDeleted() {
+		this.deleted = true;
+	}
 }

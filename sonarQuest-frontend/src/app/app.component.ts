@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TdMediaService } from '@covalent/core';
 import { Router } from '@angular/router';
-import {DeveloperService} from './services/developer.service';
-import {Developer} from './Interfaces/Developer';
-import {WorldService} from './services/world.service';
-import {World} from './Interfaces/World';
+import { DeveloperService } from './services/developer.service';
+import { Developer } from './Interfaces/Developer';
+import { WorldService } from './services/world.service';
+import { World } from './Interfaces/World';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -58,6 +58,8 @@ export class AppComponent {
           return this.pageNames.MARKETPLACE;
         case '/gamemaster':
           return this.pageNames.GAMEMASTER;
+        case '/admin':
+        return this.pageNames.ADMIN;
         default:
           return '';
       }

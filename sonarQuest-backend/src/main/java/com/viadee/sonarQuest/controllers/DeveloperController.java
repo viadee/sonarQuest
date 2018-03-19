@@ -2,9 +2,8 @@ package com.viadee.sonarQuest.controllers;
 
 import com.viadee.sonarQuest.dtos.DeveloperDto;
 import com.viadee.sonarQuest.entities.Developer;
-import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
-import com.viadee.sonarQuest.repositories.LevelRepository;
+import com.viadee.sonarQuest.services.DeveloperService;
 import com.viadee.sonarQuest.services.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,15 +20,15 @@ public class DeveloperController {
 
     private DeveloperRepository developerRepository;
 
-    private LevelRepository levelRepository;
-
     private LevelService levelService;
+    
+    private DeveloperService developerService;
 
     @Autowired
-    public DeveloperController(DeveloperRepository developerRepository, LevelRepository levelRepository, LevelService levelService) {
+    public DeveloperController(DeveloperRepository developerRepository, LevelService levelService, DeveloperService developerService) {
         this.developerRepository = developerRepository;
-        this.levelRepository = levelRepository;
         this.levelService = levelService;
+        this.developerService = developerService;
     }
 
     /**
@@ -39,7 +38,7 @@ public class DeveloperController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public List<DeveloperDto> getAllDevelopers() {
-        return this.developerRepository.findAll().stream().map(developer -> toDeveloperDto(developer)).collect(Collectors.toList());
+        return this.developerService.findActiveDevelopers().stream().map(developer -> toDeveloperDto(developer)).collect(Collectors.toList());
     }
 
     /**
@@ -65,19 +64,15 @@ public class DeveloperController {
      * @param developerDto
      * @return
      */
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public DeveloperDto createDeveloper(@RequestBody DeveloperDto developerDto) {
-        Developer developer;
-        if (this.checkIfUsernameNotExists(developerDto)) {
-            Level level1 = this.levelRepository.findById((long) 1);
-            developer = this.developerRepository.save(new Developer(developerDto.getUsername(), (long) 0, (long) 0, level1, developerDto.getPicture(),developerDto.getAboutMe(),developerDto.getAvatarClass(),developerDto.getAvatarRace()));
-        } else {
-            developer = null;
-        }
-        return this.toDeveloperDto(developer);
+    	return this.toDeveloperDto(this.developerService.createDeveloper(developerDto));
     }
 
+
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public DeveloperDto updateDeveloper(@PathVariable(value = "id") Long id, @RequestBody DeveloperDto developerDto) {
         Developer developer = developerRepository.findById(id);
@@ -95,25 +90,13 @@ public class DeveloperController {
         return this.toDeveloperDto(developer);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteDeveloper(@PathVariable(value = "id") Long id) {
-        Developer developer = developerRepository.findById(id);
-        if (developer != null) {
-            this.developerRepository.delete(developer);
-        }
+    	Developer developer = developerRepository.findById(id);	
+    	developerService.deleteDeveloper(developer);    	      
     }
 
-
-    /**
-     * Checks if Developer username already exists
-     *
-     * @param developerDto
-     * @return
-     */
-    private Boolean checkIfUsernameNotExists(DeveloperDto developerDto) {
-        Developer developer = this.developerRepository.findByUsername(developerDto.getUsername());
-        return developer == null;
-    }
 
     /**
      * Convert Developer into DeveloperDTO

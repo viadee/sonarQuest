@@ -137,7 +137,6 @@ public class AdventureDto {
      * @return adventuresDto	A List with 2 lists of AdventureDto Objects
      */
     public static List<List<AdventureDto>> toAdventuresDto(List<List<Adventure>> adventures) {
-    	if (Settings.DEBUG) System.out.println("AdventureDto.toAdventuresDto(List<List<Adventure>> adventures) started");
     	List<List<AdventureDto>> adventuresDto = new ArrayList<>();
     	List<AdventureDto> myAdventuresDto   = new ArrayList<>();
     	List<AdventureDto> freeAdventuresDto = new ArrayList<>();

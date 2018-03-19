@@ -3,14 +3,14 @@
 <mat-card-content>
   <div layout="row">
     <div flex></div>
-    <button mat-raised-button color="primary" (click)="newSpecialTask()">Neue Sonderaufgabe</button>
+    <button mat-raised-button color="primary" (click)="newSpecialTask()">{{"TASK.NEW_SPECIALTASK"|translate}}</button>
   </div>
   <div layout-padding>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
         <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-          <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-card-title" style="margin:0">Sonderaufgaben</span>
+          <span class="mat-card-title" style="margin:0">{{"TASK.SPECIALTASK"|translate}}</span>
         </span>
-      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" [placeholder]="'GLOBAL.SEARCH' | translate" (searchDebounce)="search($event)"
                      flex>
       </td-search-box>
     </div>
@@ -32,10 +32,10 @@
       </ng-template>
     </td-data-table>
     <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-      <h3>Keine Einträge</h3>
+      <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
     </div>
-    <td-paging-bar #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-      <span td-paging-bar-label hide-xs>Einträge pro Seite:</span> {{pagingBar.range}} <span hide-xs>von {{pagingBar.total}}</span>
-    </td-paging-bar>
+    <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
+        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}<span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+      </td-paging-bar>
   </div>
 </mat-card-content>

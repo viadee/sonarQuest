@@ -13,5 +13,7 @@ public interface DeveloperRepository extends CrudRepository<Developer, Long> {
     Developer findById(Long id);
 
     Developer findByUsername(String username);
+    
+    List<Developer> findByDeleted(Boolean deleted);
 
 }

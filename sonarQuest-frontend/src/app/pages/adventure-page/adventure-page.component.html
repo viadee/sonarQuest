@@ -3,10 +3,9 @@
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
           <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-            <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-card-title" style="margin:0">{{"ADVENTURE_PAGE.MY_ADVENTURES"| translate}}</span>
+            <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">{{"ADVENTURE_PAGE.MY_ADVENTURES"| translate}}</span>
           </span>
-        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
-                       flex>
+        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)" flex>
         </td-search-box>
       </div>
       <mat-divider></mat-divider>
@@ -14,9 +13,6 @@
                      [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <button mat-icon-button (click)="editAdventure(row)">
-              <mat-icon class="icon">mode_edit</mat-icon>
-            </button>
             <button mat-icon-button (click)="leaveAdventure(row)">
               <mat-icon class="icon">delete</mat-icon>
             </button>
@@ -37,10 +33,9 @@
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
           <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-            <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-card-title" style="margin:0">{{"ADVENTURE_PAGE.AVAILABLE_ADVENTURES"| translate}}</span>
+            <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">{{"ADVENTURE_PAGE.AVAILABLE_ADVENTURES"| translate}}</span>
           </span>
-        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
-                       flex>
+        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)" flex>
         </td-search-box>
       </div>
       <mat-divider></mat-divider>
@@ -49,9 +44,6 @@
       [sortOrder]="sortOrder" (sortChange)="sort($event)" >
         <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <button mat-icon-button (click)="editAdventure(row)">
-              <mat-icon class="icon">mode_edit</mat-icon>
-            </button>
             <button mat-icon-button (click)="joinAdventure(row)">
               <mat-icon class="icon">add</mat-icon>
             </button>

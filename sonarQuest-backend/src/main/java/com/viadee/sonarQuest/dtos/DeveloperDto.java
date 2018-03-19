@@ -49,7 +49,11 @@ public class DeveloperDto {
         this.participations = participations;
     }
 
-    public Long getId() {
+    public DeveloperDto(String username) {
+		this.username = username;
+	}
+
+	public Long getId() {
         return id;
     }
 

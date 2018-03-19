@@ -78,7 +78,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
   }
 
   getWorld(){
-    return this.worldService.getWorld()
+    return this.worldService.getCurrentWorld()
   }
 
 

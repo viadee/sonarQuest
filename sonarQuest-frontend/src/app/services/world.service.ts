@@ -6,11 +6,12 @@ import {Http, RequestOptions, Response, Headers} from '@angular/http';
 @Injectable()
 export class WorldService {
 
-  public worlds: World[];
-
+  public  worlds:       World[];
   private currentWorld: World;
 
-  constructor(public http: Http) { }
+  constructor(public http: Http) { 
+    this.getWorlds()
+  }
 
   getWorlds(): Promise<World[]> {
       return this.http.get(`${environment.endpoint}/world`)
@@ -24,7 +25,7 @@ export class WorldService {
 
   }
   
-  getWorld(): World{
+  getCurrentWorld(): World{
     return this.currentWorld
   }
 
@@ -37,11 +38,6 @@ export class WorldService {
       .then(this.extractData)
       .catch(this.handleError);
   }
-
-  getCurrentWorld(): World{
-    return this.currentWorld;
-  }
-
 
 
   private extractData(res: Response) {

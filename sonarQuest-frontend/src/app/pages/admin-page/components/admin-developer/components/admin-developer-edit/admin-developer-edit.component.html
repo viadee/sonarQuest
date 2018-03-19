@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{'ADMIN_PAGE.EDIT_DEVELOPER' | translate}}</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Username" [(ngModel)]="developer.username">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="AboutMe" [(ngModel)]="developer.aboutMe"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-button (click)="cancel()">
+    <mat-icon class="icon">cancel</mat-icon>{{'GLOBAL.CANCEL' | translate}}
+  </button>
+  <button mat-button color="primary" (click)="editDeveloper()">
+    <mat-icon class="icon">mode_edit</mat-icon>{{'GLOBAL.EDIT' | translate}}
+  </button>
+</mat-dialog-actions>

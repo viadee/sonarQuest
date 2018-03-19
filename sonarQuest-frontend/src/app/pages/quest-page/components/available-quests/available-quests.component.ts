@@ -80,7 +80,7 @@ export class AvailableQuestsComponent implements OnInit {
   }
 
 
-
+ 
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

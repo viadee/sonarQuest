@@ -20,9 +20,29 @@ import { World } from '../../Interfaces/World';
 })
 export class AdventurePageComponent implements OnInit {
 
-  columns: ITdDataTableColumn[];
   developer: Developer;
   world: World;
+
+
+
+    columns: ITdDataTableColumn[] = [
+      { name: 'title', label: 'Titel', width: 200},
+      { name: 'gold', label: 'Gold'},
+      { name: 'xp', label: 'XP'},
+      { name: 'story', label: 'Erzählung'},
+      { name: 'status', label: 'Status'},
+      { name: 'edit', label: '', width: 70}
+    ]
+
+  sortBy = 'title'; 
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
+  selectedRows: any[] = [];
+  filteredData: any[];
+  filteredTotal: number;
+  searchTerm = '';
+  fromRow = 1;
+  currentPage = 1;
+  pageSize = 50;
 
   public adventures: Adventure[];
   public myAdventures: Adventure[];
@@ -31,12 +51,13 @@ export class AdventurePageComponent implements OnInit {
     public adventureService: AdventureService,
     public worldService: WorldService,
     public developerService: DeveloperService,
-    public translateService: TranslateService) { }
+    public translateService: TranslateService,
+    private _dataTableService: TdDataTableService) { }
 
 
 
   ngOnInit() {
-    this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+    /* this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
         { name: 'title', label: col_names.TITLE, width: 200 },
         { name: 'gold', label: col_names.GOLD},
@@ -44,7 +65,7 @@ export class AdventurePageComponent implements OnInit {
         { name: 'story', label: col_names.STORY },
         { name: 'status', label: col_names.STATUS },
         { name: 'edit', label: '' }]
-    });
+    }); */
     this.developerService.getMyAvatar().subscribe(developer => {
       this.developer = developer;
       this.world = this.worldService.getCurrentWorld();
@@ -68,4 +89,39 @@ export class AdventurePageComponent implements OnInit {
   joinAdventure(row) {
     this.adventureService.joinAdventure(row, this.developer)
   }
+
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    this.sortBy = sortEvent.name;
+    this.sortOrder = sortEvent.order;
+    this.filter()
+  }
+
+  search(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.filter();
+  }
+
+  page(pagingEvent: IPageChangeEvent): void {
+    this.fromRow = pagingEvent.fromRow;
+    this.currentPage = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.filter();
+  }
+
+  filter(): void {
+    let newData: any[] = this.adventures;
+    const excludedColumns: string[] = this.columns
+      .filter((column: ITdDataTableColumn) => {
+        return ((column.filter === undefined && column.hidden === true) ||
+        (column.filter !== undefined && column.filter === false));
+      }).map((column: ITdDataTableColumn) => {
+        return column.name;
+      });
+    newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+    this.filteredTotal = newData.length;
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.filteredData = newData;
+  }
+
 }

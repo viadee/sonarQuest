@@ -1,0 +1,24 @@
+<mat-divider>
+</mat-divider>
+<mat-card-content>
+  <div layout="row">
+    <div flex></div>
+    <button mat-raised-button color="primary" (click)="createDeveloper()">
+      <mat-icon class="icon">add</mat-icon>{{'ADMIN_PAGE.CREATE_DEVELOPER' | translate}}
+    </button>
+  </div>
+
+  <td-data-table #dataTable [data]="filteredData" [sortable]="true" [columns]="columns" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+    [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <button mat-icon-button (click)="editDeveloper(row)">
+          <mat-icon class="icon">mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteDeveloper(row)">
+          <mat-icon class="icon">delete</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+  </td-data-table>
+</mat-card-content>

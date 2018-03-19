@@ -1,38 +1,71 @@
 {
     "APP_COMPONENT": {
-        "STARTPAGE": "Startpage",
-        "MY_AVATAR": "My Avatar",
-        "ADVENTURES": "Adventures",
-        "QUESTS": "Quests",
-        "MARKETPLACE": "Marketplace",
-        "GAMEMASTER": "Gamemaster"
+        "STARTPAGE"     : "Startpage",
+        "MY_AVATAR"     : "My Avatar",
+        "ADVENTURES"    : "Adventures",
+        "QUESTS"        : "Quests",
+        "MARKETPLACE"   : "Marketplace",
+        "GAMEMASTER"    : "Gamemaster",
+        "ADMIN"         : "Admin"
     },
     "ADVENTURE_PAGE": {
-        "MY_ADVENTURES": "My Adventures",
-        "AVAILABLE_ADVENTURES": "Available Adventures"
+        "MY_ADVENTURES"         : "My Adventures",
+        "AVAILABLE_ADVENTURES"  : "Available Adventures"
+    },
+    "ADMIN_PAGE":{
+        "ALL_DEVELOPER"     : "All Developer",
+        "CREATE_DEVELOPER"  : "Create Developer",
+        "EDIT_DEVELOPER"    : "Edit Developer", 
+        "DELETE_DEVELOPER"  : "Are you sure to delete?"
     },
     "TABLE": {
         "COLUMNS": {
-            "TITLE": "Title",
-            "GOLD": "Gold",
-            "XP": "XP",
-            "STORY": "Story",
+            "TITLE" : "Title",
+            "GOLD"  : "Gold",
+            "XP"    : "XP",
+            "STORY" : "Story",
             "STATUS": "Status"
         },
         "INFO": {
             "NO_ENTRIES": "no entries",
             "OF": "of",
-            "ENTRIES_PER_PAGE": "entries per page"
+            "ENTRIES_OF_THIS_PAGE"  :"Entries of this page:"
         }
     },
-    "GAMEMASTER_PAGE":{
-        "WORLDS":"Worlds",
-        "ADVENTURES":"Adventures",
-        "QUESTS":"Quests",
-        "TASKS": "Tasks"
+    "GLOBAL"    :{
+        "CANCEL"    : "Cancel",
+        "CREATE"    : "Create",
+        "EDIT"      : "Edit",
+        "DELETE"    : "Delete",
+        "NO_ENTRIES": "no entries",
+        "SEARCH"    : "Search"
     },
-    "GAMEMASTER_ADVENTURE":{
-        "NEW_ADVENTURE":"New Adventure",
-        "ADVENTURES":"Adventures"
+    "DEVELOPER" :{
+        "DEVELOPER" :   "Developer",
+        "GOLD"      :   "Gold",
+        "XP"        :   "XP"
+    },
+    "QUEST" :{
+        "QUEST"         :"Quest",
+        "QUESTS"        :"Quests",
+        "NEW_QUEST"     :"New Quest"
+    },
+    "ADVENTURE" :{
+        "ADVENTURE"     :"Adventure",
+        "ADVENTURES"    :"Adventures",
+        "NEW_ADVENTURE" :"New Adventure"
+    },
+    "WORLD" :{
+        "WORLD"     :"World",
+        "WORLDS"    :"Worlds"
+    },
+    "TASK"  :{
+        "TASK"          :"Task",
+        "TASKS"         :"Tasks",
+        "SPECIALTASK"   :"Special Task",
+        "STANDARDTASK"  :"Standard Task",
+        "NEW_SPECIALTASK"   :"New Special Task",
+        "NEW_STANDARDTASK"  :"New Standard Task"
+    
     }
 }
