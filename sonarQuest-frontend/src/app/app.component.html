@@ -8,7 +8,7 @@
       <mat-list-item disableRipple>
         <mat-icon mat-list-icon>terrain</mat-icon>
         <div flex></div>
-        <mat-select  mat-line placeholder="Welt" [(ngModel)]="selectedWorld" floatPlaceholder="never">
+        <mat-select  mat-line placeholder="Welt" [(ngModel)]="currentWorld" floatPlaceholder="never">
           <mat-option flex ="20"*ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
         </mat-select>
         <div></div>

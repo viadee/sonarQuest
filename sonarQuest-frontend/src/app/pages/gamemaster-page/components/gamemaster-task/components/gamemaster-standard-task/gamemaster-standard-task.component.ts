@@ -1,3 +1,4 @@
+import { World } from './../../../../../../Interfaces/World';
 import { WorldService } from './../../../../../../services/world.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -39,6 +40,8 @@ export class GamemasterStandardTaskComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
+  currentWorld: World;
+
   constructor(
     private standardTaskService: StandardTaskService,
     private _dataTableService: TdDataTableService,
@@ -47,6 +50,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   ngOnInit() {
     this.loadTasks();
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
   }
 
   loadTasks(){
@@ -61,7 +65,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
   }
 
   refreshStandardTasks(){
-    this.standardTaskService.refreshStandardTask( this.worldService.getCurrentWorld()).then(()=>{
+    this.standardTaskService.refreshStandardTask(this.currentWorld).then(()=>{
       this.standardTaskService.getStandardTasks();
     })
   }

@@ -25,11 +25,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
   }
 
   createDeveloper(){
-    
-
     if(this.username && this.username != ""){ 
-      console.log(this.username)
-
       let new_developer = {
         username: this.username,
         aboutMe:  this.aboutMe

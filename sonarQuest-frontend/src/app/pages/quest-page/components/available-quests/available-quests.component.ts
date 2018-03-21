@@ -19,13 +19,13 @@ export class AvailableQuestsComponent implements OnInit {
 
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Titel', width: {min:80}},
-    { name: 'gold', label: 'Gold', width: 40},
-    { name: 'xp', label: 'XP', width: 40},
-    { name: 'story', label: 'Erzählung', width: {min:400}},
-    { name: 'adventure.title', label: 'Abenteuer', width: {min:80}},
-    { name: 'status', label: 'Status', width:60},
-    { name: 'edit', label: '', width: 70}
+    { name: 'title', label: 'Titel', width: { min: 80 } },
+    { name: 'gold', label: 'Gold', width: 40 },
+    { name: 'xp', label: 'XP', width: 40 },
+    { name: 'story', label: 'Erzählung', width: { min: 400 } },
+    { name: 'adventure.title', label: 'Abenteuer', width: { min: 80 } },
+    { name: 'status', label: 'Status', width: 60 },
+    { name: 'edit', label: '', width: 70 }
   ]
 
   // Sort / Filter / Paginate variables
@@ -51,36 +51,40 @@ export class AvailableQuestsComponent implements OnInit {
     private dialog: MatDialog) { }
 
 
-
   ngOnInit() {
-    this.developerService.getMyAvatar().subscribe(dev=>{
-      this.developer= dev;
-      this.world = this.worldService.getCurrentWorld();
-      return this.loadQuests(this.world,this.developer)
+    this.developerService.avatar$.subscribe({
+      next: developer => {
+        this.developer = developer;
+        this.loadQuests();
+      }
     })
-    ;
+
+    this.worldService.currentWorld$.subscribe({
+      next: world => {
+        this.world = world;
+        this.loadQuests();
+      }
+    })
   }
 
-  loadQuests(world,developer){
-    return this.questService.getAllAvailableQuestsForWorldAndDeveloper(world,developer).then(quests => {
-     this.availableQuests = quests;
-    }).then(()=>{
-      this.filter()
-    });
+  loadQuests() {
+    if (this.world && this.developer) {
+      return this.questService.getAllAvailableQuestsForWorldAndDeveloper(this.world, this.developer).then(quests => {
+        this.availableQuests = quests;
+      }).then(() => {
+        this.filter()
+      });
+    }
   }
 
 
-
-
-  viewQuest(quest: Quest){
-    this.dialog.open(ViewAvailableQuestComponent,{data: quest,width:"500px"}).afterClosed().subscribe(()=>{
-      this.loadQuests(this.world,this.developer);
+  viewQuest(quest: Quest) {
+    this.dialog.open(ViewAvailableQuestComponent, { data: quest, width: "500px" }).afterClosed().subscribe(() => {
+      this.loadQuests();
       this.participationService.announceParticipationUpdate()
     })
   }
 
-
- 
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
@@ -105,7 +109,7 @@ export class AvailableQuestsComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

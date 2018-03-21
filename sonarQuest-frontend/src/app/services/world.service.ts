@@ -1,3 +1,6 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
@@ -6,28 +9,32 @@ import {Http, RequestOptions, Response, Headers} from '@angular/http';
 @Injectable()
 export class WorldService {
 
-  public  worlds:       World[];
-  private currentWorld: World;
+
+  worldSubject: Subject<World>    = new ReplaySubject(1);
+  currentWorld$                   = this.worldSubject.asObservable();
+  worldsSubject: Subject<World[]> = new ReplaySubject(1);
+  worlds$                         = this.worldsSubject.asObservable();
 
   constructor(public http: Http) { 
     this.getWorlds()
   }
 
-  getWorlds(): Promise<World[]> {
-      return this.http.get(`${environment.endpoint}/world`)
-        .toPromise()
-        .then(response => {
-          this.worlds = this.extractData(response);
-          this.currentWorld= this.worlds[0];
-          return this.worlds;
-        })
-        .catch(this.handleError);
+  getWorlds(): Observable<World[]> {
+    this.http.get(`${environment.endpoint}/world`)
+      .map(this.extractData)
+      .subscribe(
+        value => {
+          this.worldSubject.next(value[0]) //ToDo: Till now, the current world is a constant
+          this.worldsSubject.next(value)
+        },
+        err    => {
+          this.worldSubject.next(err)
+          this.worldsSubject.next(err)
+        }
+      );
+      return this.worldsSubject
+  }
 
-  }
-  
-  getCurrentWorld(): World{
-    return this.currentWorld
-  }
 
   updateWorld(world: World): Promise<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -40,8 +47,9 @@ export class WorldService {
   }
 
 
+
   private extractData(res: Response) {
-    const body = res.json();
+    let body = res.json();
     return body || {};
   }
 

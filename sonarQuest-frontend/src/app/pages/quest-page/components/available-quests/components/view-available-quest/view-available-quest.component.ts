@@ -23,16 +23,12 @@ export class ViewAvailableQuestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.developerService.getMyAvatar()
-      .subscribe(developer => {
-        this.developer = developer
-      })
+    this.developerService.avatar$.subscribe(developer => this.developer = developer)
   }
 
   participateInQuest() {
     return this.participationService.createParticipation(this.developer, this.quest)
       .then((msg) => {
-        console.log(msg)
         this.dialogRef.close();
       })
   }

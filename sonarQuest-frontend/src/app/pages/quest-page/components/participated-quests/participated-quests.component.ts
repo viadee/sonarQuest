@@ -1,3 +1,5 @@
+import { World } from './../../../../Interfaces/World';
+import { Developer } from './../../../../Interfaces/Developer.d';
 import { ViewParticipatedQuestComponent } from './components/view-participated-quest/view-participated-quest.component';
 import { ParticipationService } from './../../../../services/participation.service';
 import { MatDialog } from '@angular/material';
@@ -37,6 +39,9 @@ export class ParticipatedQuestsComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
+  world: World;
+  developer: Developer;
+
   constructor(
     private questService: QuestService,
     private worldService: WorldService,
@@ -52,18 +57,29 @@ export class ParticipatedQuestsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.developerService.getMyAvatar().subscribe(developer => {
-      this.loadQuests(this.worldService.getCurrentWorld(), developer)
-        .then(() => {
-          this.filter()
-        })
+    this.developerService.avatar$.subscribe({
+      next: developer => {
+        this.developer = developer;
+        this.loadQuests();
+      }
+    })
+
+    this.worldService.currentWorld$.subscribe({
+      next: world => {
+        this.world = world;
+        this.loadQuests();
+      }
     })
   }
 
-  loadQuests(world, developer) {
-    return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(world, developer).then(quests => {
-      this.participatedQuests = quests;
-    });
+  loadQuests() {
+    if(this.world && this.developer){
+      return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(this.world,this.developer).then(quests => {
+        this.participatedQuests = quests;
+      }).then(()=>{
+        this.filter()
+      });
+    }
   }
 
   viewQuest(quest: Quest) {

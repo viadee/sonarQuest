@@ -9,7 +9,7 @@
         </td-search-box>
       </div>
       <mat-divider></mat-divider>
-      <td-data-table #dataTableMyAdventures [data]="myAdventures" [columns]="columns"
+      <td-data-table #dataTableMyAdventures [data]="filteredMyAdventures" [columns]="columns"
                      [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
           <div layout="row">
@@ -22,8 +22,8 @@
       <div class="mat-padding" *ngIf="!dataTableMyAdventures.hasData" layout="row" layout-align="center center">
         <h3>{{"TABLE.INFO.NO_ENTRIES"| translate}}</h3>
       </div>
-      <td-paging-bar #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_PER_PAGE"| translate}}</span> {{pagingBar.range}} <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+      <td-paging-bar *ngIf="dataTableMyAdventures.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
+        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}</span> {{pagingBar.range}} <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
       </td-paging-bar>
     </div>
   </mat-card-content>
@@ -40,7 +40,7 @@
       </div>
       <mat-divider></mat-divider>
 
-      <td-data-table #dataTableAvailableAdventures [data]="availableAdventures" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" 
+      <td-data-table #dataTableAvailableAdventures [data]="filteredAvailableAdventures" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" 
       [sortOrder]="sortOrder" (sortChange)="sort($event)" >
         <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
           <div layout="row">
@@ -53,8 +53,8 @@
       <div class="mat-padding" *ngIf="!dataTableAvailableAdventures.hasData" layout="row" layout-align="center center">
         <h3>{{"TABLE.INFO.NO_ENTRIES"| translate}}</h3>
       </div>
-      <td-paging-bar #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_PER_PAGE"| translate}}</span> {{pagingBar.range}} <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+      <td-paging-bar *ngIf="dataTableMyAdventures.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
+        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}</span> {{pagingBar.range}} <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
       </td-paging-bar>
     </div>
   </mat-card-content>

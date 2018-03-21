@@ -21,9 +21,7 @@ import { World } from '../../Interfaces/World';
 export class AdventurePageComponent implements OnInit {
 
   developer: Developer;
-  world: World;
-
-
+  currentWorld: World;
 
     columns: ITdDataTableColumn[] = [
       { name: 'title', label: 'Titel', width: 200},
@@ -37,7 +35,8 @@ export class AdventurePageComponent implements OnInit {
   sortBy = 'title'; 
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
   selectedRows: any[] = [];
-  filteredData: any[];
+  filteredMyAdventures: Adventure[];
+  filteredAvailableAdventures: Adventure[];
   filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
@@ -66,20 +65,35 @@ export class AdventurePageComponent implements OnInit {
         { name: 'status', label: col_names.STATUS },
         { name: 'edit', label: '' }]
     }); */
-    this.developerService.getMyAvatar().subscribe(developer => {
-      this.developer = developer;
-      this.world = this.worldService.getCurrentWorld();
-      return this.loadAdventures(this.world, this.developer)
-    });
+
+    
+
+    this.developerService.avatar$.subscribe({
+      next: developer => {
+        this.developer = developer;
+        this.loadAdventures()
+      }
+    })
+
+    this.worldService.currentWorld$.subscribe({
+      next: world => {
+        this.currentWorld = world;
+        this.loadAdventures()
+      }
+    })
   }
 
-  loadAdventures(world, developer) {
-    return this.adventureService.getAdventuresByDeveloperAndWorld(world, developer).subscribe(
-      result => {
-        this.myAdventures = result[0];
-        this.availableAdventures = result[1];
-      }
-    );
+  loadAdventures() {
+    if (this.currentWorld && this.developer){
+      return this.adventureService.getAdventuresByDeveloperAndWorld(this.currentWorld, this.developer).subscribe(
+        result => {
+          this.myAdventures = result[0];
+          this.availableAdventures = result[1];
+          this.filter();
+        }
+      );
+    }
+    
   }
 
   leaveAdventure(row) {
@@ -108,8 +122,13 @@ export class AdventurePageComponent implements OnInit {
     this.filter();
   }
 
-  filter(): void {
-    let newData: any[] = this.adventures;
+  filter(){
+    this.filteredAvailableAdventures = this.filterAdventures(this.availableAdventures);
+    this.filteredMyAdventures = this.filterAdventures(this.myAdventures);
+  }
+
+  filterAdventures(adventures: Adventure[]): Adventure[] {
+    let newData: Adventure[] = adventures;
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
@@ -121,7 +140,7 @@ export class AdventurePageComponent implements OnInit {
     this.filteredTotal = newData.length;
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-    this.filteredData = newData;
+    return newData;
   }
 
 }
