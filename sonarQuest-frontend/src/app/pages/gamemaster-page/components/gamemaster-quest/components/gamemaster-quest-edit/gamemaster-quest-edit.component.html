@@ -1,24 +1,27 @@
 <h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.EDIT_QUEST" | translate}}</h2>
 <mat-dialog-content>
   <div layout="column" layout-padding>
+    <div flex *ngIf="isSolved">
+      <p>{{"GAMEMASTER_PAGE.QUEST.EDIT_SOLVED_QUEST" | translate}}</p>
+    </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Titel" [(ngModel)]="quest.title">
+        <input matInput placeholder="Titel" [(ngModel)]="quest.title" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Gold" type="number" [(ngModel)]="quest.gold">
+        <input matInput placeholder="Gold" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="XP"  type="number" [(ngModel)]="quest.xp">
+        <input matInput placeholder="XP"  type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Erzählung" [(ngModel)]="quest.story"></textarea>
+        <textarea matInput placeholder="Erzählung" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
       </mat-input-container>
     </div>
   </div>
@@ -34,9 +37,9 @@
       <span>{{"DEVELOPER.XP" | translate}}: {{calculateXpAmountOfTasks()}}</span>
     </div>
     <div flex></div>
-    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeTask()"><mat-icon>add</mat-icon></button>
+    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeTask()" [disabled]="isSolved"><mat-icon>add</mat-icon></button>
     <div flex="5"></div>
-    <button style="padding-top:2.5%" mat-icon-button (click)="suggestTasks()"><mat-icon>lightbulb_outline</mat-icon></button>
+    <button style="padding-top:2.5%" mat-icon-button (click)="suggestTasks()" [disabled]="isSolved"><mat-icon>lightbulb_outline</mat-icon></button>
   </div>
   <mat-list>
     <mat-list-item *ngFor="let task of quest.tasks">
@@ -49,7 +52,7 @@
         <span>{{"DEVELOPER.GOLD" | translate}}: {{task?.gold}}, </span>
         <span>{{"DEVELOPER.XP" | translate}}: {{task?.xp}}</span>
       </p>
-      <button mat-icon-button (click)="removeTask(task)">
+      <button mat-icon-button (click)="removeTask(task)" [disabled]="isSolved">
         <mat-icon>close</mat-icon>
       </button>
     </mat-list-item>
@@ -57,5 +60,6 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="editQuest()">{{"GLOBAL.SAVE" | translate}}</button>
+  <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="editQuest()">{{"GLOBAL.SAVE" | translate}}</button>
+  <button *ngIf="isSolved" mat-raised-button color="primary" [mat-dialog-close]>{{"GLOBAL.CANCEL" | translate}}</button>
 </mat-dialog-actions>

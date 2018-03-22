@@ -15,7 +15,7 @@ import { TaskService } from '../../../../../../services/task.service';
 })
 export class GamemasterQuestEditComponent implements OnInit {
 
-  
+  isSolved: boolean;
   oldTasks: Task[];
 
   constructor(
@@ -28,6 +28,12 @@ export class GamemasterQuestEditComponent implements OnInit {
     }
 
   ngOnInit() {
+    if(this.quest.status === "SOLVED") {
+      this.isSolved = true;
+    }
+    else {
+      this.isSolved = false;
+    }
   }
 
   calculateGoldAmountOfTasks(): number {

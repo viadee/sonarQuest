@@ -40,7 +40,8 @@
           "SUGGEST_TASKS" :"Suggest tasks",
           "GENERATE": "Generate",
           "CREATE_QUEST": "Create quest",
-          "EDIT_QUEST": "Edit quest"
+          "EDIT_QUEST": "Edit quest",
+          "EDIT_SOLVED_QUEST": "This quest is solved. You cannot edit it anymore."
         },
         "TASK": {
           "CREATE_SPECIALTASK" : "Create Special Task",
