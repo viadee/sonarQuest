@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef} from "@angular/material";
-import {GamemasterAdventureComponent} from "../../gamemaster-adventure.component";
-import {AdventureService} from "../../../../../../services/adventure.service";
-import {QuestService} from "../../../../../../services/quest.service";
-import {GamemasterAddFreeQuestComponent} from "./components/gamemaster-add-free-quest/gamemaster-add-free-quest.component";
-import {WorldService} from "../../../../../../services/world.service";
-import {World} from "../../../../../../Interfaces/World";
-import {Quest} from "../../../../../../Interfaces/Quest";
+import { MatDialog, MatDialogRef } from "@angular/material";
+import { GamemasterAdventureComponent } from "../../gamemaster-adventure.component";
+import { AdventureService } from "../../../../../../services/adventure.service";
+import { QuestService } from "../../../../../../services/quest.service";
+import { GamemasterAddFreeQuestComponent } from "./components/gamemaster-add-free-quest/gamemaster-add-free-quest.component";
+import { WorldService } from "../../../../../../services/world.service";
+import { World } from "../../../../../../Interfaces/World";
+import { Quest } from "../../../../../../Interfaces/Quest";
 
 @Component({
   selector: 'app-gamemaster-adventure-create',
@@ -19,57 +19,53 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   gold: number;
   xp: number;
   story: string;
-  quests: Quest[]= [];
-  world: World;
-  worlds: World[]
+  quests: Quest[] = [];
+  currentWorld: World;
 
   constructor(private dialog: MatDialog,
-              private questService: QuestService,
-              private adventureService: AdventureService,
-              private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
-              private worldService:WorldService) {
+    private questService: QuestService,
+    private adventureService: AdventureService,
+    private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
+    private worldService: WorldService) {
   }
 
   ngOnInit() {
-    this.worldService.getWorlds().then(worlds => {
-      this.worlds = worlds.filter(world => world.active === true)
-      this.world =this.worlds[0];
-    });
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world);
   }
 
   addFreeQuest() {
-    this.dialog.open(GamemasterAddFreeQuestComponent,{data:[this.world,this.quests]})
+    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.currentWorld, this.quests] })
       .afterClosed().subscribe(result => {
-      if (result) {
-        this.quests.push(result)
-      }
-    });
+        if (result) {
+          this.quests.push(result)
+        }
+      });
   }
 
 
   removeQuest(quest) {
-    let questIndex=this.quests.indexOf(quest);
-    this.quests.splice(questIndex,1);
+    let questIndex = this.quests.indexOf(quest);
+    this.quests.splice(questIndex, 1);
   }
 
   createAdventure() {
-    if (this.title && this.gold && this.xp && this.story && this.world && (this.quests.length != 0)) {
+    if (this.title && this.gold && this.xp && this.story && this.currentWorld && (this.quests.length != 0)) {
       let adventure = {
         title: this.title,
         gold: this.gold,
         xp: this.xp,
         story: this.story
       }
-      this.adventureService.createAdventure(adventure).then((adventure)=>{
-        if(adventure.id){
+      this.adventureService.createAdventure(adventure).then((adventure) => {
+        if (adventure.id) {
           let promiseArray = [];
-          this.quests.forEach((value,index)=>{
-            let addQuestToAdventure = this.adventureService.addQuest(adventure,value);
+          this.quests.forEach((value, index) => {
+            let addQuestToAdventure = this.adventureService.addQuest(adventure, value);
             promiseArray.push(addQuestToAdventure);
           })
           return Promise.all(promiseArray);
         }
-      }).then(()=>{
+      }).then(() => {
         this.dialogRef.close();
       })
 

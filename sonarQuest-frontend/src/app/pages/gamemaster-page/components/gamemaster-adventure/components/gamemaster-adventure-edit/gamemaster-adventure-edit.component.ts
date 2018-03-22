@@ -1,3 +1,4 @@
+import { World } from './../../../../../../Interfaces/World';
 import { WorldService } from './../../../../../../services/world.service';
 import { AdventureService } from './../../../../../../services/adventure.service';
 import { Adventure } from './../../../../../../Interfaces/Adventure';
@@ -16,8 +17,9 @@ import { Quest } from '../../../../../../Interfaces/Quest';
 })
 export class GamemasterAdventureEditComponent implements OnInit {
 
-  
+
   oldQuests: Quest[];
+  currentWorld: World;
 
   constructor(
     private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
@@ -26,11 +28,12 @@ export class GamemasterAdventureEditComponent implements OnInit {
     public advantureService: AdventureService,
     public worldService: WorldService,
     private dialog: MatDialog) {
-      this.oldQuests = this.adventure.quests.filter(()=>true)
-    }
+    this.oldQuests = this.adventure.quests.filter(() => true)
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world);
+  }
 
   calculateGoldAmountOfQuests(): number {
     return this.questService.calculateGoldAmountOfQuests(this.adventure.quests)
@@ -41,7 +44,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
   }
 
   addFreeQuest() {
-    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.getWorld(), this.adventure.quests] })
+    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.currentWorld, this.adventure.quests] })
       .afterClosed().subscribe(result => {
         if (result) {
           this.adventure.quests.push(result)
@@ -50,20 +53,20 @@ export class GamemasterAdventureEditComponent implements OnInit {
 
   }
 
-  removeQuest(quest: Quest){
+  removeQuest(quest: Quest) {
     let questIndex = this.adventure.quests.indexOf(quest);
-    this.adventure.quests.splice(questIndex,1);
+    this.adventure.quests.splice(questIndex, 1);
   }
 
 
-  editAdventure(){
-    if (this.adventure.title && this.adventure.gold && this.adventure.xp && this.adventure.story && (this.adventure.quests.length > 0)){
-      let newQuests         = this.questService.identifyNewTasks(this.oldQuests,this.adventure.quests);
-      let deselcetedQuests  = this.questService.identifyDeselectedTasks(this.oldQuests,this.adventure.quests);
-      this.advantureService.updateAdventure(this.adventure).then(()=>{
+  editAdventure() {
+    if (this.adventure.title && this.adventure.gold && this.adventure.xp && this.adventure.story && (this.adventure.quests.length > 0)) {
+      let newQuests = this.questService.identifyNewTasks(this.oldQuests, this.adventure.quests);
+      let deselcetedQuests = this.questService.identifyDeselectedTasks(this.oldQuests, this.adventure.quests);
+      this.advantureService.updateAdventure(this.adventure).then(() => {
         let promiseArray = [];
         newQuests.forEach((value, index) => {
-          let addQuestToAdventure = this.questService.addToAdventure(value,this.adventure);
+          let addQuestToAdventure = this.questService.addToAdventure(value, this.adventure);
           promiseArray.push(addQuestToAdventure);
         });
         deselcetedQuests.forEach((value, index) => {
@@ -71,16 +74,9 @@ export class GamemasterAdventureEditComponent implements OnInit {
           promiseArray.push(removeQuestFromAdventure);
         });
         return Promise.all(promiseArray)
-      }).then(()=>{
+      }).then(() => {
         this.dialogRef.close();
       })
     }
   }
-
-  getWorld(){
-    return this.worldService.getCurrentWorld()
-  }
-
-
-
 }

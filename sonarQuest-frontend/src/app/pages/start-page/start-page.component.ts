@@ -14,10 +14,12 @@ export class StartPageComponent implements OnInit {
   constructor(public developerService: DeveloperService) { }
 
   ngOnInit() {
-    this.developerService.getMyAvatar().subscribe(developer => {
-      this.developer = developer;
-      this.xpPercent();
-    });
+    this.developerService.avatar$.subscribe({
+      next: developer => {
+        this.developer = developer;
+        this.xpPercent();
+      }
+    })
   }
 
   public xpPercent(): void {

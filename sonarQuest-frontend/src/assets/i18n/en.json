@@ -12,6 +12,10 @@
         "MY_ADVENTURES"         : "My Adventures",
         "AVAILABLE_ADVENTURES"  : "Available Adventures"
     },
+    "QUEST_PAGE": {
+        "MY_QUESTS"         : "My Quests",
+        "AVAILABLE_QUESTS"  : "Available Quests"
+    },
     "ADMIN_PAGE":{
         "ALL_DEVELOPER"     : "All Developer",
         "CREATE_DEVELOPER"  : "Create Developer",

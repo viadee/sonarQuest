@@ -1,10 +1,4 @@
-import { AvailableQuestsComponent } from './components/available-quests/available-quests.component';
-import { Quest } from './../../Interfaces/Quest';
-import { QuestService } from './../../services/quest.service';
-import { Component, OnInit, ContentChild, ViewChild } from '@angular/core';
-import { WorldService } from '../../services/world.service';
-import { DeveloperService } from '../../services/developer.service';
-import { ParticipatedQuestsComponent } from './components/participated-quests/participated-quests.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-quest-page',
@@ -13,17 +7,8 @@ import { ParticipatedQuestsComponent } from './components/participated-quests/pa
 })
 export class QuestPageComponent implements OnInit {
 
-  constructor(
-    private questService: QuestService,
-    private worldService: WorldService,
-    private developerService: DeveloperService) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
-
-  
-
-
-  
+  ngOnInit() { }
 
 }

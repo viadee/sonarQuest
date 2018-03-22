@@ -15,36 +15,38 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
   public developer: Developer;
+  public currentWorld: World;
   public worlds: World[];
   public selectedWorld: World;
   public pageNames: any;
 
   constructor(public media: TdMediaService,
-     public router: Router,
-      public developerService: DeveloperService,
-       public worldService: WorldService, 
-       public translate: TranslateService) {
-       // this language will be used as a fallback when a translation isn't found in the current language
-       translate.setDefaultLang('en');
+    public router: Router,
+    public developerService: DeveloperService,
+    public worldService: WorldService,
+    public translate: TranslateService) {
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en');
 
-       // the lang to use, if the lang isn't available, it will use the current loader to get them
-      translate.use('en');
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translate.use('en');
   }
 
   ngAfterViewInit(): void {
     this.media.broadcast();
-    this.translate.get("APP_COMPONENT").subscribe((page_names)=>{
+    this.translate.get("APP_COMPONENT").subscribe((page_names) => {
       this.pageNames = page_names;
-    })  
-    this.developerService.getMyAvatar().subscribe(developer => this.developer = developer);
-    this.worldService.getWorlds().then(worlds => {
-      this.worlds = worlds.filter(world => world.active === true)
-      this.selectedWorld = worlds[0]
-    });
+    })
+
+    this.developerService.avatar$.subscribe(developer => this.developer = developer)
+
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
+
+    this.worldService.worlds$.subscribe(worlds => this.worlds = worlds)
   }
 
   determinePageTitle(url: string): string {
-    if(this.pageNames){
+    if (this.pageNames) {
       switch (url) {
         case '/start':
           return this.pageNames.STARTPAGE;
@@ -59,13 +61,13 @@ export class AppComponent {
         case '/gamemaster':
           return this.pageNames.GAMEMASTER;
         case '/admin':
-        return this.pageNames.ADMIN;
+          return this.pageNames.ADMIN;
         default:
           return '';
       }
-    }else{
+    } else {
       return ""
     }
-    
+
   }
 }

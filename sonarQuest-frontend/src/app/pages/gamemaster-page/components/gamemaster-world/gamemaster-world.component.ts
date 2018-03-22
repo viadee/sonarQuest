@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {WorldService} from '../../../../services/world.service';
-import {World} from '../../../../Interfaces/World';
+import { WorldService } from '../../../../services/world.service';
+import { World } from '../../../../Interfaces/World';
 import {
   IPageChangeEvent, ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
-import {MatDialog} from '@angular/material';
-import {EditWorldComponent} from './components/edit-world/edit-world.component';
-import {TaskService} from "../../../../services/task.service";
-import {QuestService} from "../../../../services/quest.service";
-import {AdventureService} from "../../../../services/adventure.service";
+import { MatDialog } from '@angular/material';
+import { EditWorldComponent } from './components/edit-world/edit-world.component';
+import { TaskService } from "../../../../services/task.service";
+import { QuestService } from "../../../../services/quest.service";
+import { AdventureService } from "../../../../services/adventure.service";
 
 @Component({
   selector: 'app-gamemaster-world',
@@ -18,51 +18,51 @@ import {AdventureService} from "../../../../services/adventure.service";
 })
 export class GamemasterWorldComponent implements OnInit {
 
-  data: any[] = [];
+  worlds: World[];
   columns: ITdDataTableColumn[] = [
-    { name: 'id', label: 'Id'},
+    { name: 'id', label: 'Id' },
     { name: 'name', label: 'Name' },
-    { name: 'project', label: 'Projekt'},
-    { name: 'active', label: 'Aktiv'},
-    { name: 'edit', label: ''},
-    { name: 'update', label: 'Update Aufgaben'}
+    { name: 'project', label: 'Projekt' },
+    { name: 'active', label: 'Aktiv' },
+    { name: 'edit', label: '' },
+    { name: 'update', label: 'Update Aufgaben' }
   ]
 
   // Sort / Filter / Paginate variables
-  filteredData: any[] = this.data
-  filteredTotal: number = this.data.length
+  filteredData: any[]
+  filteredTotal: number
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
   pageSize = 5;
   sortBy = 'id';
-  selectedRows: any[] = [];
+  selectedRows: any[];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   constructor(private worldService: WorldService,
-              private questService: QuestService,
-              private adventureService: AdventureService,
-              private taskService: TaskService,
-              private _dataTableService: TdDataTableService,
-              private dialog: MatDialog) { }
+    private questService: QuestService,
+    private adventureService: AdventureService,
+    private taskService: TaskService,
+    private _dataTableService: TdDataTableService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
-      this.loadWorlds();
+    this.loadWorlds();
   }
 
-  loadWorlds(): Promise<void>{
-    return this.worldService.getWorlds().then(worlds => {
-      this.data = worlds;
+  loadWorlds() {
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds;
       this.filter();
-    });
+    })
   }
 
-  editWorld(world: World){
-    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => this.loadWorlds())
+  editWorld(world: World) {
+    this.dialog.open(EditWorldComponent, { data: world }).afterClosed().subscribe(() => this.loadWorlds())
   }
 
-  updateStandardTasksForWorld(world: World){
-    this.taskService.updateStandardTasksForWorld(world).then(()=>{
+  updateStandardTasksForWorld(world: World) {
+    this.taskService.updateStandardTasksForWorld(world).then(() => {
       this.taskService.refreshTasks();
       this.questService.refreshQuests();
       this.adventureService.refreshAdventures();
@@ -88,11 +88,11 @@ export class GamemasterWorldComponent implements OnInit {
   }
 
   filter(): void {
-    let newData: any[] = this.data;
+    let newData: World[] = this.worlds;
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

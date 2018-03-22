@@ -62,13 +62,13 @@ export class AdminDeveloperComponent implements OnInit {
     this.dialog.open(AdminDeveloperCreateComponent,{data: this.developers, width: "500px"}).afterClosed().subscribe( developer => {
       if (developer) {
         this.developers.push(developer)
-        this.developerService.developers.next(this.developers)
+        this.developerService.developersSubject.next(this.developers)
       }
     })
   }
   editDeveloper(developer: Developer){
     this.dialog.open(AdminDeveloperEditComponent,{data: developer, width: "500px"}).afterClosed().subscribe( bool => {
-      if (bool) {this.developerService.developers.next(this.developers)}
+      if (bool) {this.developerService.developersSubject.next(this.developers)}
     })
   }
   deleteDeveloper(developer: Developer){
