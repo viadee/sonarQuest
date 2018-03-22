@@ -20,12 +20,12 @@ export class AvailableQuestsComponent implements OnInit {
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
     { name: 'title', label: 'Titel', width: {min:80}},
-    { name: 'gold', label: 'Gold', width: 40},
-    { name: 'xp', label: 'XP', width: 40},
-    { name: 'story', label: 'Erzählung', width: {min:400}},
+    { name: 'gold', label: 'Gold', width: {min: 40}},
+    { name: 'xp', label: 'XP', width: {min: 40}},
+    { name: 'story', label: 'Erzählung', width: {min:200}},
     { name: 'adventure.title', label: 'Abenteuer', width: {min:80}},
-    { name: 'status', label: 'Status', width:60},
-    { name: 'edit', label: '', width: 70}
+    { name: 'status', label: 'Status', width: {min: 60}},
+    { name: 'edit', label: '', width: {min: 60}}
   ]
 
   // Sort / Filter / Paginate variables
@@ -80,7 +80,7 @@ export class AvailableQuestsComponent implements OnInit {
   }
 
 
- 
+
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
