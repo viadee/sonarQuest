@@ -15,8 +15,35 @@
     "ADMIN_PAGE":{
         "ALL_DEVELOPER"     : "All Developer",
         "CREATE_DEVELOPER"  : "Create Developer",
-        "EDIT_DEVELOPER"    : "Edit Developer", 
+        "EDIT_DEVELOPER"    : "Edit Developer",
         "DELETE_DEVELOPER"  : "Are you sure to delete?"
+    },
+    "START_PAGE": {
+        "CURRENT_PROGRESS"  : "Current Progress"
+    },
+    "QUEST_PAGE": {
+        "MY_QUESTS"   : "My Quests",
+        "JOIN_QUEST"  : "Join Quest",
+        "AVAILABLE_QUESTS"  : "Available Quests",
+        "COMBATED_BY" : "combated by"
+    },
+    "GAMEMASTER_PAGE": {
+        "ADVENTURE": {
+          "CREATE_ADVENTURE" : "Create adventure",
+          "EDIT_ADVENTURE"  : "Edit adventure"
+        },
+        "QUEST": {
+          "SUGGEST_TASKS" :"Suggest tasks",
+          "GENERATE": "Generate",
+          "CREATE_QUEST": "Create quest",
+          "EDIT_QUEST": "Edit quest"
+        },
+        "TASK": {
+          "CREATE_SPECIALTASK" : "Create Special Task",
+          "CREATE_STANDARDTASK" : "Create Standard Task",
+          "EDIT_SPECIALTASK" : "Edit Special Task",
+          "EDIT_STANDARDTASK" : "Edit Standard Task"
+        }
     },
     "TABLE": {
         "COLUMNS": {
@@ -38,17 +65,21 @@
         "EDIT"      : "Edit",
         "DELETE"    : "Delete",
         "NO_ENTRIES": "no entries",
-        "SEARCH"    : "Search"
+        "SEARCH"    : "Search",
+        "SAVE"      : "Save"
     },
     "DEVELOPER" :{
         "DEVELOPER" :   "Developer",
         "GOLD"      :   "Gold",
-        "XP"        :   "XP"
+        "XP"        :   "XP",
+        "LEVEL"     :   "Level"
     },
     "QUEST" :{
         "QUEST"         :"Quest",
         "QUESTS"        :"Quests",
-        "NEW_QUEST"     :"New Quest"
+        "NEW_QUEST"     :"New Quest",
+        "ADD_FREE_QUEST" : "Add free quest",
+        "NO_FREE_QUESTS_AVAILABLE" : "No free quests available"
     },
     "ADVENTURE" :{
         "ADVENTURE"     :"Adventure",
@@ -57,7 +88,8 @@
     },
     "WORLD" :{
         "WORLD"     :"World",
-        "WORLDS"    :"Worlds"
+        "WORLDS"    :"Worlds",
+        "ACTIVE"    :"Active"
     },
     "TASK"  :{
         "TASK"          :"Task",
@@ -65,7 +97,12 @@
         "SPECIALTASK"   :"Special Task",
         "STANDARDTASK"  :"Standard Task",
         "NEW_SPECIALTASK"   :"New Special Task",
-        "NEW_STANDARDTASK"  :"New Standard Task"
-    
+        "NEW_STANDARDTASK"  :"New Standard Task",
+        "ADD_FREE_TASK" :"Add free task",
+        "NO_FREE_TASKS_AVAILABLE" : "No free tasks available"
+
+    },
+    "ARTEFACT" : {
+        "ARTEFACTS" :"Artefacts"
     }
 }

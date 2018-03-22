@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Quest bearbeiten</h2>
+<h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.EDIT_QUEST" | translate}}</h2>
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
@@ -24,14 +24,14 @@
   </div>
   <mat-divider></mat-divider>
   <div layout="row">
-    <h3>Aufgaben</h3>
+    <h3>{{"TASK.TASKS" | translate}}</h3>
     <div flex></div>
     <div style="padding-top: 5%">
-      <span >Gold: {{calculateGoldAmountOfTasks()}}</span>
+      <span >{{"DEVELOPER.GOLD" | translate}}: {{calculateGoldAmountOfTasks()}}</span>
     </div>
       <div flex></div>
     <div style="padding-top: 5%">
-      <span>XP: {{calculateXpAmountOfTasks()}}</span>
+      <span>{{"DEVELOPER.XP" | translate}}: {{calculateXpAmountOfTasks()}}</span>
     </div>
     <div flex></div>
     <button style="padding-top:2.5%" mat-icon-button (click)="addFreeTask()"><mat-icon>add</mat-icon></button>
@@ -42,12 +42,12 @@
     <mat-list-item *ngFor="let task of quest.tasks">
       <h3 mat-line> {{task?.title}} </h3>
       <p mat-line>
-        <span *ngIf="task?.debt">Standardaufgabe</span>
-        <span *ngIf="!task?.debt">Sonderaufgabe</span>
+        <span *ngIf="task?.debt">{{"TASK.STANDARDTASK" | translate}}</span>
+        <span *ngIf="!task?.debt">{{"TASK.SPECIALTASK" | translate}}</span>
       </p>
       <p mat-line>
-        <span>Gold: {{task?.gold}}, </span>
-        <span>XP: {{task?.xp}}</span>
+        <span>{{"DEVELOPER.GOLD" | translate}}: {{task?.gold}}, </span>
+        <span>{{"DEVELOPER.XP" | translate}}: {{task?.xp}}</span>
       </p>
       <button mat-icon-button (click)="removeTask(task)">
         <mat-icon>close</mat-icon>
@@ -57,5 +57,5 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="editQuest()">speichern</button>
+  <button mat-raised-button color="primary" (click)="editQuest()">{{"GLOBAL.SAVE" | translate}}</button>
 </mat-dialog-actions>

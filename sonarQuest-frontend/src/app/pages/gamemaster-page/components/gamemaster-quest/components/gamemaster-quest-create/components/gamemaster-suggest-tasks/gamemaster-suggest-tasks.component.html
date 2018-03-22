@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Quest-Vorschlag</h2>
+<h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.SUGGEST_TASKS" | translate}}</h2>
 <mat-dialog-content>
   <div flex>
     <mat-select placeholder="Bedingung" value="condition" [(ngModel)]="condition" floatPlaceholder="true" name="condition" class="full-width">
-      <mat-option value="gold">Gold</mat-option>
-      <mat-option value="xp">XP</mat-option>
+      <mat-option value="gold">{{"DEVELOPER.GOLD" | translate}}</mat-option>
+      <mat-option value="xp">{{"DEVELOPER.XP" | translate}}</mat-option>
     </mat-select>
   </div>
   <div flex>
@@ -13,5 +13,5 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="suggestTasks()">generieren</button>
+  <button mat-button (click)="suggestTasks()">{{"GAMEMASTER_PAGE.QUEST.GENERATE" | translate}}</button>
 </mat-dialog-actions>

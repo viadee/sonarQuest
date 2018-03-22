@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Neues Abenteuer</h2>
+<h2 mat-dialog-title>{{"ADVENTURE.NEW_ADVENTURE" | translate}}</h2>
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
@@ -31,7 +31,7 @@
   </div>
   </div>
   <div layout="row">
-    <h3>Quests</h3>
+    <h3>{{"QUEST.QUEST" | translate}}</h3>
     <div flex></div>
     <button style="padding-top:2.5%" mat-icon-button (click)="addFreeQuest()"><mat-icon>add</mat-icon></button>
   </div>
@@ -39,8 +39,8 @@
     <mat-list-item *ngFor="let quest of quests">
       <h3 mat-line> {{quest?.title}} </h3>
       <p mat-line>
-        <span>Gold: {{quest?.gold}}, </span>
-        <span>XP: {{quest?.xp}}</span>
+        <span>{{"DEVELOPER.GOLD" | translate}}: {{quest?.gold}}, </span>
+        <span>{{"DEVELOPER.XP" | translate}}: {{quest?.xp}}</span>
       </p>
       <button mat-icon-button (click)="removeQuest(quest)">
         <mat-icon>close</mat-icon>
@@ -50,5 +50,5 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="createAdventure()">Abenteuer erstellen</button>
+  <button mat-raised-button color="primary" (click)="createAdventure()">{{"GAMEMASTER_PAGE.ADVENTURE.CREATE_ADVENTURE" | translate}}</button>
 </mat-dialog-actions>

@@ -2,10 +2,10 @@
     <h3>{{quest.title}}</h3>
   <div layout="row">
     <div flex>
-      <b>Gold: </b>{{quest.gold}}
+      <b>{{"DEVELOPER.GOLD"| translate}}: </b>{{quest.gold}}
     </div>
     <div flex>
-     <b>XP: </b> {{quest.xp}}
+     <b>{{"DEVELOPER.XP"| translate}}: </b> {{quest.xp}}
     </div>
   </div>
 
@@ -13,14 +13,14 @@
         {{quest.story}}
   </div>
   <mat-divider></mat-divider>
-    <h3>Aufgaben</h3>
+    <h3>{{"TASK.TASKS"| translate}}</h3>
   <mat-list>
     <mat-list-item *ngFor="let task of tasks">
       <h3 mat-line> {{task?.title}} </h3>
       <p mat-line>
-        <span>Gold: {{task?.gold}}, </span>
-        <span>XP: {{task?.xp}}</span><span *ngIf="participatingDeveloper(task)">, </span>
-        <span *ngIf="participatingDeveloper(task)">bekämpft von: {{participatingDeveloper(task)?.username}} </span>
+        <span>{{"DEVELOPER.GOLD"| translate}}: {{task?.gold}}, </span>
+        <span>{{"DEVELOPER.XP"| translate}}: {{task?.xp}}</span><span *ngIf="participatingDeveloper(task)">, </span>
+        <span *ngIf="participatingDeveloper(task)">{{"QUEST_PAGE.COMBATED_BY"| translate}}: {{participatingDeveloper(task)?.username}} </span>
       </p>
       <button mat-icon-button (click)="addParticipation(task)" *ngIf="!participatingDeveloper(task)">
           <i class="ra ra-sword"></i>

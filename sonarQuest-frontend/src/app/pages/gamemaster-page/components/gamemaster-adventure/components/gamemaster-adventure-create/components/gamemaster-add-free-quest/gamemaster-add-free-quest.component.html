@@ -1,16 +1,16 @@
-<h2 mat-dialog-title>Freie Quest hinzufügen</h2>
+<h2 mat-dialog-title>{{"QUEST.ADD_FREE_QUEST" | translate}}</h2>
 <mat-dialog-content>
   <mat-list>
     <mat-list-item *ngFor="let quest of freeQuests">
       <h3 mat-line> {{quest.title}} </h3>
       <p mat-line>
-        <span>Gold: {{quest.gold}}, </span>
-        <span>XP: {{quest.xp}}</span>
+        <span>{{"DEVELOPER.GOLD" | translate}}: {{quest.gold}}, </span>
+        <span>{{"DEVELOPER.XP" | translate}}: {{quest.xp}}</span>
       </p>
       <button mat-icon-button (click)="addQuest(quest)">
         <mat-icon>add</mat-icon>
       </button>
     </mat-list-item>
   </mat-list>
-  <h2 *ngIf="freeQuests?.length==0">Keine freien Quests vorhanden!</h2>
+  <h2 *ngIf="freeQuests?.length==0">{{"QUEST.NO_FREE_QUESTS_AVAILABLE" | translate}}</h2>
 </mat-dialog-content>

@@ -26,7 +26,7 @@
       </ng-template>
     </td-data-table>
     <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-      <h3>Keine Einträge</h3>
+      <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>
     </div>
     <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
         <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}<span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>

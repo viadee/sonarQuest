@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Abenteuer bearbeiten</h2>
+<h2 mat-dialog-title>{{"GAMEMASTER_PAGE.ADVENTURE.EDIT_ADVENTURE" | translate}}</h2>
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
@@ -24,7 +24,7 @@
   </div>
   <mat-divider></mat-divider>
   <div layout="row">
-    <h3>Aufgaben</h3>
+    <h3>{{"TASK.TASKS" | translate}}</h3>
     <div flex></div>
     <div style="padding-top: 5%">
       <!-- <span >Gold: {{calculateGoldAmountOfTasks()}}</span> -->
@@ -53,5 +53,5 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="editAdventure()">speichern</button>
+  <button mat-raised-button color="primary" (click)="editAdventure()">{{"GLOBAL.SAVE" | translate}}</button>
 </mat-dialog-actions>

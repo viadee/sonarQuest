@@ -7,10 +7,10 @@
       </mat-input-container>
     </div>
     <div flex>
-      <mat-checkbox [(ngModel)]="world.active">Aktiv</mat-checkbox>
+      <mat-checkbox [(ngModel)]="world.active">{{"WORLD.ACTIVE"| translate}}</mat-checkbox>
     </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="updateWorld()">Speichern</button>
+  <button mat-button (click)="updateWorld()">{{"GLOBAL.SAVE"| translate}}</button>
 </mat-dialog-actions>

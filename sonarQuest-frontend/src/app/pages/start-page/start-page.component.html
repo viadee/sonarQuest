@@ -106,13 +106,13 @@
 
   <div flex>
     <mat-card>
-      <mat-card-title>Aktueller Fortschritt</mat-card-title>
+      <mat-card-title>{{"START_PAGE.CURRENT_PROGRESS"| translate}}</mat-card-title>
       <mat-divider></mat-divider>
       <div layout="row" layout-margin>
         <div flex>
           <div layout="column">
             <div layout="row">
-              <div flex>Level:</div>
+              <div flex>{{"DEVELOPER.LEVEL"| translate}}:</div>
               <div flex style="font-weight:bold; font-size:30pt">{{developer?.level.name}}</div>
             </div>
             <div layout="row">
@@ -124,7 +124,7 @@
         </div>
         <div flex>
           <div layout="row">
-            <div flex>Gold:</div>
+            <div flex>{{"DEVELOPER.GOLD"| translate}}:</div>
             <div flex style="font-weight:bold; font-size:30pt">{{developer?.gold}}</div>
           </div>
         </div>

@@ -22,7 +22,7 @@
           <div layout="row" layout-margin>
             <div flex="50">
               <div layout="column">
-                <div flex>Level:</div>
+                <div flex>{{"DEVELOPER.LEVEL"| translate}}:</div>
                 <div flex style="font-weight:bold; font-size:20pt">{{developer?.level.name}}</div>
                 <div layout="row">
                   <div flex></div>
@@ -34,7 +34,7 @@
             <div flex></div>
             <div flex>
               <div layout="column">
-                <div flex>Gold:</div>
+                <div flex>{{"DEVELOPER.GOLD"| translate}}:</div>
                 <div flex style="font-weight:bold; font-size:20pt">{{developer?.gold}}</div>
               </div>
             </div>
@@ -45,7 +45,7 @@
         <mat-divider></mat-divider>
         <p>{{developer?.aboutMe}}</p>
         <mat-divider></mat-divider>
-        <h3>Artefakte</h3>
+        <h3>{{"ARTEFACT.ARTEFACTS"| translate}}</h3>
         <mat-grid-list cols="4" rowHeight="3:1">
           <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-candle ra-3x"></i></mat-grid-tile>
           <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-mirror ra-3x"></i></mat-grid-tile>
@@ -57,5 +57,4 @@
       </mat-card-content>
     </mat-card>
   </div>
-
 </div>
