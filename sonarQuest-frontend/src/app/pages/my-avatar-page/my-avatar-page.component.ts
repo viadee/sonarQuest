@@ -1,6 +1,6 @@
-import { Component, OnInit }  from '@angular/core';
-import {Developer}            from '../../Interfaces/Developer';
-import {DeveloperService}     from '../../services/developer.service';
+import {Component, OnInit} from '@angular/core';
+import {Developer} from '../../Interfaces/Developer';
+import {DeveloperService} from '../../services/developer.service';
 
 @Component({
   selector: 'app-my-avatar-page',
@@ -10,10 +10,16 @@ import {DeveloperService}     from '../../services/developer.service';
 export class MyAvatarPageComponent implements OnInit {
 
   public developer: Developer;
-  constructor( public developerService: DeveloperService) { }
 
-  ngOnInit() {
-    this.developerService.avatar$.subscribe( developer => this.developer = developer )
+  constructor(public developerService: DeveloperService) {
   }
 
+  ngOnInit() {
+    this.developerService.avatar$.subscribe(developer => this.developer = developer)
+  }
+
+  createSkillsList(artefact: any) {
+    const skillnames = artefact.skills.map(skill => skill.name);
+    return skillnames.join(', ');
+  }
 }

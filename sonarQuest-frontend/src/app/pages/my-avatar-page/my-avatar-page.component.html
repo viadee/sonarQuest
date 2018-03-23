@@ -47,12 +47,9 @@
         <mat-divider></mat-divider>
         <h3>{{"ARTEFACT.ARTEFACTS"| translate}}</h3>
         <mat-grid-list cols="4" rowHeight="3:1">
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-candle ra-3x"></i></mat-grid-tile>
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-mirror ra-3x"></i></mat-grid-tile>
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-rune-stone ra-3x"></i></mat-grid-tile>
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-slash-ring ra-3x"></i></mat-grid-tile>
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-trophy ra-3x"></i></mat-grid-tile>
-          <mat-grid-tile><i matTooltip="Dies ist ein Artefakt und es hat bestimmte Fähigkeiten!" matTooltipPosition="after" class="ra ra-potion ra-3x"></i></mat-grid-tile>
+          <mat-grid-tile *ngFor="let artefact of developer?.artefacts">
+            <i [matTooltip]="'Name:' + artefact.name + '\nSkills: ' + createSkillsList(artefact)" [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after" class="ra ra-3x" [ngClass]="artefact.icon"></i>
+          </mat-grid-tile>
         </mat-grid-list>
       </mat-card-content>
     </mat-card>

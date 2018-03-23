@@ -6,3 +6,7 @@
 .full-width {
   width: 100%;
 }
+
+.tooltipMultiline {
+  white-space: pre-line;
+}

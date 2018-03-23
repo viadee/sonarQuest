@@ -21,8 +21,8 @@ INSERT INTO Avatar_Class_Skill (avatar_class_id,skill_id) VALUES
   (2,2);
 
 INSERT INTO Artefact (name,icon,price,level_id) VALUES
-  ('Schwert','',50,1),
-  ('Schild','',200,2);
+  ('Schwert','ra-trophy',50,1),
+  ('Schild','ra-slash-ring',200,2);
 
 INSERT INTO Artefact_Skill (artefact_id,skill_id) VALUES
   (1,3),
