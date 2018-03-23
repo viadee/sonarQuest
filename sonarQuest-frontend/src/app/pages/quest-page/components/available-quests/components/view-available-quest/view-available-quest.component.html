@@ -1,6 +1,9 @@
 
 <mat-dialog-content>
     <h3>{{quest.title}}</h3>
+  <div>
+    <img style="max-width:100%; max-height:100%" [src]="quest.image">
+  </div>
   <div layout="row">
     <div flex>
       <b>{{"DEVELOPER.GOLD"| translate}}: </b>{{quest.gold}}

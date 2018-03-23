@@ -29,6 +29,9 @@ public class Quest {
     @Column(name="xp")
     private Long xp;
 
+    @Column(name="image")
+    private String image;
+
     @ManyToOne()
     @JoinColumn(name="world_id")
     private World world;
@@ -46,15 +49,16 @@ public class Quest {
     public Quest() {
     }
 
-    public Quest(String title, String story, String status, Long gold, Long xp) {
+    public Quest(String title, String story, String status, Long gold, Long xp, String image) {
         this.title = title;
         this.story = story;
         this.status = status;
         this.gold = gold;
         this.xp = xp;
+        this.image = image;
     }
 
-    public Quest(String title, String story, String status, Long gold, Long xp, World world, Adventure adventure, List<Task> tasks, List<Participation> participations) {
+    public Quest(String title, String story, String status, Long gold, Long xp, String image, World world, Adventure adventure, List<Task> tasks, List<Participation> participations) {
         this.title = title;
         this.story = story;
         this.status = status;
@@ -64,6 +68,7 @@ public class Quest {
         this.adventure = adventure;
         this.tasks = tasks;
         this.participations = participations;
+        this.image = image;
     }
 
     public Long getId() {
@@ -112,6 +117,14 @@ public class Quest {
 
     public void setXp(Long xp) {
         this.xp = xp;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @JsonIgnore

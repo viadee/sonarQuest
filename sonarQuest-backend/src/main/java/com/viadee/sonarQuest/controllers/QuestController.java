@@ -76,7 +76,7 @@ public class QuestController {
     @ResponseStatus(HttpStatus.CREATED)
     public Quest createQuest(@RequestBody final QuestDto questDto) {
         return this.questRepository.save(new Quest(questDto.getTitle(), questDto.getStory(), QuestStates.OPEN,
-                questDto.getGold(), questDto.getXp()));
+                questDto.getGold(), questDto.getXp(), questDto.getImage()));
     }
 
     @CrossOrigin
@@ -88,6 +88,7 @@ public class QuestController {
             quest.setGold(questDto.getGold());
             quest.setXp(questDto.getXp());
             quest.setStory(questDto.getStory());
+            quest.setImage(questDto.getImage());
             quest = this.questRepository.save(quest);
         }
         return quest;

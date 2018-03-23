@@ -120,7 +120,7 @@ public class SonarQuestApplicationIT {
 
         // Create Quest
         final QuestDto questDto = new QuestDto(null, "EpicQuest", "Dies ist eine epische Quest", null, (long) 20,
-                (long) 30, null, null, null, null);
+                (long) 30, null, null, null, null, null);
         questController.createQuest(questDto);
         Quest epicQuest = questRepository.findOne((long) 1);
         assertEquals("createQuest does not work (Title)", "EpicQuest", epicQuest.getTitle());
