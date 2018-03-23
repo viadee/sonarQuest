@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SonarQuestApplication implements CommandLineRunner{
@@ -104,5 +108,16 @@ public class SonarQuestApplication implements CommandLineRunner{
 		participationController.createParticipation((long)1,(long)1);
 		participationController.createParticipation((long)2,(long)1);
 		participationController.createParticipation((long)4,(long)1);
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200");
+			}
+		};
 	}
 }
