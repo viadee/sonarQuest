@@ -17,20 +17,15 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class ExternalRessourceService {
+/**
+ * Actual implementation is either {@link RealExternalRessourceService} or {@link SimulatedExternalRessourceService}, depending on the command line property simulateSonarServer
+ */
+public abstract class ExternalRessourceService {
 
     @Autowired
     private StandardTaskEvaluationService standardTaskEvaluationService;
 
-
-
-    public List<SonarQubeProject> getSonarQubeProjects(){
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<SonarQubeProject>> projectResponse = restTemplate.exchange(RessourceEndpoints.DEV_ENDPOINT+"/projects", HttpMethod.GET, null, new ParameterizedTypeReference<List<SonarQubeProject>>() {});
-        List<SonarQubeProject> sonarQubeProjects = projectResponse.getBody();
-        return sonarQubeProjects;
-    }
+    public abstract List<SonarQubeProject> getSonarQubeProjects();
 
     public List<World> generateWorldsFromSonarQubeProjects(){
         List<SonarQubeProject> sonarQubeProjects = this.getSonarQubeProjects();
@@ -43,11 +38,7 @@ public class ExternalRessourceService {
         return world;
     }
 
-    public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey){
-        RestTemplate restTemplate = new RestTemplate();
-        SonarQubeIssueRessource sonarQubeIssueRessource = restTemplate.getForObject(RessourceEndpoints.DEV_ENDPOINT+"/issues/search?projectKeys=" +projectKey, SonarQubeIssueRessource.class);
-        return sonarQubeIssueRessource.getIssues();
-    }
+    public abstract List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey);
 
     public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(World world){
         List<SonarQubeIssue> sonarQubeIssues = this.getIssuesForSonarQubeProject(world.getProject());
@@ -89,10 +80,4 @@ public class ExternalRessourceService {
         }
         return mappedStatus;
     }
-
-
-
-
-
-
 }

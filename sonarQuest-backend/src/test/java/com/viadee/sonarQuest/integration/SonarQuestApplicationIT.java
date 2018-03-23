@@ -43,7 +43,7 @@ import com.viadee.sonarQuest.services.StandardTaskService;
 import com.viadee.sonarQuest.services.WorldService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "simulateSonarServer=true")
 public class SonarQuestApplicationIT {
 
     @Autowired
