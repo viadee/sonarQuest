@@ -12,6 +12,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class AdminDeveloperEditComponent implements OnInit {
 
+  images: any[];
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
@@ -20,6 +21,7 @@ export class AdminDeveloperEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadImages();
   }
 
   editDeveloper(){
@@ -32,4 +34,13 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.dialogRef.close(false)
   }
 
+  loadImages() {
+    this.images = [];
+
+    for (let i = 0; i < 15; i++) {
+      this.images[i] = {};
+      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
+      this.images[i].name = "hero" + (i + 1);
+    }
+  }
 }

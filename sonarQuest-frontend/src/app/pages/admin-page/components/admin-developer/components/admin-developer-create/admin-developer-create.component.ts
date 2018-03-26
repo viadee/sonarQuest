@@ -13,6 +13,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
 
   public username: String;
   public aboutMe:  String;
+  public images: any[];
+  public selectedImage: string;
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
@@ -21,14 +23,16 @@ export class AdminDeveloperCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    this.loadImages();
+    this.selectedImage = "http://via.placeholder.com/200x200";
   }
 
   createDeveloper(){
-    if(this.username && this.username != ""){ 
+    if(this.username && this.username != "" && this.selectedImage){
       let new_developer = {
         username: this.username,
-        aboutMe:  this.aboutMe
+        aboutMe:  this.aboutMe,
+        picture: this.selectedImage
       }
 
       this.developerService.createDeveloper(new_developer)
@@ -42,4 +46,13 @@ export class AdminDeveloperCreateComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  loadImages() {
+    this.images = [];
+
+    for (let i = 0; i < 15; i++) {
+      this.images[i] = {};
+      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
+      this.images[i].name = "hero" + (i + 1);
+    }
+  }
 }

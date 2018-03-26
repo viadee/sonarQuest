@@ -54,10 +54,10 @@ public class SonarQuestApplication implements CommandLineRunner{
 
 		//Create Quests
 
-		QuestDto quest1 = new QuestDto(null,"Quest1","Dies ist eine Quest",null,(long)5,(long) 10,"http://via.placeholder.com/200x200",null,null,null,null);
-		QuestDto quest2 = new QuestDto(null,"Quest2","Dies ist auch eine Quest",null,(long)10,(long) 20,"http://via.placeholder.com/200x200",null,null,null,null);
-		QuestDto quest3 = new QuestDto(null,"Quest3","Dies ist eine epische Quest",null,(long)20,(long) 30,"http://via.placeholder.com/200x200",null,null,null,null);
-		QuestDto quest4 = new QuestDto(null,"Quest4","Die Quest der Quests",null,(long)20,(long) 30,"http://via.placeholder.com/200x200",null,null,null,null);
+		QuestDto quest1 = new QuestDto(null,"Quest1","Dies ist eine Quest",null,(long)5,(long) 10,"assets/images/quest/hero3.jpg",null,null,null,null);
+		QuestDto quest2 = new QuestDto(null,"Quest2","Dies ist auch eine Quest",null,(long)10,(long) 20,"assets/images/quest/hero6.jpg",null,null,null,null);
+		QuestDto quest3 = new QuestDto(null,"Quest3","Dies ist eine epische Quest",null,(long)20,(long) 30,"assets/images/quest/hero9.jpg",null,null,null,null);
+		QuestDto quest4 = new QuestDto(null,"Quest4","Die Quest der Quests",null,(long)20,(long) 30,"assets/images/quest/hero12.jpg",null,null,null,null);
 		questController.createQuest(quest1);
 		questController.createQuest(quest2);
 		questController.createQuest(quest3);
