@@ -24,6 +24,16 @@
         <textarea matInput placeholder="Erzählung" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
       </mat-input-container>
     </div>
+    <div>
+      <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="quest.image">
+    </div>
+    <div flex>
+      <mat-select placeholder="Image" [(ngModel)]="quest.image">
+        <mat-option *ngFor="let image of images" [value]="image.src">
+          {{image.name}}
+        </mat-option>
+      </mat-select>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div layout="row">
