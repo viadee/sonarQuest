@@ -10,16 +10,25 @@ import {DeveloperService} from '../../services/developer.service';
 export class MyAvatarPageComponent implements OnInit {
 
   public developer: Developer;
+  public XPpercent: number = 0;
 
   constructor(public developerService: DeveloperService) {
   }
 
   ngOnInit() {
-    this.developerService.avatar$.subscribe(developer => this.developer = developer)
+    this.developerService.avatar$.subscribe(developer => {
+      this.developer = developer;
+      this.xpPercent();
+    })
   }
 
   createSkillsList(artefact: any) {
     const skillnames = artefact.skills.map(skill => skill.name);
     return skillnames.join(', ');
+  }
+
+  public xpPercent(): void {
+    this.XPpercent = 100 / this.developer.level.max * this.developer.xp;
+    this.XPpercent.toFixed(2);
   }
 }
