@@ -1,0 +1,2 @@
+language: java
+before_install: cd sonarQuest-backend
