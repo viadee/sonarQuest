@@ -40,7 +40,7 @@ export class AvailableQuestsComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   developer: Developer;
-  world: World;
+  currentWorld: World;
 
   constructor(
     private questService: QuestService,
@@ -61,15 +61,15 @@ export class AvailableQuestsComponent implements OnInit {
 
     this.worldService.currentWorld$.subscribe({
       next: world => {
-        this.world = world;
+        this.currentWorld = world;
         this.loadQuests();
       }
     })
   }
 
   loadQuests() {
-    if (this.world && this.developer) {
-      return this.questService.getAllAvailableQuestsForWorldAndDeveloper(this.world, this.developer).then(quests => {
+    if (this.currentWorld && this.developer) {
+      return this.questService.getAllAvailableQuestsForWorldAndDeveloper(this.currentWorld, this.developer).then(quests => {
         this.availableQuests = quests;
       }).then(() => {
         this.filter()

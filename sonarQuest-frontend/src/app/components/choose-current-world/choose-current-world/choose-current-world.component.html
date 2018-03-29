@@ -1,0 +1,15 @@
+
+
+<h2 mat-dialog-title>{{"WORLD.CHOOSE_WORLD"| translate}}</h2>
+<mat-dialog-content>
+  <td-data-table [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
+    (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="choose" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <button mat-icon-button (click)="choose(row)">
+          <mat-icon class="icon">arrow_forward</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+  </td-data-table>
+</mat-dialog-content>

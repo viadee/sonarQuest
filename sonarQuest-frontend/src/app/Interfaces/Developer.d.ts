@@ -6,6 +6,15 @@ export interface Level {
   min: number,
   max: number
 }
+
+export interface World{
+  id: number,
+  name: string,
+  project: string,
+  active: boolean
+}
+
+
 export interface AvatarClass{
   id: number,
   name: string
@@ -35,5 +44,6 @@ export interface Developer {
   aboutMe: string,
   avatarClass: AvatarClass,
   avatarRace: AvatarRace,
-  artefacts: Artefact[]
+  artefacts: Artefact[],
+  world: World
 }

@@ -4,7 +4,9 @@ package com.viadee.sonarQuest.controllers;
 import com.viadee.sonarQuest.constants.AdventureStates;
 import com.viadee.sonarQuest.dtos.AdventureDto;
 import com.viadee.sonarQuest.entities.Adventure;
+import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
@@ -47,18 +49,37 @@ public class AdventureController {
     public List<AdventureDto> getAllAdventures(){
         return this.adventureRepository.findAll().stream().map(adventure -> toAdventureDto(adventure)).collect(Collectors.toList());
     }
+    
+    @RequestMapping(value = "/world/{id}",method = RequestMethod.GET)
+    public List<AdventureDto> getAllAdventuresForWorld(@PathVariable(value = "id") Long world_id){
+    	World w = worldRepository.findById(world_id);
+        return this.adventureRepository.findByWorld(w).stream().map(adventure -> toAdventureDto(adventure)).collect(Collectors.toList());
+    }
 	
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public AdventureDto getAdventureById(@PathVariable(value = "id") Long id) {
         Adventure adventure = this.adventureRepository.findOne(id);
         return toAdventureDto(adventure);
     }
-
-    @RequestMapping(value = "/{developer_id}/{world_id}", method = RequestMethod.GET)
-    public List<List<AdventureDto>> getAdventureByDeveloperAndWorld(@PathVariable(value = "developer_id") Long developer_id, @PathVariable(value = "world_id") Long world_id) {
-    	List<List<Adventure>> adventures = this.adventureService.getAllAdventuresForWorldAndDeveloper(worldRepository.findOne(world_id), developerRepository.findOne(developer_id));
+    
+   
+    
+    @RequestMapping(value = "/getJoined/{developer_id}/{world_id}", method = RequestMethod.GET)
+    public List<AdventureDto> getJoinedAdventures(@PathVariable(value = "developer_id") Long developer_id, @PathVariable(value = "world_id") Long world_id) {
+    	World w = worldRepository.findOne(world_id);
+    	Developer d = developerRepository.findOne(developer_id);
+    	List<Adventure> adventures = this.adventureService.getJoinedAdventuresForDeveloperInWorld(w, d);
         return AdventureDto.toAdventuresDto(adventures);
     }
+    
+    @RequestMapping(value = "/getFree/{developer_id}/{world_id}", method = RequestMethod.GET)
+    public List<AdventureDto> getFreeAdventures(@PathVariable(value = "developer_id") Long developer_id, @PathVariable(value = "world_id") Long world_id) {
+    	World w = worldRepository.findOne(world_id);
+    	Developer d = developerRepository.findOne(developer_id);
+    	List<Adventure> adventures = this.adventureService.getFreeAdventuresForDeveloperInWorld(w, d);
+        return AdventureDto.toAdventuresDto(adventures);
+    }
+    
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
@@ -117,6 +138,7 @@ public class AdventureController {
         return toAdventureDto(adventure);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{adventureId}/addDeveloper/{developerId}",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AdventureDto addDeveloper(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
@@ -125,17 +147,7 @@ public class AdventureController {
         return toAdventureDto(adventure);
     }
 
-    
-
-    @RequestMapping(value = "/{adventureId}/addDeveloperAndGetFullList/{developerId}",method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<List<AdventureDto>> addDeveloperAndGetFullList(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-        Adventure adventure = adventureService.addDeveloperToAdventure(adventureId, developerId);
-    	List<List<Adventure>> adventures = this.adventureService.getAllAdventuresForWorldAndDeveloper(worldRepository.findOne(adventure.getWorld().getId()), developerRepository.findOne(developerId));
-        
-        return AdventureDto.toAdventuresDto(adventures);
-    }
-
+ 
     
     
     /**
@@ -144,6 +156,7 @@ public class AdventureController {
      * @param developerId The id of the developer to remove
      * @return Gives the adventure where the Developer was removed
      */
+    @CrossOrigin
     @RequestMapping(value = "/{adventureId}/deleteDeveloper/{developerId}",method = RequestMethod.DELETE)
     public AdventureDto deleteDeveloper(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
     	Adventure adventure = adventureService.removeDeveloperFromAdventure(adventureId, developerId);
@@ -151,19 +164,6 @@ public class AdventureController {
         return toAdventureDto(adventure);
     }
     
-    /**
-     *     
-     * @param adventureId The id of the adventure
-     * @param developerId The id of the developer to remove
-     * @return Gives all adventures for Developer and World
-     */
-    @RequestMapping(value = "/{adventureId}/deleteDeveloperAndGetFullList/{developerId}", method = RequestMethod.POST)
-    public List<List<AdventureDto>> deleteDeveloperAndGetFullList(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "developerId") Long developerId) {
-    	Adventure adventure = adventureService.removeDeveloperFromAdventure(adventureId, developerId);
-        List<List<Adventure>> adventures = this.adventureService.getAllAdventuresForWorldAndDeveloper(worldRepository.findOne(adventure.getWorld().getId()), developerRepository.findOne(developerId));
-        
-        return AdventureDto.toAdventuresDto(adventures);
-    }
     
 
     

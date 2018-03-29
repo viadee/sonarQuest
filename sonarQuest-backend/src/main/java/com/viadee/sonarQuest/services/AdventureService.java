@@ -47,22 +47,38 @@ public class AdventureService {
         }
     }
     
-	public List<List<Adventure>> getAllAdventuresForWorldAndDeveloper(World world, Developer developer) {
-    	
+	
+	
+	/**
+	 * expects a developer object and the current world and returns the adventures that the developer has already joined. 
+	 * 
+	 * @param world
+	 * @param developer
+	 * @return allAdventuresForDeveloper
+	 */
+	public List<Adventure> getJoinedAdventuresForDeveloperInWorld(World world, Developer developer) {
     	List<Developer>   developers = new ArrayList<>();
-    	List<List<Adventure>> result = new ArrayList<>();
-    	
     	developers.add(developer);
-        List<Adventure> allAdventuresForDeveloper = this.adventureRepository.findByDevelopers(developers);
-        List<Adventure> freeAdventuresforWorld    = this.adventureRepository.findByWorld(world);
-        freeAdventuresforWorld.removeAll(allAdventuresForDeveloper);
-    
-        result.add(allAdventuresForDeveloper);
-        result.add(freeAdventuresforWorld);
-        
-        return result;
+        List<Adventure> allAdventuresForDeveloper = this.adventureRepository.findByDevelopersAndWorld(developers, world);
+         
+        return allAdventuresForDeveloper;
     }
 	
+	
+	/**
+	 * expects a developer object and the current world and returns the adventures that the developer can still enter.
+	 * 
+	 * @param world
+	 * @param developer
+	 * @return freeAdventuresForDeveloperInWorld
+	 */
+	public List<Adventure> getFreeAdventuresForDeveloperInWorld(World world, Developer developer) {
+        List<Adventure> freeAdventuresForDeveloperInWorld  = this.adventureRepository.findByWorld(world);
+        freeAdventuresForDeveloperInWorld.removeAll(getJoinedAdventuresForDeveloperInWorld(world, developer));
+            
+        return freeAdventuresForDeveloperInWorld;
+    }
+
 	
 	/**
 	 * Removes the developer from adventure

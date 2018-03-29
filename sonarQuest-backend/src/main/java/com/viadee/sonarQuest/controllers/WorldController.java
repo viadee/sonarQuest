@@ -1,7 +1,9 @@
 package com.viadee.sonarQuest.controllers;
 
 import com.viadee.sonarQuest.dtos.WorldDto;
+import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.WorldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,28 @@ public class WorldController {
 
     @Autowired
     private WorldRepository worldRepository;
+    
+    @Autowired
+    private DeveloperRepository developerRepository;
 
     @Autowired
     private WorldService worldService;
 
+    
     @RequestMapping(method = RequestMethod.GET)
     public List<WorldDto> getAllWorlds() {
         return this.worldRepository.findAll().stream().map(world -> toWorldDto(world)).collect(Collectors.toList());
     }
+    
 
+    @CrossOrigin
+    @RequestMapping(value = "/developer/{developer_id}", method = RequestMethod.GET)
+    public WorldDto getCurrentWorld(@PathVariable(value = "developer_id") Long developer_id) {
+    	Developer d = this.developerRepository.findById(developer_id);
+    	World w = this.worldService.getCurrentWorld(d);
+    	return toWorldDto(w);
+    }
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public WorldDto getWorldById(@PathVariable(value = "id") Long id) {
         World world = this.worldRepository.findOne(id);
@@ -52,8 +67,6 @@ public class WorldController {
         return worlds.stream().map(world -> toWorldDto(world)).collect(Collectors.toList());
 
     }
-
-
 
 
 }

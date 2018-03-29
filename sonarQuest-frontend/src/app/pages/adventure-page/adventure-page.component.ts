@@ -1,3 +1,4 @@
+import { isUndefined } from 'util';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -5,7 +6,6 @@ import {
   TdDataTableSortingOrder,
   IPageChangeEvent
 } from "@covalent/core";
-
 import { AdventureService } from '../../services/adventure.service';
 import { DeveloperService } from '../../services/developer.service';
 import { WorldService } from '../../services/world.service';
@@ -18,34 +18,36 @@ import { World } from '../../Interfaces/World';
   templateUrl: './adventure-page.component.html',
   styleUrls: ['./adventure-page.component.css']
 })
+
 export class AdventurePageComponent implements OnInit {
 
-  developer: Developer;
-  currentWorld: World;
+  public developer: Developer;
+  public currentWorld: World;
 
-    columns: ITdDataTableColumn[] = [
-      { name: 'title', label: 'Titel', width: 200},
-      { name: 'gold', label: 'Gold'},
-      { name: 'xp', label: 'XP'},
-      { name: 'story', label: 'Erzählung'},
-      { name: 'status', label: 'Status'},
-      { name: 'edit', label: '', width: 70}
-    ]
+  columns: ITdDataTableColumn[] = [
+    { name: 'title', label: 'Titel', width: 200 },
+    { name: 'gold', label: 'Gold' },
+    { name: 'xp', label: 'XP' },
+    { name: 'story', label: 'Erzählung' },
+    { name: 'status', label: 'Status' },
+    { name: 'edit', label: '', width: 70 }
+  ]
 
-  sortBy = 'title'; 
+  sortBy = 'title';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
   selectedRows: any[] = [];
-  filteredMyAdventures: Adventure[];
-  filteredAvailableAdventures: Adventure[];
   filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
   pageSize = 50;
 
-  public adventures: Adventure[];
   public myAdventures: Adventure[];
   public availableAdventures: Adventure[];
+
+  public filteredMyAdventures: Adventure[];
+  public filteredAvailableAdventures: Adventure[];
+
   constructor(
     public adventureService: AdventureService,
     public worldService: WorldService,
@@ -66,44 +68,46 @@ export class AdventurePageComponent implements OnInit {
         { name: 'edit', label: '' }]
     }); */
 
-    
+
 
     this.developerService.avatar$.subscribe({
       next: developer => {
         this.developer = developer;
-        this.loadAdventures()
+        this.loadAdventures();
       }
     })
 
     this.worldService.currentWorld$.subscribe({
       next: world => {
         this.currentWorld = world;
-        this.loadAdventures()
+        this.loadAdventures();
       }
     })
+
   }
 
   loadAdventures() {
-    if (this.currentWorld && this.developer){
-      return this.adventureService.getAdventuresByDeveloperAndWorld(this.currentWorld, this.developer).subscribe(
-        result => {
-          this.myAdventures = result[0];
-          this.availableAdventures = result[1];
-          this.filter();
-        }
-      );
+    if (this.currentWorld && !isUndefined(this.currentWorld.id) && this.developer) {
+      this.adventureService.getFreeAdventures(this.currentWorld, this.developer).subscribe(availableAdventures => {
+        this.availableAdventures         = availableAdventures
+        this.filteredAvailableAdventures = this.filterAdventures(this.availableAdventures);
+      })
+      this.adventureService.getMyAdventures(this.currentWorld, this.developer).subscribe(myAdventures => {
+        this.myAdventures                = myAdventures
+        this.filteredMyAdventures        = this.filterAdventures(this.myAdventures);
+      })
     }
-    
   }
 
   leaveAdventure(row) {
-    this.adventureService.leaveAdventure(row, this.developer)
+    this.adventureService.leaveAdventure(row, this.developer).then(()=> this.loadAdventures() );
   }
 
   joinAdventure(row) {
-    this.adventureService.joinAdventure(row, this.developer)
+    this.adventureService.joinAdventure(row, this.developer).then(()=> this.loadAdventures() );
   }
 
+  
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
@@ -122,7 +126,7 @@ export class AdventurePageComponent implements OnInit {
     this.filter();
   }
 
-  filter(){
+  filter() {
     this.filteredAvailableAdventures = this.filterAdventures(this.availableAdventures);
     this.filteredMyAdventures = this.filterAdventures(this.myAdventures);
   }
@@ -132,7 +136,7 @@ export class AdventurePageComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

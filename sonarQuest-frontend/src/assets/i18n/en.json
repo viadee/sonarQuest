@@ -9,12 +9,20 @@
         "ADMIN"         : "Admin"
     },
     "ADVENTURE_PAGE": {
-        "MY_ADVENTURES"         : "My Adventures",
-        "AVAILABLE_ADVENTURES"  : "Available Adventures"
+        "MY_ADVENTURES"                     : "My Adventures",
+        "MY_ADVENTURES_FOR_WORLD"           : "My Adventures for ",
+        "ADVENTURES_FOR_WORLD"              : "All Adventures for ",
+        "AVAILABLE_ADVENTURES"              : "Available Adventures",
+        "AVAILABLE_ADVENTURES_FOR_WORLD"    : "Available Adventures for "
     },
     "QUEST_PAGE": {
-        "MY_QUESTS"         : "My Quests",
-        "AVAILABLE_QUESTS"  : "Available Quests"
+        "MY_QUESTS"                     : "My Quests",
+        "MY_QUESTS_FOR_WORLD"           : "My Quests for ",
+        "QUESTS_FOR_WORLD"              : "All Quests for ",
+        "JOIN_QUEST"                    : "Join Quest",
+        "AVAILABLE_QUESTS"              : "Available Quests",
+        "AVAILABLE_QUESTS_FOR_WORLD"    : "Available Quests for ",
+        "COMBATED_BY"                   : "combated by"
     },
     "ADMIN_PAGE":{
         "ALL_DEVELOPER"     : "All Developer",
@@ -24,12 +32,6 @@
     },
     "START_PAGE": {
         "CURRENT_PROGRESS"  : "Current Progress"
-    },
-    "QUEST_PAGE": {
-        "MY_QUESTS"   : "My Quests",
-        "JOIN_QUEST"  : "Join Quest",
-        "AVAILABLE_QUESTS"  : "Available Quests",
-        "COMBATED_BY" : "combated by"
     },
     "GAMEMASTER_PAGE": {
         "ADVENTURE": {
@@ -92,19 +94,23 @@
         "NEW_ADVENTURE" :"New Adventure"
     },
     "WORLD" :{
-        "WORLD"     :"World",
-        "WORLDS"    :"Worlds",
-        "ACTIVE"    :"Active"
+        "WORLD"         :"World",
+        "WORLDS"        :"Worlds",
+        "ACTIVE"        :"Active",
+        "CHOOSE_WORLD"  :"Choose your current world"
     },
     "TASK"  :{
-        "TASK"          :"Task",
-        "TASKS"         :"Tasks",
-        "SPECIALTASK"   :"Special Task",
-        "STANDARDTASK"  :"Standard Task",
-        "NEW_SPECIALTASK"   :"New Special Task",
-        "NEW_STANDARDTASK"  :"New Standard Task",
-        "ADD_FREE_TASK" :"Add free task",
-        "NO_FREE_TASKS_AVAILABLE" : "No free tasks available"
+        "TASK"                      : "Task",
+        "TASKS"                     : "Tasks",
+        "SPECIALTASK"               : "Special Task",
+        "STANDARDTASK"              : "Standard Task",
+        "NEW_SPECIALTASK"           : "New Special Task",
+        "NEW_STANDARDTASK"          : "New Standard Task",
+        "ADD_FREE_TASK"             : "Add free task",
+        "NO_FREE_TASKS_AVAILABLE"   : "No free tasks available",
+        "SPECIALTASK_FOR_WORLD"     : "All Special Tasks for ",
+        "STANDARDTASK_FOR_WORLD"    : "All Standard Tasks for ",
+        "AVAILABLE_TASKS"           : "Available Tasks"
 
     },
     "ARTEFACT" : {

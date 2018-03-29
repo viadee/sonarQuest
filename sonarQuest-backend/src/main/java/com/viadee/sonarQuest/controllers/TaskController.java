@@ -33,6 +33,7 @@ import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.GratificationService;
 import com.viadee.sonarQuest.services.ParticipationService;
 import com.viadee.sonarQuest.services.QuestService;
+import com.viadee.sonarQuest.services.SpecialTaskService;
 import com.viadee.sonarQuest.services.StandardTaskService;
 
 @RestController
@@ -56,6 +57,9 @@ public class TaskController {
 
     @Autowired
     private StandardTaskService standardTaskService;
+
+    @Autowired
+    private SpecialTaskService specialTaskService;
 
     @Autowired
     private WorldRepository worldRepository;
@@ -83,6 +87,20 @@ public class TaskController {
         return taskDtos;
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
+    public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+    	World w = worldRepository.findOne(world_id);
+        final List<List<TaskDto>> taskDtos = new ArrayList<>();
+        List<TaskDto> specialTaskDtos = new ArrayList<>();
+        List<TaskDto> standardTaskDtos = new ArrayList<>();
+        specialTaskDtos = this.specialTaskRepository.findByWorld(w).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+        standardTaskDtos = this.standardTaskRepository.findByWorld(w).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+        taskDtos.add(specialTaskDtos);
+        taskDtos.add(standardTaskDtos);
+        return taskDtos;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public TaskDto getTaskById(@PathVariable(value = "id") final Long id) {
         final Task task = this.taskRepository.findById(id);
@@ -92,11 +110,9 @@ public class TaskController {
     @CrossOrigin
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public SpecialTask createTask(@RequestBody final SpecialTaskDto specialTaskDto) {
-        return this.specialTaskRepository
-                .save(new SpecialTask(specialTaskDto.getTitle(), TaskStates.CREATED, specialTaskDto.getGold(),
-                        specialTaskDto.getXp(), specialTaskDto.getQuest(), specialTaskDto.getMessage()));
-
+    public SpecialTaskDto createTask(@RequestBody SpecialTaskDto specialTaskDto) {
+    	this.specialTaskService.saveDto(specialTaskDto);
+    	return specialTaskDto;
     }
 
     @CrossOrigin
@@ -128,17 +144,19 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/getAllFreeForWorld/{worldId}", method = RequestMethod.GET)
-    public List<TaskDto> getAllFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
+    @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
+    public List<TaskDto> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
         List<TaskDto> freeTasks = null;
         if (world != null) {
-            List<TaskDto> freeSpecialTasks = null;
-            freeTasks = this.taskRepository.findByWorldAndStatus(world, TaskStates.CREATED).stream()
-                    .map(task -> toTaskDto(task)).collect(Collectors.toList());
-            freeSpecialTasks = this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream()
-                    .map(specialTask -> toTaskDto(specialTask)).collect(Collectors.toList());
+            // List<TaskDto> freeSpecialTasks = null;
+            freeTasks = this.taskRepository.findByWorldAndStatus(world, TaskStates.CREATED).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+            
+            /* 
+             * @Florian - For what?
+            freeSpecialTasks = this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map(specialTask -> toTaskDto(specialTask)).collect(Collectors.toList());
             freeTasks.addAll(freeSpecialTasks);
+             */
         }
         return freeTasks;
     }

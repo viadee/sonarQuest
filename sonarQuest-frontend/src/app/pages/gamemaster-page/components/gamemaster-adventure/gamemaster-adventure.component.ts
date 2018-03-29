@@ -1,3 +1,4 @@
+import { WorldService } from './../../../../services/world.service';
 import { GamemasterAdventureEditComponent } from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
 import { Adventure } from './../../../../Interfaces/Adventure';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import {MatDialog} from "@angular/material";
 import {AdventureService} from "../../../../services/adventure.service";
 import {GamemasterAdventureCreateComponent} from "./components/gamemaster-adventure-create/gamemaster-adventure-create.component";
 import {QuestService} from "../../../../services/quest.service";
+import { World } from '../../../../Interfaces/World';
 
 @Component({
   selector: 'app-gamemaster-adventure',
@@ -18,6 +20,7 @@ import {QuestService} from "../../../../services/quest.service";
 })
 export class GamemasterAdventureComponent implements OnInit {
 
+  currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id'},
@@ -42,14 +45,18 @@ export class GamemasterAdventureComponent implements OnInit {
 
   constructor(private _dataTableService: TdDataTableService,
               private questService: QuestService,
+              private worldService: WorldService,
               private dialog: MatDialog, private adventureService: AdventureService) { }
 
   ngOnInit() {
-    this.loadAdventures();
+    this.worldService.currentWorld$.subscribe(w => {
+      this.currentWorld = w
+      if (w) this.loadAdventures();
+    })
   }
 
   loadAdventures(){
-    return this.adventureService.getAdventures().subscribe(adventures => {
+    return this.adventureService.getAdventuresForWorld(this.currentWorld).subscribe(adventures => {
       this.data = adventures;
       this.filter();
     });
@@ -58,14 +65,14 @@ export class GamemasterAdventureComponent implements OnInit {
   newAdventure(){
     this.dialog.open(GamemasterAdventureCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>{
       this.loadAdventures();
-      this.questService.refreshQuests();
+      this.questService.refreshQuests(this.currentWorld);
     });
   }
 
   editAdventure(adventure: Adventure){
     this.dialog.open(GamemasterAdventureEditComponent,{data: adventure, width: "500px"}).afterClosed().subscribe(()=>{
       this.loadAdventures();
-      this.adventureService.refreshAdventures();
+      this.adventureService.refreshAdventures(this.currentWorld);
     })
   }
 

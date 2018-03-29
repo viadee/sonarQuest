@@ -1,41 +1,62 @@
+import { World } from './../Interfaces/World';
+import { WorldService } from './world.service';
+import { Developer } from './../Interfaces/Developer.d';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
 import { HttpModule, Http, Response, RequestOptions, Headers } from "@angular/http";
-import { Developer } from "../Interfaces/Developer";
-
 @Injectable()
 export class DeveloperService {
 
-  developerSubject: Subject<Developer>   = new ReplaySubject();
-  avatar$                                = this.developerSubject.asObservable();
-  developersSubject:Subject<Developer[]> = new ReplaySubject();
-  developers$                            = this.developersSubject.asObservable();
+  developerSubject: Subject<Developer> = new ReplaySubject(1);
+  avatar$ = this.developerSubject.asObservable();
+  developersSubject: Subject<Developer[]> = new ReplaySubject(1);
+  developers$ = this.developersSubject.asObservable();
 
-  constructor(public http: Http) { 
-    this.getMyAvatar()
+  constructor(
+    public http: Http,
+    private worldService: WorldService
+  ) {
   }
 
   getMyAvatar(): Observable<Developer> {
     this.http.get(`${environment.endpoint}/developer/1`)
       .map(this.extractData)
       .subscribe(
-        result => this.developerSubject.next(result),
-        err    => this.developerSubject.error(err)
+        developer => {
+          this.developerSubject.next(developer)
+          this.worldService.worldSubject.next(developer.world)
+        },
+        err => this.developerSubject.error(err)
       );
     return this.developerSubject;
   }
 
-  getDevelopers(): Observable<Developer[]>{
+  getDevelopers(): Observable<Developer[]> {
     this.http.get(`${environment.endpoint}/developer`)
       .map(this.extractData)
       .subscribe(
-        value => {this.developersSubject.next(value)},
-        err   => {this.developersSubject.error(err)}
+        value => { this.developersSubject.next(value) },
+        err => { this.developersSubject.error(err) }
       );
-     return this.developersSubject
+    return this.developersSubject
+  }
+
+  updateCurrentWorldToDeveloper(world: any, developer: any): Observable<Developer>{
+    this.http.get(`${environment.endpoint}/developer/${developer.id}/updateWorld/${world.id}`)
+      .map(this.extractData)
+      .subscribe(
+        developer => { 
+          this.developerSubject.next(developer)
+          this.worldService.worldSubject.next(developer.world)
+        },
+        err   => { 
+          this.developerSubject.error(err)
+        }
+      );
+      return this.developerSubject;          
   }
 
 
@@ -57,7 +78,7 @@ export class DeveloperService {
       .catch(this.handleError);
   }
 
-  deleteDeveloper(developer: Developer): Promise<any>{
+  deleteDeveloper(developer: Developer): Promise<any> {
     return this.http.delete(`${environment.endpoint}/developer/${developer.id}`)
       .toPromise()
   }

@@ -124,7 +124,8 @@ public  abstract class TaskDto {
                     task.getXp(),
                     task.getQuest(),
                     task.getParticipation(),
-                    ((SpecialTask) task).getMessage());
+                    ((SpecialTask) task).getMessage(),
+                    task.getWorld());
             taskDto = specialTaskDto;
         }
         return taskDto;

@@ -1,3 +1,6 @@
+import { MatDialog } from '@angular/material';
+import { ChooseCurrentWorldComponent } from './components/choose-current-world/choose-current-world/choose-current-world.component';
+import { isUndefined } from 'util';
 import { Component } from '@angular/core';
 import { TdMediaService } from '@covalent/core';
 import { Router } from '@angular/router';
@@ -17,33 +20,55 @@ export class AppComponent {
   public developer: Developer;
   public currentWorld: World;
   public worlds: World[];
-  public selectedWorld: World;
   public pageNames: any;
+  public selected
 
   constructor(public media: TdMediaService,
     public router: Router,
     public developerService: DeveloperService,
     public worldService: WorldService,
-    public translate: TranslateService) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+    public translate: TranslateService,
+    private dialog: MatDialog) {
 
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
+    translate.use('en'); // the lang to use, if the lang isn't available, it will use the current loader to get them    ,
+
+
+    this.developerService.avatar$.subscribe(developer => {
+      this.developer = developer
+    })
+
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds
+      this.setSelected();
+    })
+
+    this.worldService.currentWorld$.subscribe(world => {
+      if (world && !isUndefined(world.id)) {
+        this.currentWorld = world;
+        this.setSelected();
+      } else {
+        this.dialog.open(ChooseCurrentWorldComponent, { width: "500px" }).afterClosed().subscribe()
+      }
+    })
+
+    this.developerService.getMyAvatar()
+    
   }
 
-  ngAfterViewInit(): void {
+  setSelected() {
+    if (this.worlds && this.currentWorld) {
+      this.selected = this.worlds.filter(world => { return (world.name == this.currentWorld.name) })[0]
+    }
+  }
+
+  ngAfterViewInit() {
     this.media.broadcast();
     this.translate.get("APP_COMPONENT").subscribe((page_names) => {
       this.pageNames = page_names;
     })
-
-    this.developerService.avatar$.subscribe(developer => this.developer = developer)
-
-    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
-
-    this.worldService.worlds$.subscribe(worlds => this.worlds = worlds)
   }
+
 
   determinePageTitle(url: string): string {
     if (this.pageNames) {
@@ -68,6 +93,11 @@ export class AppComponent {
     } else {
       return ""
     }
-
   }
+
+
+  updateWorld(world: World) {
+    this.developerService.updateCurrentWorldToDeveloper(world, this.developer)
+  }
+
 }

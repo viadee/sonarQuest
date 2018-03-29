@@ -4,8 +4,10 @@ import com.viadee.sonarQuest.controllers.AdventureController;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.QuestController;
 import com.viadee.sonarQuest.controllers.TaskController;
+import com.viadee.sonarQuest.controllers.WorldController;
 import com.viadee.sonarQuest.dtos.AdventureDto;
 import com.viadee.sonarQuest.dtos.QuestDto;
+import com.viadee.sonarQuest.dtos.WorldDto;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.WorldService;
@@ -46,6 +48,8 @@ public class SonarQuestApplication implements CommandLineRunner{
 		World firstWorld = worldRepository.findOne((long)1);
 		firstWorld.setActive(true);
 		worldRepository.save(firstWorld);
+		
+		
 		taskController.updateStandardTasksForWorld((long)1);
 
 		//Create Quests
@@ -104,5 +108,9 @@ public class SonarQuestApplication implements CommandLineRunner{
 		participationController.createParticipation((long)1,(long)1);
 		participationController.createParticipation((long)2,(long)1);
 		participationController.createParticipation((long)4,(long)1);
+		
+		
+		WorldDto wdto = new WorldDto(null,"WorldTEST", "com.viadee:TESTTESTTEST", true, null,null);
+		worldService.createWorld(wdto);
 	}
 }

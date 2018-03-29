@@ -2,7 +2,9 @@ package com.viadee.sonarQuest.controllers;
 
 import com.viadee.sonarQuest.dtos.DeveloperDto;
 import com.viadee.sonarQuest.entities.Developer;
+import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
+import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.DeveloperService;
 import com.viadee.sonarQuest.services.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,20 @@ import java.util.stream.Collectors;
 public class DeveloperController {
 
     private DeveloperRepository developerRepository;
+    
+    private WorldRepository worldRepository;
 
     private LevelService levelService;
     
     private DeveloperService developerService;
 
     @Autowired
-    public DeveloperController(DeveloperRepository developerRepository, LevelService levelService, DeveloperService developerService) {
+    public DeveloperController(DeveloperRepository developerRepository, LevelService levelService, DeveloperService developerService, WorldRepository worldRepository) {
         this.developerRepository = developerRepository;
         this.levelService = levelService;
         this.developerService = developerService;
+        this.worldRepository = worldRepository;
+        
     }
 
     /**
@@ -70,6 +76,26 @@ public class DeveloperController {
     public DeveloperDto createDeveloper(@RequestBody DeveloperDto developerDto) {
     	return this.toDeveloperDto(this.developerService.createDeveloper(developerDto));
     }
+    
+    
+    
+    /**
+     * 
+     * @param world_id
+     * @param developer_id
+     * @return DeveloperDto
+     */
+    @CrossOrigin
+    @RequestMapping(value = "/{id}/updateWorld/{world_id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.CREATED)
+    public DeveloperDto updateWorld(@PathVariable(value = "id") Long developer_id, @PathVariable(value = "world_id") Long  world_id) {
+    	World 		w = this.worldRepository.findById(world_id);
+    	Developer 	d = this.developerRepository.findById(developer_id);
+    	
+    	d = this.developerService.setWorld(d,w);
+
+        return this.toDeveloperDto(d);
+    }
 
 
     @CrossOrigin
@@ -107,7 +133,7 @@ public class DeveloperController {
     private DeveloperDto toDeveloperDto(Developer developer) {
         DeveloperDto developerDto = null;
         if(developer != null){
-            developerDto = new DeveloperDto(developer.getId(), developer.getUsername(), developer.getGold(), developer.getXp(), developer.getLevel(),developer.getPicture(),developer.getAboutMe(), developer.getAvatarClass(),developer.getAvatarRace(),developer.getArtefacts(),developer.getAdventures(),developer.getParticipations());
+            developerDto = new DeveloperDto(developer.getId(), developer.getUsername(), developer.getGold(), developer.getXp(), developer.getLevel(),developer.getPicture(),developer.getAboutMe(), developer.getAvatarClass(),developer.getAvatarRace(),developer.getArtefacts(),developer.getAdventures(),developer.getParticipations(),developer.getWorld());
         }
         return developerDto;
     }

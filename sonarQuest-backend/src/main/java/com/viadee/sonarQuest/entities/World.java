@@ -45,7 +45,16 @@ public class World {
         this.active = active;
     }
 
-    public World(Long id, String name, String project, Boolean active, List<Adventure> adventures, List<Quest> quests, List<Task> tasks) {
+	public World(Long id, String name, String project, Boolean active, List<Quest> quests, List<Task> tasks) {
+		this.id = id;
+		this.name = name;
+		this.project = project;
+		this.active = active;
+		this.quests = quests;
+		this.tasks = tasks;
+	}
+
+	public World(Long id, String name, String project, Boolean active, List<Adventure> adventures, List<Quest> quests, List<Task> tasks) {
         this.id = id;
         this.name = name;
         this.project = project;
@@ -54,6 +63,7 @@ public class World {
         this.quests = quests;
         this.tasks = tasks;
     }
+    
 
     public Long getId() {
         return id;

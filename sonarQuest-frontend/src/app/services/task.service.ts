@@ -20,14 +20,14 @@ export class TaskService {
     private standardTaskService: StandardTaskService,
     private specialTaskService: SpecialTaskService, ) { }
 
-  getTasks(): Observable<any> {
+ /*  getTasks(): Observable<any> {
     return this.http.get(`${environment.endpoint}/task`)
       .map(this.extractData).catch(this.handleError)
 
-  }
+  } */
 
   getFreeTasksForWorld(world: World): Promise<any> {
-    return this.http.get(`${environment.endpoint}/task/getAllFreeForWorld/${world.id}`)
+    return this.http.get(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -52,16 +52,15 @@ export class TaskService {
   updateTask(task: any): Promise<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log(task);
     return this.http.put(`${environment.endpoint}/task/${task.id}`, task, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
-  refreshTasks() {
-    this.standardTaskService.getStandardTasks();
-    this.specialTaskService.getSpecialTasks();
+  refreshTasks(world: World) {
+    this.standardTaskService.getStandardTasksForWorld(world);
+    this.specialTaskService.getSpecialTasksForWorld(world);
   }
 
   updateStandardTasksForWorld(world: World) {

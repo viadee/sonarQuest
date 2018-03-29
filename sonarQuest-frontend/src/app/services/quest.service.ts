@@ -19,8 +19,8 @@ export class QuestService {
     this.questSubject = new Subject();
   }
 
-  getQuests(): Observable<Quest[]> {
-    this.http.get(`${environment.endpoint}/quest`)
+  getQuestsForWorld(world: World): Observable<Quest[]> {
+    this.http.get(`${environment.endpoint}/quest/world/${world.id}`)
       .map(this.extractData)
       .subscribe(
         result => this.questSubject.next(result),
@@ -98,8 +98,8 @@ export class QuestService {
     return this.getAllQuestsForWorldAndDeveloper(world,developer).then(quests=>quests[1])
   }
 
-  refreshQuests(){
-    this.getQuests();
+  refreshQuests(world: World){
+    this.getQuestsForWorld(world);
   }
 
   private getAllQuestsForWorldAndDeveloper(world: World, developer: Developer){

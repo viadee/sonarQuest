@@ -3,6 +3,7 @@ package com.viadee.sonarQuest.services;
 import com.viadee.sonarQuest.dtos.DeveloperDto;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Level;
+import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.LevelRepository;
 
@@ -57,6 +58,13 @@ public class DeveloperService {
 	
 	public List<Developer> findActiveDevelopers(){
 		return this.developerRepository.findByDeleted(false);
+	}
+
+	public Developer setWorld(Developer d, World w) {
+		d.setWorld(w);
+		developerRepository.save(d);
+
+		return d;
 	}
 
 }

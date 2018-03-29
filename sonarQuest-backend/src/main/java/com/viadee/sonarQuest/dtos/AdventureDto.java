@@ -130,39 +130,19 @@ public class AdventureDto {
     }
     
     /**
-     * In the first list are the adventures for the Developer<br> 
-     * In the second list are the free adventures for the World<br> 
-     * 
-     * @param adventures		A List with 2 lists of Adventure Objects
-     * @return adventuresDto	A List with 2 lists of AdventureDto Objects
+     * Converts a list of adventures to a list of adventuresDto
+     * @param adventures
+     * @return adventuresDto
      */
-    public static List<List<AdventureDto>> toAdventuresDto(List<List<Adventure>> adventures) {
-    	List<List<AdventureDto>> adventuresDto = new ArrayList<>();
-    	List<AdventureDto> myAdventuresDto   = new ArrayList<>();
-    	List<AdventureDto> freeAdventuresDto = new ArrayList<>();
-    	
-        if (adventures != null) {
-        	if (adventures.get(0) != null) {
-        		Iterator<Adventure> i1 = adventures.get(0).iterator();
-        		while(i1.hasNext()) {
-        			Adventure adventure = i1.next();
-        			AdventureDto adventureDto = new AdventureDto(adventure.getId(), adventure.getTitle(), adventure.getStory(), adventure.getStatus(), adventure.getGold(), adventure.getXp(), adventure.getWorld(), adventure.getQuests(), adventure.getDevelopers());
-        			myAdventuresDto.add(adventureDto);
-        		}
+    public static List<AdventureDto> toAdventuresDto(List<Adventure> adventures) {
+    	List<AdventureDto> adventuresDto = new ArrayList<>();
+    
+        	Iterator<Adventure> it = adventures.iterator();
+        	while(it.hasNext()) {
+        		Adventure adventure = it.next();
+        		adventuresDto.add(toAdventureDto(adventure));
         	}
-        	
-        	if (adventures.get(1) != null) {
-        		Iterator<Adventure> i1 = adventures.get(1).iterator();
-        		while(i1.hasNext()) {
-        			Adventure adventure = i1.next();
-        			AdventureDto adventureDto = new AdventureDto(adventure.getId(), adventure.getTitle(), adventure.getStory(), adventure.getStatus(), adventure.getGold(), adventure.getXp(), adventure.getWorld(), adventure.getQuests(), adventure.getDevelopers());
-        			freeAdventuresDto.add(adventureDto);
-        		}
-        	}
-        }
         
-        adventuresDto.add(myAdventuresDto);
-        adventuresDto.add(freeAdventuresDto);
         return adventuresDto;
     }
 }

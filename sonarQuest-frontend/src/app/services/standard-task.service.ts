@@ -20,8 +20,8 @@ export class StandardTaskService {
     this.standardTaskSubject = new ReplaySubject(1);
   }
 
-  getStandardTasks(): Observable<StandardTask[]> {
-    this.http.get(`${environment.endpoint}/task`)
+  getStandardTasksForWorld(world: World): Observable<StandardTask[]> {
+    this.http.get(`${environment.endpoint}/task/world/${world.id}`)
       .map(response =>{
         let tasks=this.extractData(response);
         return tasks[1];
@@ -35,7 +35,6 @@ export class StandardTaskService {
   updateStandardTask(task: any): Promise<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log(task);
     return this.http.put(`${environment.endpoint}/task/${task.id}`, task, options)
       .toPromise()
       .then(this.extractData)

@@ -1,3 +1,5 @@
+import { Developer } from './../Interfaces/Developer.d';
+import { DeveloperService } from './developer.service';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -14,23 +16,20 @@ export class WorldService {
   currentWorld$                   = this.worldSubject.asObservable();
   worldsSubject: Subject<World[]> = new ReplaySubject(1);
   worlds$                         = this.worldsSubject.asObservable();
+  developer: Developer;
 
-  constructor(public http: Http) { 
-    this.getWorlds()
+  constructor(
+    public http: Http
+  ) { 
+    this.getWorlds();
   }
 
   getWorlds(): Observable<World[]> {
     this.http.get(`${environment.endpoint}/world`)
       .map(this.extractData)
       .subscribe(
-        value => {
-          this.worldSubject.next(value[0]) //ToDo: Till now, the current world is a constant
-          this.worldsSubject.next(value)
-        },
-        err    => {
-          this.worldSubject.next(err)
-          this.worldsSubject.next(err)
-        }
+        value => {this.worldsSubject.next(value)},
+        err   => {this.worldsSubject.next(err)}
       );
       return this.worldsSubject
   }
@@ -39,7 +38,6 @@ export class WorldService {
   updateWorld(world: World): Promise<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log(world)
     return this.http.put(`${environment.endpoint}/world/${world.id}`, world, options)
       .toPromise()
       .then(this.extractData)

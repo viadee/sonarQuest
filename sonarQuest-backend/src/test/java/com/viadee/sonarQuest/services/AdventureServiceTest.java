@@ -33,22 +33,13 @@ public class AdventureServiceTest {
 
     @Test
     public void testGetAllAdventuresForWorldAndDeveloper() {
-        if (Settings.DEBUG) {
-            System.out.println("AdventureServiceTest.testGetAllAdventuresForWorldAndDeveloper() started");
-        }
 
         // create mock developer
         final Developer mockDeveloper1 = new Developer();
         mockDeveloper1.setUsername("mockUserAdventureServiceTest1");
-        if (Settings.DEBUG) {
-            System.out.println(" - MockDeveloper created.");
-        }
 
         // create mock world
         final World mockWorld = new World();
-        if (Settings.DEBUG) {
-            System.out.println(" - MockWorld created.");
-        }
 
         // create mock Adventure
         final Adventure mockAdventure1 = new Adventure();
@@ -57,48 +48,41 @@ public class AdventureServiceTest {
         mockAdventure1.setTitle("mockAdventure1");
         mockAdventure2.setTitle("mockAdventure2");
         mockAdventure3.setTitle("mockAdventure3");
-        if (Settings.DEBUG) {
-            System.out.println(" - MockAdventures created: " + mockAdventure1.getTitle() + ", "
-                    + mockAdventure2.getTitle() + ", " + mockAdventure3.getTitle());
-        }
+        
         mockAdventure1.setWorld(mockWorld);
         mockAdventure2.setWorld(mockWorld);
         mockAdventure3.setWorld(mockWorld);
-        if (Settings.DEBUG) {
-            System.out.println(" - Set MockWorld to mockAdventure.");
-        }
+
 
         // a Adventure has a Developers
         mockAdventure1.addDeveloper(mockDeveloper1);
         mockAdventure2.addDeveloper(mockDeveloper1);
-        if (Settings.DEBUG) {
-            System.out.println(" - Add mockDeveloper1 to mockAdventure1 and mockAdventure2.");
-        }
+
 
         // init mock repos
-        final List<Adventure> adventuresByDeveloper = new ArrayList<>();
-        adventuresByDeveloper.add(mockAdventure1);
-        adventuresByDeveloper.add(mockAdventure2);
+        final List<Adventure> adventuresByDeveloperAndWorld = new ArrayList<>();
+        adventuresByDeveloperAndWorld.add(mockAdventure1);
+        adventuresByDeveloperAndWorld.add(mockAdventure2);
         final List<Adventure> adventuresByWorld = new ArrayList<>();
         adventuresByWorld.add(mockAdventure1);
         adventuresByWorld.add(mockAdventure2);
         adventuresByWorld.add(mockAdventure3);
+        
         final List<Developer> developers = new ArrayList<>();
         developers.add(mockDeveloper1);
-        when(adventureRepository.findByDevelopers(developers)).thenReturn(adventuresByDeveloper);
+        
+        when(adventureRepository.findByDevelopersAndWorld(developers,mockWorld)).thenReturn(adventuresByDeveloperAndWorld);
         when(adventureRepository.findByWorld(mockWorld)).thenReturn(adventuresByWorld);
 
         // call method to be tested
-        final List<List<Adventure>> result1 = adventureService.getAllAdventuresForWorldAndDeveloper(mockWorld,
-                mockDeveloper1);
+        final List<Adventure> joinedAdventures = adventureService.getJoinedAdventuresForDeveloperInWorld(mockWorld,mockDeveloper1);
+        final List<Adventure> freeAdventures   = adventureService.getFreeAdventuresForDeveloperInWorld(mockWorld,mockDeveloper1);
 
         // verify result
-        assertTrue(result1.get(0).contains(mockAdventure1));
-        assertTrue(result1.get(0).contains(mockAdventure2));
-        assertTrue(result1.get(1).contains(mockAdventure3));
-        if (Settings.DEBUG) {
-            System.out.println(" - Test successfully finished.");
-        }
+        assertTrue(joinedAdventures.contains(mockAdventure1));
+        assertTrue(joinedAdventures.contains(mockAdventure2));
+        assertTrue(freeAdventures.contains(mockAdventure3));
+
 
     }
 }

@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-select placeholder="Welt" [(ngModel)]="world" floatPlaceholder="true" name="world" class="full-width">
+      <mat-select placeholder="Welt" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
         <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
       </mat-select>
     </div>

@@ -25,7 +25,7 @@
   <mat-divider></mat-divider>
   <div layout="column" layout-padding>
   <div flex>
-    <mat-select placeholder="Welt für Questsauswahl" [(ngModel)]="world" floatPlaceholder="true" name="world" class="full-width">
+    <mat-select placeholder="Welt für Questsauswahl" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
       <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
     </mat-select>
   </div>

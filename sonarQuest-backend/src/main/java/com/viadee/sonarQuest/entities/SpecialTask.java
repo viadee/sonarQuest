@@ -14,13 +14,14 @@ public class SpecialTask extends Task {
     public SpecialTask() {
     }
 
-    public SpecialTask(String title, String status, Long gold, Long xp,Quest quest,String message) {
+    public SpecialTask(String title, String status, Long gold, Long xp,Quest quest,String message, World world) {
         this.setTitle(title);
         this.setStatus(status);
         this.setGold(gold);
         this.setXp(xp);
         this.setQuest(quest);
         this.message = message;
+        this.setWorld(world);
     }
 
     public String getMessage() {

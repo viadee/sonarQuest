@@ -21,6 +21,8 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   story: string;
   quests: Quest[] = [];
   currentWorld: World;
+  worlds: World[];
+  selectedWorld: World;
 
   constructor(private dialog: MatDialog,
     private questService: QuestService,
@@ -30,11 +32,24 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world);
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world;
+      this.selectWorld();
+    });
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds;
+      this.selectWorld();
+    })
+  }
+
+  selectWorld(){
+    if(this.worlds && this.currentWorld){
+      this.selectedWorld = this.worlds.filter(world => world.id == this.currentWorld.id)[0]
+    }
   }
 
   addFreeQuest() {
-    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.currentWorld, this.quests] })
+    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.selectedWorld, this.quests] })
       .afterClosed().subscribe(result => {
         if (result) {
           this.quests.push(result)
@@ -49,12 +64,13 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   }
 
   createAdventure() {
-    if (this.title && this.gold && this.xp && this.story && this.currentWorld && (this.quests.length != 0)) {
+    if (this.title && this.gold && this.xp && this.story && this.selectedWorld && (this.quests.length != 0)) {
       let adventure = {
-        title: this.title,
-        gold: this.gold,
-        xp: this.xp,
-        story: this.story
+        title:  this.title,
+        gold:   this.gold,
+        xp:     this.xp,
+        story:  this.story,
+        world:  this.selectedWorld
       }
       this.adventureService.createAdventure(adventure).then((adventure) => {
         if (adventure.id) {

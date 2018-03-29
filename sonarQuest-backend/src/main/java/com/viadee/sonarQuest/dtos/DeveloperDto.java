@@ -30,26 +30,32 @@ public class DeveloperDto {
     private List<Adventure> adventures;
 
     private List<Participation> participations;
+    
+    private World world;
 
     public DeveloperDto() {
     }
 
-    public DeveloperDto(Long id, String username, Long gold, Long xp, Level level, String picture, String aboutMe, AvatarClass avatarClass, AvatarRace avatarRace, List<Artefact> artefacts, List<Adventure> adventures, List<Participation> participations) {
-        this.id = id;
-        this.username = username;
-        this.gold = gold;
-        this.xp = xp;
-        this.level = level;
-        this.picture = picture;
-        this.aboutMe = aboutMe;
-        this.avatarClass = avatarClass;
-        this.avatarRace = avatarRace;
-        this.artefacts = artefacts;
-        this.adventures = adventures;
-        this.participations = participations;
-    }
+    public DeveloperDto(Long id, String username, Long gold, Long xp, Level level, String picture, String aboutMe,
+			AvatarClass avatarClass, AvatarRace avatarRace, List<Artefact> artefacts, List<Adventure> adventures,
+			List<Participation> participations, World world) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.gold = gold;
+		this.xp = xp;
+		this.level = level;
+		this.picture = picture;
+		this.aboutMe = aboutMe;
+		this.avatarClass = avatarClass;
+		this.avatarRace = avatarRace;
+		this.artefacts = artefacts;
+		this.adventures = adventures;
+		this.participations = participations;
+		this.setWorld(world);
+	}
 
-    public DeveloperDto(String username) {
+	public DeveloperDto(String username) {
 		this.username = username;
 	}
 
@@ -148,4 +154,12 @@ public class DeveloperDto {
     public void setParticipations(List<Participation> participations) {
         this.participations = participations;
     }
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
 }

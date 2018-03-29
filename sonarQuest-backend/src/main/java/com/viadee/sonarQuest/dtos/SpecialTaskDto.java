@@ -2,6 +2,7 @@ package com.viadee.sonarQuest.dtos;
 
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.World;
 
 import javax.persistence.Column;
 
@@ -13,7 +14,7 @@ public class SpecialTaskDto extends TaskDto {
     public SpecialTaskDto() {
     }
 
-    public SpecialTaskDto(Long id, String title, String status, Long gold, Long xp, Quest quest, Participation participation, String message) {
+    public SpecialTaskDto(Long id, String title, String status, Long gold, Long xp, Quest quest, Participation participation, String message, World world) {
         this.setId(id);
         this.setTitle(title);
         this.setStatus(status);
@@ -23,6 +24,7 @@ public class SpecialTaskDto extends TaskDto {
         this.setParticipation(participation);
         this.setTaskType("SPECIAL");
         this.message = message;
+        this.setWorld(world);
     }
 
     public String getMessage() {

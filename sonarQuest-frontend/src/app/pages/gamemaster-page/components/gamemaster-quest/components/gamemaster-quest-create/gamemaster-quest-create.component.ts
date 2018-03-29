@@ -22,6 +22,8 @@ export class GamemasterQuestCreateComponent implements OnInit {
   xp: number;
   story: string;
   currentWorld: World;
+  selectedWorld: World;
+  worlds: World[];
   tasks: Task[] = [];
 
   constructor(
@@ -33,17 +35,30 @@ export class GamemasterQuestCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world);
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world;
+      this.selectWorld();
+    });
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds;
+      this.selectWorld();
+    })
+  }
+
+  selectWorld(){
+    if(this.worlds && this.currentWorld){
+      this.selectedWorld = this.worlds.filter(world => world.id == this.currentWorld.id)[0]
+    }
   }
 
   createQuest() {
-    if (this.title && this.gold && this.xp && this.story && this.currentWorld && (this.tasks.length != 0)) {
+    if (this.title && this.gold && this.xp && this.story && this.selectedWorld && (this.tasks.length != 0)) {
       let quest = {
         title: this.title,
         gold: this.gold,
         xp: this.xp,
         story: this.story,
-        world: this.currentWorld,
+        world: this.selectedWorld,
       }
       this.questService.createQuest(quest).then((quest) => {
         if (quest.id) {
@@ -52,7 +67,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
             let addTaskToQuest = this.taskService.addToQuest(value, quest);
             promiseArray.push(addTaskToQuest);
           })
-          let addQuestToWorld = this.questService.addToWorld(quest, this.currentWorld);
+          let addQuestToWorld = this.questService.addToWorld(quest, this.selectedWorld);
           promiseArray.push(addQuestToWorld);
           return Promise.all(promiseArray);
         }
@@ -64,7 +79,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, { data: [this.currentWorld, this.tasks] })
+    this.dialog.open(GamemasterAddFreeTaskComponent, { data: [this.selectedWorld, this.tasks] })
       .afterClosed().subscribe(result => {
         if (result) {
           this.tasks.push(result)
@@ -73,7 +88,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   suggestTasks() {
-    this.dialog.open(GamemasterSuggestTasksComponent, { data: [this.currentWorld, this.tasks] }).afterClosed().subscribe(result => {
+    this.dialog.open(GamemasterSuggestTasksComponent, { data: [this.selectedWorld, this.tasks] }).afterClosed().subscribe(result => {
       if (result) {
         this.tasks = this.tasks.concat(result)
       }

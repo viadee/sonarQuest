@@ -112,7 +112,7 @@ public class SonarQuestApplicationIT {
 
         // Create Sonderaufgabe
         final SpecialTaskDto sonderAufgabeDto = new SpecialTaskDto(null, "TestSonderaufgabe", null, (long) 11, (long) 7,
-                null, null, "Löst diese Aufgabe möglichst schnell!");
+                null, null, "Löst diese Aufgabe möglichst schnell!",externalMockedWorld);
         taskController.createTask(sonderAufgabeDto);
         Task sonderAufgabe = taskRepository.findById(2);
         assertEquals("createSpecialTask does not work (Title)", "TestSonderaufgabe", sonderAufgabe.getTitle());

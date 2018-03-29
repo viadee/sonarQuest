@@ -1,3 +1,5 @@
+import { WorldService } from './../../../../services/world.service';
+import { World } from './../../../../Interfaces/Developer.d';
 import { GamemasterQuestEditComponent } from './components/gamemaster-quest-edit/gamemaster-quest-edit.component';
 
 import { Quest } from './../../../../Interfaces/Quest';
@@ -21,6 +23,7 @@ import {TaskService} from "../../../../services/task.service";
 })
 export class GamemasterQuestComponent implements OnInit {
 
+  currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id'},
@@ -48,15 +51,19 @@ export class GamemasterQuestComponent implements OnInit {
   constructor(
     private questService: QuestService,
     private taskService: TaskService,
+    private worldService: WorldService,
     private _dataTableService: TdDataTableService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.subscribeToQuests();
+    this.worldService.currentWorld$.subscribe(w => {
+      this.currentWorld = w
+      if (w) this.subscribeToQuests();
+    })
   }
 
   private subscribeToQuests(){
-    return this.questService.getQuests().subscribe(quests => {
+    return this.questService.getQuestsForWorld(this.currentWorld).subscribe(quests => {
      this.data = quests;
      this.filter();
     });
@@ -64,25 +71,26 @@ export class GamemasterQuestComponent implements OnInit {
 
   newQuest(){
     this.dialog.open(GamemasterQuestCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>{
-      this.questService.getQuests()
-      this.taskService.refreshTasks();
+      this.update();
     })
   }
 
   editQuest(quest: Quest){
     this.dialog.open(GamemasterQuestEditComponent,{data: quest,width:"500px"}).afterClosed().subscribe(()=>{
-      this.questService.getQuests()
-      this.taskService.refreshTasks();
+      this.update();
     })
   }
 
   deleteQuest(quest: Quest){
     this.questService.deleteQuest(quest).then(()=>{
-      this.questService.getQuests()
-      this.taskService.refreshTasks();
+      this.update();
     })
   }
 
+  update(){
+    this.questService.getQuestsForWorld(this.currentWorld);
+    this.taskService.refreshTasks(this.currentWorld);
+  }
 
 
 

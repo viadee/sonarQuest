@@ -1,3 +1,5 @@
+import { World } from './../../../../../../Interfaces/World';
+import { WorldService } from './../../../../../../services/world.service';
 import { Component, OnInit } from '@angular/core';
 import {
   IPageChangeEvent,
@@ -19,6 +21,7 @@ import {AdventureService} from "../../../../../../services/adventure.service";
 })
 export class GamemasterSpecialTaskComponent implements OnInit {
 
+  currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id'},
@@ -47,21 +50,25 @@ export class GamemasterSpecialTaskComponent implements OnInit {
     private questService: QuestService,
     private adventureService: AdventureService,
     private _dataTableService: TdDataTableService,
+    private worldService: WorldService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.loadTasks();
+    this.worldService.currentWorld$.subscribe(w => {
+      this.currentWorld = w
+      if (w) this.loadTasks();
+    })
   }
 
   loadTasks(){
-    return this.specialTaskService.getSpecialTasks().subscribe(tasks => {
+    return this.specialTaskService.getSpecialTasksForWorld(this.currentWorld).subscribe(tasks => {
       this.data = tasks;
       this.filter();
     });
   }
 
   newSpecialTask(){
-    this.dialog.open(GamemasterSpecialTaskCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>this.loadTasks())
+    this.dialog.open(GamemasterSpecialTaskCreateComponent,{data: this.currentWorld, width:"500px"}).afterClosed().subscribe(()=>this.loadTasks())
   }
 
   editSpecialTask(specialTask){
@@ -75,8 +82,8 @@ export class GamemasterSpecialTaskComponent implements OnInit {
   solveSpecialTask(specialTask){
     this.specialTaskService.solveSpecialTask(specialTask).then(()=>{
       this.loadTasks();
-      this.questService.refreshQuests();
-      this.adventureService.refreshAdventures();
+      this.questService.refreshQuests(this.currentWorld);
+      this.adventureService.refreshAdventures(this.currentWorld);
     })
   }
 

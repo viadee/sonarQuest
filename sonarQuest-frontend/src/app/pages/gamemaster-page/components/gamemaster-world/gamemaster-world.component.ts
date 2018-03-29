@@ -18,6 +18,7 @@ import { AdventureService } from "../../../../services/adventure.service";
 })
 export class GamemasterWorldComponent implements OnInit {
 
+  currentWorld: World;
   worlds: World[];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id' },
@@ -48,6 +49,7 @@ export class GamemasterWorldComponent implements OnInit {
 
   ngOnInit() {
     this.loadWorlds();
+    this.worldService.currentWorld$.subscribe(w => this.currentWorld = w)
   }
 
   loadWorlds() {
@@ -63,9 +65,9 @@ export class GamemasterWorldComponent implements OnInit {
 
   updateStandardTasksForWorld(world: World) {
     this.taskService.updateStandardTasksForWorld(world).then(() => {
-      this.taskService.refreshTasks();
-      this.questService.refreshQuests();
-      this.adventureService.refreshAdventures();
+      this.taskService.refreshTasks(this.currentWorld);
+      this.questService.refreshQuests(this.currentWorld);
+      this.adventureService.refreshAdventures(this.currentWorld);
     })
   }
 

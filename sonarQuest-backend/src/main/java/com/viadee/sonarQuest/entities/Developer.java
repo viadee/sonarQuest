@@ -66,7 +66,12 @@ public class Developer {
     @Column(name = "deleted")
 	private Boolean deleted = false;
 
-    public Developer() {
+    @ManyToOne
+    @JoinColumn(name = "world_id")
+    private World world;
+
+
+	public Developer() {
     }
 
     public Developer(final String username) {
@@ -231,5 +236,13 @@ public class Developer {
 	
 	public void setDeleted() {
 		this.deleted = true;
+	}
+	
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
 	}
 }

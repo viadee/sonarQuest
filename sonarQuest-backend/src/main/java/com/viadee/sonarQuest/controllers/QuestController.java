@@ -41,9 +41,6 @@ public class QuestController {
 
     @Autowired
     private WorldRepository worldRepository;
-
-    @Autowired
-    private TaskRepository taskRepository;
     
     @Autowired
     private AdventureRepository adventureRepository;
@@ -64,6 +61,15 @@ public class QuestController {
     public List<QuestDto> getAllQuests() {
         return this.questRepository.findAll().stream().map(quest -> toQuestDto(quest)).collect(Collectors.toList());
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
+    public List<QuestDto> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
+    	World w = worldRepository.findById(world_id);
+        return this.questRepository.findByWorld(w).stream().map(quest -> toQuestDto(quest)).collect(Collectors.toList());
+    }
+    
+    
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public QuestDto getQuestById(@PathVariable(value = "id") final Long id) {

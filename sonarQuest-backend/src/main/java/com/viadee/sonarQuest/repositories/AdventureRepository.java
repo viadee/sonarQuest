@@ -15,4 +15,6 @@ public interface AdventureRepository extends CrudRepository<Adventure,Long> {
     List<Adventure> findByWorld(World world);
 
     List<Adventure> findByDevelopers(List<Developer> developers);
+    
+    List<Adventure> findByDevelopersAndWorld(List<Developer> developers, World world);
 }

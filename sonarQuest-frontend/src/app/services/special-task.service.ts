@@ -1,3 +1,5 @@
+import { Task } from 'app/Interfaces/Task';
+import { World } from './../Interfaces/World';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers,Response} from "@angular/http";
 import {environment} from "../../environments/environment";
@@ -15,19 +17,21 @@ export class SpecialTaskService {
     this.specialTaskSubject = new ReplaySubject(1);
   }
 
-  getSpecialTasks(): Observable<SpecialTask[]> {
-    this.http.get(`${environment.endpoint}/task`)
+  getSpecialTasksForWorld(world: World): Observable<SpecialTask[]> {
+    this.http.get(`${environment.endpoint}/task/world/${world.id}`)
       .map(response =>{
         let tasks=this.extractData(response);
         return tasks[0];
       }).subscribe(
       result => this.specialTaskSubject.next(result),
-      err => this.specialTaskSubject.error(err)
+      err    => this.specialTaskSubject.error(err)
     )
     return this.specialTaskSubject.asObservable();
   }
 
   createSpecialTask(specialTask: any): Promise<any>{
+    specialTask.world.quests = [];
+    specialTask.world.tasks  = [];
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(`${environment.endpoint}/task/special`, specialTask, options)

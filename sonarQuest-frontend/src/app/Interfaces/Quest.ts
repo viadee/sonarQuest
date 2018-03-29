@@ -23,6 +23,13 @@ export interface Quest{
    participations : Participation[]
 }
 
+export interface World{
+  id: number,
+  name: string,
+  project: string,
+  active: boolean
+}
+
 export interface Task{
   id : number,
   title :  string ,
@@ -34,7 +41,8 @@ export interface Task{
   severity :  string ,
   type :  string ,
   debt : number,
-  message :  string
+  message :  string,
+  world: World
 }
 
 export interface Participation{

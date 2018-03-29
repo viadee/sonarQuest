@@ -39,7 +39,7 @@ export class ParticipatedQuestsComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
-  world: World;
+  currentWorld: World;
   developer: Developer;
 
   constructor(
@@ -66,15 +66,15 @@ export class ParticipatedQuestsComponent implements OnInit {
 
     this.worldService.currentWorld$.subscribe({
       next: world => {
-        this.world = world;
+        this.currentWorld = world;
         this.loadQuests();
       }
     })
   }
 
   loadQuests() {
-    if(this.world && this.developer){
-      return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(this.world,this.developer).then(quests => {
+    if(this.currentWorld && this.developer){
+      return this.questService.getAllParticipatedQuestsForWorldAndDeveloper(this.currentWorld,this.developer).then(quests => {
         this.participatedQuests = quests;
       }).then(()=>{
         this.filter()

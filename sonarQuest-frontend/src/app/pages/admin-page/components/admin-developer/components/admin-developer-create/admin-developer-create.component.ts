@@ -1,6 +1,6 @@
 import { DeveloperService } from './../../../../../../services/developer.service';
-import { AdminDeveloperComponent } from './../../admin-developer.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AdminDeveloperComponent } from './../../admin-developer.component';
 import { Developer } from './../../../../../../Interfaces/Developer.d';
 import { Component, OnInit, Inject } from '@angular/core';
 

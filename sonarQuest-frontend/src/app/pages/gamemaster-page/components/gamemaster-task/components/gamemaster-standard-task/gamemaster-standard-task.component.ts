@@ -49,12 +49,14 @@ export class GamemasterStandardTaskComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.loadTasks();
-    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
+    this.worldService.currentWorld$.subscribe(w => {
+      this.currentWorld = w
+      if (w) this.loadTasks();
+    })
   }
 
   loadTasks(){
-    this.standardTaskService.getStandardTasks().subscribe(tasks => {
+    this.standardTaskService.getStandardTasksForWorld(this.currentWorld).subscribe(tasks => {
       this.data = tasks;
       this.filter();
     });
@@ -66,7 +68,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   refreshStandardTasks(){
     this.standardTaskService.refreshStandardTask(this.currentWorld).then(()=>{
-      this.standardTaskService.getStandardTasks();
+      this.standardTaskService.getStandardTasksForWorld(this.currentWorld);
     })
   }
 
