@@ -17,7 +17,7 @@ import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.services.DeveloperService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "simulateSonarServer=true")
 public class UserManagementIT {
 
     @Autowired
