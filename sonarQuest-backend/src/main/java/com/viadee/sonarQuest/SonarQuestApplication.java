@@ -15,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SonarQuestApplication implements CommandLineRunner{
@@ -54,10 +58,10 @@ public class SonarQuestApplication implements CommandLineRunner{
 
 		//Create Quests
 
-		QuestDto quest1 = new QuestDto(null,"Quest1","Dies ist eine Quest",null,(long)5,(long) 10,null,null,null,null);
-		QuestDto quest2 = new QuestDto(null,"Quest2","Dies ist auch eine Quest",null,(long)10,(long) 20,null,null,null,null);
-		QuestDto quest3 = new QuestDto(null,"Quest3","Dies ist eine epische Quest",null,(long)20,(long) 30,null,null,null,null);
-		QuestDto quest4 = new QuestDto(null,"Quest4","Die Quest der Quests",null,(long)20,(long) 30,null,null,null,null);
+		QuestDto quest1 = new QuestDto(null,"Quest1","Dies ist eine Quest",null,(long)5,(long) 10,"assets/images/quest/hero3.jpg",null,null,null,null);
+		QuestDto quest2 = new QuestDto(null,"Quest2","Dies ist auch eine Quest",null,(long)10,(long) 20,"assets/images/quest/hero6.jpg",null,null,null,null);
+		QuestDto quest3 = new QuestDto(null,"Quest3","Dies ist eine epische Quest",null,(long)20,(long) 30,"assets/images/quest/hero9.jpg",null,null,null,null);
+		QuestDto quest4 = new QuestDto(null,"Quest4","Die Quest der Quests",null,(long)20,(long) 30,"assets/images/quest/hero12.jpg",null,null,null,null);
 		questController.createQuest(quest1);
 		questController.createQuest(quest2);
 		questController.createQuest(quest3);
@@ -112,5 +116,16 @@ public class SonarQuestApplication implements CommandLineRunner{
 		
 		WorldDto wdto = new WorldDto(null,"WorldTEST", "com.viadee:TESTTESTTEST", true, null,null);
 		worldService.createWorld(wdto);
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200");
+			}
+		};
 	}
 }

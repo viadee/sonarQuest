@@ -150,7 +150,8 @@ CREATE TABLE Quest (
   status    VARCHAR(64),
   world_id  INTEGER,
   adventure_id INTEGER,
-  story     VARCHAR(256)
+  story     VARCHAR(256),
+  image     VARCHAR(256)
 );
 
 ALTER TABLE Quest

@@ -29,9 +29,9 @@ INSERT INTO Artefact_Skill (artefact_id,skill_id) VALUES
   (2,4);
 
 INSERT INTO Developer (username, gold, xp, level_id,picture,about_me,avatar_class_id,avatar_race_id) VALUES
-  ('sonarHero123', 10, 5, 1,'','Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et',1,2),
-  ('sonarQuester123', 30, 20, 2,'','Ich bin der Allerbeste!',2,1),
-  ('sonarWarrior', 18, 15, 2,'','BADABOOOOM',2,1);
+  ('sonarHero123', 10, 5, 1,'assets/images/quest/hero2.jpg','Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et',1,2),
+  ('sonarQuester123', 30, 20, 2,'assets/images/quest/hero4.jpg','Ich bin der Allerbeste!',2,1),
+  ('sonarWarrior', 18, 15, 2,'assets/images/quest/hero6.jpg','BADABOOOOM',2,1);
 
 INSERT INTO Developer_Artefact (developer_id,artefact_id) VALUES
   (1,1),

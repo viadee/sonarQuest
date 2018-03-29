@@ -17,6 +17,7 @@ export class GamemasterQuestEditComponent implements OnInit {
 
   isSolved: boolean;
   oldTasks: Task[];
+  images: any[];
 
   constructor(
     private dialogRef: MatDialogRef<GamemasterQuestComponent>,
@@ -34,6 +35,7 @@ export class GamemasterQuestEditComponent implements OnInit {
     else {
       this.isSolved = false;
     }
+    this.loadImages();
   }
 
   calculateGoldAmountOfTasks(): number {
@@ -67,7 +69,7 @@ export class GamemasterQuestEditComponent implements OnInit {
   }
 
   editQuest() {
-    if (this.quest.title && this.quest.gold && this.quest.xp && this.quest.story && this.quest.world && (this.quest.tasks.length != 0)) {
+    if (this.quest.title && this.quest.gold && this.quest.xp && this.quest.story && this.quest.image && this.quest.world && (this.quest.tasks.length != 0)) {
       let newAndDeselectedTasks = this.taskService.identifyNewAndDeselectedTasks(this.oldTasks,this.quest.tasks);
       let newTasks = newAndDeselectedTasks[0];
       let deselectedTasks = newAndDeselectedTasks[1];
@@ -85,6 +87,16 @@ export class GamemasterQuestEditComponent implements OnInit {
       }).then(()=>{
         this.dialogRef.close();
       })
+    }
+  }
+
+  loadImages() {
+    this.images = [];
+
+    for (let i = 0; i < 15; i++) {
+      this.images[i] = {};
+      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
+      this.images[i].name = "hero" + (i + 1);
     }
   }
 

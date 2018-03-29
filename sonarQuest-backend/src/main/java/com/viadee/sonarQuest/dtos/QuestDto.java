@@ -24,6 +24,8 @@ public class QuestDto {
 
     private Long xp;
 
+    private String image;
+
 
     private World world;
 
@@ -36,13 +38,14 @@ public class QuestDto {
     public QuestDto() {
     }
 
-    public QuestDto(Long id, String title, String story, String status, Long gold, Long xp, World world, Adventure adventure, List<Task> tasks, List<Participation> participations) {
+    public QuestDto(Long id, String title, String story, String status, Long gold, Long xp, String image, World world, Adventure adventure, List<Task> tasks, List<Participation> participations) {
         this.id = id;
         this.title = title;
         this.story = story;
         this.status = status;
         this.gold = gold;
         this.xp = xp;
+        this.image = image;
         this.world = world;
         this.adventure = adventure;
         this.tasks = tasks;
@@ -97,6 +100,14 @@ public class QuestDto {
         this.xp = xp;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public World getWorld() {
         return world;
     }
@@ -132,7 +143,7 @@ public class QuestDto {
     public static QuestDto toQuestDto(Quest quest) {
         QuestDto questDto = null;
         if (quest != null) {
-            questDto = new QuestDto(quest.getId(), quest.getTitle(),quest.getStory(),quest.getStatus(),quest.getGold(),quest.getXp(), quest.getWorld(), quest.getAdventure(), quest.getTasks(),quest.getParticipations());
+            questDto = new QuestDto(quest.getId(), quest.getTitle(),quest.getStory(),quest.getStatus(),quest.getGold(),quest.getXp(), quest.getImage(), quest.getWorld(), quest.getAdventure(), quest.getTasks(),quest.getParticipations());
         }
         return questDto;
     }

@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{"QUEST.NEW_QUEST" | translate}}</h2>
 <mat-dialog-content>
-  <div layout="column" layout-padding>
+  <div layout="column" layout-padding style="margin-bottom: 10px">
     <div flex>
       <mat-select placeholder="Welt" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
         <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
@@ -25,6 +25,16 @@
       <mat-input-container class="full-width">
         <textarea matInput placeholder="Erzählung" [(ngModel)]="story"></textarea>
       </mat-input-container>
+    </div>
+    <div>
+      <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="selectedImage">
+    </div>
+    <div flex>
+      <mat-select placeholder="Image" [(ngModel)]="selectedImage">
+        <mat-option *ngFor="let image of images" [value]="image.src">
+          {{image.name}}
+        </mat-option>
+      </mat-select>
     </div>
   </div>
   <mat-divider></mat-divider>

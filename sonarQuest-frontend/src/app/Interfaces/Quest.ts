@@ -5,6 +5,7 @@ export interface Quest{
   status :  string ,
   gold : number,
   xp : number,
+  image : string,
   world : {
      id : number,
      name :  string ,
