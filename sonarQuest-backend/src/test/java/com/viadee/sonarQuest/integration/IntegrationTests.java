@@ -6,8 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ /**SonarQuestApplicationIT.class,*/ UserManagementIT.class })
+@SuiteClasses({ SonarQuestApplicationIT.class, UserManagementIT.class })
 
 public class IntegrationTests {
-	
+
 }
