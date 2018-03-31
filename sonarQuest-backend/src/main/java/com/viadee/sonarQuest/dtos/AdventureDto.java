@@ -1,14 +1,13 @@
 package com.viadee.sonarQuest.dtos;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.helpers.Settings;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class AdventureDto {
 
@@ -135,11 +134,11 @@ public class AdventureDto {
      * @return adventuresDto
      */
     public static List<AdventureDto> toAdventuresDto(List<Adventure> adventures) {
-    	List<AdventureDto> adventuresDto = new ArrayList<>();
+    	final List<AdventureDto> adventuresDto = new ArrayList<>();
     
-        	Iterator<Adventure> it = adventures.iterator();
+        	final Iterator<Adventure> it = adventures.iterator();
         	while(it.hasNext()) {
-        		Adventure adventure = it.next();
+        		final Adventure adventure = it.next();
         		adventuresDto.add(toAdventureDto(adventure));
         	}
         

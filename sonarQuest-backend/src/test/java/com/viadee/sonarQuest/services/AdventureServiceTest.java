@@ -15,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.helpers.Settings;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.ParticipationRepository;
 
