@@ -139,9 +139,9 @@ public class Adventure {
         this.developers = developers;
     }
 
-    public void addDeveloper(Developer developer) {
+	public synchronized void addDeveloper(Developer developer) {
     	List<Developer> developers = this.getDevelopers();
-    	
+
     	if (developers == null) {
     		developers = new ArrayList<Developer>();
     		developers.add(developer);
