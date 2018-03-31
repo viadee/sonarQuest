@@ -22,6 +22,7 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarQuest.services.AdventureService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "simulateSonarServer=true")
@@ -41,6 +42,9 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private ParticipationController participationController;
+
+	@Autowired
+	private AdventureService adventureService;
 
 
 	@Test(timeout = 1000) // There is hardly any data to fetch - this should be quick
@@ -82,6 +86,6 @@ public class SonarQuestApplicationIT {
 				issue1.getParticipation().getDeveloper().getUsername());
 		assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
 
-    }
-
+		adventureService.updateAdventures(); // no effect expected
+	}
 }
