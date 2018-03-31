@@ -43,7 +43,7 @@ public class SonarQuestApplicationIT {
     private ParticipationController participationController;
 
 
-	@Test
+	@Test(timeout = 1000) // There is hardly any data to fetch - this should be quick
 	public void testWorldStructure() {
 		final World sonarDungeon = worldRepository.findOne((long) 1);
 
@@ -53,11 +53,13 @@ public class SonarQuestApplicationIT {
 	}
 
 	/**
-	 * Walk through the whole gameplay on the backend with a developer perspective.
-	 * This test assumes a spring environment including a simulated sonar server.
+	 * Walk through the participation on the backend with a developer perspective.
+	 * This test assumes a spring environment including a simulated sonar server and
+	 * database access.
 	 */
-    @Test
-	public void fromIssueToSolvedTask() {
+	@Test(timeout = 1000) // There is hardly any data to fetch - this should be quick, altough there are
+							// write operations included
+	public void developersCanParticipateInQuestsAndIssues() {
 
 		// Join in on a quest.
 		// Add Participation sonarHero123, Quest1
@@ -80,7 +82,6 @@ public class SonarQuestApplicationIT {
 				issue1.getParticipation().getDeveloper().getUsername());
 		assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
 
-		// TODO: Solve an issue
     }
 
 }
