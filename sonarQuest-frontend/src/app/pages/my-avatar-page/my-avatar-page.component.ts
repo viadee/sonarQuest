@@ -31,4 +31,8 @@ export class MyAvatarPageComponent implements OnInit {
     this.XPpercent = 100 / this.developer.level.max * this.developer.xp;
     this.XPpercent.toFixed(2);
   }
+
+  public editAvatar(): void {
+
+  }
 }
