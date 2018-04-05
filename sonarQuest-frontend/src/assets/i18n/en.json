@@ -36,7 +36,8 @@
     "GAMEMASTER_PAGE": {
         "ADVENTURE": {
           "CREATE_ADVENTURE" : "Create adventure",
-          "EDIT_ADVENTURE"  : "Edit adventure"
+          "EDIT_ADVENTURE"  : "Edit adventure",
+          "" : ""
         },
         "QUEST": {
           "SUGGEST_TASKS" :"Suggest tasks",
