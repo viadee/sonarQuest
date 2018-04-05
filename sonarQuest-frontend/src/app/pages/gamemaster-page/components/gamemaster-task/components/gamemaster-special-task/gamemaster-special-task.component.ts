@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { World } from './../../../../../../Interfaces/World';
 import { WorldService } from './../../../../../../services/world.service';
 import { Component, OnInit } from '@angular/core';
@@ -25,10 +26,10 @@ export class GamemasterSpecialTaskComponent implements OnInit {
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id'},
-    { name: 'title', label: 'Titel',width: 200 },
+    { name: 'title', label: 'Title',width: 200 },
     { name: 'gold', label: 'Gold'},
     { name: 'xp', label: 'XP'},
-    { name: 'message', label: 'Auftrag'},
+    { name: 'message', label: 'Mission'},
     { name: 'quest.title', label: 'Quest'},
     { name: 'status', label: 'Status'},
     { name: 'edit', label: ''}
@@ -51,14 +52,31 @@ export class GamemasterSpecialTaskComponent implements OnInit {
     private adventureService: AdventureService,
     private _dataTableService: TdDataTableService,
     private worldService: WorldService,
+    private translateService: TranslateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.translateTable();
     this.worldService.currentWorld$.subscribe(w => {
       this.currentWorld = w
       if (w) this.loadTasks();
     })
   }
+    
+  private translateTable(){
+      this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+      this.columns=[
+            { name: 'id', label: col_names.ID},
+            { name: 'title', label: col_names.TITLE, width: 200 },
+            { name: 'gold', label: col_names.GOLD},
+            { name: 'xp', label: col_names.XP},
+            { name: 'message', label: col_names.MISSION},
+            { name: 'quest.title', label: col_names.QUEST},
+            { name: 'status', label: col_names.STATUS},
+            { name: 'edit', label: ''}
+        ]
+    });
+  }    
 
   loadTasks(){
     return this.specialTaskService.getSpecialTasksForWorld(this.currentWorld).subscribe(tasks => {

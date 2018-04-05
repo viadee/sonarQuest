@@ -1,5 +1,6 @@
-import { WorldService } from './../../../../services/world.service';
-import { World } from './../../../../Interfaces/Developer.d';
+import { TranslateService } from '@ngx-translate/core';
+import { WorldService } from "../../../../services/world.service";
+import { World } from '../../../../Interfaces/Developer.d';
 import { GamemasterQuestEditComponent } from './components/gamemaster-quest-edit/gamemaster-quest-edit.component';
 
 import { Quest } from './../../../../Interfaces/Quest';
@@ -53,14 +54,32 @@ export class GamemasterQuestComponent implements OnInit {
     private taskService: TaskService,
     private worldService: WorldService,
     private _dataTableService: TdDataTableService,
+    private translateService: TranslateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.translateTable();
     this.worldService.currentWorld$.subscribe(w => {
       this.currentWorld = w
       if (w) this.subscribeToQuests();
     })
   }
+    
+  private translateTable(){
+      this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+      this.columns=[
+            { name: 'id', label: col_names.ID},
+            { name: 'title', label: col_names.TITLE },
+            { name: 'gold', label: col_names.GOLD},
+            { name: 'xp', label: col_names.XP},
+            { name: 'story', label: col_names.STORY},
+            { name: 'world.name', label: col_names.WORLD},
+            { name: 'adventure.title', label: col_names.ADVENTURE},
+            { name: 'status', label: col_names.STATUS},
+            { name: 'edit', label: ''}
+        ]
+    });
+  }      
 
   private subscribeToQuests(){
     return this.questService.getQuestsForWorld(this.currentWorld).subscribe(quests => {

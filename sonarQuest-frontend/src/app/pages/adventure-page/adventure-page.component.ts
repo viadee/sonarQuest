@@ -25,10 +25,10 @@ export class AdventurePageComponent implements OnInit {
   public currentWorld: World;
 
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Titel', width: 200 },
+    { name: 'title', label: 'Title', width: 200 },
     { name: 'gold', label: 'Gold' },
     { name: 'xp', label: 'XP' },
-    { name: 'story', label: 'Erzählung' },
+    { name: 'story', label: 'Story' },
     { name: 'status', label: 'Status' },
     { name: 'edit', label: '', width: 70 }
   ]
@@ -58,7 +58,7 @@ export class AdventurePageComponent implements OnInit {
 
 
   ngOnInit() {
-    /* this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+    this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
         { name: 'title', label: col_names.TITLE, width: 200 },
         { name: 'gold', label: col_names.GOLD},
@@ -66,9 +66,7 @@ export class AdventurePageComponent implements OnInit {
         { name: 'story', label: col_names.STORY },
         { name: 'status', label: col_names.STATUS },
         { name: 'edit', label: '' }]
-    }); */
-
-
+    });
 
     this.developerService.avatar$.subscribe({
       next: developer => {

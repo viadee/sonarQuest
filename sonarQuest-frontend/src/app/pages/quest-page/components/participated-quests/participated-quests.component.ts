@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { World } from './../../../../Interfaces/World';
 import { Developer } from './../../../../Interfaces/Developer.d';
 import { ViewParticipatedQuestComponent } from './components/view-participated-quest/view-participated-quest.component';
@@ -19,11 +20,11 @@ export class ParticipatedQuestsComponent implements OnInit {
 
   participatedQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Titel', width: { min: 80 } },
+    { name: 'title', label: 'Title', width: { min: 80 } },
     { name: 'gold', label: 'Gold', width: { min: 40 } },
     { name: 'xp', label: 'XP', width: { min: 40 } },
-    { name: 'story', label: 'Erzählung', width: { min: 200 } },
-    { name: 'adventure.title', label: 'Abenteuer', width: { min: 80 } },
+    { name: 'story', label: 'Story', width: { min: 200 } },
+    { name: 'adventure.title', label: 'Adventure', width: { min: 80 } },
     { name: 'status', label: 'Status', width: { min: 60 } },
     { name: 'edit', label: '', width: { min: 60 } }
   ]
@@ -48,6 +49,7 @@ export class ParticipatedQuestsComponent implements OnInit {
     private developerService: DeveloperService,
     private participationService: ParticipationService,
     private _dataTableService: TdDataTableService,
+    private translateService: TranslateService,
     private dialog: MatDialog) {
     this.participationService.participationUpdated$.subscribe(() => {
       this.ngOnInit()
@@ -57,6 +59,17 @@ export class ParticipatedQuestsComponent implements OnInit {
 
 
   ngOnInit() {
+    this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+      this.columns=[
+        { name: 'title', label: col_names.TITLE, width: {min:80}},
+        { name: 'gold', label: col_names.GOLD, width: {min: 40}},
+        { name: 'xp', label: col_names.XP, width: {min: 40}},
+        { name: 'story', label: col_names.STORY, width: {min:200}},
+        { name: 'adventure.title', label: col_names.ADVENTURE, width: {min:80}},
+        { name: 'status', label: col_names.STATUS, width: {min: 60}},
+        { name: 'edit', label: '', width: {min: 60}}]
+    });   
+  
     this.developerService.avatar$.subscribe({
       next: developer => {
         this.developer = developer;

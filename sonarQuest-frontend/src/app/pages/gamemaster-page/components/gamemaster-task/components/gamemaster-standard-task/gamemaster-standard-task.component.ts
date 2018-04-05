@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { World } from './../../../../../../Interfaces/World';
 import { WorldService } from './../../../../../../services/world.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,10 +21,10 @@ export class GamemasterStandardTaskComponent implements OnInit {
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id',width:50},
-    { name: 'title', label: 'Titel', width:400},
+    { name: 'title', label: 'Title', width:400},
     { name: 'gold', label: 'Gold', width:50},
     { name: 'xp', label: 'XP', width:50},
-    { name: 'type', label: 'Typ'},
+    { name: 'type', label: 'Type'},
     { name: 'quest.title', label: 'Quest'},
     { name: 'status', label: 'Status'},
     { name: 'edit', label: ''}
@@ -46,14 +47,31 @@ export class GamemasterStandardTaskComponent implements OnInit {
     private standardTaskService: StandardTaskService,
     private _dataTableService: TdDataTableService,
     private worldService: WorldService,
+    private translateService: TranslateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.translateTable();
     this.worldService.currentWorld$.subscribe(w => {
       this.currentWorld = w
       if (w) this.loadTasks();
     })
   }
+    
+  private translateTable(){
+      this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+      this.columns=[
+            { name: 'id', label: col_names.ID, width:50},
+            { name: 'title', label: col_names.TITLE, width:400},
+            { name: 'gold', label: col_names.GOLD, width:50},
+            { name: 'xp', label: col_names.XP, width:50},
+            { name: 'type', label: col_names.TYPE},
+            { name: 'quest.title', label: col_names.QUEST},
+            { name: 'status', label: col_names.STATUS},
+            { name: 'edit', label: ''}
+        ]
+    });
+  }      
 
   loadTasks(){
     this.standardTaskService.getStandardTasksForWorld(this.currentWorld).subscribe(tasks => {
