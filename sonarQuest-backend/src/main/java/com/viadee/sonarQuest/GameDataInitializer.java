@@ -184,7 +184,8 @@ public class GameDataInitializer implements InitializingBean {
         participationController.createParticipation(2L, 1L);
         participationController.createParticipation(4L, 1L);
 
-        WorldDto wdto = new WorldDto(null, "World of Rats", "com.viadee:TESTTESTTEST", true, null, null);
+        // Just another empty world
+        WorldDto wdto = new WorldDto(null, "World of Dangers", "com.viadee:TestProject", true, null, null);
         worldService.createWorld(wdto);
     }
 
