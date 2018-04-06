@@ -1,6 +1,6 @@
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { MatDialogRef } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
+import {Component, OnInit, Inject} from '@angular/core';
 import {DeveloperService} from "../../../../services/developer.service";
 import {Developer} from "../../../../Interfaces/Developer";
 
@@ -13,25 +13,23 @@ export class AvatarEditComponent implements OnInit {
 
   images: any[];
 
-  constructor(
-    private dialogRef: MatDialogRef<AvatarEditComponent>,
-    private developerService: DeveloperService,
-    @Inject(MAT_DIALOG_DATA) public developer: Developer
-  ) {
-    this.developer = { ...this.developer };
+  constructor(private dialogRef: MatDialogRef<AvatarEditComponent>,
+              private developerService: DeveloperService,
+              @Inject(MAT_DIALOG_DATA) public developer: Developer) {
+    this.developer = {...this.developer};
   }
 
   ngOnInit() {
     this.loadImages();
   }
 
-  editDeveloper(){
-    this.developerService.updateDeveloper(this.developer).then( () => {
-      this.dialogRef.close(true);
+  editDeveloper() {
+    this.developerService.updateDeveloper(this.developer).then(() => {
+      this.dialogRef.close(this.developer);
     })
   }
 
-  cancel(){
+  cancel() {
     this.dialogRef.close(false)
   }
 

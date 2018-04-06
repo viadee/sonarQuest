@@ -35,6 +35,12 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   public editAvatar(): void {
-    this.dialog.open(AvatarEditComponent, {data: this.developer, width: "500px"});
+    this.dialog.open(AvatarEditComponent, {data: this.developer, width: "500px"}).afterClosed().subscribe(
+      result => {
+        if(result) {
+          this.developer = result;
+        }
+      }
+    );
   }
 }
