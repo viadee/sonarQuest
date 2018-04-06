@@ -3,29 +3,29 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="gold">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="gold">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="xp">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="xp">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="story"></textarea>
+        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="story"></textarea>
       </mat-input-container>
     </div>
   </div>
   <mat-divider></mat-divider>
   <div layout="column" layout-padding>
   <div flex>
-    <mat-select placeholder="'WORLD.WORLD' | translate" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
+    <mat-select [placeholder]="'WORLD.WORLD' | translate" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
       <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
     </mat-select>
   </div>

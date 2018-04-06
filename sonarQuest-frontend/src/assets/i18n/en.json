@@ -121,7 +121,8 @@
         "NO_FREE_TASKS_AVAILABLE"   : "No free tasks available",
         "SPECIALTASK_FOR_WORLD"     : "All Special Tasks for ",
         "STANDARDTASK_FOR_WORLD"    : "All Standard Tasks for ",
-        "AVAILABLE_TASKS"           : "Available Tasks"
+        "AVAILABLE_TASKS"           : "Available Tasks",
+        "MISSION"					: "Mission"
 
     },
     "ARTEFACT" : {

@@ -3,22 +3,22 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Titel" [(ngModel)]="adventure.title">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="adventure.title">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Gold" type="number" [(ngModel)]="adventure.gold">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="adventure.gold">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="XP"  type="number" [(ngModel)]="adventure.xp">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="adventure.xp">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Erzählung" [(ngModel)]="adventure.story"></textarea>
+        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="adventure.story"></textarea>
       </mat-input-container>
     </div>
   </div>
