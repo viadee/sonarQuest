@@ -85,7 +85,7 @@ public class SonarQuestApplicationIT {
         final List<Participation> participations = epicQuest.getParticipations();
         assertEquals("createParticipation does not work (Quest)", "Rats!",
                 participations.get(1).getQuest().getTitle());
-        assertEquals("createParticipation does not work (Developer)", "sonarWarrior",
+        assertEquals("createParticipation does not work (Developer)", "Mike Magician",
                 participations.get(1).getDeveloper().getUsername());
 
         // Get to work on issue 1
@@ -95,7 +95,7 @@ public class SonarQuestApplicationIT {
         issue1 = taskRepository.findOne(1L);
         assertEquals("addParticipation does not work (Quest)", "Rats!",
                 issue1.getParticipation().getQuest().getTitle());
-        assertEquals("addParticipation does not work (Developer)", "sonarWarrior",
+        assertEquals("addParticipation does not work (Developer)", "Mike Magician",
                 issue1.getParticipation().getDeveloper().getUsername());
         assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
 
@@ -118,12 +118,12 @@ public class SonarQuestApplicationIT {
         assertEquals("updateStandardTasks does not work (Status)", TaskStates.SOLVED, issue1.getStatus());
 
         // Check Gratification
-        // Gold = 18 (initial value) + 3 (Task) = 21
-        // XP = 22 (inital value) + 2 (Task ) + 2 (Warrior) = 22
+        // Gold = 18 (initial value) + 3 (Task)  + 2(Magician) + 1 (Shortsword)= 24
+        // XP = 22 (inital value) + 2 (Task ) = 20
         sonarWarrior = developerRepository.findOne(3L);
-        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(21),
+        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(24),
                 sonarWarrior.getGold());
-        assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(22),
+        assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(20),
                 sonarWarrior.getXp());
 
         // Check Status of epicQuest
