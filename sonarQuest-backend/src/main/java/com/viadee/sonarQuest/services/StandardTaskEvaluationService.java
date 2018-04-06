@@ -30,8 +30,7 @@ public class StandardTaskEvaluationService {
 
     public Long evaluateGoldAmount(String debtString) {
         Long debt = getDebt(debtString);
-        Long goldAmount = roundUp(debt,10);
-        return goldAmount;
+        return roundUp(debt,10);
     }
 
     public Long getDebt(String debtString) {

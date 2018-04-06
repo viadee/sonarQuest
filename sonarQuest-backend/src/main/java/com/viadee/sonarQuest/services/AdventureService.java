@@ -62,9 +62,8 @@ public class AdventureService {
 	public List<Adventure> getJoinedAdventuresForDeveloperInWorld(World world, Developer developer) {
     	final List<Developer>   developers = new ArrayList<>();
     	developers.add(developer);
-        final List<Adventure> allAdventuresForDeveloper = adventureRepository.findByDevelopersAndWorld(developers, world);
 
-        return allAdventuresForDeveloper;
+        return adventureRepository.findByDevelopersAndWorld(developers, world);
     }
 
 
