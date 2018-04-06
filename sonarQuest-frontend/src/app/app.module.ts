@@ -60,6 +60,7 @@ import { AdminDeveloperCreateComponent } from './pages/admin-page/components/adm
 import { AdminDeveloperEditComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
 import { AdminDeveloperDeleteComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-delete/admin-developer-delete.component';
 import { ChooseCurrentWorldComponent } from './components/choose-current-world/choose-current-world/choose-current-world.component';
+import {AvatarEditComponent} from "./pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component";
 
 
 // AoT requires an exported function for factories
@@ -105,7 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent
+    ChooseCurrentWorldComponent,
+    AvatarEditComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -124,7 +126,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent
+    ChooseCurrentWorldComponent,
+    AvatarEditComponent
   ],
   imports: [
     BrowserModule,

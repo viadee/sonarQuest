@@ -31,11 +31,17 @@
                 <mat-progress-bar flex mode="determinate" [value]="XPpercent"></mat-progress-bar>
               </div>
             </div>
-            <div flex></div>
             <div flex>
-              <div layout="column">
+              <div layout="column" style="text-align: center">
                 <div flex>{{"DEVELOPER.GOLD"| translate}}:</div>
                 <div flex style="font-weight:bold; font-size:20pt">{{developer?.gold}}</div>
+              </div>
+            </div>
+            <div flex="10">
+              <div layout="column">
+                <button mat-icon-button (click)="editAvatar()">
+                  <mat-icon class="icon">mode_edit</mat-icon>
+                </button>
               </div>
             </div>
           </div>
