@@ -30,10 +30,10 @@ INSERT INTO Avatar_Class_Skill (avatar_class_id,skill_id) VALUES
   (5,5);
 
 INSERT INTO Artefact (name,icon,price,level_id) VALUES
-  ('Shortsword','ra-sword',50,1),
+  ('Swift Sword','ra-spinning-sword',50,1),
   ('Small Shield','ra-fire-shield',200,2),
-  ('Blue Dagger of the Song','ra-sword',150,2),
-  ('Axe of Doom','ra-axe',75,1);
+  ('Blue Dagger of the Song','ra-plain-dagger',150,2),
+  ('Axe of Doom','ra-battered-axe',75,1);
 
 INSERT INTO Artefact_Skill (artefact_id,skill_id) VALUES
   (1,3),
@@ -47,6 +47,8 @@ INSERT INTO Developer (username, gold, xp, level_id,picture,about_me,avatar_clas
 
 INSERT INTO Developer_Artefact (developer_id,artefact_id) VALUES
   (1,3),
+  (1,2),
+  (1,4),
   (2,4),
   (3,1);
 
