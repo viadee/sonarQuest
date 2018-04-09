@@ -6,22 +6,22 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Titel" [(ngModel)]="quest.title" [disabled]="isSolved">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="quest.title" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Gold" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="XP"  type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Erzählung" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
+        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
       </mat-input-container>
     </div>
     <div>

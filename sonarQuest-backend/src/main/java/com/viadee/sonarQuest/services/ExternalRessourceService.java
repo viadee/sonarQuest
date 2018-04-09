@@ -28,30 +28,25 @@ public abstract class ExternalRessourceService {
     public abstract List<SonarQubeProject> getSonarQubeProjects();
 
     public List<World> generateWorldsFromSonarQubeProjects(){
-        List<SonarQubeProject> sonarQubeProjects = this.getSonarQubeProjects();
-        List<World> worlds=sonarQubeProjects.stream().map(sonarQubeProject -> toWorld(sonarQubeProject)).collect(Collectors.toList());
-        return worlds;
+        return getSonarQubeProjects().stream().map(this::toWorld).collect(Collectors.toList());
     }
 
     public World toWorld(SonarQubeProject sonarQubeProject) {
-        World world = new World(sonarQubeProject.getName(), sonarQubeProject.getKey(), false);
-        return world;
+        return new World(sonarQubeProject.getName(), sonarQubeProject.getKey(), false);
     }
 
     public abstract List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey);
 
     public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(World world){
         List<SonarQubeIssue> sonarQubeIssues = this.getIssuesForSonarQubeProject(world.getProject());
-        List<StandardTask> tasks = sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world)).collect(Collectors.toList());
-        return tasks;
+        return sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world)).collect(Collectors.toList());
     }
 
     public StandardTask toTask(SonarQubeIssue sonarQubeIssue, World world){
         Long gold = standardTaskEvaluationService.evaluateGoldAmount(sonarQubeIssue.getDebt());
         Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
         Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
-        StandardTask task = new StandardTask(sonarQubeIssue.getMessage(), mapExternalStatus(sonarQubeIssue),gold,xp,null,world,sonarQubeIssue.getKey(),sonarQubeIssue.getComponent(),sonarQubeIssue.getSeverity(),sonarQubeIssue.getType(),debt);
-        return task;
+        return new StandardTask(sonarQubeIssue.getMessage(), mapExternalStatus(sonarQubeIssue),gold,xp,null,world,sonarQubeIssue.getKey(),sonarQubeIssue.getComponent(),sonarQubeIssue.getSeverity(),sonarQubeIssue.getType(),debt);
     }
 
     public String mapExternalStatus(SonarQubeIssue sonarQubeIssue){

@@ -3,22 +3,22 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Titel" [(ngModel)]="specialTask.title">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="specialTask.title">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Gold" type="number" [(ngModel)]="specialTask.gold">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="specialTask.gold">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="XP"  type="number" [(ngModel)]="specialTask.xp">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="specialTask.xp">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Auftrag" [(ngModel)]="specialTask.message"></textarea>
+        <textarea matInput [placeholder]="'TASK.MISSION' | translate" [(ngModel)]="specialTask.message"></textarea>
       </mat-input-container>
     </div>
   </div>

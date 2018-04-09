@@ -21,6 +21,8 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService{
     @Autowired
     public ObjectMapper mapper;
 
+    private List<SonarQubeIssue> issues = null;
+
     @Override public List<SonarQubeProject> getSonarQubeProjects(){
         try {
            return mapper.readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/projectRessource.json"),new TypeReference<List<SonarQubeProject>>(){});
@@ -30,10 +32,13 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService{
     }
 
     @Override public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey){
-        try {
-            return mapper.readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"), SonarQubeIssueRessource.class).getIssues();
-        } catch (IOException e) {
-            throw new RuntimeException("Could not load simulated sonar projects",e);
+        if(issues == null) {
+            try {
+                issues = mapper.readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"), SonarQubeIssueRessource.class).getIssues();
+            } catch (IOException e) {
+                throw new RuntimeException("Could not load simulated sonar projects",e);
+            }
         }
+        return issues;
     }
 }

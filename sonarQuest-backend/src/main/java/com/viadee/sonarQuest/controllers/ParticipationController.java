@@ -34,8 +34,7 @@ public class ParticipationController {
 
     @RequestMapping(value = "/{questid}/{developerid}", method = RequestMethod.GET)
     public Participation getParticipationByQuestIdAndDeveloperId(@PathVariable(value = "questid") Long questid,@PathVariable(value = "developerid") Long developerid) {
-        Participation foundParticipation = participationService.findParticipationByQuestIdAndDeveloperId(questid,developerid);
-        return foundParticipation;
+        return participationService.findParticipationByQuestIdAndDeveloperId(questid,developerid);
     }
 
     @CrossOrigin

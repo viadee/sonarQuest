@@ -8,22 +8,22 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Titel" [(ngModel)]="title">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Gold" type="number" [(ngModel)]="gold">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="gold">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="XP"  type="number" [(ngModel)]="xp">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="xp">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Erzählung" [(ngModel)]="story"></textarea>
+        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="story"></textarea>
       </mat-input-container>
     </div>
     <div>

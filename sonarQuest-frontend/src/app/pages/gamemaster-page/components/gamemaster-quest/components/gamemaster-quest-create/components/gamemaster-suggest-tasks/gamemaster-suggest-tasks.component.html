@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.SUGGEST_TASKS" | translate}}</h2>
 <mat-dialog-content>
   <div flex>
-    <mat-select placeholder="Bedingung" value="condition" [(ngModel)]="condition" floatPlaceholder="true" name="condition" class="full-width">
+    <mat-select [placeholder]="'GAMEMASTER_PAGE.TASK.CONDITION' | translate" value="condition" [(ngModel)]="condition" floatPlaceholder="true" name="condition" class="full-width">
       <mat-option value="gold">{{"DEVELOPER.GOLD" | translate}}</mat-option>
       <mat-option value="xp">{{"DEVELOPER.XP" | translate}}</mat-option>
     </mat-select>
   </div>
   <div flex>
     <mat-input-container class="full-width">
-      <input matInput placeholder="Menge"  type="number" [(ngModel)]="amount">
+      <input matInput [placeholder]="'TASK.AMOUNT' | translate"  type="number" [(ngModel)]="amount">
     </mat-input-container>
   </div>
 </mat-dialog-content>

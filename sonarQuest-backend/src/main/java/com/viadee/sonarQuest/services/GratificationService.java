@@ -31,11 +31,8 @@ public class GratificationService implements DeveloperGratification {
         final Participation participation = task.getParticipation();
         if (participation != null) {
             Developer developer = participation.getDeveloper();
-            final Developer developer1 = developer;
-            final Developer rewardedDeveloper = developer1;
-            rewardedDeveloper.addXp(task.getXp());
-            rewardedDeveloper.addGold(task.getGold());
-            developer = rewardedDeveloper;
+            developer.addXp(task.getXp());
+            developer.addGold(task.getGold());
             developer = addSkillReward(developer, task);
             developer.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
             developerRepository.save(developer);
@@ -56,11 +53,10 @@ public class GratificationService implements DeveloperGratification {
     }
 
     private void rewardDeveloperForSolvingAdventure(final Developer developer, final Adventure adventure) {
-        final Developer rewardedDeveloper = developer;
-        rewardedDeveloper.addGold(adventure.getGold());
-        rewardedDeveloper.addXp(adventure.getXp());
-        rewardedDeveloper.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
-        developerRepository.save(rewardedDeveloper);
+        developer.addGold(adventure.getGold());
+        developer.addXp(adventure.getXp());
+        developer.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
+        developerRepository.save(developer);
     }
 
     private void rewardParticipation(final Participation participation) {

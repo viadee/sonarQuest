@@ -1,5 +1,12 @@
 package com.viadee.sonarQuest.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.viadee.sonarQuest.constants.AdventureStates;
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.entities.Adventure;
@@ -9,20 +16,15 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class AdventureService {
 
     @Autowired
     private AdventureRepository adventureRepository;
-    
+
     @Autowired
-    private DeveloperRepository developerRepository; 
+    private DeveloperRepository developerRepository;
 
     @Autowired
     private QuestRepository questRepository;
@@ -31,14 +33,15 @@ public class AdventureService {
     private GratificationService gratificationService;
 
     public void updateAdventures(){
-        List<Adventure> adventures = adventureRepository.findAll();
+        final List<Adventure> adventures = adventureRepository.findAll();
         adventures.forEach(adventure -> updateAdventure(adventure));
     }
 
-    public void updateAdventure(Adventure adventure){
+	@Transactional // Adventure updates are not to be mixed
+	public synchronized void updateAdventure(Adventure adventure) {
         if(adventure!= null){
-            List<Quest> quests = adventure.getQuests();
-            List<Quest> solvedQuests = questRepository.findByAdventureAndStatus(adventure, QuestStates.SOLVED);
+            final List<Quest> quests = adventure.getQuests();
+            final List<Quest> solvedQuests = questRepository.findByAdventureAndStatus(adventure, QuestStates.SOLVED);
             if (quests.size() == solvedQuests.size()){
                 gratificationService.rewardDevelopersForSolvingAdventure(adventure);
                 adventure.setStatus(AdventureStates.SOLVED);
@@ -46,40 +49,39 @@ public class AdventureService {
             }
         }
     }
-    
-	
-	
+
+
+
 	/**
-	 * expects a developer object and the current world and returns the adventures that the developer has already joined. 
-	 * 
+	 * expects a developer object and the current world and returns the adventures that the developer has already joined.
+	 *
 	 * @param world
 	 * @param developer
 	 * @return allAdventuresForDeveloper
 	 */
 	public List<Adventure> getJoinedAdventuresForDeveloperInWorld(World world, Developer developer) {
-    	List<Developer>   developers = new ArrayList<>();
+    	final List<Developer>   developers = new ArrayList<>();
     	developers.add(developer);
-        List<Adventure> allAdventuresForDeveloper = this.adventureRepository.findByDevelopersAndWorld(developers, world);
-         
-        return allAdventuresForDeveloper;
+
+        return adventureRepository.findByDevelopersAndWorld(developers, world);
     }
-	
-	
+
+
 	/**
 	 * expects a developer object and the current world and returns the adventures that the developer can still enter.
-	 * 
+	 *
 	 * @param world
 	 * @param developer
 	 * @return freeAdventuresForDeveloperInWorld
 	 */
 	public List<Adventure> getFreeAdventuresForDeveloperInWorld(World world, Developer developer) {
-        List<Adventure> freeAdventuresForDeveloperInWorld  = this.adventureRepository.findByWorld(world);
+        final List<Adventure> freeAdventuresForDeveloperInWorld  = adventureRepository.findByWorld(world);
         freeAdventuresForDeveloperInWorld.removeAll(getJoinedAdventuresForDeveloperInWorld(world, developer));
-            
+
         return freeAdventuresForDeveloperInWorld;
     }
 
-	
+
 	/**
 	 * Removes the developer from adventure
 	 * @param adventureId
@@ -87,22 +89,22 @@ public class AdventureService {
 	 * @return adventure
 	 */
 	public Adventure removeDeveloperFromAdventure(long adventureId, long developerId){
-		
-		Adventure adventure = this.adventureRepository.findOne(adventureId);
-        Developer developer = this.developerRepository.findOne(developerId);
+
+		Adventure adventure = adventureRepository.findOne(adventureId);
+        final Developer developer = developerRepository.findOne(developerId);
         if(adventure != null && developer != null){
-            List<Developer> developerList = adventure.getDevelopers();
+            final List<Developer> developerList = adventure.getDevelopers();
             if (developerList.contains(developer)){
                 developerList.remove(developer);
             }
             adventure.setDevelopers(developerList);
-            adventure=this.adventureRepository.save(adventure);
+            adventure=adventureRepository.save(adventure);
         }
-        
+
 		return adventure;
-		
+
 	}
-	
+
 	/**
 	 * Add a developer to adventure
 	 * @param adventureId
@@ -110,24 +112,24 @@ public class AdventureService {
 	 * @return adventure
 	 */
 	public Adventure addDeveloperToAdventure(long adventureId, long developerId) {
-		
-		Adventure adventure = this.adventureRepository.findOne(adventureId);
-        Developer developer = this.developerRepository.findOne(developerId);
+
+		Adventure adventure = adventureRepository.findOne(adventureId);
+        final Developer developer = developerRepository.findOne(developerId);
         if(adventure != null && developer != null){
-            List<Developer> developerList = adventure.getDevelopers();
+            final List<Developer> developerList = adventure.getDevelopers();
             if (!developerList.contains(developer)){
                 developerList.add(developer);
             }
             adventure.setDevelopers(developerList);
-            adventure=this.adventureRepository.save(adventure);
+            adventure=adventureRepository.save(adventure);
         }
-		
+
 		return adventure;
-		
+
 	}
-    
-    
-    
-    
-    
+
+
+
+
+
 }

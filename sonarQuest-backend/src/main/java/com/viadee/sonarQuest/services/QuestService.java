@@ -55,8 +55,7 @@ public class QuestService implements QuestSuggestion {
     private Task selectRandomTask(List<Task> taskList) {
         Random random = new Random();
         Integer randomIndex = random.nextInt(taskList.size());
-        Task randomTask = taskList.get(randomIndex);
-        return randomTask;
+        return taskList.get(randomIndex);
     }
 
     private Long totalGoldAmountOfTaskList(List<Task> taskList) {

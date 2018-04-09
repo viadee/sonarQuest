@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { WorldService } from '../../../../services/world.service';
 import { World } from '../../../../Interfaces/World';
@@ -23,10 +24,10 @@ export class GamemasterWorldComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id' },
     { name: 'name', label: 'Name' },
-    { name: 'project', label: 'Projekt' },
-    { name: 'active', label: 'Aktiv' },
+    { name: 'project', label: 'Project' },
+    { name: 'active', label: 'Active' },
     { name: 'edit', label: '' },
-    { name: 'update', label: 'Update Aufgaben' }
+    { name: 'update', label: 'Update Tasks' }
   ]
 
   // Sort / Filter / Paginate variables
@@ -45,11 +46,25 @@ export class GamemasterWorldComponent implements OnInit {
     private adventureService: AdventureService,
     private taskService: TaskService,
     private _dataTableService: TdDataTableService,
+    private translateService: TranslateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.translateTable();
     this.loadWorlds();
     this.worldService.currentWorld$.subscribe(w => this.currentWorld = w)
+  }
+  
+  translateTable(){
+  	  this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
+      this.columns=[
+    	{ name: 'id', label: col_names.ID },
+    	{ name: 'name', label: col_names.NAME },
+    	{ name: 'project', label: col_names.PROJECT },
+    	{ name: 'active', label: col_names.ACTIVE },
+    	{ name: 'edit', label: '' },
+    	{ name: 'update', label: col_names.UPDATE_TASKS }]
+    });
   }
 
   loadWorlds() {

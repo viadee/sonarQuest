@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamemasterPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() { } 
 
   ngOnInit() {
   }
