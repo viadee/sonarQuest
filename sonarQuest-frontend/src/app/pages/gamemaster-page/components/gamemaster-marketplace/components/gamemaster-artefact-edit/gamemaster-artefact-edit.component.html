@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{"ARTEFACT.EDIT_ARTEFACT" | translate}}</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Name" [(ngModel)]="name">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="min. Level" type="number" min="0" [(ngModel)]="min">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Price" type="number" min="0" [(ngModel)]="price">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="available quantity" type="number" min="0" [(ngModel)]="quantity">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Description" maxlength="255" [(ngModel)]="description"></textarea>
+      </mat-input-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<h3>Skill</h3>
+<td-data-table #dataTable [data]="filteredSkills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+  [sortOrder]="sortOrder" (sortChange)="sort($event)">
+</td-data-table>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="updateArtefact()">{{"ARTEFACT.EDIT_ARTEFACT" | translate}}</button>
+</mat-dialog-actions>

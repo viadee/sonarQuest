@@ -35,7 +35,7 @@ public class LevelController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Level createLevel(@RequestBody LevelDto levelDto) {
-        return this.levelRepository.save(new Level(levelDto.getName(), levelDto.getMax(), levelDto.getMin()));
+        return this.levelRepository.save(new Level(levelDto.getMax(), levelDto.getMin()));
 
     }
 
@@ -43,7 +43,6 @@ public class LevelController {
     public Level updateLevel(@PathVariable(value = "id") Long id, @RequestBody LevelDto levelDto) {
         Level level = this.levelRepository.findById(id);
         if (level != null) {
-            level.setName(levelDto.getName());
             level.setMin(levelDto.getMin());
             level.setMax(levelDto.getMax());
             level = this.levelRepository.save(level);
@@ -62,7 +61,7 @@ public class LevelController {
     private LevelDto toLevelDto(Level level) {
         LevelDto levelDto = null;
         if (level != null) {
-            levelDto = new LevelDto(level.getId(), level.getName(), level.getMin(), level.getMax(), level.getDevelopers());
+            levelDto = new LevelDto(level.getId(), level.getMin(), level.getMax(), level.getDevelopers());
         }
         return levelDto;
     }

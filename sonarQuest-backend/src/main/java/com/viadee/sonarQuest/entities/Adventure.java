@@ -1,12 +1,10 @@
 package com.viadee.sonarQuest.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.viadee.sonarQuest.helpers.Settings;
 
 import javax.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Entity

@@ -10,8 +10,6 @@ public class LevelDto {
 
     private Long id;
 
-    private String name;
-
     private Long min;
 
     private Long max;
@@ -21,9 +19,8 @@ public class LevelDto {
     public LevelDto() {
     }
 
-    public LevelDto(Long id, String name, Long min, Long max, List<Developer> developers) {
+    public LevelDto(Long id, Long min, Long max, List<Developer> developers) {
         this.id = id;
-        this.name = name;
         this.min = min;
         this.max = max;
         this.developers = developers;
@@ -35,14 +32,6 @@ public class LevelDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getMin() {

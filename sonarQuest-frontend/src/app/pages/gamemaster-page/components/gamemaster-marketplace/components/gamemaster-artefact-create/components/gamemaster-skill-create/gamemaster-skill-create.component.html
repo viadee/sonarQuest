@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{"SKILL.NEW_SKILL" | translate}}</h2>
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Name" [(ngModel)]="name">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Type" [(ngModel)]="type">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Value"  type="number" min="0" [(ngModel)]="value">
+      </mat-input-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="create()">{{"SKILL.CREATE_SKILL" | translate}}</button>
+</mat-dialog-actions>
+  

@@ -1,6 +1,5 @@
 package com.viadee.sonarQuest.dtos;
 
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.entities.Skill;
 
@@ -11,18 +10,17 @@ public class ArtefactDto {
 
     private Long id;
 
-
     private String name;
-
 
     private String icon;
 
-
     private Long price;
 
+    private Long quantity;
+    
+    private String description;
 
     private Level minLevel;
-
 
     private List<Skill> skills;
 
@@ -31,16 +29,21 @@ public class ArtefactDto {
     public ArtefactDto() {
     }
 
-    public ArtefactDto(Long id, String name, String icon, Long price, Level minLevel, List<Skill> skills) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
-        this.price = price;
-        this.minLevel = minLevel;
-        this.skills = skills;
-    }
+    
 
-    public Long getId() {
+	public ArtefactDto(Long id, String name, String icon, Long price, Long quantity, String description, Level minLevel, List<Skill> skills) {
+		this.id = id;
+		this.name = name;
+		this.icon = icon;
+		this.price = price;
+		this.quantity = quantity;
+		this.description = description;
+		this.minLevel = minLevel;
+		this.skills = skills;
+	}
+
+
+	public Long getId() {
         return id;
     }
 
@@ -87,5 +90,23 @@ public class ArtefactDto {
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 
 }

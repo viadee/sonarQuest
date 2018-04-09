@@ -1,6 +1,6 @@
-INSERT INTO Level (name, min, max) VALUES
-  ('1', 0, 10),
-  ('2', 11, 30);
+INSERT INTO Level (min, max) VALUES
+  (0, 10),
+  (11, 30);
 
 INSERT INTO Avatar_Class (name) VALUES
   ('Magier'),

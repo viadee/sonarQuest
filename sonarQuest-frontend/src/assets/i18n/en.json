@@ -114,6 +114,15 @@
 
     },
     "ARTEFACT" : {
-        "ARTEFACTS" :"Artefacts"
+        "ARTEFACTS"         :"Artefacts",
+        "NEW_ARTEFACT"      :"New Artefact",
+        "CREATE_ARTEFACT"   :"Create Artefact",
+        "EDIT_ARTEFACT"     :"Edit Artefact"
+    },
+    "SKILL":{
+        "MORE_GOLD"     :"More Gold",
+        "MORE_XP"       :"More XP",
+        "CREATE_SKILL"  :"Create Skill",
+        "ADD_SKILL"     :"Add Skill"
     }
 }

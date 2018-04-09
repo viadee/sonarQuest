@@ -46,7 +46,8 @@ export class GamemasterAdventureComponent implements OnInit {
   constructor(private _dataTableService: TdDataTableService,
               private questService: QuestService,
               private worldService: WorldService,
-              private dialog: MatDialog, private adventureService: AdventureService) { }
+              private dialog: MatDialog, 
+              private adventureService: AdventureService) { }
 
   ngOnInit() {
     this.worldService.currentWorld$.subscribe(w => {

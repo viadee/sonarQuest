@@ -1,6 +1,6 @@
-INSERT INTO Level (name, min, max) VALUES
-  ('1', 0, 10),
-  ('2', 11, 30);
+INSERT INTO Level (min, max) VALUES
+  (0, 10),
+  (11, 30);
 
 INSERT INTO Avatar_Class (name) VALUES
   ('Magier'),
@@ -20,9 +20,9 @@ INSERT INTO Avatar_Class_Skill (avatar_class_id,skill_id) VALUES
   (1,1),
   (2,2);
 
-INSERT INTO Artefact (name,icon,price,level_id) VALUES
-  ('Schwert','ra-sword',50,1),
-  ('Schild','ra-fire-shield',200,2);
+INSERT INTO Artefact (name,icon,price,level_id,quantity,description) VALUES
+  ('Schwert','ra-sword',50,1,5,'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores'),
+  ('Schild','ra-fire-shield',200,2,8,'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores');
 
 INSERT INTO Artefact_Skill (artefact_id,skill_id) VALUES
   (1,3),

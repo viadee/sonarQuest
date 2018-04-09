@@ -4,7 +4,6 @@ import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.helpers.Settings;
 
 import java.util.ArrayList;
 import java.util.Iterator;

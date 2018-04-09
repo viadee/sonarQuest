@@ -20,6 +20,14 @@ export interface AvatarClass{
   name: string
 }
 
+export interface Skill {
+  id: number,
+  name: string,
+  type: string,
+  value: number,
+  avatarClasses: AvatarClass[]
+}
+
 export interface AvatarRace{
   id: number,
   name: string
@@ -27,10 +35,11 @@ export interface AvatarRace{
 
 export interface Artefact {
   id: number,
-  name: string  ,
-  icon: string  ,
+  name: string,
+  icon: string,
   price: number,
-  minLevel: Level
+  minLevel: Level,
+  skills: Skill[]
 }
 
 

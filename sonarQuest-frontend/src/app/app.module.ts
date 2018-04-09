@@ -1,3 +1,4 @@
+import { SkillService } from './services/skill.service';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { ViewParticipatedQuestComponent } from './pages/quest-page/components/participated-quests/components/view-participated-quest/view-participated-quest.component';
 import { GamemasterQuestEditComponent } from './pages/gamemaster-page/components/gamemaster-quest/components/gamemaster-quest-edit/gamemaster-quest-edit.component';
@@ -35,6 +36,7 @@ import { EditWorldComponent } from './pages/gamemaster-page/components/gamemaste
 import { AdventureService } from "./services/adventure.service";
 import { QuestService } from "./services/quest.service";
 import { TaskService } from "./services/task.service";
+import { ArtefactService } from "./services/artefact.service";
 import { GamemasterStandardTaskComponent } from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-standard-task/gamemaster-standard-task.component';
 import { GamemasterSpecialTaskComponent } from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-special-task/gamemaster-special-task.component';
 import { StandardTaskService } from "./services/standard-task.service";
@@ -60,6 +62,11 @@ import { AdminDeveloperCreateComponent } from './pages/admin-page/components/adm
 import { AdminDeveloperEditComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
 import { AdminDeveloperDeleteComponent } from './pages/admin-page/components/admin-developer/components/admin-developer-delete/admin-developer-delete.component';
 import { ChooseCurrentWorldComponent } from './components/choose-current-world/choose-current-world/choose-current-world.component';
+import { GamemasterMarketplaceComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/gamemaster-marketplace.component';
+import { GamemasterArtefactCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/gamemaster-artefact-create.component';
+import { GamemasterArtefactEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
+import { GamemasterSkillCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
+import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 
 
 // AoT requires an exported function for factories
@@ -105,7 +112,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent
+    ChooseCurrentWorldComponent,
+    GamemasterMarketplaceComponent,
+    GamemasterArtefactCreateComponent,
+    GamemasterArtefactEditComponent,
+    GamemasterSkillCreateComponent,
+    GamemasterSkillEditComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -124,7 +136,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent
+    ChooseCurrentWorldComponent,
+    GamemasterArtefactCreateComponent,
+    GamemasterArtefactEditComponent,
+    GamemasterSkillCreateComponent,
+    GamemasterSkillEditComponent
   ],
   imports: [
     BrowserModule,
@@ -161,7 +177,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatCheckboxModule
   ],
-  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService],
+  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

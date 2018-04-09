@@ -21,7 +21,13 @@ public class Artefact {
 
     @Column(name = "price")
     private Long price;
+    
+    @Column(name = "quantity")
+    private Long quantity;
 
+    @Column(name = "description")
+    private String description;
+    
     @ManyToOne
     @JoinColumn(name="level_id")
     private Level minLevel;
@@ -44,6 +50,13 @@ public class Artefact {
         this.skills = skills;
     }
 
+    public Artefact(String name, Long price, Long quantity, String description) {
+        this.name 		 = name;
+        this.price 		 = price;
+        this.quantity 	 = quantity;
+        this.description = description;
+    }
+
     public Artefact(String name, String icon, Long price, Level minLevel, List<Skill> skills, List<Developer> developers) {
         this.name = name;
         this.icon = icon;
@@ -52,8 +65,22 @@ public class Artefact {
         this.skills = skills;
         this.developers = developers;
     }
+    
 
-    public Long getId() {
+	public Artefact(Long id, String name, String icon, Long price, Long quantity, String description, Level minLevel,
+			List<Skill> skills, List<Developer> developers) {
+		this.id = id;
+		this.name = name;
+		this.icon = icon;
+		this.price = price;
+		this.quantity = quantity;
+		this.description = description;
+		this.minLevel = minLevel;
+		this.skills = skills;
+		this.developers = developers;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -109,4 +136,22 @@ public class Artefact {
     public void setMinLevel(Level minLevel) {
         this.minLevel = minLevel;
     }
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
+    
 }

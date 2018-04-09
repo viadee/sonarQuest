@@ -1,6 +1,5 @@
 CREATE TABLE Level (
   id   INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(64) NOT NULL UNIQUE,
   min  BIGINT,
   max  BIGINT
 );
@@ -19,8 +18,7 @@ CREATE TABLE Skill (
   id   INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(256) NOT NULL,
   type VARCHAR(64) NOT NULL ,
-  value INTEGER NOT NULL
-
+  value INTEGER NOT NULL 
 );
 
 CREATE TABLE Avatar_Class_Skill (
@@ -40,7 +38,9 @@ CREATE TABLE Artefact (
   name     VARCHAR(64) NOT NULL UNIQUE,
   icon     VARCHAR(256),
   price    BIGINT,
-  level_id INTEGER
+  level_id INTEGER,
+  quantity INTEGER ,
+  description VARCHAR(256)
 );
 
 ALTER TABLE Artefact
