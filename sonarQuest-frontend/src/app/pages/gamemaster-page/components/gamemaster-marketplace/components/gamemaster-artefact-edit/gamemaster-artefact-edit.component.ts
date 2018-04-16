@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material';
+import { GamemasterIconSelectComponent } from './../gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 import { SkillService } from './../../../../../../services/skill.service';
 import { ITdDataTableColumn, TdDataTableSortingOrder, IPageChangeEvent, ITdDataTableSortChangeEvent, TdDataTableService } from '@covalent/core';
 import { Artefact, Skill, Level } from './../../../../../../Interfaces/Artefact';
@@ -20,6 +22,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
   minLevel:     Level;
   quantity:     number;
   description:  string;
+  icon:         string  = '';
 
   columns: ITdDataTableColumn[] = [
     { name: 'name',  label: 'Name',  width: {min: 80}},
@@ -41,10 +44,10 @@ export class GamemasterArtefactEditComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<GamemasterMarketplaceComponent>,
+    private dialog: MatDialog,
     private artefactService: ArtefactService,
     private skillService: SkillService,
     @Inject(MAT_DIALOG_DATA) public artefact: Artefact,
-
     private _dataTableService: TdDataTableService
   ) { }
 
@@ -58,18 +61,27 @@ export class GamemasterArtefactEditComponent implements OnInit {
     this.price       = this.artefact.price
     this.description = this.artefact.description
     this.quantity    = this.artefact.quantity
+    this.icon        = this.artefact.icon || ''
+  }
+
+
+  selectIcon(){
+    this.dialog.open(GamemasterIconSelectComponent,{data: this.icon, panelClass: 'dialog-sexy', width:"800px"}).afterClosed().subscribe(icon=>{
+      if (icon != undefined) this.icon = icon
+    });
   }
 
   updateArtefact() {
     if (this.name && this.min && this.price) {
-      this.artefact.name = this.name
-      this.artefact.price = this.price
-      this.artefact.quantity = this.quantity
+      this.artefact.name        = this.name
+      this.artefact.price       = this.price
+      this.artefact.quantity    = this.quantity
       this.artefact.description = this.description
+      this.artefact.icon        = this.icon
       this.artefactService.setMinLevel(this.artefact, this.min)
       
       this.artefactService.updateArtefact(this.artefact).then(() => {
-        this.artefactService.getArtefacts();
+        this.artefactService.getData();
         this.dialogRef.close();
       });
     }

@@ -19,7 +19,11 @@
     <mat-divider></mat-divider>
     <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
       [sortOrder]="sortOrder" (sortChange)="sort($event)">
-
+      <ng-template tdDataTableTemplate="icon" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <i class="ra ra-3x" [ngClass]="value"></i>
+          </div>
+        </ng-template>
       <ng-template tdDataTableTemplate="skills" let-value="value" let-row="row" let-column="column">
             <mat-list>
               <mat-list-item *ngFor="let skill of value">

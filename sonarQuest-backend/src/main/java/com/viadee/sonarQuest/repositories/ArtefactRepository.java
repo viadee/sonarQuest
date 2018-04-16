@@ -8,4 +8,6 @@ import java.util.List;
 public interface ArtefactRepository extends CrudRepository<Artefact,Long> {
 
     List<Artefact> findAll();
+    
+    List<Artefact> findByQuantityIsGreaterThanEqual(Long min);
 }

@@ -2,8 +2,9 @@ package com.viadee.sonarQuest.controllers;
 
 import com.viadee.sonarQuest.dtos.ArtefactDto;
 import com.viadee.sonarQuest.entities.Artefact;
-import com.viadee.sonarQuest.entities.Level;
+import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.repositories.ArtefactRepository;
+import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.services.ArtefactService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,19 @@ public class ArtefactController  {
     private ArtefactRepository artefactRepository;
     
     @Autowired
+    private DeveloperRepository developerRepository;
+    
+    @Autowired
     private ArtefactService artefactService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<ArtefactDto> getAllArtefacts(){
         return this.artefactService.getArtefacts();
+    }
+    
+    @RequestMapping(value = "/forMarketplace/", method = RequestMethod.GET)
+    public List<ArtefactDto> getArtefactsforMarkteplace(){
+        return this.artefactService.getArtefactsforMarkteplace();
     }
 
 
@@ -46,10 +55,22 @@ public class ArtefactController  {
     	return this.artefactService.updateArtefact(id, artefactDto);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/{artefact_id}/boughtBy/{developer_id}", method = RequestMethod.PUT)
+    public boolean buyArtefact(@PathVariable(value = "artefact_id") Long artefact_id, @PathVariable(value = "developer_id") Long developer_id) {
+    	Artefact  a = artefactRepository.findOne(artefact_id);
+    	Developer d = developerRepository.findOne(developer_id);
+    	
+    	if (this.artefactService.buyArtefact(a,d) != null) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteArtefact(@PathVariable(value = "id") Long id) {
-        Artefact artefact = this.artefactRepository.findOne(id);
-        if (artefact != null) {
+        if (this.artefactRepository.findOne(id) != null) {
             this.artefactRepository.delete(id);
         }
     }

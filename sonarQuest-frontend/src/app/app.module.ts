@@ -66,8 +66,8 @@ import { GamemasterMarketplaceComponent } from './pages/gamemaster-page/componen
 import { GamemasterArtefactCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/gamemaster-artefact-create.component';
 import { GamemasterArtefactEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
 import { GamemasterSkillCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
-import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 import {AvatarEditComponent} from "./pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component";
+import { GamemasterIconSelectComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 
 
 // AoT requires an exported function for factories
@@ -118,8 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactCreateComponent,
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
-    GamemasterSkillEditComponent,
-    AvatarEditComponent
+    AvatarEditComponent,
+    GamemasterIconSelectComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -142,8 +142,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactCreateComponent,
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
-    GamemasterSkillEditComponent,
-    AvatarEditComponent
+    AvatarEditComponent,
+    GamemasterIconSelectComponent
   ],
   imports: [
     BrowserModule,

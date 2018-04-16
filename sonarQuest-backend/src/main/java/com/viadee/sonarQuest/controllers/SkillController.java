@@ -2,7 +2,6 @@ package com.viadee.sonarQuest.controllers;
 
 import com.viadee.sonarQuest.dtos.ArtefactDto;
 import com.viadee.sonarQuest.dtos.SkillDto;
-import com.viadee.sonarQuest.entities.Artefact;
 import com.viadee.sonarQuest.entities.Skill;
 import com.viadee.sonarQuest.repositories.SkillRepository;
 import com.viadee.sonarQuest.services.ArtefactService;

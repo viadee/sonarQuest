@@ -57,6 +57,14 @@ public class Artefact {
         this.description = description;
     }
 
+    public Artefact(String name, String icon, Long price, Long quantity, String description) {
+        this.name 		 = name;
+        this.icon 		 = icon;
+        this.price 		 = price;
+        this.quantity 	 = quantity;
+        this.description = description;
+    }
+
     public Artefact(String name, String icon, Long price, Level minLevel, List<Skill> skills, List<Developer> developers) {
         this.name = name;
         this.icon = icon;
@@ -153,5 +161,24 @@ public class Artefact {
 		this.description = description;
 	}
     
+	@Override
+	public boolean equals(Object obj) {
+	    if (obj == null) {
+	        return false;
+	    }
+	    if (!Artefact.class.isAssignableFrom(obj.getClass())) {
+	        return false;
+	    }
+	    final Artefact other = (Artefact) obj;
+	    if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+	        return false;
+	    }
+	    if (this.id != other.id) {
+	        return false;
+	    }
+	    return true;
+	}
+
+
     
 }

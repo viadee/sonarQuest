@@ -38,6 +38,8 @@ export interface Artefact {
   name: string,
   icon: string,
   price: number,
+  quantity: number,
+  description: string,
   minLevel: Level,
   skills: Skill[]
 }

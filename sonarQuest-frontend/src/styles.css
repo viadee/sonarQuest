@@ -10,3 +10,12 @@
 .tooltipMultiline {
   white-space: pre-line;
 }
+
+.dialog-sexy .mat-dialog-container {
+    padding: 0;
+ 
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}

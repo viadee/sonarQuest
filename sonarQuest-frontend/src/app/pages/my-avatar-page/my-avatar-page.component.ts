@@ -13,18 +13,22 @@ export class MyAvatarPageComponent implements OnInit {
 
   public developer: Developer;
   public XPpercent: number = 0;
+  public level: number;
 
-  constructor(public developerService: DeveloperService, private dialog: MatDialog,) {
-  }
+  constructor(
+    private developerService: DeveloperService, 
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.developerService.avatar$.subscribe(developer => {
       this.developer = developer;
+      this.level = this.developerService.getLevel(developer.xp)
       this.xpPercent();
     })
   }
 
-  createSkillsList(artefact: any) {
+  private createSkillsList(artefact: any) {
     const skillnames = artefact.skills.map(skill => skill.name);
     return skillnames.join(', ');
   }

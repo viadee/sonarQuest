@@ -1,0 +1,9 @@
+.icon-content{
+    height: 700px;
+    overflow-y: scroll;
+}
+
+.percent100{
+    height: 100%;
+    width: 100%;
+}

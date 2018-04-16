@@ -1,4 +1,4 @@
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatOption } from '@angular/material';
 import { GamemasterArtefactCreateComponent } from './../../gamemaster-artefact-create.component';
 import { SkillService } from './../../../../../../../../services/skill.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gamemaster-skill-create.component.css']
 })
 export class GamemasterSkillCreateComponent implements OnInit {
-
+  types = ['Gold', 'Xp']
   name: string
   type: string
   value: number
@@ -25,9 +25,10 @@ export class GamemasterSkillCreateComponent implements OnInit {
   create(){
     let skill = {
       name: this.name,
-      type: this.type,
+      type: this.type.toUpperCase( ),
       value: this.value
     }
     this.skillServie.createSkill(skill).then(skill => this.dialogRef.close(skill))
   }
 }
+
