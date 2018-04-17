@@ -17,6 +17,9 @@ public class DeveloperService {
 
     @Autowired
 	private LevelRepository levelRepository;
+    
+
+    private LevelService levelService;
 
     @Autowired
 	private DeveloperRepository developerRepository;
@@ -66,5 +69,59 @@ public class DeveloperService {
 
 		return d;
 	}
+
+	public DeveloperDto updateDeveloper(DeveloperDto developerDto) {
+		Developer developer = developerRepository.findById(developerDto.getId());
+		if (developer != null) {
+            developer.setGold((developerDto.getGold()));
+            developer.setXp(developerDto.getXp());
+            developer.setLevel(this.levelService.getLevelByDeveloperXp(developer.getXp()));
+            developer.setPicture(developerDto.getPicture());
+            developer.setAboutMe(developerDto.getAboutMe());
+            developer.setAvatarClass(developerDto.getAvatarClass());
+            developer.setAvatarRace(developerDto.getAvatarRace());
+            developer.setArtefacts(developerDto.getArtefacts());
+            developer = this.developerRepository.save(developer);
+        }
+        return this.toDeveloperDto(developer);
+	}
+	
+	/**
+     * Convert Developer into DeveloperDTO
+     *
+     * @param developer
+     * @return
+     */
+    public DeveloperDto toDeveloperDto(Developer developer) {
+        DeveloperDto developerDto = null;
+        if(developer != null){
+            developerDto = new DeveloperDto(developer.getId(), developer.getUsername(), developer.getGold(), developer.getXp(), developer.getLevel(),developer.getPicture(),developer.getAboutMe(), developer.getAvatarClass(),developer.getAvatarRace(),developer.getArtefacts(),developer.getAdventures(),developer.getParticipations(),developer.getWorld());
+        }
+        return developerDto;
+    }
+
+    
+    
+	public long getLevel(long xp) {
+		return this.calculateLevel(xp,1);
+	}
+	
+
+	private long calculateLevel(long xp, long level) {
+		long step            = 10;
+		long xpForNextLevel  = 0;
+		    
+		for (long i = 1; i <= level; i++) {
+			xpForNextLevel = xpForNextLevel + step;
+		}
+
+		//Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
+		if(level == 200 || (xp < xpForNextLevel)) {
+	      return level;
+	    } else {
+		    return this.calculateLevel(xp, level+1);
+		}
+	}
+
 
 }

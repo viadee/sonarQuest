@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
+        "styles.css",
         "theme.scss",
         "../node_modules/rpg-awesome/css/rpg-awesome.css",
         "../node_modules/@covalent/core/common/platform.scss"

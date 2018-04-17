@@ -6,7 +6,6 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.DeveloperService;
-import com.viadee.sonarQuest.services.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,18 +22,14 @@ public class DeveloperController {
     private DeveloperRepository developerRepository;
     
     private WorldRepository worldRepository;
-
-    private LevelService levelService;
     
     private DeveloperService developerService;
 
     @Autowired
-    public DeveloperController(DeveloperRepository developerRepository, LevelService levelService, DeveloperService developerService, WorldRepository worldRepository) {
+    public DeveloperController(DeveloperRepository developerRepository, DeveloperService developerService, WorldRepository worldRepository) {
         this.developerRepository = developerRepository;
-        this.levelService = levelService;
         this.developerService = developerService;
         this.worldRepository = worldRepository;
-        
     }
 
     /**
@@ -44,7 +39,7 @@ public class DeveloperController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public List<DeveloperDto> getAllDevelopers() {
-        return this.developerService.findActiveDevelopers().stream().map(developer -> toDeveloperDto(developer)).collect(Collectors.toList());
+        return this.developerService.findActiveDevelopers().stream().map(developer -> this.developerService.toDeveloperDto(developer)).collect(Collectors.toList());
     }
 
     /**
@@ -58,7 +53,7 @@ public class DeveloperController {
         Developer developer = this.developerRepository.findById(id);
         DeveloperDto developerDto = null;
         if (developer != null) {
-            developerDto = this.toDeveloperDto(developer);
+            developerDto = this.developerService.toDeveloperDto(developer);
         }
         return developerDto;
     }
@@ -74,7 +69,7 @@ public class DeveloperController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public DeveloperDto createDeveloper(@RequestBody DeveloperDto developerDto) {
-    	return this.toDeveloperDto(this.developerService.createDeveloper(developerDto));
+    	return this.developerService.toDeveloperDto(this.developerService.createDeveloper(developerDto));
     }
     
     
@@ -94,26 +89,14 @@ public class DeveloperController {
     	
     	d = this.developerService.setWorld(d,w);
 
-        return this.toDeveloperDto(d);
+        return this.developerService.toDeveloperDto(d);
     }
 
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public DeveloperDto updateDeveloper(@PathVariable(value = "id") Long id, @RequestBody DeveloperDto developerDto) {
-        Developer developer = developerRepository.findById(id);
-        if (developer != null) {
-            developer.setGold((developerDto.getGold()));
-            developer.setXp(developerDto.getXp());
-            developer.setLevel(this.levelService.getLevelByDeveloperXp(developer.getXp()));
-            developer.setPicture(developerDto.getPicture());
-            developer.setAboutMe(developerDto.getAboutMe());
-            developer.setAvatarClass(developerDto.getAvatarClass());
-            developer.setAvatarRace(developerDto.getAvatarRace());
-            developer.setArtefacts(developerDto.getArtefacts());
-            developer = this.developerRepository.save(developer);
-        }
-        return this.toDeveloperDto(developer);
+        return this.developerService.updateDeveloper(developerDto);
     }
 
     @CrossOrigin
@@ -124,17 +107,5 @@ public class DeveloperController {
     }
 
 
-    /**
-     * Convert Developer into DeveloperDTO
-     *
-     * @param developer
-     * @return
-     */
-    private DeveloperDto toDeveloperDto(Developer developer) {
-        DeveloperDto developerDto = null;
-        if(developer != null){
-            developerDto = new DeveloperDto(developer.getId(), developer.getUsername(), developer.getGold(), developer.getXp(), developer.getLevel(),developer.getPicture(),developer.getAboutMe(), developer.getAvatarClass(),developer.getAvatarRace(),developer.getArtefacts(),developer.getAdventures(),developer.getParticipations(),developer.getWorld());
-        }
-        return developerDto;
-    }
+    
 }

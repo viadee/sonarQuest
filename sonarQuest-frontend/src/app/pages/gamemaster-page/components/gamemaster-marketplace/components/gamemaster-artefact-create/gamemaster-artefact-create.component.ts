@@ -1,3 +1,4 @@
+import { GamemasterIconSelectComponent } from './components/gamemaster-icon-select/gamemaster-icon-select.component';
 import { ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
 import { Skill } from './../../../../../../Interfaces/Skill';
 import { SkillService } from './../../../../../../services/skill.service';
@@ -21,6 +22,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
   quantity:     number;
   skills:       Skill[] = [];
   description:  string;
+  icon:         string  = '';
 
 
   columns: ITdDataTableColumn[] = [
@@ -66,21 +68,35 @@ export class GamemasterArtefactCreateComponent implements OnInit {
     });
   }
 
+  selectIcon(){
+    this.dialog.open(GamemasterIconSelectComponent,{data: this.icon, panelClass: 'dialog-sexy', width:"800px"}).afterClosed().subscribe(icon=>{
+      if (icon != undefined) {
+        this.icon = icon
+      }
+    });
+  }
+
   createArtefact() {
-    if (this.name && this.min && this.price && this.quantity) {
+
+    if(this.min      == 0 || this.min      == null) this.min      = 1
+    if(this.quantity == 0 || this.quantity == null) this.quantity = 1
+
+    if (this.name && this.min && this.price && this.quantity && this.skills.length > 0) {
+
       let artefact = {
         name:         this.name,
         price:        this.price,
         quantity:     this.quantity,
         description:  this.description,
         skills:       this.skills,
+        icon:         this.icon,
         minLevel: {
           min:          this.min
         }
       }
       
       this.artefactService.createArtefact(artefact).then(() => {
-        this.artefactService.getArtefacts();
+        this.artefactService.getData();
         this.dialogRef.close();
       });
     }
@@ -90,7 +106,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
-  }
+  } 
 
   search(searchTerm: string): void {
     this.searchTerm = searchTerm;

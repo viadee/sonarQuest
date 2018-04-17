@@ -1,6 +1,5 @@
 package com.viadee.sonarQuest.services;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,30 +9,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.dtos.ArtefactDto;
-import com.viadee.sonarQuest.dtos.SkillDto;
 import com.viadee.sonarQuest.entities.Artefact;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.entities.Skill;
 import com.viadee.sonarQuest.repositories.ArtefactRepository;
+import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.LevelRepository;
-import com.viadee.sonarQuest.repositories.SkillRepository;
 
 @Service 
 public class ArtefactService {
 	
 	@Autowired
 	ArtefactRepository artefactRepository;
-	
+
 	@Autowired
 	LevelRepository levelRepository;
 	
 	@Autowired
+	DeveloperRepository developerRepository;
+	
+	@Autowired
 	SkillService skillService;
+
+	@Autowired
+	DeveloperService developerService;
 	
 
 	public List<ArtefactDto> getArtefacts(){
  		return this.artefactRepository.findAll().stream().map(artefact -> toArtefactDto(artefact)).collect(Collectors.toList());
+	}
+	
+	public List<ArtefactDto> getArtefactsforMarkteplace(){
+		return this.artefactRepository.findByQuantityIsGreaterThanEqual((long)1).stream().map(artefact -> toArtefactDto(artefact)).collect(Collectors.toList());
 	}
 	
 
@@ -48,7 +56,7 @@ public class ArtefactService {
 	
 	public ArtefactDto createArtefact(ArtefactDto artefactDto) {
 
-		Artefact artefact = this.artefactRepository.save(new Artefact(artefactDto.getName(),artefactDto.getPrice(),artefactDto.getQuantity(), artefactDto.getDescription()));
+		Artefact artefact = this.artefactRepository.save(new Artefact(artefactDto.getName(), artefactDto.getIcon(), artefactDto.getPrice(),artefactDto.getQuantity(), artefactDto.getDescription()));
 		
 		List<Artefact> artefacts = new ArrayList<Artefact>();
 		artefacts.add(artefact);
@@ -100,6 +108,56 @@ public class ArtefactService {
         }
         return artefactDto;
     }
+
+	
+	
+	public ArtefactDto buyArtefact(Artefact artefact, Developer developer) {
+
+		List<Artefact> developerArtefacts = new ArrayList<>();
+		developerArtefacts = developer.getArtefacts();
+		
+		
+		//If developer has TOO LITTLE GOLD, Then the purchase is canceled 
+		long gold = developer.getGold() - artefact.getPrice();
+		if (gold < (long) 0) {
+			return null;
+		}
+		
+		
+		// If the developer has ALREADY BOUGHT the Artefact, Then the purchase is canceled 
+		for(int i = 0; i < developerArtefacts.size(); i++) {
+			Artefact a = developerArtefacts.get(i);
+			if( a.equals(artefact)) {
+				return null;
+			}
+		}
+		
+		
+		// If the artefact is SOLD OUT, then the purchase is canceled
+		if (artefact.getQuantity() < 1) {
+			return null;
+		}
+		
+		
+		// When the LEVEL of the developer is too low, then the purchase is canceled
+		long minLevel = artefact.getMinLevel().getMin();
+		long xp		  = developer.getXp();
+		long devLevel = this.developerService.getLevel(xp);
+		
+		if (minLevel > devLevel) {
+			return null;
+		}
+		
+		
+		developerArtefacts.add(artefact);
+		developer.setArtefacts(developerArtefacts);
+		developer.setGold(gold);
+		developer = this.developerRepository.save(developer);
+	
+		artefact.setQuantity(artefact.getQuantity() - 1);
+		artefact = this.artefactRepository.save(artefact);
+		return toArtefactDto(artefact);
+	}
 	
 	
 	

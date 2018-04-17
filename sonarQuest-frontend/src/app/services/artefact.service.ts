@@ -1,7 +1,8 @@
+import { Developer } from './../Interfaces/Developer.d';
 import { RequestOptions, Http, Response, Headers } from '@angular/http';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
-import { Artefact } from './../Interfaces/Developer.d';
+import { Artefact } from './../Interfaces/Artefact';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
@@ -12,19 +13,34 @@ export class ArtefactService {
   private artefactsSubject: Subject<Artefact[]> = new ReplaySubject(1);
   artefacts$ = this.artefactsSubject.asObservable();
 
+  private artefactsforMarkteplaceSubject: Subject<Artefact[]> = new ReplaySubject(1);
+  artefactsforMarkteplace$ = this.artefactsforMarkteplaceSubject.asObservable();
+
   constructor(public http: Http) { 
-    this.getArtefacts()
+    this.getData()
   }
 
+  getData():void{
+    this.getArtefacts()
+    this.getArtefactsforMarkteplace()
+  }
 
   getArtefacts(): Observable<Artefact[]>{
     this.http.get(`${environment.endpoint}/artefact/`)
       .map(this.extractData)
       .subscribe(
-        result => {
-          this.artefactsSubject.next(result)
-        },
+        result => this.artefactsSubject.next(result),
         err    => this.artefactsSubject.error(err)
+      ) 
+    return this.artefactsSubject.asObservable();
+  }
+
+  getArtefactsforMarkteplace(): Observable<Artefact[]>{
+    this.http.get(`${environment.endpoint}/artefact/forMarketplace/`)
+      .map(this.extractData)
+      .subscribe(
+        result => this.artefactsforMarkteplaceSubject.next(result),
+        err    => this.artefactsforMarkteplaceSubject.error(err)
       ) 
     return this.artefactsSubject.asObservable();
   }
@@ -42,6 +58,15 @@ export class ArtefactService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${environment.endpoint}/artefact/${artefact.id}`, artefact, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  buyArtefact(artefact: Artefact, developer: Developer): Promise<boolean> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${environment.endpoint}/artefact/${artefact.id}/boughtBy/${developer.id}`, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

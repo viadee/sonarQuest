@@ -6,20 +6,21 @@
         <input matInput placeholder="Name" [(ngModel)]="name">
       </mat-input-container>
     </div>
+    
     <div flex>
-      <mat-input-container class="full-width">
-        <input matInput placeholder="Type" [(ngModel)]="type">
-      </mat-input-container>
+      <mat-select mat-line placeholder="Type" floatPlaceholder="never" [(ngModel)]="type">
+        <mat-option flex="20" *ngFor="let t of types" [value]="t">{{t}}</mat-option>
+      </mat-select>
+ 
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Value"  type="number" min="0" [(ngModel)]="value">
+        <input matInput placeholder="Value" type="number" min="0" [(ngModel)]="value">
       </mat-input-container>
     </div>
   </div>
-</mat-dialog-content>
+</mat-dialog-content> 
 <mat-divider></mat-divider>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="create()">{{"SKILL.CREATE_SKILL" | translate}}</button>
 </mat-dialog-actions>
-  

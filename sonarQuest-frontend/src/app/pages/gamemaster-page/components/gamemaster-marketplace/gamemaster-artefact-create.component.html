@@ -1,14 +1,14 @@
 <mat-toolbar color="primary">
-    <h2 mat-dialog-title>{{"ARTEFACT.EDIT_ARTEFACT" | translate}}</h2>
-  
-    <span class="toolbar-spacer"></span>
-    <button *ngIf="icon==''" mat-raised-button (click)="selectIcon(icon)">
-        <span style="color:black" >{{"ARTEFACT.SELECT_ICON" | translate}}</span>
-    </button>
-    <button *ngIf="icon!=''" mat-button (click)="selectIcon(icon)">
-      <i class="ra ra-4x" [ngClass]="icon"></i>
-    </button>
-  </mat-toolbar> 
+  <h2 mat-dialog-title>{{"ARTEFACT.NEW_ARTEFACT" | translate}}</h2>
+
+  <span class="toolbar-spacer"></span>
+  <button *ngIf="icon==''" mat-button (click)="selectIcon(icon)">
+    {{"ARTEFACT.SELECT_ICON" | translate}}
+  </button>
+  <button *ngIf="icon!=''" mat-button (click)="selectIcon(icon)">
+    <i class="ra ra-4x" [ngClass]="icon"></i>
+  </button>
+</mat-toolbar>
 
 <mat-dialog-content>
   <div layout="column" layout-padding>
@@ -41,13 +41,24 @@
 </mat-dialog-content>
 
 <mat-toolbar>
-    <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
+  <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button (click)="createSkill()">{{"SKILL.ADD_SKILL" | translate}}</button>
 </mat-toolbar>
+
 <td-data-table #dataTable [data]="filteredSkills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
   [sortOrder]="sortOrder" (sortChange)="sort($event)">
+  <ng-template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <button mat-icon-button (click)="removeSkill(row)">
+        <mat-icon class="icon">remove</mat-icon>
+      </button>
+    </div> 
+  </ng-template>
 </td-data-table>
-<mat-divider></mat-divider>
+
 <mat-dialog-actions>
-    <span class="toolbar-spacer"></span>
-  <button mat-raised-button color="primary" (click)="updateArtefact()">{{"ARTEFACT.EDIT_ARTEFACT" | translate}}</button>
+
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button color="primary" (click)="createArtefact()">{{"ARTEFACT.CREATE_ARTEFACT" | translate}}</button>
 </mat-dialog-actions>

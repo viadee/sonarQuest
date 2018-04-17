@@ -18,6 +18,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
 
 
   columns: ITdDataTableColumn[] = [
+    { name: 'icon',         label: ''},
     { name: 'name',         label: 'name'},
     { name: 'price',        label: 'Price (in Gold)'},
     { name: 'quantity',     label: 'Quantity'},

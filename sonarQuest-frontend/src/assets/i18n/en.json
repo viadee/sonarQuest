@@ -24,6 +24,9 @@
         "AVAILABLE_QUESTS_FOR_WORLD"    : "Available Quests for ",
         "COMBATED_BY"                   : "combated by"
     },
+    "MARKETPLACE_PAGE": {
+        "MARKETPLACE"       :"Marketplace"
+    },
     "ADMIN_PAGE":{
         "ALL_DEVELOPER"     : "All Developer",
         "CREATE_DEVELOPER"  : "Create Developer",
@@ -129,12 +132,16 @@
         "ARTEFACTS"         :"Artefacts",
         "NEW_ARTEFACT"      :"New Artefact",
         "CREATE_ARTEFACT"   :"Create Artefact",
-        "EDIT_ARTEFACT"     :"Edit Artefact"
+        "EDIT_ARTEFACT"     :"Edit Artefact",
+        "SELECT_ICON"       :"Select icon",
+        "CLICK_TO_SELECT"   :"Click to select"
     },
     "SKILL":{
         "MORE_GOLD"     :"More Gold",
         "MORE_XP"       :"More XP",
         "CREATE_SKILL"  :"Create Skill",
-        "ADD_SKILL"     :"Add Skill"
+        "ADD_SKILL"     :"Add Skill",
+        "SKILLS"        :"Skills",
+        "NEW_SKILL"     :"New Skill"
     }
 }

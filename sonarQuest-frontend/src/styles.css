@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+.icon{
+  color: grey;
+}
+.full-width {
+  width: 100%;
+}
+
+.tooltipMultiline {
+  white-space: pre-line;
+}
+
+.dialog-sexy .mat-dialog-container {
+    padding: 0;
+ 
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}

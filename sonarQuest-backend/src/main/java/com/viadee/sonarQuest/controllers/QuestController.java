@@ -26,7 +26,6 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.AdventureRepository;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
-import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.GratificationService;
