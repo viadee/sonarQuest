@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
+        "styles.scss",
         "theme.scss",
         "../node_modules/rpg-awesome/css/rpg-awesome.css",
         "../node_modules/@covalent/core/common/platform.scss"
