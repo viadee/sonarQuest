@@ -26,10 +26,10 @@ export class AdventurePageComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
     { name: 'title', label: 'Title', width: 200 },
-    { name: 'gold', label: 'Gold' },
-    { name: 'xp', label: 'XP' },
-    { name: 'story', label: 'Story' },
-    { name: 'status', label: 'Status' },
+    { name: 'gold', label: 'Gold', width: 10 },
+    { name: 'xp', label: 'XP', width: 10 },
+    { name: 'story', label: 'Story', width: 200 },
+    { name: 'status', label: 'Status', width: 200 },
     { name: 'edit', label: '', width: 70 }
   ]
 
@@ -60,11 +60,11 @@ export class AdventurePageComponent implements OnInit {
   ngOnInit() {
     this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
-        { name: 'title', label: col_names.TITLE, width: 200 },
-        { name: 'gold', label: col_names.GOLD},
-        { name: 'xp', label: col_names.XP },
-        { name: 'story', label: col_names.STORY },
-        { name: 'status', label: col_names.STATUS },
+        { name: 'title', label: col_names.TITLE, width: 130 },
+        { name: 'gold', label: col_names.GOLD,width: 30 },
+        { name: 'xp', label: col_names.XP , width: 30 },
+        { name: 'story', label: col_names.STORY , width: 500 },
+        { name: 'status', label: col_names.STATUS, width: 50  },
         { name: 'edit', label: '' }]
     });
 
