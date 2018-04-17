@@ -1,18 +1,16 @@
-
-
 <mat-toolbar color="primary">
-        <h2 mat-dialog-title>{{"ARTEFACT.CLICK_TO_SELECT" | translate}}</h2>
+  <h2 mat-dialog-title>{{"ARTEFACT.CLICK_TO_SELECT" | translate}}</h2>
 </mat-toolbar>
-<div class="icon-content">
 
-    <mat-grid-list cols="5" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let icon of icons">
-        <button *ngIf="selectedIcon == icon" mat-raised-button color="primary" (click)="select(icon)" class="percent100">
-          <i matTooltipPosition="after" class="ra ra-5x" [ngClass]="icon"></i>
-        </button>
-        <button *ngIf="selectedIcon !== icon" mat-button (click)="select(icon)" class="percent100">
-          <i matTooltipPosition="after" class="ra ra-5x" [ngClass]="icon"></i>
-        </button>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div> 
+<div class="icon-content">
+  <mat-grid-list cols="5" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let icon of icons">
+      <button *ngIf="selectedIcon == icon" mat-raised-button color="primary" (click)="select(icon)" class="percent100">
+        <i matTooltipPosition="after" class="ra ra-5x" [ngClass]="icon"></i>
+      </button>
+      <button *ngIf="selectedIcon !== icon" mat-button (click)="select(icon)" class="percent100">
+        <i matTooltipPosition="after" class="ra ra-5x" [ngClass]="icon"></i>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

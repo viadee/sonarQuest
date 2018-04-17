@@ -86,7 +86,7 @@ export class GamemasterSpecialTaskComponent implements OnInit {
   }
 
   newSpecialTask(){
-    this.dialog.open(GamemasterSpecialTaskCreateComponent,{data: this.currentWorld, width:"500px"}).afterClosed().subscribe(()=>this.loadTasks())
+    this.dialog.open(GamemasterSpecialTaskCreateComponent,{panelClass: 'dialog-sexy', data: this.currentWorld, width:"500px"}).afterClosed().subscribe(()=>this.loadTasks())
   }
 
   editSpecialTask(specialTask){

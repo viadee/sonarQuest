@@ -1,4 +1,6 @@
-<h2 mat-dialog-title>{{"TASK.NEW_SPECIALTASK" | translate}}</h2>
+<mat-toolbar color="primary">
+    <h2 mat-dialog-title>{{"TASK.NEW_SPECIALTASK" | translate}}</h2>
+  </mat-toolbar>
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
@@ -25,5 +27,6 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
   <button mat-raised-button color="primary" (click)="createSpecialTask()">{{"GAMEMASTER_PAGE.TASK.CREATE_SPECIALTASK" | translate}}</button>
 </mat-dialog-actions>

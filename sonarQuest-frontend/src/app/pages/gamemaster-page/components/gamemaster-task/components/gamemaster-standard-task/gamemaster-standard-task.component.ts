@@ -81,7 +81,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
   }
 
   editStandardTask(standardTask){
-    this.dialog.open(GamemasterStandardTaskEditComponent,{width:"500px", data: standardTask}).afterClosed().subscribe(()=>this.loadTasks());
+    this.dialog.open(GamemasterStandardTaskEditComponent,{panelClass: 'dialog-sexy', width:"500px", data: standardTask}).afterClosed().subscribe(()=>this.loadTasks());
   }
 
   refreshStandardTasks(){

@@ -89,7 +89,7 @@ export class GamemasterQuestComponent implements OnInit {
   }
 
   newQuest(){
-    this.dialog.open(GamemasterQuestCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>{
+    this.dialog.open(GamemasterQuestCreateComponent,{panelClass: 'dialog-sexy', width:"500px"}).afterClosed().subscribe(()=>{
       this.update();
     })
   }
