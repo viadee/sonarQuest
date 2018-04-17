@@ -61,13 +61,13 @@ export class ParticipatedQuestsComponent implements OnInit {
   ngOnInit() {
     this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
-        { name: 'title', label: col_names.TITLE, width: {min:80}},
-        { name: 'gold', label: col_names.GOLD, width: {min: 40}},
-        { name: 'xp', label: col_names.XP, width: {min: 40}},
-        { name: 'story', label: col_names.STORY, width: {min:200}},
-        { name: 'adventure.title', label: col_names.ADVENTURE, width: {min:80}},
-        { name: 'status', label: col_names.STATUS, width: {min: 60}},
-        { name: 'edit', label: '', width: {min: 60}}]
+        { name: 'title', label: col_names.TITLE, width: 100},
+        { name: 'gold', label: col_names.GOLD, width: 30},
+        { name: 'xp', label: col_names.XP, width: 30},
+        { name: 'story', label: col_names.STORY, width: 300},
+        { name: 'adventure.title', label: col_names.ADVENTURE, width: 100},
+        { name: 'status', label: col_names.STATUS, width: 40},
+        { name: 'edit', label: ''}]
     });   
   
     this.developerService.avatar$.subscribe({
