@@ -5,15 +5,5 @@ mat-progress-spinner {
 }
 
 .background{
-  width: 100%;
-  height: 100%;
   background-image: url("/assets/images/marketplace.png");
-  background-size: 35%;
-  background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: right bottom;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
 }
