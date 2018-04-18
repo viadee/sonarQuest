@@ -79,8 +79,8 @@ export class GamemasterAdventureComponent implements OnInit {
   }
 
   newAdventure(){
-    this.dialog.open(GamemasterAdventureCreateComponent,{panelClass:"dialog-sexy", width:"500px"}).afterClosed().subscribe((adventure)=>{
-      if (adventure != undefined){
+    this.dialog.open(GamemasterAdventureCreateComponent,{panelClass:"dialog-sexy", width:"500px"}).afterClosed().subscribe((bool)=>{
+      if (bool){
         this.loadAdventures();
         this.questService.refreshQuests(this.currentWorld);
       }

@@ -1,6 +1,6 @@
-
-
-<h2 mat-dialog-title>{{"WORLD.CHOOSE_WORLD"| translate}}</h2>
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"WORLD.CHOOSE_WORLD"| translate}}</h2>
+</mat-toolbar>
 <mat-dialog-content>
   <td-data-table [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
     (sortChange)="sort($event)">

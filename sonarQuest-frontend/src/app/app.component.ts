@@ -48,7 +48,7 @@ export class AppComponent {
         this.currentWorld = world;
         this.setSelected();
       } else {
-        this.dialog.open(ChooseCurrentWorldComponent, { width: "500px" }).afterClosed().subscribe()
+        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: "dialog-sexy", width: "500px" }).afterClosed().subscribe()
       }
     })
 
