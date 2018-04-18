@@ -45,7 +45,7 @@ export class GamemasterQuestComponent implements OnInit {
   fromRow = 1;
   currentPage = 1;
   pageSize = 5;
-  sortBy = 'id';
+  sortBy = 'title';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
