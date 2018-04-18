@@ -49,7 +49,7 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   }
 
   addFreeQuest() {
-    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.selectedWorld, this.quests] })
+    this.dialog.open(GamemasterAddFreeQuestComponent, {panelClass: "dialog-sexy", data: [this.selectedWorld, this.quests] })
       .afterClosed().subscribe(result => {
         if (result) {
           this.quests.push(result)
@@ -82,7 +82,7 @@ export class GamemasterAdventureCreateComponent implements OnInit {
           return Promise.all(promiseArray);
         }
       }).then(() => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       })
 
     }

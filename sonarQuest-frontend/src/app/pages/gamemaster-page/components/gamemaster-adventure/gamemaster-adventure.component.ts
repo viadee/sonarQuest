@@ -24,13 +24,12 @@ export class GamemasterAdventureComponent implements OnInit {
   currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
-    { name: 'id', label: 'Id'},
     { name: 'title', label: 'Title', width:200 },
     { name: 'gold', label: 'Gold'},
     { name: 'xp', label: 'XP'},
     { name: 'story', label: 'Story'},
     { name: 'status', label: 'Status'},
-    { name: 'edit', label: ''}
+    { name: 'edit', label: '', width: 70}
   ]
 
   // Sort / Filter / Paginate variables
@@ -40,7 +39,7 @@ export class GamemasterAdventureComponent implements OnInit {
   fromRow = 1;
   currentPage = 1;
   pageSize = 5;
-  sortBy = 'id';
+  sortBy = 'title';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
@@ -62,13 +61,12 @@ export class GamemasterAdventureComponent implements OnInit {
   translateTable(){
   	  this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
-		    { name: 'id', label: col_names.ID},
 		    { name: 'title', label: col_names.TITLE, width:200 },
-		    { name: 'gold', label: col_names.GOLD},
-		    { name: 'xp', label: col_names.XP},
+		    { name: 'gold', label: col_names.GOLD, width: 40},
+		    { name: 'xp', label: col_names.XP, width: 40},
 		    { name: 'story', label: col_names.STORY},
 		    { name: 'status', label: col_names.STATUS},
-		    { name: 'edit', label: ''}
+		    { name: 'edit', label: '', width: 100}
     	]
     });
   }  
@@ -81,16 +79,20 @@ export class GamemasterAdventureComponent implements OnInit {
   }
 
   newAdventure(){
-    this.dialog.open(GamemasterAdventureCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>{
-      this.loadAdventures();
-      this.questService.refreshQuests(this.currentWorld);
+    this.dialog.open(GamemasterAdventureCreateComponent,{panelClass:"dialog-sexy", width:"500px"}).afterClosed().subscribe((adventure)=>{
+      if (adventure != undefined){
+        this.loadAdventures();
+        this.questService.refreshQuests(this.currentWorld);
+      }
     });
   }
 
   editAdventure(adventure: Adventure){
-    this.dialog.open(GamemasterAdventureEditComponent,{data: adventure, width: "500px"}).afterClosed().subscribe(()=>{
-      this.loadAdventures();
-      this.adventureService.refreshAdventures(this.currentWorld);
+    this.dialog.open(GamemasterAdventureEditComponent,{panelClass:"dialog-sexy", data: adventure, width: "500px"}).afterClosed().subscribe((bool)=>{
+      if (bool){
+        this.loadAdventures();
+        this.questService.refreshQuests(this.currentWorld);
+      }
     })
   }
 

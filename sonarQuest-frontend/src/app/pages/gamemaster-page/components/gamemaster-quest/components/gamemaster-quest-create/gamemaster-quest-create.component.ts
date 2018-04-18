@@ -16,7 +16,6 @@ import {TaskService} from "../../../../../../services/task.service";
 })
 export class GamemasterQuestCreateComponent implements OnInit {
 
-  quest: Quest;
   title: string;
   gold: number;
   xp: number;
@@ -68,6 +67,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
       }
       this.questService.createQuest(quest).then((quest) => {
         if (quest.id) {
+
           let promiseArray = [];
           this.tasks.forEach((value, index) => {
             let addTaskToQuest = this.taskService.addToQuest(value, quest);
@@ -78,14 +78,14 @@ export class GamemasterQuestCreateComponent implements OnInit {
           return Promise.all(promiseArray);
         }
       }).then(() => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       })
     }
   }
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, { data: [this.selectedWorld, this.tasks] })
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass:"dialog-sexy", data: [this.selectedWorld, this.tasks] })
       .afterClosed().subscribe(result => {
       if (result) {
         this.tasks.push(result)
@@ -94,7 +94,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   suggestTasks() {
-    this.dialog.open(GamemasterSuggestTasksComponent, { data: [this.selectedWorld, this.tasks] }).afterClosed().subscribe(result => {
+    this.dialog.open(GamemasterSuggestTasksComponent, {panelClass:"dialog-sexy", width:"500px", data: [this.selectedWorld, this.tasks] }).afterClosed().subscribe(result => {
       if (result) {
         this.tasks = this.tasks.concat(result)
       }

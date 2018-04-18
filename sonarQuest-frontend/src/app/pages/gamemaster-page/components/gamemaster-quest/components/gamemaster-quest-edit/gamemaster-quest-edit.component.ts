@@ -85,7 +85,7 @@ export class GamemasterQuestEditComponent implements OnInit {
           })
           return Promise.all(promiseArray)
       }).then(()=>{
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       })
     }
   }

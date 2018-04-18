@@ -1,6 +1,18 @@
-<h2 mat-dialog-title>{{"ADVENTURE.NEW_ADVENTURE" | translate}}</h2>
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"ADVENTURE.NEW_ADVENTURE" | translate}}</h2>
+</mat-toolbar>
+
 <mat-dialog-content>
+
   <div layout="column" layout-padding>
+    <div flex>
+      <mat-select [placeholder]="'WORLD.WORLD' | translate" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
+        <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
+      </mat-select>
+    </div>
+
+    <mat-divider></mat-divider>
+
     <div flex>
       <mat-input-container class="full-width">
         <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
@@ -13,7 +25,7 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="xp">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="xp">
       </mat-input-container>
     </div>
     <div flex>
@@ -22,19 +34,17 @@
       </mat-input-container>
     </div>
   </div>
-  <mat-divider></mat-divider>
-  <div layout="column" layout-padding>
-  <div flex>
-    <mat-select [placeholder]="'WORLD.WORLD' | translate" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
-      <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
-    </mat-select>
-  </div>
-  </div>
-  <div layout="row">
-    <h3>{{"QUEST.QUEST" | translate}}</h3>
-    <div flex></div>
-    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeQuest()"><mat-icon>add</mat-icon></button>
-  </div>
+
+  <mat-toolbar>
+    <h3>{{"QUEST.QUESTS" | translate}}</h3>
+
+    <span class="toolbar-spacer"></span>
+
+    <button color="accent" mat-icon-button (click)="addFreeQuest()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+
   <mat-list>
     <mat-list-item *ngFor="let quest of quests">
       <h3 mat-line> {{quest?.title}} </h3>
@@ -47,8 +57,12 @@
       </button>
     </mat-list-item>
   </mat-list>
+
 </mat-dialog-content>
+
 <mat-divider></mat-divider>
+
 <mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
   <button mat-raised-button color="primary" (click)="createAdventure()">{{"GAMEMASTER_PAGE.ADVENTURE.CREATE_ADVENTURE" | translate}}</button>
 </mat-dialog-actions>

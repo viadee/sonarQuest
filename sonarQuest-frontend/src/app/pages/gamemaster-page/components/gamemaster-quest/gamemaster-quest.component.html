@@ -1,25 +1,29 @@
 
-<mat-divider></mat-divider>
 <mat-card-content>
   <div layout="row">
-      <div flex></div>
+    <div flex></div>
     <button mat-raised-button color="primary" (click)="newQuest()">{{"QUEST.NEW_QUEST"|translate}}</button>
-
   </div>
+
   <div layout-padding>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-          <span class="mat-card-title" style="margin:0">
-              {{"QUEST_PAGE.QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
-          </span>
+      <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span class="mat-card-title" style="margin:0">
+          {{"QUEST_PAGE.QUESTS_FOR_WORLD"| translate}}
+          <strong>{{currentWorld?.name}}</strong>
         </span>
-      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" [placeholder]="'GLOBAL.SEARCH' | translate" (searchDebounce)="search($event)"
-                     flex>
+      </span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" [placeholder]="'GLOBAL.SEARCH' | translate" (searchDebounce)="search($event)" flex>
       </td-search-box>
     </div>
+
     <mat-divider></mat-divider>
-    <td-data-table #dataTable [data]="filteredData" [columns]="columns"
-                   [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+
+    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+      [sortOrder]="sortOrder" (sortChange)="sort($event)">
+      <ng-template tdDataTableTemplate="image" let-value="value" let-row="row" let-column="column">
+        <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="value">
+      </ng-template>
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <button mat-icon-button (click)="editQuest(row)">
@@ -32,10 +36,11 @@
       </ng-template>
     </td-data-table>
     <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-        <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>
+      <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>
     </div>
     <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}<span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
-      </td-paging-bar>
+      <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}
+      <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+    </td-paging-bar>
   </div>
 </mat-card-content>

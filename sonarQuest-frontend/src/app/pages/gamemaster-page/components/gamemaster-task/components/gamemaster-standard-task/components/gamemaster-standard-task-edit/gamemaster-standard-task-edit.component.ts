@@ -19,7 +19,7 @@ export class GamemasterStandardTaskEditComponent implements OnInit {
 
   updateStandardTask(){
     if(this.standardTask.xp && this.standardTask.title && this.standardTask.gold){
-      this.standardTaskService.updateStandardTask(this.standardTask).then(()=> this.dialogRef.close());
+      this.standardTaskService.updateStandardTask(this.standardTask).then(()=> this.dialogRef.close(true));
     }
   }
 }

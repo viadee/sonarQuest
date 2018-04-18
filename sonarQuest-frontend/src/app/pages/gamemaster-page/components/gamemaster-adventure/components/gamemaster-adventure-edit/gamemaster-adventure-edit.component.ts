@@ -44,7 +44,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
   }
 
   addFreeQuest() {
-    this.dialog.open(GamemasterAddFreeQuestComponent, { data: [this.currentWorld, this.adventure.quests] })
+    this.dialog.open(GamemasterAddFreeQuestComponent, {panelClass: "dialog-sexy", data: [this.currentWorld, this.adventure.quests] })
       .afterClosed().subscribe(result => {
         if (result) {
           this.adventure.quests.push(result)
@@ -75,7 +75,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
         });
         return Promise.all(promiseArray)
       }).then(() => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       })
     }
   }

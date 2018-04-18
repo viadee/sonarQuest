@@ -68,15 +68,14 @@ export class GamemasterQuestComponent implements OnInit {
   private translateTable(){
       this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
       this.columns=[
-            { name: 'id', label: col_names.ID},
+            { name: 'image', label: ''},
             { name: 'title', label: col_names.TITLE },
-            { name: 'gold', label: col_names.GOLD},
-            { name: 'xp', label: col_names.XP},
+            { name: 'gold', label: col_names.GOLD, width: 40},
+            { name: 'xp', label: col_names.XP, width: 40},
             { name: 'story', label: col_names.STORY},
-            { name: 'world.name', label: col_names.WORLD},
             { name: 'adventure.title', label: col_names.ADVENTURE},
             { name: 'status', label: col_names.STATUS},
-            { name: 'edit', label: ''}
+            { name: 'edit', label: '', width: 100}
         ]
     });
   }      
@@ -89,14 +88,14 @@ export class GamemasterQuestComponent implements OnInit {
   }
 
   newQuest(){
-    this.dialog.open(GamemasterQuestCreateComponent,{panelClass: 'dialog-sexy', width:"500px"}).afterClosed().subscribe(()=>{
-      this.update();
+    this.dialog.open(GamemasterQuestCreateComponent,{panelClass: 'dialog-sexy', width:"500px"}).afterClosed().subscribe(bool=>{
+      if (bool) this.update();
     })
   }
 
   editQuest(quest: Quest){
-    this.dialog.open(GamemasterQuestEditComponent,{data: quest,width:"500px"}).afterClosed().subscribe(()=>{
-      this.update();
+    this.dialog.open(GamemasterQuestEditComponent,{panelClass: 'dialog-sexy', data: quest,width:"500px"}).afterClosed().subscribe((bool)=>{
+      if (bool) this.update();
     })
   }
 

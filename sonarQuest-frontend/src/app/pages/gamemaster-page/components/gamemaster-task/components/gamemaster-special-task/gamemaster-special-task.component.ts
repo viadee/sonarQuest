@@ -73,7 +73,7 @@ export class GamemasterSpecialTaskComponent implements OnInit {
             { name: 'message', label: col_names.MISSION},
             { name: 'quest.title', label: col_names.QUEST},
             { name: 'status', label: col_names.STATUS},
-            { name: 'edit', label: ''}
+            { name: 'edit', label: '', width: 70}
         ]
     });
   }    
@@ -86,7 +86,9 @@ export class GamemasterSpecialTaskComponent implements OnInit {
   }
 
   newSpecialTask(){
-    this.dialog.open(GamemasterSpecialTaskCreateComponent,{panelClass: 'dialog-sexy', data: this.currentWorld, width:"500px"}).afterClosed().subscribe(()=>this.loadTasks())
+    this.dialog.open(GamemasterSpecialTaskCreateComponent,{panelClass: 'dialog-sexy', data: this.currentWorld, width:"500px"}).afterClosed().subscribe((bool)=> {
+      if (bool) this.loadTasks()
+    });
   }
 
   editSpecialTask(specialTask){

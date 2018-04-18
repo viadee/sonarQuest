@@ -39,8 +39,7 @@
     "GAMEMASTER_PAGE": {
         "ADVENTURE": {
           "CREATE_ADVENTURE" : "Create adventure",
-          "EDIT_ADVENTURE"  : "Edit adventure",
-          "" : ""
+          "EDIT_ADVENTURE"  : "Edit adventure"
         },
         "QUEST": {
           "SUGGEST_TASKS" :"Suggest tasks",
@@ -50,10 +49,12 @@
           "EDIT_SOLVED_QUEST": "This quest is solved. You cannot edit it anymore."
         },
         "TASK": {
-          "CREATE_SPECIALTASK" : "Create Special Task",
+          "CREATE_SPECIALTASK"  : "Create Special Task",
           "CREATE_STANDARDTASK" : "Create Standard Task",
-          "EDIT_SPECIALTASK" : "Edit Special Task",
-          "EDIT_STANDARDTASK" : "Edit Standard Task"
+          "EDIT_SPECIALTASK"    : "Edit Special Task",
+          "EDIT_STANDARDTASK"   : "Edit Standard Task",
+          "CONDITION"           : "Condition",
+          "AMOUNT"              : "Amount"
         }
     },
     "TABLE": {
@@ -87,7 +88,9 @@
         "DELETE"    : "Delete",
         "NO_ENTRIES": "no entries",
         "SEARCH"    : "Search",
-        "SAVE"      : "Save"
+        "SAVE"      : "Save",
+        "IMAGE"     : "Image",
+        "CLICK_TO_SELECT"   : "clickt to select"
     },
     "DEVELOPER" :{
         "DEVELOPER" :   "Developer",

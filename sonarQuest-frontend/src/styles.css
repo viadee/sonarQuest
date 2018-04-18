@@ -28,8 +28,14 @@
   margin-bottom: 0px  !important;
 }
 
-.dialog-sexy .mat-option {
-  max-height:50px;
+.vertical-spacer-10{
+  padding-left:10px;
+}
+
+mat-option img {
+  height: 48px;
+  width: 48px;
+  margin: 0px 0px -19px 0px;
 }
 
 .toolbar-spacer {
