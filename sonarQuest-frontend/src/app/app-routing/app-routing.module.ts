@@ -10,14 +10,14 @@ import {GamemasterPageComponent} from "../pages/gamemaster-page/gamemaster-page.
 
 
 const appRoutes: Routes = [
-    { path: 'start', component: StartPageComponent },
+    /* { path: 'start', component: StartPageComponent }, */
     { path: 'myAvatar', component: MyAvatarPageComponent },
     { path: 'adventures', component: AdventurePageComponent },
     { path: 'quests', component: QuestPageComponent },
     { path: 'marketplace', component: MarketplacePageComponent },
     { path: 'gamemaster', component: GamemasterPageComponent },
     { path: 'admin', component: AdminPageComponent },
-    { path: '', redirectTo: '/start', pathMatch: 'full' },
+    { path: '', redirectTo: '/myAvatar', pathMatch: 'full' },
 ];
 @NgModule({
     imports: [

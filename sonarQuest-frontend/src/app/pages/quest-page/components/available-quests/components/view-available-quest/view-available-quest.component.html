@@ -1,38 +1,43 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{quest.title}}</h2>
+  <span class="toolbar-spacer"></span>
+  <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="quest.image">
+</mat-toolbar>
 
 <mat-dialog-content>
-    <h3>{{quest.title}}</h3>
-  <div>
-    <img style="max-width:100%; max-height:100%; border: 1px solid #888; margin-bottom: 1em" [src]="quest.image">
-  </div>
-  <div layout="row">
-    <div flex>
-      <b>{{"DEVELOPER.GOLD"| translate}}: </b>{{quest.gold}}
+  <div layout-padding>
+    <div layout="row">
+      <div flex style="font-size: 2em">
+          <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{quest.gold}}
+      </div>
+      <div flex style="font-size: 2em">
+          <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i>{{quest.xp}}
+      </div>
     </div>
-    <div flex>
-     <b>{{"DEVELOPER.XP"| translate}}: </b> {{quest.xp}}
+
+    <div class="storyContainer">
+      {{quest.story}}
     </div>
   </div>
 
-  <div class="storyContainer">
-        {{quest.story}}
-  </div>
-  <mat-divider></mat-divider>
-    <h3>{{"TASK.TASKS"| translate}}</h3>
+  <mat-toolbar>
+    <h2 mat-dialog-title>{{"TASK.TASKS" | translate}}:</h2>
+  </mat-toolbar>
+
   <mat-list>
     <mat-list-item *ngFor="let task of quest.tasks">
       <h3 mat-line> {{task?.title}} </h3>
       <p mat-line>
-        <span>{{"DEVELOPER.GOLD"| translate}}: {{task?.gold}}, </span>
-        <span>{{"DEVELOPER.XP"| translate}}: {{task?.xp}}</span>
+          <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
+          <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i><span>{{task?.xp}}</span>
       </p>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>
+
 <mat-divider></mat-divider>
-<div layout="row" class="buttonRow">
-      <div flex></div>
-      <div>
-          <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
-      </div>
-      <div flex></div>
-</div>
+
+<mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
+</mat-dialog-actions>

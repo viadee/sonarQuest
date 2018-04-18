@@ -5,7 +5,8 @@
   </div>
   <mat-nav-list td-sidenav-content (click)="!media.query('gt-sm') && navList.close()">
       <mat-list-item disableRipple>
-        <mat-icon mat-list-icon>terrain</mat-icon>
+        
+        <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
         <div flex></div>
         
         <mat-select  mat-line placeholder="Welt" [(ngModel)]="selected" floatPlaceholder="never">
@@ -13,40 +14,42 @@
         </mat-select>
         <div></div>
       </mat-list-item>
-
+<!-- 
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/start">
       <mat-icon mat-list-icon>view_module</mat-icon>
       <h3 mat-line> {{"APP_COMPONENT.STARTPAGE"| translate}} </h3>
-    </a>
+    </a> -->
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/myAvatar">
-      <mat-icon mat-list-icon>face</mat-icon>
+      <i mat-list-icon class="ra ra-muscle-up ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.MY_AVATAR"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/adventures">
-      <mat-icon mat-list-icon>explore</mat-icon>
+      <i mat-list-icon class="ra ra-blade-bite ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.ADVENTURES"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/quests">
-      <mat-icon mat-list-icon>map</mat-icon>
+      <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.QUESTS"| translate}}</h3>
     </a>
     <mat-divider mat-inset></mat-divider>
+    
     <a mat-list-item routerLink="/marketplace">
-      <mat-icon mat-list-icon>shopping_cart</mat-icon>
+      <i mat-list-icon class="ra ra-capitol ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.MARKETPLACE"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>
+     
     <a mat-list-item routerLink="/gamemaster">
-      <mat-icon mat-list-icon>settings</mat-icon>
+      <i mat-list-icon class="ra ra-forging ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.GAMEMASTER"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/admin">
-      <mat-icon mat-list-icon>person_add</mat-icon>
+      <i mat-list-icon class="ra ra-queen-crown ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.ADMIN"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>

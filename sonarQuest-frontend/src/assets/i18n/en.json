@@ -90,13 +90,19 @@
         "SEARCH"    : "Search",
         "SAVE"      : "Save",
         "IMAGE"     : "Image",
-        "CLICK_TO_SELECT"   : "clickt to select"
+        "CLICK_TO_SELECT"   : "clickt to select",
+        "GOLD"  : "Gold",
+        "XP"    : "XP"
     },
     "DEVELOPER" :{
         "DEVELOPER" :   "Developer",
         "GOLD"      :   "Gold",
         "XP"        :   "XP",
-        "LEVEL"     :   "Level"
+        "LEVEL"     :   "Level",
+        "ABOUTME"   :   "About me",
+        "AVATARRACE":   "Race",
+        "AVATARCLASS":  "Class",
+        "TROPHIES"  :   "Trophies"
     },
     "QUEST" :{
         "QUEST"         :"Quest",

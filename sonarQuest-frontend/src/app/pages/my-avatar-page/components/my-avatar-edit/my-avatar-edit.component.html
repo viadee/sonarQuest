@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-<h2 mat-dialog-title>{{'ADMIN_PAGE.EDIT_DEVELOPER' | translate}}</h2>
+  <h2 mat-dialog-title>{{'ADMIN_PAGE.EDIT_DEVELOPER' | translate}}</h2>
 </mat-toolbar>
 <mat-dialog-content>
   <div layout="column" layout-padding>
@@ -17,19 +17,19 @@
       <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="developer.picture">
     </div>
     <div flex layout="row">
-        <span>{{"GLOBAL.IMAGE" | translate}}:</span>
-        <span class="vertical-spacer-10"></span>
-        <mat-select placeholder="{{'GLOBAL.CLICK_TO_SELECT' | translate}}" [(ngModel)]="developer.picture">
-            <mat-option *ngFor="let image of images" [value]="image.src">
-                <img [src]="image.src">
-              {{image.name}}
-            </mat-option>
-          </mat-select>
-      </div>
+      <span>{{"GLOBAL.IMAGE" | translate}}:</span>
+      <span class="vertical-spacer-10"></span>
+      <mat-select placeholder="{{'GLOBAL.CLICK_TO_SELECT' | translate}}" [(ngModel)]="developer.picture">
+        <mat-option *ngFor="let image of images" [value]="image.src">
+          <img [src]="image.src"> {{image.name}}
+        </mat-option>
+      </mat-select>
+    </div>
   </div>
-  <mat-divider></mat-divider>
 </mat-dialog-content>
+
 <mat-divider></mat-divider>
+
 <mat-dialog-actions>
   <span class="toolbar-spacer"></span>
   <button mat-button (click)="cancel()">

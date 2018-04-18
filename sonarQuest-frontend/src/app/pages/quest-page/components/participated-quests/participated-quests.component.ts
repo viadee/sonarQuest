@@ -96,7 +96,7 @@ export class ParticipatedQuestsComponent implements OnInit {
   }
 
   viewQuest(quest: Quest) {
-    this.dialog.open(ViewParticipatedQuestComponent, { data: quest, width: "500px" }).afterClosed().subscribe(() => {
+    this.dialog.open(ViewParticipatedQuestComponent, {panelClass: 'dialog-sexy',   data: quest, width: "500px" }).afterClosed().subscribe(() => {
     })
   }
 

@@ -92,7 +92,7 @@ export class AvailableQuestsComponent implements OnInit {
 
 
   viewQuest(quest: Quest) {
-    this.dialog.open(ViewAvailableQuestComponent, { data: quest, width: "500px" }).afterClosed().subscribe(() => {
+    this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy',  data: quest, width: "500px" }).afterClosed().subscribe(() => {
       this.loadQuests();
       this.participationService.announceParticipationUpdate()
     })

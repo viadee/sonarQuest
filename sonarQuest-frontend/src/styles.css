@@ -54,3 +54,17 @@ mat-option img {
   left: 0;
   z-index: 0;
 }
+
+i.navlist{
+  margin-left: 0;
+  margin-right: 16px;
+  color: #737373;
+  fill: #737373;
+}
+
+.progress-area{
+  margin-top: 20px;
+  max-width: 50%;
+  min-width: 300px;
+  font-size: 1.5em;
+}
