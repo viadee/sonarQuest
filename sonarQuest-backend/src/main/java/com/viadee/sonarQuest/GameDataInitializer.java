@@ -38,7 +38,7 @@ public class GameDataInitializer implements InitializingBean {
     public GameDataInitializer() {
     }
 
-    @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
+    // @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
     private void createSimulatedData() {
         // Create Quests
         QuestDto quest1 = new QuestDto(null, "Quest1", "Dies ist eine Quest", null, (long) 5, (long) 10,
@@ -185,8 +185,9 @@ public class GameDataInitializer implements InitializingBean {
         participationController.createParticipation(4L, 1L);
 
         // Just another empty world
-        WorldDto wdto = new WorldDto(null, "World of Dangers", "com.viadee:TestProject", true, null, null);
-        worldService.createWorld(wdto);
+        // WorldDto wdto = new WorldDto(null, "World of Dangers",
+        // "com.viadee:TestProject", true, null, null);
+        // worldService.createWorld(wdto);
     }
 
     @Override
