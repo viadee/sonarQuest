@@ -1,5 +1,9 @@
+<mat-toolbar color="primary">
 <h2 mat-dialog-title>{{"QUEST.ADD_FREE_QUEST" | translate}}</h2>
+</mat-toolbar>
+
 <mat-dialog-content>
+  <div layout-padding>
   <mat-list>
     <mat-list-item *ngFor="let quest of freeQuests">
       <h3 mat-line> {{quest.title}} </h3>
@@ -13,4 +17,5 @@
     </mat-list-item>
   </mat-list>
   <h2 *ngIf="freeQuests?.length==0">{{"QUEST.NO_FREE_QUESTS_AVAILABLE" | translate}}</h2>
+</div>
 </mat-dialog-content>

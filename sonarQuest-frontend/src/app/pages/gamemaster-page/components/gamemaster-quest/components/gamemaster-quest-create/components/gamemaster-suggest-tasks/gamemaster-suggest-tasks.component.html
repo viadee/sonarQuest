@@ -1,17 +1,27 @@
-<h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.SUGGEST_TASKS" | translate}}</h2>
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.SUGGEST_TASKS" | translate}}</h2>
+</mat-toolbar>
+
 <mat-dialog-content>
-  <div flex>
-    <mat-select [placeholder]="'GAMEMASTER_PAGE.TASK.CONDITION' | translate" value="condition" [(ngModel)]="condition" floatPlaceholder="true" name="condition" class="full-width">
-      <mat-option value="gold">{{"DEVELOPER.GOLD" | translate}}</mat-option>
-      <mat-option value="xp">{{"DEVELOPER.XP" | translate}}</mat-option>
-    </mat-select>
-  </div>
-  <div flex>
-    <mat-input-container class="full-width">
-      <input matInput [placeholder]="'TASK.AMOUNT' | translate"  type="number" [(ngModel)]="amount">
-    </mat-input-container>
+  <div layout="column" layout-padding>
+    <div flex>
+      <mat-select [placeholder]="'GAMEMASTER_PAGE.TASK.CONDITION' | translate" value="condition" [(ngModel)]="condition" floatPlaceholder="true"
+        name="condition" class="full-width">
+        <mat-option value="gold">{{"DEVELOPER.GOLD" | translate}}</mat-option>
+        <mat-option value="xp">{{"DEVELOPER.XP" | translate}}</mat-option>
+      </mat-select>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput [placeholder]="'GAMEMASTER_PAGE.TASK.AMOUNT' | translate" type="number" [(ngModel)]="amount">
+      </mat-input-container>
+    </div>
   </div>
 </mat-dialog-content>
+
+<mat-divider></mat-divider>
+
 <mat-dialog-actions>
-  <button mat-button (click)="suggestTasks()">{{"GAMEMASTER_PAGE.QUEST.GENERATE" | translate}}</button>
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button color="primary" (click)="suggestTasks()">{{"GAMEMASTER_PAGE.QUEST.GENERATE" | translate}}</button>
 </mat-dialog-actions>

@@ -54,11 +54,11 @@ export class GamemasterMarketplaceComponent implements OnInit {
 
 
   newArtefact(){
-    this.dialog.open(GamemasterArtefactCreateComponent,{width:"500px"}).afterClosed().subscribe(()=>{});
+    this.dialog.open(GamemasterArtefactCreateComponent,{panelClass: 'dialog-sexy', width:"500px"}).afterClosed().subscribe(()=>{});
   }
 
   editArtefact(artefact: Artefact){
-    this.dialog.open(GamemasterArtefactEditComponent,{data:artefact, width:"500px"}).afterClosed().subscribe(()=>{});
+    this.dialog.open(GamemasterArtefactEditComponent,{panelClass: 'dialog-sexy', data:artefact, width:"500px"}).afterClosed().subscribe(()=>{});
   }
 
 

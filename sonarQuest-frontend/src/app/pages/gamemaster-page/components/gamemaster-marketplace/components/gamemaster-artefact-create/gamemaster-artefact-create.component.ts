@@ -16,20 +16,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamemasterArtefactCreateComponent implements OnInit {
 
-  name:         string;
-  min:          number;
-  price:        number;
-  quantity:     number;
-  skills:       Skill[] = [];
-  description:  string;
-  icon:         string  = '';
+  name: string;
+  min: number;
+  price: number;
+  quantity: number;
+  skills: Skill[] = [];
+  description: string;
+  icon: string = '';
 
 
   columns: ITdDataTableColumn[] = [
-    { name: 'name',  label: 'Name',  width: {min: 80}},
-    { name: 'type',  label: 'Type',  width: {min: 40}},
-    { name: 'value', label: 'Value', width: {min: 40}},
-    { name: 'action', label: '',  }
+    { name: 'name', label: 'Name', width: { min: 80 } },
+    { name: 'type', label: 'Type', width: { min: 40 } },
+    { name: 'value', label: 'Value', width: { min: 40 } },
+    { name: 'action', label: '', }
   ]
 
   // Sort / Filter / Paginate variables
@@ -52,24 +52,26 @@ export class GamemasterArtefactCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.filter()
+    this.filter()
   }
 
-  removeSkill(skill: Skill){
+  removeSkill(skill: Skill) {
     this.skillServive.deleteSkill(skill).then()
     this.skills.splice(this.skills.indexOf(skill))
     this.filter()
   }
 
-  createSkill(){
-    this.dialog.open(GamemasterSkillCreateComponent,{width:"500px"}).afterClosed().subscribe(skill=>{
-      this.skills.push(skill)
-      this.filter()
+  createSkill() {
+    this.dialog.open(GamemasterSkillCreateComponent, { panelClass: 'dialog-sexy', width: "500px" }).afterClosed().subscribe(skill => {
+      if (skill != undefined) {
+        this.skills.push(skill)
+        this.filter()
+      }
     });
   }
 
-  selectIcon(){
-    this.dialog.open(GamemasterIconSelectComponent,{data: this.icon, panelClass: 'dialog-sexy', width:"800px"}).afterClosed().subscribe(icon=>{
+  selectIcon() {
+    this.dialog.open(GamemasterIconSelectComponent, { data: this.icon, panelClass: 'dialog-sexy', width: "800px" }).afterClosed().subscribe(icon => {
       if (icon != undefined) {
         this.icon = icon
       }
@@ -78,23 +80,23 @@ export class GamemasterArtefactCreateComponent implements OnInit {
 
   createArtefact() {
 
-    if(this.min      == 0 || this.min      == null) this.min      = 1
-    if(this.quantity == 0 || this.quantity == null) this.quantity = 1
+    if (this.min == 0 || this.min == null) this.min = 1
+    if (this.quantity == 0 || this.quantity == null) this.quantity = 1
 
     if (this.name && this.min && this.price && this.quantity && this.skills.length > 0) {
 
       let artefact = {
-        name:         this.name,
-        price:        this.price,
-        quantity:     this.quantity,
-        description:  this.description,
-        skills:       this.skills,
-        icon:         this.icon,
+        name: this.name,
+        price: this.price,
+        quantity: this.quantity,
+        description: this.description,
+        skills: this.skills,
+        icon: this.icon,
         minLevel: {
-          min:          this.min
+          min: this.min
         }
       }
-      
+
       this.artefactService.createArtefact(artefact).then(() => {
         this.artefactService.getData();
         this.dialogRef.close();
@@ -106,7 +108,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
-  } 
+  }
 
   search(searchTerm: string): void {
     this.searchTerm = searchTerm;

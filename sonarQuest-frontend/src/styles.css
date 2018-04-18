@@ -12,8 +12,30 @@
 }
 
 .dialog-sexy .mat-dialog-container {
-    padding: 0;
- 
+  padding: 0;
+  /* padding-bottom: 24px; */
+  overflow-x: hidden;
+  overflow-y: auto;
+} 
+
+.dialog-sexy .mat-dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+} 
+
+.dialog-sexy :last-child.mat-dialog-actions {
+  padding: 12px 15px 12px 0px !important;
+  margin-bottom: 0px  !important;
+}
+
+.vertical-spacer-10{
+  padding-left:10px;
+}
+
+mat-option img {
+  height: 48px;
+  width: 48px;
+  margin: 0px 0px -19px 0px;
 }
 
 .toolbar-spacer {

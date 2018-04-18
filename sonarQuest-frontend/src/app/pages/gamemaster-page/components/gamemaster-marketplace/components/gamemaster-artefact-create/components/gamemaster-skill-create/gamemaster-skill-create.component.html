@@ -1,26 +1,33 @@
-<h2 mat-dialog-title>{{"SKILL.NEW_SKILL" | translate}}</h2>
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"SKILL.NEW_SKILL" | translate}}</h2>
+</mat-toolbar>
+
 <mat-dialog-content>
   <div layout="column" layout-padding>
+
     <div flex>
       <mat-input-container class="full-width">
         <input matInput placeholder="Name" [(ngModel)]="name">
       </mat-input-container>
     </div>
-    
+
     <div flex>
       <mat-select mat-line placeholder="Type" floatPlaceholder="never" [(ngModel)]="type">
         <mat-option flex="20" *ngFor="let t of types" [value]="t">{{t}}</mat-option>
       </mat-select>
- 
     </div>
+
     <div flex>
       <mat-input-container class="full-width">
         <input matInput placeholder="Value" type="number" min="0" [(ngModel)]="value">
       </mat-input-container>
     </div>
+
   </div>
-</mat-dialog-content> 
-<mat-divider></mat-divider>
+</mat-dialog-content>
+
+
 <mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
   <button mat-raised-button color="primary" (click)="create()">{{"SKILL.CREATE_SKILL" | translate}}</button>
 </mat-dialog-actions>

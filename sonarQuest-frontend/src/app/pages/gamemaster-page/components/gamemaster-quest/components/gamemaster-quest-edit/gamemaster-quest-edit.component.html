@@ -1,4 +1,9 @@
-<h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.EDIT_QUEST" | translate}}</h2>
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"GAMEMASTER_PAGE.QUEST.EDIT_QUEST" | translate}}</h2>
+  <span class="toolbar-spacer"></span>
+  <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="quest.image">
+</mat-toolbar>
+
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex *ngIf="isSolved">
@@ -16,7 +21,7 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
@@ -24,33 +29,39 @@
         <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
       </mat-input-container>
     </div>
-    <div>
-      <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="quest.image">
+    
+    <div flex layout="row">
+        <span>{{"GLOBAL.IMAGE" | translate}}:</span>
+        <span class="vertical-spacer-10"></span>
+        <mat-select placeholder="{{'GLOBAL.CLICK_TO_SELECT' | translate}}" [(ngModel)]="quest.image">
+          <mat-option *ngFor="let image of images" [value]="image.src">
+            <img [src]="image.src">
+            <span>{{image.name}}</span>
+          </mat-option>
+        </mat-select>
+      </div>
+  </div>
+
+  <mat-toolbar>
+    <h2 mat-dialog-title>{{"TASK.TASKS" | translate}}:</h2>
+
+    <span class="toolbar-spacer"></span>
+
+    <div flex>
+      <span>{{"DEVELOPER.GOLD" | translate}}: {{calculateGoldAmountOfTasks()}}</span>
     </div>
     <div flex>
-      <mat-select placeholder="Image" [(ngModel)]="quest.image">
-        <mat-option *ngFor="let image of images" [value]="image.src">
-          {{image.name}}
-        </mat-option>
-      </mat-select>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div layout="row">
-    <h3>{{"TASK.TASKS" | translate}}</h3>
-    <div flex></div>
-    <div style="padding-top: 5%">
-      <span >{{"DEVELOPER.GOLD" | translate}}: {{calculateGoldAmountOfTasks()}}</span>
-    </div>
-      <div flex></div>
-    <div style="padding-top: 5%">
       <span>{{"DEVELOPER.XP" | translate}}: {{calculateXpAmountOfTasks()}}</span>
     </div>
-    <div flex></div>
-    <button style="padding-top:2.5%" mat-icon-button (click)="addFreeTask()" [disabled]="isSolved"><mat-icon>add</mat-icon></button>
-    <div flex="5"></div>
-    <button style="padding-top:2.5%" mat-icon-button (click)="suggestTasks()" [disabled]="isSolved"><mat-icon>lightbulb_outline</mat-icon></button>
-  </div>
+
+    <button mat-icon-button color="accent" (click)="addFreeTask()">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="suggestTasks()">
+      <mat-icon>lightbulb_outline</mat-icon>
+    </button>
+  </mat-toolbar>
+
   <mat-list>
     <mat-list-item *ngFor="let task of quest.tasks">
       <h3 mat-line> {{task?.title}} </h3>
@@ -68,8 +79,11 @@
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>
+
 <mat-divider></mat-divider>
+
 <mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
   <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="editQuest()">{{"GLOBAL.SAVE" | translate}}</button>
   <button *ngIf="isSolved" mat-raised-button color="primary" [mat-dialog-close]>{{"GLOBAL.CANCEL" | translate}}</button>
 </mat-dialog-actions>
