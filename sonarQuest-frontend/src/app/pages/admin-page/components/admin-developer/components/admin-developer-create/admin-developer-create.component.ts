@@ -18,6 +18,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
   public images: any[];
   public selectedImage: string;
   public nameTaken: boolean;
+  public nameEmpty : boolean;
 
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
@@ -51,7 +52,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
   }
 
   createDeveloper(){    
-    if(!this.nameTaken){      
+    if(!this.nameTaken && !this.nameEmpty){      
       let new_developer = {
         username: this.createForm.get('name').value,
         aboutMe:  this.createForm.get('about').value,
@@ -81,7 +82,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
   }
 
   getErrorMessage(){
-    if(this.createForm.get('name').hasError('required')){      
+    if(this.createForm.get('name').hasError('required')){
+      this.nameEmpty = true;
       return 'You must enter a name';
     }
     if(this.nameTaken){
