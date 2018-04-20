@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AdminDeveloperComponent } from './../../admin-developer.component';
 import { Developer } from './../../../../../../Interfaces/Developer.d';
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-admin-developer-create',
@@ -15,32 +17,54 @@ export class AdminDeveloperCreateComponent implements OnInit {
   public aboutMe:  String;
   public images: any[];
   public selectedImage: string;
+  public nameTaken: boolean;
 
+  createForm = new FormGroup({
+    name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
+    about: new FormControl()
+  });
+    
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private developerService: DeveloperService,
     @Inject(MAT_DIALOG_DATA) public developers: Developer[]
   ) { }
-
-  ngOnInit() {
+  
+  ngOnInit() {    
     this.loadImages();
     this.selectedImage = "http://via.placeholder.com/200x200";
+    this.nameTaken = false;        
   }
 
-  createDeveloper(){
-    if(this.username && this.username != "" && this.selectedImage){
+  matchNameValidator() {
+    return (control: FormControl) => {
+      const nameVal = control.value;
+      this.developers.forEach( e => {
+        if(e.username == nameVal){          
+          this.nameTaken = true;                   
+        } else {
+          this.nameTaken = false;         
+        }       
+      })
+      return this.nameTaken ? {'currentName' : {nameVal}} : null;
+    } 
+  }
+
+  createDeveloper(){    
+    if(!this.nameTaken){      
       let new_developer = {
-        username: this.username,
-        aboutMe:  this.aboutMe,
+        username: this.createForm.get('name').value,
+        aboutMe:  this.createForm.get('about').value,
         picture: this.selectedImage
-      }
+      }        
 
       this.developerService.createDeveloper(new_developer)
-      .then( developer => {
-        this.dialogRef.close(developer);
-      })
-    }
+        .then( developer => {
+         this.dialogRef.close(developer);
+      }) 
+    }       
   }
+ 
 
   cancel(){
     this.dialogRef.close();
@@ -55,4 +79,21 @@ export class AdminDeveloperCreateComponent implements OnInit {
       this.images[i].name = "hero" + (i + 1);
     }
   }
+
+  getErrorMessage(){
+    if(this.createForm.get('name').hasError('required')){      
+      return 'You must enter a name';
+    }
+    if(this.nameTaken){
+      this.createForm.controls['name'].setErrors({'matchNameValidator' : true});     
+      return 'Name already taken. Please choose a different name';
+    }
+    
+    
+  }
+
+
 }
+
+
+

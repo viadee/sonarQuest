@@ -1,21 +1,24 @@
+
 <h2 mat-dialog-title>{{'ADMIN_PAGE.CREATE_DEVELOPER' | translate}}</h2>
+<form [formGroup]="createForm">
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Username" [(ngModel)]="username">
+        <input class="form-control" formControlName="name" matInput placeholder="Username">   
+        <mat-error>{{getErrorMessage()}}</mat-error>            
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="AboutMe" [(ngModel)]="aboutMe"></textarea>
+        <textarea class="form-control" formControlName="about" matInput placeholder="AboutMe"></textarea>
       </mat-input-container>
     </div>
     <div>
       <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="selectedImage">
     </div>
     <div flex>
-      <mat-select placeholder="Image" [(ngModel)]="selectedImage">
+      <mat-select placeholder="Image">
         <mat-option *ngFor="let image of images" [value]="image.src">
           {{image.name}}
         </mat-option>
@@ -33,3 +36,4 @@
     <mat-icon class="icon">add</mat-icon>{{'GLOBAL.CREATE' | translate}}
   </button>
 </mat-dialog-actions>
+</form>

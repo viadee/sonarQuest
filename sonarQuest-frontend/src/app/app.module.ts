@@ -26,7 +26,7 @@ import { AdventurePageComponent } from "./pages/adventure-page/adventure-page.co
 import { DeveloperService } from "./services/developer.service";
 import { Http, HttpModule } from "@angular/http";
 import { WorldService } from "./services/world.service";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GamemasterPageComponent } from './pages/gamemaster-page/gamemaster-page.component';
 import { GamemasterWorldComponent } from './pages/gamemaster-page/components/gamemaster-world/gamemaster-world.component';
 import { GamemasterAdventureComponent } from './pages/gamemaster-page/components/gamemaster-adventure/gamemaster-adventure.component';
@@ -66,7 +66,7 @@ import { GamemasterMarketplaceComponent } from './pages/gamemaster-page/componen
 import { GamemasterArtefactCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/gamemaster-artefact-create.component';
 import { GamemasterArtefactEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
 import { GamemasterSkillCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
-import {AvatarEditComponent} from "./pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component";
+import { AvatarEditComponent } from "./pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component";
 import { GamemasterIconSelectComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 
 
@@ -171,6 +171,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpModule,
     MatSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     MatTabsModule,
     CovalentDataTableModule,
     CovalentSearchModule,
