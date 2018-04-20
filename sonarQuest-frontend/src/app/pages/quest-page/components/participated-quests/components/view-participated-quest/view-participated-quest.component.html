@@ -33,6 +33,9 @@
         <span *ngIf="participatingDeveloper(task)">, </span>
         <span *ngIf="participatingDeveloper(task)">{{"QUEST_PAGE.COMBATED_BY"| translate}}: {{participatingDeveloper(task)?.username}} </span>
       </p>
+      <button mat-icon-button (click)="openIssue(task)">
+        <i class="ra ra-chain"></i>
+      </button>
       <button mat-icon-button (click)="addParticipation(task)" *ngIf="!participatingDeveloper(task)">
         <i class="ra ra-sword"></i>
       </button>

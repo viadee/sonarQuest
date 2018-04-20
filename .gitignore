@@ -73,4 +73,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Class Files
+*.class
 

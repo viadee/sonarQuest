@@ -41,13 +41,13 @@ public class GameDataInitializer implements InitializingBean {
     // @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
     private void createSimulatedData() {
         // Create Quests
-        QuestDto quest1 = new QuestDto(null, "Quest1", "Dies ist eine Quest", null, (long) 5, (long) 10,
+        final QuestDto quest1 = new QuestDto(null, "Quest1", "Dies ist eine Quest", null, (long) 5, (long) 10,
                 "assets/images/quest/hero3.jpg", null, null, null, null);
-        QuestDto quest2 = new QuestDto(null, "Quest2", "Dies ist auch eine Quest", null, (long) 10, (long) 20,
+        final QuestDto quest2 = new QuestDto(null, "Quest2", "Dies ist auch eine Quest", null, (long) 10, (long) 20,
                 "assets/images/quest/hero6.jpg", null, null, null, null);
-        QuestDto quest3 = new QuestDto(null, "Quest3", "Dies ist eine epische Quest", null, (long) 20, (long) 30,
+        final QuestDto quest3 = new QuestDto(null, "Quest3", "Dies ist eine epische Quest", null, (long) 20, (long) 30,
                 "assets/images/quest/hero9.jpg", null, null, null, null);
-        QuestDto quest4 = new QuestDto(null, "Quest4", "Die Quest der Quests", null, (long) 20, (long) 30,
+        final QuestDto quest4 = new QuestDto(null, "Quest4", "Die Quest der Quests", null, (long) 20, (long) 30,
                 "assets/images/quest/hero12.jpg", null, null, null, null);
         questController.createQuest(quest1);
         questController.createQuest(quest2);
@@ -103,7 +103,7 @@ public class GameDataInitializer implements InitializingBean {
         participationController.createParticipation((long) 2, (long) 1);
         participationController.createParticipation((long) 4, (long) 1);
 
-        WorldDto wdto = new WorldDto(null, "WorldTEST", "com.viadee:TESTTESTTEST", true, null, null);
+        final WorldDto wdto = new WorldDto(null, "WorldTEST", "com.viadee:TESTTESTTEST", true, null, null);
         worldService.createWorld(wdto);
     }
 
@@ -113,15 +113,15 @@ public class GameDataInitializer implements InitializingBean {
     @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
     private void createTheRatWorld() {
         // Create Quests
-        QuestDto quest1 = new QuestDto(null, "Rats!", "Slay the infected sewer rats pestering the bakery!", null,
+        final QuestDto quest1 = new QuestDto(null, "Rats!", "Slay the infected sewer rats pestering the bakery!", null,
                 5L, 10L, "assets/images/quest/rat1.png", null, null, null, null);
-        QuestDto quest2 = new QuestDto(null, "Rat Masters",
+        final QuestDto quest2 = new QuestDto(null, "Rat Masters",
                 "The town is being blackmailed with rat infestations - find the culprits!", null, 10L, 20L,
                 "assets/images/quest/rat1.png", null, null, null, null);
-        QuestDto quest3 = new QuestDto(null, "Rat Lord",
+        final QuestDto quest3 = new QuestDto(null, "Rat Lord",
                 "One particular rat nest is said to be demonic - slay the evil Rat Demon!", null, 20L, 30L,
                 "assets/images/quest/rat1.png", null, null, null, null);
-        QuestDto quest4 = new QuestDto(null, "The Ratslayers",
+        final QuestDto quest4 = new QuestDto(null, "The Ratslayers",
                 "Close the Rat Portal into the Rat World to stop the transdimensional vermin!",
                 null, 30L, 50L, "assets/images/quest/rat1.png", null, null, null, null);
         questController.createQuest(quest1);
@@ -193,7 +193,7 @@ public class GameDataInitializer implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         worldService.updateWorlds();
-        World firstWorld = worldRepository.findOne((long) 1);
+        final World firstWorld = worldRepository.findOne((long) 1);
         firstWorld.setActive(true);
         worldRepository.save(firstWorld);
         taskController.updateStandardTasksForWorld((long) 1);

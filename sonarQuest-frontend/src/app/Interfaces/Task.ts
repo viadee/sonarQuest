@@ -17,5 +17,6 @@ export interface Task{
   type :  string ,
   debt : number,
   message: string,
-  world: World
+  world: World,
+  issueKey: string
 }

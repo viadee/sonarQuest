@@ -12,27 +12,28 @@ import com.viadee.sonarQuest.repositories.WorldRepository;
 
 @Service
 public class SpecialTaskService {
-	
-	@Autowired
-	private SpecialTaskRepository specialTaskRepository;
-	
-	@Autowired
-	private WorldRepository worldRepository;
 
-	public void saveDto(SpecialTaskDto specialTaskDto) {
-		
-		World world = worldRepository.findByProject(specialTaskDto.getWorld().getProject());
-		
-		SpecialTask sp = new SpecialTask(
-    			specialTaskDto.getTitle(), 
-    			TaskStates.CREATED, 
-    			specialTaskDto.getGold(),
-                specialTaskDto.getXp(), 
-                specialTaskDto.getQuest(), 
-                specialTaskDto.getMessage(), 
-                world);
-    	
-    	this.specialTaskRepository.save(sp);
-	}
+    @Autowired
+    private SpecialTaskRepository specialTaskRepository;
+
+    @Autowired
+    private WorldRepository worldRepository;
+
+    public void saveDto(final SpecialTaskDto specialTaskDto) {
+
+        final World world = worldRepository.findByProject(specialTaskDto.getWorld().getProject());
+
+        final SpecialTask sp = new SpecialTask(
+                specialTaskDto.getTitle(),
+                TaskStates.CREATED,
+                specialTaskDto.getGold(),
+                specialTaskDto.getXp(),
+                specialTaskDto.getQuest(),
+                specialTaskDto.getMessage(),
+                world,
+                specialTaskDto.getIssueKey());
+
+        this.specialTaskRepository.save(sp);
+    }
 
 }

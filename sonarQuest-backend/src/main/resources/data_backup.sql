@@ -56,3 +56,5 @@ INSERT INTO Task(title, gold, xp, status, quest_id,world_id, task_type, componen
   ('TestStandardAufgabe1', 10, 12, 'OPEN',1,1,'STANDARD','TestComponent','BLOCKER','BUG','100',NULL,1),
   ('TestSonderAufgabe1', 30, 20, 'OPEN',1,1,'SPECIAL',NULL,NULL,NULL,NULL,'TestNachricht',1);
 
+INSERT INTO Sonarconfig (name, sonar_server_url, sonar_project) VALUES
+ ('World of Sonar Quest','https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');

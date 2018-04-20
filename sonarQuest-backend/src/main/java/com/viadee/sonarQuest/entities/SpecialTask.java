@@ -8,13 +8,14 @@ import javax.persistence.Entity;
 @DiscriminatorValue("SPECIAL")
 public class SpecialTask extends Task {
 
-    @Column(name="message")
+    @Column(name = "message")
     private String message;
 
     public SpecialTask() {
     }
 
-    public SpecialTask(String title, String status, Long gold, Long xp,Quest quest,String message, World world) {
+    public SpecialTask(final String title, final String status, final Long gold, final Long xp, final Quest quest,
+            final String message, final World world, final String issueKey) {
         this.setTitle(title);
         this.setStatus(status);
         this.setGold(gold);
@@ -22,13 +23,14 @@ public class SpecialTask extends Task {
         this.setQuest(quest);
         this.message = message;
         this.setWorld(world);
+        this.issueKey = issueKey;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

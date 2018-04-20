@@ -1,10 +1,15 @@
 package com.viadee.sonarQuest.dtos;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.viadee.sonarQuest.entities.*;
+import com.viadee.sonarQuest.entities.Participation;
+import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.SpecialTask;
+import com.viadee.sonarQuest.entities.StandardTask;
+import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.World;
 
 @JsonDeserialize(as = SpecialTaskDto.class)
-public  abstract class TaskDto {
+public abstract class TaskDto {
 
     private Long id;
 
@@ -24,11 +29,13 @@ public  abstract class TaskDto {
 
     private Participation participation;
 
+    private String issueKey;
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -36,7 +43,7 @@ public  abstract class TaskDto {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -44,7 +51,7 @@ public  abstract class TaskDto {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -52,7 +59,7 @@ public  abstract class TaskDto {
         return gold;
     }
 
-    public void setGold(Long gold) {
+    public void setGold(final Long gold) {
         this.gold = gold;
     }
 
@@ -60,7 +67,7 @@ public  abstract class TaskDto {
         return xp;
     }
 
-    public void setXp(Long xp) {
+    public void setXp(final Long xp) {
         this.xp = xp;
     }
 
@@ -68,7 +75,7 @@ public  abstract class TaskDto {
         return quest;
     }
 
-    public void setQuest(Quest quest) {
+    public void setQuest(final Quest quest) {
         this.quest = quest;
     }
 
@@ -76,7 +83,7 @@ public  abstract class TaskDto {
         return world;
     }
 
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = world;
     }
 
@@ -84,7 +91,7 @@ public  abstract class TaskDto {
         return participation;
     }
 
-    public void setParticipation(Participation participation) {
+    public void setParticipation(final Participation participation) {
         this.participation = participation;
     }
 
@@ -92,14 +99,22 @@ public  abstract class TaskDto {
         return taskType;
     }
 
-    public void setTaskType(String taskType) {
+    public void setTaskType(final String taskType) {
         this.taskType = taskType;
     }
 
-    public static TaskDto toTaskDto(Task task) {
+    public String getIssueKey() {
+        return issueKey;
+    }
+
+    public void setIssueKey(final String issueKey) {
+        this.issueKey = issueKey;
+    }
+
+    public static TaskDto toTaskDto(final Task task) {
         TaskDto taskDto = null;
         if (task instanceof StandardTask) {
-            StandardTaskDto standardTaskDto = new StandardTaskDto(
+            final StandardTaskDto standardTaskDto = new StandardTaskDto(
                     task.getId(),
                     task.getTitle(),
                     task.getStatus(),
@@ -112,11 +127,12 @@ public  abstract class TaskDto {
                     ((StandardTask) task).getComponent(),
                     ((StandardTask) task).getSeverity(),
                     ((StandardTask) task).getType(),
-                    ((StandardTask) task).getDebt());
+                    ((StandardTask) task).getDebt(),
+                    task.getIssueKey());
             taskDto = standardTaskDto;
         }
         if (task instanceof SpecialTask) {
-            SpecialTaskDto specialTaskDto = new SpecialTaskDto(
+            final SpecialTaskDto specialTaskDto = new SpecialTaskDto(
                     task.getId(),
                     task.getTitle(),
                     task.getStatus(),
@@ -125,7 +141,8 @@ public  abstract class TaskDto {
                     task.getQuest(),
                     task.getParticipation(),
                     ((SpecialTask) task).getMessage(),
-                    task.getWorld());
+                    task.getWorld(),
+                    task.getIssueKey());
             taskDto = specialTaskDto;
         }
         return taskDto;
