@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
 import {
   MatListModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatCardModule, MatProgressBarModule,
   MatGridListModule, MatTooltipModule, MatButtonModule, MatProgressSpinnerModule, MatSelectModule, MatTabsModule,
-  MatTableModule, MatDialogModule, MatInputModule, MatCheckboxModule
+  MatTableModule, MatDialogModule, MatInputModule, MatCheckboxModule, MatSnackBarModule
 } from '@angular/material';
 import { MyAvatarPageComponent } from './pages/my-avatar-page/my-avatar-page.component';
 import { AdventurePageComponent } from "./pages/adventure-page/adventure-page.component";
@@ -68,6 +68,8 @@ import { GamemasterArtefactEditComponent } from './pages/gamemaster-page/compone
 import { GamemasterSkillCreateComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
 import { AvatarEditComponent } from "./pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component";
 import { GamemasterIconSelectComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
+import { AdminSonarCubeComponent } from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
+import {SonarCubeService} from './services/sonar-cube.service';
 
 
 // AoT requires an exported function for factories
@@ -119,7 +121,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
-    GamemasterIconSelectComponent
+    GamemasterIconSelectComponent,
+    AdminSonarCubeComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -179,9 +182,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
-  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService],
+  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService, SonarCubeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

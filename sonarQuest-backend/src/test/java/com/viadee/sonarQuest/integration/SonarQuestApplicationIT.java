@@ -67,7 +67,7 @@ public class SonarQuestApplicationIT {
 
         assertNotNull("Demo data not loaded properly", sonarDungeon);
         assertEquals("Demo data not loaded properly", Long.valueOf(1), sonarDungeon.getId());
-        assertEquals("This is not the expected world data set", "World of Rats", sonarDungeon.getName());
+        assertEquals("This is not the expected world data set", "World of Dragons", sonarDungeon.getName());
     }
 
     /**

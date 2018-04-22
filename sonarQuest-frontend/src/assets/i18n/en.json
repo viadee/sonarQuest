@@ -31,7 +31,8 @@
         "ALL_DEVELOPER"     : "All Developer",
         "CREATE_DEVELOPER"  : "Create Developer",
         "EDIT_DEVELOPER"    : "Edit Developer",
-        "DELETE_DEVELOPER"  : "Are you sure to delete?"
+        "DELETE_DEVELOPER"  : "Are you sure to delete?",
+        "SONAR_CUBE_HEADER" : "Sonar Cube"
     },
     "START_PAGE": {
         "CURRENT_PROGRESS"  : "Current Progress"

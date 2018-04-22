@@ -9,6 +9,9 @@ import { MatDialogRef } from '@angular/material';
 import { AvailableQuestsComponent } from './../../../available-quests/available-quests.component';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Quest, Task } from '../../../../../../Interfaces/Quest';
+import {World} from '../../../../../../Interfaces/Developer';
+import {WorldService} from '../../../../../../services/world.service';
+import {SonarCubeService} from '../../../../../../services/sonar-cube.service';
 
 @Component({
   selector: 'app-view-participated-quest',
@@ -17,10 +20,14 @@ import { Quest, Task } from '../../../../../../Interfaces/Quest';
 })
 export class ViewParticipatedQuestComponent implements OnInit {
 
+  currentWorld: World;
   tasks: Task[];
   developer: Developer;
 
-  constructor(private dialogRef: MatDialogRef<AvailableQuestsComponent>,
+  constructor(
+    private sonarCubeService: SonarCubeService,
+    private worldService: WorldService,
+    private dialogRef: MatDialogRef<AvailableQuestsComponent>,
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
     public participationService: ParticipationService,
     public developerService: DeveloperService,
@@ -33,6 +40,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
     this.developerService.getMyAvatar().subscribe(dev => {
       this.developer = dev;
     })
+    this.worldService.currentWorld$.subscribe(w => this.currentWorld = w);
   }
 
   addParticipation(task: Task) {
@@ -83,6 +91,8 @@ export class ViewParticipatedQuestComponent implements OnInit {
     return result;
   }
 
-
+  openIssue(task: Task) {
+    this.sonarCubeService.getIssueLink(task.key, this.currentWorld.name).subscribe(link => window.open(link, '_blank'));
+  }
 
 }

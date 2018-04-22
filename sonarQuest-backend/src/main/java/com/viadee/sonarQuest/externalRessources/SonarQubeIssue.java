@@ -24,7 +24,8 @@ public class SonarQubeIssue {
     public SonarQubeIssue() {
     }
 
-    public SonarQubeIssue(String key, String message, String component, String severity, String type, String debt, String status, String resolution) {
+    public SonarQubeIssue(final String key, final String message, final String component, final String severity,
+            final String type, final String debt, final String status, final String resolution) {
         this.key = key;
         this.message = message;
         this.component = component;
@@ -39,7 +40,7 @@ public class SonarQubeIssue {
         return key;
     }
 
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -47,7 +48,7 @@ public class SonarQubeIssue {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
@@ -55,7 +56,7 @@ public class SonarQubeIssue {
         return component;
     }
 
-    public void setComponent(String component) {
+    public void setComponent(final String component) {
         this.component = component;
     }
 
@@ -63,7 +64,7 @@ public class SonarQubeIssue {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(final String severity) {
         this.severity = severity;
     }
 
@@ -71,7 +72,7 @@ public class SonarQubeIssue {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -79,7 +80,7 @@ public class SonarQubeIssue {
         return debt;
     }
 
-    public void setDebt(String debt) {
+    public void setDebt(final String debt) {
         this.debt = debt;
     }
 
@@ -87,7 +88,7 @@ public class SonarQubeIssue {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -95,7 +96,7 @@ public class SonarQubeIssue {
         return resolution;
     }
 
-    public void setResolution(String resolution) {
+    public void setResolution(final String resolution) {
         this.resolution = resolution;
     }
 }

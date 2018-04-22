@@ -106,7 +106,8 @@ CREATE TABLE Task (
   type      VARCHAR(256),
   debt      VARCHAR(256),
   message   VARCHAR(256),
-  participation_id INTEGER
+  participation_id INTEGER,
+  issue_key VARCHAR(256)
 );
 
 CREATE TABLE World (
@@ -181,6 +182,11 @@ ALTER TABLE Participation
 ALTER TABLE Task
   ADD FOREIGN KEY (participation_id )REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE ;
 
-
+CREATE TABLE Sonarconfig (
+	id        INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(128),
+	sonar_server_url VARCHAR(128),
+	sonar_project VARCHAR(128)
+);
 
 

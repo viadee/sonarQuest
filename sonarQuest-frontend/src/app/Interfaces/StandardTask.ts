@@ -29,6 +29,7 @@ export interface StandardTask{
    component :  string ,
    severity :  string ,
    type :  string ,
-   debt : number
+   debt : number,
+   issueKey: string
 
 }

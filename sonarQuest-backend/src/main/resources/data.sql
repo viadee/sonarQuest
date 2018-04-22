@@ -53,6 +53,7 @@ INSERT INTO Developer_Artefact (developer_id,artefact_id) VALUES
   (2,4),
   (3,1);
 
-
+INSERT INTO Sonarconfig (name, sonar_server_url, sonar_project) VALUES
+ ('World of Sonar Quest','https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');
 
 

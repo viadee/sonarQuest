@@ -116,4 +116,5 @@ public abstract class Task {
     public void setWorld(final World world) {
         this.world = world;
     }
+
 }

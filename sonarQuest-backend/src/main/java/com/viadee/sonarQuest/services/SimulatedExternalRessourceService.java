@@ -1,42 +1,60 @@
 package com.viadee.sonarQuest.services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
-import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
-import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.viadee.sonarQuest.entities.SonarConfig;
+import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
+import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
+import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 
 /**
  * Reads data for external requests from locally saved json files
  */
 @Service
 @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
-public class SimulatedExternalRessourceService extends ExternalRessourceService{
+public class SimulatedExternalRessourceService extends ExternalRessourceService {
+
     @Autowired
     public ObjectMapper mapper;
 
     private List<SonarQubeIssue> issues = null;
 
-    @Override public List<SonarQubeProject> getSonarQubeProjects(){
-        try {
-           return mapper.readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/projectRessource.json"),new TypeReference<List<SonarQubeProject>>(){});
-        } catch (IOException e) {
-            throw new RuntimeException("Could not load simulated sonar projects",e);
-        }
+    @Autowired
+    private SonarConfigService sonarConfigService;
+
+    @Override
+    public List<SonarQubeProject> getSonarQubeProjects() {
+        initSonarConfigData();
+        return sonarConfigService.getAll().stream()
+                .map(config -> new SonarQubeProject(config.getSonarProject(), config.getName()))
+                .collect(Collectors.toList());
     }
 
-    @Override public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey){
-        if(issues == null) {
+    public void initSonarConfigData() {
+        final SonarConfig config = new SonarConfig();
+        config.setName("World of Dragons");
+        config.setSonarProject("com.viadee:sonarQuest");
+        config.setSonarServerUrl("https://sonar.intern.viadee.de");
+        sonarConfigService.saveConfig(config);
+    }
+
+    @Override
+    public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
+        if (issues == null) {
             try {
-                issues = mapper.readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"), SonarQubeIssueRessource.class).getIssues();
-            } catch (IOException e) {
-                throw new RuntimeException("Could not load simulated sonar projects",e);
+                issues = mapper
+                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"),
+                                SonarQubeIssueRessource.class)
+                        .getIssues();
+            } catch (final IOException e) {
+                throw new RuntimeException("Could not load simulated sonar projects", e);
             }
         }
         return issues;

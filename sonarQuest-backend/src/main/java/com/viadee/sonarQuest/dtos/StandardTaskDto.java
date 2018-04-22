@@ -19,7 +19,11 @@ public class StandardTaskDto extends TaskDto {
     public StandardTaskDto() {
     }
 
-    public StandardTaskDto(Long id, String title, String status, Long gold, Long xp, Quest quest, World world, Participation participation,String key, String component, String severity, String type, Integer debt) {
+    public StandardTaskDto(final Long id, final String title, final String status, final Long gold, final Long xp,
+            final Quest quest, final World world,
+            final Participation participation, final String key, final String component, final String severity,
+            final String type, final Integer debt,
+            final String issueKey) {
         this.setId(id);
         this.setTitle(title);
         this.setStatus(status);
@@ -29,18 +33,19 @@ public class StandardTaskDto extends TaskDto {
         this.setWorld(world);
         this.setParticipation(participation);
         this.setTaskType("STANDARD");
-        this.key=key;
+        this.key = key;
         this.component = component;
         this.severity = severity;
         this.type = type;
         this.debt = debt;
+        this.setIssueKey(issueKey);
     }
 
     public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -48,7 +53,7 @@ public class StandardTaskDto extends TaskDto {
         return component;
     }
 
-    public void setComponent(String component) {
+    public void setComponent(final String component) {
         this.component = component;
     }
 
@@ -56,7 +61,7 @@ public class StandardTaskDto extends TaskDto {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(final String severity) {
         this.severity = severity;
     }
 
@@ -64,7 +69,7 @@ public class StandardTaskDto extends TaskDto {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -72,7 +77,7 @@ public class StandardTaskDto extends TaskDto {
         return debt;
     }
 
-    public void setDebt(Integer debt) {
+    public void setDebt(final Integer debt) {
         this.debt = debt;
     }
 }

@@ -1,7 +1,10 @@
 <mat-card>
-    <mat-tab-group>
-        <mat-tab [label]="'DEVELOPER.DEVELOPER' | translate" class="tab">
-            <app-admin-developer></app-admin-developer>
-        </mat-tab>
-    </mat-tab-group>
+  <mat-tab-group>
+    <mat-tab [label]="'DEVELOPER.DEVELOPER' | translate" class="tab">
+      <app-admin-developer></app-admin-developer>
+    </mat-tab>
+    <mat-tab [label]="'ADMIN_PAGE.SONAR_CUBE_HEADER' | translate" class="tab">
+      <app-admin-sonar-cube></app-admin-sonar-cube>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>

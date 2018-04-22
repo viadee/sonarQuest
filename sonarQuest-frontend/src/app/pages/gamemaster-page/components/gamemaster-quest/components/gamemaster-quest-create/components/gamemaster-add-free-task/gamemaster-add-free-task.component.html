@@ -13,9 +13,14 @@
         <span>{{"DEVELOPER.GOLD" | translate}}: {{task.gold}}, </span>
         <span>{{"DEVELOPER.XP" | translate}}: {{task.xp}}</span>
       </p>
+      <button mat-fab color="accent" (click)="openIssue(task)">
+        <i class="ra ra-chain"></i>
+      </button>
+
       <button mat-fab color="accent" (click)="addTask(task)">
         <mat-icon>add</mat-icon>
       </button>
+
     </mat-list-item>
   </mat-list>
   <h2 *ngIf="freeTasks?.length==0">{{"TASK.NO_FREE_TASKS_AVAILABLE" | translate}}!</h2>

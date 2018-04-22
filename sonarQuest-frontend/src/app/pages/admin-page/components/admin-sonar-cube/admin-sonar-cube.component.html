@@ -1,0 +1,23 @@
+<mat-card-content>
+  <div flex>
+    <mat-input-container>
+      <input matInput placeholder="Configname" [(ngModel)]="configName">
+    </mat-input-container>
+  </div>
+
+  <div flex>
+    <mat-input-container>
+      <input matInput placeholder="Sonar Cube URL" [(ngModel)]="sonarCubeUrl">
+    </mat-input-container>
+    <button mat-mini-fab color="primary" (click)="checkSonarCubeUrl()">Check</button>
+  </div>
+
+  <div flex>
+    <mat-input-container>
+      <input matInput placeholder="Projectname" [(ngModel)]="projectName">
+    </mat-input-container>
+    <button mat-mini-fab color="primary" (click)="checkProjectname()">Check</button>
+  </div>
+
+  <div><button mat-button color="primary" (click)="save()">Save</button></div>
+</mat-card-content>
