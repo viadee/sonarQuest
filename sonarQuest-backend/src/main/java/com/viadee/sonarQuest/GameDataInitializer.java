@@ -37,93 +37,29 @@ public class GameDataInitializer implements InitializingBean {
 
     public GameDataInitializer() {
     }
-
-    // @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
-    private void createSimulatedData() {
-        // Create Quests
-        final QuestDto quest1 = new QuestDto(null, "Quest1", "Dies ist eine Quest", null, (long) 5, (long) 10,
-                "assets/images/quest/hero3.jpg", null, null, null, null);
-        final QuestDto quest2 = new QuestDto(null, "Quest2", "Dies ist auch eine Quest", null, (long) 10, (long) 20,
-                "assets/images/quest/hero6.jpg", null, null, null, null);
-        final QuestDto quest3 = new QuestDto(null, "Quest3", "Dies ist eine epische Quest", null, (long) 20, (long) 30,
-                "assets/images/quest/hero9.jpg", null, null, null, null);
-        final QuestDto quest4 = new QuestDto(null, "Quest4", "Die Quest der Quests", null, (long) 20, (long) 30,
-                "assets/images/quest/hero12.jpg", null, null, null, null);
-        questController.createQuest(quest1);
-        questController.createQuest(quest2);
-        questController.createQuest(quest3);
-        questController.createQuest(quest4);
-
-        questController.addWorld((long) 1, (long) 1);
-        questController.addWorld((long) 2, (long) 1);
-        questController.addWorld((long) 3, (long) 1);
-        questController.addWorld((long) 4, (long) 1);
-
-        // Add Tasks to Quests
-        taskController.addToQuest((long) 1, (long) 1);
-        taskController.addToQuest((long) 2, (long) 1);
-        taskController.addToQuest((long) 3, (long) 1);
-        taskController.addToQuest((long) 4, (long) 1);
-
-        taskController.addToQuest((long) 10, (long) 2);
-        taskController.addToQuest((long) 11, (long) 2);
-        taskController.addToQuest((long) 12, (long) 2);
-        taskController.addToQuest((long) 13, (long) 2);
-
-        taskController.addToQuest((long) 20, (long) 3);
-        taskController.addToQuest((long) 21, (long) 3);
-        taskController.addToQuest((long) 22, (long) 3);
-        taskController.addToQuest((long) 23, (long) 3);
-
-        taskController.addToQuest((long) 30, (long) 4);
-        taskController.addToQuest((long) 31, (long) 4);
-        taskController.addToQuest((long) 32, (long) 4);
-        taskController.addToQuest((long) 33, (long) 4);
-
-        // Create Adventure
-        AdventureDto adventure = new AdventureDto(null, "Abenteuer1", "Dies ist ein gefährliches Abenteuer", null,
-                (long) 30, (long) 40, null, null, null);
-        adventureController.createAdventure(adventure);
-        adventure = new AdventureDto(null, "Abenteuer2", "Das große Abenteuer", null, (long) 25, (long) 50, null, null,
-                null);
-        adventureController.createAdventure(adventure);
-        adventure = new AdventureDto(null, "Abenteuer3", "Ein letztes Abenteuer", null, (long) 25, (long) 50, null,
-                null, null);
-        adventureController.createAdventure(adventure);
-
-        adventureController.addQuest((long) 1, (long) 1);
-        adventureController.addQuest((long) 1, (long) 2);
-        adventureController.addQuest((long) 2, (long) 3);
-        adventureController.addQuest((long) 3, (long) 4);
-
-        adventureController.addDeveloper((long) 1, (long) 1);
-        adventureController.addDeveloper((long) 3, (long) 1);
-
-        participationController.createParticipation((long) 1, (long) 1);
-        participationController.createParticipation((long) 2, (long) 1);
-        participationController.createParticipation((long) 4, (long) 1);
-
-        final WorldDto wdto = new WorldDto(null, "WorldTEST", "com.viadee:TESTTESTTEST", true, null, null);
-        worldService.createWorld(wdto);
+    
+    @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
+    private void createSimData() {
+    	createWorldOfDragons();
     }
 
     /**
-     * The Rat World Simulation - written by MeC/2018
+     * World of Dragons SimData
      */
-    @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
-    private void createTheRatWorld() {
+    //XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
+    private void createWorldOfDragons() {
         // Create Quests
-        final QuestDto quest1 = new QuestDto(null, "Rats!", "Slay the infected sewer rats pestering the bakery!", null,
-                5L, 10L, "assets/images/quest/rat1.png", null, null, null, null);
-        final QuestDto quest2 = new QuestDto(null, "Rat Masters",
-                "The town is being blackmailed with rat infestations - find the culprits!", null, 10L, 20L,
-                "assets/images/quest/rat1.png", null, null, null, null);
-        final QuestDto quest3 = new QuestDto(null, "Rat Lord",
-                "One particular rat nest is said to be demonic - slay the evil Rat Demon!", null, 20L, 30L,
-                "assets/images/quest/rat1.png", null, null, null, null);
-        final QuestDto quest4 = new QuestDto(null, "The Ratslayers",
-                "Close the Rat Portal into the Rat World to stop the transdimensional vermin!",
-                null, 30L, 50L, "assets/images/quest/rat1.png", null, null, null, null);
+        final QuestDto quest1 = new QuestDto(null, "Hidden danger in the woods!", "There is something in the woods, people mumble. Something creeping through the darkness, waiting for its time - or brave heroes to reveal the secret.", null,
+                5L, 10L, "assets/images/quest/hero1.jpg", null, null, null, null);
+        final QuestDto quest2 = new QuestDto(null, "The gold in the black Tower",
+                "The orcs have robbed all gold from the people of Sourcera. Can you bring it back from the black tower? But beware of the creature that is sleeping there.", null, 10L, 20L,
+                "assets/images/quest/hero6.jpg", null, null, null, null);
+        final QuestDto quest3 = new QuestDto(null, "Through the night",
+                "The summoner has to deliver a message to Queen Cyclomatica until tomorrow. Can you guide him through the night?", null, 20L, 30L,
+                "assets/images/quest/hero10.jpg", null, null, null, null);
+        final QuestDto quest4 = new QuestDto(null, "From dusk till dawn",
+                "The moon is changing tonight. So the ghostriders will travel. Can you keep Developia safe from harm until dawn?",
+                null, 30L, 50L, "assets/images/quest/hero5.jpg", null, null, null, null);
         questController.createQuest(quest1);
         questController.createQuest(quest2);
         questController.createQuest(quest3);
@@ -156,47 +92,27 @@ public class GameDataInitializer implements InitializingBean {
         taskController.addToQuest(33L, 4L);
 
         // Create Adventure
-        AdventureDto adventure = new AdventureDto(null, "Rats in town",
-                "You there, adventurer! I have rats in my bakery, can you please get rid of them for me? I will pay you in Gold!",
-                null,
-                30L, 40L, null, null, null);
-        adventureController.createAdventure(adventure);
-        adventure = new AdventureDto(null, "Bigger rats",
-                "Some things start small but get bigger fast - you have angered a mighty Rat Demon who needs to be slain!",
-                null, 25L, 50L, null, null,
-                null);
-        adventureController.createAdventure(adventure);
-        adventure = new AdventureDto(null, "Final Rattling",
-                "Deep down under the city a portal is rumored to be, leading into a vermin dimension. The flow of otherworldly rats will continue as long as it remains open...",
-                null, 25L, 50L, null,
-                null, null);
+        AdventureDto adventure = new AdventureDto(null, "Dance of the shadows", "Moon is changing. Unsteady times lie ahead of the people of Sourcera. Can you help them pass through?", null, 30L, 40L, null, null, null);
         adventureController.createAdventure(adventure);
 
         adventureController.addQuest(1L, 1L);
         adventureController.addQuest(1L, 2L);
-        adventureController.addQuest(2L, 3L);
-        adventureController.addQuest(3L, 4L);
 
         adventureController.addDeveloper(1L, 1L);
         adventureController.addDeveloper(3L, 1L);
 
         participationController.createParticipation(1L, 1L);
         participationController.createParticipation(2L, 1L);
-        participationController.createParticipation(4L, 1L);
-
-        // Just another empty world
-        // WorldDto wdto = new WorldDto(null, "World of Dangers",
-        // "com.viadee:TestProject", true, null, null);
-        // worldService.createWorld(wdto);
     }
 
     @Override
+    //XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
     public void afterPropertiesSet() throws Exception {
         worldService.updateWorlds();
         final World firstWorld = worldRepository.findOne((long) 1);
         firstWorld.setActive(true);
         worldRepository.save(firstWorld);
         taskController.updateStandardTasksForWorld((long) 1);
-        createTheRatWorld();
+        createWorldOfDragons();
     }
 }

@@ -128,7 +128,7 @@ public abstract class TaskDto {
                     ((StandardTask) task).getSeverity(),
                     ((StandardTask) task).getType(),
                     ((StandardTask) task).getDebt(),
-                    task.getIssueKey());
+                    ((StandardTask) task).getIssueKey());
             taskDto = standardTaskDto;
         }
         if (task instanceof SpecialTask) {
@@ -141,8 +141,7 @@ public abstract class TaskDto {
                     task.getQuest(),
                     task.getParticipation(),
                     ((SpecialTask) task).getMessage(),
-                    task.getWorld(),
-                    task.getIssueKey());
+                    task.getWorld());
             taskDto = specialTaskDto;
         }
         return taskDto;

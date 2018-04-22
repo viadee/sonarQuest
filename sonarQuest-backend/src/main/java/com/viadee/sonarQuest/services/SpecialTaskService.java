@@ -30,8 +30,7 @@ public class SpecialTaskService {
                 specialTaskDto.getXp(),
                 specialTaskDto.getQuest(),
                 specialTaskDto.getMessage(),
-                world,
-                specialTaskDto.getIssueKey());
+                world);
 
         this.specialTaskRepository.save(sp);
     }

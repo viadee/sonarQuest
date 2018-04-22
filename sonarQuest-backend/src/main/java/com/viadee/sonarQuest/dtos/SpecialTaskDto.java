@@ -15,8 +15,7 @@ public class SpecialTaskDto extends TaskDto {
     }
 
     public SpecialTaskDto(final Long id, final String title, final String status, final Long gold, final Long xp,
-            final Quest quest, final Participation participation, final String message, final World world,
-            final String issueKey) {
+            final Quest quest, final Participation participation, final String message, final World world) {
         this.setId(id);
         this.setTitle(title);
         this.setStatus(status);
@@ -27,7 +26,6 @@ public class SpecialTaskDto extends TaskDto {
         this.setTaskType("SPECIAL");
         this.message = message;
         this.setWorld(world);
-        this.setIssueKey(issueKey);
     }
 
     public String getMessage() {

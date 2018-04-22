@@ -15,7 +15,7 @@ public class SpecialTask extends Task {
     }
 
     public SpecialTask(final String title, final String status, final Long gold, final Long xp, final Quest quest,
-            final String message, final World world, final String issueKey) {
+            final String message, final World world) {
         this.setTitle(title);
         this.setStatus(status);
         this.setGold(gold);
@@ -23,7 +23,6 @@ public class SpecialTask extends Task {
         this.setQuest(quest);
         this.message = message;
         this.setWorld(world);
-        this.issueKey = issueKey;
     }
 
     public String getMessage() {

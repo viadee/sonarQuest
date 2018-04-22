@@ -23,6 +23,9 @@ public class StandardTask extends Task {
     @Column(name = "debt")
     private Integer debt;
 
+	@Column(name = "issue_key")
+	protected String issueKey;
+
     public StandardTask() {
     }
 
@@ -84,4 +87,13 @@ public class StandardTask extends Task {
         this.debt = debt;
     }
 
+
+    public String getIssueKey() {
+        return issueKey;
+    }
+
+    public void setIssueKey(final String issueKey) {
+        this.issueKey = issueKey;
+    }
+    
 }

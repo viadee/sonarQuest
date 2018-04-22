@@ -50,9 +50,6 @@ public abstract class Task {
     @JoinColumn(name = "participation_id")
     private Participation participation;
 
-    @Column(name = "issue_key")
-    protected String issueKey;
-
     public Long getId() {
         return id;
     }
@@ -120,11 +117,4 @@ public abstract class Task {
         this.world = world;
     }
 
-    public String getIssueKey() {
-        return issueKey;
-    }
-
-    public void setIssueKey(final String issueKey) {
-        this.issueKey = issueKey;
-    }
 }
