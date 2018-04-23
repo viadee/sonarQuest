@@ -50,7 +50,7 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
         if (issues == null) {
             try {
                 issues = mapper
-                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issues.json"),
+                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"),
                                 SonarQubeIssueRessource.class)
                         .getIssues();
             } catch (final IOException e) {
