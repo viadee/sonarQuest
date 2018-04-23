@@ -5,7 +5,7 @@
         <div flex>
           <div layout="row">
             <div>
-              <img style="width:100%; border: 1px solid #888" [src]="developer?.picture">
+              <img style="width:100%; border: 1px solid #888; height:200px; width:auto;" [src]="imageToShow">
             </div>
             <div flex>
               <div layout="column">
@@ -23,7 +23,7 @@
               <div flex></div>
               <div flex-end>
                 <button mat-icon-button (click)="editAvatar()">
-                  <mat-icon class="icon">mode_edit</mat-icon>,
+                  <mat-icon class="icon">mode_edit</mat-icon>
                 </button>
               </div>
             </div>

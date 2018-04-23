@@ -18,7 +18,7 @@ public class DeveloperService {
     @Autowired
 	private LevelRepository levelRepository;
     
-
+    @Autowired
     private LevelService levelService;
 
     @Autowired

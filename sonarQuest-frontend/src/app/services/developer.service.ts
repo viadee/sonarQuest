@@ -20,8 +20,7 @@ export class DeveloperService {
   constructor(
     public http: Http,
     public httpClient: HttpClient,
-    private worldService: WorldService,
-    private domSanitizer: DomSanitizer
+    private worldService: WorldService
   ) {
   }
 
@@ -74,6 +73,7 @@ export class DeveloperService {
   }
 
   updateDeveloper(developer: Developer): Promise<Developer> {
+    console.log(developer)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${environment.endpoint}/developer/${developer.id}`, developer, options)
@@ -82,10 +82,12 @@ export class DeveloperService {
       .catch(this.handleError);
   }
 
+
   deleteDeveloper(developer: Developer): Promise<any> {
     return this.http.delete(`${environment.endpoint}/developer/${developer.id}`)
       .toPromise()
   }
+
 
   getLevel(xp: number): number {
     return this.calculateLevel(xp, 1);
@@ -93,30 +95,20 @@ export class DeveloperService {
 
 
   getImage(developer: Developer): Observable<Blob> {
-    
     const url = `${environment.endpoint}/developer/${developer.id}/avatar`
-    this.domSanitizer.bypassSecurityTrustUrl(url)
     return this.http
       .get(url, { responseType: ResponseContentType.Blob })
       .map((res: Response) => res.blob());
   }
 
 
-  public downloadAvatar(developer: Developer): Observable<ArrayBuffer> {
-    const url = `${environment.endpoint}/developer/${developer.id}/avatar`
-    return this.httpClient.get<ArrayBuffer>(url, this.getPngDownloadOptions());
+/*   getImages(developer: Developer): Observable<any> {
+    const url = `${environment.endpoint}/developer/avatars`
+    return this.http
+      .get(url, { responseType: ResponseContentType.Blob })
+      .map((res: Response) => res.blob());
   }
-
-  private getPngDownloadOptions(): Object {
-    const headers = new HttpHeaders({ 'Accept': 'image/png' });
-    const options: Object = {
-      headers: headers,
-      responseType: 'blob'
-    };
-    return options;
-  }
-
-
+ */
 
   private calculateLevel(xp: number, level: number): number {
     let step = 10;

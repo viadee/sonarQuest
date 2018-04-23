@@ -1,3 +1,4 @@
+import { ImageService } from './../../../../services/image.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialogRef } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -20,6 +21,7 @@ export class AvatarEditComponent implements OnInit {
     private dialogRef: MatDialogRef<AvatarEditComponent>,
     private developerService: DeveloperService,
     private domSanitizer: DomSanitizer,
+    private imageService: ImageService,
     @Inject(MAT_DIALOG_DATA) public developer: Developer
   ) {
     this.developer = { ...this.developer };
@@ -29,43 +31,10 @@ export class AvatarEditComponent implements OnInit {
     this.loadImages();
       
     this.developerService.getImage(this.developer).subscribe((blob) => {
-      
-
-      // Obtain a blob: URL for the image data.
-
-    /*   var arrayBufferView = new Uint8Array(arrayBuffer);
-
-      var blob = new Blob([arrayBufferView], { type: "image/png" });
- */
-     /*  var urlCreator = window.URL;
-
-      var imageUrl = urlCreator.createObjectURL(blob);
-
-      console.log(imageUrl);
-
-      this.customAvatar = imageUrl;
-
-
- */
-      
-      this.createImageFromBlob(blob);
+      console.log(blob)
+      this.imageToShow = this.imageService.createImageFromBlob(blob);
     })
   }
-
-
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.imageToShow = this.domSanitizer.bypassSecurityTrustUrl(reader.result);
-      console.log(this.imageToShow)
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
-
 
 
   editDeveloper() {

@@ -1,3 +1,4 @@
+import { ImageService } from './services/image.service';
 import { SkillService } from './services/skill.service';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { ViewParticipatedQuestComponent } from './pages/quest-page/components/participated-quests/components/view-participated-quest/view-participated-quest.component';
@@ -185,7 +186,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCheckboxModule,
     MatSnackBarModule
   ],
-  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService, SonarCubeService],
+  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService, SonarCubeService, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
