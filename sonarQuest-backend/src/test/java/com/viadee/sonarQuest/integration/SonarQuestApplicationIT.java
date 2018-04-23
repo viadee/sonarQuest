@@ -83,7 +83,7 @@ public class SonarQuestApplicationIT {
         participationController.createParticipation(1L, 3L);
         Quest epicQuest = questRepository.findOne(1L);
         final List<Participation> participations = epicQuest.getParticipations();
-        assertEquals("createParticipation does not work (Quest)", "Rats!",
+        assertEquals("createParticipation does not work (Quest)", "Hidden danger in the woods!",
                 participations.get(1).getQuest().getTitle());
         assertEquals("createParticipation does not work (Developer)", "Mike Magician",
                 participations.get(1).getDeveloper().getUsername());
@@ -93,7 +93,7 @@ public class SonarQuestApplicationIT {
         assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
         taskController.addParticipation(1L, 1L, 3L);
         issue1 = taskRepository.findOne(1L);
-        assertEquals("addParticipation does not work (Quest)", "Rats!",
+        assertEquals("addParticipation does not work (Quest)", "Hidden danger in the woods!",
                 issue1.getParticipation().getQuest().getTitle());
         assertEquals("addParticipation does not work (Developer)", "Mike Magician",
                 issue1.getParticipation().getDeveloper().getUsername());
@@ -113,15 +113,16 @@ public class SonarQuestApplicationIT {
         final World sonarDungeon = worldRepository.findOne(1L);
         standardTaskService.updateStandardTasks(sonarDungeon);
         issue1 = taskRepository.findOne((long) 1);
-        assertEquals("updateStandardTasks does not work (Title)", "2 duplicated blocks of code must be removed.",
+        assertEquals("updateStandardTasks does not work (Title)",
+                "NullPointerException might be thrown as 'toTypeArg' is nullable here",
                 issue1.getTitle());
         assertEquals("updateStandardTasks does not work (Status)", TaskStates.SOLVED, issue1.getStatus());
 
         // Check Gratification
-        // Gold = 18 (initial value) + 3 (Task)  + 2(Magician) + 1 (Shortsword)= 24
+        // Gold = 18 (initial value) + 3 (Task) + 2(Magician) + 1 (Shortsword)= 24
         // XP = 22 (inital value) + 2 (Task ) = 20
         sonarWarrior = developerRepository.findOne(3L);
-        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(24),
+        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(22),
                 sonarWarrior.getGold());
         assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(20),
                 sonarWarrior.getXp());

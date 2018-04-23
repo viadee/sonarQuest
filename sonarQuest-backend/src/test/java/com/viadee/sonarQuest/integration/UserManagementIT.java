@@ -22,48 +22,50 @@ public class UserManagementIT {
 
     @Autowired
     private DeveloperService developerService;
-    
+
     @Autowired
     private DeveloperRepository developerRepository;
 
     @Test
-    public void testCreateDeleteDeveloper()
-    {
-    	// Given
-    	DeveloperDto developerDto = new DeveloperDto("testusername"); 	
-    	final long count = developerRepository.count();
-    	
-    	// When
-    	developerService.createDeveloper(developerDto);
-    	
-    	// Then
-    	Developer dev = developerRepository.findByUsername("testusername");
-    	assertNotNull("developer could not be created", dev);
-    	assertEquals("number of devs is inconsistent", developerRepository.count(), count + 1);
-    	assertFalse(dev.isDeleted());
-    	
-    	// When
-    	developerService.deleteDeveloper(dev);
-    	assertTrue("developer was not deleted", developerRepository.findByUsername("testusername").isDeleted());
-    	assertEquals("number of devs is inconsistent", developerRepository.count(), count + 1); // since deleting is logical deleting and not physical 
-    	assertTrue(dev.isDeleted());    	
-    
+    public void testCreateDeleteDeveloper() {
+        // Given
+        DeveloperDto developerDto = new DeveloperDto("testusername");
+        final long count = developerRepository.count();
+
+        // When
+        developerService.createDeveloper(developerDto);
+
+        // Then
+        Developer dev = developerRepository.findByUsername("testusername");
+        assertNotNull("developer could not be created", dev);
+        assertEquals("number of devs is inconsistent", 4, developerRepository.count());
+        assertFalse(dev.isDeleted());
+
+        // When
+        developerService.deleteDeveloper(dev);
+        assertTrue("developer was not deleted", developerRepository.findByUsername("testusername").isDeleted());
+        assertEquals("number of devs is inconsistent", developerRepository.count(), count + 1); // since deleting is
+                                                                                                // logical
+                                                                                                // deleting and not
+                                                                                                // physical
+        assertTrue(dev.isDeleted());
+
     }
-    
+
     @Test
-    public void testFilterOutDeletedDevelopers(){
-    	// Given
-    	java.util.List <Developer> before = this.developerService.findActiveDevelopers();
-    	
-    	// When
-    	Developer dev = developerRepository.findAll().get(0);
-    	developerService.deleteDeveloper(dev);
-    	java.util.List <Developer> after = this.developerService.findActiveDevelopers();
-    	
-    	// Then
-    	assertTrue("active developers should not contain deleted ones", 
-    			after.size()==before.size()-1);
-    	
+    public void testFilterOutDeletedDevelopers() {
+        // Given
+        java.util.List<Developer> before = developerService.findActiveDevelopers();
+
+        // When
+        Developer dev = developerRepository.findAll().get(0);
+        developerService.deleteDeveloper(dev);
+        java.util.List<Developer> after = developerService.findActiveDevelopers();
+
+        // Then
+        assertTrue("active developers should not contain deleted ones",
+                after.size() == before.size() - 1);
+
     }
 
 }
