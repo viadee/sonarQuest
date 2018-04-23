@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.controllers;
 
+import com.google.common.io.Files;
 import com.viadee.sonarQuest.dtos.DeveloperDto;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.World;
@@ -10,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -106,6 +110,14 @@ public class DeveloperController {
     	developerService.deleteDeveloper(developer);    	      
     }
 
+    @CrossOrigin
+    @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
+    public @ResponseBody byte[] getAvatar(final HttpServletResponse response) throws IOException {
+        response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+
+		//TODO File als Byte Bereitstellen
+        return Files.toByteArray(new File("D:\\player.png"));
+    }
 
     
 }

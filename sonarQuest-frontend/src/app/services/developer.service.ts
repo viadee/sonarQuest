@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { World } from './../Interfaces/World';
 import { WorldService } from './world.service';
 import { Developer } from './../Interfaces/Developer.d';
@@ -6,7 +7,8 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
-import { HttpModule, Http, Response, RequestOptions, Headers } from "@angular/http";
+import { HttpModule, Http, Response, RequestOptions, Headers, ResponseContentType } from "@angular/http";
+import { DomSanitizer } from '@angular/platform-browser';
 @Injectable()
 export class DeveloperService {
 
@@ -17,7 +19,9 @@ export class DeveloperService {
 
   constructor(
     public http: Http,
-    private worldService: WorldService
+    public httpClient: HttpClient,
+    private worldService: WorldService,
+    private domSanitizer: DomSanitizer
   ) {
   }
 
@@ -44,19 +48,19 @@ export class DeveloperService {
     return this.developersSubject
   }
 
-  updateCurrentWorldToDeveloper(world: any, developer: any): Observable<Developer>{
+  updateCurrentWorldToDeveloper(world: any, developer: any): Observable<Developer> {
     this.http.get(`${environment.endpoint}/developer/${developer.id}/updateWorld/${world.id}`)
       .map(this.extractData)
       .subscribe(
-        developer => { 
+        developer => {
           this.developerSubject.next(developer)
           this.worldService.worldSubject.next(developer.world)
         },
-        err   => { 
+        err => {
           this.developerSubject.error(err)
         }
       );
-      return this.developerSubject;          
+    return this.developerSubject;
   }
 
 
@@ -84,22 +88,49 @@ export class DeveloperService {
   }
 
   getLevel(xp: number): number {
-    return this.calculateLevel(xp,1);
+    return this.calculateLevel(xp, 1);
   }
 
-  private calculateLevel(xp: number, level: number): number{
-    let step            = 10;
-    let xpForNextLevel  = 0;
+
+  getImage(developer: Developer): Observable<Blob> {
     
+    const url = `${environment.endpoint}/developer/${developer.id}/avatar`
+    this.domSanitizer.bypassSecurityTrustUrl(url)
+    return this.http
+      .get(url, { responseType: ResponseContentType.Blob })
+      .map((res: Response) => res.blob());
+  }
+
+
+  public downloadAvatar(developer: Developer): Observable<ArrayBuffer> {
+    const url = `${environment.endpoint}/developer/${developer.id}/avatar`
+    return this.httpClient.get<ArrayBuffer>(url, this.getPngDownloadOptions());
+  }
+
+  private getPngDownloadOptions(): Object {
+    const headers = new HttpHeaders({ 'Accept': 'image/png' });
+    const options: Object = {
+      headers: headers,
+      responseType: 'blob'
+    };
+    return options;
+  }
+
+
+
+  private calculateLevel(xp: number, level: number): number {
+    let step = 10;
+    let xpForNextLevel = 0;
+
     for (let i = 1; i <= level; i++) {
       xpForNextLevel = xpForNextLevel + step;
     }
 
     //Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
-    if(level == 200 || (xp < xpForNextLevel)) {
+    if (level == 200 || (xp < xpForNextLevel)) {
       return level
     } else {
-      return this.calculateLevel(xp, level+1)
+      return this.calculateLevel(xp, level + 1)
     }
   }
 
