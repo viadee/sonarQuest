@@ -40,8 +40,8 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
     public void initSonarConfigData() {
         final SonarConfig config = new SonarConfig();
         config.setName("World of Dragons");
-        config.setSonarProject("com.viadee:sonarQuest");
-        config.setSonarServerUrl("https://sonar.intern.viadee.de");
+        config.setSonarProject("org.apache.commons%3Acommons-lang3");
+        config.setSonarServerUrl("https://sonarcloud.io");
         sonarConfigService.saveConfig(config);
     }
 
@@ -50,7 +50,7 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
         if (issues == null) {
             try {
                 issues = mapper
-                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"),
+                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issues.json"),
                                 SonarQubeIssueRessource.class)
                         .getIssues();
             } catch (final IOException e) {

@@ -1,0 +1,4107 @@
+{
+	"total": 1621,
+	"p": 1,
+	"ps": 100,
+	"paging": {
+		"pageIndex": 1,
+		"pageSize": 100,
+		"total": 1621
+	},
+	"issues": [
+		{
+			"key": "AVZHEc4IQ6SkELBCQDy2",
+			"rule": "squid:S2259",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 475,
+			"hash": "24fbd9a53f78d23e44d1e78361e9a585",
+			"textRange": {
+				"startLine": 475,
+				"endLine": 475,
+				"startOffset": 24,
+				"endOffset": 40
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "NullPointerException might be thrown as 'toTypeArg' is nullable here",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "mbenson@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"owasp-a1",
+				"owasp-a2",
+				"owasp-a6"
+			],
+			"creationDate": "2016-08-01T19:04:27+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"type": "BUG",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Dc",
+			"rule": "squid:MethodCyclomaticComplexity",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 686,
+			"hash": "13458e1aa423e22306313a2a429da72c",
+			"textRange": {
+				"startLine": 686,
+				"endLine": 686,
+				"startOffset": 24,
+				"endOffset": 40
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 686,
+								"endLine": 686,
+								"startOffset": 24,
+								"endOffset": 40
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 689,
+								"endLine": 689,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 693,
+								"endLine": 693,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 695,
+								"endLine": 695,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 697,
+								"endLine": 697,
+								"startOffset": 20,
+								"endOffset": 22
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 703,
+								"endLine": 703,
+								"startOffset": 12,
+								"endOffset": 15
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 708,
+								"endLine": 708,
+								"startOffset": 12,
+								"endOffset": 16
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 711,
+								"endLine": 711,
+								"startOffset": 12,
+								"endOffset": 16
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 712,
+								"endLine": 712,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 718,
+								"endLine": 718,
+								"startOffset": 12,
+								"endOffset": 16
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 719,
+								"endLine": 719,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 725,
+								"endLine": 725,
+								"startOffset": 12,
+								"endOffset": 16
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 734,
+								"endLine": 734,
+								"startOffset": 12,
+								"endOffset": 17
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 740,
+								"endLine": 740,
+								"startOffset": 12,
+								"endOffset": 17
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 746,
+								"endLine": 746,
+								"startOffset": 12,
+								"endOffset": 17
+							},
+							"msg": "+1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "The Cyclomatic Complexity of this method \"appendFullDigits\" is 15 which is greater than 10 authorized.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Db",
+			"rule": "squid:S134",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 697,
+			"hash": "128927924fa66e99388a2b70fcfd6a03",
+			"textRange": {
+				"startLine": 697,
+				"endLine": 697,
+				"startOffset": 20,
+				"endOffset": 22
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 695,
+								"endLine": 695,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 693,
+								"endLine": 693,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+							"textRange": {
+								"startLine": 689,
+								"endLine": 689,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "Refactor this code to not nest more than 3 if/for/while/switch/try statements.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tp0TDobsZDy_DX",
+			"rule": "squid:SwitchLastCaseIsDefaultCheck",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 707,
+			"hash": "f2753d5d41ea626370b9ec5e2f42f731",
+			"textRange": {
+				"startLine": 707,
+				"endLine": 707,
+				"startOffset": 12,
+				"endOffset": 18
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add a default case to this switch.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"misra"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_DY",
+			"rule": "squid:S128",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 708,
+			"hash": "889e5d35fc3ac7563d1cc823c1034e52",
+			"textRange": {
+				"startLine": 708,
+				"endLine": 708,
+				"startOffset": 12,
+				"endOffset": 19
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "End this switch case with an unconditional break, return or throw statement.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "chas@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"misra",
+				"suspicious"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Dd",
+			"rule": "squid:S1226",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 710,
+			"hash": "dbdd376d0e1f6e02beaa22f8c8b20fcc",
+			"textRange": {
+				"startLine": 710,
+				"endLine": 710,
+				"startOffset": 16,
+				"endOffset": 21
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Introduce a new variable instead of reusing the parameter \"value\".",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "BUG",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_DZ",
+			"rule": "squid:S128",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 711,
+			"hash": "b28c980def363fb6f82f677d54f4b045",
+			"textRange": {
+				"startLine": 711,
+				"endLine": 711,
+				"startOffset": 12,
+				"endOffset": 19
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "End this switch case with an unconditional break, return or throw statement.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "chas@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"misra",
+				"suspicious"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Dg",
+			"rule": "squid:S1151",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 711,
+			"hash": "b28c980def363fb6f82f677d54f4b045",
+			"textRange": {
+				"startLine": 711,
+				"endLine": 711,
+				"startOffset": 12,
+				"endOffset": 19
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Reduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_De",
+			"rule": "squid:S1226",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 714,
+			"hash": "1391ac7218b1d0c7481e50a50ec703c4",
+			"textRange": {
+				"startLine": 714,
+				"endLine": 714,
+				"startOffset": 20,
+				"endOffset": 25
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Introduce a new variable instead of reusing the parameter \"value\".",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "BUG",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Da",
+			"rule": "squid:S128",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 718,
+			"hash": "2a5865dee0ac9db3ad8ab2d3d43fadae",
+			"textRange": {
+				"startLine": 718,
+				"endLine": 718,
+				"startOffset": 12,
+				"endOffset": 19
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "End this switch case with an unconditional break, return or throw statement.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "chas@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"misra",
+				"suspicious"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Dh",
+			"rule": "squid:S1151",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 718,
+			"hash": "2a5865dee0ac9db3ad8ab2d3d43fadae",
+			"textRange": {
+				"startLine": 718,
+				"endLine": 718,
+				"startOffset": 12,
+				"endOffset": 19
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Reduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVX501Tr0TDobsZDy_Df",
+			"rule": "squid:S1226",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 721,
+			"hash": "a46d180fe86b04ffa88549228851bf04",
+			"textRange": {
+				"startLine": 721,
+				"endLine": 721,
+				"startOffset": 20,
+				"endOffset": 25
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Introduce a new variable instead of reusing the parameter \"value\".",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "chas@apache.org",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-07-17T19:04:54+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "BUG",
+			"organization": "default"
+		},
+		{
+			"key": "AVVVBppUGGsGj2NSyOAZ",
+			"rule": "squid:S1133",
+			"severity": "INFO",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 550,
+			"hash": "0328b98f71f32ce8f510d3a62b48de4d",
+			"textRange": {
+				"startLine": 550,
+				"endLine": 550,
+				"startOffset": 27,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Do not forget to remove this deprecated code someday.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "chas@apache.org",
+			"tags": [
+				"obsolete"
+			],
+			"creationDate": "2016-06-15T19:04:24+0200",
+			"updateDate": "2016-06-15T19:04:24+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVVVBppVGGsGj2NSyOAb",
+			"rule": "squid:S1149",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 550,
+			"hash": "0328b98f71f32ce8f510d3a62b48de4d",
+			"textRange": {
+				"startLine": 550,
+				"endLine": 550,
+				"startOffset": 14,
+				"endOffset": 26
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Replace the synchronized class \"StringBuffer\" by an unsynchronized one such as \"StringBuilder\".",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "chas@apache.org",
+			"tags": [
+				"multi-threading",
+				"performance"
+			],
+			"creationDate": "2016-06-15T19:04:24+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVVVBppVGGsGj2NSyOAc",
+			"rule": "squid:S1149",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 550,
+			"hash": "0328b98f71f32ce8f510d3a62b48de4d",
+			"textRange": {
+				"startLine": 550,
+				"endLine": 550,
+				"startOffset": 69,
+				"endOffset": 81
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Replace the synchronized class \"StringBuffer\" by an unsynchronized one such as \"StringBuilder\".",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "chas@apache.org",
+			"tags": [
+				"multi-threading",
+				"performance"
+			],
+			"creationDate": "2016-06-15T19:04:24+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPZ",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 52,
+			"hash": "a5bb83306f125bf6bd99f1757cbd52a2",
+			"textRange": {
+				"startLine": 52,
+				"endLine": 52,
+				"startOffset": 19,
+				"endOffset": 25
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPa",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 59,
+			"hash": "88e43257f0690ef01ae36ffb8f88b112",
+			"textRange": {
+				"startLine": 59,
+				"endLine": 59,
+				"startOffset": 19,
+				"endOffset": 27
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHZGGsGj2NSsHPW",
+			"rule": "squid:S3038",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 66,
+			"hash": "f9a01d6a8201d4eaef2cb28211f88d60",
+			"textRange": {
+				"startLine": 66,
+				"endLine": 66,
+				"startOffset": 4,
+				"endOffset": 41
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "\"checkState\" is defined in the \"CircuitBreaker\" interface and can be removed from this class.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"confusing"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPb",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 66,
+			"hash": "f9a01d6a8201d4eaef2cb28211f88d60",
+			"textRange": {
+				"startLine": 66,
+				"endLine": 66,
+				"startOffset": 28,
+				"endOffset": 38
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPX",
+			"rule": "squid:S3038",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 71,
+			"hash": "2e71bd12f34965c17e48c540752cf813",
+			"textRange": {
+				"startLine": 71,
+				"endLine": 71,
+				"startOffset": 4,
+				"endOffset": 64
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "\"incrementAndCheckState\" is defined in the \"CircuitBreaker\" interface and can be removed from this class.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"confusing"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPc",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 71,
+			"hash": "2e71bd12f34965c17e48c540752cf813",
+			"textRange": {
+				"startLine": 71,
+				"endLine": 71,
+				"startOffset": 28,
+				"endOffset": 50
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHfGGsGj2NSsHPd",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 76,
+			"hash": "3ec04b9870272c8c2e52aa33bce4feb4",
+			"textRange": {
+				"startLine": 76,
+				"endLine": 76,
+				"startOffset": 16,
+				"endOffset": 21
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHfGGsGj2NSsHPe",
+			"rule": "squid:S1161",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 83,
+			"hash": "ae104127ffc05956c191acb5597e88a1",
+			"textRange": {
+				"startLine": 83,
+				"endLine": 83,
+				"startOffset": 16,
+				"endOffset": 20
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add the \"@Override\" annotation above this method signature",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"bad-practice"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xHeGGsGj2NSsHPY",
+			"rule": "squid:S2786",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 135,
+			"hash": "88624f0ac6d28955e639c05a8a86b58d",
+			"textRange": {
+				"startLine": 135,
+				"endLine": 135,
+				"startOffset": 21,
+				"endOffset": 25
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this redundant \"static\" qualifier.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"clumsy"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIUGGsGj2NSsHPf",
+			"rule": "squid:RedundantThrowsDeclarationCheck",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 273,
+			"hash": "81b965f1234664b3171d1cb6f55434ee",
+			"textRange": {
+				"startLine": 273,
+				"endLine": 273,
+				"startOffset": 19,
+				"endOffset": 43
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove the declaration of thrown exception 'org.apache.commons.lang3.concurrent.CircuitBreakingException' which is a runtime exception.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"clumsy",
+				"unused"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIUGGsGj2NSsHPg",
+			"rule": "squid:S1488",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 408,
+			"hash": "fdb44e27639f4575336182bfc1251952",
+			"textRange": {
+				"startLine": 408,
+				"endLine": 408,
+				"startOffset": 33,
+				"endOffset": 56
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Immediately return this expression instead of assigning it to the temporary variable \"strategy\".",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"clumsy"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIhGGsGj2NSsHPj",
+			"rule": "squid:ModifiersOrderCheck",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 58,
+			"hash": "fecaf82c5b61417263c7bd16fc5a606d",
+			"textRange": {
+				"startLine": 58,
+				"endLine": 58,
+				"startOffset": 18,
+				"endOffset": 24
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Reorder the modifiers to comply with the Java Language Specification.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIgGGsGj2NSsHPh",
+			"rule": "squid:RedundantThrowsDeclarationCheck",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 94,
+			"hash": "0adeeb7cd580e42e54bf5e7ed8499928",
+			"textRange": {
+				"startLine": 94,
+				"endLine": 94,
+				"startOffset": 39,
+				"endOffset": 63
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove the declaration of thrown exception 'org.apache.commons.lang3.concurrent.CircuitBreakingException' which is a runtime exception.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"clumsy",
+				"unused"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIhGGsGj2NSsHPi",
+			"rule": "squid:RedundantThrowsDeclarationCheck",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 115,
+			"hash": "d317167120825938612e0fb179606a58",
+			"textRange": {
+				"startLine": 115,
+				"endLine": 115,
+				"startOffset": 65,
+				"endOffset": 89
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove the declaration of thrown exception 'org.apache.commons.lang3.concurrent.CircuitBreakingException' which is a runtime exception.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"clumsy",
+				"unused"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-08T19:05:17+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUw-xIhGGsGj2NSsHPk",
+			"rule": "squid:HiddenFieldCheck",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 120,
+			"hash": "5642d66fb4304f388c80e9a220d081f4",
+			"textRange": {
+				"startLine": 120,
+				"endLine": 120,
+				"startOffset": 13,
+				"endOffset": 17
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Rename \"used\" which hides the field declared at line 68.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oliver.heger@oliver-heger.de",
+			"tags": [
+				"cert",
+				"pitfall"
+			],
+			"creationDate": "2016-06-08T19:05:17+0200",
+			"updateDate": "2016-06-09T19:04:38+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrcNqQo8N9uoKS87q",
+			"rule": "squid:MethodCyclomaticComplexity",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 557,
+			"hash": "d404c6cc873dc48f251298b23824c8de",
+			"textRange": {
+				"startLine": 557,
+				"endLine": 557,
+				"startOffset": 25,
+				"endOffset": 33
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 557,
+								"endLine": 557,
+								"startOffset": 25,
+								"endOffset": 33
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 558,
+								"endLine": 558,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 559,
+								"endLine": 559,
+								"startOffset": 12,
+								"endOffset": 17
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 561,
+								"endLine": 561,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 562,
+								"endLine": 562,
+								"startOffset": 12,
+								"endOffset": 17
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 564,
+								"endLine": 564,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 565,
+								"endLine": 565,
+								"startOffset": 12,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 567,
+								"endLine": 567,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 568,
+								"endLine": 568,
+								"startOffset": 12,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 570,
+								"endLine": 570,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 571,
+								"endLine": 571,
+								"startOffset": 54,
+								"endOffset": 55
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 572,
+								"endLine": 572,
+								"startOffset": 12,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "The Cyclomatic Complexity of this method \"truncate\" is 12 which is greater than 10 authorized.",
+			"effort": "12min",
+			"debt": "12min",
+			"author": "thiagoh@gmail.com",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchWQo8N9uoKS87t",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "602fcae32b063d21ea2ae53825df9d6f",
+			"textRange": {
+				"startLine": 172,
+				"endLine": 172,
+				"startOffset": 25,
+				"endOffset": 37
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document the parameter(s): forceAccess",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchXQo8N9uoKS87w",
+			"rule": "squid:S1160",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 115,
+			"hash": "71245b857507253b03d1412d38ee1590",
+			"textRange": {
+				"startLine": 115,
+				"endLine": 115,
+				"startOffset": 25,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Refactor this method to throw at most one checked exception instead of: java.lang.NoSuchMethodException, java.lang.IllegalAccessException, java.lang.reflect.InvocationTargetException",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"error-handling"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-06-06T19:04:41+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchXQo8N9uoKS87x",
+			"rule": "squid:S1160",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 172,
+			"hash": "602fcae32b063d21ea2ae53825df9d6f",
+			"textRange": {
+				"startLine": 172,
+				"endLine": 172,
+				"startOffset": 25,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Refactor this method to throw at most one checked exception instead of: java.lang.NoSuchMethodException, java.lang.IllegalAccessException, java.lang.reflect.InvocationTargetException",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"error-handling"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-06-06T19:04:41+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchWQo8N9uoKS87u",
+			"rule": "squid:S1226",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 175,
+			"hash": "60c586ec60313994d6384f86097f6f82",
+			"textRange": {
+				"startLine": 175,
+				"endLine": 175,
+				"startOffset": 8,
+				"endOffset": 12
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Introduce a new variable instead of reusing the parameter \"args\".",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-07-06T19:04:38+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchXQo8N9uoKS87y",
+			"rule": "squid:S1160",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 198,
+			"hash": "602fcae32b063d21ea2ae53825df9d6f",
+			"textRange": {
+				"startLine": 198,
+				"endLine": 198,
+				"startOffset": 25,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Refactor this method to throw at most one checked exception instead of: java.lang.NoSuchMethodException, java.lang.IllegalAccessException, java.lang.reflect.InvocationTargetException",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"error-handling"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-06-06T19:04:41+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchWQo8N9uoKS87s",
+			"rule": "squid:S134",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 217,
+			"hash": "ae22dccbca020e8f6511c5ea846dac78",
+			"textRange": {
+				"startLine": 217,
+				"endLine": 217,
+				"startOffset": 17,
+				"endOffset": 19
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+							"textRange": {
+								"startLine": 215,
+								"endLine": 215,
+								"startOffset": 13,
+								"endOffset": 15
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+							"textRange": {
+								"startLine": 211,
+								"endLine": 211,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+							"textRange": {
+								"startLine": 210,
+								"endLine": 210,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "Refactor this code to not nest more than 3 if/for/while/switch/try statements.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchXQo8N9uoKS87v",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 741,
+			"hash": "5c09735d5a482df231ce6679b86b7bc3",
+			"textRange": {
+				"startLine": 741,
+				"endLine": 741,
+				"startOffset": 19,
+				"endOffset": 27
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"isEquals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-06-06T19:04:41+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUmrchVQo8N9uoKS87r",
+			"rule": "squid:S1871",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 748,
+			"hash": "453537f1b7d4be98e24483de0f34eead",
+			"textRange": {
+				"startLine": 748,
+				"endLine": 750,
+				"startOffset": 71,
+				"endOffset": 8
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+							"textRange": {
+								"startLine": 745,
+								"endLine": 747,
+								"startOffset": 33,
+								"endOffset": 8
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "This branch's code block is the same as the block for the branch on line 745.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "dashmore@force66.com",
+			"tags": [
+				"design",
+				"suspicious"
+			],
+			"creationDate": "2016-06-06T19:04:41+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K7Qo8N9uoKR-gr",
+			"rule": "squid:S1244",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7821,
+			"hash": "671ce83a35f6d90cd16d5e247ee546bf",
+			"textRange": {
+				"startLine": 7821,
+				"endLine": 7821,
+				"startOffset": 14,
+				"endOffset": 16
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Equality tests should not be made with floating point values.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"misra"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"type": "BUG",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K4Qo8N9uoKR-gn",
+			"rule": "squid:UselessParenthesesCheck",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7824,
+			"hash": "05b005fdbeceac2a180c7d3abed1fa1e",
+			"textRange": {
+				"startLine": 7824,
+				"endLine": 7824,
+				"startOffset": 20,
+				"endOffset": 21
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7824,
+								"endLine": 7824,
+								"startOffset": 80,
+								"endOffset": 81
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "Remove those useless parentheses.",
+			"effort": "1min",
+			"debt": "1min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"confusing"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K7Qo8N9uoKR-gs",
+			"rule": "squid:MethodCyclomaticComplexity",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7829,
+			"hash": "3b653b3e5e19dca244432f353dba4de3",
+			"textRange": {
+				"startLine": 7829,
+				"endLine": 7829,
+				"startOffset": 25,
+				"endOffset": 32
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7829,
+								"endLine": 7829,
+								"startOffset": 25,
+								"endOffset": 32
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7831,
+								"endLine": 7831,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7843,
+								"endLine": 7843,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7845,
+								"endLine": 7845,
+								"startOffset": 12,
+								"endOffset": 15
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7846,
+								"endLine": 7846,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7846,
+								"endLine": 7846,
+								"startOffset": 36,
+								"endOffset": 38
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7856,
+								"endLine": 7856,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7857,
+								"endLine": 7857,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7862,
+								"endLine": 7862,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7863,
+								"endLine": 7863,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7869,
+								"endLine": 7869,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7870,
+								"endLine": 7870,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7875,
+								"endLine": 7875,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 7876,
+								"endLine": 7876,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "The Cyclomatic Complexity of this method \"matches\" is 14 which is greater than 10 authorized.",
+			"effort": "14min",
+			"debt": "14min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K7Qo8N9uoKR-gq",
+			"rule": "squid:S1659",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7830,
+			"hash": "1584f369d5189c256b3cb8fbde1600b6",
+			"textRange": {
+				"startLine": 7830,
+				"endLine": 7830,
+				"startOffset": 26,
+				"endOffset": 29
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Declare \"min\" on a separate line.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"cert",
+				"convention",
+				"misra"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-06-05T19:04:47+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K6Qo8N9uoKR-go",
+			"rule": "squid:ForLoopCounterChangedCheck",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7859,
+			"hash": "840ffee1d518785289cd07bae2d051e9",
+			"textRange": {
+				"startLine": 7859,
+				"endLine": 7859,
+				"startOffset": 16,
+				"endOffset": 18
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Refactor the code in order to not assign to this loop counter from within the loop body.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-06-05T19:04:47+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVUhh8K6Qo8N9uoKR-gp",
+			"rule": "squid:ForLoopCounterChangedCheck",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 7865,
+			"hash": "840ffee1d518785289cd07bae2d051e9",
+			"textRange": {
+				"startLine": 7865,
+				"endLine": 7865,
+				"startOffset": 16,
+				"endOffset": 18
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Refactor the code in order to not assign to this loop counter from within the loop body.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"misra",
+				"pitfall"
+			],
+			"creationDate": "2016-06-05T19:04:47+0200",
+			"updateDate": "2016-06-05T19:04:47+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVT9e0x1DCVvtFksl-U8",
+			"rule": "squid:MethodCyclomaticComplexity",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 63,
+			"hash": "563ef2080f22b0eea8fd6174ad2c160f",
+			"textRange": {
+				"startLine": 63,
+				"endLine": 63,
+				"startOffset": 25,
+				"endOffset": 32
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 63,
+								"endLine": 63,
+								"startOffset": 25,
+								"endOffset": 32
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 64,
+								"endLine": 64,
+								"startOffset": 8,
+								"endOffset": 10
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 64,
+								"endLine": 64,
+								"startOffset": 37,
+								"endOffset": 39
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 65,
+								"endLine": 65,
+								"startOffset": 12,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 76,
+								"endLine": 76,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 78,
+								"endLine": 78,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 79,
+								"endLine": 79,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 79,
+								"endLine": 79,
+								"startOffset": 38,
+								"endOffset": 40
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 82,
+								"endLine": 82,
+								"startOffset": 20,
+								"endOffset": 22
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 82,
+								"endLine": 82,
+								"startOffset": 45,
+								"endOffset": 47
+							},
+							"msg": "+1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 83,
+								"endLine": 83,
+								"startOffset": 24,
+								"endOffset": 26
+							},
+							"msg": "+1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "The Cyclomatic Complexity of this method \"squeeze\" is 11 which is greater than 10 authorized.",
+			"effort": "11min",
+			"debt": "11min",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-05-29T19:04:42+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVT9e0x0DCVvtFksl-U6",
+			"rule": "squid:S135",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 76,
+			"hash": "e8de648c532a09a9da9a7284f715e123",
+			"textRange": {
+				"startLine": 76,
+				"endLine": 76,
+				"startOffset": 8,
+				"endOffset": 11
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 80,
+								"endLine": 80,
+								"startOffset": 20,
+								"endOffset": 29
+							}
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 85,
+								"endLine": 85,
+								"startOffset": 28,
+								"endOffset": 37
+							}
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "Reduce the total number of break and continue statements in this loop to use at most one.",
+			"effort": "20min",
+			"debt": "20min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-05-29T19:04:42+0200",
+			"updateDate": "2016-05-29T19:04:42+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVT9e0x1DCVvtFksl-U7",
+			"rule": "squid:S134",
+			"severity": "CRITICAL",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 82,
+			"hash": "32e44b957297db078e62f8b104d4a9bb",
+			"textRange": {
+				"startLine": 82,
+				"endLine": 82,
+				"startOffset": 20,
+				"endOffset": 22
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 79,
+								"endLine": 79,
+								"startOffset": 16,
+								"endOffset": 18
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 78,
+								"endLine": 78,
+								"startOffset": 12,
+								"endOffset": 14
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				},
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+							"textRange": {
+								"startLine": 76,
+								"endLine": 76,
+								"startOffset": 8,
+								"endOffset": 11
+							},
+							"msg": "Nesting + 1"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "Refactor this code to not nest more than 3 if/for/while/switch/try statements.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-05-29T19:04:42+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVTzLgmXDCVvtFkskyM3",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ObjectUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,011 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-05-27T19:04:30+0200",
+			"updateDate": "2016-05-27T19:04:30+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVTelLDnYNYLESe3W4Q3",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,023 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "nickmanley89@outlook.com",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-05-23T19:04:49+0200",
+			"updateDate": "2016-05-23T19:04:49+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVSWfAiGPjc_bV3hNOjz",
+			"rule": "squid:S1118",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/XMLCharacter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 32,
+			"hash": "19d8f66f078f7a2a62b2330254b172f8",
+			"textRange": {
+				"startLine": 32,
+				"endLine": 32,
+				"startOffset": 13,
+				"endOffset": 25
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Add a private constructor to hide the implicit public one.",
+			"effort": "30min",
+			"debt": "30min",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"design"
+			],
+			"creationDate": "2016-05-09T19:05:02+0200",
+			"updateDate": "2016-05-09T19:05:02+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVSWfAiHPjc_bV3hNOj0",
+			"rule": "squid:S1197",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/XMLCharacter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 57,
+			"hash": "a39657f218f6c44a9daea6d179b3dcba",
+			"textRange": {
+				"startLine": 57,
+				"endLine": 57,
+				"startOffset": 52,
+				"endOffset": 53
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Move the array designator from the variable to the type.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-05-09T19:05:02+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG40BhFUGJcI4W_L",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ArrayUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 7,903 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-06-03T19:08:10+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG6eBhFUGJcI4W_M",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/BooleanUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,105 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG8KBhFUGJcI4W_N",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ClassUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,335 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "britter@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-21T19:04:26+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG8yBhFUGJcI4W_O",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Conversion.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,566 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "britter@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG-JBhFUGJcI4W_P",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ObjectUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 245,
+			"hash": "f17dab9e933f3c92ccb6df4777a5473f",
+			"textRange": {
+				"startLine": 245,
+				"endLine": 245,
+				"startOffset": 27,
+				"endOffset": 33
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "niallp@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsG-7BhFUGJcI4W_Q",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Range.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "18dbcfe56bd17e88a0f7e54eb6ce152f",
+			"textRange": {
+				"startLine": 32,
+				"endLine": 32,
+				"startOffset": 19,
+				"endOffset": 24
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document the parameter(s): <T>",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "bayard@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHAEBhFUGJcI4W_R",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 8,651 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-16T19:04:38+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHAFBhFUGJcI4W_T",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 4464,
+			"hash": "fea5f26c2e95d52ca4b2d8fc1003de87",
+			"textRange": {
+				"startLine": 4464,
+				"endLine": 4464,
+				"startOffset": 40,
+				"endOffset": 48
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "britter@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHAFBhFUGJcI4W_U",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 4510,
+			"hash": "4275d42cf4f9a888f989df957e0d9669",
+			"textRange": {
+				"startLine": 4510,
+				"endLine": 4510,
+				"startOffset": 46,
+				"endOffset": 54
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "britter@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHAFBhFUGJcI4W_V",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 4605,
+			"hash": "5ad6cf6f12190471b5d7ad43b39717c3",
+			"textRange": {
+				"startLine": 4605,
+				"endLine": 4605,
+				"startOffset": 45,
+				"endOffset": 53
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "pascalschumacher@gmx.net",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHAEBhFUGJcI4W_S",
+			"rule": "squid:S1871",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 6490,
+			"hash": "0fdb6504a254949a0bbaf9a3cf746a54",
+			"textRange": {
+				"startLine": 6490,
+				"endLine": 6492,
+				"startOffset": 50,
+				"endOffset": 13
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+							"textRange": {
+								"startLine": 6488,
+								"endLine": 6490,
+								"startOffset": 43,
+								"endOffset": 13
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "This branch's code block is the same as the block for the branch on line 6488.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "scolebourne@apache.org",
+			"tags": [
+				"design",
+				"suspicious"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHBoBhFUGJcI4W_W",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/SystemUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,710 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-23T19:04:49+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCKBhFUGJcI4W_b",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 2,021 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCJBhFUGJcI4W_X",
+			"rule": "squid:S1940",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1104,
+			"hash": "423ade5f7ab9a79a1588cc0f644f6f8c",
+			"textRange": {
+				"startLine": 1104,
+				"endLine": 1104,
+				"startOffset": 12,
+				"endOffset": 26
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Use the opposite operator (\"<=\") instead.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "chas@apache.org",
+			"tags": [
+				"pitfall"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCJBhFUGJcI4W_Y",
+			"rule": "squid:S1940",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1238,
+			"hash": "265fb21e1a438ea76d237a90a135b672",
+			"textRange": {
+				"startLine": 1238,
+				"endLine": 1238,
+				"startOffset": 12,
+				"endOffset": 27
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Use the opposite operator (\"<\") instead.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "chas@apache.org",
+			"tags": [
+				"pitfall"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCKBhFUGJcI4W_Z",
+			"rule": "squid:S1940",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1372,
+			"hash": "7bb905ec7fe57a86e744679d3738c103",
+			"textRange": {
+				"startLine": 1372,
+				"endLine": 1372,
+				"startOffset": 12,
+				"endOffset": 26
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Use the opposite operator (\">=\") instead.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "chas@apache.org",
+			"tags": [
+				"pitfall"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCKBhFUGJcI4W_a",
+			"rule": "squid:S1940",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1506,
+			"hash": "1168a6712e0b4621130e167052283263",
+			"textRange": {
+				"startLine": 1506,
+				"endLine": 1506,
+				"startOffset": 12,
+				"endOffset": 27
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Use the opposite operator (\">\") instead.",
+			"effort": "2min",
+			"debt": "2min",
+			"author": "chas@apache.org",
+			"tags": [
+				"pitfall"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHCyBhFUGJcI4W_c",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,034 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "britter@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-31T19:04:42+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHDwBhFUGJcI4W_d",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"resolution": "FIXED",
+			"status": "CLOSED",
+			"message": "This file has 1,001 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "britter@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-22T19:04:55+0200",
+			"closeDate": "2016-08-22T19:04:55+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHEyBhFUGJcI4W_e",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,080 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "sebb@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHFUBhFUGJcI4W_f",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 2,642 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHGIBhFUGJcI4W_g",
+			"rule": "squid:S3400",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 263,
+			"hash": "6a553000164479eb83618f922d7c7459",
+			"textRange": {
+				"startLine": 263,
+				"endLine": 263,
+				"startOffset": 15,
+				"endOffset": 16
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this method and declare a constant for this value.",
+			"effort": "5min",
+			"debt": "5min",
+			"author": "oheger@apache.org",
+			"tags": [
+				"confusing"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHGuBhFUGJcI4W_h",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 114,
+			"hash": "7abb6477e02e4638bf62aac0481e80f2",
+			"textRange": {
+				"startLine": 114,
+				"endLine": 114,
+				"startOffset": 27,
+				"endOffset": 33
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "oheger@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHHPBhFUGJcI4W_i",
+			"rule": "squid:S1871",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 200,
+			"hash": "835826b96ae87e6ed521ce4b9d137749",
+			"textRange": {
+				"startLine": 200,
+				"endLine": 202,
+				"startOffset": 50,
+				"endOffset": 9
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java",
+							"textRange": {
+								"startLine": 198,
+								"endLine": 200,
+								"startOffset": 28,
+								"endOffset": 9
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "This branch's code block is the same as the block for the branch on line 198.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "britter@apache.org",
+			"tags": [
+				"design",
+				"suspicious"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHIGBhFUGJcI4W_j",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 289,
+			"hash": "61ed9fef2e041383bcab881b67fd674f",
+			"textRange": {
+				"startLine": 289,
+				"endLine": 289,
+				"startOffset": 39,
+				"endOffset": 47
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"getCause\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "scolebourne@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHJCBhFUGJcI4W_k",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/math/NumberUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,599 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-06-12T19:05:10+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHLTBhFUGJcI4W_l",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "b3414d75b7f28390bff143664e16cd4e",
+			"textRange": {
+				"startLine": 74,
+				"endLine": 74,
+				"startOffset": 22,
+				"endOffset": 33
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document the parameter(s): <T>",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "mbenson@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHLjBhFUGJcI4W_m",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,852 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "britter@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-01T19:04:27+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHLjBhFUGJcI4W_n",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 211,
+			"hash": "1bb3d2a7ea7cac3adbed06dc8606c819",
+			"textRange": {
+				"startLine": 211,
+				"endLine": 211,
+				"startOffset": 34,
+				"endOffset": 42
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"hashCode\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "mbenson@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHLjBhFUGJcI4W_o",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1575,
+			"hash": "72a2a24bb910b338ae8bd2e736a47d59",
+			"textRange": {
+				"startLine": 1575,
+				"endLine": 1575,
+				"startOffset": 24,
+				"endOffset": 30
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "mbenson@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHL5BhFUGJcI4W_p",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/Typed.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "f5531717ce2925656ea7fa5a2413799a",
+			"textRange": {
+				"startLine": 26,
+				"endLine": 26,
+				"startOffset": 17,
+				"endOffset": 22
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document the parameter(s): <T>",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "mbenson@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMPBhFUGJcI4W_q",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 291,
+			"hash": "0f3acb57db778c515d85d0e14bb98ea4",
+			"textRange": {
+				"startLine": 291,
+				"endLine": 291,
+				"startOffset": 50,
+				"endOffset": 58
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"hashCode\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "niallp@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMPBhFUGJcI4W_r",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 292,
+			"hash": "3cd854265ec56db11a4eb465d56fa958",
+			"textRange": {
+				"startLine": 292,
+				"endLine": 292,
+				"startOffset": 50,
+				"endOffset": 58
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"hashCode\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "niallp@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMyBhFUGJcI4W_s",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 3,128 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMyBhFUGJcI4W_t",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1249,
+			"hash": "bfe3daa4876f72bb9827767a7cbecfe0",
+			"textRange": {
+				"startLine": 1249,
+				"endLine": 1249,
+				"startOffset": 43,
+				"endOffset": 51
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "britter@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMyBhFUGJcI4W_u",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1272,
+			"hash": "bfe3daa4876f72bb9827767a7cbecfe0",
+			"textRange": {
+				"startLine": 1272,
+				"endLine": 1272,
+				"startOffset": 43,
+				"endOffset": 51
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "britter@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHMyBhFUGJcI4W_v",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1297,
+			"hash": "bfe3daa4876f72bb9827767a7cbecfe0",
+			"textRange": {
+				"startLine": 1297,
+				"endLine": 1297,
+				"startOffset": 43,
+				"endOffset": 51
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"toString\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "britter@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHNtBhFUGJcI4W_w",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrLookup.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "8f2a978e5981b49148e8569f0ceb1ddf",
+			"textRange": {
+				"startLine": 36,
+				"endLine": 36,
+				"startOffset": 22,
+				"endOffset": 31
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document the parameter(s): <V>",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "bayard@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHOOBhFUGJcI4W_x",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,229 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHOmBhFUGJcI4W_y",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrTokenizer.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,114 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "ggregory@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHO4BhFUGJcI4W_z",
+			"rule": "squid:S1871",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/WordUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 470,
+			"hash": "0fdb6504a254949a0bbaf9a3cf746a54",
+			"textRange": {
+				"startLine": 470,
+				"endLine": 473,
+				"startOffset": 50,
+				"endOffset": 13
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/WordUtils.java",
+							"textRange": {
+								"startLine": 467,
+								"endLine": 470,
+								"startOffset": 43,
+								"endOffset": 13
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "This branch's code block is the same as the block for the branch on line 467.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "scolebourne@apache.org",
+			"tags": [
+				"design",
+				"suspicious"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHP6BhFUGJcI4W_0",
+			"rule": "squid:UndocumentedApi",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java",
+			"project": "org.apache.commons:commons-lang3",
+			"hash": "e088d3ffc0c1c3738e3fdd8f236b1819",
+			"textRange": {
+				"startLine": 34,
+				"endLine": 34,
+				"startOffset": 23,
+				"endOffset": 29
+			},
+			"flows": [],
+			"resolution": "REMOVED",
+			"status": "CLOSED",
+			"message": "Document this public enum.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "bayard@apache.org",
+			"tags": [
+				"convention"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-08T19:04:59+0200",
+			"closeDate": "2016-08-08T19:04:59+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHRIBhFUGJcI4W_1",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,842 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-04-27T19:06:05+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHRIBhFUGJcI4W_2",
+			"rule": "squid:S1871",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 1197,
+			"hash": "de735fadc4b1b96d6039f920cc08b891",
+			"textRange": {
+				"startLine": 1197,
+				"endLine": 1198,
+				"startOffset": 20,
+				"endOffset": 30
+			},
+			"flows": [
+				{
+					"locations": [
+						{
+							"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+							"textRange": {
+								"startLine": 1182,
+								"endLine": 1184,
+								"startOffset": 20,
+								"endOffset": 30
+							},
+							"msg": "Original"
+						}
+					]
+				}
+			],
+			"status": "OPEN",
+			"message": "This case's code block is the same as the block for the case on line 1182.",
+			"effort": "10min",
+			"debt": "10min",
+			"author": "sebb@apache.org",
+			"tags": [
+				"design",
+				"suspicious"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-08-26T19:04:21+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHSXBhFUGJcI4W_3",
+			"rule": "squid:S00104",
+			"severity": "MAJOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"project": "org.apache.commons:commons-lang3",
+			"flows": [],
+			"status": "OPEN",
+			"message": "This file has 1,566 lines, which is greater than 1,000 authorized. Split it into smaller files.",
+			"effort": "1h",
+			"debt": "1h",
+			"author": "chas@apache.org",
+			"tags": [
+				"brain-overload"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-07-17T19:04:54+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHTiBhFUGJcI4W_4",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/tuple/Pair.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 135,
+			"hash": "3c500924982b27a2497961a75ec804ae",
+			"textRange": {
+				"startLine": 135,
+				"endLine": 135,
+				"startOffset": 31,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "scolebourne@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHTjBhFUGJcI4W_5",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/tuple/Pair.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 136,
+			"hash": "c34b718ba1d6909c052fe2ab702a8abf",
+			"textRange": {
+				"startLine": 136,
+				"endLine": 136,
+				"startOffset": 35,
+				"endOffset": 41
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "scolebourne@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		},
+		{
+			"key": "AVRYsHTpBhFUGJcI4W_6",
+			"rule": "squid:CallToDeprecatedMethod",
+			"severity": "MINOR",
+			"component": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/tuple/Triple.java",
+			"project": "org.apache.commons:commons-lang3",
+			"line": 115,
+			"hash": "e8fb8747f0b0bfaace2dec2affa28343",
+			"textRange": {
+				"startLine": 115,
+				"endLine": 115,
+				"startOffset": 31,
+				"endOffset": 37
+			},
+			"flows": [],
+			"status": "OPEN",
+			"message": "Remove this use of \"equals\"; it is deprecated.",
+			"effort": "15min",
+			"debt": "15min",
+			"author": "bayard@apache.org",
+			"tags": [
+				"cert",
+				"cwe",
+				"obsolete"
+			],
+			"creationDate": "2016-04-27T19:06:05+0200",
+			"updateDate": "2016-05-18T19:04:25+0200",
+			"type": "CODE_SMELL",
+			"organization": "default"
+		}
+	],
+	"components": [
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Conversion.java",
+			"uuid": "55432a7a-afcd-4303-8e5e-7a396702c2d6",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Conversion.java",
+			"longName": "src/main/java/org/apache/commons/lang3/Conversion.java",
+			"path": "src/main/java/org/apache/commons/lang3/Conversion.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/BooleanUtils.java",
+			"uuid": "1903b410-18c2-4dfa-919e-524277a6098f",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "BooleanUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/BooleanUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/BooleanUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ClassUtils.java",
+			"uuid": "3738c5d1-96ea-4509-8ed5-821084619339",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ClassUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/ClassUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/ClassUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java",
+			"uuid": "0358cbb5-5af4-4c76-a94f-d9f1164e6a7d",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "CompareToBuilder.java",
+			"longName": "src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java",
+			"path": "src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"uuid": "AVUw-wj1GGsGj2NSsHPT",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ThresholdCircuitBreaker.java",
+			"longName": "src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java",
+			"path": "src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java",
+			"uuid": "AVUw-wj1GGsGj2NSsHPS",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "EventCountCircuitBreaker.java",
+			"longName": "src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java",
+			"path": "src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Range.java",
+			"uuid": "c4b4e4ec-0c16-4c45-85dd-27ece5924d13",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Range.java",
+			"longName": "src/main/java/org/apache/commons/lang3/Range.java",
+			"path": "src/main/java/org/apache/commons/lang3/Range.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+			"uuid": "15056234-2260-49e3-a393-46cf6341fa4e",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "DateUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/time/DateUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"uuid": "4a7082ec-64c4-4b6d-9d20-ca19a46a8a95",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "MethodUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/SystemUtils.java",
+			"uuid": "52038c62-792f-4d9f-8f29-1eabf0f28d06",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "SystemUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/SystemUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/SystemUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"uuid": "98262a11-a979-4f2e-8185-9377cd6ea544",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "TypeUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"uuid": "383ed205-8691-4400-8262-4216481c88a5",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "StringUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/StringUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/StringUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java",
+			"uuid": "521e59f7-81a0-49a2-ba5a-1c8b3dbb0021",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ToStringBuilder.java",
+			"longName": "src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java",
+			"path": "src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrTokenizer.java",
+			"uuid": "7f86e086-0889-4895-9124-cdedfa8e54f6",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "StrTokenizer.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/StrTokenizer.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/StrTokenizer.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java",
+			"uuid": "536fe640-3877-427e-bd9c-46083af104f4",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ExceptionUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/Typed.java",
+			"uuid": "0679dfbe-f83e-4fc3-b7b5-8c1e11b17df3",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Typed.java",
+			"longName": "src/main/java/org/apache/commons/lang3/reflect/Typed.java",
+			"path": "src/main/java/org/apache/commons/lang3/reflect/Typed.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java",
+			"uuid": "7323d4c9-e60e-4fef-bcd7-b90fcea4910a",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "DiffBuilder.java",
+			"longName": "src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java",
+			"path": "src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java",
+			"uuid": "9c83f313-40fc-4a8b-b0d1-f5af16c255d1",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "NumericEntityUnescaper.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/XMLCharacter.java",
+			"uuid": "AVSWe_z7Pjc_bV3hNOjx",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "XMLCharacter.java",
+			"longName": "src/main/java/org/apache/commons/lang3/XMLCharacter.java",
+			"path": "src/main/java/org/apache/commons/lang3/XMLCharacter.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3",
+			"uuid": "aadb6769-8a0b-4580-b97e-8a52408ff11b",
+			"enabled": true,
+			"qualifier": "TRK",
+			"name": "Apache Commons Lang",
+			"longName": "Apache Commons Lang"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ObjectUtils.java",
+			"uuid": "f8652a9d-816d-41f8-80c2-ec3204b1cf59",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ObjectUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/ObjectUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/ObjectUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java",
+			"uuid": "3c380bb4-8374-4587-bd36-b8f1e9bc099d",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "EventListenerSupport.java",
+			"longName": "src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java",
+			"path": "src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"uuid": "ae59d0cb-28e2-42d5-8f79-dcbfb6a2c2ec",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "StrBuilder.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/StrBuilder.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/StrBuilder.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java",
+			"uuid": "4621adea-4a34-4982-a471-ee1ec60e263c",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ConstantInitializer.java",
+			"longName": "src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java",
+			"path": "src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/ArrayUtils.java",
+			"uuid": "c1477337-a6de-4d4d-a52d-b0c812dc0153",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ArrayUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/ArrayUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/ArrayUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/tuple/Pair.java",
+			"uuid": "1ac9a709-dbf9-470d-91b0-a6660f67079e",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Pair.java",
+			"longName": "src/main/java/org/apache/commons/lang3/tuple/Pair.java",
+			"path": "src/main/java/org/apache/commons/lang3/tuple/Pair.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+			"uuid": "a237228f-f6ad-40ff-969e-46f621f371ca",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "CharSetUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/CharSetUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/CharSetUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java",
+			"uuid": "f918e9dc-cf5a-4bfe-8e65-1b441f7944a2",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "HashCodeBuilder.java",
+			"longName": "src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java",
+			"path": "src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/tuple/Triple.java",
+			"uuid": "223bc252-81f3-4ed3-9fa3-513b94534022",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Triple.java",
+			"longName": "src/main/java/org/apache/commons/lang3/tuple/Triple.java",
+			"path": "src/main/java/org/apache/commons/lang3/tuple/Triple.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"uuid": "79b63fa1-0789-4cf0-b123-11b795df6725",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "FastDatePrinter.java",
+			"longName": "src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java",
+			"path": "src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/WordUtils.java",
+			"uuid": "a8ba47e5-13cc-4527-83c3-53d6c976b26e",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "WordUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/WordUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/WordUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrLookup.java",
+			"uuid": "b89e5755-1e6c-45e9-88a6-0f4433049b68",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "StrLookup.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/StrLookup.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/StrLookup.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java",
+			"uuid": "fa43b1a3-b5de-4f2a-8aa0-30a568182048",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "TypeLiteral.java",
+			"longName": "src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java",
+			"path": "src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"uuid": "AVUw-wj1GGsGj2NSsHPP",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "AbstractCircuitBreaker.java",
+			"longName": "src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java",
+			"path": "src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java",
+			"uuid": "cb311045-864f-450d-8f2c-446dfc66ddd1",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "StrSubstitutor.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/math/NumberUtils.java",
+			"uuid": "da046fe1-2039-4837-bd0c-a9b01db41f29",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "NumberUtils.java",
+			"longName": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java",
+			"path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java",
+			"uuid": "f40c5a2b-4af1-4db8-ab61-3e4f8eb9c364",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ExtendedMessageFormat.java",
+			"longName": "src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java",
+			"path": "src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java",
+			"uuid": "d6b9d07d-3006-485f-96c1-73054cdb3011",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "BackgroundInitializer.java",
+			"longName": "src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java",
+			"path": "src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/Validate.java",
+			"uuid": "c02dbdba-81f4-4c19-8198-f526fcdeff73",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "Validate.java",
+			"longName": "src/main/java/org/apache/commons/lang3/Validate.java",
+			"path": "src/main/java/org/apache/commons/lang3/Validate.java"
+		},
+		{
+			"organization": "default",
+			"key": "org.apache.commons:commons-lang3:src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java",
+			"uuid": "b43c1746-2616-453a-9a80-1174507bcd17",
+			"enabled": true,
+			"qualifier": "FIL",
+			"name": "ToStringStyle.java",
+			"longName": "src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java",
+			"path": "src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java"
+		}
+	]
+}

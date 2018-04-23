@@ -76,3 +76,4 @@ Thumbs.db
 # Class Files
 *.class
 
+.metadata
