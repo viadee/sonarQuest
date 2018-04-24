@@ -136,7 +136,7 @@ public class DeveloperController {
         }
         
         File folder = new File(avatarPath.getAbsolutePath());
-        path = folder + "\\" + d.getPicture();
+        path = folder + "/" + d.getPicture();
         
         if (new File(path).isFile()) {
             return Files.toByteArray(new File(path));
