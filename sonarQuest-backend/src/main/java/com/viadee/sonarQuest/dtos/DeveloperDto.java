@@ -17,7 +17,7 @@ public class DeveloperDto {
 
     private Level level;
 
-    private String picture;
+    private byte[] picture;
 
     private String aboutMe;
 
@@ -36,7 +36,7 @@ public class DeveloperDto {
     public DeveloperDto() {
     }
 
-    public DeveloperDto(Long id, String username, Long gold, Long xp, Level level, String picture, String aboutMe,
+    public DeveloperDto(Long id, String username, Long gold, Long xp, Level level, byte[] picture, String aboutMe,
 			AvatarClass avatarClass, AvatarRace avatarRace, List<Artefact> artefacts, List<Adventure> adventures,
 			List<Participation> participations, World world) {
 		super();
@@ -99,7 +99,7 @@ public class DeveloperDto {
         this.level = level;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
@@ -111,7 +111,7 @@ public class DeveloperDto {
         this.aboutMe = aboutMe;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
 

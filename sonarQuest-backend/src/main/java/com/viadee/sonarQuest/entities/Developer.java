@@ -40,7 +40,7 @@ public class Developer {
     private Level level;
 
     @Column(name = "picture")
-    private String picture;
+    private byte[] picture;
 
     @Column(name = "about_me")
     private String aboutMe;
@@ -78,7 +78,7 @@ public class Developer {
     	this.username = username;
     }
     
-    public Developer(final String username, final Long gold, final Long xp, final Level level, final String picture,
+    public Developer(final String username, final Long gold, final Long xp, final Level level, final byte[] picture,
             final String aboutMe, final AvatarClass avatarClass, final AvatarRace avatarRace) {
         this.username = username;
         this.gold = gold;
@@ -90,7 +90,7 @@ public class Developer {
         this.avatarRace = avatarRace;
     }
 
-    public Developer(final String username, final Long gold, final Long xp, final Level level, final String picture,
+    public Developer(final String username, final Long gold, final Long xp, final Level level, final byte[] picture,
             final String aboutMe, final AvatarClass avatarClass, final AvatarRace avatarRace,
             final List<Artefact> artefacts, final List<Adventure> adventures,
             final List<Participation> participations) {
@@ -148,11 +148,11 @@ public class Developer {
         this.level = level;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(final String picture) {
+    public void setPicture(final byte[] picture) {
         this.picture = picture;
     }
 

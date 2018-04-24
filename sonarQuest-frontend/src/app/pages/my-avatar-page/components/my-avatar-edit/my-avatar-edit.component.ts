@@ -16,6 +16,7 @@ export class AvatarEditComponent implements OnInit {
   images: any[];
   customAvatar: any;
   imageToShow: any;
+  avatar: File;
 
   constructor(
     private dialogRef: MatDialogRef<AvatarEditComponent>,
@@ -27,33 +28,32 @@ export class AvatarEditComponent implements OnInit {
     this.developer = { ...this.developer };
   }
 
-  ngOnInit() {
-    this.loadImages();
-      
+  ngOnInit() {      
     this.developerService.getImage(this.developer).subscribe((blob) => {
-      console.log(blob)
       this.imageToShow = this.imageService.createImageFromBlob(blob);
     })
   }
 
 
   editDeveloper() {
+    console.log(this.developer.picture)
     this.developerService.updateDeveloper(this.developer).then(() => {
       this.dialogRef.close(this.developer);
     })
+    this.developerService.postImage(this.avatar,this.developer).subscribe()
   }
 
   cancel() {
     this.dialogRef.close(false)
   }
 
-  loadImages() {
-    this.images = [];
 
-    for (let i = 0; i < 15; i++) {
-      this.images[i] = {};
-      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
-      this.images[i].name = "hero" + (i + 1);
-    }
+  onChange(files: File[]) {
+    this.avatar = files[0];
+    console.log(this.avatar)
+    this.developer.picture = this.avatar.name;
+
   }
+
+
 }

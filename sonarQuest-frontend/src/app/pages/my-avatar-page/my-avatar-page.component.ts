@@ -36,18 +36,7 @@ export class MyAvatarPageComponent implements OnInit {
       this.level = this.developerService.getLevel(developer.xp)
       this.xpPercent();
 
-      this.developerService.getImage(this.developer).subscribe((blob) => {
-
-        /* let reader = new FileReader();
-        reader.addEventListener("load", () => {
-          this.imageToShow = this.domSanitizer.bypassSecurityTrustUrl(reader.result);
-        }, false);
-
-        if (blob) {
-          reader.readAsDataURL(blob);
-        } */
-
- 
+      this.developerService.getImage(this.developer).subscribe((blob) => { 
         this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
       })
     })

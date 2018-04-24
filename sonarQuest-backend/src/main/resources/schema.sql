@@ -65,7 +65,7 @@ CREATE TABLE Developer (
   gold            BIGINT,
   xp              BIGINT,
   level_id        INTEGER,
-  picture         VARCHAR(256),
+  picture         BLOB,
   about_me         VARCHAR(256),
   avatar_class_id INTEGER,
   avatar_race_id  INTEGER,

@@ -7,10 +7,12 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.LevelRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class DeveloperService {
@@ -40,7 +42,7 @@ public class DeveloperService {
             		developerDto.getArtefacts(),
             		developerDto.getAdventures(),
             		developerDto.getParticipations()
-            		));
+            		));	
         } else {
             developer = null;
         }
@@ -123,5 +125,12 @@ public class DeveloperService {
 		}
 	}
 
+	
+	public void saveImage(MultipartFile image) throws IOException {
+		byte[] bytes = image.getBytes();
+		
+		Developer d = this.developerRepository.findById((long)1);
+		d.setPicture(bytes);
+	}
 
 }

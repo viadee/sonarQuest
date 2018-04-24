@@ -12,7 +12,8 @@
       <mat-input-container class="full-width">
         <textarea matInput placeholder="AboutMe" [(ngModel)]="developer.aboutMe"></textarea>
       </mat-input-container>
-    </div><!-- 
+    </div>
+    <!-- 
     <div>
       <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="developer.picture">
     </div>
@@ -26,13 +27,17 @@
       </mat-select>
     </div> -->
     <div flex>
-      <mat-input-container class="full-width">
-        <input matInput placeholder="File name" [(ngModel)]="developer.picture">
-      </mat-input-container>
+      <div layout="row">
+        <mat-input-container class="full-width">
+          <button mat-button onclick="document.getElementById('selectedFile').click();">Select Avatar</button>
+          <input type="file" id="selectedFile" style="display: none; width:0" accept="image/*" #file (change)="onChange(file.files)">
+          <input matInput id="selectedName" [disabled]="true" [(ngModel)]="developer.picture">
+        </mat-input-container> 
+      </div>
     </div>
   </div>
 </mat-dialog-content>
- 
+
 <mat-divider></mat-divider>
 
 <mat-dialog-actions>

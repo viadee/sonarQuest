@@ -20,7 +20,6 @@ export class ImageService {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result));
-      
     }, false);
 
     if (image) {

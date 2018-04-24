@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { World } from './../Interfaces/World';
 import { WorldService } from './world.service';
 import { Developer } from './../Interfaces/Developer.d';
@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
 import { HttpModule, Http, Response, RequestOptions, Headers, ResponseContentType } from "@angular/http";
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpRequest } from 'selenium-webdriver/http';
 @Injectable()
 export class DeveloperService {
 
@@ -73,7 +74,6 @@ export class DeveloperService {
   }
 
   updateDeveloper(developer: Developer): Promise<Developer> {
-    console.log(developer)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${environment.endpoint}/developer/${developer.id}`, developer, options)
@@ -101,14 +101,33 @@ export class DeveloperService {
       .map((res: Response) => res.blob());
   }
 
+  postImage(image: File, developer: Developer) {
+    const url = `${environment.endpoint}/developer/${developer.id}/avatar`
+    let formdata: FormData = new FormData();
+    formdata.append('image', image);
+    return this.http.post(url, formdata)
 
-/*   getImages(developer: Developer): Observable<any> {
-    const url = `${environment.endpoint}/developer/avatars`
-    return this.http
-      .get(url, { responseType: ResponseContentType.Blob })
-      .map((res: Response) => res.blob());
   }
- */
+
+ /*  pushFileToStorage(file: File) {
+    const url = `${environment.endpoint}/developer/1/avatar`
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    const req = new HttpRequest('POST', url, formdata);
+  } */
+
+  /* getFiles(): Observable<string[]> {
+    return this.http.get('/getallfiles')
+  } */
+
+
+  /*   getImages(developer: Developer): Observable<any> {
+      const url = `${environment.endpoint}/developer/avatars`
+      return this.http
+        .get(url, { responseType: ResponseContentType.Blob })
+        .map((res: Response) => res.blob());
+    }
+   */
 
   private calculateLevel(xp: number, level: number): number {
     let step = 10;

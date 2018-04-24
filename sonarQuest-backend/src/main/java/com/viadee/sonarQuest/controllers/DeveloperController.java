@@ -3,23 +3,30 @@ package com.viadee.sonarQuest.controllers;
 import com.google.common.io.Files;
 import com.viadee.sonarQuest.SonarQuestApplication;
 import com.viadee.sonarQuest.dtos.DeveloperDto;
-import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.DeveloperService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -32,6 +39,8 @@ public class DeveloperController {
     private WorldRepository worldRepository;
     
     private DeveloperService developerService;
+    
+    List<String> images = new ArrayList<String>();
 
     @Autowired
     public DeveloperController(DeveloperRepository developerRepository, DeveloperService developerService, WorldRepository worldRepository) {
@@ -146,4 +155,42 @@ public class DeveloperController {
         
     }
 
+
+    @RequestMapping(value = "/{id}/avatar")
+    public void postImage(HttpServletRequest request, @PathVariable(value = "id") long imgid, HttpServletResponse response) throws IOException {       
+    	MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        Set set = multipartRequest.getFileMap().entrySet(); 
+        Iterator i = set.iterator(); 
+        while(i.hasNext()) { 
+        	System.out.println(i.next().getClass());
+            /*Map.Entry me = (Map.Entry)i.next(); 
+            String fileName = (String)me.getKey();
+            MultipartFile multipartFile = (MultipartFile)me.getValue();
+            writeToDisk(fileName, multipartFile);*/
+        } 
+
+    	
+        //response.setContentType("img/jpg");
+        // find the image bytes into into byte[] imgBytes
+        //response.setContentLength((int) imgBytes.length);
+        //response.setStatus(HttpServletResponse.SC_OK);
+        //OutputStream os = response.getOutputStream();
+        //os.write(imgBytes);
+    }
+    
+    public void writeToDisk(String filename, MultipartFile multipartFile)
+    {
+        /*try
+        {
+            String fullFileName = Configuration.getProperty("ImageDirectory") + filename;
+            FileOutputStream fos = new FileOutputStream(fullFileName);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }*/
+    }
 }
