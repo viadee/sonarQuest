@@ -60,6 +60,7 @@ nbdist/
 npm-debug.log
 testem.log
 /sonarQuest-frontend/typings
+/sonarQuest-backend/log
 
 # e2e
 /sonarQuest-frontend/e2e/*.js
