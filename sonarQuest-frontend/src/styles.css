@@ -68,3 +68,16 @@ i.navlist{
   min-width: 300px;
   font-size: 1.5em;
 }
+
+.banner{
+  content: url(/assets/images/sq_banner_small.png);
+  margin: auto;
+  height: 90px;
+}
+
+.banner-wrapper{
+  width: 100%;
+  height: 0;
+  position: absolute;
+  z-index: 1000;
+}
