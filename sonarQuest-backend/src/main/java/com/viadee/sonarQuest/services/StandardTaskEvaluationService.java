@@ -7,22 +7,22 @@ public class StandardTaskEvaluationService {
 
 
     public Long evaluateXP(String severity) {
-        Long xp = Long.valueOf(0);
+        Long xp;
         switch (severity) {
             case "BLOCKER":
-                xp = Long.valueOf(10);
+                xp = 10L;
                 break;
             case "CRITICAL":
-                xp = Long.valueOf(7);
+                xp = 7L;
                 break;
             case "MAJOR":
-                xp = Long.valueOf(5);
+                xp = 5L;
                 break;
             case "MINOR":
-                xp = Long.valueOf(2);
+                xp = 2L;
                 break;
             default:
-                xp = Long.valueOf(1);
+                xp = 1L;
                 break;
         }
         return xp;
@@ -35,7 +35,7 @@ public class StandardTaskEvaluationService {
 
     public Long getDebt(String debtString) {
         debtString = debtString.replaceAll("[^0-9]", "");
-        return Long.valueOf(Integer.parseInt(debtString));
+        return (long) Integer.parseInt(debtString);
     }
 
     private static long roundUp(long num, long divisor) {

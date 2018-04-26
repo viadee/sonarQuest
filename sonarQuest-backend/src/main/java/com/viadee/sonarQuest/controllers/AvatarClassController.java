@@ -21,39 +21,39 @@ public class AvatarClassController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<AvatarClassDto> getAllAvatarClasses() {
-        return this.avatarClassRepository.findAll().stream().map(avatarClass -> toAvatarClassDto(avatarClass)).collect(Collectors.toList());
+        return avatarClassRepository.findAll().stream().map(this::toAvatarClassDto).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public AvatarClassDto getAvatarClassById(@PathVariable(value = "id") Long id) {
-        AvatarClass avatarClass = this.avatarClassRepository.findOne(id);
-        return this.toAvatarClassDto(avatarClass);
+        AvatarClass avatarClass = avatarClassRepository.findOne(id);
+        return toAvatarClassDto(avatarClass);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AvatarClass createAvatarClass(@RequestBody AvatarClassDto avatarClassDto) {
-        return this.avatarClassRepository.save(new AvatarClass(avatarClassDto.getName()));
+        return avatarClassRepository.save(new AvatarClass(avatarClassDto.getName()));
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public AvatarClassDto updateAvatarClass(@PathVariable(value = "id") Long id, @RequestBody AvatarClassDto avatarClassDto) {
-        AvatarClass avatarClass = this.avatarClassRepository.findOne(id);
+        AvatarClass avatarClass = avatarClassRepository.findOne(id);
         if (avatarClass != null) {
             avatarClass.setName(avatarClassDto.getName());
             avatarClass.setSkills(avatarClassDto.getSkills());
-            avatarClass = this.avatarClassRepository.save(avatarClass);
-            avatarClassDto = this.toAvatarClassDto(avatarClass);
+            avatarClass = avatarClassRepository.save(avatarClass);
+            avatarClassDto = toAvatarClassDto(avatarClass);
         }
         return avatarClassDto;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteAvatarClass(@PathVariable(value = "id") Long id) {
-        AvatarClass level = this.avatarClassRepository.findOne(id);
+        AvatarClass level = avatarClassRepository.findOne(id);
         if (level != null) {
-            this.avatarClassRepository.delete(level);
+            avatarClassRepository.delete(level);
         }
     }
 

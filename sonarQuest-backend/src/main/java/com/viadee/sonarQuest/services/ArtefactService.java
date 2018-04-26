@@ -37,68 +37,66 @@ public class ArtefactService {
 	
 
 	public List<ArtefactDto> getArtefacts(){
- 		return this.artefactRepository.findAll().stream().map(artefact -> toArtefactDto(artefact)).collect(Collectors.toList());
+ 		return artefactRepository.findAll().stream().map(this::toArtefactDto).collect(Collectors.toList());
 	}
 	
 	public List<ArtefactDto> getArtefactsforMarkteplace(){
-		return this.artefactRepository.findByQuantityIsGreaterThanEqual((long)1).stream().map(artefact -> toArtefactDto(artefact)).collect(Collectors.toList());
+		return artefactRepository.findByQuantityIsGreaterThanEqual((long)1).stream().map(this::toArtefactDto).collect(Collectors.toList());
 	}
 	
 
 	public ArtefactDto getArtefact(long id){
-		Artefact artefact = this.artefactRepository.findOne(id);
+		Artefact artefact = artefactRepository.findOne(id);
 	    ArtefactDto artefactDto = null;
 	    if(artefact != null){
-	        artefactDto = this.toArtefactDto(artefact);
+	        artefactDto = toArtefactDto(artefact);
 	    }
 	    return artefactDto;
 	}
 	
 	public ArtefactDto createArtefact(ArtefactDto artefactDto) {
 
-		Artefact artefact = this.artefactRepository.save(new Artefact(artefactDto.getName(), artefactDto.getIcon(), artefactDto.getPrice(),artefactDto.getQuantity(), artefactDto.getDescription()));
+		Artefact artefact = artefactRepository.save(new Artefact(artefactDto.getName(), artefactDto.getIcon(), artefactDto.getPrice(),artefactDto.getQuantity(), artefactDto.getDescription()));
 		
-		List<Artefact> artefacts = new ArrayList<Artefact>();
+		List<Artefact> artefacts = new ArrayList<>();
 		artefacts.add(artefact);
 		
 	
-		Level lvl = this.levelRepository.save(new Level(artefactDto.getMinLevel().getMin(),null,null,artefacts));
+		Level lvl = levelRepository.save(new Level(artefactDto.getMinLevel().getMin(),null,null,artefacts));
 		
 		Iterator<Skill> i = artefactDto.getSkills().iterator();
 		Skill s;
-		ArrayList<Skill> skills = new ArrayList<Skill>();
+		ArrayList<Skill> skills = new ArrayList<>();
 		while (i.hasNext()){
 			s = i.next();
-			Skill skl = this.skillService.createSkill(s);
+			Skill skl = skillService.createSkill(s);
 			skills.add(skl);
 		}
 
 		artefact.setMinLevel(lvl);
-		artefact.setSkills(skills);		
-		
-		this.artefactRepository.save(artefact);
-        return this.toArtefactDto(artefact);
+		artefact.setSkills(skills);
+
+		artefactRepository.save(artefact);
+        return toArtefactDto(artefact);
 	}
 	
 	public ArtefactDto updateArtefact(Long id, ArtefactDto artefactDto) {
 		
-		Artefact artefact = this.artefactRepository.findOne(id);
-		Level minLevel = this.levelRepository.findById(artefact.getMinLevel().getId());
+		Artefact artefact = artefactRepository.findOne(id);
+		Level minLevel = levelRepository.findById(artefact.getMinLevel().getId());
 		minLevel.setMin(artefactDto.getMinLevel().getMin());
-		this.levelRepository.save(minLevel);
-			
-		
-        if (artefact != null) {
-            artefact.setName(artefactDto.getName());
-            artefact.setIcon(artefactDto.getIcon());
-            artefact.setPrice(artefactDto.getPrice());
-            artefact.setDescription(artefactDto.getDescription());
-            artefact.setQuantity(artefactDto.getQuantity());
-            artefact.setMinLevel(minLevel);
-            artefact.setSkills(artefactDto.getSkills());
-            artefact = this.artefactRepository.save(artefact);
-        }
-        return this.toArtefactDto(artefact);
+		levelRepository.save(minLevel);
+
+
+		artefact.setName(artefactDto.getName());
+		artefact.setIcon(artefactDto.getIcon());
+		artefact.setPrice(artefactDto.getPrice());
+		artefact.setDescription(artefactDto.getDescription());
+		artefact.setQuantity(artefactDto.getQuantity());
+		artefact.setMinLevel(minLevel);
+		artefact.setSkills(artefactDto.getSkills());
+		artefact = artefactRepository.save(artefact);
+		return toArtefactDto(artefact);
 	}
 	
 	public ArtefactDto toArtefactDto(Artefact artefact) {
@@ -113,7 +111,7 @@ public class ArtefactService {
 	
 	public ArtefactDto buyArtefact(Artefact artefact, Developer developer) {
 
-		List<Artefact> developerArtefacts = new ArrayList<>();
+		List<Artefact> developerArtefacts;
 		developerArtefacts = developer.getArtefacts();
 		
 		
@@ -125,9 +123,8 @@ public class ArtefactService {
 		
 		
 		// If the developer has ALREADY BOUGHT the Artefact, Then the purchase is canceled 
-		for(int i = 0; i < developerArtefacts.size(); i++) {
-			Artefact a = developerArtefacts.get(i);
-			if( a.equals(artefact)) {
+		for (Artefact a : developerArtefacts) {
+			if (a.equals(artefact)) {
 				return null;
 			}
 		}
@@ -142,7 +139,7 @@ public class ArtefactService {
 		// When the LEVEL of the developer is too low, then the purchase is canceled
 		long minLevel = artefact.getMinLevel().getMin();
 		long xp		  = developer.getXp();
-		long devLevel = this.developerService.getLevel(xp);
+		long devLevel = developerService.getLevel(xp);
 		
 		if (minLevel > devLevel) {
 			return null;
@@ -152,10 +149,10 @@ public class ArtefactService {
 		developerArtefacts.add(artefact);
 		developer.setArtefacts(developerArtefacts);
 		developer.setGold(gold);
-		developer = this.developerRepository.save(developer);
+		developer = developerRepository.save(developer);
 	
 		artefact.setQuantity(artefact.getQuantity() - 1);
-		artefact = this.artefactRepository.save(artefact);
+		artefact = artefactRepository.save(artefact);
 		return toArtefactDto(artefact);
 	}
 	

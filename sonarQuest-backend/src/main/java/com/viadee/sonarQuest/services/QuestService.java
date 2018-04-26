@@ -59,16 +59,16 @@ public class QuestService implements QuestSuggestion {
     }
 
     private Long totalGoldAmountOfTaskList(List<Task> taskList) {
-        return taskList.stream().mapToLong(task -> task.getGold()).sum();
+        return taskList.stream().mapToLong(Task::getGold).sum();
     }
 
     private Long totalXpAmountOfTaskList(List<Task> taskList) {
-        return taskList.stream().mapToLong(task -> task.getXp()).sum();
+        return taskList.stream().mapToLong(Task::getXp).sum();
     }
 
     public void updateQuests() {
         List<Quest> quests = questRepository.findAll();
-        quests.forEach(quest -> updateQuest(quest));
+        quests.forEach(this::updateQuest);
     }
 
     public void updateQuest(Quest quest) {
@@ -84,8 +84,8 @@ public class QuestService implements QuestSuggestion {
 
     public List<List<Quest>> getAllQuestsForWorldAndDeveloper(World world, Developer developer) {
         List<Participation> participations = participationRepository.findByDeveloper(developer);
-        List<Quest> participatedQuests = participations.stream().map(participation -> participation.getQuest()).filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
-        List<Quest> allQuestsForWorld = this.questRepository.findByWorld(world);
+        List<Quest> participatedQuests = participations.stream().map(Participation::getQuest).filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
+        List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
         List<List<Quest>> result = new ArrayList<>();
         List<Quest> freeQuests = allQuestsForWorld;
         freeQuests.removeAll(participatedQuests);

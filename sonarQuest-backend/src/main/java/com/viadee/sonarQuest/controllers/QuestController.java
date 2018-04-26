@@ -58,14 +58,14 @@ public class QuestController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<QuestDto> getAllQuests() {
-        return this.questRepository.findAll().stream().map(quest -> toQuestDto(quest)).collect(Collectors.toList());
+        return this.questRepository.findAll().stream().map(QuestDto::toQuestDto).collect(Collectors.toList());
     }
 
     @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<QuestDto> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
     	World w = worldRepository.findById(world_id);
-        return this.questRepository.findByWorld(w).stream().map(quest -> toQuestDto(quest)).collect(Collectors.toList());
+        return this.questRepository.findByWorld(w).stream().map(QuestDto::toQuestDto).collect(Collectors.toList());
     }
     
     
@@ -197,7 +197,7 @@ public class QuestController {
         List<QuestDto> freeQuests = null;
         if (world != null) {
             freeQuests = this.questRepository.findByWorldAndAdventure(world, null).stream()
-                    .map(quest -> toQuestDto(quest)).collect(Collectors.toList());
+                    .map(QuestDto::toQuestDto).collect(Collectors.toList());
         }
         return freeQuests;
     }
@@ -213,7 +213,7 @@ public class QuestController {
                     .getAllQuestsForWorldAndDeveloper(world, developer);
 
             quests = allQuestsForWorldAndDeveloper.stream()
-                    .map(questlist -> questlist.stream().map(quest -> toQuestDto(quest)).collect(Collectors.toList()))
+                    .map(questlist -> questlist.stream().map(QuestDto::toQuestDto).collect(Collectors.toList()))
                     .collect(Collectors.toList());
         }
         return quests;

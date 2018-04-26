@@ -16,10 +16,10 @@ public class LevelService {
     }
 
     public Level getLevelByDeveloperXp(Long xp) {
-        Level level = this.levelRepository.findFirstByMinIsLessThanEqualAndMaxIsGreaterThanEqual(xp, xp);
+        Level level = levelRepository.findFirstByMinIsLessThanEqualAndMaxIsGreaterThanEqual(xp, xp);
 
         if (level == null) {
-            level = this.levelRepository.findFirstByMaxIsLessThanOrderByMinDesc(xp);
+            level = levelRepository.findFirstByMaxIsLessThanOrderByMinDesc(xp);
         }
 
         return level;

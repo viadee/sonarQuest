@@ -31,10 +31,9 @@ public class StandardTaskService {
 
     public void updateStandardTasks(World world) {
         List<StandardTask> externalStandardTasks = externalRessourceService.generateStandardTasksFromSonarQubeIssuesForWorld(world);
-        externalStandardTasks.forEach(standardTask -> updateStandardTask(standardTask));
+        externalStandardTasks.forEach(this::updateStandardTask);
         questService.updateQuests();
         adventureService.updateAdventures();
-        return;
     }
 
     public void updateStandardTask(StandardTask externalStandardTask) {
@@ -42,7 +41,7 @@ public class StandardTaskService {
         if (foundInternalStandardTask != null) {
             String newStatus = externalStandardTask.getStatus();
             String oldStatus = foundInternalStandardTask.getStatus();
-            if(oldStatus != TaskStates.CREATED){
+            if(!Objects.equals(TaskStates.CREATED, oldStatus)){
                 foundInternalStandardTask.setStatus(newStatus);
                 standardTaskRepository.save(foundInternalStandardTask);
             }
@@ -53,7 +52,6 @@ public class StandardTaskService {
             externalStandardTask.setStatus(TaskStates.CREATED);
             standardTaskRepository.save(externalStandardTask);
         }
-        return;
     }
 
     public void setExternalRessourceService(ExternalRessourceService externalRessourceService) {

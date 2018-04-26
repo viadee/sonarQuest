@@ -32,7 +32,7 @@ public class SpecialTaskService {
                 specialTaskDto.getMessage(),
                 world);
 
-        this.specialTaskRepository.save(sp);
+        specialTaskRepository.save(sp);
     }
 
 }

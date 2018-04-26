@@ -21,7 +21,7 @@ public class WorldService {
 
     public void updateWorlds() {
         List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
-        externalWorlds.forEach(world -> updateWorld(world));
+        externalWorlds.forEach(this::updateWorld);
     }
 
     private void updateWorld(World externalWorld) {

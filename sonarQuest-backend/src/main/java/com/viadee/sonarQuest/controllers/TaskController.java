@@ -76,11 +76,11 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasks() {
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
-        List<TaskDto> specialTaskDtos = new ArrayList<>();
-        List<TaskDto> standardTaskDtos = new ArrayList<>();
-        specialTaskDtos = this.specialTaskRepository.findAll().stream().map(task -> toTaskDto(task))
+        List<TaskDto> specialTaskDtos;
+        List<TaskDto> standardTaskDtos;
+        specialTaskDtos = this.specialTaskRepository.findAll().stream().map(TaskDto::toTaskDto)
                 .collect(Collectors.toList());
-        standardTaskDtos = this.standardTaskRepository.findAll().stream().map(task -> toTaskDto(task))
+        standardTaskDtos = this.standardTaskRepository.findAll().stream().map(TaskDto::toTaskDto)
                 .collect(Collectors.toList());
         taskDtos.add(specialTaskDtos);
         taskDtos.add(standardTaskDtos);
@@ -92,10 +92,10 @@ public class TaskController {
     public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
     	World w = worldRepository.findOne(world_id);
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
-        List<TaskDto> specialTaskDtos = new ArrayList<>();
-        List<TaskDto> standardTaskDtos = new ArrayList<>();
-        specialTaskDtos = this.specialTaskRepository.findByWorld(w).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
-        standardTaskDtos = this.standardTaskRepository.findByWorld(w).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+        List<TaskDto> specialTaskDtos;
+        List<TaskDto> standardTaskDtos;
+        specialTaskDtos = this.specialTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto).collect(Collectors.toList());
+        standardTaskDtos = this.standardTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto).collect(Collectors.toList());
         taskDtos.add(specialTaskDtos);
         taskDtos.add(standardTaskDtos);
         return taskDtos;
@@ -150,7 +150,7 @@ public class TaskController {
         List<TaskDto> freeTasks = null;
         if (world != null) {
             // List<TaskDto> freeSpecialTasks = null;
-            freeTasks = this.taskRepository.findByWorldAndStatus(world, TaskStates.CREATED).stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+            freeTasks = this.taskRepository.findByWorldAndStatus(world, TaskStates.CREATED).stream().map(TaskDto::toTaskDto).collect(Collectors.toList());
             
             /* 
              * @Florian - For what?
@@ -249,7 +249,7 @@ public class TaskController {
         if (world != null) {
             standardTaskService.updateStandardTasks(world);
             final List<Task> savedTasks = taskRepository.findAll();
-            taskDtos = savedTasks.stream().map(task -> toTaskDto(task)).collect(Collectors.toList());
+            taskDtos = savedTasks.stream().map(TaskDto::toTaskDto).collect(Collectors.toList());
         }
         return taskDtos;
     }
