@@ -42,9 +42,9 @@ INSERT INTO Artefact_Skill (artefact_id,skill_id) VALUES
   (3,5);
 
 INSERT INTO Developer (username, gold, xp, level_id,picture,about_me,avatar_class_id,avatar_race_id) VALUES
-  ('Eddie Tor', 10, 5, 1,'hero13.jpg','Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!',4,2),
-  ('Ringo Rockstar', 30, 20, 2,'hero9.jpg','The mighty barbarian has the strength and the tools to do the job. Brute force ftw!',2,3),
-  ('Mike Magician', 18, 15, 2,'hero1.jpg','Raised in the Lands of the North, wisdomey and experienced, this talented Magician will find a solution for everything. And sometimes it might really look like magic!',1,1);
+  ('Eddie Tor', 10, 5, 1,'ava_hobbit1.jpg','Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!',4,2),
+  ('Ringo Rockstar', 30, 20, 2,'ava_barbarian1.jpg','The mighty barbarian has the strength and the tools to do the job. Brute force ftw!',2,3),
+  ('Mike Magician', 18, 15, 2,'ava_mage1.jpg','Raised in the Lands of the North, wisdomey and experienced, this talented Magician will find a solution for everything. And sometimes it might really look like magic!',1,1);
 
 INSERT INTO Developer_Artefact (developer_id,artefact_id) VALUES
   (1,3),
