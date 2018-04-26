@@ -33,7 +33,7 @@ public abstract class ExternalRessourceService {
     public abstract List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey);
 
     public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(final World world) {
-        final List<SonarQubeIssue> sonarQubeIssues = this.getIssuesForSonarQubeProject(world.getProject());
+        final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world.getProject());
         return sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world))
                 .collect(Collectors.toList());
     }

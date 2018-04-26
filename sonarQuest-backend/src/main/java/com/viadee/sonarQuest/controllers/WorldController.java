@@ -30,7 +30,7 @@ public class WorldController {
     
     @RequestMapping(method = RequestMethod.GET)
     public List<WorldDto> getAllWorlds() {
-        return this.worldRepository.findAll().stream().map(world -> toWorldDto(world)).collect(Collectors.toList());
+        return this.worldRepository.findAll().stream().map(WorldDto::toWorldDto).collect(Collectors.toList());
     }
     
 
@@ -64,7 +64,7 @@ public class WorldController {
     public List<WorldDto> generateWorlds() {
         worldService.updateWorlds();
         List<World> worlds= worldRepository.findAll();
-        return worlds.stream().map(world -> toWorldDto(world)).collect(Collectors.toList());
+        return worlds.stream().map(WorldDto::toWorldDto).collect(Collectors.toList());
 
     }
 

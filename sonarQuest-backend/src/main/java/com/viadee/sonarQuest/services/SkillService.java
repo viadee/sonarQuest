@@ -2,7 +2,6 @@ package com.viadee.sonarQuest.services;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +27,12 @@ public class SkillService {
 		skill.setName(skillDto.getName());
 		skill.setType(skillDto.getType());
 		skill.setValue(skillDto.getValue());
-		return this.skillRepository.save(skill);
+		return skillRepository.save(skill);
 	}
 	
 	public List<SkillDto> getSkillsForArtefact(ArtefactDto a) {
-		List<Skill> skills = this.artefactRepository.findOne(a.getId()).getSkills();
-		return this.toSkillsDto(skills);
+		List<Skill> skills = artefactRepository.findOne(a.getId()).getSkills();
+		return toSkillsDto(skills);
 	}
 
 	
@@ -49,18 +48,16 @@ public class SkillService {
 	
     public List<SkillDto> toSkillsDto(List<Skill> skills) {
     	List<SkillDto> skillDto = new ArrayList<>();
-    
-        	Iterator<Skill> it = skills.iterator();
-        	while(it.hasNext()) {
-        		Skill skill = it.next();
-        		skillDto.add(toSkillDto(skill));
-        	}
+
+		for (final Skill skill : skills) {
+			skillDto.add(toSkillDto(skill));
+		}
         return skillDto;
     }
 
 	public void deleteSkill(Skill skill) {
 		if (skill != null) {
-            this.skillRepository.delete(skill);
+			skillRepository.delete(skill);
         }
 	}
 	

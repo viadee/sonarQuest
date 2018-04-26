@@ -47,18 +47,18 @@ public class AdventureController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<AdventureDto> getAllAdventures(){
-        return this.adventureRepository.findAll().stream().map(adventure -> toAdventureDto(adventure)).collect(Collectors.toList());
+        return adventureRepository.findAll().stream().map(AdventureDto::toAdventureDto).collect(Collectors.toList());
     }
     
     @RequestMapping(value = "/world/{id}",method = RequestMethod.GET)
     public List<AdventureDto> getAllAdventuresForWorld(@PathVariable(value = "id") Long world_id){
     	World w = worldRepository.findById(world_id);
-        return this.adventureRepository.findByWorld(w).stream().map(adventure -> toAdventureDto(adventure)).collect(Collectors.toList());
+        return adventureRepository.findByWorld(w).stream().map(AdventureDto::toAdventureDto).collect(Collectors.toList());
     }
 	
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public AdventureDto getAdventureById(@PathVariable(value = "id") Long id) {
-        Adventure adventure = this.adventureRepository.findOne(id);
+        Adventure adventure = adventureRepository.findOne(id);
         return toAdventureDto(adventure);
     }
     
@@ -68,7 +68,7 @@ public class AdventureController {
     public List<AdventureDto> getJoinedAdventures(@PathVariable(value = "developer_id") Long developer_id, @PathVariable(value = "world_id") Long world_id) {
     	World w = worldRepository.findOne(world_id);
     	Developer d = developerRepository.findOne(developer_id);
-    	List<Adventure> adventures = this.adventureService.getJoinedAdventuresForDeveloperInWorld(w, d);
+    	List<Adventure> adventures = adventureService.getJoinedAdventuresForDeveloperInWorld(w, d);
         return AdventureDto.toAdventuresDto(adventures);
     }
     
@@ -76,7 +76,7 @@ public class AdventureController {
     public List<AdventureDto> getFreeAdventures(@PathVariable(value = "developer_id") Long developer_id, @PathVariable(value = "world_id") Long world_id) {
     	World w = worldRepository.findOne(world_id);
     	Developer d = developerRepository.findOne(developer_id);
-    	List<Adventure> adventures = this.adventureService.getFreeAdventuresForDeveloperInWorld(w, d);
+    	List<Adventure> adventures = adventureService.getFreeAdventuresForDeveloperInWorld(w, d);
         return AdventureDto.toAdventuresDto(adventures);
     }
     
@@ -85,34 +85,34 @@ public class AdventureController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(@RequestBody AdventureDto adventureDto) {
-        return this.adventureRepository.save(new Adventure(adventureDto.getTitle(),adventureDto.getStory(), AdventureStates.OPEN,adventureDto.getGold(),adventureDto.getXp()));
+        return adventureRepository.save(new Adventure(adventureDto.getTitle(),adventureDto.getStory(), AdventureStates.OPEN,adventureDto.getGold(),adventureDto.getXp()));
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Adventure updateAdventure(@PathVariable(value = "id") Long id, @RequestBody AdventureDto adventureDto) {
-        Adventure adventure = this.adventureRepository.findOne(id);
+        Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventure.setTitle(adventureDto.getTitle());
             adventure.setGold(adventureDto.getGold());
             adventure.setXp(adventureDto.getXp());
             adventure.setStory(adventureDto.getStory());
-            adventure = this.adventureRepository.save(adventure);
+            adventure = adventureRepository.save(adventure);
         }
         return adventure;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteAdventure(@PathVariable(value = "id") Long id) {
-        Adventure adventure = this.adventureRepository.findOne(id);
+        Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
-            this.adventureRepository.delete(adventure);
+            adventureRepository.delete(adventure);
         }
     }
 
     @RequestMapping(value = "/{adventureId}/solveAdventure/",method = RequestMethod.PUT)
     public void solveAdventure(@PathVariable(value = "adventureId") Long adventureId) {
-        Adventure adventure = this.adventureRepository.findOne(adventureId);
+        Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
             adventure.setStatus(AdventureStates.SOLVED);
             adventureRepository.save(adventure);
@@ -124,16 +124,16 @@ public class AdventureController {
     @RequestMapping(value = "/{adventureId}/addQuest/{questId}",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AdventureDto addQuest(@PathVariable(value = "adventureId") Long adventureId, @PathVariable(value = "questId") Long questId) {
-        Adventure adventure = this.adventureRepository.findOne(adventureId);
+        Adventure adventure = adventureRepository.findOne(adventureId);
         if(adventure != null){
-            Quest quest = this.questRepository.findOne(questId);
+            Quest quest = questRepository.findOne(questId);
             quest.setAdventure(adventure);
-            this.questRepository.save(quest);
+            questRepository.save(quest);
             if(adventure.getWorld() == null){
                 adventure.setWorld(quest.getWorld());
-                this.adventureRepository.save(adventure);
+                adventureRepository.save(adventure);
             }
-            adventure = this.adventureRepository.findOne(adventureId);
+            adventure = adventureRepository.findOne(adventureId);
         }
         return toAdventureDto(adventure);
     }

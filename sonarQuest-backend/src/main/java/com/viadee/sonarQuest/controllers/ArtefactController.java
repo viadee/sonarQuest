@@ -28,31 +28,31 @@ public class ArtefactController  {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<ArtefactDto> getAllArtefacts(){
-        return this.artefactService.getArtefacts();
+        return artefactService.getArtefacts();
     }
     
     @RequestMapping(value = "/forMarketplace/", method = RequestMethod.GET)
     public List<ArtefactDto> getArtefactsforMarkteplace(){
-        return this.artefactService.getArtefactsforMarkteplace();
+        return artefactService.getArtefactsforMarkteplace();
     }
 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ArtefactDto getArtefactById(@PathVariable(value = "id") Long id){
-        return this.artefactService.getArtefact(id);
+        return artefactService.getArtefact(id);
     }
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public ArtefactDto createArtefact(@RequestBody ArtefactDto artefactDto) {
-    	return this.artefactService.createArtefact(artefactDto);
+    	return artefactService.createArtefact(artefactDto);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ArtefactDto updateArtefact(@PathVariable(value = "id") Long id, @RequestBody ArtefactDto artefactDto) {
-    	return this.artefactService.updateArtefact(id, artefactDto);
+    	return artefactService.updateArtefact(id, artefactDto);
     }
 
     @CrossOrigin
@@ -60,18 +60,14 @@ public class ArtefactController  {
     public boolean buyArtefact(@PathVariable(value = "artefact_id") Long artefact_id, @PathVariable(value = "developer_id") Long developer_id) {
     	Artefact  a = artefactRepository.findOne(artefact_id);
     	Developer d = developerRepository.findOne(developer_id);
-    	
-    	if (this.artefactService.buyArtefact(a,d) != null) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+
+        return artefactService.buyArtefact(a, d) != null;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteArtefact(@PathVariable(value = "id") Long id) {
-        if (this.artefactRepository.findOne(id) != null) {
-            this.artefactRepository.delete(id);
+        if (artefactRepository.findOne(id) != null) {
+            artefactRepository.delete(id);
         }
     }
     

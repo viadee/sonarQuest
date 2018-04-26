@@ -23,7 +23,7 @@ public class LevelController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<LevelDto> getAllLevels() {
-        return this.levelRepository.findAll().stream().map(level -> toLevelDto(level)).collect(Collectors.toList());
+        return this.levelRepository.findAll().stream().map(this::toLevelDto).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
