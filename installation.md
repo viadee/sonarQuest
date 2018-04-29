@@ -81,3 +81,14 @@ After that you can start the SonarQuest client:
 You can access the SonarQuest client in a browser at `http://localhost:4200`
 
 Use `ng build` to create a build of the SonarQuest client. This is integrated into the directory `src/main/resources/static` and can be accessed in a browser at `http://localhost:8080` if the SonarQuest server is running.
+
+### SonarQuest client (Docker)
+To run the SonarQuest client and server dockerized, you need to have Docker installed first.
+
+You can run SonarQuest using: `docker-compose up --build`.
+This will run the application using a real SonarQube Server. If you want to use the simulated server, set `-DsimulatedSonarServer=true` in the `docker-compose.yml`. 
+
+You can access the SonarQuest server at: `http://localhost:8080`
+
+You can access the SonarQuest client in a browser at `http://localhost:4200`
+
