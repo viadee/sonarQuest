@@ -26,9 +26,9 @@ public class DeveloperService {
 	
 	public Developer createDeveloper(DeveloperDto developerDto) {
 		Developer developer;
-        if (this.checkIfUsernameNotExists(developerDto)) {
-            Level level1 = this.levelRepository.findById((long) 1);
-            developer = this.developerRepository.save(new Developer(
+        if (checkIfUsernameNotExists(developerDto)) {
+            Level level1 = levelRepository.findById((long) 1);
+            developer = developerRepository.save(new Developer(
             		developerDto.getUsername(), 
             		(long) 0, 
             		(long) 0, 
@@ -48,7 +48,7 @@ public class DeveloperService {
 	}
 	
 	private Boolean checkIfUsernameNotExists(DeveloperDto developerDto) {
-        Developer developer = this.developerRepository.findByUsername(developerDto.getUsername());
+        Developer developer = developerRepository.findByUsername(developerDto.getUsername());
         return developer == null;
     }
 
@@ -60,7 +60,7 @@ public class DeveloperService {
 	}
 	
 	public List<Developer> findActiveDevelopers(){
-		return this.developerRepository.findByDeleted(false);
+		return developerRepository.findByDeleted(false);
 	}
 
 	public Developer setWorld(Developer d, World w) {
@@ -75,15 +75,15 @@ public class DeveloperService {
 		if (developer != null) {
             developer.setGold((developerDto.getGold()));
             developer.setXp(developerDto.getXp());
-            developer.setLevel(this.levelService.getLevelByDeveloperXp(developer.getXp()));
+            developer.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
             developer.setPicture(developerDto.getPicture());
             developer.setAboutMe(developerDto.getAboutMe());
             developer.setAvatarClass(developerDto.getAvatarClass());
             developer.setAvatarRace(developerDto.getAvatarRace());
             developer.setArtefacts(developerDto.getArtefacts());
-            developer = this.developerRepository.save(developer);
+            developer = developerRepository.save(developer);
         }
-        return this.toDeveloperDto(developer);
+        return toDeveloperDto(developer);
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class DeveloperService {
     
     
 	public long getLevel(long xp) {
-		return this.calculateLevel(xp,1);
+		return calculateLevel(xp,1);
 	}
 	
 
@@ -119,7 +119,7 @@ public class DeveloperService {
 		if(level == 200 || (xp < xpForNextLevel)) {
 	      return level;
 	    } else {
-		    return this.calculateLevel(xp, level+1);
+		    return calculateLevel(xp, level+1);
 		}
 	}
 

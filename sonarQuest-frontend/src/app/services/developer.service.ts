@@ -25,7 +25,7 @@ export class DeveloperService {
   }
 
   getMyAvatar(): Observable<Developer> {
-    this.http.get(`${environment.endpoint}/developer/1`)
+    this.http.get(`${environment.endpoint}/developer/3`) /* current logged in Developer */
       .map(this.extractData)
       .subscribe(
         developer => {

@@ -32,7 +32,7 @@ public class SkillController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<SkillDto> getAllSkills() {
-        return this.skillRepository.findAll().stream().map(skill -> toSkillDto(skill)).collect(Collectors.toList());
+        return this.skillRepository.findAll().stream().map(this::toSkillDto).collect(Collectors.toList());
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

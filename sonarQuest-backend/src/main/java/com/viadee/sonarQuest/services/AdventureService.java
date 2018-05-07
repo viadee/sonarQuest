@@ -34,7 +34,7 @@ public class AdventureService {
 
     public void updateAdventures(){
         final List<Adventure> adventures = adventureRepository.findAll();
-        adventures.forEach(adventure -> updateAdventure(adventure));
+        adventures.forEach(this::updateAdventure);
     }
 
 	@Transactional // Adventure updates are not to be mixed

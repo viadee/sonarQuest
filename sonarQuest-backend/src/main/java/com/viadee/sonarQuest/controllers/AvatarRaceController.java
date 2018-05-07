@@ -21,39 +21,39 @@ public class AvatarRaceController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<AvatarRaceDto> getAllAvatarRaces() {
-        return this.avatarRaceRepository.findAll().stream().map(avatarRace -> toAvatarRaceDto(avatarRace)).collect(Collectors.toList());
+        return avatarRaceRepository.findAll().stream().map(this::toAvatarRaceDto).collect(Collectors.toList());
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public AvatarRaceDto getAvatarRaceById(@PathVariable(value = "id") Long id) {
-        AvatarRace avatarRace = this.avatarRaceRepository.findOne(id);
-        return this.toAvatarRaceDto(avatarRace);
+        AvatarRace avatarRace = avatarRaceRepository.findOne(id);
+        return toAvatarRaceDto(avatarRace);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AvatarRace createAvatarRace(@RequestBody AvatarRaceDto avatarRaceDto) {
-        return this.avatarRaceRepository.save(new AvatarRace(avatarRaceDto.getName()));
+        return avatarRaceRepository.save(new AvatarRace(avatarRaceDto.getName()));
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public AvatarRaceDto updateAvatarRace(@PathVariable(value = "id") Long id, @RequestBody AvatarRaceDto avatarRaceDto) {
-        AvatarRace avatarRace = this.avatarRaceRepository.findOne(id);
+        AvatarRace avatarRace = avatarRaceRepository.findOne(id);
         if (avatarRace != null) {
             avatarRace.setName(avatarRaceDto.getName());
-            avatarRace = this.avatarRaceRepository.save(avatarRace);
-            avatarRaceDto = this.toAvatarRaceDto(avatarRace);
+            avatarRace = avatarRaceRepository.save(avatarRace);
+            avatarRaceDto = toAvatarRaceDto(avatarRace);
         }
         return avatarRaceDto;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteAvatarRace(@PathVariable(value = "id") Long id) {
-        AvatarRace level = this.avatarRaceRepository.findOne(id);
+        AvatarRace level = avatarRaceRepository.findOne(id);
         if (level != null) {
-            this.avatarRaceRepository.delete(level);
+            avatarRaceRepository.delete(level);
         }
     }
 

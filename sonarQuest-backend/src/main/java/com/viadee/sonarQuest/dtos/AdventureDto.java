@@ -135,12 +135,10 @@ public class AdventureDto {
      */
     public static List<AdventureDto> toAdventuresDto(List<Adventure> adventures) {
     	final List<AdventureDto> adventuresDto = new ArrayList<>();
-    
-        	final Iterator<Adventure> it = adventures.iterator();
-        	while(it.hasNext()) {
-        		final Adventure adventure = it.next();
-        		adventuresDto.add(toAdventureDto(adventure));
-        	}
+
+		for (final Adventure adventure : adventures) {
+			adventuresDto.add(toAdventureDto(adventure));
+		}
         
         return adventuresDto;
     }

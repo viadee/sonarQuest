@@ -1,6 +1,6 @@
 # sonarQuest: Contribution Guide
 
-First of all: Thanks for your interest in joining us on our journey throguh the world of sonarQuest!
+First of all: Thanks for your interest in joining us on our journey through the world of sonarQuest!
 
 The following is a set of guidelines for contributing to sonarQuest which is hosted by the viadee IT-Unternehmensberatung at GitHub. Guidelines are not meant to be rules. And as this is a community project - feel free to share your thoughts and experiences with the community and propose changes to this document in a pull request.
 

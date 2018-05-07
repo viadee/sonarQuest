@@ -1,19 +1,15 @@
 package com.viadee.sonarQuest.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.viadee.sonarQuest.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.constants.SkillType;
-import com.viadee.sonarQuest.entities.Adventure;
-import com.viadee.sonarQuest.entities.Developer;
-import com.viadee.sonarQuest.entities.Participation;
-import com.viadee.sonarQuest.entities.Quest;
-import com.viadee.sonarQuest.entities.Skill;
-import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.interfaces.DeveloperGratification;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 
@@ -42,7 +38,7 @@ public class GratificationService implements DeveloperGratification {
     @Override
     public void rewardDevelopersForSolvingQuest(final Quest quest) {
         final List<Participation> participations = quest.getParticipations();
-        participations.forEach(participation -> rewardParticipation(participation));
+        participations.forEach(this::rewardParticipation);
     }
 
     @Override
@@ -72,14 +68,14 @@ public class GratificationService implements DeveloperGratification {
         final Developer rewardedDeveloper = developer;
         final List<Skill> avatarClassSkills = rewardedDeveloper.getAvatarClass().getSkills();
         final List<Skill> artefactSkills = rewardedDeveloper.getArtefacts().stream()
-                .map(artefact -> artefact.getSkills()).flatMap(skills -> skills.stream()).collect(Collectors.toList());
+                .map(Artefact::getSkills).flatMap(Collection::stream).collect(Collectors.toList());
         final List<Skill> totalSkills = new ArrayList<>();
         totalSkills.addAll(avatarClassSkills);
         totalSkills.addAll(artefactSkills);
         final Long extraGold = totalSkills.stream().filter(skill -> skill.getType().equals(SkillType.GOLD))
-                .mapToLong(skill -> skill.getValue()).sum();
+                .mapToLong(Skill::getValue).sum();
         final Long extraXP = totalSkills.stream().filter(skill -> skill.getType().equals(SkillType.XP))
-                .mapToLong(skill -> skill.getValue()).sum();
+                .mapToLong(Skill::getValue).sum();
         rewardedDeveloper.addGold(extraGold);
         rewardedDeveloper.addXp(extraXP);
         return rewardedDeveloper;

@@ -3,7 +3,6 @@ package com.viadee.sonarQuest.controllers;
 import com.google.common.io.Files;
 import com.viadee.sonarQuest.SonarQuestApplication;
 import com.viadee.sonarQuest.dtos.DeveloperDto;
-import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.security.CodeSource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,8 +117,8 @@ public class DeveloperController {
     public @ResponseBody byte[] getAvatar(@PathVariable(value = "id") Long id, final HttpServletResponse response) throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
 
-    	Developer d = this.developerRepository.findById(id);
-    	String path = "";
+    	Developer d = developerRepository.findById(id);
+    	String path;
         String propertiesFilePath = "client.properties";
         File avatarPath = new File(propertiesFilePath);
      
@@ -132,7 +130,7 @@ public class DeveloperController {
             avatarPath = new File(jarDir + System.getProperty("file.separator") + propertiesFilePath);
             avatarPath = new File(avatarPath.getParentFile().getParentFile().getParentFile() + "/avatar");
           }
-          catch (Exception ex){ }
+          catch (Exception ignored){ }
         }
         
         File folder = new File(avatarPath.getAbsolutePath());
