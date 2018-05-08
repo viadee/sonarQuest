@@ -1,20 +1,23 @@
+<div class="banner-wrapper">
+  <div class="banner"></div>
+</div>
 <td-layout-nav-list #navList toolbarTitle="SonarQuest" navigationRoute="/" [opened]="media.registerQuery('gt-sm') | async"
   [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'" [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '300px' : '100%'">
   <div td-sidenav-toolbar-content>
     <i class="ra ra-sword"></i>
   </div>
   <mat-nav-list td-sidenav-content (click)="!media.query('gt-sm') && navList.close()">
-      <mat-list-item disableRipple>
-        
-        <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
-        <div flex></div>
-        
-        <mat-select  mat-line placeholder="Welt" [(ngModel)]="selected" floatPlaceholder="never">
-          <mat-option flex ="20"*ngFor="let world of worlds" [value]="world" (click)="updateWorld(world)" >{{ world.name }}</mat-option>
-        </mat-select>
-        <div></div>
-      </mat-list-item>
-<!-- 
+    <mat-list-item disableRipple>
+
+      <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
+      <div flex></div>
+
+      <mat-select mat-line placeholder="Welt" [(ngModel)]="selected" floatPlaceholder="never">
+        <mat-option flex="20" *ngFor="let world of worlds" [value]="world" (click)="updateWorld(world)">{{ world.name }}</mat-option>
+      </mat-select>
+      <div></div>
+    </mat-list-item>
+    <!-- 
     <mat-divider mat-inset></mat-divider>
     <a mat-list-item routerLink="/start">
       <mat-icon mat-list-icon>view_module</mat-icon>
@@ -36,13 +39,13 @@
       <h3 mat-line>{{"APP_COMPONENT.QUESTS"| translate}}</h3>
     </a>
     <mat-divider mat-inset></mat-divider>
-    
+
     <a mat-list-item routerLink="/marketplace">
       <i mat-list-icon class="ra ra-capitol ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.MARKETPLACE"| translate}} </h3>
     </a>
     <mat-divider mat-inset></mat-divider>
-     
+
     <a mat-list-item routerLink="/gamemaster">
       <i mat-list-icon class="ra ra-forging ra-lg navlist"></i>
       <h3 mat-line>{{"APP_COMPONENT.GAMEMASTER"| translate}} </h3>
@@ -54,6 +57,8 @@
     </a>
     <mat-divider mat-inset></mat-divider>
   </mat-nav-list>
+
+
   <div td-toolbar-content layout="row" flex>
     <div class="vertical-align">{{determinePageTitle(router.url)}}</div>
     <div flex></div>
@@ -68,6 +73,8 @@
       </button>
     </div>
   </div>
+
+
   <router-outlet></router-outlet>
   <td-layout-footer></td-layout-footer>
 </td-layout-nav-list>
