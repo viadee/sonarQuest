@@ -19,5 +19,14 @@
     <button mat-mini-fab color="primary" (click)="checkProjectname()">Check</button>
   </div>
 
-  <div><button mat-button color="primary" (click)="save()">Save</button></div>
-</mat-card-content>
+  <div flex>
+    <mat-input-container>
+      <input matInput placeholder="Background" [(ngModel)]="image" (click)="selectBackground()" >
+    </mat-input-container>
+    <button mat-mini-fab color="primary" (click)="selectBackground()">Select</button>
+  </div>
+
+  <div> 
+    <button mat-button color="primary" (click)="save()">Save</button>
+  </div>
+</mat-card-content> 

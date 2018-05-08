@@ -14,6 +14,8 @@ public class WorldDto {
 
     private String project;
 
+    private String image;
+
     private Boolean active;
 
     private List<Quest> quests;
@@ -80,11 +82,21 @@ public class WorldDto {
         this.tasks = tasks;
     }
 
-    public static WorldDto toWorldDto(World world) {
+    public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public static WorldDto toWorldDto(World world) {
         WorldDto worldDto = null;
         if (world != null) {
             worldDto = new WorldDto(world.getId(), world.getName(),world.getProject(),world.getActive(), world.getQuests(),world.getTasks());
         }
         return worldDto;
     }
+    
+    
 }

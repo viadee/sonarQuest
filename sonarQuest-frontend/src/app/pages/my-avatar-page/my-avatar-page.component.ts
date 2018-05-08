@@ -37,17 +37,6 @@ export class MyAvatarPageComponent implements OnInit {
       this.xpPercent();
 
       this.developerService.getImage(this.developer).subscribe((blob) => {
-
-        /* let reader = new FileReader();
-        reader.addEventListener("load", () => {
-          this.imageToShow = this.domSanitizer.bypassSecurityTrustUrl(reader.result);
-        }, false);
-
-        if (blob) {
-          reader.readAsDataURL(blob);
-        } */
-
- 
         this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
       })
     })
