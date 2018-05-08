@@ -38,7 +38,7 @@ public class UserManagementIT {
         // Then
         Developer dev = developerRepository.findByUsername("testusername");
         assertNotNull("developer could not be created", dev);
-        assertEquals("number of devs is inconsistent", 4, developerRepository.count());
+        assertEquals("number of devs is inconsistent", 5, developerRepository.count());
         assertFalse(dev.isDeleted());
 
         // When
