@@ -33,6 +33,7 @@ export class AppComponent {
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     translate.use('en'); // the lang to use, if the lang isn't available, it will use the current loader to get them    ,
 
+    
 
     this.developerService.avatar$.subscribe(developer => {
       this.developer = developer
@@ -45,15 +46,16 @@ export class AppComponent {
 
     this.worldService.currentWorld$.subscribe(world => {
       if (world && !isUndefined(world.id)) {
+        this.changebackground(world.image)
         this.currentWorld = world;
         this.setSelected();
       } else {
-        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: "dialog-sexy", width: "500px" }).afterClosed().subscribe()
+        this.dialog.open(ChooseCurrentWorldComponent, { panelClass: "dialog-sexy", width: "500px" }).afterClosed().subscribe()
       }
     })
 
     this.developerService.getMyAvatar()
-    
+
   }
 
   setSelected() {
@@ -98,6 +100,14 @@ export class AppComponent {
 
   updateWorld(world: World) {
     this.developerService.updateCurrentWorldToDeveloper(world, this.developer)
+  }
+
+  changebackground(image: string) {
+    let x = (<HTMLScriptElement[]><any>document.getElementsByClassName("background-image"));
+    for (let y = 0; y < x.length; y++) {
+      x[y].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    }
+
   }
 
 }

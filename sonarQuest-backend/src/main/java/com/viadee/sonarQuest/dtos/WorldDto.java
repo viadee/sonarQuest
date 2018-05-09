@@ -25,13 +25,14 @@ public class WorldDto {
     public WorldDto() {
     }
 
-    public WorldDto(Long id, String name, String project, Boolean active, List<Quest> quests, List<Task> tasks) {
+    public WorldDto(Long id, String name, String project, Boolean active, List<Quest> quests, List<Task> tasks, String image) {
         this.id = id;
         this.name = name;
         this.project = project;
         this.active = active;
         this.quests = quests;
         this.tasks = tasks;
+        this.image = image;
     }
 
     public Long getId() {
@@ -93,7 +94,7 @@ public class WorldDto {
 	public static WorldDto toWorldDto(World world) {
         WorldDto worldDto = null;
         if (world != null) {
-            worldDto = new WorldDto(world.getId(), world.getName(),world.getProject(),world.getActive(), world.getQuests(),world.getTasks());
+            worldDto = new WorldDto(world.getId(), world.getName(),world.getProject(),world.getActive(), world.getQuests(),world.getTasks(), world.getImage());
         }
         return worldDto;
     }

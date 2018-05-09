@@ -68,13 +68,25 @@ i.navlist{
   min-width: 300px;
   font-size: 1.5em;
 }
-
+/* 
 mat-sidenav-container{
   background-image: url("/assets/images/background/bg03.jpg");
   background-repeat: no-repeat;
   background-position: left top;
   background-attachment: fixed;
   background-size: cover;
+}
+ */
+.background-image{
+  /* background-image: url("/assets/images/background/bg03.jpg"); */
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.mat-drawer-container{
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 
 mat-card, mat-sidenav{

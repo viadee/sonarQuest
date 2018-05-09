@@ -2,7 +2,7 @@
   <h2 mat-dialog-title>{{"ADMIN_PAGE.SELECT_BACKGROUND" | translate}}</h2>
 </mat-toolbar>
 
-<div class="icon-content">
+<div class="icon-content" id="bgimage">
   <mat-grid-list cols="5" rowHeight="1:1">
     <mat-grid-tile *ngFor="let image of images">
       <button mat-raised-button (click)="select(image.name)" class="percent100">

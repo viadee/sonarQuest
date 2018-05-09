@@ -63,7 +63,7 @@ public class WorldController {
     
     @CrossOrigin
     @RequestMapping(value = "/{id}/image", method = RequestMethod.PUT)
-    public WorldDto updateWorld(@PathVariable(value = "id") Long id, @RequestBody String image) {
+    public WorldDto updateBackground(@PathVariable(value = "id") Long id, @RequestBody String image) {
         World world = this.worldRepository.findOne(id);
         if (world != null) {
             world.setImage(image);
