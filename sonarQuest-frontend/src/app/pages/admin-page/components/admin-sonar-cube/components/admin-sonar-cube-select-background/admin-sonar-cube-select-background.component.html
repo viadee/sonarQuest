@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"ADMIN_PAGE.SELECT_BACKGROUND" | translate}}</h2>
+</mat-toolbar>
+
+<div class="icon-content">
+  <mat-grid-list cols="1" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let image of images">
+      <div class="selectBackground">
+      <button mat-raised-button (click)="select(image.name)">
+        <img [src]="image.src">
+      </button>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

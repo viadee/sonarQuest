@@ -26,6 +26,9 @@ public class World {
     @Column(name = "project")
     private String project;
 
+    @Column(name = "image")
+    private String image;
+
     @Column(name = "active")
     private Boolean active;
 
@@ -121,4 +124,14 @@ public class World {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+    
+    
 }

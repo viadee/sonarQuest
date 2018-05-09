@@ -14,7 +14,7 @@ export class WorldService {
 
   worldSubject: Subject<World>    = new ReplaySubject(1);
   currentWorld$                   = this.worldSubject.asObservable();
-  worldsSubject: Subject<World[]> = new ReplaySubject(1);
+  private worldsSubject: Subject<World[]> = new ReplaySubject(1);
   worlds$                         = this.worldsSubject.asObservable();
   developer: Developer;
 
@@ -34,11 +34,32 @@ export class WorldService {
       return this.worldsSubject
   }
 
+  
+
+  getCurrentWorld(developer: Developer): Observable<World> {
+    this.http.get(`${environment.endpoint}/world/developer/${developer.id}`)
+      .map(this.extractData)
+      .subscribe(
+        value => {this.worldSubject.next(value)},
+        err   => {this.worldSubject.next(err)}
+      );
+      return this.worldSubject
+  }
+
 
   updateWorld(world: World): Promise<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${environment.endpoint}/world/${world.id}`, world, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateBackground(world: World, image:string): Promise<any>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${environment.endpoint}/world/${world.id}/image`, image, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

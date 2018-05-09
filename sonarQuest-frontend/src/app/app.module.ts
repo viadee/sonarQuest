@@ -71,6 +71,7 @@ import { AvatarEditComponent } from "./pages/my-avatar-page/components/my-avatar
 import { GamemasterIconSelectComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 import { AdminSonarCubeComponent } from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
 import {SonarCubeService} from './services/sonar-cube.service';
+import { AdminSonarCubeSelectBackgroundComponent } from './pages/admin-page/components/admin-sonar-cube/components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
 
 
 // AoT requires an exported function for factories
@@ -123,7 +124,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
     GamemasterIconSelectComponent,
-    AdminSonarCubeComponent
+    AdminSonarCubeComponent,
+    AdminSonarCubeSelectBackgroundComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -147,7 +149,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
-    GamemasterIconSelectComponent
+    GamemasterIconSelectComponent,
+    AdminSonarCubeSelectBackgroundComponent
   ],
   imports: [
     BrowserModule,

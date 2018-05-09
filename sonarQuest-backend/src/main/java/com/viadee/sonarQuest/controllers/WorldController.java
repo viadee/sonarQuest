@@ -59,6 +59,18 @@ public class WorldController {
         }
         return toWorldDto(world);
     }
+    
+    
+    @CrossOrigin
+    @RequestMapping(value = "/{id}/image", method = RequestMethod.PUT)
+    public WorldDto updateBackground(@PathVariable(value = "id") Long id, @RequestBody String image) {
+        World world = this.worldRepository.findOne(id);
+        if (world != null) {
+            world.setImage(image);
+            world = this.worldRepository.save(world);
+        }
+        return toWorldDto(world);
+    }
 
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public List<WorldDto> generateWorlds() {

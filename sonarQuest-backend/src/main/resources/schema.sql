@@ -113,6 +113,7 @@ CREATE TABLE Task (
 CREATE TABLE World (
   id        INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name     VARCHAR(64),
+  image    VARCHAR(255),
   project    VARCHAR(64),
   active    BOOLEAN
 );
