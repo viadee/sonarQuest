@@ -1,3 +1,4 @@
+import { WorldService } from './../../../../services/world.service';
 import { AdminSonarCubeSelectBackgroundComponent } from './components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
 import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
@@ -26,7 +27,8 @@ export class AdminSonarCubeComponent implements OnInit {
 
   constructor(private sonarCubeService: SonarCubeService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private worldService: WorldService
   ) {}
 
   ngOnInit() {
@@ -38,6 +40,10 @@ export class AdminSonarCubeComponent implements OnInit {
       }
     }
     );
+
+    this.worldService.currentWorld$.subscribe(world => {
+      this.image = world.image;
+    })
   }
 
   private aktualisiereFormGroup() {
