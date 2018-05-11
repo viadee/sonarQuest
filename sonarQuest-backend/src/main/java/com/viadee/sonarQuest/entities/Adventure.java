@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "Adventure")
 public class Adventure {
@@ -29,23 +28,23 @@ public class Adventure {
     @Column(name = "title")
     private String title;
 
-    @Column(name="story")
+    @Column(name = "story")
     private String story;
 
-    @Column(name="status")
+    @Column(name = "status")
     private String status;
 
-    @Column(name="gold")
+    @Column(name = "gold")
     private Long gold;
 
-    @Column(name="xp")
+    @Column(name = "xp")
     private Long xp;
 
     @ManyToOne()
-    @JoinColumn(name="world_id")
+    @JoinColumn(name = "world_id")
     private World world;
 
-    @OneToMany(mappedBy="adventure",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Quest> quests;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -63,7 +62,8 @@ public class Adventure {
         this.xp = xp;
     }
 
-    public Adventure(Long id, String title, String story, String status, Long gold, Long xp, World world, List<Quest> quests, List<Developer> developers) {
+    public Adventure(Long id, String title, String story, String status, Long gold, Long xp, World world,
+            List<Quest> quests, List<Developer> developers) {
         this.id = id;
         this.title = title;
         this.story = story;
@@ -140,17 +140,11 @@ public class Adventure {
         this.developers = developers;
     }
 
-	public synchronized void addDeveloper(Developer developer) {
-    	List<Developer> developers = this.getDevelopers();
-
-    	if (developers == null) {
-    		developers = new ArrayList<Developer>();
-    		developers.add(developer);
-    		this.setDevelopers(developers);
-    	} else {
-    		this.developers.add(developer);
-    	}
-
+    public synchronized void addDeveloper(Developer developer) {
+        if (developers == null) {
+            developers = new ArrayList<>();
+        }
+        developers.add(developer);
     }
 
     public World getWorld() {
