@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viadee.sonarQuest.entities.SonarConfig;
+import com.viadee.sonarQuest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
@@ -54,7 +55,7 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
                                 SonarQubeIssueRessource.class)
                         .getIssues();
             } catch (final IOException e) {
-                throw new RuntimeException("Could not load simulated sonar projects", e);
+                throw new BackendServiceRuntimeException("Could not load simulated sonar projects", e);
             }
         }
         return issues;
