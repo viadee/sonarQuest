@@ -42,7 +42,9 @@ export class AdminSonarCubeComponent implements OnInit {
     );
 
     this.worldService.currentWorld$.subscribe(world => {
-      this.image = world.image;
+      if (world != null){
+        this.image = world.image;
+      }
     })
   }
 

@@ -1,3 +1,4 @@
+import { UiDesignService } from './services/ui-design.service';
 import { MatDialog } from '@angular/material';
 import { ChooseCurrentWorldComponent } from './components/choose-current-world/choose-current-world/choose-current-world.component';
 import { isUndefined } from 'util';
@@ -9,6 +10,7 @@ import { Developer } from './Interfaces/Developer';
 import { WorldService } from './services/world.service';
 import { World } from './Interfaces/World';
 import { TranslateService } from '@ngx-translate/core';
+import { UiDesign } from './Interfaces/UiDesign';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +24,11 @@ export class AppComponent {
   public worlds: World[];
   public pageNames: any;
   public selected
+  private ui: UiDesign;
 
-  constructor(public media: TdMediaService,
+  constructor(
+    private uiDesignService: UiDesignService,
+    public media: TdMediaService,
     public router: Router,
     public developerService: DeveloperService,
     public worldService: WorldService,
@@ -46,7 +51,10 @@ export class AppComponent {
 
     this.worldService.currentWorld$.subscribe(world => {
       if (world && !isUndefined(world.id)) {
-        this.changebackground(world.image)
+        let image = world.image || "bg01"
+        this.changebackground(image)
+        
+        this.setDesign()
         this.currentWorld = world;
         this.setSelected();
       } else {
@@ -103,11 +111,46 @@ export class AppComponent {
   }
 
   changebackground(image: string) {
-    let x = (<HTMLScriptElement[]><any>document.getElementsByClassName("background-image"));
-    for (let y = 0; y < x.length; y++) {
-      x[y].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
-    }
+    let x = (<HTMLScriptElement><any>document.getElementsByClassName("background-image")[0]);
+    x.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+  }
 
+  setDesign(){
+    this.uiDesignService.ui$.subscribe(ui =>{
+      if (ui){
+        this.ui = ui;
+      } else {
+        this.ui.name = "";
+      }
+      
+      let body = <HTMLScriptElement><any>document.getElementsByTagName("body")[0];
+      let className = body.className
+      body.className = className + " " + this.ui.name
+    })
+  }
+
+  toggleDesign(){
+    let dark  = "dark";
+    let light = "light";
+
+    let body = <HTMLScriptElement><any>document.getElementsByTagName("body")[0];
+    let body_light = <HTMLScriptElement><any>document.getElementsByClassName(light)[0];
+    let body_dark  = <HTMLScriptElement><any>document.getElementsByClassName(dark)[0];
+
+    if (body_light){
+      body.className = this.removeSubString(body.className,light) + " " + dark;
+      this.uiDesignService.updateUiDesign(this.developer, dark)
+    } else {
+      body.className = this.removeSubString(body.className,dark) + " " + light;
+      this.uiDesignService.updateUiDesign(this.developer, light)
+    } 
+    
+  }
+
+  removeSubString(fullString:string, removeString:string): string{
+    let newString = fullString.replace(removeString,"");
+    newString = newString.replace("  "," ");
+    return newString;
   }
 
 }

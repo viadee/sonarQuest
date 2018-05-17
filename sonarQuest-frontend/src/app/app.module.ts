@@ -1,3 +1,4 @@
+import { UiDesignService } from './services/ui-design.service';
 import { ImageService } from './services/image.service';
 import { SkillService } from './services/skill.service';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
@@ -189,7 +190,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCheckboxModule,
     MatSnackBarModule
   ],
-  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService, SonarCubeService, ImageService],
+  providers: [TdMediaService, DeveloperService, WorldService, AdventureService, QuestService, TaskService, StandardTaskService, SpecialTaskService, ParticipationService, ArtefactService, SkillService, SonarCubeService, ImageService, UiDesignService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
