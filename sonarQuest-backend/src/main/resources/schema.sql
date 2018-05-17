@@ -43,6 +43,12 @@ CREATE TABLE Artefact (
   description VARCHAR(256)
 );
 
+CREATE TABLE Ui_Design(
+  id       INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name     VARCHAR(64) NOT NULL UNIQUE,
+  developer_id INTEGER
+);
+
 ALTER TABLE Artefact
   ADD FOREIGN KEY (level_id) REFERENCES Level (id);
 

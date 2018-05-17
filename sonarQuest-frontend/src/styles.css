@@ -1,4 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+/*------------------DESIGN-START------------------*/
+
+.background-image{
+  /* background-image: LOOK AT -> app.component.ts -> changebackground() */
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.mat-drawer-container, mat-mat-tab-group{
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.light mat-card, .light mat-sidenav{
+  background-color: rgba(255, 255, 255, 0.75) !important; 
+}
+
+.light mat-card mat-toolbar {
+  background-color:rgba(245, 245, 245 , 0.87) !important; 
+  color: black !important;
+} 
+
+mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
+  color:  rgba(255, 255, 255, 0.87) !important;
+}
+
+.light td-paging-bar,.light td-paging-bar span, .light td-paging-bar mat-icon{
+  color: rgba(40, 40, 40, 0.87) !important;
+}
+
+.dark mat-card, .dark mat-sidenav{
+  background-color: rgba(66, 66, 66, 0.55) !important; 
+  color: white !important;
+} 
+
+.dark mat-card-subtitle{
+  color: rgba(255, 255, 255, 0.7) !important; 
+}
+
+.dark mat-card mat-toolbar {
+  background-color:rgba(66, 66, 66, 0.87) !important; 
+  color: white !important;
+} 
+
+.dark mat-toolbar .mat-primary,
+.dark mat-sidenav-content i.navlist,
+.dark .mat-tab-label,
+.dark mat-sidenav i.navlist,
+.dark mat-sidenav h3, 
+.dark mat-sidenav span, 
+.dark mat-sidenav-content span, 
+.dark mat-sidenav-content mat-icon, 
+.dark mat-sidenav-content{
+  color:  rgba(255, 255, 255, 0.87) !important;
+}
+
+.dark td-paging-bar,.dark td-paging-bar span, .dark td-paging-bar mat-icon{
+  color: rgba(200, 200, 200, 0.87) !important;
+}
+
+/*------------------DESIGN-END------------------*/
+
 
 .icon{
   color: grey;
@@ -13,7 +75,6 @@
 
 .dialog-sexy .mat-dialog-container {
   padding: 0;
-  /* padding-bottom: 24px; */
   overflow-x: hidden;
   overflow-y: auto;
 } 
@@ -80,30 +141,6 @@ i.navlist{
   height: 0;
   position: absolute;
   z-index: 1000;
-}
-/* 
-mat-sidenav-container{
-  background-image: url("/assets/images/background/bg03.jpg");
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-attachment: fixed;
-  background-size: cover;
-}
- */
-.background-image{
-  /* background-image: url("/assets/images/background/bg03.jpg"); */
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-.mat-drawer-container{
-  background-color: rgba(255, 255, 255, 0) !important;
-}
-
-mat-card, mat-sidenav{
-  background-color: rgba(255, 255, 255, 0.87) !important;
 }
 
 .avatar-image{
