@@ -1,9 +1,12 @@
 package com.viadee.sonarQuest.services;
 
 import com.viadee.sonarQuest.constants.TaskStates;
+import com.viadee.sonarQuest.dtos.StandardTaskDto;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
+import com.viadee.sonarQuest.repositories.WorldRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,9 @@ public class StandardTaskService {
 
     @Autowired
     private AdventureService adventureService;
+    
+    @Autowired
+    private WorldRepository worldRepository;
 
 
     public void updateStandardTasks(World world) {
@@ -57,4 +63,21 @@ public class StandardTaskService {
     public void setExternalRessourceService(ExternalRessourceService externalRessourceService) {
         this.externalRessourceService = externalRessourceService;
     }
+    
+    
+    public void saveDto(final StandardTaskDto standardTaskDto) {
+
+        final World world = worldRepository.findByProject(standardTaskDto.getWorld().getProject());
+        
+        final StandardTask st = new StandardTask(
+        		standardTaskDto.getTitle(),
+                TaskStates.CREATED,
+                standardTaskDto.getGold(),
+                standardTaskDto.getXp(),
+                standardTaskDto.getQuest(),
+                world, null, null, null, null, null, null);
+
+        standardTaskRepository.save(st);
+    }
+    
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.dtos.SpecialTaskDto;
+import com.viadee.sonarQuest.dtos.StandardTaskDto;
 import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
@@ -110,10 +111,19 @@ public class TaskController {
     @CrossOrigin
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public SpecialTaskDto createTask(@RequestBody SpecialTaskDto specialTaskDto) {
+    public SpecialTaskDto createSpecialTask(@RequestBody SpecialTaskDto specialTaskDto) {
     	this.specialTaskService.saveDto(specialTaskDto);
     	return specialTaskDto;
     }
+    
+    @CrossOrigin
+    @RequestMapping(value = "/standard", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public StandardTaskDto createStandardTask(@RequestBody StandardTaskDto standardTaskDto) {
+    	this.standardTaskService.saveDto(standardTaskDto);
+    	return standardTaskDto;
+    }
+    
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
