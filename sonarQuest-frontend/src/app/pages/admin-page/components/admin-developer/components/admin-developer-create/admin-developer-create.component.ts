@@ -39,13 +39,12 @@ export class AdminDeveloperCreateComponent implements OnInit {
   matchNameValidator() {
     return (control: FormControl) => {
       const nameVal = control.value;
-      this.developers.forEach( e => {
-        if(e.username == nameVal){          
-          this.nameTaken = true;                   
-        } else {
-          this.nameTaken = false;         
-        }       
-      })
+      if(this.developers.filter(user => (user.username === nameVal)).length != 0){
+        this.nameTaken = true; 
+      } else {
+        this.nameTaken = false;
+      }
+      console.log(this.nameTaken);    
       return this.nameTaken ? {'currentName' : {nameVal}} : null;
     } 
   }
@@ -55,9 +54,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
       let new_developer = {
         username: this.createForm.get('name').value,
         aboutMe:  this.createForm.get('about').value,
-        picture: this.selectedImage
-      }        
-
+        picture: this.selectedImage 
+      }     
       this.developerService.createDeveloper(new_developer)
         .then( developer => {
          this.dialogRef.close(developer);
@@ -72,7 +70,6 @@ export class AdminDeveloperCreateComponent implements OnInit {
 
   loadImages() {
     this.images = [];
-
     for (let i = 0; i < 15; i++) {
       this.images[i] = {};
       this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
@@ -87,12 +84,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
     if(this.nameTaken){
       this.createForm.controls['name'].setErrors({'matchNameValidator' : true});     
       return 'Name already taken. Please choose a different name';
-    }
-    
-    
+    }   
   }
-
-
 }
 
 
