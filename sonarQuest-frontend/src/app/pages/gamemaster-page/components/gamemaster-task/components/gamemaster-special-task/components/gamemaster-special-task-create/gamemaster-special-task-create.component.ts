@@ -37,8 +37,9 @@ export class GamemasterSpecialTaskCreateComponent implements OnInit {
         message: this.message,
         world: this.currentWorld
       }
-      this.specialTaskService.createSpecialTask(specialTask).then(()=>this.dialogRef.close())
+      this.specialTaskService.createSpecialTask(specialTask).then(()=>this.dialogRef.close(true))
     }
+
 
   }
 
