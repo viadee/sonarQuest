@@ -37,7 +37,7 @@ export class GamemasterStandardTaskCreateComponent implements OnInit {
         message: this.message,
         world: this.currentWorld
       }
-      this.standardTaskService.createStandardTask(standardTask).then(()=>this.dialogRef.close())
+      this.standardTaskService.createStandardTask(standardTask).then(()=>this.dialogRef.close(true))
     }
 
   }

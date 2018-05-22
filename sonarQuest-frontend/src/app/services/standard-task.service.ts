@@ -52,8 +52,7 @@ export class StandardTaskService {
 
   createStandardTask(standardTask: any): Promise<any>{
     standardTask.world.quests = [];
-    standardTask.world.tasks  = [];
-    console.log(standardTask);   
+    standardTask.world.tasks  = [];    
     return this.http.post(`${environment.endpoint}/task/standard`, standardTask)
       .toPromise()
       .then(this.extractData)
