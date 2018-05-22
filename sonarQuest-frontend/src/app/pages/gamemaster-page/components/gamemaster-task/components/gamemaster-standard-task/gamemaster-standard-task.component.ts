@@ -9,6 +9,7 @@ import {
 } from "@covalent/core";
 import {MatDialog} from "@angular/material";
 import {StandardTaskService} from "../../../../../../services/standard-task.service";
+import {GamemasterStandardTaskCreateComponent} from "./components/gamemaster-standard-task-create/gamemaster-standard-task-create.component";
 import {GamemasterStandardTaskEditComponent} from "./components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component";
 
 @Component({
@@ -82,6 +83,12 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   editStandardTask(standardTask){
     this.dialog.open(GamemasterStandardTaskEditComponent,{panelClass: 'dialog-sexy', width:"500px", data: standardTask}).afterClosed().subscribe((bool)=> {
+      if (bool) this.loadTasks()
+    });
+  }
+
+  newStandardTask(){
+    this.dialog.open(GamemasterStandardTaskCreateComponent,{panelClass: 'dialog-sexy', data: this.currentWorld, width:"500px"}).afterClosed().subscribe((bool)=> {
       if (bool) this.loadTasks()
     });
   }
