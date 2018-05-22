@@ -8,7 +8,6 @@ import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
 
-@JsonDeserialize(as = SpecialTaskDto.class)
 public abstract class TaskDto {
 
     private Long id;
