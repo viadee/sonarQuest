@@ -35,10 +35,10 @@ export class AppComponent {
     public translate: TranslateService,
     private dialog: MatDialog) {
 
-    translate.setDefaultLang(translate.getBrowserLang()); // this language will be used as a fallback when a translation isn't found in the current language
-    //translate.use('en'); // the lang to use, if the lang isn't available, it will use the current loader to get them    ,
+    translate.setDefaultLang("en"); // this language will be used as a fallback when a translation isn't found in the current language
+    translate.use(translate.getBrowserLang()); // the lang to use, if the lang isn't available, it will use the current loader to get them    ,
 
-    
+
 
     this.developerService.avatar$.subscribe(developer => {
       this.developer = developer
@@ -53,7 +53,7 @@ export class AppComponent {
       if (world && !isUndefined(world.id)) {
         let image = world.image || "bg01"
         this.changebackground(image)
-        
+
         this.setDesign()
         this.currentWorld = world;
         this.setSelected();
@@ -122,7 +122,7 @@ export class AppComponent {
       } else {
         this.ui.name = "";
       }
-      
+
       let body = <HTMLScriptElement><any>document.getElementsByTagName("body")[0];
       let className = body.className
       body.className = className + " " + this.ui.name
@@ -143,8 +143,8 @@ export class AppComponent {
     } else {
       body.className = this.removeSubString(body.className,dark) + " " + light;
       this.uiDesignService.updateUiDesign(this.developer, light)
-    } 
-    
+    }
+
   }
 
   removeSubString(fullString:string, removeString:string): string{

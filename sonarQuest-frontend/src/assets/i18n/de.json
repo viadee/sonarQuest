@@ -1,158 +1,158 @@
 {
-    "APP_COMPONENT": {
-        "STARTPAGE"     : "Startseite-de",
-        "MY_AVATAR"     : "Mein Avatar",
-        "ADVENTURES"    : "Abenteuer",
-        "QUESTS"        : "Suchen",
-        "MARKETPLACE"   : "Marktplatz",
-        "GAMEMASTER"    : "Spielleiter",
-        "ADMIN"         : "Admin"
+  "APP_COMPONENT": {
+    "STARTPAGE": "Startseite-de",
+    "MY_AVATAR": "Mein Avatar",
+    "ADVENTURES": "Abenteuer",
+    "QUESTS": "Suchen",
+    "MARKETPLACE": "Marktplatz",
+    "GAMEMASTER": "Spielleiter",
+    "ADMIN": "Admin"
+  },
+  "ADVENTURE_PAGE": {
+    "MY_ADVENTURES": "Meine Abenteuer",
+    "MY_ADVENTURES_FOR_WORLD": "Meine Abenteuer für ",
+    "ADVENTURES_FOR_WORLD": "Alle Abenteuer für ",
+    "AVAILABLE_ADVENTURES": "Verfügbare Abenteuer",
+    "AVAILABLE_ADVENTURES_FOR_WORLD": "Verfügbare Abenteuer für "
+  },
+  "QUEST_PAGE": {
+    "MY_QUESTS": "Meine Suchen",
+    "MY_QUESTS_FOR_WORLD": "Meine Suchen für ",
+    "QUESTS_FOR_WORLD": "Alle Suchen für ",
+    "JOIN_QUEST": "Suche annehmen",
+    "AVAILABLE_QUESTS": "Verfügbare Suchen",
+    "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Suchen für ",
+    "COMBATED_BY": "angenommen von "
+  },
+  "MARKETPLACE_PAGE": {
+    "MARKETPLACE": "Marktplatz"
+  },
+  "ADMIN_PAGE": {
+    "ALL_DEVELOPER": "Alle Entwickler",
+    "CREATE_DEVELOPER": "Entwickler anlegen",
+    "EDIT_DEVELOPER": "Entwickler bearbeiten",
+    "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
+    "SONAR_CUBE_HEADER": "Sonar Cube",
+    "SELECT_BACKGROUND": "Hintergrund wählen"
+  },
+  "START_PAGE": {
+    "CURRENT_PROGRESS": "Bearbeitungsfortschritt"
+  },
+  "GAMEMASTER_PAGE": {
+    "ADVENTURE": {
+      "CREATE_ADVENTURE": "Abenteuer anlegen",
+      "EDIT_ADVENTURE": "Abenteuer bearbeiten"
     },
-    "ADVENTURE_PAGE": {
-        "MY_ADVENTURES"                     : "Meine Abenteuer",
-        "MY_ADVENTURES_FOR_WORLD"           : "Meine Abenteuer für ",
-        "ADVENTURES_FOR_WORLD"              : "Alle Abenteuer für  ",
-        "AVAILABLE_ADVENTURES"              : "Available Adventures",
-        "AVAILABLE_ADVENTURES_FOR_WORLD"    : "Available Adventures for "
+    "QUEST": {
+      "SUGGEST_TASKS": "Auftrag vorschlagen",
+      "GENERATE": "Erzeugen",
+      "CREATE_QUEST": "Suche anlegen",
+      "EDIT_QUEST": "Suche bearbeiten",
+      "EDIT_SOLVED_QUEST": "Diese Suche ist gelöst. Du kannst sie nicht mehr bearbeiten."
     },
-    "QUEST_PAGE": {
-        "MY_QUESTS"                     : "My Quests",
-        "MY_QUESTS_FOR_WORLD"           : "My Quests for ",
-        "QUESTS_FOR_WORLD"              : "All Quests for ",
-        "JOIN_QUEST"                    : "Join Quest",
-        "AVAILABLE_QUESTS"              : "Available Quests",
-        "AVAILABLE_QUESTS_FOR_WORLD"    : "Available Quests for ",
-        "COMBATED_BY"                   : "combated by"
-    },
-    "MARKETPLACE_PAGE": {
-        "MARKETPLACE"       :"Marketplace"
-    },
-    "ADMIN_PAGE":{
-        "ALL_DEVELOPER"     : "All Developer",
-        "CREATE_DEVELOPER"  : "Create Developer",
-        "EDIT_DEVELOPER"    : "Edit Developer",
-        "DELETE_DEVELOPER"  : "Are you sure to delete?",
-        "SONAR_CUBE_HEADER" : "Sonar Cube",
-        "SELECT_BACKGROUND" : "Select Background"
-    },
-    "START_PAGE": {
-        "CURRENT_PROGRESS"  : "Current Progress"
-    },
-    "GAMEMASTER_PAGE": {
-        "ADVENTURE": {
-          "CREATE_ADVENTURE" : "Create adventure",
-          "EDIT_ADVENTURE"  : "Edit adventure"
-        },
-        "QUEST": {
-          "SUGGEST_TASKS" :"Suggest tasks",
-          "GENERATE": "Generate",
-          "CREATE_QUEST": "Create quest",
-          "EDIT_QUEST": "Edit quest",
-          "EDIT_SOLVED_QUEST": "This quest is solved. You cannot edit it anymore."
-        },
-        "TASK": {
-          "CREATE_SPECIALTASK"  : "Create Special Task",
-          "CREATE_STANDARDTASK" : "Create Standard Task",
-          "EDIT_SPECIALTASK"    : "Edit Special Task",
-          "EDIT_STANDARDTASK"   : "Edit Standard Task",
-          "CONDITION"           : "Condition",
-          "AMOUNT"              : "Amount"
-        }
-    },
-    "TABLE": {
-        "COLUMNS": {
-            "TITLE" : "Title",
-            "GOLD"  : "Gold",
-            "XP"    : "XP",
-            "ADVENTURE": "Adventure",
-            "STORY" : "Story",
-            "STATUS": "Status",
-            "ID": "Id",
-            "NAME": "Name",
-            "PROJECT": "Project",
-            "QUEST": "Quest",
-            "TYPE": "Type",
-            "WORLD": "World",
-            "ACTIVE": "Active",
-            "UPDATE_TASKS": "Update Tasks",
-            "MISSION": "Mission"
-        },
-        "INFO": {
-            "NO_ENTRIES": "no entries",
-            "OF": "of",
-            "ENTRIES_OF_THIS_PAGE"  :"Entries of this page:"
-        }
-    },
-    "GLOBAL"    :{
-        "CANCEL"    : "Cancel",
-        "CREATE"    : "Create",
-        "EDIT"      : "Edit",
-        "DELETE"    : "Delete",
-        "NO_ENTRIES": "no entries",
-        "SEARCH"    : "Search",
-        "SAVE"      : "Save",
-        "IMAGE"     : "Image",
-        "CLICK_TO_SELECT"   : "clickt to select",
-        "GOLD"  : "Gold",
-        "XP"    : "XP"
-    },
-    "DEVELOPER" :{
-        "DEVELOPER" :   "Developer",
-        "GOLD"      :   "Gold",
-        "XP"        :   "XP",
-        "LEVEL"     :   "Level",
-        "ABOUTME"   :   "About me",
-        "AVATARRACE":   "Race",
-        "AVATARCLASS":  "Class",
-        "TROPHIES"  :   "Trophies"
-    },
-    "QUEST" :{
-        "QUEST"         :"Quest",
-        "QUESTS"        :"Quests",
-        "NEW_QUEST"     :"New Quest",
-        "ADD_FREE_QUEST" : "Add free quest",
-        "NO_FREE_QUESTS_AVAILABLE" : "No free quests available"
-    },
-    "ADVENTURE" :{
-        "ADVENTURE"     :"Adventure",
-        "ADVENTURES"    :"Adventures",
-        "NEW_ADVENTURE" :"New Adventure"
-    },
-    "WORLD" :{
-        "WORLD"         :"World",
-        "WORLDS"        :"Worlds",
-        "ACTIVE"        :"Active",
-        "CHOOSE_WORLD"  :"Choose your current world"
-    },
-    "TASK"  :{
-        "TASK"                      : "Task",
-        "TASKS"                     : "Tasks",
-        "SPECIALTASK"               : "Special Task",
-        "STANDARDTASK"              : "Standard Task",
-        "NEW_SPECIALTASK"           : "New Special Task",
-        "NEW_STANDARDTASK"          : "New Standard Task",
-        "ADD_FREE_TASK"             : "Add free task",
-        "NO_FREE_TASKS_AVAILABLE"   : "No free tasks available",
-        "SPECIALTASK_FOR_WORLD"     : "All Special Tasks for ",
-        "STANDARDTASK_FOR_WORLD"    : "All Standard Tasks for ",
-        "AVAILABLE_TASKS"           : "Available Tasks",
-        "MISSION"					: "Mission"
-
-    },
-    "ARTEFACT" : {
-        "ARTEFACTS"         :"Artefacts",
-        "NEW_ARTEFACT"      :"New Artefact",
-        "CREATE_ARTEFACT"   :"Create Artefact",
-        "EDIT_ARTEFACT"     :"Edit Artefact",
-        "SELECT_ICON"       :"Select icon",
-        "CLICK_TO_SELECT"   :"Click to select"
-    },
-    "SKILL":{
-        "MORE_GOLD"     :"More Gold",
-        "MORE_XP"       :"More XP",
-        "CREATE_SKILL"  :"Create Skill",
-        "ADD_SKILL"     :"Add Skill",
-        "SKILLS"        :"Skills",
-        "NEW_SKILL"     :"New Skill"
+    "TASK": {
+      "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
+      "CREATE_STANDARDTASK": "Auftrag anlegen",
+      "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
+      "EDIT_STANDARDTASK": "Auftrag bearbeiten",
+      "CONDITION": "Bedingung",
+      "AMOUNT": "Anzahl"
     }
+  },
+  "TABLE": {
+    "COLUMNS": {
+      "TITLE": "Titel",
+      "GOLD": "Gold",
+      "XP": "XP",
+      "ADVENTURE": "Abenteuer",
+      "STORY": "Story",
+      "STATUS": "Status",
+      "ID": "Id",
+      "NAME": "Name",
+      "PROJECT": "Projekt",
+      "QUEST": "Suche",
+      "TYPE": "Typ",
+      "WORLD": "Welt",
+      "ACTIVE": "Aktiv",
+      "UPDATE_TASKS": "Aufgaben aktualisieren",
+      "MISSION": "Mission"
+    },
+    "INFO": {
+      "NO_ENTRIES": "keine Einträge",
+      "OF": "von",
+      "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
+    }
+  },
+  "GLOBAL": {
+    "CANCEL": "Abbrechen",
+    "CREATE": "Anlegen",
+    "EDIT": "Bearbeiten",
+    "DELETE": "Löschen",
+    "NO_ENTRIES": "keine Einträge",
+    "SEARCH": "Suche",
+    "SAVE": "Speichern",
+    "IMAGE": "Bild",
+    "CLICK_TO_SELECT": "Klick zum Wählen",
+    "GOLD": "Gold",
+    "XP": "XP"
+  },
+  "DEVELOPER": {
+    "DEVELOPER": "Entwickler",
+    "GOLD": "Gold",
+    "XP": "XP",
+    "LEVEL": "Stufe",
+    "ABOUTME": "Über mich",
+    "AVATARRACE": "Rasse",
+    "AVATARCLASS": "Klasse",
+    "TROPHIES": "Trophäen"
+  },
+  "QUEST": {
+    "QUEST": "Suche",
+    "QUESTS": "Suchen",
+    "NEW_QUEST": "Neue Suche",
+    "ADD_FREE_QUEST": "Freie Suche anlegen",
+    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Suchen gefunden"
+  },
+  "ADVENTURE": {
+    "ADVENTURE": "Abenteuer",
+    "ADVENTURES": "Abenteuer",
+    "NEW_ADVENTURE": "Neues Abenteuer"
+  },
+  "WORLD": {
+    "WORLD": "Welt",
+    "WORLDS": "Welten",
+    "ACTIVE": "Aktiv",
+    "CHOOSE_WORLD": "Wähle deine Welt"
+  },
+  "TASK": {
+    "TASK": "Auftrag",
+    "TASKS": "Aufträge",
+    "SPECIALTASK": "Spezialauftrag",
+    "STANDARDTASK": "Standardauftrag",
+    "NEW_SPECIALTASK": "Neuer Spezialauftrag",
+    "NEW_STANDARDTASK": "Neuer Standardauftrag",
+    "ADD_FREE_TASK": "Freien Auftrag anlegen",
+    "NO_FREE_TASKS_AVAILABLE": "Keine freien Aufträge gefunden",
+    "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
+    "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
+    "AVAILABLE_TASKS": "Verfügbare Aufträge",
+    "MISSION": "Mission"
+
+  },
+  "ARTEFACT": {
+    "ARTEFACTS": "Artefakt",
+    "NEW_ARTEFACT": "Neues Artefakt",
+    "CREATE_ARTEFACT": "Artefakt anlegen",
+    "EDIT_ARTEFACT": "Artefakt bearbeiten",
+    "SELECT_ICON": "Icon wählen",
+    "CLICK_TO_SELECT": "Klicken zum Auswählen"
+  },
+  "SKILL": {
+    "MORE_GOLD": "Mehr Gold",
+    "MORE_XP": "Mehr XP",
+    "CREATE_SKILL": "Talent anlegen",
+    "ADD_SKILL": "Talent hinzufügen",
+    "SKILLS": "Talente",
+    "NEW_SKILL": "Neues Talent"
+  }
 }
