@@ -9,9 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StandardTaskServiceTest {
@@ -36,18 +36,18 @@ public class StandardTaskServiceTest {
 
         standardTaskService.updateStandardTask(newStandardTask);
 
-        assertEquals(TaskStates.CREATED, newStandardTask.getStatus());
+        assertEquals(SonarQuestStatus.CREATED.getText(), newStandardTask.getStatus());
 
         // case: existing created task -> no external changes
         final StandardTask createdStandardTask = new StandardTask();
         createdStandardTask.setKey("createdStandardTask");
-        createdStandardTask.setStatus(TaskStates.CREATED);
+        createdStandardTask.setStatus(SonarQuestStatus.CREATED.getText());
 
         when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
 
         standardTaskService.updateStandardTask(createdStandardTask);
 
-        assertEquals(TaskStates.CREATED, createdStandardTask.getStatus());
+        assertEquals(SonarQuestStatus.CREATED.getText(), createdStandardTask.getStatus());
 
         // case: existing created task -> no external changes
     }
