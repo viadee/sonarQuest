@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.viadee.sonarQuest.constants.QuestStates;
-import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.TaskController;
 import com.viadee.sonarQuest.entities.Developer;
@@ -27,6 +25,7 @@ import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.ExternalRessourceService;
 import com.viadee.sonarQuest.services.StandardTaskService;
@@ -79,14 +78,14 @@ public class SonarQuestApplicationIT {
     @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
-    	Long developerId = 4L;
-    	
+        Long developerId = 4L;
+
         // Join in on a quest.
         // Add Participation sonarWarrior, Quest1
         participationController.createParticipation(1L, developerId);
         Quest epicQuest = questRepository.findOne(1L);
         final List<Participation> participations = epicQuest.getParticipations();
-        
+
         assertEquals("createParticipation does not work (Quest)", "Hidden danger in the woods!",
                 participations.get(1).getQuest().getTitle());
         assertEquals("createParticipation does not work (Developer)", "Mike Magician",
@@ -97,12 +96,13 @@ public class SonarQuestApplicationIT {
         assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
         taskController.addParticipation(1L, 1L, developerId);
         issue1 = taskRepository.findOne(1L);
-        
+
         assertEquals("addParticipation does not work (Quest)", "Hidden danger in the woods!",
                 issue1.getParticipation().getQuest().getTitle());
         assertEquals("addParticipation does not work (Developer)", "Mike Magician",
                 issue1.getParticipation().getDeveloper().getUsername());
-        assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
+        assertEquals("addParticipation does not work (Status)", SonarQuestStatus.PROCESSED.getText(),
+                issue1.getStatus());
 
         adventureService.updateAdventures(); // no effect expected
         Developer sonarWarrior = developerRepository.findOne(developerId);
@@ -121,7 +121,8 @@ public class SonarQuestApplicationIT {
         assertEquals("updateStandardTasks does not work (Title)",
                 "NullPointerException might be thrown as 'toTypeArg' is nullable here",
                 issue1.getTitle());
-        assertEquals("updateStandardTasks does not work (Status)", TaskStates.SOLVED, issue1.getStatus());
+        assertEquals("updateStandardTasks does not work (Status)", SonarQuestStatus.SOLVED.getText(),
+                issue1.getStatus());
 
         // Check Gratification
         // Gold = 18 (initial value) + 1 (Task) + 2(Magician) + 0 (no Artefacts)= 21

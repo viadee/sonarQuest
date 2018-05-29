@@ -1,17 +1,16 @@
 package com.viadee.sonarQuest.services;
 
-import com.viadee.sonarQuest.constants.TaskStates;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.viadee.sonarQuest.dtos.StandardTaskDto;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @Service
 public class StandardTaskService {
@@ -30,48 +29,47 @@ public class StandardTaskService {
 
     @Autowired
     private AdventureService adventureService;
-    
+
     @Autowired
     private WorldRepository worldRepository;
 
-
     public void updateStandardTasks(World world) {
-        List<StandardTask> externalStandardTasks = externalRessourceService.generateStandardTasksFromSonarQubeIssuesForWorld(world);
+        List<StandardTask> externalStandardTasks = externalRessourceService
+                .generateStandardTasksFromSonarQubeIssuesForWorld(world);
         externalStandardTasks.forEach(this::updateStandardTask);
         questService.updateQuests();
         adventureService.updateAdventures();
     }
 
-    public void updateStandardTask(StandardTask externalStandardTask) {
-        StandardTask foundInternalStandardTask = standardTaskRepository.findByKey(externalStandardTask.getKey());
-        if (foundInternalStandardTask != null) {
-            String newStatus = externalStandardTask.getStatus();
-            String oldStatus = foundInternalStandardTask.getStatus();
-            if(!Objects.equals(TaskStates.CREATED, oldStatus)){
-                foundInternalStandardTask.setStatus(newStatus);
-                standardTaskRepository.save(foundInternalStandardTask);
+    public void updateStandardTask(StandardTask currentState) {
+        StandardTask lastState = standardTaskRepository.findByKey(currentState.getKey());
+        if (lastState != null) {
+            SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(currentState.getStatus());
+            SonarQuestStatus oldStatus = SonarQuestStatus.fromStatusText(lastState.getStatus());
+            if (oldStatus != SonarQuestStatus.CREATED) {
+                lastState.setStatus(newStatus.getText());
+                standardTaskRepository.save(lastState);
             }
-            if ((Objects.equals(newStatus, TaskStates.SOLVED)) && (!Objects.equals(oldStatus, TaskStates.SOLVED))) {
-                gratificationService.rewardDeveloperForSolvingTask(foundInternalStandardTask);
+            if (newStatus == SonarQuestStatus.SOLVED && !(oldStatus == SonarQuestStatus.SOLVED)) {
+                gratificationService.rewardDeveloperForSolvingTask(lastState);
             }
         } else {
-            externalStandardTask.setStatus(TaskStates.CREATED);
-            standardTaskRepository.save(externalStandardTask);
+            currentState.setStatus(SonarQuestStatus.CREATED.getText());
+            standardTaskRepository.save(currentState);
         }
     }
 
     public void setExternalRessourceService(ExternalRessourceService externalRessourceService) {
         this.externalRessourceService = externalRessourceService;
     }
-    
-    
+
     public void saveDto(final StandardTaskDto standardTaskDto) {
 
         final World world = worldRepository.findByProject(standardTaskDto.getWorld().getProject());
-        
+
         final StandardTask st = new StandardTask(
-        		standardTaskDto.getTitle(),
-                TaskStates.CREATED,
+                standardTaskDto.getTitle(),
+                SonarQuestStatus.CREATED.getText(),
                 standardTaskDto.getGold(),
                 standardTaskDto.getXp(),
                 standardTaskDto.getQuest(),
@@ -79,5 +77,5 @@ public class StandardTaskService {
 
         standardTaskRepository.save(st);
     }
-    
+
 }
