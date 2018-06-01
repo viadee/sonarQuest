@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("STANDARD")
 public class StandardTask extends Task {
 
-    @Column(name = "key")
+    @Column(name = "task_key")
     private String key;
 
     @Column(name = "component")
