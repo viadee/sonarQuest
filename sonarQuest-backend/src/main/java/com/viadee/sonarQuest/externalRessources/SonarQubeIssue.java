@@ -1,9 +1,10 @@
 package com.viadee.sonarQuest.externalRessources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viadee.sonarQuest.rules.IssueWithStatus;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SonarQubeIssue {
+public class SonarQubeIssue implements IssueWithStatus {
 
     private String key;
 
