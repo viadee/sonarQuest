@@ -117,8 +117,10 @@ public class AdventureService {
         final Developer developer = developerRepository.findOne(developerId);
         if(adventure != null && developer != null){
             final List<Developer> developerList = adventure.getDevelopers();
-            if (!developerList.contains(developer)){
-                developerList.add(developer);
+            for(Developer dev : developerList){
+                if(!dev.getId().equals(developer.getId())){
+                    developerList.add(developer);
+                }
             }
             adventure.setDevelopers(developerList);
             adventure=adventureRepository.save(adventure);

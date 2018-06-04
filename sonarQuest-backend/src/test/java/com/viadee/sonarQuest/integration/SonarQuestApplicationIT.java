@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.controllers.ParticipationController;
@@ -67,7 +68,7 @@ public class SonarQuestApplicationIT {
 
         assertNotNull("Demo data not loaded properly", sonarDungeon);
         assertEquals("Demo data not loaded properly", Long.valueOf(1), sonarDungeon.getId());
-        assertEquals("This is not the expected world data set", "World of Dragons", sonarDungeon.getName());
+        assertEquals("This is not the expected world data set", "World of Sonar Quest", sonarDungeon.getName());
     }
 
     /**
@@ -75,14 +76,16 @@ public class SonarQuestApplicationIT {
      * This test assumes a spring environment including a simulated sonar server and
      * database access.
      */
+    @Transactional
     @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
-        Long developerId = 4L;
 
+        Long developerId = 4L;
         // Join in on a quest.
         // Add Participation sonarWarrior, Quest1
         participationController.createParticipation(1L, developerId);
+
         Quest epicQuest = questRepository.findOne(1L);
         final List<Participation> participations = epicQuest.getParticipations();
 
@@ -92,7 +95,7 @@ public class SonarQuestApplicationIT {
                 participations.get(1).getDeveloper().getUsername());
 
         // Get to work on issue 1
-        Task issue1 = taskRepository.findOne(1L);
+        Task issue1 = taskRepository.findOne(5L);
         assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
         taskController.addParticipation(1L, 1L, developerId);
         issue1 = taskRepository.findOne(1L);
