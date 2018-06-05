@@ -1,11 +1,11 @@
 package com.viadee.sonarQuest.services;
 
-import com.viadee.sonarQuest.constants.RessourceEndpoints;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -17,15 +17,20 @@ import org.springframework.web.client.RestTemplate;
 import java.net.ConnectException;
 import java.util.List;
 
+
 @Service
 @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "false", matchIfMissing = true)
 public class RealExternalRessourceService extends ExternalRessourceService {
+
+    @Value("${resourceEndpoint}")
+    private String resourceEndpoint;
+
     private static final Logger log = LoggerFactory.getLogger(RealExternalRessourceService.class);
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
 
     @Override public List<SonarQubeProject> getSonarQubeProjects() {
         try {
-            ResponseEntity<List<SonarQubeProject>> projectResponse = new RestTemplate().exchange(RessourceEndpoints.DEV_ENDPOINT + "/projects", HttpMethod.GET, null,
+            ResponseEntity<List<SonarQubeProject>> projectResponse = new RestTemplate().exchange(resourceEndpoint + "/projects", HttpMethod.GET, null,
                     new ParameterizedTypeReference<List<SonarQubeProject>>() {});
             return projectResponse.getBody();
         } catch (ResourceAccessException e) {
@@ -38,7 +43,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
     @Override public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            SonarQubeIssueRessource sonarQubeIssueRessource = restTemplate.getForObject(RessourceEndpoints.DEV_ENDPOINT + "/issues/search?projectKeys=" + projectKey,
+            SonarQubeIssueRessource sonarQubeIssueRessource = restTemplate.getForObject(resourceEndpoint + "/issues/search?projectKeys=" + projectKey,
                     SonarQubeIssueRessource.class);
             return sonarQubeIssueRessource.getIssues();
         } catch (ResourceAccessException e) {
