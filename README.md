@@ -38,7 +38,7 @@ Interested in helping out? Welcome! Check out the guide  [CONTRIBUTING.md](CONTR
 
 ## License
 
-This project is licensed under the BSD 3-Clause "New" or "Revised" License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the BSD 3-Clause "New" or "Revised" License - see the [LICENSE](LICENSE) file for details.
 The licenses of the reused components of the SonarQuest server can be found in [Licenses SonarQuestServer](sonarQuest-backend/src/main/resources/licenses/licenses.json).
 
 ## User Guidelines
