@@ -111,7 +111,15 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.0</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Dspring.profiles.active=dev</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
