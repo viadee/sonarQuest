@@ -1,6 +1,5 @@
 package com.viadee.sonarQuest.dtos;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
