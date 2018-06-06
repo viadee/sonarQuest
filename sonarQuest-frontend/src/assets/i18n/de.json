@@ -3,7 +3,7 @@
     "STARTPAGE": "Startseite-de",
     "MY_AVATAR": "Mein Avatar",
     "ADVENTURES": "Abenteuer",
-    "QUESTS": "Suchen",
+    "QUESTS": "Quests",
     "MARKETPLACE": "Marktplatz",
     "GAMEMASTER": "Spielleiter",
     "ADMIN": "Admin"
@@ -16,12 +16,12 @@
     "AVAILABLE_ADVENTURES_FOR_WORLD": "Verfügbare Abenteuer für "
   },
   "QUEST_PAGE": {
-    "MY_QUESTS": "Meine Suchen",
-    "MY_QUESTS_FOR_WORLD": "Meine Suchen für ",
-    "QUESTS_FOR_WORLD": "Alle Suchen für ",
+    "MY_QUESTS": "Meine Quests",
+    "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
+    "QUESTS_FOR_WORLD": "Alle Quests für ",
     "JOIN_QUEST": "Suche annehmen",
-    "AVAILABLE_QUESTS": "Verfügbare Suchen",
-    "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Suchen für ",
+    "AVAILABLE_QUESTS": "Verfügbare Quests",
+    "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
     "COMBATED_BY": "angenommen von "
   },
   "MARKETPLACE_PAGE": {
@@ -107,11 +107,11 @@
     "TROPHIES": "Trophäen"
   },
   "QUEST": {
-    "QUEST": "Suche",
-    "QUESTS": "Suchen",
-    "NEW_QUEST": "Neue Suche",
-    "ADD_FREE_QUEST": "Freie Suche anlegen",
-    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Suchen gefunden"
+    "QUEST": "Quest",
+    "QUESTS": "Quests",
+    "NEW_QUEST": "Neue Quest",
+    "ADD_FREE_QUEST": "Freie Quest anlegen",
+    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden"
   },
   "ADVENTURE": {
     "ADVENTURE": "Abenteuer",
