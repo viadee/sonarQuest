@@ -19,7 +19,8 @@ public class SonarQubeIssue {
 
     private String status;
 
-    private String resolution;
+    //needs default value, because it is only contained in JSON response when the issue is actually resolved
+    private String resolution = "";
 
     public SonarQubeIssue() {
     }

@@ -28,7 +28,6 @@ public class StandardTaskService {
     @Autowired
     private AdventureService adventureService;
 
-
     public void updateStandardTasks(World world) {
         List<StandardTask> externalStandardTasks = externalRessourceService.generateStandardTasksFromSonarQubeIssuesForWorld(world);
         externalStandardTasks.forEach(this::updateStandardTask);
@@ -38,6 +37,8 @@ public class StandardTaskService {
 
     public void updateStandardTask(StandardTask externalStandardTask) {
         StandardTask foundInternalStandardTask = standardTaskRepository.findByKey(externalStandardTask.getKey());
+
+        //task not new
         if (foundInternalStandardTask != null) {
             String newStatus = externalStandardTask.getStatus();
             String oldStatus = foundInternalStandardTask.getStatus();
@@ -48,7 +49,9 @@ public class StandardTaskService {
             if ((Objects.equals(newStatus, TaskStates.SOLVED)) && (!Objects.equals(oldStatus, TaskStates.SOLVED))) {
                 gratificationService.rewardDeveloperForSolvingTask(foundInternalStandardTask);
             }
-        } else {
+        }
+        //new task
+        else {
             externalStandardTask.setStatus(TaskStates.CREATED);
             standardTaskRepository.save(externalStandardTask);
         }
