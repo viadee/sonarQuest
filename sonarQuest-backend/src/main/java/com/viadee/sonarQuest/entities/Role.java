@@ -8,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Role")
 public class Role {
 
+    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;

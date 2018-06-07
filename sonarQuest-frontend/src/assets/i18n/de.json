@@ -154,5 +154,10 @@
     "ADD_SKILL": "Talent hinzufügen",
     "SKILLS": "Talente",
     "NEW_SKILL": "Neues Talent"
+  },
+  "LOGIN": {
+    "LOGIN": "Login",
+    "USERNAME": "Benutzername",
+    "PASSWORD": "Passwort"
   }
 }

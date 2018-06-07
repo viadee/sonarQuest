@@ -8,10 +8,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "User")
 public class User {
 
+    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -19,6 +22,7 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
