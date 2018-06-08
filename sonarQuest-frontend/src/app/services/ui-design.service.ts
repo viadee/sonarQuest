@@ -1,47 +1,42 @@
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Subject} from 'rxjs/Subject';
 
-import { UiDesign, Developer } from './../Interfaces/UiDesign';
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Http, RequestOptions, Response, Headers } from '@angular/http';
-import { DeveloperService } from './developer.service';
+import {UiDesign} from './../Interfaces/UiDesign';
+import {Observable} from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {Http, RequestOptions, Response, Headers} from '@angular/http';
+import {UserService} from './user.service';
 
 @Injectable()
 export class UiDesignService {
 
   private uiSubject: Subject<UiDesign> = new ReplaySubject(1);
-  public  ui$                          = this.uiSubject.asObservable();
-  private developer: Developer;
+  public ui$ = this.uiSubject.asObservable();
 
   constructor(
     private http: Http,
-    private developerService: DeveloperService
+    private userService: UserService
   ) {
-    this.developerService.avatar$.subscribe(d => {
-      this.developer = d
-      this.getUiDesign(d)
+    this.userService.avatar$.subscribe(d => {
+      this.getUiDesign();
     })
-    
-   }
-
-  getUiDesign(developer: Developer): Observable<UiDesign> {
-    this.http.get(`${environment.endpoint}/ui/${developer.id}`)
-      .map(this.extractData)
-      .subscribe(
-        value => {
-          this.uiSubject.next(value)
-        },
-        err   => {this.uiSubject.next(err)}
-      );
-      return this.uiSubject
   }
 
-  updateUiDesign(developer: Developer, designName: String): Promise<any>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${environment.endpoint}/ui/${developer.id}`, designName, options)
+  getUiDesign(): Observable<UiDesign> {
+    this.http.get(`${environment.endpoint}/ui`)
+      .map(this.extractData)
+      .subscribe(
+        value => this.uiSubject.next(value),
+        err => this.uiSubject.next(err)
+      );
+    return this.uiSubject
+  }
+
+  updateUiDesign(designName: String): Promise<any> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.put(`${environment.endpoint}/ui`, designName, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -49,7 +44,7 @@ export class UiDesignService {
 
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || {};
   }
 

@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {SonarCubeConfig} from '../Interfaces/SonarCubeConfig';
-import {AppComponent} from '../app.component';
-import {WorldService} from './world.service';
 
 @Injectable()
 export class SonarCubeService {

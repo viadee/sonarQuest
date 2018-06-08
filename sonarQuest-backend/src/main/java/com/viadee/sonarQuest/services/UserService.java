@@ -43,8 +43,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findOne(userId);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public List<User> findByRole(final RoleName roleName) {
-        return userRepository.findAll().stream()
+        return findAll().stream()
                 .filter(user -> user.getRole().getName() == roleName)
                 .collect(Collectors.toList());
     }
@@ -68,4 +72,5 @@ public class UserService implements UserDetailsService {
             return calculateLevel(xp, level + 1);
         }
     }
+
 }

@@ -19,7 +19,6 @@ export class DeveloperService {
 
   constructor(
     public http: Http,
-    public httpClient: HttpClient,
     private worldService: WorldService
   ) {
   }

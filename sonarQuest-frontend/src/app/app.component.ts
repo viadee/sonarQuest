@@ -5,14 +5,11 @@ import {isUndefined} from 'util';
 import {AfterViewInit, Component} from '@angular/core';
 import {TdMediaService} from '@covalent/core';
 import {Router} from '@angular/router';
-import {DeveloperService} from './services/developer.service';
-import {Developer} from './Interfaces/Developer';
 import {WorldService} from './services/world.service';
 import {World} from './Interfaces/World';
 import {TranslateService} from '@ngx-translate/core';
 import {UiDesign} from './Interfaces/UiDesign';
 import {User} from './Interfaces/User';
-import {Role} from './Interfaces/Role';
 import {AuthenticationService} from './login/authentication.service';
 import {LoginComponent} from './login/login.component';
 import {UserService} from './services/user.service';
@@ -25,7 +22,6 @@ import {UserService} from './services/user.service';
 export class AppComponent implements AfterViewInit {
 
   public user: User;
-  public developer: Developer;
   public currentWorld: World;
   public worlds: World[];
   public pageNames: any;
@@ -36,7 +32,6 @@ export class AppComponent implements AfterViewInit {
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
     public router: Router,
-    public developerService: DeveloperService,
     public worldService: WorldService,
     public translate: TranslateService,
     private dialog: MatDialog,
@@ -69,10 +64,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   private init() {
-    this.developerService.avatar$.subscribe(developer => {
-      this.developer = developer;
-    });
-
+    this.worldService.loadWorlds();
     this.worldService.worlds$.subscribe(worlds => {
       this.worlds = worlds;
       this.setSelected();
@@ -90,8 +82,6 @@ export class AppComponent implements AfterViewInit {
         this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
     });
-
-    this.developerService.getMyAvatar();
   }
 
   setSelected() {
@@ -137,7 +127,7 @@ export class AppComponent implements AfterViewInit {
 
 
   updateWorld(world: World) {
-    this.developerService.updateCurrentWorldToDeveloper(world, this.developer)
+    console.log('World changed. Currently this has no effect.');
   }
 
   changebackground(image: string) {
@@ -168,10 +158,10 @@ export class AppComponent implements AfterViewInit {
 
     if (body_light) {
       body.className = this.removeSubString(body.className, light) + ' ' + dark;
-      this.uiDesignService.updateUiDesign(this.developer, dark);
+      this.uiDesignService.updateUiDesign(dark);
     } else {
       body.className = this.removeSubString(body.className, dark) + ' ' + light;
-      this.uiDesignService.updateUiDesign(this.developer, light);
+      this.uiDesignService.updateUiDesign(light);
     }
 
   }

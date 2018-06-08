@@ -1,15 +1,23 @@
-import { TranslateService } from '@ngx-translate/core';
-import { ParticipationService } from './../../../../services/participation.service';
-import { Developer } from './../../../../Interfaces/Developer.d';
-import { DeveloperService } from './../../../../services/developer.service';
-import { WorldService } from './../../../../services/world.service';
-import { MatDialog } from '@angular/material';
-import { QuestService } from './../../../../services/quest.service';
-import { ITdDataTableColumn, TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
-import { Component, OnInit, Input } from '@angular/core';
-import { Quest } from '../../../../Interfaces/Quest';
-import { ViewAvailableQuestComponent } from './components/view-available-quest/view-available-quest.component';
-import { World } from '../../../../Interfaces/World';
+import {TranslateService} from '@ngx-translate/core';
+import {ParticipationService} from './../../../../services/participation.service';
+import {Developer} from './../../../../Interfaces/Developer.d';
+import {DeveloperService} from './../../../../services/developer.service';
+import {WorldService} from './../../../../services/world.service';
+import {MatDialog} from '@angular/material';
+import {QuestService} from './../../../../services/quest.service';
+import {
+  ITdDataTableColumn,
+  TdDataTableSortingOrder,
+  TdDataTableService,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent
+} from '@covalent/core';
+import {Component, OnInit, Input} from '@angular/core';
+import {Quest} from '../../../../Interfaces/Quest';
+import {ViewAvailableQuestComponent} from './components/view-available-quest/view-available-quest.component';
+import {World} from '../../../../Interfaces/World';
+import {UserService} from '../../../../services/user.service';
+import {User} from '../../../../Interfaces/User';
 
 @Component({
   selector: 'app-available-quests',
@@ -20,13 +28,13 @@ export class AvailableQuestsComponent implements OnInit {
 
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Title', width: {min:80}},
-    { name: 'gold', label: 'Gold', width: {min: 40}},
-    { name: 'xp', label: 'XP', width: {min: 40}},
-    { name: 'story', label: 'Story', width: {min:200}},
-    { name: 'adventure.title', label: 'Adventure', width: {min:80}},
-    { name: 'status', label: 'Status', width: {min: 60}},
-    { name: 'edit', label: '', width: {min: 60}}
+    {name: 'title', label: 'Title', width: {min: 80}},
+    {name: 'gold', label: 'Gold', width: {min: 40}},
+    {name: 'xp', label: 'XP', width: {min: 40}},
+    {name: 'story', label: 'Story', width: {min: 200}},
+    {name: 'adventure.title', label: 'Adventure', width: {min: 80}},
+    {name: 'status', label: 'Status', width: {min: 60}},
+    {name: 'edit', label: '', width: {min: 60}}
   ]
 
   // Sort / Filter / Paginate variables
@@ -40,49 +48,49 @@ export class AvailableQuestsComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
-  developer: Developer;
+  user: User;
   currentWorld: World;
 
   constructor(
     private questService: QuestService,
     private worldService: WorldService,
-    private developerService: DeveloperService,
+    private userService: UserService,
     private _dataTableService: TdDataTableService,
     private participationService: ParticipationService,
     private translateService: TranslateService,
-    private dialog: MatDialog) { }
-
+    private dialog: MatDialog) {
+  }
 
   ngOnInit() {
-    this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
-      this.columns=[
-        { name: 'title', label: col_names.TITLE, width: 100},
-        { name: 'gold', label: col_names.GOLD, width: 30},
-        { name: 'xp', label: col_names.XP, width: 30},
-        { name: 'story', label: col_names.STORY, width: 300},
-        { name: 'adventure.title', label: col_names.ADVENTURE, width: 100},
-        { name: 'status', label: col_names.STATUS, width: 40},
-        { name: 'edit', label: ''}]
-    });  
-  
-    this.developerService.avatar$.subscribe({
-      next: developer => {
-        this.developer = developer;
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.columns = [
+        {name: 'title', label: col_names.TITLE, width: 100},
+        {name: 'gold', label: col_names.GOLD, width: 30},
+        {name: 'xp', label: col_names.XP, width: 30},
+        {name: 'story', label: col_names.STORY, width: 300},
+        {name: 'adventure.title', label: col_names.ADVENTURE, width: 100},
+        {name: 'status', label: col_names.STATUS, width: 40},
+        {name: 'edit', label: ''}]
+    });
+
+    this.userService.avatar$.subscribe({
+      next: user => {
+        this.user = user;
         this.loadQuests();
       }
-    })
+    });
 
     this.worldService.currentWorld$.subscribe({
       next: world => {
         this.currentWorld = world;
         this.loadQuests();
       }
-    })
+    });
   }
 
   loadQuests() {
-    if (this.currentWorld && this.developer) {
-      return this.questService.getAllAvailableQuestsForWorldAndDeveloper(this.currentWorld, this.developer).then(quests => {
+    if (this.currentWorld && this.user) {
+      return this.questService.getAllAvailableQuestsForWorldAndUser(this.currentWorld).then(quests => {
         this.availableQuests = quests;
       }).then(() => {
         this.filter()
@@ -90,9 +98,9 @@ export class AvailableQuestsComponent implements OnInit {
     }
   }
 
-
   viewQuest(quest: Quest) {
-    this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy',  data: quest, width: "500px" }).afterClosed().subscribe(() => {
+    this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy', data: quest, width: '500px'})
+      .afterClosed().subscribe(() => {
       this.loadQuests();
       this.participationService.announceParticipationUpdate()
     })
@@ -131,6 +139,4 @@ export class AvailableQuestsComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
   }
-
-
 }

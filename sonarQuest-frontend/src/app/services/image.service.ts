@@ -14,8 +14,7 @@ export class ImageService {
   }
 
   createImageFromBlob(image: Blob): Observable<any> {
-
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.addEventListener('load', () => {
       this.imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result));
     }, false);

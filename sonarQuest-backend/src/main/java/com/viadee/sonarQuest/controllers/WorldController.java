@@ -35,8 +35,7 @@ public class WorldController {
         return this.worldRepository.findAll();
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/developer/{developer_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public World getCurrentWorld(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());
         return user.getWorlds().stream().findAny().orElse(null);
@@ -47,7 +46,6 @@ public class WorldController {
         return worldRepository.findOne(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public World updateWorld(@PathVariable(value = "id") final Long id, @RequestBody final World data) {
         World world = this.worldRepository.findOne(id);

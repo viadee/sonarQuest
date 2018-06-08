@@ -1,7 +1,5 @@
 package com.viadee.sonarQuest.controllers;
 
-import static com.viadee.sonarQuest.dtos.QuestDto.toQuestDto;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarQuest.constants.QuestStates;
-import com.viadee.sonarQuest.dtos.QuestDto;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
@@ -58,41 +55,39 @@ public class QuestController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<QuestDto> getAllQuests() {
-        return questRepository.findAll().stream().map(QuestDto::toQuestDto).collect(Collectors.toList());
+    public List<Quest> getAllQuests() {
+        return questRepository.findAll();
     }
 
     @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
-    public List<QuestDto> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
+    public List<Quest> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findById(world_id);
-        return questRepository.findByWorld(w).stream().map(QuestDto::toQuestDto).collect(Collectors.toList());
+        return questRepository.findByWorld(w);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public QuestDto getQuestById(@PathVariable(value = "id") final Long id) {
-        final Quest quest = questRepository.findOne(id);
-        return toQuestDto(quest);
+    public Quest getQuestById(@PathVariable(value = "id") final Long id) {
+        return questRepository.findOne(id);
     }
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Quest createQuest(@RequestBody final QuestDto questDto) {
-        return questRepository.save(new Quest(questDto.getTitle(), questDto.getStory(), QuestStates.OPEN,
-                questDto.getGold(), questDto.getXp(), questDto.getImage()));
+    public Quest createQuest(@RequestBody final Quest questDto) {
+        return questRepository.save(questDto);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Quest updateQuest(@PathVariable(value = "id") final Long id, @RequestBody final QuestDto questDto) {
+    public Quest updateQuest(@PathVariable(value = "id") final Long id, @RequestBody final Quest data) {
         Quest quest = questRepository.findOne(id);
         if (quest != null) {
-            quest.setTitle(questDto.getTitle());
-            quest.setGold(questDto.getGold());
-            quest.setXp(questDto.getXp());
-            quest.setStory(questDto.getStory());
-            quest.setImage(questDto.getImage());
+            quest.setTitle(data.getTitle());
+            quest.setGold(data.getGold());
+            quest.setXp(data.getXp());
+            quest.setStory(data.getStory());
+            quest.setImage(data.getImage());
             quest = questRepository.save(quest);
         }
         return quest;
@@ -123,7 +118,7 @@ public class QuestController {
     @CrossOrigin
     @RequestMapping(value = "/{questId}/addWorld/{worldId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestDto addWorld(@PathVariable(value = "questId") final Long questId,
+    public Quest addWorld(@PathVariable(value = "questId") final Long questId,
             @PathVariable(value = "worldId") final Long worldId) {
         Quest quest = questRepository.findOne(questId);
         if (quest != null) {
@@ -131,13 +126,13 @@ public class QuestController {
             quest.setWorld(world);
             quest = questRepository.save(quest);
         }
-        return toQuestDto(quest);
+        return quest;
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{questId}/addAdventure/{adventureId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestDto addAdventure(@PathVariable(value = "questId") final Long questId,
+    public Quest addAdventure(@PathVariable(value = "questId") final Long questId,
             @PathVariable(value = "adventureId") final Long adventureId) {
         Quest quest = questRepository.findOne(questId);
         if (quest != null) {
@@ -145,7 +140,7 @@ public class QuestController {
             quest.setAdventure(adventure);
             quest = questRepository.save(quest);
         }
-        return toQuestDto(quest);
+        return quest;
     }
 
     @RequestMapping(value = "/{questId}/deleteWorld", method = RequestMethod.DELETE)
@@ -192,29 +187,28 @@ public class QuestController {
     }
 
     @RequestMapping(value = "/getAllFreeForWorld/{worldId}", method = RequestMethod.GET)
-    public List<QuestDto> getAllFreeQuestsForWorld(@PathVariable(value = "worldId") final Long worldId) {
+    public List<Quest> getAllFreeQuestsForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<QuestDto> freeQuests = null;
+        List<Quest> freeQuests = null;
         if (world != null) {
-            freeQuests = questRepository.findByWorldAndAdventure(world, null).stream()
-                    .map(QuestDto::toQuestDto).collect(Collectors.toList());
+            freeQuests = questRepository.findByWorldAndAdventure(world, null);
         }
         return freeQuests;
     }
 
-    @RequestMapping(value = "/getAllQuestsForWorldAndDeveloper/{worldId}/{developerId}", method = RequestMethod.GET)
-    public List<List<QuestDto>> getAllQuestsForWorldAndUser(final Principal principal,
+    @RequestMapping(value = "/getAllQuestsForWorldAndUser/{worldId}", method = RequestMethod.GET)
+    public List<List<Quest>> getAllQuestsForWorldAndUser(final Principal principal,
             @PathVariable(value = "worldId") final Long worldId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         final World world = worldRepository.findOne(worldId);
-        List<List<QuestDto>> quests = null;
+        List<List<Quest>> quests = null;
         if (world != null && user != null) {
             final List<List<Quest>> allQuestsForWorldAndDeveloper = questService
                     .getAllQuestsForWorldAndUser(world, user);
 
             quests = allQuestsForWorldAndDeveloper.stream()
-                    .map(questlist -> questlist.stream().map(QuestDto::toQuestDto).collect(Collectors.toList()))
+                    .map(questlist -> questlist.stream().collect(Collectors.toList()))
                     .collect(Collectors.toList());
         }
         return quests;

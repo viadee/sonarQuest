@@ -1,9 +1,7 @@
-import { Developer } from './../Interfaces/Developer.d';
-import { DeveloperService } from './developer.service';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Injectable } from '@angular/core';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
 import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {Http, RequestOptions, Response, Headers} from '@angular/http';
@@ -12,53 +10,46 @@ import {Http, RequestOptions, Response, Headers} from '@angular/http';
 export class WorldService {
 
 
-  worldSubject: Subject<World>    = new ReplaySubject(1);
-  currentWorld$                   = this.worldSubject.asObservable();
+  worldSubject: Subject<World> = new ReplaySubject(1);
+  currentWorld$ = this.worldSubject.asObservable();
   private worldsSubject: Subject<World[]> = new ReplaySubject(1);
-  worlds$                         = this.worldsSubject.asObservable();
-  developer: Developer;
+  worlds$ = this.worldsSubject.asObservable();
 
-  constructor(
-    public http: Http
-  ) { 
-    this.getWorlds();
+  constructor(public http: Http) {
   }
 
-  getWorlds(): Observable<World[]> {
+  public loadWorlds(): Observable<World[]> {
     this.http.get(`${environment.endpoint}/world`)
       .map(this.extractData)
       .subscribe(
-        value => {this.worldsSubject.next(value)},
-        err   => {this.worldsSubject.next(err)}
-      );
-      return this.worldsSubject
+        value => this.worldsSubject.next(value),
+        err => this.worldsSubject.next(err));
+    return this.worldsSubject
   }
 
-  
 
-  getCurrentWorld(developer: Developer): Observable<World> {
-    this.http.get(`${environment.endpoint}/world/developer/${developer.id}`)
+  getCurrentWorld(): Observable<World> {
+    this.http.get(`${environment.endpoint}/world/user}`)
       .map(this.extractData)
       .subscribe(
-        value => {this.worldSubject.next(value)},
-        err   => {this.worldSubject.next(err)}
-      );
-      return this.worldSubject
+        value => this.worldSubject.next(value),
+        err => this.worldSubject.next(err));
+    return this.worldSubject
   }
 
 
-  updateWorld(world: World): Promise<any>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  updateWorld(world: World): Promise<any> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.put(`${environment.endpoint}/world/${world.id}`, world, options)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
-  updateBackground(world: World, image:string): Promise<any>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  updateBackground(world: World, image: string): Promise<any> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.put(`${environment.endpoint}/world/${world.id}/image`, image, options)
       .toPromise()
       .then(this.extractData)
@@ -66,9 +57,8 @@ export class WorldService {
   }
 
 
-
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || {};
   }
 

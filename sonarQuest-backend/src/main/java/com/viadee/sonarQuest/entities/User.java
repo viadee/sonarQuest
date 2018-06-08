@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "User")
 public class User {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;

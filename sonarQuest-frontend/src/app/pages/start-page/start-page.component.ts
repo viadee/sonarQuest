@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Developer } from '../../Interfaces/Developer';
-import { DeveloperService } from '../../services/developer.service';
+import {User} from '../../Interfaces/User';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-start-page',
@@ -9,21 +9,21 @@ import { DeveloperService } from '../../services/developer.service';
 })
 export class StartPageComponent implements OnInit {
 
-  public developer: Developer;
-  public XPpercent: number = 0;
-  constructor(public developerService: DeveloperService) { }
+  public user: User;
+  public XPpercent = 0;
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
-    this.developerService.avatar$.subscribe({
-      next: developer => {
-        this.developer = developer;
+    this.userService.avatar$.subscribe({
+      next: user => {
+        this.user = user;
         this.xpPercent();
       }
     })
   }
 
   public xpPercent(): void {
-    this.XPpercent = 100 / this.developer.level.max * this.developer.xp;
+    this.XPpercent = 100 / this.user.level.max * this.user.xp;
     this.XPpercent.toFixed(2);
   }
 

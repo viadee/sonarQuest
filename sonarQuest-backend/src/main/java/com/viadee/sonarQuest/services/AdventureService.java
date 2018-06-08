@@ -54,26 +54,26 @@ public class AdventureService {
      * joined.
      *
      * @param world
-     * @param developer
+     * @param user
      * @return allAdventuresForDeveloper
      */
-    public List<Adventure> getJoinedAdventuresForUserInWorld(final World world, final User developer) {
-        final List<User> developers = new ArrayList<>();
-        developers.add(developer);
+    public List<Adventure> getJoinedAdventuresForUserInWorld(final World world, final User user) {
+        final List<User> users = new ArrayList<>();
+        users.add(user);
 
-        return adventureRepository.findByUsersAndWorld(developers, world);
+        return adventureRepository.findByUsersAndWorld(users, world);
     }
 
     /**
      * expects a developer object and the current world and returns the adventures that the developer can still enter.
      *
      * @param world
-     * @param developer
+     * @param user
      * @return freeAdventuresForDeveloperInWorld
      */
-    public List<Adventure> getFreeAdventuresForUserInWorld(final World world, final User developer) {
+    public List<Adventure> getFreeAdventuresForUserInWorld(final World world, final User user) {
         final List<Adventure> freeAdventuresForDeveloperInWorld = adventureRepository.findByWorld(world);
-        freeAdventuresForDeveloperInWorld.removeAll(getJoinedAdventuresForUserInWorld(world, developer));
+        freeAdventuresForDeveloperInWorld.removeAll(getJoinedAdventuresForUserInWorld(world, user));
 
         return freeAdventuresForDeveloperInWorld;
     }

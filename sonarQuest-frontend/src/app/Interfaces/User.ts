@@ -1,7 +1,8 @@
-import {AvatarClass, AvatarRace, Level} from './Developer';
+import {Artefact, AvatarClass, AvatarRace, Level} from './Developer';
 import {Role} from './Role';
 
 export interface User {
+  id: number,
   username: string,
   role: Role,
   picture?: string,
@@ -11,4 +12,5 @@ export interface User {
   gold?: number,
   xp?: number,
   level?: Level,
+  artefacts?: Artefact[],
 }

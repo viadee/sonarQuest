@@ -8,8 +8,8 @@ import com.viadee.sonarQuest.controllers.AdventureController;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.QuestController;
 import com.viadee.sonarQuest.controllers.TaskController;
-import com.viadee.sonarQuest.dtos.QuestDto;
 import com.viadee.sonarQuest.entities.Adventure;
+import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.WorldService;
@@ -49,19 +49,19 @@ public class GameDataInitializer implements InitializingBean {
     // up being hardcoded here...
     private void createWorldOfDragons() {
         // Create Quests
-        final QuestDto quest1 = new QuestDto(null, "Hidden danger in the woods!",
+        final Quest quest1 = new Quest("Hidden danger in the woods!",
                 "There is something in the woods, people mumble. Something creeping through the darkness, waiting for its time - or brave heroes to reveal the secret.",
                 null,
                 5L, 10L, "assets/images/quest/hero1.jpg", null, null, null, null);
-        final QuestDto quest2 = new QuestDto(null, "The gold in the black Tower",
+        final Quest quest2 = new Quest("The gold in the black Tower",
                 "The orcs have robbed all gold from the people of Sourcera. Can you bring it back from the black tower? But beware of the creature that is sleeping there.",
                 null, 10L, 20L,
                 "assets/images/quest/hero6.jpg", null, null, null, null);
-        final QuestDto quest3 = new QuestDto(null, "Through the night",
+        final Quest quest3 = new Quest("Through the night",
                 "The summoner has to deliver a message to Queen Cyclomatica until tomorrow. Can you guide him through the night?",
                 null, 20L, 30L,
                 "assets/images/quest/hero10.jpg", null, null, null, null);
-        final QuestDto quest4 = new QuestDto(null, "From dusk till dawn",
+        final Quest quest4 = new Quest("From dusk till dawn",
                 "The moon is changing tonight. So the ghostriders will travel. Can you keep Developia safe from harm until dawn?",
                 null, 30L, 50L, "assets/images/quest/hero5.jpg", null, null, null, null);
         questController.createQuest(quest1);
@@ -104,8 +104,8 @@ public class GameDataInitializer implements InitializingBean {
         adventureController.addQuest(1L, 1L);
         adventureController.addQuest(1L, 2L);
 
-        adventureController.addUser(() -> "dev", 1L);
-        adventureController.addUser(() -> "dev", 3L);
+        adventureController.join(() -> "dev", 1L);
+        adventureController.join(() -> "dev", 3L);
 
         participationController.createParticipation(() -> "dev", 1L);
         participationController.createParticipation(() -> "dev", 2L);

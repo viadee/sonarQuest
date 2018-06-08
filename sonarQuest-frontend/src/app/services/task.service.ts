@@ -1,30 +1,28 @@
-import { Quest } from './../Interfaces/Quest';
-import { Developer } from './../Interfaces/Developer.d';
-import { Task } from './../Interfaces/Task';
-import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Response, Headers } from "@angular/http";
+import {Quest} from './../Interfaces/Quest';
+import {Task} from './../Interfaces/Task';
+import {Injectable} from '@angular/core';
+import {Http, RequestOptions, Response, Headers} from '@angular/http';
 
-import { environment } from "../../environments/environment";
-import { World } from "../Interfaces/World";
-import { Observable } from 'rxjs/Observable';
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import { StandardTaskService } from "./standard-task.service";
-import { SpecialTaskService } from "./special-task.service";
+import {environment} from '../../environments/environment';
+import {World} from '../Interfaces/World';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import {StandardTaskService} from './standard-task.service';
+import {SpecialTaskService} from './special-task.service';
 
 @Injectable()
 export class TaskService {
 
-
   constructor(public http: Http,
-    private standardTaskService: StandardTaskService,
-    private specialTaskService: SpecialTaskService, ) { }
+              private standardTaskService: StandardTaskService,
+              private specialTaskService: SpecialTaskService,) {
+  }
 
- /*  getTasks(): Observable<any> {
-    return this.http.get(`${environment.endpoint}/task`)
-      .map(this.extractData).catch(this.handleError)
+  /*  getTasks(): Observable<any> {
+     return this.http.get(`${environment.endpoint}/task`)
+       .map(this.extractData).catch(this.handleError)
 
-  } */
+   } */
 
   getFreeTasksForWorld(world: World): Promise<any> {
     return this.http.get(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
@@ -34,8 +32,8 @@ export class TaskService {
   }
 
   addToQuest(task: any, quest: any): Promise<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.post(`${environment.endpoint}/task/${task.id}/addToQuest/${quest.id}`, null, options)
       .toPromise()
       .then(this.extractData)
@@ -48,10 +46,9 @@ export class TaskService {
   }
 
 
-
   updateTask(task: any): Promise<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.put(`${environment.endpoint}/task/${task.id}`, task, options)
       .toPromise()
       .then(this.extractData)
@@ -83,13 +80,13 @@ export class TaskService {
   }
 
   identifyNewAndDeselectedTasks(oldTasks: Task[], currentTasks: Task[]): Array<Task[]> {
-    let newTasks = this.taskDifference(currentTasks, oldTasks);
-    let deselectedTasks = this.taskDifference(oldTasks, currentTasks)
+    const newTasks = this.taskDifference(currentTasks, oldTasks);
+    const deselectedTasks = this.taskDifference(oldTasks, currentTasks)
     return [newTasks, deselectedTasks];
   }
 
-  addParticipation(task: Task, developer: Developer, quest: Quest){
-    return this.http.post(`${environment.endpoint}/task/${task.id}/addParticipation/${quest.id}/${developer.id}`,null)
+  addParticipation(task: Task, quest: Quest) {
+    return this.http.post(`${environment.endpoint}/task/${task.id}/addParticipation/${quest.id}`, null)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -99,8 +96,6 @@ export class TaskService {
     return this.http.delete(`${environment.endpoint}/task/${task.id}/deleteParticipation`)
       .toPromise()
   }
-
-  
 
 
   private taskDifference(array1: Array<Task>, array2: Array<Task>) {
@@ -124,7 +119,6 @@ export class TaskService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
-
 
 
 }

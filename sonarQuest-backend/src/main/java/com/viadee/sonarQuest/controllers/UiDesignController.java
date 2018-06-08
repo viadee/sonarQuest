@@ -28,7 +28,7 @@ public class UiDesignController {
     @Autowired
     private UiDesignRepository uiDesignRepository;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public UiDesign getUiDesign(final Principal principal) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
@@ -37,7 +37,7 @@ public class UiDesignController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public UiDesign updateUiDesign(final Principal principal, @RequestBody final String designName) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);

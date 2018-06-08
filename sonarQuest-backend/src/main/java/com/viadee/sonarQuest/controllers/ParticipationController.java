@@ -40,8 +40,8 @@ public class ParticipationController {
         return this.participationRepository.findAll();
     }
 
-    @RequestMapping(value = "/{questid}/{developerid}", method = RequestMethod.GET)
-    public Participation getParticipationByQuestIdAndDeveloperId(final Principal principal,
+    @RequestMapping(value = "/{questid}", method = RequestMethod.GET)
+    public Participation getParticipation(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
@@ -49,7 +49,7 @@ public class ParticipationController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{questid}/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{questid}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Participation createParticipation(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {

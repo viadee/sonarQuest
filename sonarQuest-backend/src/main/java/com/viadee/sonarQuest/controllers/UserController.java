@@ -11,19 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.io.Files;
 import com.viadee.sonarQuest.SonarQuestApplication;
 import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
-import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.UserService;
 
 @RestController
@@ -34,9 +31,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private WorldRepository worldRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public User user(final Principal principal) {
@@ -49,13 +43,17 @@ public class UserController {
         return userService.findByRole(RoleName.DEVELOPER);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/all")
+    public List<User> users(final Principal principal) {
+        return userService.findAll();
+    }
+
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     public User updateUser(@RequestBody final User user) {
         return userService.save(user);
     }
 
-    @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
+    @RequestMapping(path = "/avatar", method = RequestMethod.GET)
     public @ResponseBody byte[] getAvatar(final Principal principal, final HttpServletResponse response)
             throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");

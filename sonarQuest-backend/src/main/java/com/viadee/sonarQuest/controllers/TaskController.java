@@ -233,7 +233,7 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/{taskId}/addParticipation/{questId}/{developerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{taskId}/addParticipation/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDto addParticipation(final Principal principal,
             @PathVariable(value = "taskId") final Long taskId,

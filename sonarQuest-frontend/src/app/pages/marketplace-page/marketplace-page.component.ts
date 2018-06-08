@@ -1,9 +1,17 @@
-import { DeveloperService } from './../../services/developer.service';
-import { Developer } from './../../Interfaces/Developer.d';
-import { ITdDataTableColumn, TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
-import { Artefact } from './../../Interfaces/Artefact';
-import { ArtefactService } from './../../services/artefact.service';
-import { Component, OnInit } from '@angular/core';
+import {DeveloperService} from './../../services/developer.service';
+import {Developer} from './../../Interfaces/Developer.d';
+import {
+  ITdDataTableColumn,
+  TdDataTableSortingOrder,
+  TdDataTableService,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent
+} from '@covalent/core';
+import {Artefact} from './../../Interfaces/Artefact';
+import {ArtefactService} from './../../services/artefact.service';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../Interfaces/User';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-marketplace-page',
@@ -13,18 +21,18 @@ import { Component, OnInit } from '@angular/core';
 export class MarketplacePageComponent implements OnInit {
 
   artefacts: Artefact[]
-  developer: Developer
+  user: User
   my_artefacts_id: number[] = []
   level: number;
 
 
   columns: ITdDataTableColumn[] = [
-    { name: 'icon', label: '', width: {min:80}},
-    { name: 'name', label: 'Name'},
-    { name: 'price', label: 'Price(Gold)'},
-    { name: 'quantity', label: 'Quantity'},
-    { name: 'minLevel.min', label: 'min. Level'},
-    { name: 'buy', label: ''}
+    {name: 'icon', label: '', width: {min: 80}},
+    {name: 'name', label: 'Name'},
+    {name: 'price', label: 'Price(Gold)'},
+    {name: 'quantity', label: 'Quantity'},
+    {name: 'minLevel.min', label: 'min. Level'},
+    {name: 'buy', label: ''}
   ]
 
   filteredData: any[]
@@ -39,33 +47,33 @@ export class MarketplacePageComponent implements OnInit {
 
   constructor(
     private artefactService: ArtefactService,
-    private developerService: DeveloperService,
+    private userService: UserService,
     private _dataTableService: TdDataTableService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
-      this.artefacts = artefacts
-      this.filter()
+      this.artefacts = artefacts;
+      this.filter();
     })
 
-    this.developerService.avatar$.subscribe(d => {
-      this.developer = d
-      d.artefacts.map(artefact => this.my_artefacts_id.push(artefact.id))
-      this.level = this.developerService.getLevel(d.xp)
+    this.userService.avatar$.subscribe(d => {
+      this.user = d
+      d.artefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
+      this.level = this.userService.getLevel(d.xp);
     })
   }
 
-  buyArtefact(artefact: Artefact){
-    if (artefact != null && this.developer != null){
-      this.artefactService.buyArtefact(artefact,this.developer).then(artefact => {
+  buyArtefact(artefact: Artefact) {
+    if (artefact != null && this.user != null) {
+      this.artefactService.buyArtefact(artefact).then(() => {
         this.artefactService.getData();
-        this.developerService.getMyAvatar();
+        this.userService.getUser();
       })
     }
   }
 
-  
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;

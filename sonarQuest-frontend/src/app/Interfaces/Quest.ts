@@ -50,7 +50,7 @@ export interface Task{
 export interface Participation{
    id : number,
    tasks: Task[],
-   developer : {
+   user : {
      id : number,
      username :  string ,
      gold : number,

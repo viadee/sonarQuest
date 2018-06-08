@@ -62,9 +62,8 @@ public class ArtefactController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{artefact_id}/boughtBy/{user_id}", method = RequestMethod.PUT)
-    public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id,
-            @PathVariable(value = "user_id") final Long developer_id) {
+    @RequestMapping(value = "/{artefact_id}/buy", method = RequestMethod.PUT)
+    public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
         final User user = userService.findByUsername(principal.getName());
         final Artefact artefact = artefactRepository.findOne(artefact_id);
 

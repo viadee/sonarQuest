@@ -63,20 +63,20 @@ public class AdventureController {
         return adventureRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/getJoined/{user_id}/{world_id}", method = RequestMethod.GET)
-    public List<Adventure> getJoinedAdventures(@PathVariable(value = "user_id") final Long user_id,
+    @RequestMapping(value = "/getJoined/{world_id}", method = RequestMethod.GET)
+    public List<Adventure> getJoinedAdventures(final Principal principal,
             @PathVariable(value = "world_id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        final User d = userService.findById(user_id);
-        return adventureService.getJoinedAdventuresForUserInWorld(w, d);
+        final User user = userService.findByUsername(principal.getName());
+        return adventureService.getJoinedAdventuresForUserInWorld(w, user);
     }
 
-    @RequestMapping(value = "/getFree/{user_id}/{world_id}", method = RequestMethod.GET)
-    public List<Adventure> getFreeAdventures(@PathVariable(value = "user_id") final Long user_id,
+    @RequestMapping(value = "/getFree/{world_id}", method = RequestMethod.GET)
+    public List<Adventure> getFreeAdventures(final Principal principal,
             @PathVariable(value = "world_id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        final User d = userService.findById(user_id);
-        return adventureService.getFreeAdventuresForUserInWorld(w, d);
+        final User user = userService.findByUsername(principal.getName());
+        return adventureService.getFreeAdventuresForUserInWorld(w, user);
     }
 
     @CrossOrigin
@@ -139,9 +139,9 @@ public class AdventureController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{adventureId}/addDeveloper/{developerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{adventureId}/join", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Adventure addUser(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
+    public Adventure join(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         return adventureService.addUserToAdventure(adventureId, user.getId());
@@ -156,8 +156,8 @@ public class AdventureController {
      * @return Gives the adventure where the Developer was removed
      */
     @CrossOrigin
-    @RequestMapping(value = "/{adventureId}/deleteDeveloper/{developerId}", method = RequestMethod.DELETE)
-    public Adventure deleteDeveloper(final Principal principal,
+    @RequestMapping(value = "/{adventureId}/leave", method = RequestMethod.POST)
+    public Adventure leave(final Principal principal,
             @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);

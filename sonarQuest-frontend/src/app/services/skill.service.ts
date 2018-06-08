@@ -1,11 +1,11 @@
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { RequestOptions, Http, Response, Headers } from '@angular/http';
-import { environment } from "../../environments/environment";
-import { Skill } from './../Interfaces/Skill';
-import { Injectable } from '@angular/core';
-import { Artefact } from '../Interfaces/Developer';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {RequestOptions, Http, Response, Headers} from '@angular/http';
+import {environment} from '../../environments/environment';
+import {Skill} from './../Interfaces/Skill';
+import {Injectable} from '@angular/core';
+import {Artefact} from '../Interfaces/Developer';
 
 @Injectable()
 export class SkillService {
@@ -22,17 +22,15 @@ export class SkillService {
     this.http.get(`${environment.endpoint}/skill/`)
       .map(this.extractData)
       .subscribe(
-        result => {
-          this.skillsSubject.next(result)
-        },
+        result => this.skillsSubject.next(result),
         err => this.skillsSubject.error(err)
-      )
+      );
     return this.skillsSubject.asObservable();
   }
 
   getSkillsForArtefact(artefact: Artefact): Promise<Skill[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.get(`${environment.endpoint}/skill/artefact/${artefact.id}`)
       .toPromise()
       .then(this.extractData)
@@ -45,8 +43,8 @@ export class SkillService {
   }
 
   createSkill(skill: any): Promise<Skill> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
     return this.http.post(`${environment.endpoint}/skill/`, skill, options)
       .toPromise()
       .then(this.extractData)
