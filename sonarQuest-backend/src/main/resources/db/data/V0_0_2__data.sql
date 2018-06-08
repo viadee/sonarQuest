@@ -45,31 +45,30 @@ INSERT INTO Artefact_Skill (artefact_id, skill_id) VALUES
   (2, 4),
   (3, 5);
 
-INSERT INTO Developer (username, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) VALUES
-  ('Eddie Tor', 10, 5, 1, 'ava_hobbit1.jpg',
-   'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2),
-  ('Ringo Rockstar', 30, 20, 2, 'ava_barbarian1.jpg',
-   'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3),
-  ('Wendy Witch', 150, 200, 2, 'ava_witch1.jpg', 'The little Witch is a pro with poisons and her broomstick.', 6, 1),
-  ('Mike Magician', 18, 15, 2, 'ava_mage1.jpg',
-   'Raised in the Lands of the North, wisdomey and experienced, this talented Magician will find a solution for everything. And sometimes it might really look like magic!',
-   1, 1);
-
-INSERT INTO Developer_Artefact (developer_id, artefact_id) VALUES
-  (1, 3),
-  (1, 2),
-  (1, 4),
-  (2, 4),
-  (3, 1);
-
 INSERT INTO Sonar_Config (name, sonar_server_url, sonar_project) VALUES
   ('World of Sonar Quest', 'https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');
 
+INSERT INTO World (name,project, active) VALUES ('SonarWorld', 'com.viadee:sonarWorld',TRUE);
+INSERT INTO World (name,project, active) VALUES ('OpenWorld', 'com.viadee:sonarOpenworld',TRUE);
   
 INSERT INTO Role (id, name) VALUES(1,'GAMEMASTER');
 INSERT INTO Role (id, name) VALUES(2,'DEVELOPER');
 INSERT INTO Role (id, name) VALUES(3,'ADMIN');
 
-INSERT INTO User (username, password, role_id) VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3);
-INSERT INTO User (username, password, role_id) VALUES ('dev', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 2);
-INSERT INTO User (username, password, role_id) VALUES ('gm', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1);
+INSERT INTO User (username, password, role_id, picture, about_me, avatar_class_id, avatar_race_id)
+ VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
+INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ VALUES ('dev', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 2, 150, 200, 2, 'ava_witch1.jpg', 'The little Witch is a pro with poisons and her broomstick.', 6, 1);
+INSERT INTO User (username, password, role_id, picture, about_me, avatar_class_id, avatar_race_id)
+ VALUES ('gm', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1, 'ava_barbarian1.jpg', 'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3);
+
+INSERT INTO User_To_World (user_id, world_id) VALUES (2, 1);
+INSERT INTO User_To_World (user_id, world_id) VALUES (2, 2);
+INSERT INTO User_To_World (user_id, world_id) VALUES (3, 1);
+
+INSERT INTO User_Artefact (user_id, artefact_id) VALUES
+  (1, 3),
+  (1, 2),
+  (1, 4),
+  (2, 4),
+  (3, 1);

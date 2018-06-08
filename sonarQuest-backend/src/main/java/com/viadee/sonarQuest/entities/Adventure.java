@@ -40,6 +40,7 @@ public class Adventure {
     @Column(name = "xp")
     private Long xp;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "world_id")
     private World world;
@@ -47,14 +48,15 @@ public class Adventure {
     @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Quest> quests;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Adventure_Developer", joinColumns = @JoinColumn(name = "adventure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "developer_id", referencedColumnName = "id"))
-    private List<Developer> developers;
+    @JoinTable(name = "Adventure_User", joinColumns = @JoinColumn(name = "adventure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private List<User> users;
 
     public Adventure() {
     }
 
-    public Adventure(String title, String story, String status, Long gold, Long xp) {
+    public Adventure(final String title, final String story, final String status, final Long gold, final Long xp) {
         this.title = title;
         this.story = story;
         this.status = status;
@@ -62,8 +64,9 @@ public class Adventure {
         this.xp = xp;
     }
 
-    public Adventure(Long id, String title, String story, String status, Long gold, Long xp, World world,
-            List<Quest> quests, List<Developer> developers) {
+    public Adventure(final Long id, final String title, final String story, final String status, final Long gold,
+            final Long xp, final World world,
+            final List<Quest> quests, final List<User> users) {
         this.id = id;
         this.title = title;
         this.story = story;
@@ -72,14 +75,14 @@ public class Adventure {
         this.xp = xp;
         this.world = world;
         this.quests = quests;
-        this.developers = developers;
+        this.users = users;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -87,7 +90,7 @@ public class Adventure {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -95,7 +98,7 @@ public class Adventure {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(final String story) {
         this.story = story;
     }
 
@@ -103,7 +106,7 @@ public class Adventure {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -111,7 +114,7 @@ public class Adventure {
         return gold;
     }
 
-    public void setGold(Long gold) {
+    public void setGold(final Long gold) {
         this.gold = gold;
     }
 
@@ -119,7 +122,7 @@ public class Adventure {
         return xp;
     }
 
-    public void setXp(Long xp) {
+    public void setXp(final Long xp) {
         this.xp = xp;
     }
 
@@ -127,31 +130,31 @@ public class Adventure {
         return quests;
     }
 
-    public void setQuests(List<Quest> quests) {
+    public void setQuests(final List<Quest> quests) {
         this.quests = quests;
     }
 
     @JsonIgnore
-    public List<Developer> getDevelopers() {
-        return developers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setDevelopers(List<Developer> developers) {
-        this.developers = developers;
+    public void setUsers(final List<User> users) {
+        this.users = users;
     }
 
-    public synchronized void addDeveloper(Developer developer) {
-        if (developers == null) {
-            developers = new ArrayList<>();
+    public synchronized void addUser(final User user) {
+        if (users == null) {
+            users = new ArrayList<>();
         }
-        developers.add(developer);
+        users.add(user);
     }
 
     public World getWorld() {
         return world;
     }
 
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = world;
     }
 }

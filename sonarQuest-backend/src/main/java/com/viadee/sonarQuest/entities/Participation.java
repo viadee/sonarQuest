@@ -1,7 +1,17 @@
 package com.viadee.sonarQuest.entities;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Participation")
@@ -11,37 +21,38 @@ public class Participation {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy="participation",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "participation", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     @ManyToOne
-    @JoinColumn(name="quest_id")
+    @JoinColumn(name = "quest_id")
     private Quest quest;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="developer_id")
-    private Developer developer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Participation() {
     }
 
-    public Participation(Quest quest, Developer developer) {
+    public Participation(final Quest quest, final User user) {
         this.quest = quest;
-        this.developer = developer;
+        this.user = user;
     }
 
-    public Participation(Long id, List<Task> tasks, Quest quest, Developer developer) {
+    public Participation(final Long id, final List<Task> tasks, final Quest quest, final User user) {
         this.id = id;
         this.tasks = tasks;
         this.quest = quest;
-        this.developer = developer;
+        this.user = user;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -49,7 +60,7 @@ public class Participation {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(final List<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -57,15 +68,16 @@ public class Participation {
         return quest;
     }
 
-    public void setQuest(Quest quest) {
+    public void setQuest(final Quest quest) {
         this.quest = quest;
     }
 
-    public Developer getDeveloper() {
-        return developer;
+    public User getUser() {
+        return user;
     }
 
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
+    public void setUser(final User user) {
+        this.user = user;
     }
+
 }

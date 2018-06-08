@@ -1,15 +1,17 @@
 package com.viadee.sonarQuest.controllers;
 
-import com.viadee.sonarQuest.dtos.LevelDto;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.repositories.LevelRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RestController
 @RequestMapping("/level")
@@ -17,52 +19,44 @@ public class LevelController {
 
     private LevelRepository levelRepository;
 
-    public LevelController(LevelRepository levelRepository) {
+    public LevelController(final LevelRepository levelRepository) {
         this.levelRepository = levelRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<LevelDto> getAllLevels() {
-        return this.levelRepository.findAll().stream().map(this::toLevelDto).collect(Collectors.toList());
+    public List<Level> getAllLevels() {
+        return levelRepository.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public LevelDto getLevelById(@PathVariable(value = "id") Long id) {
-        Level level = this.levelRepository.findById(id);
-        return this.toLevelDto(level);
+    public Level getLevelById(@PathVariable(value = "id") final Long id) {
+        return levelRepository.findById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Level createLevel(@RequestBody LevelDto levelDto) {
-        return this.levelRepository.save(new Level(levelDto.getMax(), levelDto.getMin()));
+    public Level createLevel(@RequestBody final Level level) {
+        return levelRepository.save(level);
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Level updateLevel(@PathVariable(value = "id") Long id, @RequestBody LevelDto levelDto) {
-        Level level = this.levelRepository.findById(id);
+    public Level updateLevel(@PathVariable(value = "id") final Long id, @RequestBody final Level data) {
+        Level level = levelRepository.findById(id);
         if (level != null) {
-            level.setMin(levelDto.getMin());
-            level.setMax(levelDto.getMax());
-            level = this.levelRepository.save(level);
+            level.setMin(data.getMin());
+            level.setMax(data.getMax());
+            level = levelRepository.save(level);
         }
         return level;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteLevel(@PathVariable(value = "id") Long id) {
-        Level level = this.levelRepository.findById(id);
+    public void deleteLevel(@PathVariable(value = "id") final Long id) {
+        final Level level = levelRepository.findById(id);
         if (level != null) {
-            this.levelRepository.delete(level);
+            levelRepository.delete(level);
         }
     }
 
-    private LevelDto toLevelDto(Level level) {
-        LevelDto levelDto = null;
-        if (level != null) {
-            levelDto = new LevelDto(level.getId(), level.getMin(), level.getMax(), level.getDevelopers());
-        }
-        return levelDto;
-    }
 }

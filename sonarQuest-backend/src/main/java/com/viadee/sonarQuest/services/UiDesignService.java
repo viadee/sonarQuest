@@ -3,45 +3,35 @@ package com.viadee.sonarQuest.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarQuest.dtos.UiDesignDto;
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.UiDesign;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.repositories.UiDesignRepository;
 
 @Service
 public class UiDesignService {
-	
-	@Autowired
-	private UiDesignRepository uiDesignRepository;
 
-	public UiDesignDto toUiDesignDto(UiDesign ui) {
-		UiDesignDto uiDto = null;
-		
-		if(ui != null) {
-			uiDto = new UiDesignDto(ui.getId(),ui.getName(), ui.getDeveloper());
-		}
-		
-		return uiDto;
-	}
-	
-	public UiDesignDto createUiDesign(Developer d, String designName) {
-		UiDesign ui = new UiDesign(designName, d);
-		this.uiDesignRepository.save(ui);
-		return this.toUiDesignDto(ui);
-	}
-	
+    @Autowired
+    private UiDesignRepository uiDesignRepository;
 
-	public UiDesignDto updateUiDesign(UiDesign ui, Developer d, String designName) {
-		UiDesignDto uiDto = null;
-		
-		if (ui != null) {
-        	ui.setName(designName);
-        	ui = uiDesignRepository.save(ui);
-        	uiDto = this.toUiDesignDto(ui);
+    public UiDesign createUiDesign(final User user, final String name) {
+        final UiDesign ui = new UiDesign();
+        ui.setName(name);
+        ui.setUser(user);
+        return uiDesignRepository.save(ui);
+    }
+
+    public UiDesign save(final UiDesign uiDesign) {
+        return uiDesignRepository.save(uiDesign);
+    }
+
+    public UiDesign updateUiDesign(final User user, final String name) {
+        UiDesign uiDesign = uiDesignRepository.findByUser(user);
+        if (uiDesign == null) {
+            uiDesign = createUiDesign(user, name);
         } else {
-        	uiDto = this.createUiDesign(d, designName);
+            uiDesign.setName(name);
+            uiDesign = uiDesignRepository.save(uiDesign);
         }
-		return uiDto;
-	}
-	
+        return uiDesign;
+    }
 }

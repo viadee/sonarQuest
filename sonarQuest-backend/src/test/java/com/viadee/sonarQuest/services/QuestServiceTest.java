@@ -12,9 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.ParticipationRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
@@ -35,7 +35,7 @@ public class QuestServiceTest {
     public void testGetAllQuestsForWorldAndDeveloper() {
 
         // create mock developer
-        final Developer mockDeveloper = new Developer();
+        final User mockDeveloper = new User();
         mockDeveloper.setUsername("mock");
 
         // create mock world
@@ -65,11 +65,11 @@ public class QuestServiceTest {
         mockParticipations.add(mockParticipation2);
 
         // init mock repos
-        when(participationRepository.findByDeveloper(mockDeveloper)).thenReturn(mockParticipations);
+        when(participationRepository.findByUser(mockDeveloper)).thenReturn(mockParticipations);
         when(questRepository.findByWorld(mockWorld)).thenReturn(mockQuests);
 
         // call method to be tested
-        final List<List<Quest>> result = questService.getAllQuestsForWorldAndDeveloper(mockWorld, mockDeveloper);
+        final List<List<Quest>> result = questService.getAllQuestsForWorldAndUser(mockWorld, mockDeveloper);
 
         // verify result
         assertTrue(result.get(0).contains(mockQuest1));

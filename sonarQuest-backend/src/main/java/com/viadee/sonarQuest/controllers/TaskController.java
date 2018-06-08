@@ -2,6 +2,7 @@ package com.viadee.sonarQuest.controllers;
 
 import static com.viadee.sonarQuest.dtos.TaskDto.toTaskDto;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
 import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.SpecialTaskRepository;
@@ -36,6 +38,7 @@ import com.viadee.sonarQuest.services.ParticipationService;
 import com.viadee.sonarQuest.services.QuestService;
 import com.viadee.sonarQuest.services.SpecialTaskService;
 import com.viadee.sonarQuest.services.StandardTaskService;
+import com.viadee.sonarQuest.services.UserService;
 
 @RestController
 @RequestMapping("/task")
@@ -74,6 +77,9 @@ public class TaskController {
     @Autowired
     private GratificationService gratificationService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasks() {
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
@@ -91,7 +97,7 @@ public class TaskController {
     @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
-        World w = worldRepository.findOne(world_id);
+        final World w = worldRepository.findOne(world_id);
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
         List<TaskDto> specialTaskDtos;
         List<TaskDto> standardTaskDtos;
@@ -113,7 +119,7 @@ public class TaskController {
     @CrossOrigin
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public SpecialTaskDto createSpecialTask(@RequestBody SpecialTaskDto specialTaskDto) {
+    public SpecialTaskDto createSpecialTask(@RequestBody final SpecialTaskDto specialTaskDto) {
         specialTaskService.saveDto(specialTaskDto);
         return specialTaskDto;
     }
@@ -121,7 +127,7 @@ public class TaskController {
     @CrossOrigin
     @RequestMapping(value = "/standard", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public StandardTaskDto createStandardTask(@RequestBody StandardTaskDto standardTaskDto) {
+    public StandardTaskDto createStandardTask(@RequestBody final StandardTaskDto standardTaskDto) {
         standardTaskService.saveDto(standardTaskDto);
         return standardTaskDto;
     }
@@ -167,9 +173,8 @@ public class TaskController {
 
             /*
              * @Florian - For what? freeSpecialTasks =
-             * this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map(
-             * specialTask -> toTaskDto(specialTask)).collect(Collectors.toList());
-             * freeTasks.addAll(freeSpecialTasks);
+             * this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map( specialTask ->
+             * toTaskDto(specialTask)).collect(Collectors.toList()); freeTasks.addAll(freeSpecialTasks);
              */
         }
         return freeTasks;
@@ -182,7 +187,7 @@ public class TaskController {
         if (task != null && task instanceof SpecialTask) {
             task.setStatus(SonarQuestStatus.SOLVED.getText());
             task = taskRepository.save(task);
-            gratificationService.rewardDeveloperForSolvingTask(task);
+            gratificationService.rewardUserForSolvingTask(task);
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
@@ -230,12 +235,14 @@ public class TaskController {
 
     @RequestMapping(value = "/{taskId}/addParticipation/{questId}/{developerId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto addParticipation(@PathVariable(value = "taskId") final Long taskId,
-            @PathVariable(value = "questId") final Long questId,
-            @PathVariable(value = "developerId") final Long developerId) {
+    public TaskDto addParticipation(final Principal principal,
+            @PathVariable(value = "taskId") final Long taskId,
+            @PathVariable(value = "questId") final Long questId) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
         Task task = taskRepository.findOne(taskId);
-        final Participation participation = participationService.findParticipationByQuestIdAndDeveloperId(questId,
-                developerId);
+        final Participation participation = participationService.findParticipationByQuestIdAndUserId(questId,
+                user.getId());
         if (task != null && participation != null) {
             task.setParticipation(participation);
             task.setStatus(SonarQuestStatus.PROCESSED.getText());

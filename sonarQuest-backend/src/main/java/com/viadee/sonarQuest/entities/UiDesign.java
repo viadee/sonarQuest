@@ -8,55 +8,55 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Ui_Design")
 public class UiDesign {
 
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Column(name = "name")
+    private String name;
 
-	@Column(name = "name")
-	private String name;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	@OneToOne
-	@JoinColumn(name = "developer_id")
-	private Developer developer;
+    public UiDesign() {
+    }
 
-	public UiDesign() {
-	}
-	
-	public UiDesign(String name, Developer developer) {
-		super();
-		this.name = name;
-		this.developer = developer;
-	}
+    public UiDesign(final String name, final User user) {
+        super();
+        this.name = name;
+        this.user = user;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-	public Developer getDeveloper() {
-		return developer;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setDeveloper(Developer developer) {
-		this.developer = developer;
-	}
-	    
-	
-	
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
 }

@@ -8,8 +8,8 @@ import com.viadee.sonarQuest.controllers.AdventureController;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.QuestController;
 import com.viadee.sonarQuest.controllers.TaskController;
-import com.viadee.sonarQuest.dtos.AdventureDto;
 import com.viadee.sonarQuest.dtos.QuestDto;
+import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.WorldService;
@@ -96,7 +96,7 @@ public class GameDataInitializer implements InitializingBean {
         taskController.addToQuest(33L, 4L);
 
         // Create Adventure
-        AdventureDto adventure = new AdventureDto(null, "Dance of the shadows",
+        final Adventure adventure = new Adventure(null, "Dance of the shadows",
                 "Moon is changing. Unsteady times lie ahead of the people of Sourcera. Can you help them pass through?",
                 null, 30L, 40L, null, null, null);
         adventureController.createAdventure(adventure);
@@ -104,11 +104,11 @@ public class GameDataInitializer implements InitializingBean {
         adventureController.addQuest(1L, 1L);
         adventureController.addQuest(1L, 2L);
 
-        adventureController.addDeveloper(1L, 1L);
-        adventureController.addDeveloper(3L, 1L);
+        adventureController.addUser(() -> "dev", 1L);
+        adventureController.addUser(() -> "dev", 3L);
 
-        participationController.createParticipation(1L, 1L);
-        participationController.createParticipation(2L, 1L);
+        participationController.createParticipation(() -> "dev", 1L);
+        participationController.createParticipation(() -> "dev", 2L);
     }
 
     @Override
