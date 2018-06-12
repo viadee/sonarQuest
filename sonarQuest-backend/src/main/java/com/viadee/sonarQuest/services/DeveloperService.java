@@ -73,7 +73,8 @@ public class DeveloperService {
 	public DeveloperDto updateDeveloper(DeveloperDto developerDto) {
 		Developer developer = developerRepository.findById(developerDto.getId());
 		if (developer != null) {
-            developer.setGold((developerDto.getGold()));
+			developer.setUsername(developerDto.getUsername());
+            developer.setGold(developerDto.getGold());
             developer.setXp(developerDto.getXp());
             developer.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
             developer.setPicture(developerDto.getPicture());

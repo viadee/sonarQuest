@@ -72,8 +72,7 @@ export class DeveloperService {
       .catch(this.handleError);
   }
 
-  updateDeveloper(developer: Developer): Promise<Developer> {
-    console.log(developer)
+  updateDeveloper(developer: Developer): Promise<Developer> {    
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${environment.endpoint}/developer/${developer.id}`, developer, options)

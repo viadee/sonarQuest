@@ -57,6 +57,7 @@ export class MyAvatarPageComponent implements OnInit {
       result => {
         if (result) {
           this.getAvatar()
+          this.developerService.getMyAvatar()
         }
       }
     );
