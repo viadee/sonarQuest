@@ -33,7 +33,8 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
         final User authenticatedUser = authentificateUser(credentials);
-        return createTokenForUser(authenticatedUser);
+        final Token token = createTokenForUser(authenticatedUser);
+        return token;
     }
 
     private User authentificateUser(final UserCredentials credentials) {

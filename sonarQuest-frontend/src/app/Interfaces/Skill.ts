@@ -1,8 +1,4 @@
-export interface AvatarClass {
-    id: number,
-    name: string
-}
-
+import {AvatarClass} from './AvatarClass';
 
 export interface Skill {
     id: number,

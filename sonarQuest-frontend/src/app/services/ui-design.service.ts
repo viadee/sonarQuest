@@ -1,51 +1,38 @@
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subject} from 'rxjs/Subject';
-
 import {UiDesign} from './../Interfaces/UiDesign';
-import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {Http, RequestOptions, Response, Headers} from '@angular/http';
+import {Response} from '@angular/http';
 import {UserService} from './user.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class UiDesignService {
 
-  private uiSubject: Subject<UiDesign> = new ReplaySubject(1);
-  public ui$ = this.uiSubject.asObservable();
+  private uiDesign: UiDesign;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private userService: UserService
   ) {
-    this.userService.avatar$.subscribe(d => {
-      this.getUiDesign();
-    })
+    this.userService.onUserChange().subscribe(() => this.loadUiDesign());
   }
 
-  getUiDesign(): Observable<UiDesign> {
-    this.http.get(`${environment.endpoint}/ui`)
-      .map(this.extractData)
+  loadUiDesign(): void {
+    this.http.get<UiDesign>(`${environment.endpoint}/ui`)
       .subscribe(
-        value => this.uiSubject.next(value),
-        err => this.uiSubject.next(err)
+        uiDesign => this.uiDesign = uiDesign,
+        () => this.uiDesign = null
       );
-    return this.uiSubject
   }
 
-  updateUiDesign(designName: String): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.put(`${environment.endpoint}/ui`, designName, options)
+  getUiDesign(): UiDesign {
+    return this.uiDesign;
+  }
+
+  updateUiDesign(designName: String): Promise<UiDesign> {
+    return this.http.put<UiDesign>(`${environment.endpoint}/ui`, designName)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
-  }
-
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {

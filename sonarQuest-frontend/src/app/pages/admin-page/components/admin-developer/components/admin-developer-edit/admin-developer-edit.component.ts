@@ -1,9 +1,9 @@
-import { Developer } from './../../../../../../Interfaces/Developer.d';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { DeveloperService } from './../../../../../../services/developer.service';
-import { MatDialogRef } from '@angular/material';
-import { AdminDeveloperComponent } from './../../admin-developer.component';
-import { Component, OnInit, Inject } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
+import {AdminDeveloperComponent} from './../../admin-developer.component';
+import {Component, OnInit, Inject} from '@angular/core';
+import {UserService} from '../../../../../../services/user.service';
+import {User} from '../../../../../../Interfaces/User';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -16,22 +16,23 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
-    private developerService: DeveloperService,
-    @Inject(MAT_DIALOG_DATA) public developer: Developer
-  ) { }
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public user: User
+  ) {
+  }
 
   ngOnInit() {
     this.loadImages();
   }
 
-  editDeveloper(){
-    this.developerService.updateDeveloper(this.developer).then( () => {
+  editDeveloper() {
+    this.userService.updateUser(this.user).then(() => {
       this.dialogRef.close(true);
     })
   }
 
-  cancel(){
-    this.dialogRef.close(false)
+  cancel() {
+    this.dialogRef.close(false);
   }
 
   loadImages() {
@@ -39,8 +40,8 @@ export class AdminDeveloperEditComponent implements OnInit {
 
     for (let i = 0; i < 15; i++) {
       this.images[i] = {};
-      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
-      this.images[i].name = "hero" + (i + 1);
+      this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
+      this.images[i].name = 'hero' + (i + 1);
     }
   }
 }

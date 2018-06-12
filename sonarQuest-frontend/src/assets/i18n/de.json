@@ -36,7 +36,8 @@
     "SELECT_BACKGROUND": "Hintergrund wählen"
   },
   "START_PAGE": {
-    "CURRENT_PROGRESS": "Bearbeitungsfortschritt"
+    "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
+    "PLEASE_LOG_IN": "Bitte loggen Sie sich ein"
   },
   "GAMEMASTER_PAGE": {
     "ADVENTURE": {

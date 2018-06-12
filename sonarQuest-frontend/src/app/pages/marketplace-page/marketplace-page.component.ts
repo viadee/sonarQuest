@@ -1,5 +1,3 @@
-import {DeveloperService} from './../../services/developer.service';
-import {Developer} from './../../Interfaces/Developer.d';
 import {
   ITdDataTableColumn,
   TdDataTableSortingOrder,
@@ -20,9 +18,8 @@ import {UserService} from '../../services/user.service';
 })
 export class MarketplacePageComponent implements OnInit {
 
-  artefacts: Artefact[]
-  user: User
-  my_artefacts_id: number[] = []
+  artefacts: Artefact[];
+  my_artefacts_id: number[] = [];
   level: number;
 
 
@@ -33,10 +30,10 @@ export class MarketplacePageComponent implements OnInit {
     {name: 'quantity', label: 'Quantity'},
     {name: 'minLevel.min', label: 'min. Level'},
     {name: 'buy', label: ''}
-  ]
+  ];
 
-  filteredData: any[]
-  filteredTotal: number
+  filteredData: any[];
+  filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
@@ -56,17 +53,16 @@ export class MarketplacePageComponent implements OnInit {
     this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
       this.artefacts = artefacts;
       this.filter();
-    })
+    });
 
-    this.userService.avatar$.subscribe(d => {
-      this.user = d
-      d.artefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
-      this.level = this.userService.getLevel(d.xp);
-    })
+    const user: User = this.userService.getUser();
+    const userArtefacts: Artefact[] = user.artefacts;
+    userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
+    this.level = this.userService.getLevel(user.xp);
   }
 
   buyArtefact(artefact: Artefact) {
-    if (artefact != null && this.user != null) {
+    if (artefact != null && this.userService.getUser() != null) {
       this.artefactService.buyArtefact(artefact).then(() => {
         this.artefactService.getData();
         this.userService.getUser();

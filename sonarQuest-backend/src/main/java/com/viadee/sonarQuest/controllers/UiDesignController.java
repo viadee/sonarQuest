@@ -33,7 +33,7 @@ public class UiDesignController {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         final UiDesign ui = uiDesignRepository.findByUser(user);
-        return ui == null ? uiDesignService.createUiDesign(user, "light") : ui;
+        return ui == null ? uiDesignService.updateUiDesign(user, "light") : ui;
     }
 
     @CrossOrigin

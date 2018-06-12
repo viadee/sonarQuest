@@ -1,109 +1,4 @@
 <div layout="row" layout-margin class="background">
-  <!-- <div flex>
-    <mat-card>
-      <mat-card-title>Ankündigungen</mat-card-title>
-      <mat-divider></mat-divider>
-      <mat-list>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <img mat-list-avatar src="http://via.placeholder.com/200x200">
-              <h4 mat-line>questmaster123</h4>
-              <p mat-line>20.06.17</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt
-            zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten
-          </div>
-        </div>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <img mat-list-avatar src="http://via.placeholder.com/200x200">
-              <h4 mat-line>questmaster123</h4>
-              <p mat-line>20.06.17</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn,
-          </div>
-        </div>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <img mat-list-avatar src="http://via.placeholder.com/200x200">
-              <h4 mat-line>questmaster123</h4>
-              <p mat-line>20.06.17</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            Auch gibt es niemanden, der den Schmerz an sich liebt
-          </div>
-        </div>
-      </mat-list>
-    </mat-card>
-  </div>
-</div>
-
-<div layout="row" layout-margin>
-  <div flex>
-    <mat-card>
-      <mat-card-title>Aktuelle Quests</mat-card-title>
-      <mat-divider></mat-divider>
-      <mat-list>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <h4 mat-line>Epic Quest 1</h4>
-              <p mat-line>4 Mitstreiter</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-list-item>
-              <p mat-line>3/4 Aufgaben abgeschlossen</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-progress-spinner flex mode="determinate" value=75></mat-progress-spinner>
-          </div>
-        </div>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <h4 mat-line>Epic Quest 2</h4>
-              <p mat-line>2 Mitstreiter</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-list-item>
-              <p mat-line>4/8 Aufgaben abgeschlossen</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-progress-spinner flex mode="determinate" value=50></mat-progress-spinner>
-          </div>
-        </div>
-        <div layout="row">
-          <div flex="30">
-            <mat-list-item>
-              <h4 mat-line>Epic Quest 3</h4>
-              <p mat-line>7 Mitstreiter</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-list-item>
-              <p mat-line>3/9 Aufgaben abgeschlossen</p>
-            </mat-list-item>
-          </div>
-          <div flex layout-margin>
-            <mat-progress-spinner flex mode="determinate" value=33></mat-progress-spinner>
-          </div>
-        </div>
-      </mat-list>
-    </mat-card>
-  </div>-->
-
   <div flex>
     <mat-card>
       <mat-card-title>{{"START_PAGE.CURRENT_PROGRESS"| translate}}</mat-card-title>
@@ -113,11 +8,11 @@
           <div layout="column">
             <div layout="row">
               <div flex>{{"DEVELOPER.LEVEL"| translate}}:</div>
-              <div flex style="font-weight:bold; font-size:30pt">{{developer?.level.name}}</div>
+              <div flex style="font-weight:bold; font-size:30pt">{{user?.level.name}}</div>
             </div>
             <div layout="row">
               <div flex></div>
-              <div flex-end>{{developer?.xp}}/{{developer?.level.max}} XP ({{XPpercent}}%)</div>
+              <div flex-end>{{user?.xp}}/{{user?.level.max}} XP ({{XPpercent}}%)</div>
             </div>
             <mat-progress-bar flex mode="determinate" [value]="XPpercent"></mat-progress-bar>
           </div>
@@ -125,7 +20,7 @@
         <div flex>
           <div layout="row">
             <div flex>{{"DEVELOPER.GOLD"| translate}}:</div>
-            <div flex style="font-weight:bold; font-size:30pt">{{developer?.gold}}</div>
+            <div flex style="font-weight:bold; font-size:30pt">{{user?.gold}}</div>
           </div>
         </div>
       </div>

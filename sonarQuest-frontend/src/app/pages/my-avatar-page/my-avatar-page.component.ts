@@ -12,35 +12,32 @@ import {User} from '../../Interfaces/User';
 })
 export class MyAvatarPageComponent implements OnInit {
 
-  public user: User;
   public XPpercent = 0;
   public level: number;
+  protected user: User;
   imageToShow: any;
 
-  constructor(
-    private userService: UserService,
-    private dialog: MatDialog,
-    private imageService: ImageService,
-  ) {
+  constructor(private userService: UserService,
+              private dialog: MatDialog,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
+    this.user = this.userService.getUser();
     this.getAvatar();
   }
 
   private getAvatar() {
-    this.userService.avatar$.subscribe(user => {
-      this.user = user;
-      this.level = this.userService.getLevel(user.xp)
-      this.xpPercent();
-
+    this.level = this.userService.getLevel(this.user.xp)
+    this.xpPercent();
+    if (this.user) {
       this.userService.getImage().subscribe((blob) => {
         this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
-      })
-    })
+      });
+    }
   }
 
-  private createSkillsList(artefact: any) {
+  protected createSkillsList(artefact: any) {
     const skillnames = artefact.skills.map(skill => skill.name);
     return skillnames.join(', ');
   }

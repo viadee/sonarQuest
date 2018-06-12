@@ -1,29 +1,15 @@
+import {Quest} from './Quest';
+import {Participation} from './Participation';
+
 export interface SpecialTask {
   id: number,
   title: string,
   status: string,
   gold: number,
   xp: number,
-  quest: {
-    id: number,
-    title: string,
-    story: string,
-    status: string,
-    gold: number,
-    xp: number
-  },
+  quest: Quest,
   world: null,
   taskType: string,
-  participation: {
-    quest: {
-      id: number,
-      title: string,
-      story: string
-    }
-    developer: {
-      id: number,
-      username: string
-    }
-  }
+  participation: Participation,
   message: string
 }

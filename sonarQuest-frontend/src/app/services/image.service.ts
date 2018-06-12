@@ -8,7 +8,6 @@ import {Injectable} from '@angular/core';
 export class ImageService {
 
   imageSubject: Subject<any> = new ReplaySubject(1);
-  image$ = this.imageSubject.asObservable();
 
   constructor(private domSanitizer: DomSanitizer) {
   }

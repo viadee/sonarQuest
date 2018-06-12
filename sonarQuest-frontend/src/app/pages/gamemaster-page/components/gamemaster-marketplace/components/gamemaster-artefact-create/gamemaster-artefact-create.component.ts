@@ -1,13 +1,18 @@
-import { GamemasterIconSelectComponent } from './components/gamemaster-icon-select/gamemaster-icon-select.component';
-import { ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
-import { Skill } from './../../../../../../Interfaces/Skill';
-import { SkillService } from './../../../../../../services/skill.service';
-import { GamemasterSkillCreateComponent } from './components/gamemaster-skill-create/gamemaster-skill-create.component';
-import { ArtefactService } from './../../../../../../services/artefact.service';
-import { Artefact } from './../../../../../../Interfaces/Developer.d';
-import { GamemasterMarketplaceComponent } from './../../gamemaster-marketplace.component';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import {GamemasterIconSelectComponent} from './components/gamemaster-icon-select/gamemaster-icon-select.component';
+import {
+  ITdDataTableColumn,
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent
+} from '@covalent/core';
+import {Skill} from './../../../../../../Interfaces/Skill';
+import {SkillService} from './../../../../../../services/skill.service';
+import {GamemasterSkillCreateComponent} from './components/gamemaster-skill-create/gamemaster-skill-create.component';
+import {ArtefactService} from './../../../../../../services/artefact.service';
+import {GamemasterMarketplaceComponent} from './../../gamemaster-marketplace.component';
+import {MatDialogRef, MatDialog} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-gamemaster-artefact-create',
@@ -22,15 +27,15 @@ export class GamemasterArtefactCreateComponent implements OnInit {
   quantity: number;
   skills: Skill[] = [];
   description: string;
-  icon: string = '';
+  icon = '';
 
 
   columns: ITdDataTableColumn[] = [
-    { name: 'name', label: 'Name', width: { min: 80 } },
-    { name: 'type', label: 'Type', width: { min: 40 } },
-    { name: 'value', label: 'Value', width: { min: 40 } },
-    { name: 'action', label: '', }
-  ]
+    {name: 'name', label: 'Name', width: {min: 80}},
+    {name: 'type', label: 'Type', width: {min: 40}},
+    {name: 'value', label: 'Value', width: {min: 40}},
+    {name: 'action', label: ''}
+  ];
 
   // Sort / Filter / Paginate variables
   filteredSkills: Skill[];
@@ -48,44 +53,51 @@ export class GamemasterArtefactCreateComponent implements OnInit {
     private artefactService: ArtefactService,
     private dialog: MatDialog,
     private skillServive: SkillService,
-    private _dataTableService: TdDataTableService
-  ) { }
+    private _dataTableService: TdDataTableService) {
+  }
 
   ngOnInit() {
     this.filter()
   }
 
   removeSkill(skill: Skill) {
-    this.skillServive.deleteSkill(skill).then()
-    this.skills.splice(this.skills.indexOf(skill))
-    this.filter()
+    this.skillServive.deleteSkill(skill).then();
+    this.skills.splice(this.skills.indexOf(skill));
+    this.filter();
   }
 
   createSkill() {
-    this.dialog.open(GamemasterSkillCreateComponent, { panelClass: 'dialog-sexy', width: "500px" }).afterClosed().subscribe(skill => {
-      if (skill != undefined) {
-        this.skills.push(skill)
-        this.filter()
-      }
-    });
+    this.dialog.open(GamemasterSkillCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
+      .subscribe(skill => {
+        if (skill !== undefined) {
+          this.skills.push(skill);
+          this.filter();
+        }
+      });
   }
 
   selectIcon() {
-    this.dialog.open(GamemasterIconSelectComponent, { data: this.icon, panelClass: 'dialog-sexy', width: "800px" }).afterClosed().subscribe(icon => {
-      if (icon != undefined) {
+    this.dialog.open(GamemasterIconSelectComponent, {
+      data: this.icon,
+      panelClass: 'dialog-sexy',
+      width: '800px'
+    }).afterClosed().subscribe(icon => {
+      if (icon !== undefined) {
         this.icon = icon
       }
     });
   }
 
   createArtefact() {
-
-    if (this.min == 0 || this.min == null) this.min = 1
-    if (this.quantity == 0 || this.quantity == null) this.quantity = 1
+    if (this.min === 0 || this.min == null) {
+      this.min = 1;
+    }
+    if (this.quantity === 0 || this.quantity == null) {
+      this.quantity = 1;
+    }
 
     if (this.name && this.min && this.price && this.quantity && this.skills.length > 0) {
-
-      let artefact = {
+      const artefact = {
         name: this.name,
         price: this.price,
         quantity: this.quantity,
@@ -95,7 +107,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
         minLevel: {
           min: this.min
         }
-      }
+      };
 
       this.artefactService.createArtefact(artefact).then(() => {
         this.artefactService.getData();

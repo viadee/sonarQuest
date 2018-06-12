@@ -1,24 +1,25 @@
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
-import {Http, RequestOptions, Response, Headers} from '@angular/http';
+import {RequestOptions, Response, Headers} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Quest} from '../Interfaces/Quest';
 import {World} from '../Interfaces/World';
 import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Task} from '../Interfaces/Task';
 
 @Injectable()
 export class QuestService {
 
   private questSubject;
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     this.questSubject = new Subject();
   }
 
   getQuestsForWorld(world: World): Observable<Quest[]> {
-    this.http.get(`${environment.endpoint}/quest/world/${world.id}`)
-      .map(this.extractData)
+    this.http.get<Quest[]>(`${environment.endpoint}/quest/world/${world.id}`)
       .subscribe(
         result => this.questSubject.next(result),
         err => this.questSubject.error(err)
@@ -27,28 +28,21 @@ export class QuestService {
   }
 
   getQuest(id: number): Promise<Quest> {
-    return this.http.get(`${environment.endpoint}/quest/${id}`)
+    return this.http.get<Quest>(`${environment.endpoint}/quest/${id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
 
   createQuest(quest: any): Promise<Quest> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/quest/`, quest, options)
+    return this.http.post<Quest>(`${environment.endpoint}/quest/`, quest)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
   updateQuest(quest: Quest): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.put(`${environment.endpoint}/quest/${quest.id}`, quest, options)
+    return this.http.put<Quest>(`${environment.endpoint}/quest/${quest.id}`, quest)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -58,32 +52,26 @@ export class QuestService {
   }
 
   addToWorld(quest: any, world: any): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addWorld/${world.id}`, null, options)
+    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addWorld/${world.id}`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  suggestTasksWithApproxXpAmountForWorld(world: World, xp: number) {
-    return this.http.get(`${environment.endpoint}/quest/suggestTasksForQuestByXpAmount/${world.id}/${xp}`)
+  suggestTasksWithApproxXpAmountForWorld(world: World, xp: number): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/quest/suggestTasksForQuestByXpAmount/${world.id}/${xp}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  suggestTasksWithApproxGoldAmountForWorld(world: World, gold: number) {
-    return this.http.get(`${environment.endpoint}/quest/suggestTasksForQuestByGoldAmount/${world.id}/${gold}`)
+  suggestTasksWithApproxGoldAmountForWorld(world: World, gold: number): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/quest/suggestTasksForQuestByGoldAmount/${world.id}/${gold}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
   getFreeQuestsForWorld(world: World): Promise<any> {
     return this.http.get(`${environment.endpoint}/quest/getAllFreeForWorld/${world.id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -102,13 +90,7 @@ export class QuestService {
   private getAllQuestsForWorldAndUser(world: World) {
     return this.http.get(`${environment.endpoint}/quest/getAllQuestsForWorldAndUser/${world.id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {
@@ -123,7 +105,6 @@ export class QuestService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
-
 
   identifyNewTasks(oldQuests: Quest[], currentQuests: Quest[]): Quest[] {
     return this.questDifference(currentQuests, oldQuests);
@@ -150,11 +131,8 @@ export class QuestService {
   }
 
   addToAdventure(quest: Quest, adventure: Adventure): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addAdventure/${adventure.id}`, null, options)
+    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addAdventure/${adventure.id}`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 

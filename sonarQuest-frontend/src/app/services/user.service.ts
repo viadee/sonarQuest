@@ -1,47 +1,86 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {User} from '../Interfaces/User';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response, ResponseContentType} from '@angular/http';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Subject} from 'rxjs/Subject';
+import {AuthenticationService} from '../login/authentication.service';
+import {Subscriber} from 'rxjs/Subscriber';
 
 @Injectable()
 export class UserService {
 
-  private userSubject: Subject<User> = new ReplaySubject(1);
-  public avatar$ = this.userSubject.asObservable();
+  private user: User;
+  private users: User[];
 
-  constructor(private httpClient: HttpClient,
-              private http: Http) {
+  listener: Subscriber<boolean>[] = [];
+
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
+    authenticationService.onLoginLogout().subscribe(() => {
+      if (authenticationService.isLoggedIn()) {
+        this.loadUser();
+        this.loadUsers();
+      } else {
+        console.log('Logout');
+      }
+    });
   }
 
-  public getUser(): Observable<User> {
-    const url = `${environment.endpoint}/user`;
-    this.httpClient.get<User>(url).subscribe(
-      user => this.userSubject.next(user),
-      err => this.userSubject.error(err));
+  public onUserChange(): Observable<boolean> {
+    return new Observable<boolean>(
+      observer => {
+        this.listener.push(observer);
+      }
+    );
+  }
 
-    return this.userSubject;
+  private onUserLoaded(): void {
+    this.listener.forEach(l => l.next(true));
+  }
+
+  public loadUser(): void {
+    const url = `${environment.endpoint}/user`;
+    this.httpClient.get<User>(url).subscribe(user => {
+      this.user = user;
+      this.onUserLoaded();
+    }, error1 => {
+      this.user = null;
+      this.onUserLoaded();
+    });
+  }
+
+  public getUser(): User {
+    return this.user;
+  }
+
+  public loadUsers(): void {
+    const url = `${environment.endpoint}/user/all`;
+    this.httpClient.get <User[]>(url).subscribe(users => this.users = users)
+  }
+
+  public getUsers(): User[] {
+    return this.users;
+  }
+
+  public setUsers(users: User[]): void {
+    this.users = users;
   }
 
   public getImage(): Observable<Blob> {
-    const url = `${environment.endpoint}/user/avator`;
-    return this.http
-      .get(url, {responseType: ResponseContentType.Blob})
-      .map((res: Response) => res.blob());
-  }
-
-  public getDevelopers(): Observable<User[]> {
-    const url = `${environment.endpoint}/user/all`;
-    return this.httpClient.get <User[]>(url);
+    const url = `${environment.endpoint}/user/avatar`;
+    return this.httpClient.get(url, {responseType: 'blob'});
   }
 
   public updateUser(user: User): Promise<User> {
-    console.log(user)
     const url = `${environment.endpoint}/user`;
     return this.httpClient.post<User>(url, user).toPromise();
+  }
+
+  public deleteUser(user: User): Promise<any> {
+    const url = `${environment.endpoint}/user/${user.id}`;
+    return this.httpClient.delete(url).toPromise()
   }
 
   public getLevel(xp: number): number {
@@ -56,7 +95,7 @@ export class UserService {
       xpForNextLevel = xpForNextLevel + step;
     }
 
-    //Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
+    // Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
     if (level === 200 || (xp < xpForNextLevel)) {
       return level
     } else {

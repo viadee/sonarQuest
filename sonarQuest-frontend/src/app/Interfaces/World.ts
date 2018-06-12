@@ -1,4 +1,4 @@
-export interface World{
+export interface World {
   id: number,
   name: string,
   project: string,

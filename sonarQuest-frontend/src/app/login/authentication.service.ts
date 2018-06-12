@@ -18,12 +18,10 @@ export class AuthenticationService {
               private storageService: LocalStorageService) {
   }
 
-  public login(username, password): Observable<void> {
-
-    return new Observable<void>(observer => {
+  public login(username, password): void {
+    new Observable<void>(observer => {
       const body = JSON.stringify({username, password});
       const url = `${environment.endpoint}/login`;
-
       this.http.post(url, body, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
         responseType: 'json',
@@ -39,7 +37,7 @@ export class AuthenticationService {
       }, err => {
         observer.error(err);
       });
-    });
+    }).subscribe();
   }
 
   public logout(): void {

@@ -1,7 +1,5 @@
 import {TranslateService} from '@ngx-translate/core';
 import {ParticipationService} from './../../../../services/participation.service';
-import {Developer} from './../../../../Interfaces/Developer.d';
-import {DeveloperService} from './../../../../services/developer.service';
 import {WorldService} from './../../../../services/world.service';
 import {MatDialog} from '@angular/material';
 import {QuestService} from './../../../../services/quest.service';
@@ -12,12 +10,10 @@ import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent
 } from '@covalent/core';
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Quest} from '../../../../Interfaces/Quest';
 import {ViewAvailableQuestComponent} from './components/view-available-quest/view-available-quest.component';
 import {World} from '../../../../Interfaces/World';
-import {UserService} from '../../../../services/user.service';
-import {User} from '../../../../Interfaces/User';
 
 @Component({
   selector: 'app-available-quests',
@@ -35,11 +31,11 @@ export class AvailableQuestsComponent implements OnInit {
     {name: 'adventure.title', label: 'Adventure', width: {min: 80}},
     {name: 'status', label: 'Status', width: {min: 60}},
     {name: 'edit', label: '', width: {min: 60}}
-  ]
+  ];
 
   // Sort / Filter / Paginate variables
-  filteredData: any[]
-  filteredTotal: number
+  filteredData: any[];
+  filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
@@ -48,13 +44,11 @@ export class AvailableQuestsComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
-  user: User;
   currentWorld: World;
 
   constructor(
     private questService: QuestService,
     private worldService: WorldService,
-    private userService: UserService,
     private _dataTableService: TdDataTableService,
     private participationService: ParticipationService,
     private translateService: TranslateService,
@@ -73,23 +67,12 @@ export class AvailableQuestsComponent implements OnInit {
         {name: 'edit', label: ''}]
     });
 
-    this.userService.avatar$.subscribe({
-      next: user => {
-        this.user = user;
-        this.loadQuests();
-      }
-    });
-
-    this.worldService.currentWorld$.subscribe({
-      next: world => {
-        this.currentWorld = world;
-        this.loadQuests();
-      }
-    });
+    this.currentWorld = this.worldService.getCurrentWorld();
+    this.loadQuests();
   }
 
   loadQuests() {
-    if (this.currentWorld && this.user) {
+    if (this.currentWorld) {
       return this.questService.getAllAvailableQuestsForWorldAndUser(this.currentWorld).then(quests => {
         this.availableQuests = quests;
       }).then(() => {

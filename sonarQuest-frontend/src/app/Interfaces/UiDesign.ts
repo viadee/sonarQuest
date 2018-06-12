@@ -1,12 +1,7 @@
+import {User} from './User';
 
-
-export interface Developer {
+export interface UiDesign {
   id: number,
-  username: string
+  name: string,
+  user: User
 }
-
-export interface UiDesign{
-    id: number,
-    name: string,
-    developer: Developer
-  }

@@ -1,26 +1,25 @@
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
-import {RequestOptions, Http, Response, Headers} from '@angular/http';
+import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Skill} from './../Interfaces/Skill';
 import {Injectable} from '@angular/core';
-import {Artefact} from '../Interfaces/Developer';
+import {Artefact} from '../Interfaces/Artefact';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class SkillService {
 
   private skillsSubject: Subject<Skill[]> = new ReplaySubject(1);
-  skills$ = this.skillsSubject.asObservable();
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     this.getSkills();
   }
 
 
   getSkills(): Observable<Skill[]> {
-    this.http.get(`${environment.endpoint}/skill/`)
-      .map(this.extractData)
+    this.http.get<Skill[]>(`${environment.endpoint}/skill/`)
       .subscribe(
         result => this.skillsSubject.next(result),
         err => this.skillsSubject.error(err)
@@ -29,11 +28,8 @@ export class SkillService {
   }
 
   getSkillsForArtefact(artefact: Artefact): Promise<Skill[]> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.get(`${environment.endpoint}/skill/artefact/${artefact.id}`)
+    return this.http.get<Skill[]>(`${environment.endpoint}/skill/artefact/${artefact.id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -43,17 +39,9 @@ export class SkillService {
   }
 
   createSkill(skill: any): Promise<Skill> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/skill/`, skill, options)
+    return this.http.post<Skill>(`${environment.endpoint}/skill/`, skill)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {

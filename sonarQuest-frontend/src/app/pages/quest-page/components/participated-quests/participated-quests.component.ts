@@ -1,10 +1,8 @@
 import {TranslateService} from '@ngx-translate/core';
 import {World} from './../../../../Interfaces/World';
-import {Developer} from './../../../../Interfaces/Developer.d';
 import {ViewParticipatedQuestComponent} from './components/view-participated-quest/view-participated-quest.component';
 import {ParticipationService} from './../../../../services/participation.service';
 import {MatDialog} from '@angular/material';
-import {DeveloperService} from './../../../../services/developer.service';
 import {WorldService} from './../../../../services/world.service';
 import {QuestService} from './../../../../services/quest.service';
 import {
@@ -16,8 +14,6 @@ import {
 } from '@covalent/core';
 import {Quest} from './../../../../Interfaces/Quest';
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../../../services/user.service';
-import {User} from '../../../../Interfaces/User';
 
 @Component({
   selector: 'app-participated-quests',
@@ -35,11 +31,11 @@ export class ParticipatedQuestsComponent implements OnInit {
     {name: 'adventure.title', label: 'Adventure', width: {min: 80}},
     {name: 'status', label: 'Status', width: {min: 60}},
     {name: 'edit', label: '', width: {min: 60}}
-  ]
+  ];
 
   // Sort / Filter / Paginate variables
-  filteredData: any[]
-  filteredTotal: number
+  filteredData: any[];
+  filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
@@ -49,12 +45,10 @@ export class ParticipatedQuestsComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   currentWorld: World;
-  user: User;
 
   constructor(
     private questService: QuestService,
     private worldService: WorldService,
-    private userService: UserService,
     private participationService: ParticipationService,
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
@@ -74,23 +68,12 @@ export class ParticipatedQuestsComponent implements OnInit {
         {name: 'edit', label: ''}]
     });
 
-    this.userService.avatar$.subscribe({
-      next: user => {
-        this.user = user;
-        this.loadQuests();
-      }
-    });
-
-    this.worldService.currentWorld$.subscribe({
-      next: world => {
-        this.currentWorld = world;
-        this.loadQuests();
-      }
-    });
+    this.currentWorld = this.worldService.getCurrentWorld();
+    this.loadQuests();
   }
 
   loadQuests() {
-    if (this.currentWorld && this.user) {
+    if (this.currentWorld) {
       return this.questService.getAllParticipatedQuestsForWorldAndUser(this.currentWorld).then(quests => {
         this.participatedQuests = quests;
       }).then(() => {

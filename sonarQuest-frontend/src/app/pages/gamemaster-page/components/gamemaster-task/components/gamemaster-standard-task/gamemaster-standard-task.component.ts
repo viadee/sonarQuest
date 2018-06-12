@@ -1,16 +1,16 @@
-import { TranslateService } from '@ngx-translate/core';
-import { World } from './../../../../../../Interfaces/World';
-import { WorldService } from './../../../../../../services/world.service';
-import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {World} from './../../../../../../Interfaces/World';
+import {WorldService} from './../../../../../../services/world.service';
+import {Component, OnInit} from '@angular/core';
 import {
   IPageChangeEvent,
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder
-} from "@covalent/core";
-import {MatDialog} from "@angular/material";
-import {StandardTaskService} from "../../../../../../services/standard-task.service";
-import {GamemasterStandardTaskCreateComponent} from "./components/gamemaster-standard-task-create/gamemaster-standard-task-create.component";
-import {GamemasterStandardTaskEditComponent} from "./components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component";
+} from '@covalent/core';
+import {MatDialog} from '@angular/material';
+import {StandardTaskService} from '../../../../../../services/standard-task.service';
+import {GamemasterStandardTaskCreateComponent} from './components/gamemaster-standard-task-create/gamemaster-standard-task-create.component';
+import {GamemasterStandardTaskEditComponent} from './components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 
 @Component({
   selector: 'app-gamemaster-standard-task',
@@ -21,19 +21,19 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
-    { name: 'id', label: 'Id',width:50},
-    { name: 'title', label: 'Title', width:400},
-    { name: 'gold', label: 'Gold', width:50},
-    { name: 'xp', label: 'XP', width:50},
-    { name: 'type', label: 'Type'},
-    { name: 'quest.title', label: 'Quest'},
-    { name: 'status', label: 'Status'},
-    { name: 'edit', label: ''}
-  ]
+    {name: 'id', label: 'Id', width: 50},
+    {name: 'title', label: 'Title', width: 400},
+    {name: 'gold', label: 'Gold', width: 50},
+    {name: 'xp', label: 'XP', width: 50},
+    {name: 'type', label: 'Type'},
+    {name: 'quest.title', label: 'Quest'},
+    {name: 'status', label: 'Status'},
+    {name: 'edit', label: ''}
+  ];
 
   // Sort / Filter / Paginate variables
-  filteredData: any[] = this.data
-  filteredTotal: number = this.data.length
+  filteredData: any[] = this.data;
+  filteredTotal: number = this.data.length;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
@@ -49,52 +49,63 @@ export class GamemasterStandardTaskComponent implements OnInit {
     private _dataTableService: TdDataTableService,
     private worldService: WorldService,
     private translateService: TranslateService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.translateTable();
-    this.worldService.currentWorld$.subscribe(w => {
-      this.currentWorld = w
-      if (w) this.loadTasks();
-    })
+    this.currentWorld = this.worldService.getCurrentWorld();
+    this.loadTasks();
   }
-    
-  private translateTable(){
-      this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
-      this.columns=[
-            { name: 'id', label: col_names.ID, width:50},
-            { name: 'title', label: col_names.TITLE, width:400},
-            { name: 'gold', label: col_names.GOLD, width:50},
-            { name: 'xp', label: col_names.XP, width:50},
-            { name: 'type', label: col_names.TYPE},
-            { name: 'quest.title', label: col_names.QUEST},
-            { name: 'status', label: col_names.STATUS},
-            { name: 'edit', label: '', width: 70}
-        ]
-    });
-  }      
 
-  loadTasks(){
+  private translateTable() {
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.columns = [
+        {name: 'id', label: col_names.ID, width: 50},
+        {name: 'title', label: col_names.TITLE, width: 400},
+        {name: 'gold', label: col_names.GOLD, width: 50},
+        {name: 'xp', label: col_names.XP, width: 50},
+        {name: 'type', label: col_names.TYPE},
+        {name: 'quest.title', label: col_names.QUEST},
+        {name: 'status', label: col_names.STATUS},
+        {name: 'edit', label: '', width: 70}
+      ]
+    });
+  }
+
+  loadTasks() {
     this.standardTaskService.getStandardTasksForWorld(this.currentWorld).subscribe(tasks => {
       this.data = tasks;
       this.filter();
     });
   }
 
-  editStandardTask(standardTask){
-    this.dialog.open(GamemasterStandardTaskEditComponent,{panelClass: 'dialog-sexy', width:"500px", data: standardTask}).afterClosed().subscribe((bool)=> {
-      if (bool) this.loadTasks()
+  editStandardTask(standardTask) {
+    this.dialog.open(GamemasterStandardTaskEditComponent, {
+      panelClass: 'dialog-sexy',
+      width: '500px',
+      data: standardTask
+    }).afterClosed().subscribe((bool) => {
+      if (bool) {
+        this.loadTasks();
+      }
     });
   }
 
-  newStandardTask(){
-    this.dialog.open(GamemasterStandardTaskCreateComponent,{panelClass: 'dialog-sexy', data: this.currentWorld, width:"500px"}).afterClosed().subscribe((bool)=> {
-      if (bool) this.loadTasks()
+  newStandardTask() {
+    this.dialog.open(GamemasterStandardTaskCreateComponent, {
+      panelClass: 'dialog-sexy',
+      data: this.currentWorld,
+      width: '500px'
+    }).afterClosed().subscribe((bool) => {
+      if (bool) {
+        this.loadTasks();
+      }
     });
   }
 
-  refreshStandardTasks(){
-    this.standardTaskService.refreshStandardTask(this.currentWorld).then(()=>{
+  refreshStandardTasks() {
+    this.standardTaskService.refreshStandardTask(this.currentWorld).then(() => {
       this.standardTaskService.getStandardTasksForWorld(this.currentWorld);
     })
   }
@@ -122,7 +133,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

@@ -1,9 +1,9 @@
-import { Developer } from './../../../../../../Interfaces/Developer.d';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { AdminDeveloperComponent } from './../../admin-developer.component';
-import { MatDialogRef } from '@angular/material';
-import { DeveloperService } from './../../../../../../services/developer.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {AdminDeveloperComponent} from './../../admin-developer.component';
+import {MatDialogRef} from '@angular/material';
+import {Component, OnInit, Inject} from '@angular/core';
+import {UserService} from '../../../../../../services/user.service';
+import {User} from '../../../../../../Interfaces/User';
 
 @Component({
   selector: 'app-admin-developer-delete',
@@ -14,20 +14,21 @@ export class AdminDeveloperDeleteComponent implements OnInit {
 
 
   constructor(
-    private developerService: DeveloperService,
+    private userService: UserService,
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
-    @Inject(MAT_DIALOG_DATA) public developer: Developer
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public user: User
+  ) {
+  }
 
   ngOnInit() {
   }
 
-  cancel(){
+  cancel() {
     this.dialogRef.close(false)
   }
 
-  delete(){
-    this.developerService.deleteDeveloper(this.developer).then(()=>{
+  delete() {
+    this.userService.deleteUser(this.user).then(() => {
       this.dialogRef.close(true)
     })
   }

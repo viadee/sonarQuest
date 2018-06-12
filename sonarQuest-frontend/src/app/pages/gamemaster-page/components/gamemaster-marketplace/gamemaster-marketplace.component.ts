@@ -1,10 +1,16 @@
-import { GamemasterArtefactEditComponent } from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
-import { MatDialog } from '@angular/material';
-import { GamemasterArtefactCreateComponent } from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
-import { ITdDataTableSortChangeEvent, IPageChangeEvent, ITdDataTableColumn, TdDataTableSortingOrder, TdDataTableService } from '@covalent/core';
-import { ArtefactService } from './../../../../services/artefact.service';
-import { Artefact } from './../../../../Interfaces/Developer.d';
-import { Component, OnInit } from '@angular/core';
+import {GamemasterArtefactEditComponent} from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
+import {MatDialog} from '@angular/material';
+import {GamemasterArtefactCreateComponent} from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
+import {
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+  ITdDataTableColumn,
+  TdDataTableSortingOrder,
+  TdDataTableService
+} from '@covalent/core';
+import {ArtefactService} from './../../../../services/artefact.service';
+import {Component, OnInit} from '@angular/core';
+import {Artefact} from '../../../../Interfaces/Artefact';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -16,21 +22,19 @@ export class GamemasterMarketplaceComponent implements OnInit {
 
   artefacts: Artefact[];
 
-
   columns: ITdDataTableColumn[] = [
-    { name: 'icon',         label: ''},
-    { name: 'name',         label: 'name'},
-    { name: 'price',        label: 'Price (in Gold)'},
-    { name: 'quantity',     label: 'Quantity'},
-    { name: 'minLevel.min', label: 'min. Level'},
-    { name: 'skills',       label: 'Skills'},
-    { name: 'edit',         label: ''}
-  ]
-
+    {name: 'icon', label: ''},
+    {name: 'name', label: 'name'},
+    {name: 'price', label: 'Price (in Gold)'},
+    {name: 'quantity', label: 'Quantity'},
+    {name: 'minLevel.min', label: 'min. Level'},
+    {name: 'skills', label: 'Skills'},
+    {name: 'edit', label: ''}
+  ];
 
   // Sort / Filter / Paginate variables
-  filteredData: any[]
-  filteredTotal: number
+  filteredData: any[];
+  filteredTotal: number;
   searchTerm = '';
   fromRow = 1;
   currentPage = 1;
@@ -40,27 +44,33 @@ export class GamemasterMarketplaceComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   constructor(
-    private _dataTableService:  TdDataTableService,
-    private artefactService:    ArtefactService,
-    private dialog:             MatDialog 
-  ) { }
+    private _dataTableService: TdDataTableService,
+    private artefactService: ArtefactService,
+    private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.artefactService.artefacts$.subscribe(artefacts => {
-      this.artefacts = artefacts
-      this.filter()
+      this.artefacts = artefacts;
+      this.filter();
     })
   }
 
 
-  newArtefact(){
-    this.dialog.open(GamemasterArtefactCreateComponent,{panelClass: 'dialog-sexy', width:"500px"}).afterClosed().subscribe(()=>{});
+  newArtefact() {
+    this.dialog.open(GamemasterArtefactCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
+      .subscribe(() => {
+      });
   }
 
-  editArtefact(artefact: Artefact){
-    this.dialog.open(GamemasterArtefactEditComponent,{panelClass: 'dialog-sexy', data:artefact, width:"500px"}).afterClosed().subscribe(()=>{});
+  editArtefact(artefact: Artefact) {
+    this.dialog.open(GamemasterArtefactEditComponent, {
+      panelClass: 'dialog-sexy',
+      data: artefact,
+      width: '500px'
+    }).afterClosed().subscribe(() => {
+    });
   }
-
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
@@ -85,7 +95,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });
@@ -95,6 +105,4 @@ export class GamemasterMarketplaceComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
   }
-
-
 }

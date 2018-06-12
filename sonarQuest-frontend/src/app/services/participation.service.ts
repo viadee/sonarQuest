@@ -1,9 +1,10 @@
 import {Subject} from 'rxjs/Subject';
-import {RequestOptions, Headers, Response} from '@angular/http';
-import {Http} from '@angular/http';
+import {Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Quest} from '../Interfaces/Quest';
 import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Participation} from '../Interfaces/Participation';
 
 @Injectable()
 export class ParticipationService {
@@ -11,25 +12,17 @@ export class ParticipationService {
   private participationUpdateSource = new Subject<string>();
   participationUpdated$ = this.participationUpdateSource.asObservable();
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
   }
 
-  createParticipation(quest: Quest): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/participation/${quest.id}`, options)
+  createParticipation(quest: Quest): Promise<Participation> {
+    return this.http.post<Participation>(`${environment.endpoint}/participation/${quest.id}`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
   announceParticipationUpdate() {
     this.participationUpdateSource.next();
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {

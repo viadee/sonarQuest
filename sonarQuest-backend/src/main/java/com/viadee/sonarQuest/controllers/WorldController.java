@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,18 +34,24 @@ public class WorldController {
         return this.worldRepository.findAll();
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
     public World getCurrentWorld(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());
         return user.getWorlds().stream().findAny().orElse(null);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/worlds", method = RequestMethod.GET)
+    public List<World> getWorlds(final Principal principal) {
+        final User user = userService.findByUsername(principal.getName());
+        return user.getWorlds();
+    }
+
+    @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public World getWorldById(@PathVariable(value = "id") final Long id) {
         return worldRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/world/{id}", method = RequestMethod.PUT)
     public World updateWorld(@PathVariable(value = "id") final Long id, @RequestBody final World data) {
         World world = this.worldRepository.findOne(id);
         if (world != null) {
@@ -57,8 +62,7 @@ public class WorldController {
         return world;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/{id}/image", method = RequestMethod.PUT)
+    @RequestMapping(value = "/world/{id}/image", method = RequestMethod.PUT)
     public World updateBackground(@PathVariable(value = "id") final Long id, @RequestBody final String image) {
         World world = this.worldRepository.findOne(id);
         if (world != null) {

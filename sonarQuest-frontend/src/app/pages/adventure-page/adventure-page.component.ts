@@ -10,7 +10,6 @@ import {AdventureService} from '../../services/adventure.service';
 import {WorldService} from '../../services/world.service';
 import {Adventure} from '../../Interfaces/Adventure';
 import {World} from '../../Interfaces/World';
-import {User} from '../../Interfaces/User';
 import {UserService} from '../../services/user.service';
 
 @Component({
@@ -21,7 +20,6 @@ import {UserService} from '../../services/user.service';
 
 export class AdventurePageComponent implements OnInit {
 
-  public user: User;
   public currentWorld: World;
 
   columns: ITdDataTableColumn[] = [
@@ -68,24 +66,12 @@ export class AdventurePageComponent implements OnInit {
         {name: 'edit', label: ''}]
     });
 
-    this.userService.avatar$.subscribe({
-      next: user => {
-        this.user = user;
-        this.loadAdventures();
-      }
-    })
-
-    this.worldService.currentWorld$.subscribe({
-      next: world => {
-        this.currentWorld = world;
-        this.loadAdventures();
-      }
-    })
-
+    this.currentWorld = this.worldService.getCurrentWorld();
+    this.loadAdventures();
   }
 
   loadAdventures() {
-    if (this.currentWorld && !isUndefined(this.currentWorld.id) && this.user) {
+    if (this.currentWorld && !isUndefined(this.currentWorld.id) && this.userService.getUser()) {
       this.adventureService.getFreeAdventures(this.currentWorld).subscribe(availableAdventures => {
         this.availableAdventures = availableAdventures
         this.filteredAvailableAdventures = this.filterAdventures(this.availableAdventures);

@@ -9,22 +9,19 @@ import 'rxjs/add/operator/publishLast';
 import 'rxjs/add/operator/share';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {StandardTask} from '../Interfaces/StandardTask';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class StandardTaskService {
 
   private standardTaskSubject;
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     this.standardTaskSubject = new ReplaySubject(1);
   }
 
   getStandardTasksForWorld(world: World): Observable<StandardTask[]> {
-    this.http.get(`${environment.endpoint}/task/world/${world.id}`)
-      .map(response => {
-        let tasks = this.extractData(response);
-        return tasks[1];
-      }).subscribe(
+    this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`).subscribe(
       result => this.standardTaskSubject.next(result),
       err => this.standardTaskSubject.error(err)
     )
@@ -32,29 +29,21 @@ export class StandardTaskService {
   }
 
   updateStandardTask(task: any): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.put(`${environment.endpoint}/task/${task.id}`, task, options)
+    return this.http.put<StandardTask>(`${environment.endpoint}/task/${task.id}`, task)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
   refreshStandardTask(world: World): Promise<any> {
-    return this.http.get(`${environment.endpoint}/task/updateStandardTasks/${world.id}`).toPromise().catch(this.handleError)
+    return this.http.get<StandardTask>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
+      .toPromise().catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
-  }
-
-  createStandardTask(standardTask: any): Promise<any> {
+  createStandardTask(standardTask: any): Promise<StandardTask> {
     standardTask.world.quests = [];
     standardTask.world.tasks = [];
-    return this.http.post(`${environment.endpoint}/task/standard`, standardTask)
+    return this.http.post<StandardTask>(`${environment.endpoint}/task/standard`, standardTask)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 

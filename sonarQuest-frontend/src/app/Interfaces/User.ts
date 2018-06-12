@@ -1,8 +1,11 @@
-import {Artefact, AvatarClass, AvatarRace, Level} from './Developer';
 import {Role} from './Role';
+import {Level} from './Level';
+import {Artefact} from './Artefact';
+import {AvatarClass} from './AvatarClass';
+import {AvatarRace} from './AvatarRace';
 
 export interface User {
-  id: number,
+  id?: number,
   username: string,
   role: Role,
   picture?: string,
@@ -14,3 +17,6 @@ export interface User {
   level?: Level,
   artefacts?: Artefact[],
 }
+
+
+

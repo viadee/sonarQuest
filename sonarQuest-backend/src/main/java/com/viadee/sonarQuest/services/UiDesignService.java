@@ -13,7 +13,7 @@ public class UiDesignService {
     @Autowired
     private UiDesignRepository uiDesignRepository;
 
-    public UiDesign createUiDesign(final User user, final String name) {
+    private UiDesign createUiDesign(final User user, final String name) {
         final UiDesign ui = new UiDesign();
         ui.setName(name);
         ui.setUser(user);

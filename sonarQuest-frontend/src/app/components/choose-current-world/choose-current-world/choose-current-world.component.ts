@@ -1,11 +1,9 @@
 import {AppComponent} from './../../../app.component';
 import {ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableSortingOrder, TdDataTableService} from '@covalent/core';
-import {Developer} from './../../../Interfaces/Developer.d';
-import {DeveloperService} from './../../../services/developer.service';
 import {World} from './../../../Interfaces/World';
 import {WorldService} from './../../../services/world.service';
-import {Component, OnInit, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-choose-current-world',
@@ -15,7 +13,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class ChooseCurrentWorldComponent implements OnInit {
 
   worlds: World[];
-  developer: Developer;
 
   filteredData: any[];
   filteredTotal: number;
@@ -36,21 +33,18 @@ export class ChooseCurrentWorldComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AppComponent>,
     public worldService: WorldService,
-    public developerService: DeveloperService,
     private _dataTableService: TdDataTableService
   ) {
   }
 
   ngOnInit() {
-    this.worldService.worlds$.subscribe(worlds => {
-      this.worlds = worlds;
-      this.filter()
-    });
-    this.developerService.avatar$.subscribe(d => this.developer = d);
+    this.worlds = this.worldService.getWorlds();
+    this.filter();
   }
 
   choose(world: World) {
-    this.developerService.updateCurrentWorldToDeveloper(world, this.developer)
+    // TODO
+    console.log('Eine Welt wurde ausgewählt. Nun sollte irgendetwas gemacht werden');
     this.dialogRef.close();
   }
 

@@ -31,12 +31,32 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    private User findById(final Long id) {
+        return userRepository.findOne(id);
+    }
+
     public User save(final User user) {
-        return user.getId() != null || usernameFree(user.getUsername()) ? userRepository.saveAndFlush(user) : null;
+        User toBeSaved = null;
+        if (user.getId() == null) {
+            toBeSaved = usernameFree(user.getUsername()) ? user : null;
+        } else {
+            toBeSaved = findById(user.getId());
+            if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(toBeSaved.getUsername())) {
+                toBeSaved.setUsername(user.getUsername());
+            }
+            toBeSaved.setAboutMe(user.getAboutMe());
+            toBeSaved.setPicture(user.getPicture());
+        }
+
+        return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
     }
 
     private boolean usernameFree(final String username) {
         return userRepository.findByUsername(username) == null;
+    }
+
+    public void delete(final User user) {
+        userRepository.delete(user);
     }
 
     public User findById(final long userId) {

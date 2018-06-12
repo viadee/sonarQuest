@@ -110,6 +110,20 @@ public class TaskController {
         return taskDtos;
     }
 
+    @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
+    public List<TaskDto> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+        final World w = worldRepository.findOne(world_id);
+        return specialTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
+                .collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
+    public List<TaskDto> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+        final World w = worldRepository.findOne(world_id);
+        return standardTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
+                .collect(Collectors.toList());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public TaskDto getTaskById(@PathVariable(value = "id") final Long id) {
         final Task task = taskRepository.findById(id);

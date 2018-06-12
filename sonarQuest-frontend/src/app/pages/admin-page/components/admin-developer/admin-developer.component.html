@@ -3,7 +3,7 @@
 <mat-card-content>
   <div layout="row">
     <div flex></div>
-    <button mat-raised-button color="primary" (click)="createDeveloper()">
+    <button mat-raised-button color="primary" (click)="createUser()">
       <mat-icon class="icon">add</mat-icon>{{'ADMIN_PAGE.CREATE_DEVELOPER' | translate}}
     </button>
   </div>
@@ -12,10 +12,10 @@
     [sortOrder]="sortOrder" (sortChange)="sort($event)">
     <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
       <div layout="row">
-        <button mat-icon-button (click)="editDeveloper(row)">
+        <button mat-icon-button (click)="editUser(row)">
           <mat-icon class="icon">mode_edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteDeveloper(row)">
+        <button mat-icon-button (click)="deleteUser(row)">
           <mat-icon class="icon">delete</mat-icon>
         </button>
       </div>

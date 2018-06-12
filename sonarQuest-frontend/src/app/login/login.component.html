@@ -10,7 +10,8 @@
                required>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder='{{"LOGIN.PASSWORD"| translate}}'
+        <input matInput [type]="'password'"
+               placeholder='{{"LOGIN.PASSWORD"| translate}}'
                formControlName="password"
                required>
       </mat-form-field>

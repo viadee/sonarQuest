@@ -1,7 +1,7 @@
 import {Quest} from './../Interfaces/Quest';
 import {Task} from './../Interfaces/Task';
 import {Injectable} from '@angular/core';
-import {Http, RequestOptions, Response, Headers} from '@angular/http';
+import {Response} from '@angular/http';
 
 import {environment} from '../../environments/environment';
 import {World} from '../Interfaces/World';
@@ -9,34 +9,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {StandardTaskService} from './standard-task.service';
 import {SpecialTaskService} from './special-task.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class TaskService {
 
-  constructor(public http: Http,
+  constructor(public http: HttpClient,
               private standardTaskService: StandardTaskService,
-              private specialTaskService: SpecialTaskService,) {
+              private specialTaskService: SpecialTaskService) {
   }
 
-  /*  getTasks(): Observable<any> {
-     return this.http.get(`${environment.endpoint}/task`)
-       .map(this.extractData).catch(this.handleError)
-
-   } */
-
-  getFreeTasksForWorld(world: World): Promise<any> {
-    return this.http.get(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
+  getFreeTasksForWorld(world: World): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  addToQuest(task: any, quest: any): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${environment.endpoint}/task/${task.id}/addToQuest/${quest.id}`, null, options)
+  addToQuest(task: any, quest: any): Promise<Task> {
+    return this.http.post<Task>(`${environment.endpoint}/task/${task.id}/addToQuest/${quest.id}`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -45,13 +36,9 @@ export class TaskService {
       .toPromise()
   }
 
-
-  updateTask(task: any): Promise<any> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-    return this.http.put(`${environment.endpoint}/task/${task.id}`, task, options)
+  updateTask(task: any): Promise<Task> {
+    return this.http.put<Task>(`${environment.endpoint}/task/${task.id}`, task)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -60,10 +47,9 @@ export class TaskService {
     this.specialTaskService.getSpecialTasksForWorld(world);
   }
 
-  updateStandardTasksForWorld(world: World) {
-    return this.http.get(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
+  updateStandardTasksForWorld(world: World): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -85,10 +71,9 @@ export class TaskService {
     return [newTasks, deselectedTasks];
   }
 
-  addParticipation(task: Task, quest: Quest) {
-    return this.http.post(`${environment.endpoint}/task/${task.id}/addParticipation/${quest.id}`, null)
+  addParticipation(task: Task, quest: Quest): Promise<Task> {
+    return this.http.post<Task>(`${environment.endpoint}/task/${task.id}/addParticipation/${quest.id}`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -97,14 +82,8 @@ export class TaskService {
       .toPromise()
   }
 
-
   private taskDifference(array1: Array<Task>, array2: Array<Task>) {
     return array1.filter(x => !array2.includes(x));
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {

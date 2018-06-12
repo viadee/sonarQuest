@@ -2,30 +2,30 @@ import {UiDesignService} from './services/ui-design.service';
 import {MatDialog} from '@angular/material';
 import {ChooseCurrentWorldComponent} from './components/choose-current-world/choose-current-world/choose-current-world.component';
 import {isUndefined} from 'util';
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TdMediaService} from '@covalent/core';
 import {Router} from '@angular/router';
 import {WorldService} from './services/world.service';
 import {World} from './Interfaces/World';
 import {TranslateService} from '@ngx-translate/core';
 import {UiDesign} from './Interfaces/UiDesign';
-import {User} from './Interfaces/User';
 import {AuthenticationService} from './login/authentication.service';
 import {LoginComponent} from './login/login.component';
 import {UserService} from './services/user.service';
+import {User} from './Interfaces/User';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
-  public user: User;
   public currentWorld: World;
   public worlds: World[];
   public pageNames: any;
   public selected;
+  protected user: User;
   private ui: UiDesign;
 
   constructor(
@@ -46,42 +46,51 @@ export class AppComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.authService.login(result.username, result.password)
-          .subscribe(() => {
-            this.userService.getUser().subscribe(user => {
-              this.user = user;
-              this.init();
-            });
-          });
+        this.authService.login(result.username, result.password);
       }
     });
   }
 
   protected logout(): void {
-    this.user = null;
     this.authService.logout();
-    // TODO Clear all
+    this.userService.loadUser();
+    this.worlds = null;
+    this.currentWorld = null;
+    this.selected = null;
+    this.ui.name = '';
+    this.router.navigateByUrl('/');
   }
 
-  private init() {
-    this.worldService.loadWorlds();
-    this.worldService.worlds$.subscribe(worlds => {
-      this.worlds = worlds;
-      this.setSelected();
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.userService.loadUser();
+    }
+    this.userService.onUserChange().subscribe(() => {
+      this.user = this.userService.getUser();
     });
+    this.worldService.onWorldChange().subscribe(() => {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.initWorld();
+    });
+    this.worldService.onWorldsChanged().subscribe(() => {
+      this.worlds = this.worldService.getWorlds();
+      this.initWorld();
+    })
+  }
 
-    this.worldService.currentWorld$.subscribe(world => {
-      if (world && !isUndefined(world.id)) {
-        const image = world.image || 'bg01';
+  private initWorld() {
+    if (this.currentWorld && this.worlds) {
+      this.setSelected();
+
+      if (!isUndefined(this.currentWorld.id)) {
+        const image = this.currentWorld.image || 'bg01';
         this.changebackground(image);
-
         this.setDesign();
-        this.currentWorld = world;
         this.setSelected();
       } else {
         this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
-    });
+    }
   }
 
   setSelected() {
@@ -136,17 +145,16 @@ export class AppComponent implements AfterViewInit {
   }
 
   setDesign() {
-    this.uiDesignService.ui$.subscribe(ui => {
-      if (ui) {
-        this.ui = ui;
-      } else {
-        this.ui.name = '';
-      }
+    const currentUi = this.uiDesignService.getUiDesign();
+    if (currentUi) {
+      this.ui = currentUi;
+    } else {
+      this.ui.name = '';
+    }
 
-      const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-      const className = body.className;
-      body.className = className + ' ' + this.ui.name;
-    })
+    const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+    const className = body.className;
+    body.className = className + ' ' + this.ui.name;
   }
 
   toggleDesign() {
@@ -163,7 +171,6 @@ export class AppComponent implements AfterViewInit {
       body.className = this.removeSubString(body.className, dark) + ' ' + light;
       this.uiDesignService.updateUiDesign(light);
     }
-
   }
 
   removeSubString(fullString: string, removeString: string): string {
@@ -171,6 +178,5 @@ export class AppComponent implements AfterViewInit {
     newString = newString.replace('  ', ' ');
     return newString;
   }
-
 
 }

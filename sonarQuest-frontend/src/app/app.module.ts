@@ -23,8 +23,6 @@ import {
 } from '@angular/material';
 import {MyAvatarPageComponent} from './pages/my-avatar-page/my-avatar-page.component';
 import {AdventurePageComponent} from './pages/adventure-page/adventure-page.component';
-import {DeveloperService} from './services/developer.service';
-import {HttpModule} from '@angular/http';
 import {WorldService} from './services/world.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GamemasterPageComponent} from './pages/gamemaster-page/gamemaster-page.component';
@@ -57,7 +55,7 @@ import {ViewAvailableQuestComponent} from './pages/quest-page/components/availab
 import {ParticipationService} from './services/participation.service';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AdminDeveloperComponent} from './pages/admin-page/components/admin-developer/admin-developer.component';
 import {AdminDeveloperCreateComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-create/admin-developer-create.component';
 import {AdminDeveloperEditComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
@@ -77,6 +75,9 @@ import {AuthenticationService} from './login/authentication.service';
 import {LocalStorageService} from './login/local-storage.service';
 import {AuthenticationGuard} from './login/authentication.guard';
 import {UserService} from './services/user.service';
+import {AuthenticationInterceptor} from './login/authentication.interceptor';
+import {ImageService} from './services/image.service';
+import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -130,6 +131,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminSonarCubeComponent,
     AdminSonarCubeSelectBackgroundComponent,
     LoginComponent,
+    EmptyPageComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -156,7 +158,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AvatarEditComponent,
     GamemasterIconSelectComponent,
     AdminSonarCubeSelectBackgroundComponent,
-    LoginComponent
+    LoginComponent,
+    EmptyPageComponent
   ],
   imports: [
     BrowserModule,
@@ -181,7 +184,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    HttpModule,
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
@@ -196,7 +198,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule
   ],
   providers: [TdMediaService,
-    DeveloperService,
     WorldService,
     AdventureService,
     QuestService,
@@ -211,7 +212,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthenticationService,
     LocalStorageService,
     AuthenticationGuard,
-    UserService
+    UserService,
+    ImageService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

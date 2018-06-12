@@ -66,6 +66,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, PathConstants.LOGIN_URL).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // .antMatchers(HttpMethod.GET, "/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class);
