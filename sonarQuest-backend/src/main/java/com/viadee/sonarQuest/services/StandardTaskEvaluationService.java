@@ -34,8 +34,12 @@ public class StandardTaskEvaluationService {
     }
 
     public Long getDebt(String debtString) {
-        debtString = debtString.replaceAll("[^0-9]", "");
-        return (long) Integer.parseInt(debtString);
+        Long debt = 0L;
+        if (debtString != null){
+            debtString = debtString.replaceAll("[^0-9]", "");
+            debt = (long) Integer.parseInt(debtString);
+        }
+        return debt;
     }
 
     private static long roundUp(long num, long divisor) {

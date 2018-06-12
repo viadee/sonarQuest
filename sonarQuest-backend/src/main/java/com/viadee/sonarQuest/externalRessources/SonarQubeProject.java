@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SonarQubeProject {
 
-    @JsonProperty(value = "k")
+    @JsonProperty(value = "key")
     private String key;
 
-    @JsonProperty(value = "nm")
+    @JsonProperty(value = "name")
     private String name;
 
     public SonarQubeProject() {

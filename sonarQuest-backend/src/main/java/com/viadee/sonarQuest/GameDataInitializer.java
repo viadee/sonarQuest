@@ -40,14 +40,14 @@ public class GameDataInitializer implements InitializingBean {
     
     @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
     private void createSimData() {
-    	createWorldOfDragons();
+    	createWorldOfDragons(1L);
     }
 
     /**
      * World of Dragons SimData
      */
     //XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
-    private void createWorldOfDragons() {
+    private void createWorldOfDragons(Long worldId) {
         // Create Quests
         final QuestDto quest1 = new QuestDto(null, "Hidden danger in the woods!", "There is something in the woods, people mumble. Something creeping through the darkness, waiting for its time - or brave heroes to reveal the secret.", null,
                 5L, 10L, "assets/images/quest/hero1.jpg", null, null, null, null);
@@ -65,10 +65,10 @@ public class GameDataInitializer implements InitializingBean {
         questController.createQuest(quest3);
         questController.createQuest(quest4);
 
-        questController.addWorld(1L, 1L);
-        questController.addWorld(2L, 1L);
-        questController.addWorld(3L, 1L);
-        questController.addWorld(4L, 1L);
+        questController.addWorld(1L, worldId);
+        questController.addWorld(2L, worldId);
+        questController.addWorld(3L, worldId);
+        questController.addWorld(4L, worldId);
 
         // Add Tasks to Quests
         taskController.addToQuest(1L, 1L);
@@ -109,10 +109,10 @@ public class GameDataInitializer implements InitializingBean {
     //XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
     public void afterPropertiesSet() throws Exception {
         worldService.updateWorlds();
-        final World firstWorld = worldRepository.findOne((long) 1);
+        final World firstWorld = worldRepository.findByProject("org.apache.commons:commons-lang3");
         firstWorld.setActive(true);
         worldRepository.save(firstWorld);
-        taskController.updateStandardTasksForWorld((long) 1);
-        createWorldOfDragons();
+        taskController.updateStandardTasksForWorld(firstWorld.getId());
+        createWorldOfDragons(firstWorld.getId());
     }
 }

@@ -4,5 +4,5 @@ public class RessourceEndpoints {
 
     public final static String PROD_ENDPOINT = "http://localhost:9000/api"; // SonarQube Prod
 
-    public final static String DEV_ENDPOINT = "https://sonarcloud.io/api/";
+    public final static String DEV_ENDPOINT = "https://sonarcloud.io/api";
 }

@@ -1,6 +1,6 @@
 package com.viadee.sonarQuest.externalRessources;
 
-public class SonarQubeIssuePaging {
+public class SonarQubePaging {
 
     private Integer pageIndex;
 
@@ -34,7 +34,7 @@ public class SonarQubeIssuePaging {
 
     @Override
     public String toString() {
-        return "SonarQubeIssuePaging{" +
+        return "SonarQubePaging{" +
                 "pageIndex=" + pageIndex +
                 ", pageSize=" + pageSize +
                 ", total=" + total +

@@ -6,19 +6,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SonarQubeIssueRessource {
+public class SonarQubeProjectRessource {
 
     private SonarQubePaging paging;
 
-    @JsonProperty("issues")
-    private List<SonarQubeIssue> issues;
+    @JsonProperty("components")
+    private List<SonarQubeProject> sonarQubeProjects;
 
-    public List<SonarQubeIssue> getIssues() {
-        return issues;
+    public List<SonarQubeProject> getSonarQubeProjects() {
+        return sonarQubeProjects;
     }
 
-    public void setIssues(List<SonarQubeIssue> issues) {
-        this.issues = issues;
+    public void setSonarQubeProjects(List<SonarQubeProject> sonarQubeProjects) {
+        this.sonarQubeProjects = sonarQubeProjects;
     }
 
     public SonarQubePaging getPaging() {
@@ -31,9 +31,9 @@ public class SonarQubeIssueRessource {
 
     @Override
     public String toString() {
-        return "SonarQubeIssueRessource{" +
+        return "SonarQubeProjectRessource{" +
                 "paging=" + paging +
-                ", issues=" + issues +
+                ", projects=" + sonarQubeProjects +
                 '}';
     }
 }

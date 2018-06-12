@@ -1,18 +1,13 @@
 package com.viadee.sonarQuest.services;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.viadee.sonarQuest.constants.RessourceEndpoints;
-import com.viadee.sonarQuest.externalRessources.SonarQubeIssuePaging;
+import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,14 +15,12 @@ import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
-import org.springframework.web.client.RestTemplate;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * Reads data for external requests from locally saved json files
@@ -79,8 +72,8 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
         return issues;
     }
 
-    public int determinePagesOfExternalIssuesToBeRequested (SonarQubeIssuePaging sonarQubeIssuePaging){
-        return sonarQubeIssuePaging.getTotal() / sonarQubeIssuePaging.getPageSize() + 1;
+    public int determinePagesOfExternalIssuesToBeRequested (SonarQubePaging sonarQubePaging){
+        return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
     }
 
     public SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(String projectKey, int pageIndex){

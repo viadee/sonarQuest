@@ -112,8 +112,8 @@ CREATE TABLE Task (
 
 CREATE TABLE World (
   id        INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name     VARCHAR(64),
-  project    VARCHAR(64),
+  name     VARCHAR(256),
+  project    VARCHAR(256),
   active    BOOLEAN
 );
 

@@ -1,20 +1,20 @@
 package com.viadee.sonarQuest.services;
 
 import com.viadee.sonarQuest.constants.RessourceEndpoints;
-import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
-import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
-import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
+import com.viadee.sonarQuest.externalRessources.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,9 +25,14 @@ public class RealExternalRessourceService extends ExternalRessourceService {
 
     @Override public List<SonarQubeProject> getSonarQubeProjects() {
         try {
-            ResponseEntity<List<SonarQubeProject>> projectResponse = new RestTemplate().exchange(RessourceEndpoints.DEV_ENDPOINT + "/projects", HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<SonarQubeProject>>() {});
-            return projectResponse.getBody();
+            List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
+            SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(1);
+            sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
+            Integer pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(sonarQubeProjectRessource.getPaging());
+            for(int i = 2; i <= pagesOfExternalProjects; i++) {
+                sonarQubeProjects.addAll(getSonarQubeProjecRessourceForPageIndex(i).getSonarQubeProjects());
+            }
+            return sonarQubeProjects;
         } catch (ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException)
                 log.error(ERROR_NO_CONNECTION);
@@ -37,14 +42,48 @@ public class RealExternalRessourceService extends ExternalRessourceService {
 
     @Override public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey) {
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            SonarQubeIssueRessource sonarQubeIssueRessource = restTemplate.getForObject(RessourceEndpoints.DEV_ENDPOINT + "/issues/search?projectKeys=" + projectKey,
-                    SonarQubeIssueRessource.class);
-            return sonarQubeIssueRessource.getIssues();
+            List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
+
+            SonarQubeIssueRessource sonarQubeIssueRessource=getSonarQubeIssueResourceForProjectAndPageIndex(projectKey,1);
+
+            sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
+
+            Integer pagesOfExternalIssues = determinePagesOfExternalRessourcesToBeRequested(sonarQubeIssueRessource.getPaging());
+
+            for(int i = 2; i <= pagesOfExternalIssues; i++) {
+                sonarQubeIssueList.addAll(getSonarQubeIssueResourceForProjectAndPageIndex(projectKey, i).getIssues());
+            }
+            return sonarQubeIssueList;
+
         } catch (ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException)
                 log.error(ERROR_NO_CONNECTION);
             throw e;
         }
+    }
+
+    public int determinePagesOfExternalRessourcesToBeRequested(SonarQubePaging sonarQubePaging){
+        return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
+    }
+
+    public SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(String projectKey, int pageIndex){
+        Client client = ClientBuilder.newClient();
+
+        WebTarget webTarget= client.target(RessourceEndpoints.DEV_ENDPOINT + "/issues/search?componentRoots=" + projectKey+ "&pageSize=500&pageIndex="+pageIndex);
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+
+        SonarQubeIssueRessource sonarQubeIssueRessource
+                = invocationBuilder.get(SonarQubeIssueRessource.class);
+
+        return  sonarQubeIssueRessource;
+    }
+
+    public SonarQubeProjectRessource getSonarQubeProjecRessourceForPageIndex(int pageIndex){
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(RessourceEndpoints.DEV_ENDPOINT + "/components/search?qualifiers=TRK&pageSize=500&pageIndex="+pageIndex);
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+        SonarQubeProjectRessource sonarQubeProjectRessource = invocationBuilder.get(SonarQubeProjectRessource.class);
+        return sonarQubeProjectRessource;
     }
 }
