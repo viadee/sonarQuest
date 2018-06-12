@@ -24,9 +24,7 @@ import java.util.List;
 @Service
 @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "false", matchIfMissing = true)
 public class RealExternalRessourceService extends ExternalRessourceService {
-
-    @Value("${resourceEndpoint}")
-    private String resourceEndpoint;
+    
 
     private static final Logger log = LoggerFactory.getLogger(RealExternalRessourceService.class);
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
