@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialogRef } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 import { DeveloperService } from "../../../../services/developer.service";
-import { Developer } from "../../../../Interfaces/Developer";
+import { Developer } from "../../../../Interfaces/Developer.d";
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -28,10 +28,8 @@ export class AvatarEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadImages();
-      
-    this.developerService.getImage(this.developer).subscribe((blob) => {
-      console.log(blob)
+    this.loadImages();      
+    this.developerService.getImage(this.developer).subscribe((blob) => {      
       this.imageToShow = this.imageService.createImageFromBlob(blob);
     })
   }
@@ -39,7 +37,7 @@ export class AvatarEditComponent implements OnInit {
 
   editDeveloper() {
     this.developerService.updateDeveloper(this.developer).then(() => {
-      this.dialogRef.close(this.developer);
+      this.dialogRef.close(true);
     })
   }
 
