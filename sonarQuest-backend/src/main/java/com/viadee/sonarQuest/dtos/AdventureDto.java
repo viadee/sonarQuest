@@ -1,7 +1,6 @@
 package com.viadee.sonarQuest.dtos;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.viadee.sonarQuest.entities.Adventure;
@@ -10,7 +9,6 @@ import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
 
 public class AdventureDto {
-
 
     private Long id;
 
@@ -23,7 +21,7 @@ public class AdventureDto {
     private Long gold;
 
     private Long xp;
-    
+
     private World world;
 
     private List<Quest> quests;
@@ -32,37 +30,36 @@ public class AdventureDto {
 
     public AdventureDto() {
     }
-    
 
     public AdventureDto(Long id, String title, String story, String status, Long gold, Long xp, World world,
-			List<Quest> quests, List<Developer> developers) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.story = story;
-		this.status = status;
-		this.gold = gold;
-		this.xp = xp;
-		this.world = world;
-		this.quests = quests;
-		this.developers = developers;
-	}
+            List<Quest> quests, List<Developer> developers) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.story = story;
+        this.status = status;
+        this.gold = gold;
+        this.xp = xp;
+        this.world = world;
+        this.quests = quests;
+        this.developers = developers;
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
-	public void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
-	
-    public World getWorld() {
-		return world;
-	}
 
-	public void setWorld(World world) {
-		this.world = world;
-	}
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
 
     public String getTitle() {
         return title;
@@ -123,23 +120,26 @@ public class AdventureDto {
     public static AdventureDto toAdventureDto(Adventure adventure) {
         AdventureDto adventureDto = null;
         if (adventure != null) {
-            adventureDto = new AdventureDto(adventure.getId(), adventure.getTitle(), adventure.getStory(), adventure.getStatus(), adventure.getGold(), adventure.getXp(), adventure.getWorld(), adventure.getQuests(), adventure.getDevelopers());
+            adventureDto = new AdventureDto(adventure.getId(), adventure.getTitle(), adventure.getStory(),
+                    adventure.getStatus(), adventure.getGold(), adventure.getXp(), adventure.getWorld(),
+                    adventure.getQuests(), adventure.getDevelopers());
         }
         return adventureDto;
     }
-    
+
     /**
      * Converts a list of adventures to a list of adventuresDto
+     * 
      * @param adventures
      * @return adventuresDto
      */
     public static List<AdventureDto> toAdventuresDto(List<Adventure> adventures) {
-    	final List<AdventureDto> adventuresDto = new ArrayList<>();
+        final List<AdventureDto> adventuresDto = new ArrayList<>();
 
-		for (final Adventure adventure : adventures) {
-			adventuresDto.add(toAdventureDto(adventure));
-		}
-        
+        for (final Adventure adventure : adventures) {
+            adventuresDto.add(toAdventureDto(adventure));
+        }
+
         return adventuresDto;
     }
 }

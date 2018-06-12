@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.constants.QuestStates;
-import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.TaskController;
 import com.viadee.sonarQuest.entities.Developer;
@@ -26,6 +26,7 @@ import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.ExternalRessourceService;
 import com.viadee.sonarQuest.services.StandardTaskService;
@@ -67,7 +68,7 @@ public class SonarQuestApplicationIT {
 
         assertNotNull("Demo data not loaded properly", sonarDungeon);
         assertEquals("Demo data not loaded properly", Long.valueOf(1), sonarDungeon.getId());
-        assertEquals("This is not the expected world data set", "World of Dragons", sonarDungeon.getName());
+        assertEquals("This is not the expected world data set", "World of Sonar Quest", sonarDungeon.getName());
     }
 
     /**
@@ -75,32 +76,39 @@ public class SonarQuestApplicationIT {
      * This test assumes a spring environment including a simulated sonar server and
      * database access.
      */
+    @Transactional
     @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
+
+        Long developerId = 4L;
         // Join in on a quest.
         // Add Participation sonarWarrior, Quest1
-        participationController.createParticipation(1L, 3L);
+        participationController.createParticipation(1L, developerId);
+
         Quest epicQuest = questRepository.findOne(1L);
         final List<Participation> participations = epicQuest.getParticipations();
+
         assertEquals("createParticipation does not work (Quest)", "Hidden danger in the woods!",
                 participations.get(1).getQuest().getTitle());
         assertEquals("createParticipation does not work (Developer)", "Mike Magician",
                 participations.get(1).getDeveloper().getUsername());
 
         // Get to work on issue 1
-        Task issue1 = taskRepository.findOne(1L);
+        Task issue1 = taskRepository.findOne(5L);
         assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
-        taskController.addParticipation(1L, 1L, 3L);
+        taskController.addParticipation(1L, 1L, developerId);
         issue1 = taskRepository.findOne(1L);
+
         assertEquals("addParticipation does not work (Quest)", "Hidden danger in the woods!",
                 issue1.getParticipation().getQuest().getTitle());
         assertEquals("addParticipation does not work (Developer)", "Mike Magician",
                 issue1.getParticipation().getDeveloper().getUsername());
-        assertEquals("addParticipation does not work (Status)", TaskStates.PROCESSED, issue1.getStatus());
+        assertEquals("addParticipation does not work (Status)", SonarQuestStatus.PROCESSED.getText(),
+                issue1.getStatus());
 
         adventureService.updateAdventures(); // no effect expected
-        Developer sonarWarrior = developerRepository.findOne(3L);
+        Developer sonarWarrior = developerRepository.findOne(developerId);
         assertEquals("Gratification during updateAdventures does not work (Gold)", Long.valueOf(18),
                 sonarWarrior.getGold());
         assertEquals("Gratification during updateAdventures does not work (XP)", Long.valueOf(15),
@@ -116,13 +124,14 @@ public class SonarQuestApplicationIT {
         assertEquals("updateStandardTasks does not work (Title)",
                 "NullPointerException might be thrown as 'toTypeArg' is nullable here",
                 issue1.getTitle());
-        assertEquals("updateStandardTasks does not work (Status)", TaskStates.SOLVED, issue1.getStatus());
+        assertEquals("updateStandardTasks does not work (Status)", SonarQuestStatus.SOLVED.getText(),
+                issue1.getStatus());
 
         // Check Gratification
-        // Gold = 18 (initial value) + 3 (Task) + 2(Magician) + 1 (Shortsword)= 24
+        // Gold = 18 (initial value) + 1 (Task) + 2(Magician) + 0 (no Artefacts)= 21
         // XP = 22 (inital value) + 2 (Task ) = 20
-        sonarWarrior = developerRepository.findOne(3L);
-        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(22),
+        sonarWarrior = developerRepository.findOne(developerId);
+        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(21),
                 sonarWarrior.getGold());
         assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(20),
                 sonarWarrior.getXp());

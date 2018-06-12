@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viadee.sonarQuest.entities.SonarConfig;
+import com.viadee.sonarQuest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
@@ -57,31 +59,15 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
     public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
         if (issues == null) {
             try {
-                List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
-                SonarQubeIssueRessource sonarQubeIssueRessource=getSonarQubeIssueResourceForProjectAndPageIndex(projectKey,1);
-                sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
-                Integer pagesOfExternalIssues = determinePagesOfExternalIssuesToBeRequested(sonarQubeIssueRessource.getPaging());
-                for(int i = 2; i <= pagesOfExternalIssues; i++){
-                    sonarQubeIssueList.addAll(getSonarQubeIssueResourceForProjectAndPageIndex(projectKey,i).getIssues());
-                }
-                issues = sonarQubeIssueList;
-            } catch (final Exception e) {
-                throw new RuntimeException("Could not load simulated sonar projects", e);
+                issues = mapper
+                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/issueRessource.json"),
+                                SonarQubeIssueRessource.class)
+                        .getIssues();
+            } catch (final IOException e) {
+                throw new BackendServiceRuntimeException("Could not load simulated sonar projects", e);
             }
         }
         return issues;
     }
 
-    public int determinePagesOfExternalIssuesToBeRequested (SonarQubePaging sonarQubePaging){
-        return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
-    }
-
-    public SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(String projectKey, int pageIndex){
-        Client client = ClientBuilder.newClient();
-        WebTarget webTarget= client.target(RessourceEndpoints.DEV_ENDPOINT + "issues/search?componentRoots=" + projectKey+ "&pageSize=500&pageIndex="+pageIndex);
-        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        SonarQubeIssueRessource sonarQubeIssueRessource
-                = invocationBuilder.get(SonarQubeIssueRessource.class);
-        return  sonarQubeIssueRessource;
-    }
 }

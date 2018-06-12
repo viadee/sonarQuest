@@ -4,12 +4,22 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-red, 800);
-$accent:  mat-palette($mat-light-blue, 600, A100, A400);
 
-$warn:    mat-palette($mat-red, 600);
 
-$theme: mat-light-theme($primary, $accent, $warn);
+$theme: light;
+    
+@if $theme == dark {
+    $dark-primary: mat-palette($mat-blue-grey, 800);
+    $dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+    $dark-warn:    mat-palette($mat-deep-orange);
+    $theme:        mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+} @else {
+    $primary: mat-palette($mat-red, 800);
+    $accent:  mat-palette($mat-light-blue, 600, A100, A400);
+    $warn:    mat-palette($mat-red, 600);
+    $theme:   mat-light-theme($primary, $accent, $warn);
+}
+
 
 @include angular-material-theme($theme);
 @include covalent-theme($theme);

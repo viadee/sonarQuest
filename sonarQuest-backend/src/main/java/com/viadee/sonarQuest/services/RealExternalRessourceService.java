@@ -1,9 +1,16 @@
 package com.viadee.sonarQuest.services;
 
+<<<<<<< HEAD
 import com.viadee.sonarQuest.constants.RessourceEndpoints;
 import com.viadee.sonarQuest.externalRessources.*;
+=======
+import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
+import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
+import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
+>>>>>>> master
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
@@ -17,14 +24,20 @@ import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "false", matchIfMissing = true)
 public class RealExternalRessourceService extends ExternalRessourceService {
+
+    @Value("${resourceEndpoint}")
+    private String resourceEndpoint;
+
     private static final Logger log = LoggerFactory.getLogger(RealExternalRessourceService.class);
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
 
     @Override public List<SonarQubeProject> getSonarQubeProjects() {
         try {
+<<<<<<< HEAD
             List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
             SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(1);
             sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
@@ -33,6 +46,11 @@ public class RealExternalRessourceService extends ExternalRessourceService {
                 sonarQubeProjects.addAll(getSonarQubeProjecRessourceForPageIndex(i).getSonarQubeProjects());
             }
             return sonarQubeProjects;
+=======
+            ResponseEntity<List<SonarQubeProject>> projectResponse = new RestTemplate().exchange(resourceEndpoint + "/projects", HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<SonarQubeProject>>() {});
+            return projectResponse.getBody();
+>>>>>>> master
         } catch (ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException)
                 log.error(ERROR_NO_CONNECTION);
@@ -42,6 +60,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
 
     @Override public List<SonarQubeIssue> getIssuesForSonarQubeProject(String projectKey) {
         try {
+<<<<<<< HEAD
             List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
 
             SonarQubeIssueRessource sonarQubeIssueRessource=getSonarQubeIssueResourceForProjectAndPageIndex(projectKey,1);
@@ -55,6 +74,12 @@ public class RealExternalRessourceService extends ExternalRessourceService {
             }
             return sonarQubeIssueList;
 
+=======
+            RestTemplate restTemplate = new RestTemplate();
+            SonarQubeIssueRessource sonarQubeIssueRessource = restTemplate.getForObject(resourceEndpoint + "/issues/search?projectKeys=" + projectKey,
+                    SonarQubeIssueRessource.class);
+            return sonarQubeIssueRessource.getIssues();
+>>>>>>> master
         } catch (ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException)
                 log.error(ERROR_NO_CONNECTION);

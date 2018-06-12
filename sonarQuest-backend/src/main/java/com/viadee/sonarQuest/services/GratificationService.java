@@ -5,11 +5,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.viadee.sonarQuest.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.constants.SkillType;
+import com.viadee.sonarQuest.entities.Adventure;
+import com.viadee.sonarQuest.entities.Artefact;
+import com.viadee.sonarQuest.entities.Developer;
+import com.viadee.sonarQuest.entities.Participation;
+import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.Skill;
+import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.interfaces.DeveloperGratification;
 import com.viadee.sonarQuest.repositories.DeveloperRepository;
 
@@ -29,7 +35,7 @@ public class GratificationService implements DeveloperGratification {
             Developer developer = participation.getDeveloper();
             developer.addXp(task.getXp());
             developer.addGold(task.getGold());
-            developer = addSkillReward(developer, task);
+            addSkillReward(developer);
             developer.setLevel(levelService.getLevelByDeveloperXp(developer.getXp()));
             developerRepository.save(developer);
         }
@@ -64,7 +70,7 @@ public class GratificationService implements DeveloperGratification {
         developerRepository.save(developer);
     }
 
-    private Developer addSkillReward(final Developer developer, final Task task) {
+    private Developer addSkillReward(final Developer developer) {
         final Developer rewardedDeveloper = developer;
         final List<Skill> avatarClassSkills = rewardedDeveloper.getAvatarClass().getSkills();
         final List<Skill> artefactSkills = rewardedDeveloper.getArtefacts().stream()

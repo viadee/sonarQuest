@@ -40,7 +40,7 @@ public class ParticipationController {
     @CrossOrigin
     @RequestMapping(value = "/{questid}/{developerid}",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Participation createParticipation(@PathVariable(value = "questid") Long questid,@PathVariable(value = "developerid") Long developerid) {
+    public Participation createParticipation(@PathVariable(value = "questid") Long questid, @PathVariable(value = "developerid") Long developerid) {
         Quest foundQuest = questRepository.findOne(questid);
         Developer foundDeveloper = developerRepository.findOne(developerid);
         Participation foundParticipation = participationRepository.findByQuestAndDeveloper(foundQuest,foundDeveloper);
@@ -50,8 +50,6 @@ public class ParticipationController {
             participation= participationRepository.save(participation);
         }
         return participation;
-
-
     }
 
     @RequestMapping(value ="/{questid}/{developerid}", method = RequestMethod.DELETE)

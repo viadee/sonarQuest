@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { WorldService } from "../../../../services/world.service";
-import { World } from '../../../../Interfaces/Developer.d';
+import { World } from '../../../../Interfaces/World';
 import { GamemasterQuestEditComponent } from './components/gamemaster-quest-edit/gamemaster-quest-edit.component';
 
 import { Quest } from './../../../../Interfaces/Quest';
@@ -16,11 +16,12 @@ import {GamemasterQuestCreateComponent} from "./components/gamemaster-quest-crea
 import {StandardTaskService} from "../../../../services/standard-task.service";
 import {SpecialTaskService} from "../../../../services/special-task.service";
 import {TaskService} from "../../../../services/task.service";
+import { hostElement } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-gamemaster-quest',
   templateUrl: './gamemaster-quest.component.html',
-  styleUrls: ['./gamemaster-quest.component.css']
+  styleUrls: ['./gamemaster-quest.component.css'],
 })
 export class GamemasterQuestComponent implements OnInit {
 

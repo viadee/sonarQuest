@@ -14,3 +14,10 @@
   justify-content: center;
 }
 
+mat-sidenav-container{
+  background-image: url("/assets/images/background/bg03.jpg");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: fixed;
+  background-size: cover;
+}

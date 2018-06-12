@@ -1,6 +1,5 @@
 package com.viadee.sonarQuest.dtos;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
@@ -8,7 +7,6 @@ import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
 
-@JsonDeserialize(as = SpecialTaskDto.class)
 public abstract class TaskDto {
 
     private Long id;

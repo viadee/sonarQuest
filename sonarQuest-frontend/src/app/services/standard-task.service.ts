@@ -50,6 +50,15 @@ export class StandardTaskService {
     return body || {};
   }
 
+  createStandardTask(standardTask: any): Promise<any>{
+    standardTask.world.quests = [];
+    standardTask.world.tasks  = [];    
+    return this.http.post(`${environment.endpoint}/task/standard`, standardTask)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {

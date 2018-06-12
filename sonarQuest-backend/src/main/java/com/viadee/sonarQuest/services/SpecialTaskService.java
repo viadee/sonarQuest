@@ -3,12 +3,12 @@ package com.viadee.sonarQuest.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarQuest.constants.TaskStates;
 import com.viadee.sonarQuest.dtos.SpecialTaskDto;
 import com.viadee.sonarQuest.entities.SpecialTask;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.SpecialTaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @Service
 public class SpecialTaskService {
@@ -25,7 +25,7 @@ public class SpecialTaskService {
 
         final SpecialTask sp = new SpecialTask(
                 specialTaskDto.getTitle(),
-                TaskStates.CREATED,
+                SonarQuestStatus.CREATED.getText(),
                 specialTaskDto.getGold(),
                 specialTaskDto.getXp(),
                 specialTaskDto.getQuest(),

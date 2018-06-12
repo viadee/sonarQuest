@@ -1,17 +1,5 @@
 package com.viadee.sonarQuest.controllers;
 
-import com.google.common.io.Files;
-import com.viadee.sonarQuest.SonarQuestApplication;
-import com.viadee.sonarQuest.dtos.DeveloperDto;
-import com.viadee.sonarQuest.entities.Developer;
-import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.repositories.DeveloperRepository;
-import com.viadee.sonarQuest.repositories.WorldRepository;
-import com.viadee.sonarQuest.services.DeveloperService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.security.CodeSource;
@@ -20,19 +8,43 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.io.Files;
+import com.viadee.sonarQuest.SonarQuestApplication;
+import com.viadee.sonarQuest.dtos.DeveloperDto;
+import com.viadee.sonarQuest.entities.Developer;
+import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.repositories.DeveloperRepository;
+import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarQuest.services.DeveloperService;
 
 @RestController
 @RequestMapping("/developer")
 public class DeveloperController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DeveloperController.class);
+
     private DeveloperRepository developerRepository;
-    
+
     private WorldRepository worldRepository;
-    
+
     private DeveloperService developerService;
 
     @Autowired
-    public DeveloperController(DeveloperRepository developerRepository, DeveloperService developerService, WorldRepository worldRepository) {
+    public DeveloperController(DeveloperRepository developerRepository, DeveloperService developerService,
+            WorldRepository worldRepository) {
         this.developerRepository = developerRepository;
         this.developerService = developerService;
         this.worldRepository = worldRepository;
@@ -45,7 +57,8 @@ public class DeveloperController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public List<DeveloperDto> getAllDevelopers() {
-        return this.developerService.findActiveDevelopers().stream().map(developer -> this.developerService.toDeveloperDto(developer)).collect(Collectors.toList());
+        return developerService.findActiveDevelopers().stream()
+                .map(developer -> developerService.toDeveloperDto(developer)).collect(Collectors.toList());
     }
 
     /**
@@ -56,14 +69,13 @@ public class DeveloperController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DeveloperDto getDeveloperByID(@PathVariable(value = "id") Long id) {
-        Developer developer = this.developerRepository.findById(id);
+        Developer developer = developerRepository.findById(id);
         DeveloperDto developerDto = null;
         if (developer != null) {
-            developerDto = this.developerService.toDeveloperDto(developer);
+            developerDto = developerService.toDeveloperDto(developer);
         }
         return developerDto;
     }
-
 
     /**
      * Creates a Developer from a DTO
@@ -75,11 +87,9 @@ public class DeveloperController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public DeveloperDto createDeveloper(@RequestBody DeveloperDto developerDto) {
-    	return this.developerService.toDeveloperDto(this.developerService.createDeveloper(developerDto));
+        return developerService.toDeveloperDto(developerService.createDeveloper(developerDto));
     }
-    
-    
-    
+
     /**
      * 
      * @param world_id
@@ -89,59 +99,61 @@ public class DeveloperController {
     @CrossOrigin
     @RequestMapping(value = "/{id}/updateWorld/{world_id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.CREATED)
-    public DeveloperDto updateWorld(@PathVariable(value = "id") Long developer_id, @PathVariable(value = "world_id") Long  world_id) {
-    	World 		w = this.worldRepository.findById(world_id);
-    	Developer 	d = this.developerRepository.findById(developer_id);
-    	
-    	d = this.developerService.setWorld(d,w);
+    public DeveloperDto updateWorld(@PathVariable(value = "id") Long developer_id,
+            @PathVariable(value = "world_id") Long world_id) {
+        World w = worldRepository.findById(world_id);
+        Developer d = developerRepository.findById(developer_id);
 
-        return this.developerService.toDeveloperDto(d);
+        d = developerService.setWorld(d, w);
+
+        return developerService.toDeveloperDto(d);
     }
-
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public DeveloperDto updateDeveloper(@PathVariable(value = "id") Long id, @RequestBody DeveloperDto developerDto) {
-        return this.developerService.updateDeveloper(developerDto);
+        return developerService.updateDeveloper(developerDto);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteDeveloper(@PathVariable(value = "id") Long id) {
-    	Developer developer = developerRepository.findById(id);	
-    	developerService.deleteDeveloper(developer);    	      
+        Developer developer = developerRepository.findById(id);
+        developerService.deleteDeveloper(developer);
     }
 
     @CrossOrigin
     @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
-    public @ResponseBody byte[] getAvatar(@PathVariable(value = "id") Long id, final HttpServletResponse response) throws IOException {
+    public @ResponseBody byte[] getAvatar(@PathVariable(value = "id") Long id, final HttpServletResponse response)
+            throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
 
-    	Developer d = developerRepository.findById(id);
-    	String path;
+        Developer d = developerRepository.findById(id);
+        String path;
         String propertiesFilePath = "client.properties";
         File avatarPath = new File(propertiesFilePath);
-     
-        if (!avatarPath.exists()){
-          try{
-            CodeSource codeSource = SonarQuestApplication.class.getProtectionDomain().getCodeSource();
-            File jarFile = new File(codeSource.getLocation().toURI().getPath());
-            String jarDir = jarFile.getParentFile().getPath();
-            avatarPath = new File(jarDir + System.getProperty("file.separator") + propertiesFilePath);
-            avatarPath = new File(avatarPath.getParentFile().getParentFile().getParentFile() + "/avatar");
-          }
-          catch (Exception ignored){ }
+
+        if (!avatarPath.exists()) {
+            try {
+                CodeSource codeSource = SonarQuestApplication.class.getProtectionDomain().getCodeSource();
+                File jarFile = new File(codeSource.getLocation().toURI().getPath());
+                String jarDir = jarFile.getParentFile().getPath();
+                avatarPath = new File(jarDir + System.getProperty("file.separator") + propertiesFilePath);
+                avatarPath = new File(avatarPath.getParentFile().getParentFile().getParentFile() + "/avatar");
+            } catch (Exception ignored) {
+                LOG.error("Exception when trying to read the avatars!", ignored);
+            }
         }
-        
+
         File folder = new File(avatarPath.getAbsolutePath());
-        path = folder + "\\" + d.getPicture();
-        
+        path = folder + "/" + d.getPicture();
+
         if (new File(path).isFile()) {
             return Files.toByteArray(new File(path));
         } else {
-        	return null;
+            return null;
         }
-        
+
     }
 
 }

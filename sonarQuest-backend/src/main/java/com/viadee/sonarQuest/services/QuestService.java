@@ -1,19 +1,24 @@
 package com.viadee.sonarQuest.services;
 
-import com.viadee.sonarQuest.constants.QuestStates;
-import com.viadee.sonarQuest.constants.TaskStates;
-import com.viadee.sonarQuest.entities.*;
-import com.viadee.sonarQuest.interfaces.QuestSuggestion;
-import com.viadee.sonarQuest.repositories.ParticipationRepository;
-import com.viadee.sonarQuest.repositories.QuestRepository;
-import com.viadee.sonarQuest.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.viadee.sonarQuest.constants.QuestStates;
+import com.viadee.sonarQuest.entities.Developer;
+import com.viadee.sonarQuest.entities.Participation;
+import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.interfaces.QuestSuggestion;
+import com.viadee.sonarQuest.repositories.ParticipationRepository;
+import com.viadee.sonarQuest.repositories.QuestRepository;
+import com.viadee.sonarQuest.repositories.TaskRepository;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @Service
 public class QuestService implements QuestSuggestion {
@@ -30,8 +35,9 @@ public class QuestService implements QuestSuggestion {
     @Autowired
     private ParticipationRepository participationRepository;
 
+    @Override
     public List<Task> suggestTasksWithApproxGoldAmount(World world, Long goldApprox) {
-        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, TaskStates.CREATED);
+        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
         List<Task> suggestedTasks = new ArrayList<>();
         while ((totalGoldAmountOfTaskList(suggestedTasks) < goldApprox) && (!freeTasks.isEmpty())) {
             Task selectedTask = selectRandomTask(freeTasks);
@@ -41,8 +47,9 @@ public class QuestService implements QuestSuggestion {
         return suggestedTasks;
     }
 
+    @Override
     public List<Task> suggestTasksWithApproxXpAmount(World world, Long xpApprox) {
-        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, TaskStates.CREATED);
+        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
         List<Task> suggestedTasks = new ArrayList<>();
         while ((totalXpAmountOfTaskList(suggestedTasks) < xpApprox) && (!freeTasks.isEmpty())) {
             Task selectedTask = selectRandomTask(freeTasks);
@@ -73,8 +80,8 @@ public class QuestService implements QuestSuggestion {
 
     public void updateQuest(Quest quest) {
         List<Task> tasks = quest.getTasks();
-        List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, TaskStates.SOLVED);
-        List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, TaskStates.CLOSED);
+        List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED.getText());
+        List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED.getText());
         if (tasks.size() == (solvedTasks.size() + closedTasks.size())) {
             quest.setStatus(QuestStates.SOLVED);
             questRepository.save(quest);
@@ -84,7 +91,8 @@ public class QuestService implements QuestSuggestion {
 
     public List<List<Quest>> getAllQuestsForWorldAndDeveloper(World world, Developer developer) {
         List<Participation> participations = participationRepository.findByDeveloper(developer);
-        List<Quest> participatedQuests = participations.stream().map(Participation::getQuest).filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
+        List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
+                .filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
         List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
         List<List<Quest>> result = new ArrayList<>();
         List<Quest> freeQuests = allQuestsForWorld;
@@ -94,4 +102,3 @@ public class QuestService implements QuestSuggestion {
         return result;
     }
 }
-

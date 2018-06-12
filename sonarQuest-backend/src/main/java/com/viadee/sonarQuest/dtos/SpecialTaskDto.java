@@ -2,10 +2,12 @@ package com.viadee.sonarQuest.dtos;
 
 import javax.persistence.Column;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
 
+@JsonDeserialize(as = SpecialTaskDto.class)
 public class SpecialTaskDto extends TaskDto {
 
     @Column(name = "message")
