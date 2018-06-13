@@ -1,7 +1,5 @@
 package com.viadee.sonarQuest.services;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.Artefact;
 import com.viadee.sonarQuest.entities.Level;
-import com.viadee.sonarQuest.entities.Skill;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.repositories.ArtefactRepository;
-import com.viadee.sonarQuest.repositories.LevelRepository;
 
 @Service
 public class ArtefactService {
@@ -21,10 +17,7 @@ public class ArtefactService {
     private ArtefactRepository artefactRepository;
 
     @Autowired
-    private LevelRepository levelRepository;
-
-    @Autowired
-    private SkillService skillService;
+    private LevelService levelService;
 
     @Autowired
     private UserService userService;
@@ -41,43 +34,32 @@ public class ArtefactService {
         return artefactRepository.findOne(id);
     }
 
-    public Artefact createArtefact(final Artefact artefactDto) {
-
-        final Artefact artefact = artefactRepository.save(artefactDto);
-
-        final List<Artefact> artefacts = new ArrayList<>();
-        artefacts.add(artefact);
-
-        final Level lvl = levelRepository.save(new Level(artefactDto.getMinLevel().getMin(), null, null, artefacts));
-
-        final Iterator<Skill> i = artefactDto.getSkills().iterator();
-        Skill s;
-        final ArrayList<Skill> skills = new ArrayList<>();
-        while (i.hasNext()) {
-            s = i.next();
-            final Skill skl = skillService.createSkill(s);
-            skills.add(skl);
-        }
-
-        artefact.setMinLevel(lvl);
-        artefact.setSkills(skills);
-
-        return artefactRepository.save(artefact);
+    public Artefact createArtefact(final Artefact artefact) {
+        final Level level = new Level();
+        level.setMin(artefact.getMinLevel().getMin());
+        levelService.save(level);
+        artefact.setMinLevel(level);
+        artefactRepository.saveAndFlush(artefact);
+        return artefact;
     }
 
     public Artefact updateArtefact(final Long id, final Artefact artefactDto) {
-
         final Artefact artefact = artefactRepository.findOne(id);
-        final Level minLevel = levelRepository.findById(artefact.getMinLevel().getId());
-        minLevel.setMin(artefactDto.getMinLevel().getMin());
-        levelRepository.save(minLevel);
+        Level level;
+        if (artefactDto.getMinLevel().getId() == null) {
+            level = new Level();
+            level.setMin(artefact.getMinLevel().getMin());
+        } else {
+            level = levelService.findById(artefact.getMinLevel().getId());
+        }
+        levelService.save(level);
 
         artefact.setName(artefactDto.getName());
         artefact.setIcon(artefactDto.getIcon());
         artefact.setPrice(artefactDto.getPrice());
         artefact.setDescription(artefactDto.getDescription());
         artefact.setQuantity(artefactDto.getQuantity());
-        artefact.setMinLevel(minLevel);
+        artefact.setMinLevel(level);
         artefact.setSkills(artefactDto.getSkills());
         return artefactRepository.save(artefact);
     }

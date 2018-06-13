@@ -30,6 +30,7 @@ public class StandardTaskServiceTest {
 
         // case: new task
         final StandardTask newStandardTask = new StandardTask();
+        newStandardTask.setId(1l);
         newStandardTask.setKey("newStandardTask");
 
         when(standardTaskRepository.findByKey(newStandardTask.getKey())).thenReturn(null);

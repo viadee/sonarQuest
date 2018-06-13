@@ -60,6 +60,10 @@ public class User {
     @JoinColumn(name = "level_id")
     private Level level;
 
+    @ManyToOne
+    @JoinColumn(name = "current_world_id")
+    private World currentWorld;
+
     @ManyToMany
     @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
     private List<World> worlds;
@@ -214,6 +218,14 @@ public class User {
 
     public void setParticipations(final List<Participation> participations) {
         this.participations = participations;
+    }
+
+    public World getCurrentWorld() {
+        return currentWorld;
+    }
+
+    public void setCurrentWorld(final World currentWorld) {
+        this.currentWorld = currentWorld;
     }
 
     @Override

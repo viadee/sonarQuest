@@ -105,10 +105,12 @@ CREATE TABLE User (
 	gold            BIGINT,
 	xp              BIGINT,
 	level_id        BIGINT,
+	current_world_id BIGINT,
 	FOREIGN KEY (role_id) REFERENCES Role(id),
 	FOREIGN KEY (level_id) REFERENCES Level(id),
 	FOREIGN KEY (avatar_class_id) REFERENCES Avatar_Class(id),
-	FOREIGN KEY (avatar_race_id) REFERENCES Avatar_Race(id)
+	FOREIGN KEY (avatar_race_id) REFERENCES Avatar_Race(id),
+	FOREIGN KEY (current_world_id) REFERENCES World(id)
 );
 
 CREATE TABLE User_To_World (

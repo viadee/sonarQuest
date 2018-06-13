@@ -22,6 +22,7 @@ import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
+import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
@@ -142,23 +143,14 @@ public class TaskController {
         return standardTaskDto;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public TaskDto updateTask(@PathVariable(value = "id") final Long id, @RequestBody final TaskDto taskDto) {
-        TaskDto resultTaskDto = null;
-        final Task task = taskRepository.findById(id);
-        if (task != null) {
-            task.setTitle(taskDto.getTitle());
-            task.setGold(taskDto.getGold());
-            task.setXp(taskDto.getXp());
-            taskRepository.save(task);
-            resultTaskDto = toTaskDto(task);
-        }
-        if (task instanceof SpecialTask) {
-            ((SpecialTask) task).setMessage(((SpecialTaskDto) taskDto).getMessage());
-            taskRepository.save(task);
-            resultTaskDto = toTaskDto(task);
-        }
-        return resultTaskDto;
+    @RequestMapping(value = "/special", method = RequestMethod.PUT)
+    public SpecialTask updateSpecialTask(@RequestBody final SpecialTask taskDto) {
+        return specialTaskService.updateSpecialTask(taskDto);
+    }
+
+    @RequestMapping(value = "/standard", method = RequestMethod.PUT)
+    public StandardTask updateStandardTask(@RequestBody final StandardTask taskDto) {
+        return standardTaskService.updateStandardTask(taskDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

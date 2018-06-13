@@ -28,8 +28,9 @@ export class StandardTaskService {
     return this.standardTaskSubject.asObservable();
   }
 
-  updateStandardTask(task: any): Promise<any> {
-    return this.http.put<StandardTask>(`${environment.endpoint}/task/${task.id}`, task)
+  updateStandardTask(task: StandardTask): Promise<StandardTask> {
+    console.log('update: ' + task);
+    return this.http.put<StandardTask>(`${environment.endpoint}/task/standard`, task)
       .toPromise()
       .catch(this.handleError);
   }

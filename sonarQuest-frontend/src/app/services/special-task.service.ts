@@ -33,7 +33,7 @@ export class SpecialTaskService {
   }
 
   updateSpecialTask(specialTask: any): Promise<SpecialTask> {
-    return this.http.put<SpecialTask>(`${environment.endpoint}/task/${specialTask.id}`, specialTask)
+    return this.http.put<SpecialTask>(`${environment.endpoint}/task/special`, specialTask)
       .toPromise()
       .catch(this.handleError);
   }

@@ -77,8 +77,10 @@ export class GamemasterWorldComponent implements OnInit {
   }
 
   loadWorlds() {
-    this.worlds = this.worldService.getWorlds();
-    this.filter();
+    this.worldService.getWorlds().subscribe(worlds => {
+      this.worlds = worlds;
+      this.filter();
+    });
   }
 
   editWorld(world: World) {

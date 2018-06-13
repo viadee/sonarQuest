@@ -37,7 +37,13 @@ public class WorldController {
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public World getCurrentWorld(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());
-        return user.getWorlds().stream().findAny().orElse(null);
+        return user.getCurrentWorld();
+    }
+
+    @RequestMapping(value = "/current", method = RequestMethod.POST)
+    public World setCurrentWorld(final Principal principal, @RequestBody final World world) {
+        final User user = userService.findByUsername(principal.getName());
+        return userService.updateUsersCurrentWorld(user, world.getId());
     }
 
     @RequestMapping(value = "/worlds", method = RequestMethod.GET)

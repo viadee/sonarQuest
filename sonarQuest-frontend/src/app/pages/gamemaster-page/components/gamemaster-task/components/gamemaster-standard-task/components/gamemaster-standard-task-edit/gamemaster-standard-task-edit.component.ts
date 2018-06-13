@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {GamemasterStandardTaskComponent} from '../../gamemaster-standard-task.component';
 import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
+import {StandardTask} from '../../../../../../../../Interfaces/StandardTask';
 
 @Component({
   selector: 'app-gamemaster-standard-task-edit',
@@ -11,7 +12,7 @@ import {StandardTaskService} from '../../../../../../../../services/standard-tas
 export class GamemasterStandardTaskEditComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<GamemasterStandardTaskComponent>,
-              @Inject(MAT_DIALOG_DATA) public standardTask, public standardTaskService: StandardTaskService) {
+              @Inject(MAT_DIALOG_DATA) public standardTask: StandardTask, public standardTaskService: StandardTaskService) {
   }
 
   ngOnInit() {

@@ -9,16 +9,12 @@ import {UserService} from './user.service';
 @Injectable()
 export class WorldService {
 
-  world: World;
-  worlds: World[];
-
+  world: World = null;
   wordChangeListener: Subscriber<boolean>[] = [];
-  wordsChangeListener: Subscriber<boolean>[] = [];
 
   constructor(private http: HttpClient, private userService: UserService) {
     userService.onUserChange().subscribe(() => {
       if (userService.getUser()) {
-        this.loadWorlds();
         this.loadWorld();
       }
     });
@@ -30,26 +26,12 @@ export class WorldService {
     });
   }
 
-  public onWorldsChanged(): Observable<boolean> {
-    return new Observable<boolean>(observer => {
-      this.wordsChangeListener.push(observer);
-    });
-  }
-
   private worldChanged(): void {
     this.wordChangeListener.forEach(l => l.next(true));
   }
 
-  private worldsChanged(): void {
-    this.wordsChangeListener.forEach(l => l.next(true));
-  }
-
-  public loadWorlds(): void {
-    this.http.get<World[]>(`${environment.endpoint}/world/worlds`)
-      .subscribe(worlds => {
-        this.worlds = worlds;
-        this.worldsChanged();
-      });
+  public getWorlds(): Observable<World[]> {
+    return this.http.get<World[]>(`${environment.endpoint}/world/worlds`);
   }
 
   public loadWorld(): void {
@@ -64,8 +46,8 @@ export class WorldService {
     return this.world;
   }
 
-  public getWorlds(): World[] {
-    return this.worlds;
+  public setCurrentWorld(world: World): Promise<World> {
+    return this.http.post<World>(`${environment.endpoint}/world/current`, world).toPromise();
   }
 
   updateWorld(world: World): Promise<World> {

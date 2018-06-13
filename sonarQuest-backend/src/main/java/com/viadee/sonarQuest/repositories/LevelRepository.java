@@ -1,19 +1,19 @@
 package com.viadee.sonarQuest.repositories;
 
-import com.viadee.sonarQuest.entities.Level;
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 
-public interface LevelRepository extends CrudRepository<Level,Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.viadee.sonarQuest.entities.Level;
+
+public interface LevelRepository extends JpaRepository<Level, Long> {
 
     Level findById(Long id);
 
+    @Override
     List<Level> findAll();
 
-    Level findFirstByMinIsLessThanEqualAndMaxIsGreaterThanEqual(Long min,Long max);
+    Level findFirstByMinIsLessThanEqualAndMaxIsGreaterThanEqual(Long min, Long max);
 
     Level findFirstByMaxIsLessThanOrderByMinDesc(Long xp);
-
-
 }

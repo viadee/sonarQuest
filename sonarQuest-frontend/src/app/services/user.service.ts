@@ -20,8 +20,6 @@ export class UserService {
     authenticationService.onLoginLogout().subscribe(() => {
       if (authenticationService.isLoggedIn()) {
         this.loadUser();
-      } else {
-        console.log('Logout');
       }
     });
   }

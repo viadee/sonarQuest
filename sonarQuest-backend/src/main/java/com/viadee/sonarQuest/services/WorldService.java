@@ -33,4 +33,8 @@ public class WorldService {
         this.externalRessourceService = externalRessourceService;
     }
 
+    public World findById(final Long id) {
+        return worldRepository.findById(id);
+    }
+
 }

@@ -4,29 +4,17 @@ import {environment} from '../../environments/environment';
 import {Response} from '@angular/http';
 import {UserService} from './user.service';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class UiDesignService {
 
-  private uiDesign: UiDesign;
-
   constructor(
-    private http: HttpClient,
-    private userService: UserService
-  ) {
-    this.userService.onUserChange().subscribe(() => this.loadUiDesign());
+    private http: HttpClient) {
   }
 
-  loadUiDesign(): void {
-    this.http.get<UiDesign>(`${environment.endpoint}/ui`)
-      .subscribe(
-        uiDesign => this.uiDesign = uiDesign,
-        () => this.uiDesign = null
-      );
-  }
-
-  getUiDesign(): UiDesign {
-    return this.uiDesign;
+  getUiDesign(): Observable<UiDesign> {
+    return this.http.get<UiDesign>(`${environment.endpoint}/ui`);
   }
 
   updateUiDesign(designName: String): Promise<UiDesign> {

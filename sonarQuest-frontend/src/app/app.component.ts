@@ -21,12 +21,12 @@ import {User} from './Interfaces/User';
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-  public currentWorld: World;
+  public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
   public selected;
-  protected user: User;
-  private ui: UiDesign;
+  protected user: User = null;
+  private ui: UiDesign = null;
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -55,10 +55,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.authService.logout();
     this.userService.loadUser();
     this.worlds = null;
+    this.user = null;
     this.currentWorld = null;
     this.selected = null;
-    this.ui.name = '';
     this.router.navigateByUrl('/');
+    this.setDesign();
   }
 
   ngOnInit() {
@@ -66,23 +67,31 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.userService.loadUser();
     }
     this.userService.onUserChange().subscribe(() => {
-      this.user = this.userService.getUser();
+      if (this.userService.getUser()) {
+        this.user = this.userService.getUser();
+        this.loadWorlds();
+        this.loadWorld();
+      }
     });
+  }
+
+  private loadWorlds() {
+    this.worldService.getWorlds().subscribe(worlds => {
+      this.worlds = worlds;
+      this.setSelected();
+    });
+  }
+
+  private loadWorld() {
     this.worldService.onWorldChange().subscribe(() => {
       this.currentWorld = this.worldService.getCurrentWorld();
       this.initWorld();
     });
-    this.worldService.onWorldsChanged().subscribe(() => {
-      this.worlds = this.worldService.getWorlds();
-      this.initWorld();
-    })
   }
 
   private initWorld() {
-    if (this.currentWorld && this.worlds) {
-      this.setSelected();
-
-      if (!isUndefined(this.currentWorld.id)) {
+    if (this.user) {
+      if (this.currentWorld !== null) {
         const image = this.currentWorld.image || 'bg01';
         this.changebackground(image);
         this.setDesign();
@@ -136,7 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   updateWorld(world: World) {
-    console.log('World changed. Currently this has no effect.');
+    this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
   }
 
   changebackground(image: string) {
@@ -145,16 +154,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    const currentUi = this.uiDesignService.getUiDesign();
-    if (currentUi) {
-      this.ui = currentUi;
-    } else {
-      this.ui.name = '';
-    }
-
-    const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-    const className = body.className;
-    body.className = className + ' ' + this.ui.name;
+    this.uiDesignService.getUiDesign().subscribe(ui => {
+      this.ui = ui;
+      const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+      const className = body.className;
+      body.className = className + ' ' + this.ui.name;
+    }, error => {
+      this.ui = null;
+    });
   }
 
   toggleDesign() {

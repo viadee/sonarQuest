@@ -1,5 +1,6 @@
 import {Participation} from './Participation';
 import {Quest} from './Quest';
+import {World} from './World';
 
 export interface StandardTask {
   id: number,
@@ -8,7 +9,7 @@ export interface StandardTask {
   gold: number,
   xp: number,
   quest: Quest,
-  world: null,
+  world: World,
   taskType: string,
   participation: Participation,
   key: string,

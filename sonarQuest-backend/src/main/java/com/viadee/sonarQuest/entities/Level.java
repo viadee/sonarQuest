@@ -2,7 +2,6 @@ package com.viadee.sonarQuest.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,14 +26,14 @@ public class Level {
     private Long max;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "level")
     private List<User> users;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "minLevel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "minLevel")
     private List<Artefact> artefacts;
 
-    protected Level() {
+    public Level() {
     }
 
     public Level(final Long min, final Long max) {

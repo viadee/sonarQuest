@@ -35,4 +35,13 @@ public class SpecialTaskService {
         specialTaskRepository.save(sp);
     }
 
+    public SpecialTask updateSpecialTask(final SpecialTask taskDto) {
+        final SpecialTask task = specialTaskRepository.findOne(taskDto.getId());
+        task.setTitle(taskDto.getTitle());
+        task.setGold(taskDto.getGold());
+        task.setXp(taskDto.getXp());
+        task.setMessage(taskDto.getMessage());
+        return specialTaskRepository.save(task);
+    }
+
 }

@@ -38,13 +38,14 @@ export class ChooseCurrentWorldComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worlds = this.worldService.getWorlds();
-    this.filter();
+    this.worldService.getWorlds().subscribe(worlds => {
+      this.worlds = worlds;
+      this.filter();
+    });
   }
 
   choose(world: World) {
-    // TODO
-    console.log('Eine Welt wurde ausgewählt. Nun sollte irgendetwas gemacht werden');
+    this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
     this.dialogRef.close();
   }
 

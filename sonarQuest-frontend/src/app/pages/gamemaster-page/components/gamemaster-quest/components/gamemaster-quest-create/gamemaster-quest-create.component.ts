@@ -36,10 +36,12 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.currentWorld = this.worldService.getCurrentWorld();
-    this.worlds = this.worldService.getWorlds();
-    this.selectWorld();
-    this.loadImages();
-    this.selectedImage = 'http://via.placeholder.com/200x200';
+    this.worldService.getWorlds().subscribe(worlds => {
+      this.worlds = worlds;
+      this.selectWorld();
+      this.loadImages();
+      this.selectedImage = 'http://via.placeholder.com/200x200';
+    })
   }
 
   selectWorld() {

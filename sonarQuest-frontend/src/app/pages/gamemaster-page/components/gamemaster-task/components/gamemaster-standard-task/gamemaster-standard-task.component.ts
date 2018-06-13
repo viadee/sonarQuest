@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material';
 import {StandardTaskService} from '../../../../../../services/standard-task.service';
 import {GamemasterStandardTaskCreateComponent} from './components/gamemaster-standard-task-create/gamemaster-standard-task-create.component';
 import {GamemasterStandardTaskEditComponent} from './components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
+import {StandardTask} from '../../../../../../Interfaces/StandardTask';
 
 @Component({
   selector: 'app-gamemaster-standard-task',
@@ -80,7 +81,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
     });
   }
 
-  editStandardTask(standardTask) {
+  editStandardTask(standardTask: StandardTask) {
     this.dialog.open(GamemasterStandardTaskEditComponent, {
       panelClass: 'dialog-sexy',
       width: '500px',

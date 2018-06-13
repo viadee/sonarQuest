@@ -3,6 +3,7 @@ import {Level} from './Level';
 import {Artefact} from './Artefact';
 import {AvatarClass} from './AvatarClass';
 import {AvatarRace} from './AvatarRace';
+import {World} from './World';
 
 export interface User {
   id?: number,
@@ -16,7 +17,8 @@ export interface User {
   xp?: number,
   level?: Level,
   artefacts?: Artefact[],
-  password?: string
+  password?: string,
+  currentWorld?: World
 }
 
 

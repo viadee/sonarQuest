@@ -1,9 +1,10 @@
 package com.viadee.sonarQuest.repositories;
 
-import com.viadee.sonarQuest.entities.Task;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
+import com.viadee.sonarQuest.entities.Task;
+
 @NoRepositoryBean
-public interface TaskBaseRepository<T extends Task> extends CrudRepository<T,Long> {
+public interface TaskBaseRepository<T extends Task> extends JpaRepository<T, Long> {
 }

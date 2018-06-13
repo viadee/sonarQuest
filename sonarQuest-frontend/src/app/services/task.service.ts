@@ -36,12 +36,6 @@ export class TaskService {
       .toPromise()
   }
 
-  updateTask(task: any): Promise<Task> {
-    return this.http.put<Task>(`${environment.endpoint}/task/${task.id}`, task)
-      .toPromise()
-      .catch(this.handleError);
-  }
-
   refreshTasks(world: World) {
     this.standardTaskService.getStandardTasksForWorld(world);
     this.specialTaskService.getSpecialTasksForWorld(world);

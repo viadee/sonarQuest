@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
+import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.UserRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WorldService worldService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -41,6 +45,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findOne(id);
     }
 
+    public World updateUsersCurrentWorld(final User user, final Long worldId) {
+        final World world = worldService.findById(worldId);
+        user.setCurrentWorld(world);
+        userRepository.saveAndFlush(user);
+        return user.getCurrentWorld();
+    }
+
     public User save(final User user) {
         User toBeSaved = null;
         if (user.getId() == null) {
@@ -48,6 +59,7 @@ public class UserService implements UserDetailsService {
             // Only the password hash needs to be saved
             toBeSaved.setPassword(encoder.encode(user.getPassword()));
             toBeSaved.setRole(roleService.findByName(user.getRole().getName()));
+            toBeSaved.setCurrentWorld(user.getCurrentWorld());
         } else {
             toBeSaved = findById(user.getId());
             if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(user.getUsername())) {
@@ -55,6 +67,7 @@ public class UserService implements UserDetailsService {
             }
             toBeSaved.setAboutMe(user.getAboutMe());
             toBeSaved.setPicture(user.getPicture());
+            toBeSaved.setCurrentWorld(user.getCurrentWorld());
         }
 
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;

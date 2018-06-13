@@ -9,12 +9,8 @@ import com.viadee.sonarQuest.repositories.LevelRepository;
 @Service
 public class LevelService {
 
-    private LevelRepository levelRepository;
-
     @Autowired
-    public LevelService(final LevelRepository levelRepository) {
-        this.levelRepository = levelRepository;
-    }
+    private LevelRepository levelRepository;
 
     public Level getLevelByUserXp(final Long xp) {
         Level level = levelRepository.findFirstByMinIsLessThanEqualAndMaxIsGreaterThanEqual(xp, xp);
@@ -24,7 +20,14 @@ public class LevelService {
         }
 
         return level;
+    }
 
+    public Level save(final Level level) {
+        return levelRepository.saveAndFlush(level);
+    }
+
+    public Level findById(final Long id) {
+        return levelRepository.findById(id);
     }
 
 }
