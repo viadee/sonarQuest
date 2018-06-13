@@ -38,41 +38,31 @@ export class AdminDeveloperComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
-    private _dataTableService: TdDataTableService  ) {
+    private _dataTableService: TdDataTableService) {
   }
 
   ngOnInit() {
-    // TODO Subscribe on user change
+    this.userService.getUsers().subscribe(users => this.setUsers(users));
   }
 
-  getUsers() {
-    this.users = this.userService.getUsers();
+  setUsers(users: User[]) {
+    this.users = users;
     this.filter();
   }
 
   createUser() {
-    this.dialog.open(AdminDeveloperCreateComponent, {data: this.users, width: '500px'}).afterClosed().subscribe(user => {
-      if (user) {
-        this.users.push(user);
-        this.userService.setUsers(this.users);
-      }
-    })
+    this.dialog.open(AdminDeveloperCreateComponent, {data: this.users, width: '500px'}).afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   editUser(user: User) {
-    this.dialog.open(AdminDeveloperEditComponent, {data: user, width: '500px'}).afterClosed().subscribe(bool => {
-      if (bool) {
-        this.userService.setUsers(this.users);
-      }
-    })
+    this.dialog.open(AdminDeveloperEditComponent, {data: user, width: '500px'}).afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   deleteUser(user: User) {
-    this.dialog.open(AdminDeveloperDeleteComponent, {data: user, width: '500px'}).afterClosed().subscribe(bool => {
-      if (bool) {
-        this.getUsers();
-      }
-    });
+    this.dialog.open(AdminDeveloperDeleteComponent, {data: user, width: '500px'}).afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

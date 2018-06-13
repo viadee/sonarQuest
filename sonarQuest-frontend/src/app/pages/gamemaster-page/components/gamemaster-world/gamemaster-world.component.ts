@@ -52,6 +52,14 @@ export class GamemasterWorldComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
+    if (this.worldService.getCurrentWorld()) {
+      this.init();
+    } else {
+      this.worldService.onWorldChange().subscribe(() => this.init());
+    }
+  }
+
+  private init() {
     this.loadWorlds();
     this.currentWorld = this.worldService.getCurrentWorld();
   }

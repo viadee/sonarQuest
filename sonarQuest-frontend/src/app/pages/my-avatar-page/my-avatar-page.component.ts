@@ -23,6 +23,14 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.userService.getUser()) {
+      this.init();
+    } else {
+      this.userService.onUserChange().subscribe(() => this.init());
+    }
+  }
+
+  private init() {
     this.user = this.userService.getUser();
     this.getAvatar();
   }

@@ -68,11 +68,11 @@ export class WorldService {
     return this.worlds;
   }
 
-  updateWorld(world: World): Promise<any> {
-    return this.http.put<World>(`${environment.endpoint}/world/world/${world.id}`, world).toPromise();
+  updateWorld(world: World): Promise<World> {
+    return this.http.post<World>(`${environment.endpoint}/world/world`, world).toPromise();
   }
 
-  updateBackground(world: World, image: string): Promise<any> {
+  updateBackground(world: World, image: string): Promise<World> {
     return this.http.put<World>(`${environment.endpoint}/world/world/${world.id}/image`, image).toPromise();
   }
 

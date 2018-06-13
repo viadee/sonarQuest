@@ -93,7 +93,6 @@ public class AdventureService {
             if (developerList.contains(user)) {
                 developerList.remove(user);
             }
-            adventure.setUsers(developerList);
             adventure = adventureRepository.save(adventure);
         }
 
@@ -113,12 +112,9 @@ public class AdventureService {
         final User user = userService.findById(userId);
         if (adventure != null && user != null) {
             final List<User> userList = adventure.getUsers();
-            for (final User dev : userList) {
-                if (!dev.getId().equals(user.getId())) {
-                    userList.add(user);
-                }
+            if (!userList.contains(user)) {
+                userList.add(user);
             }
-            adventure.setUsers(userList);
             adventure = adventureRepository.save(adventure);
         }
 

@@ -10,7 +10,6 @@ import {AdventureService} from '../../services/adventure.service';
 import {WorldService} from '../../services/world.service';
 import {Adventure} from '../../Interfaces/Adventure';
 import {World} from '../../Interfaces/World';
-import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-adventure-page',
@@ -20,7 +19,7 @@ import {UserService} from '../../services/user.service';
 
 export class AdventurePageComponent implements OnInit {
 
-  public currentWorld: World;
+  protected currentWorld: World;
 
   columns: ITdDataTableColumn[] = [
     {name: 'title', label: 'Title', width: 200},
@@ -29,7 +28,7 @@ export class AdventurePageComponent implements OnInit {
     {name: 'story', label: 'Story', width: 200},
     {name: 'status', label: 'Status', width: 200},
     {name: 'edit', label: '', width: 70}
-  ]
+  ];
 
   sortBy = 'title';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
@@ -47,9 +46,8 @@ export class AdventurePageComponent implements OnInit {
   public filteredAvailableAdventures: Adventure[];
 
   constructor(
-    public adventureService: AdventureService,
-    public worldService: WorldService,
-    public userService: UserService,
+    private adventureService: AdventureService,
+    private worldService: WorldService,
     public translateService: TranslateService,
     private _dataTableService: TdDataTableService) {
   }
@@ -65,21 +63,28 @@ export class AdventurePageComponent implements OnInit {
         {name: 'status', label: col_names.STATUS, width: 50},
         {name: 'edit', label: ''}]
     });
+    if (this.worldService.getCurrentWorld()) {
+      this.init()
+    } else {
+      this.worldService.onWorldChange().subscribe(() => this.init());
+    }
+  }
 
+  private init() {
     this.currentWorld = this.worldService.getCurrentWorld();
     this.loadAdventures();
   }
 
   loadAdventures() {
-    if (this.currentWorld && !isUndefined(this.currentWorld.id) && this.userService.getUser()) {
+    if (this.currentWorld && !isUndefined(this.currentWorld.id)) {
       this.adventureService.getFreeAdventures(this.currentWorld).subscribe(availableAdventures => {
-        this.availableAdventures = availableAdventures
+        this.availableAdventures = availableAdventures;
         this.filteredAvailableAdventures = this.filterAdventures(this.availableAdventures);
-      })
+      });
       this.adventureService.getMyAdventures(this.currentWorld).subscribe(myAdventures => {
-        this.myAdventures = myAdventures
+        this.myAdventures = myAdventures;
         this.filteredMyAdventures = this.filterAdventures(this.myAdventures);
-      })
+      });
     }
   }
 

@@ -18,8 +18,12 @@ export class AdminDeveloperCreateComponent implements OnInit {
   public selectedImage: string;
   public nameTaken: boolean;
 
+  protected roles: String[] = ['GAMEMASTER', 'DEVELOPER', 'ADMIN'];
+
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
+    role: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
     about: new FormControl()
   });
 
@@ -54,7 +58,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
         username: this.createForm.get('name').value,
         aboutMe: this.createForm.get('about').value,
         picture: this.selectedImage,
-        role: {name: 'DEVELOPER'}
+        role: {name: this.createForm.get('role').value},
+        password: this.createForm.get('password').value
       };
       this.userService.updateUser(new_developer)
         .then(developer => {

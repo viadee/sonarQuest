@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +58,6 @@ public class QuestController {
         return questRepository.findAll();
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<Quest> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findById(world_id);
@@ -71,14 +69,12 @@ public class QuestController {
         return questRepository.findOne(id);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Quest createQuest(@RequestBody final Quest questDto) {
         return questRepository.save(questDto);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Quest updateQuest(@PathVariable(value = "id") final Long id, @RequestBody final Quest data) {
         Quest quest = questRepository.findOne(id);
@@ -93,7 +89,6 @@ public class QuestController {
         return quest;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteQuest(@PathVariable(value = "id") final Long id) {
         final Quest quest = questRepository.findOne(id);
@@ -115,7 +110,6 @@ public class QuestController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{questId}/addWorld/{worldId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Quest addWorld(@PathVariable(value = "questId") final Long questId,
@@ -129,7 +123,6 @@ public class QuestController {
         return quest;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{questId}/addAdventure/{adventureId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Quest addAdventure(@PathVariable(value = "questId") final Long questId,
@@ -152,7 +145,6 @@ public class QuestController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{questId}/removeAdventure", method = RequestMethod.DELETE)
     public void deleteAdventure(@PathVariable(value = "questId") final Long questId) {
         final Quest quest = questRepository.findOne(questId);

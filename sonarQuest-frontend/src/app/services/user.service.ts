@@ -13,7 +13,6 @@ import {Subscriber} from 'rxjs/Subscriber';
 export class UserService {
 
   private user: User;
-  private users: User[];
 
   listener: Subscriber<boolean>[] = [];
 
@@ -21,7 +20,6 @@ export class UserService {
     authenticationService.onLoginLogout().subscribe(() => {
       if (authenticationService.isLoggedIn()) {
         this.loadUser();
-        this.loadUsers();
       } else {
         console.log('Logout');
       }
@@ -36,7 +34,7 @@ export class UserService {
     );
   }
 
-  private onUserLoaded(): void {
+  private userLoaded(): void {
     this.listener.forEach(l => l.next(true));
   }
 
@@ -44,10 +42,10 @@ export class UserService {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
       this.user = user;
-      this.onUserLoaded();
+      this.userLoaded();
     }, error1 => {
       this.user = null;
-      this.onUserLoaded();
+      this.userLoaded();
     });
   }
 
@@ -55,17 +53,9 @@ export class UserService {
     return this.user;
   }
 
-  public loadUsers(): void {
+  public getUsers(): Observable<User[]> {
     const url = `${environment.endpoint}/user/all`;
-    this.httpClient.get <User[]>(url).subscribe(users => this.users = users)
-  }
-
-  public getUsers(): User[] {
-    return this.users;
-  }
-
-  public setUsers(users: User[]): void {
-    this.users = users;
+    return this.httpClient.get <User[]>(url);
   }
 
   public getImage(): Observable<Blob> {
@@ -80,7 +70,7 @@ export class UserService {
 
   public deleteUser(user: User): Promise<any> {
     const url = `${environment.endpoint}/user/${user.id}`;
-    return this.httpClient.delete(url).toPromise()
+    return this.httpClient.delete(url).toPromise();
   }
 
   public getLevel(xp: number): number {

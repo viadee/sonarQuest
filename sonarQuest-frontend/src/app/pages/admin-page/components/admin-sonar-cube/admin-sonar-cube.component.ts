@@ -31,7 +31,6 @@ export class AdminSonarCubeComponent implements OnInit {
 
   ngOnInit() {
     this.sonarCubeService.getConfigs().subscribe(configs => {
-        console.log('Zurück kam folgendes: ' + configs);
         this.sonarConfig = configs[0];
         if (this.sonarConfig) {
           this.aktualisiereFormGroup();

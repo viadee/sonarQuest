@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.RoleName;
@@ -18,7 +19,12 @@ import com.viadee.sonarQuest.repositories.UserRepository;
 public class UserService implements UserDetailsService {
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private UserRepository userRepository;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
@@ -39,9 +45,12 @@ public class UserService implements UserDetailsService {
         User toBeSaved = null;
         if (user.getId() == null) {
             toBeSaved = usernameFree(user.getUsername()) ? user : null;
+            // Only the password hash needs to be saved
+            toBeSaved.setPassword(encoder.encode(user.getPassword()));
+            toBeSaved.setRole(roleService.findByName(user.getRole().getName()));
         } else {
             toBeSaved = findById(user.getId());
-            if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(toBeSaved.getUsername())) {
+            if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(user.getUsername())) {
                 toBeSaved.setUsername(user.getUsername());
             }
             toBeSaved.setAboutMe(user.getAboutMe());
@@ -55,7 +64,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username) == null;
     }
 
-    public void delete(final User user) {
+    public void delete(final Long userId) {
+        final User user = findById(userId);
         userRepository.delete(user);
     }
 

@@ -1,6 +1,6 @@
 import {World} from './../Interfaces/World';
 import {Injectable} from '@angular/core';
-import {Http, RequestOptions, Headers, Response} from '@angular/http';
+import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';

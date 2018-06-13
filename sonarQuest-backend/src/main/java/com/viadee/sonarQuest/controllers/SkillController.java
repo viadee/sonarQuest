@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,13 +60,11 @@ public class SkillController {
         return skill;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteSkill(@PathVariable(value = "id") final Long id) {
         this.skillService.deleteSkill(this.skillRepository.findOne(id));
     }
 
-    @CrossOrigin
     @RequestMapping(value = "artefact/{artefact_id}", method = RequestMethod.GET)
     public List<Skill> getSkillsForArtefact(@PathVariable(value = "artefact_id") final Long id) {
         final Artefact a = this.artefactService.getArtefact(id);

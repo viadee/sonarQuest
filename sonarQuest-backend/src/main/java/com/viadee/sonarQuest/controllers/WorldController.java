@@ -51,9 +51,9 @@ public class WorldController {
         return worldRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/world/{id}", method = RequestMethod.PUT)
-    public World updateWorld(@PathVariable(value = "id") final Long id, @RequestBody final World data) {
-        World world = this.worldRepository.findOne(id);
+    @RequestMapping(value = "/world", method = RequestMethod.POST)
+    public World updateWorld(@RequestBody final World data) {
+        World world = this.worldRepository.findOne(data.getId());
         if (world != null) {
             world.setName(data.getName());
             world.setActive(data.getActive());

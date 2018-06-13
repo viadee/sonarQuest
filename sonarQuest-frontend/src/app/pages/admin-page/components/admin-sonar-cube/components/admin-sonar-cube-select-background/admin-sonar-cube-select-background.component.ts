@@ -13,9 +13,7 @@ import {UserService} from '../../../../../../services/user.service';
 })
 export class AdminSonarCubeSelectBackgroundComponent implements OnInit {
 
-  imageNames: string[] = ['bg01', 'bg02', 'bg03'];
   images = [];
-  selectedImage: string;
   currentWorld: World;
   user: User;
 
@@ -31,7 +29,7 @@ export class AdminSonarCubeSelectBackgroundComponent implements OnInit {
 
   select(image: string) {
     this.worldService.updateBackground(this.currentWorld, image).then(() => {
-      this.worldService.getCurrentWorld();
+      this.worldService.loadWorld();
       this.dialogRef.close(image)
     })
   }

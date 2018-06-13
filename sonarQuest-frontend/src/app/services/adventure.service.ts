@@ -50,14 +50,14 @@ export class AdventureService {
     return this.myAdventuresSubject.asObservable();
   }
 
-  leaveAdventure(adventure: Adventure): Promise<any> {
-    return this.httpClient.post<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/leave`, null, null)
+  leaveAdventure(adventure: Adventure): Promise<Adventure> {
+    return this.httpClient.post<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/leave`, null)
       .toPromise()
   }
 
-  joinAdventure(adventure: Adventure): Promise<any> {
-    return this.httpClient.post<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/join`, null, null)
-      .toPromise()
+  joinAdventure(adventure: Adventure): Promise<Adventure> {
+    return this.httpClient.post<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/join`, null)
+      .toPromise();
   }
 
   createAdventure(adventure: any): Promise<Adventure> {

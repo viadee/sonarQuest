@@ -66,7 +66,14 @@ export class AvailableQuestsComponent implements OnInit {
         {name: 'status', label: col_names.STATUS, width: 40},
         {name: 'edit', label: ''}]
     });
+    if (this.worldService.getCurrentWorld()) {
+      this.init();
+    } else {
+      this.worldService.onWorldChange().subscribe(() => this.init());
+    }
+  }
 
+  private init() {
     this.currentWorld = this.worldService.getCurrentWorld();
     this.loadQuests();
   }

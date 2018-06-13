@@ -56,7 +56,6 @@ export class GamemasterMarketplaceComponent implements OnInit {
     })
   }
 
-
   newArtefact() {
     this.dialog.open(GamemasterArtefactCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
       .subscribe(() => {

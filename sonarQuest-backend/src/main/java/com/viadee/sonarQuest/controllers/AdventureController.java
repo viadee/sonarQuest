@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,14 +78,12 @@ public class AdventureController {
         return adventureService.getFreeAdventuresForUserInWorld(w, user);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(@RequestBody final Adventure adventure) {
         return adventureRepository.save(adventure);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Adventure updateAdventure(@PathVariable(value = "id") final Long id,
             @RequestBody final Adventure data) {
@@ -119,7 +116,6 @@ public class AdventureController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{adventureId}/addQuest/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addQuest(@PathVariable(value = "adventureId") final Long adventureId,
@@ -138,7 +134,6 @@ public class AdventureController {
         return adventure;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{adventureId}/join", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure join(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
@@ -155,7 +150,6 @@ public class AdventureController {
      *            The id of the developer to remove
      * @return Gives the adventure where the Developer was removed
      */
-    @CrossOrigin
     @RequestMapping(value = "/{adventureId}/leave", method = RequestMethod.POST)
     public Adventure leave(final Principal principal,
             @PathVariable(value = "adventureId") final Long adventureId) {

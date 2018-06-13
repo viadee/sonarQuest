@@ -53,12 +53,18 @@ export class GamemasterAdventureComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
+    if (this.worldService.getCurrentWorld()) {
+      this.init();
+    } else {
+      this.worldService.onWorldChange().subscribe(() => this.init());
+    }
+  }
+  private init() {
     this.currentWorld = this.worldService.getCurrentWorld();
     if (this.currentWorld) {
       this.loadAdventures();
     }
   }
-
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [

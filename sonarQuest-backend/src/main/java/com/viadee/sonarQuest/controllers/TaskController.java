@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,7 +93,6 @@ public class TaskController {
         return taskDtos;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
@@ -130,7 +128,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public SpecialTaskDto createSpecialTask(@RequestBody final SpecialTaskDto specialTaskDto) {
@@ -138,7 +135,6 @@ public class TaskController {
         return specialTaskDto;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/standard", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public StandardTaskDto createStandardTask(@RequestBody final StandardTaskDto standardTaskDto) {
@@ -146,7 +142,6 @@ public class TaskController {
         return standardTaskDto;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public TaskDto updateTask(@PathVariable(value = "id") final Long id, @RequestBody final TaskDto taskDto) {
         TaskDto resultTaskDto = null;
@@ -166,7 +161,6 @@ public class TaskController {
         return resultTaskDto;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable(value = "id") final Long id) {
         final Task task = taskRepository.findById(id);
@@ -194,7 +188,6 @@ public class TaskController {
         return freeTasks;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
     public TaskDto solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
@@ -208,7 +201,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
     public TaskDto closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
@@ -221,7 +213,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/addToQuest/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDto addToQuest(@PathVariable(value = "taskId") final Long taskId,
@@ -236,7 +227,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/deleteFromQuest", method = RequestMethod.DELETE)
     public void deleteFromQuest(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskRepository.findOne(taskId);
@@ -265,7 +255,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/deleteParticipation", method = RequestMethod.DELETE)
     public void deleteParticipation(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskRepository.findOne(taskId);
@@ -276,7 +265,6 @@ public class TaskController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<TaskDto> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);

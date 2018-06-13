@@ -16,6 +16,7 @@ export interface User {
   xp?: number,
   level?: Level,
   artefacts?: Artefact[],
+  password?: string
 }
 
 

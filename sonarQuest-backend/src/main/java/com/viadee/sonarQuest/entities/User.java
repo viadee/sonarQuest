@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "User")
@@ -29,7 +29,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -217,4 +216,15 @@ public class User {
         this.participations = participations;
     }
 
+    @Override
+    public int hashCode() {
+        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
+    }
+
+    @Override
+    public boolean equals(final Object that) {
+        return this.getId() == null ? this == that : that != null
+                && this.getClass().isInstance(that)
+                && Objects.equal(this.getId(), ((User) that).getId());
+    }
 }

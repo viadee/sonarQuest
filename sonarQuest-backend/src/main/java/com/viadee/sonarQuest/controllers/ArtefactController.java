@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,21 +46,18 @@ public class ArtefactController {
         return artefactService.getArtefact(id);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Artefact createArtefact(@RequestBody final Artefact artefact) {
         return artefactService.createArtefact(artefact);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Artefact updateArtefact(@PathVariable(value = "id") final Long id,
             @RequestBody final Artefact artefactDto) {
         return artefactService.updateArtefact(id, artefactDto);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{artefact_id}/buy", method = RequestMethod.PUT)
     public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
         final User user = userService.findByUsername(principal.getName());
