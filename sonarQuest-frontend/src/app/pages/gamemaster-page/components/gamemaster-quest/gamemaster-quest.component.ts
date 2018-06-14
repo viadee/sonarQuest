@@ -58,15 +58,15 @@ export class GamemasterQuestComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    if (this.worldService.getCurrentWorld()) {
-      this.init();
-    } else {
-      this.worldService.onWorldChange().subscribe(() => this.init());
-    }
+    this.init();
+    this.worldService.onWorldChange().subscribe(() => this.init());
   }
+
   private init() {
-    this.currentWorld = this.worldService.getCurrentWorld();
-    this.subscribeToQuests();
+    if (this.worldService.getCurrentWorld()) {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.subscribeToQuests();
+    }
   }
 
   private translateTable() {

@@ -63,16 +63,15 @@ export class AdventurePageComponent implements OnInit {
         {name: 'status', label: col_names.STATUS, width: 50},
         {name: 'edit', label: ''}]
     });
-    if (this.worldService.getCurrentWorld()) {
-      this.init()
-    } else {
-      this.worldService.onWorldChange().subscribe(() => this.init());
-    }
+    this.init()
+    this.worldService.onWorldChange().subscribe(() => this.init());
   }
 
   private init() {
-    this.currentWorld = this.worldService.getCurrentWorld();
-    this.loadAdventures();
+    if (this.worldService.getCurrentWorld()) {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.loadAdventures();
+    }
   }
 
   loadAdventures() {

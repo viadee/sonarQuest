@@ -52,14 +52,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   protected logout(): void {
+    this.router.navigateByUrl('/');
     this.authService.logout();
     this.userService.loadUser();
-    this.worlds = null;
-    this.user = null;
+    this.setDesign();
     this.currentWorld = null;
     this.selected = null;
-    this.router.navigateByUrl('/');
-    this.setDesign();
+    this.worlds = null;
+    this.user = null;
   }
 
   ngOnInit() {

@@ -69,9 +69,8 @@ export class ParticipatedQuestsComponent implements OnInit {
     });
     if (this.worldService.getCurrentWorld()) {
       this.init();
-    } else {
-      this.worldService.onWorldChange().subscribe(() => this.init());
     }
+    this.worldService.onWorldChange().subscribe(() => this.init());
   }
 
   private init() {

@@ -57,8 +57,15 @@ export class GamemasterSpecialTaskComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.currentWorld = this.worldService.getCurrentWorld();
-    this.loadTasks();
+    this.init();
+    this.worldService.onWorldChange().subscribe(() => this.init());
+  }
+
+  private init() {
+    if (this.worldService.getCurrentWorld()) {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.loadTasks();
+    }
   }
 
   private translateTable() {
@@ -77,7 +84,7 @@ export class GamemasterSpecialTaskComponent implements OnInit {
   }
 
   loadTasks() {
-    return this.specialTaskService.getSpecialTasksForWorld(this.currentWorld).subscribe(tasks => {
+    this.specialTaskService.getSpecialTasksForWorld(this.currentWorld).subscribe(tasks => {
       this.data = tasks;
       this.filter();
     });

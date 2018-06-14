@@ -35,6 +35,7 @@ export class AvatarEditComponent implements OnInit {
 
   editDeveloper() {
     this.userService.updateUser(this.user).then(() => {
+      this.userService.loadUser();
       this.dialogRef.close(this.user);
     })
   }
