@@ -6,12 +6,12 @@ export interface Task {
   status: string,
   gold: number,
   xp: number,
-  key: string,
   component: string,
   severity: string,
   type: string,
   debt: number,
   message: string,
   world: World,
-  issueKey: string
+  issueKey: string,
+  key: string
 }

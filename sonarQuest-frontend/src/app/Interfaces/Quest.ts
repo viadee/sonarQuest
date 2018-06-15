@@ -1,6 +1,7 @@
 import {World} from './World';
 import {Task} from './Task';
 import {Participation} from './Participation';
+import {Adventure} from './Adventure';
 
 export interface Quest {
   id: number,
@@ -11,14 +12,7 @@ export interface Quest {
   xp: number,
   image: string,
   world: World,
-  adventure: {
-    id: number,
-    title: string,
-    story: string,
-    status: string,
-    gold: string,
-    xp: string
-  },
+  adventure: Adventure,
   tasks: Task[];
   participations: Participation[]
 }

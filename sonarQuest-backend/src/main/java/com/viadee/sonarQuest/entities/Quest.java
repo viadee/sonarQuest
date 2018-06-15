@@ -50,7 +50,6 @@ public class Quest {
     @JoinColumn(name = "adventure_id")
     private Adventure adventure;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "quest")
     private List<Task> tasks;
 

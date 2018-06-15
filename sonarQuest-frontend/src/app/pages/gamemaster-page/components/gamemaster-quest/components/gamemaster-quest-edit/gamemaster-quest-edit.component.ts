@@ -71,7 +71,7 @@ export class GamemasterQuestEditComponent implements OnInit {
 
   editQuest() {
     if (this.quest.title && this.quest.gold && this.quest.xp
-      && this.quest.story && this.quest.image && this.quest.world && this.quest.tasks.length !== 0) {
+      && this.quest.story && this.quest.image && this.quest.tasks.length !== 0) {
       const newAndDeselectedTasks = this.taskService.identifyNewAndDeselectedTasks(this.oldTasks, this.quest.tasks);
       const newTasks = newAndDeselectedTasks[0];
       const deselectedTasks = newAndDeselectedTasks[1];

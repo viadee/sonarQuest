@@ -17,6 +17,10 @@ public class WorldService {
     @Autowired
     private WorldRepository worldRepository;
 
+    public List<World> findAll() {
+        return worldRepository.findAll();
+    }
+
     public void updateWorlds() {
         final List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
         externalWorlds.forEach(this::updateWorld);

@@ -34,6 +34,10 @@ export class WorldService {
     return this.http.get<World[]>(`${environment.endpoint}/world/worlds`);
   }
 
+  public getAllWorlds(): Observable<World[]> {
+    return this.http.get<World[]>(`${environment.endpoint}/world/all`);
+  }
+
   public loadWorld(): void {
     this.http.get<World>(`${environment.endpoint}/world/current`)
       .subscribe(world => {

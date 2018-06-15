@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "task_type")
 @Table(name = "Task")
-public abstract class Task {
+public class Task {
 
     @Id
     @GeneratedValue
@@ -36,6 +36,10 @@ public abstract class Task {
     @Column(name = "xp")
     private Long xp;
 
+    @Column(name = "task_key")
+    private String key;
+
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "quest_id")
     private Quest quest;
@@ -88,7 +92,6 @@ public abstract class Task {
         this.xp = xp;
     }
 
-    @JsonIgnore
     public Quest getQuest() {
         return quest;
     }
@@ -97,7 +100,6 @@ public abstract class Task {
         this.quest = quest;
     }
 
-    @JsonIgnore
     public Participation getParticipation() {
         return participation;
     }
@@ -106,13 +108,20 @@ public abstract class Task {
         this.participation = participation;
     }
 
-    @JsonIgnore
     public World getWorld() {
         return world;
     }
 
     public void setWorld(final World world) {
         this.world = world;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(final String key) {
+        this.key = key;
     }
 
 }
