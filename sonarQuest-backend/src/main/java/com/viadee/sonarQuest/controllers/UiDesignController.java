@@ -1,19 +1,18 @@
 package com.viadee.sonarQuest.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarQuest.dtos.UiDesignDto;
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.UiDesign;
-import com.viadee.sonarQuest.repositories.DeveloperRepository;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.repositories.UiDesignRepository;
 import com.viadee.sonarQuest.services.UiDesignService;
+import com.viadee.sonarQuest.services.UserService;
 
 @RestController
 @RequestMapping("/ui")
@@ -23,31 +22,23 @@ public class UiDesignController {
     private UiDesignService uiDesignService;
 
     @Autowired
-    private DeveloperRepository developerRepository;
+    private UserService userService;
 
     @Autowired
     private UiDesignRepository uiDesignRepository;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public UiDesignDto getUiDesignById(@PathVariable(value = "id") Long developer_id) {
-        Developer developer = developerRepository.findById(developer_id);
-        UiDesign ui = uiDesignRepository.findByDeveloper(developer);
-
-        UiDesignDto uiDto = null;
-        if (ui != null) {
-            uiDto = uiDesignService.toUiDesignDto(ui);
-        } else {
-            uiDto = uiDesignService.createUiDesign(developer, "light");
-        }
-        return uiDto;
+    @RequestMapping(method = RequestMethod.GET)
+    public UiDesign getUiDesign(final Principal principal) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        final UiDesign ui = uiDesignRepository.findByUser(user);
+        return ui == null ? uiDesignService.updateUiDesign(user, "light") : ui;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public UiDesignDto updateAdventure(@PathVariable(value = "id") Long developer_id, @RequestBody String designName) {
-        Developer developer = developerRepository.findById(developer_id);
-        UiDesign ui = uiDesignRepository.findByDeveloper(developer);
-
-        return uiDesignService.updateUiDesign(ui, developer, designName);
+    @RequestMapping(method = RequestMethod.PUT)
+    public UiDesign updateUiDesign(final Principal principal, @RequestBody final String designName) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        return uiDesignService.updateUiDesign(user, designName);
     }
 }

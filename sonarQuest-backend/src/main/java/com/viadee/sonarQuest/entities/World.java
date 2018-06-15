@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,39 +35,50 @@ public class World {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(mappedBy="world")
+    @JsonIgnore
+    @OneToMany(mappedBy = "world")
     private List<Adventure> adventures;
 
-    @OneToMany(mappedBy="world")
+    @JsonIgnore
+    @OneToMany(mappedBy = "world")
     private List<Quest> quests;
 
-    @OneToMany(mappedBy="world",cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "world", cascade = CascadeType.ALL)
     private List<Task> tasks;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private List<User> users;
 
     public World() {
     }
 
-    public World(String name, String project) {
+    public World(final String name, final String project) {
         this.name = name;
         this.project = project;
     }
 
-    public World(String name, String project, Boolean active) {
+    public World(final String name, final String project, final Boolean active) {
         this.name = name;
         this.project = project;
         this.active = active;
     }
 
-	public World(Long id, String name, String project, Boolean active, List<Quest> quests, List<Task> tasks) {
-		this.id = id;
-		this.name = name;
-		this.project = project;
-		this.active = active;
-		this.quests = quests;
-		this.tasks = tasks;
-	}
+    public World(final Long id, final String name, final String project, final Boolean active, final List<Quest> quests,
+            final List<Task> tasks) {
+        this.id = id;
+        this.name = name;
+        this.project = project;
+        this.active = active;
+        this.quests = quests;
+        this.tasks = tasks;
+    }
 
-	public World(Long id, String name, String project, Boolean active, List<Adventure> adventures, List<Quest> quests, List<Task> tasks) {
+    public World(final Long id, final String name, final String project, final Boolean active,
+            final List<Adventure> adventures, final List<Quest> quests,
+            final List<Task> tasks) {
         this.id = id;
         this.name = name;
         this.project = project;
@@ -74,20 +88,19 @@ public class World {
         this.tasks = tasks;
     }
 
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-		this.id = id;
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -95,16 +108,15 @@ public class World {
         return project;
     }
 
-    public void setProject(String project) {
+    public void setProject(final String project) {
         this.project = project;
     }
 
-    @JsonIgnore
     public List<Quest> getQuests() {
         return quests;
     }
 
-    public void setQuests(List<Quest> quests) {
+    public void setQuests(final List<Quest> quests) {
         this.quests = quests;
     }
 
@@ -112,26 +124,32 @@ public class World {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(final Boolean active) {
         this.active = active;
     }
 
-    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(final List<Task> tasks) {
         this.tasks = tasks;
     }
 
-	public String getImage() {
-		return image;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
-    
-    
+    public void setImage(final String image) {
+        this.image = image;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(final List<User> users) {
+        this.users = users;
+    }
+
 }

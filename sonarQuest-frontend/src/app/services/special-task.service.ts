@@ -1,73 +1,54 @@
-import { Task } from 'app/Interfaces/Task';
-import { World } from './../Interfaces/World';
-import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers,Response} from "@angular/http";
-import {environment} from "../../environments/environment";
-import {SpecialTask} from "../Interfaces/SpecialTask";
-import {ReplaySubject} from "rxjs/ReplaySubject";
-import {Observer} from "rxjs/Observer";
-import {Observable} from "rxjs/Observable";
+import {World} from './../Interfaces/World';
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {environment} from '../../environments/environment';
+import {SpecialTask} from '../Interfaces/SpecialTask';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class SpecialTaskService {
 
   private specialTaskSubject;
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     this.specialTaskSubject = new ReplaySubject(1);
   }
 
   getSpecialTasksForWorld(world: World): Observable<SpecialTask[]> {
-    this.http.get(`${environment.endpoint}/task/world/${world.id}`)
-      .map(response =>{
-        let tasks=this.extractData(response);
-        return tasks[0];
-      }).subscribe(
+    this.http.get<SpecialTask[]>(`${environment.endpoint}/task/special/world/${world.id}`).subscribe(
       result => this.specialTaskSubject.next(result),
-      err    => this.specialTaskSubject.error(err)
+      err => this.specialTaskSubject.error(err)
     )
     return this.specialTaskSubject.asObservable();
   }
 
-  createSpecialTask(specialTask: any): Promise<any>{
+  createSpecialTask(specialTask: any): Promise<SpecialTask> {
     specialTask.world.quests = [];
-    specialTask.world.tasks  = [];
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${environment.endpoint}/task/special`, specialTask, options)
+    specialTask.world.tasks = [];
+    return this.http.post<SpecialTask>(`${environment.endpoint}/task/special`, specialTask)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  updateSpecialTask(specialTask: any): Promise<any>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${environment.endpoint}/task/${specialTask.id}`, specialTask, options)
+  updateSpecialTask(specialTask: any): Promise<SpecialTask> {
+    return this.http.put<SpecialTask>(`${environment.endpoint}/task/special`, specialTask)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  deleteSpecialTask(specialTask: any): Promise<any>{
+  deleteSpecialTask(specialTask: any): Promise<any> {
     return this.http.delete(`${environment.endpoint}/task/${specialTask.id}`)
       .toPromise()
       .then()
       .catch(this.handleError);
   }
 
-  solveSpecialTask(specialTask: any): Promise<any>{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${environment.endpoint}/task/${specialTask.id}/solveSpecialTask/`, specialTask, options)
+  solveSpecialTask(specialTask: any): Promise<SpecialTask> {
+      return this.http.put<SpecialTask>(`${environment.endpoint}/task/${specialTask.id}/solveSpecialTask/`, specialTask)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 
   private handleError(error: Response | any) {

@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {SonarCubeConfig} from '../Interfaces/SonarCubeConfig';
-import {AppComponent} from '../app.component';
-import {WorldService} from './world.service';
 
 @Injectable()
 export class SonarCubeService {
@@ -14,7 +12,6 @@ export class SonarCubeService {
 
   public getConfigs(): Observable<SonarCubeConfig[]> {
     const url = `${environment.endpoint}/sonarconfig`;
-    console.log('Ich rufe auf ' + url);
     return this.http.get<SonarCubeConfig[]>(url);
   }
 
@@ -25,7 +22,6 @@ export class SonarCubeService {
 
   public saveConfig(config: SonarCubeConfig) {
     const url = `${environment.endpoint}/sonarconfig`;
-    console.log('Post an ' + url);
     return this.http.post(url, config).subscribe();
   }
 

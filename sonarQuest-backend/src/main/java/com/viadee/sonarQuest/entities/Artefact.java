@@ -46,13 +46,15 @@ public class Artefact {
     @JoinTable(name = "Artefact_Skill", joinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
     private List<Skill> skills;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "artefacts", cascade = CascadeType.ALL)
-    private List<Developer> developers;
+    private List<User> users;
 
     public Artefact() {
     }
 
-    public Artefact(String name, String icon, Long price, Level minLevel, List<Skill> skills) {
+    public Artefact(final String name, final String icon, final Long price, final Level minLevel,
+            final List<Skill> skills) {
         this.name = name;
         this.icon = icon;
         this.price = price;
@@ -60,14 +62,15 @@ public class Artefact {
         this.skills = skills;
     }
 
-    public Artefact(String name, Long price, Long quantity, String description) {
+    public Artefact(final String name, final Long price, final Long quantity, final String description) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.description = description;
     }
 
-    public Artefact(String name, String icon, Long price, Long quantity, String description) {
+    public Artefact(final String name, final String icon, final Long price, final Long quantity,
+            final String description) {
         this.name = name;
         this.icon = icon;
         this.price = price;
@@ -75,18 +78,20 @@ public class Artefact {
         this.description = description;
     }
 
-    public Artefact(String name, String icon, Long price, Level minLevel, List<Skill> skills,
-            List<Developer> developers) {
+    public Artefact(final String name, final String icon, final Long price, final Level minLevel,
+            final List<Skill> skills,
+            final List<User> users) {
         this.name = name;
         this.icon = icon;
         this.price = price;
         this.minLevel = minLevel;
         this.skills = skills;
-        this.developers = developers;
+        this.users = users;
     }
 
-    public Artefact(Long id, String name, String icon, Long price, Long quantity, String description, Level minLevel,
-            List<Skill> skills, List<Developer> developers) {
+    public Artefact(final Long id, final String name, final String icon, final Long price, final Long quantity,
+            final String description, final Level minLevel,
+            final List<Skill> skills, final List<User> users) {
         this.id = id;
         this.name = name;
         this.icon = icon;
@@ -95,14 +100,14 @@ public class Artefact {
         this.description = description;
         this.minLevel = minLevel;
         this.skills = skills;
-        this.developers = developers;
+        this.users = users;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -110,7 +115,7 @@ public class Artefact {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -118,7 +123,7 @@ public class Artefact {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(final String icon) {
         this.icon = icon;
     }
 
@@ -126,24 +131,23 @@ public class Artefact {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(final List<Skill> skills) {
         this.skills = skills;
     }
 
-    @JsonIgnore
-    public List<Developer> getDevelopers() {
-        return developers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setDevelopers(List<Developer> developers) {
-        this.developers = developers;
+    public void setUsers(final List<User> users) {
+        this.users = users;
     }
 
     public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(final Long price) {
         this.price = price;
     }
 
@@ -151,7 +155,7 @@ public class Artefact {
         return minLevel;
     }
 
-    public void setMinLevel(Level minLevel) {
+    public void setMinLevel(final Level minLevel) {
         this.minLevel = minLevel;
     }
 
@@ -159,7 +163,7 @@ public class Artefact {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(final Long quantity) {
         this.quantity = quantity;
     }
 
@@ -167,7 +171,7 @@ public class Artefact {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -181,7 +185,7 @@ public class Artefact {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -191,7 +195,7 @@ public class Artefact {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Artefact other = (Artefact) obj;
+        final Artefact other = (Artefact) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;

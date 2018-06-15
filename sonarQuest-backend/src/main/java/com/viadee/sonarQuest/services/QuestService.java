@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.constants.QuestStates;
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.interfaces.QuestSuggestion;
 import com.viadee.sonarQuest.repositories.ParticipationRepository;
@@ -36,11 +36,11 @@ public class QuestService implements QuestSuggestion {
     private ParticipationRepository participationRepository;
 
     @Override
-    public List<Task> suggestTasksWithApproxGoldAmount(World world, Long goldApprox) {
-        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
-        List<Task> suggestedTasks = new ArrayList<>();
+    public List<Task> suggestTasksWithApproxGoldAmount(final World world, final Long goldApprox) {
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
+        final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalGoldAmountOfTaskList(suggestedTasks) < goldApprox) && (!freeTasks.isEmpty())) {
-            Task selectedTask = selectRandomTask(freeTasks);
+            final Task selectedTask = selectRandomTask(freeTasks);
             suggestedTasks.add(selectedTask);
             freeTasks.remove(selectedTask);
         }
@@ -48,54 +48,54 @@ public class QuestService implements QuestSuggestion {
     }
 
     @Override
-    public List<Task> suggestTasksWithApproxXpAmount(World world, Long xpApprox) {
-        List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
-        List<Task> suggestedTasks = new ArrayList<>();
+    public List<Task> suggestTasksWithApproxXpAmount(final World world, final Long xpApprox) {
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
+        final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalXpAmountOfTaskList(suggestedTasks) < xpApprox) && (!freeTasks.isEmpty())) {
-            Task selectedTask = selectRandomTask(freeTasks);
+            final Task selectedTask = selectRandomTask(freeTasks);
             suggestedTasks.add(selectedTask);
             freeTasks.remove(selectedTask);
         }
         return suggestedTasks;
     }
 
-    private Task selectRandomTask(List<Task> taskList) {
-        Random random = new Random();
-        Integer randomIndex = random.nextInt(taskList.size());
+    private Task selectRandomTask(final List<Task> taskList) {
+        final Random random = new Random();
+        final Integer randomIndex = random.nextInt(taskList.size());
         return taskList.get(randomIndex);
     }
 
-    private Long totalGoldAmountOfTaskList(List<Task> taskList) {
+    private Long totalGoldAmountOfTaskList(final List<Task> taskList) {
         return taskList.stream().mapToLong(Task::getGold).sum();
     }
 
-    private Long totalXpAmountOfTaskList(List<Task> taskList) {
+    private Long totalXpAmountOfTaskList(final List<Task> taskList) {
         return taskList.stream().mapToLong(Task::getXp).sum();
     }
 
     public void updateQuests() {
-        List<Quest> quests = questRepository.findAll();
+        final List<Quest> quests = questRepository.findAll();
         quests.forEach(this::updateQuest);
     }
 
-    public void updateQuest(Quest quest) {
-        List<Task> tasks = quest.getTasks();
-        List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED.getText());
-        List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED.getText());
+    public void updateQuest(final Quest quest) {
+        final List<Task> tasks = quest.getTasks();
+        final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED.getText());
+        final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED.getText());
         if (tasks.size() == (solvedTasks.size() + closedTasks.size())) {
             quest.setStatus(QuestStates.SOLVED);
             questRepository.save(quest);
-            gratificationService.rewardDevelopersForSolvingQuest(quest);
+            gratificationService.rewardUsersForSolvingQuest(quest);
         }
     }
 
-    public List<List<Quest>> getAllQuestsForWorldAndDeveloper(World world, Developer developer) {
-        List<Participation> participations = participationRepository.findByDeveloper(developer);
-        List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
+    public List<List<Quest>> getAllQuestsForWorldAndUser(final World world, final User developer) {
+        final List<Participation> participations = participationRepository.findByUser(developer);
+        final List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
                 .filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
-        List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
-        List<List<Quest>> result = new ArrayList<>();
-        List<Quest> freeQuests = allQuestsForWorld;
+        final List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
+        final List<List<Quest>> result = new ArrayList<>();
+        final List<Quest> freeQuests = allQuestsForWorld;
         freeQuests.removeAll(participatedQuests);
         result.add(participatedQuests);
         result.add(freeQuests);

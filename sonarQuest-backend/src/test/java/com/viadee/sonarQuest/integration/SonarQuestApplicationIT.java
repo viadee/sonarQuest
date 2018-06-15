@@ -16,13 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.TaskController;
-import com.viadee.sonarQuest.entities.Developer;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
-import com.viadee.sonarQuest.repositories.DeveloperRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
@@ -30,6 +29,7 @@ import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.ExternalRessourceService;
 import com.viadee.sonarQuest.services.StandardTaskService;
+import com.viadee.sonarQuest.services.UserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "simulateSonarServer=true")
@@ -37,9 +37,6 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private ExternalRessourceService externalRessourceService;
-
-    @Autowired
-    private DeveloperRepository developerRepository;
 
     @Autowired
     private WorldRepository worldRepository;
@@ -62,6 +59,9 @@ public class SonarQuestApplicationIT {
     @Autowired
     private StandardTaskService standardTaskService;
 
+    @Autowired
+    private UserService userService;
+
     @Test(timeout = 1000) // There is hardly any data to fetch - this should be quick
     public void testWorldStructure() {
         final World sonarDungeon = worldRepository.findOne(1L);
@@ -72,19 +72,17 @@ public class SonarQuestApplicationIT {
     }
 
     /**
-     * Walk through the participation on the backend with a developer perspective.
-     * This test assumes a spring environment including a simulated sonar server and
-     * database access.
+     * Walk through the participation on the backend with a developer perspective. This test assumes a spring
+     * environment including a simulated sonar server and database access.
      */
     @Transactional
     @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
 
-        Long developerId = 4L;
         // Join in on a quest.
         // Add Participation sonarWarrior, Quest1
-        participationController.createParticipation(1L, developerId);
+        participationController.createParticipation(() -> "dev", 1L);
 
         Quest epicQuest = questRepository.findOne(1L);
         final List<Participation> participations = epicQuest.getParticipations();
@@ -92,30 +90,30 @@ public class SonarQuestApplicationIT {
         assertEquals("createParticipation does not work (Quest)", "Hidden danger in the woods!",
                 participations.get(1).getQuest().getTitle());
         assertEquals("createParticipation does not work (Developer)", "Mike Magician",
-                participations.get(1).getDeveloper().getUsername());
+                participations.get(1).getUser().getUsername());
 
         // Get to work on issue 1
         Task issue1 = taskRepository.findOne(5L);
         assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
-        taskController.addParticipation(1L, 1L, developerId);
+        taskController.addParticipation(() -> "dev", 1L, 1L);
         issue1 = taskRepository.findOne(1L);
 
         assertEquals("addParticipation does not work (Quest)", "Hidden danger in the woods!",
                 issue1.getParticipation().getQuest().getTitle());
         assertEquals("addParticipation does not work (Developer)", "Mike Magician",
-                issue1.getParticipation().getDeveloper().getUsername());
+                issue1.getParticipation().getUser().getUsername());
         assertEquals("addParticipation does not work (Status)", SonarQuestStatus.PROCESSED.getText(),
                 issue1.getStatus());
 
         adventureService.updateAdventures(); // no effect expected
-        Developer sonarWarrior = developerRepository.findOne(developerId);
+        User sonarWarrior = userService.findByUsername("dev");
         assertEquals("Gratification during updateAdventures does not work (Gold)", Long.valueOf(18),
                 sonarWarrior.getGold());
         assertEquals("Gratification during updateAdventures does not work (XP)", Long.valueOf(15),
                 sonarWarrior.getXp());
 
         // Solve task (close issue 1)
-        List<SonarQubeIssue> issueList = externalRessourceService.getIssuesForSonarQubeProject("15054");
+        final List<SonarQubeIssue> issueList = externalRessourceService.getIssuesForSonarQubeProject("15054");
         issueList.get(0).setStatus("CLOSED");
 
         final World sonarDungeon = worldRepository.findOne(1L);
@@ -130,7 +128,7 @@ public class SonarQuestApplicationIT {
         // Check Gratification
         // Gold = 18 (initial value) + 1 (Task) + 2(Magician) + 0 (no Artefacts)= 21
         // XP = 22 (inital value) + 2 (Task ) = 20
-        sonarWarrior = developerRepository.findOne(developerId);
+        sonarWarrior = userService.findByUsername("dev");
         assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(21),
                 sonarWarrior.getGold());
         assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(20),

@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Task } from "app/Interfaces/Task";
-import { TaskService } from "../../../../../../../../services/task.service";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { GamemasterQuestCreateComponent } from "../../gamemaster-quest-create.component";
+import {Component, Inject, OnInit} from '@angular/core';
+import {Task} from 'app/Interfaces/Task';
+import {TaskService} from '../../../../../../../../services/task.service';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
 import {SonarCubeService} from '../../../../../../../../services/sonar-cube.service';
-import {World} from '../../../../../../../../Interfaces/Developer';
+import {World} from '../../../../../../../../Interfaces/World';
 import {WorldService} from '../../../../../../../../services/world.service';
 
 
@@ -24,14 +24,17 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     private taskService: TaskService,
     private dialogRef: MatDialogRef<GamemasterQuestCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.taskService.getFreeTasksForWorld(this.data[0]).then(freetasks => {
-      let addedTasks = this.data[1].map(task => task.id);
-      this.freeTasks = freetasks.filter(task => { return addedTasks.indexOf(task.id) < 0 });
+      const addedTasks = this.data[1].map(task => task.id);
+      this.freeTasks = freetasks.filter(task => {
+        return addedTasks.indexOf(task.id) < 0
+      });
     });
-    this.worldService.currentWorld$.subscribe(w => this.currentWorld = w);
+    this.currentWorld = this.worldService.getCurrentWorld();
   }
 
   addTask(task: Task) {

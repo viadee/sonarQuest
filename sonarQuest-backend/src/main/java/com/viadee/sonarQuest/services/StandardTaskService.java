@@ -34,33 +34,39 @@ public class StandardTaskService {
     @Autowired
     private WorldRepository worldRepository;
 
-
-    public void updateStandardTasks(World world) {
-        List<StandardTask> externalStandardTasks = externalRessourceService
+    public void updateStandardTasks(final World world) {
+        final List<StandardTask> externalStandardTasks = externalRessourceService
                 .generateStandardTasksFromSonarQubeIssuesForWorld(world);
         externalStandardTasks.forEach(this::updateStandardTask);
         questService.updateQuests();
         adventureService.updateAdventures();
     }
 
-    public void updateStandardTask(StandardTask currentState) {
-        StandardTask lastState = standardTaskRepository.findByKey(currentState.getKey());
+    public StandardTask updateStandardTask(final StandardTask taskDto) {
+        final StandardTask task = standardTaskRepository.findByKey(taskDto.getKey());
+        task.setTitle(taskDto.getTitle());
+        task.setGold(taskDto.getGold());
+        task.setXp(taskDto.getXp());
+
+        final StandardTask lastState = standardTaskRepository.findByKey(task.getKey());
         if (lastState != null) {
-            SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(currentState.getStatus());
-            SonarQuestStatus oldStatus = SonarQuestStatus.fromStatusText(lastState.getStatus());
+            final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
+            final SonarQuestStatus oldStatus = SonarQuestStatus.fromStatusText(lastState.getStatus());
             if (oldStatus != SonarQuestStatus.CREATED) {
                 lastState.setStatus(newStatus.getText());
+                standardTaskRepository.saveAndFlush(lastState);
             }
             if (newStatus == SonarQuestStatus.SOLVED && !(oldStatus == SonarQuestStatus.SOLVED)) {
-                gratificationService.rewardDeveloperForSolvingTask(lastState);
+                gratificationService.rewardUserForSolvingTask(lastState);
             }
         } else {
-            currentState.setStatus(SonarQuestStatus.CREATED.getText());
-            standardTaskRepository.save(currentState);
+            task.setStatus(SonarQuestStatus.CREATED.getText());
+            standardTaskRepository.saveAndFlush(task);
         }
+        return task;
     }
 
-    public void setExternalRessourceService(ExternalRessourceService externalRessourceService) {
+    public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
         this.externalRessourceService = externalRessourceService;
     }
 

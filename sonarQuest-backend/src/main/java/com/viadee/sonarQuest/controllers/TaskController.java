@@ -2,13 +2,13 @@ package com.viadee.sonarQuest.controllers;
 
 import static com.viadee.sonarQuest.dtos.TaskDto.toTaskDto;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,9 @@ import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
+import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
+import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.SpecialTaskRepository;
@@ -36,6 +38,7 @@ import com.viadee.sonarQuest.services.ParticipationService;
 import com.viadee.sonarQuest.services.QuestService;
 import com.viadee.sonarQuest.services.SpecialTaskService;
 import com.viadee.sonarQuest.services.StandardTaskService;
+import com.viadee.sonarQuest.services.UserService;
 
 @RestController
 @RequestMapping("/task")
@@ -74,6 +77,9 @@ public class TaskController {
     @Autowired
     private GratificationService gratificationService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasks() {
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
@@ -88,10 +94,9 @@ public class TaskController {
         return taskDtos;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
-        World w = worldRepository.findOne(world_id);
+        final World w = worldRepository.findOne(world_id);
         final List<List<TaskDto>> taskDtos = new ArrayList<>();
         List<TaskDto> specialTaskDtos;
         List<TaskDto> standardTaskDtos;
@@ -104,49 +109,50 @@ public class TaskController {
         return taskDtos;
     }
 
+    @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
+    public List<TaskDto> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+        final World w = worldRepository.findOne(world_id);
+        return specialTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
+                .collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
+    public List<TaskDto> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+        final World w = worldRepository.findOne(world_id);
+        return standardTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
+                .collect(Collectors.toList());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public TaskDto getTaskById(@PathVariable(value = "id") final Long id) {
         final Task task = taskRepository.findById(id);
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public SpecialTaskDto createSpecialTask(@RequestBody SpecialTaskDto specialTaskDto) {
+    public SpecialTaskDto createSpecialTask(@RequestBody final SpecialTaskDto specialTaskDto) {
         specialTaskService.saveDto(specialTaskDto);
         return specialTaskDto;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/standard", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public StandardTaskDto createStandardTask(@RequestBody StandardTaskDto standardTaskDto) {
+    public StandardTaskDto createStandardTask(@RequestBody final StandardTaskDto standardTaskDto) {
         standardTaskService.saveDto(standardTaskDto);
         return standardTaskDto;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public TaskDto updateTask(@PathVariable(value = "id") final Long id, @RequestBody final TaskDto taskDto) {
-        TaskDto resultTaskDto = null;
-        final Task task = taskRepository.findById(id);
-        if (task != null) {
-            task.setTitle(taskDto.getTitle());
-            task.setGold(taskDto.getGold());
-            task.setXp(taskDto.getXp());
-            taskRepository.save(task);
-            resultTaskDto = toTaskDto(task);
-        }
-        if (task instanceof SpecialTask) {
-            ((SpecialTask) task).setMessage(((SpecialTaskDto) taskDto).getMessage());
-            taskRepository.save(task);
-            resultTaskDto = toTaskDto(task);
-        }
-        return resultTaskDto;
+    @RequestMapping(value = "/special", method = RequestMethod.PUT)
+    public SpecialTask updateSpecialTask(@RequestBody final SpecialTask taskDto) {
+        return specialTaskService.updateSpecialTask(taskDto);
     }
 
-    @CrossOrigin
+    @RequestMapping(value = "/standard", method = RequestMethod.PUT)
+    public StandardTask updateStandardTask(@RequestBody final StandardTask taskDto) {
+        return standardTaskService.updateStandardTask(taskDto);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable(value = "id") final Long id) {
         final Task task = taskRepository.findById(id);
@@ -167,29 +173,26 @@ public class TaskController {
 
             /*
              * @Florian - For what? freeSpecialTasks =
-             * this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map(
-             * specialTask -> toTaskDto(specialTask)).collect(Collectors.toList());
-             * freeTasks.addAll(freeSpecialTasks);
+             * this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map( specialTask ->
+             * toTaskDto(specialTask)).collect(Collectors.toList()); freeTasks.addAll(freeSpecialTasks);
              */
         }
         return freeTasks;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
     public TaskDto solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null && task instanceof SpecialTask) {
             task.setStatus(SonarQuestStatus.SOLVED.getText());
             task = taskRepository.save(task);
-            gratificationService.rewardDeveloperForSolvingTask(task);
+            gratificationService.rewardUserForSolvingTask(task);
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
     public TaskDto closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
@@ -202,7 +205,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/addToQuest/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDto addToQuest(@PathVariable(value = "taskId") final Long taskId,
@@ -217,7 +219,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/deleteFromQuest", method = RequestMethod.DELETE)
     public void deleteFromQuest(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskRepository.findOne(taskId);
@@ -228,14 +229,16 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/{taskId}/addParticipation/{questId}/{developerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{taskId}/addParticipation/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto addParticipation(@PathVariable(value = "taskId") final Long taskId,
-            @PathVariable(value = "questId") final Long questId,
-            @PathVariable(value = "developerId") final Long developerId) {
+    public TaskDto addParticipation(final Principal principal,
+            @PathVariable(value = "taskId") final Long taskId,
+            @PathVariable(value = "questId") final Long questId) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
         Task task = taskRepository.findOne(taskId);
-        final Participation participation = participationService.findParticipationByQuestIdAndDeveloperId(questId,
-                developerId);
+        final Participation participation = participationService.findParticipationByQuestIdAndUserId(questId,
+                user.getId());
         if (task != null && participation != null) {
             task.setParticipation(participation);
             task.setStatus(SonarQuestStatus.PROCESSED.getText());
@@ -244,7 +247,6 @@ public class TaskController {
         return toTaskDto(task);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/{taskId}/deleteParticipation", method = RequestMethod.DELETE)
     public void deleteParticipation(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskRepository.findOne(taskId);
@@ -255,7 +257,6 @@ public class TaskController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<TaskDto> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);

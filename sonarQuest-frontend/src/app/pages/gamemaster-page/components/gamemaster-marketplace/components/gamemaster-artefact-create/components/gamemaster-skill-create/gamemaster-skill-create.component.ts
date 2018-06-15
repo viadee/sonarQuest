@@ -1,7 +1,7 @@
-import { MatDialogRef, MatOption } from '@angular/material';
-import { GamemasterArtefactCreateComponent } from './../../gamemaster-artefact-create.component';
-import { SkillService } from './../../../../../../../../services/skill.service';
-import { Component, OnInit } from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {GamemasterArtefactCreateComponent} from './../../gamemaster-artefact-create.component';
+import {SkillService} from './../../../../../../../../services/skill.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-gamemaster-skill-create',
@@ -9,26 +9,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gamemaster-skill-create.component.css']
 })
 export class GamemasterSkillCreateComponent implements OnInit {
-  types = ['Gold', 'Xp']
-  name: string
-  type: string
-  value: number
+  types = ['Gold', 'Xp'];
+  name: string;
+  type: string;
+  value: number;
 
   constructor(
     private dialogRef: MatDialogRef<GamemasterArtefactCreateComponent>,
-    private skillServie: SkillService
-  ) { }
+    private skillServie: SkillService) {
+  }
 
   ngOnInit() {
   }
 
-  create(){
-    let skill = {
+  create() {
+    const skill = {
       name: this.name,
-      type: this.type.toUpperCase( ),
+      type: this.type.toUpperCase(),
       value: this.value
-    }
-    this.skillServie.createSkill(skill).then(skill => this.dialogRef.close(skill))
+    };
+    this.skillServie.createSkill(skill)
+      .then(() => this.dialogRef.close(skill));
   }
 }
 

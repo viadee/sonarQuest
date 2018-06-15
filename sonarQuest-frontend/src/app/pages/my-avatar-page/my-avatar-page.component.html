@@ -9,9 +9,9 @@
             </div>
             <div flex>
               <div layout="column">
-                <mat-card-title>{{developer?.username}}</mat-card-title>
-                <mat-card-subtitle>{{"DEVELOPER.AVATARCLASS"| translate}}: {{developer?.avatarClass.name}}</mat-card-subtitle>
-                <mat-card-subtitle>{{"DEVELOPER.AVATARRACE"| translate}}: {{developer?.avatarRace.name}}</mat-card-subtitle>
+                <mat-card-title>{{user?.username}}</mat-card-title>
+                <mat-card-subtitle>{{"DEVELOPER.AVATARCLASS"| translate}}: {{user?.avatarClass.name}}</mat-card-subtitle>
+                <mat-card-subtitle>{{"DEVELOPER.AVATARRACE"| translate}}: {{user?.avatarRace.name}}</mat-card-subtitle>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
 
                   <div flex></div>
                   <div flex-end>
-                    <span>{{"GLOBAL.GOLD"| translate}}: {{developer?.gold}}
+                    <span>{{"GLOBAL.GOLD"| translate}}: {{user?.gold}}
                       <i class="ra ra-gold-bar ra-lg"></i>
                     </span>
                   </div>
@@ -46,7 +46,7 @@
                 <div layout="row">
                   <div flex></div>
                   <div flex-end>
-                    <span flex>{{"GLOBAL.XP"| translate}}: {{developer?.xp}}/{{developer?.level.max}}
+                    <span flex>{{"GLOBAL.XP"| translate}}: {{user?.xp}}/{{user?.level.max}}
                       <i class="ra ra-perspective-dice-random ra-lg"></i>
                     </span>
                   </div>
@@ -68,7 +68,7 @@
     </mat-toolbar>
 
     <mat-card-content>
-      <p>{{developer?.aboutMe}}</p>
+      <p>{{user?.aboutMe}}</p>
     </mat-card-content>
 
     <mat-toolbar>
@@ -77,7 +77,7 @@
 
     <mat-card-content>
       <mat-grid-list cols="4" rowHeight="3:1">
-        <mat-grid-tile *ngFor="let artefact of developer?.artefacts">
+        <mat-grid-tile *ngFor="let artefact of user?.artefacts">
           <i [matTooltip]="'Name:' + artefact.name + '\nSkills: ' + createSkillsList(artefact)" [matTooltipClass]="'tooltipMultiline'"
             matTooltipPosition="after" class="ra ra-3x" [ngClass]="artefact.icon"></i>
           <span>{{artefact.name}}</span>

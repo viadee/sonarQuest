@@ -1,80 +1,118 @@
-import { UiDesignService } from './services/ui-design.service';
-import { MatDialog } from '@angular/material';
-import { ChooseCurrentWorldComponent } from './components/choose-current-world/choose-current-world/choose-current-world.component';
-import { isUndefined } from 'util';
-import { Component } from '@angular/core';
-import { TdMediaService } from '@covalent/core';
-import { Router } from '@angular/router';
-import { DeveloperService } from './services/developer.service';
-import { Developer } from './Interfaces/Developer';
-import { WorldService } from './services/world.service';
-import { World } from './Interfaces/World';
-import { TranslateService } from '@ngx-translate/core';
-import { UiDesign } from './Interfaces/UiDesign';
+import {UiDesignService} from './services/ui-design.service';
+import {MatDialog} from '@angular/material';
+import {ChooseCurrentWorldComponent} from './components/choose-current-world/choose-current-world/choose-current-world.component';
+import {isUndefined} from 'util';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {TdMediaService} from '@covalent/core';
+import {Router} from '@angular/router';
+import {WorldService} from './services/world.service';
+import {World} from './Interfaces/World';
+import {TranslateService} from '@ngx-translate/core';
+import {UiDesign} from './Interfaces/UiDesign';
+import {AuthenticationService} from './login/authentication.service';
+import {LoginComponent} from './login/login.component';
+import {UserService} from './services/user.service';
+import {User} from './Interfaces/User';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
 
-  public developer: Developer;
-  public currentWorld: World;
+  public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  public selected
-  private ui: UiDesign;
+  public selected;
+  protected user: User = null;
+  private ui: UiDesign = null;
 
   constructor(
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
     public router: Router,
-    public developerService: DeveloperService,
     public worldService: WorldService,
     public translate: TranslateService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private authService: AuthenticationService,
+    private userService: UserService) {
 
-    translate.setDefaultLang("en"); // this language will be used as a fallback when a translation isn't found in the current language
-    translate.use(translate.getBrowserLang()); // the lang to use, if the lang isn't available, it will use the current loader to get them    ,
+    translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
+    translate.use(translate.getBrowserLang()); // The lang to use. If the lang isn't available, it will use the current loader to get them.
+  }
 
+  protected login(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authService.login(result.username, result.password);
+      }
+    });
+  }
 
+  protected logout(): void {
+    this.router.navigateByUrl('/');
+    this.authService.logout();
+    this.userService.loadUser();
+    this.setDesign();
+    this.currentWorld = null;
+    this.selected = null;
+    this.worlds = null;
+    this.user = null;
+  }
 
-    this.developerService.avatar$.subscribe(developer => {
-      this.developer = developer
-    })
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.userService.loadUser();
+    }
+    this.userService.onUserChange().subscribe(() => {
+      if (this.userService.getUser()) {
+        this.user = this.userService.getUser();
+        this.loadWorlds();
+        this.loadWorld();
+      }
+    });
+  }
 
-    this.worldService.worlds$.subscribe(worlds => {
-      this.worlds = worlds
+  private loadWorlds() {
+    this.worldService.getWorlds().subscribe(worlds => {
+      this.worlds = worlds;
       this.setSelected();
-    })
+    });
+  }
 
-    this.worldService.currentWorld$.subscribe(world => {
-      if (world && !isUndefined(world.id)) {
-        let image = world.image || "bg01"
-        this.changebackground(image)
+  private loadWorld() {
+    this.worldService.onWorldChange().subscribe(() => {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.initWorld();
+    });
+  }
 
-        this.setDesign()
-        this.currentWorld = world;
+  private initWorld() {
+    if (this.user) {
+      if (this.currentWorld !== null) {
+        const image = this.currentWorld.image || 'bg01';
+        this.changebackground(image);
+        this.setDesign();
         this.setSelected();
       } else {
-        this.dialog.open(ChooseCurrentWorldComponent, { panelClass: "dialog-sexy", width: "500px" }).afterClosed().subscribe()
+        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
-    })
-
-    this.developerService.getMyAvatar()
-
+    }
   }
 
   setSelected() {
     if (this.worlds && this.currentWorld) {
-      this.selected = this.worlds.filter(world => { return (world.name == this.currentWorld.name) })[0]
+      this.selected = this.worlds.filter(world => {
+        return (world.name === this.currentWorld.name);
+      })[0]
     }
   }
 
   ngAfterViewInit() {
     this.media.broadcast();
-    this.translate.get("APP_COMPONENT").subscribe((page_names) => {
+    this.translate.get('APP_COMPONENT').subscribe((page_names) => {
       this.pageNames = page_names;
     })
   }
@@ -101,55 +139,50 @@ export class AppComponent {
           return '';
       }
     } else {
-      return ""
+      return ''
     }
   }
 
 
   updateWorld(world: World) {
-    this.developerService.updateCurrentWorldToDeveloper(world, this.developer)
+    this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
   }
 
   changebackground(image: string) {
-    let x = (<HTMLScriptElement><any>document.getElementsByClassName("background-image")[0]);
+    const x = (<HTMLScriptElement><any>document.getElementsByClassName('background-image')[0]);
     x.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
   }
 
-  setDesign(){
-    this.uiDesignService.ui$.subscribe(ui =>{
-      if (ui){
-        this.ui = ui;
-      } else {
-        this.ui.name = "";
-      }
-
-      let body = <HTMLScriptElement><any>document.getElementsByTagName("body")[0];
-      let className = body.className
-      body.className = className + " " + this.ui.name
-    })
+  setDesign() {
+    this.uiDesignService.getUiDesign().subscribe(ui => {
+      this.ui = ui;
+      const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+      const className = body.className;
+      body.className = className + ' ' + this.ui.name;
+    }, error => {
+      this.ui = null;
+    });
   }
 
-  toggleDesign(){
-    let dark  = "dark";
-    let light = "light";
+  toggleDesign() {
+    const dark = 'dark';
+    const light = 'light';
 
-    let body = <HTMLScriptElement><any>document.getElementsByTagName("body")[0];
-    let body_light = <HTMLScriptElement><any>document.getElementsByClassName(light)[0];
-    let body_dark  = <HTMLScriptElement><any>document.getElementsByClassName(dark)[0];
+    const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+    const body_light = <HTMLScriptElement><any>document.getElementsByClassName(light)[0];
 
-    if (body_light){
-      body.className = this.removeSubString(body.className,light) + " " + dark;
-      this.uiDesignService.updateUiDesign(this.developer, dark)
+    if (body_light) {
+      body.className = this.removeSubString(body.className, light) + ' ' + dark;
+      this.uiDesignService.updateUiDesign(dark);
     } else {
-      body.className = this.removeSubString(body.className,dark) + " " + light;
-      this.uiDesignService.updateUiDesign(this.developer, light)
+      body.className = this.removeSubString(body.className, dark) + ' ' + light;
+      this.uiDesignService.updateUiDesign(light);
     }
-
   }
 
-  removeSubString(fullString:string, removeString:string): string{
-    let newString = fullString.replace(removeString,"");
-    newString = newString.replace("  "," ");
+  removeSubString(fullString: string, removeString: string): string {
+    let newString = fullString.replace(removeString, '');
+    newString = newString.replace('  ', ' ');
     return newString;
   }
 

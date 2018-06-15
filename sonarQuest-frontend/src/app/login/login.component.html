@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"LOGIN.LOGIN"| translate}}</h2>
+</mat-toolbar>
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="loginFormGroup">
+      <mat-form-field>
+        <input matInput placeholder='{{"LOGIN.USERNAME"| translate}}'
+               formControlName="username"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [type]="'password'"
+               placeholder='{{"LOGIN.PASSWORD"| translate}}'
+               formControlName="password"
+               required>
+      </mat-form-field>
+    </form>
+    <div>
+      <button mat-button mat-raised-button color="primary" mat-dialog-close>
+        Cancel
+      </button>
+      <button mat-button mat-raised-button color="primary" [disabled]="loginFormGroup.invalid"
+              [mat-dialog-close]="loginFormGroup.value">
+        Ok
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Quest, Task} from "../../../../../../Interfaces/Quest";
-import {WorldService} from "../../../../../../services/world.service";
-import {World} from "../../../../../../Interfaces/World";
-import {MatDialog, MatDialogRef} from "@angular/material";
-import {GamemasterAddFreeTaskComponent} from "./components/gamemaster-add-free-task/gamemaster-add-free-task.component";
-import {GamemasterSuggestTasksComponent} from "./components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component";
-import {QuestService} from "../../../../../../services/quest.service";
-import {GamemasterQuestComponent} from "app/pages/gamemaster-page/components/gamemaster-quest/gamemaster-quest.component";
-import {TaskService} from "../../../../../../services/task.service";
+import {Task} from '../../../../../../Interfaces/Task';
+import {WorldService} from '../../../../../../services/world.service';
+import {World} from '../../../../../../Interfaces/World';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {GamemasterAddFreeTaskComponent} from './components/gamemaster-add-free-task/gamemaster-add-free-task.component';
+import {GamemasterSuggestTasksComponent} from './components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component';
+import {QuestService} from '../../../../../../services/quest.service';
+import {GamemasterQuestComponent} from 'app/pages/gamemaster-page/components/gamemaster-quest/gamemaster-quest.component';
+import {TaskService} from '../../../../../../services/task.service';
 
 @Component({
   selector: 'app-gamemaster-quest-create',
@@ -35,45 +35,40 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world;
-      this.selectWorld();
-    });
-    this.worldService.worlds$.subscribe(worlds => {
+    this.currentWorld = this.worldService.getCurrentWorld();
+    this.worldService.getWorlds().subscribe(worlds => {
       this.worlds = worlds;
       this.selectWorld();
+      this.loadImages();
+      this.selectedImage = 'http://via.placeholder.com/200x200';
     })
-
-    this.loadImages();
-    this.selectedImage = "http://via.placeholder.com/200x200";
   }
 
-  selectWorld(){
-    if(this.worlds && this.currentWorld){
-      this.selectedWorld = this.worlds.filter(world => world.id == this.currentWorld.id)[0]
+  selectWorld() {
+    if (this.worlds && this.currentWorld) {
+      this.selectedWorld = this.worlds.filter(world => world.id === this.currentWorld.id)[0];
     }
   }
 
   createQuest() {
-    if (this.title && this.gold && this.xp && this.story && this.selectedImage && this.selectedWorld && (this.tasks.length != 0)) {
+    if (this.title && this.gold && this.xp && this.story && this.selectedImage && this.selectedWorld && (this.tasks.length !== 0)) {
 
-      let quest = {
+      const quest = {
         title: this.title,
         gold: this.gold,
         xp: this.xp,
         story: this.story,
         world: this.selectedWorld,
         image: this.selectedImage
-      }
-      this.questService.createQuest(quest).then((quest) => {
-        if (quest.id) {
-
-          let promiseArray = [];
+      };
+      this.questService.createQuest(quest).then((createdQuest) => {
+        if (createdQuest.id) {
+          const promiseArray = [];
           this.tasks.forEach((value, index) => {
-            let addTaskToQuest = this.taskService.addToQuest(value, quest);
+            const addTaskToQuest = this.taskService.addToQuest(value, createdQuest);
             promiseArray.push(addTaskToQuest);
-          })
-          let addQuestToWorld = this.questService.addToWorld(quest, this.selectedWorld);
+          });
+          const addQuestToWorld = this.questService.addToWorld(createdQuest, this.selectedWorld);
           promiseArray.push(addQuestToWorld);
           return Promise.all(promiseArray);
         }
@@ -85,7 +80,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass:"dialog-sexy", data: [this.selectedWorld, this.tasks] })
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.selectedWorld, this.tasks]})
       .afterClosed().subscribe(result => {
       if (result) {
         this.tasks.push(result)
@@ -94,7 +89,11 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   suggestTasks() {
-    this.dialog.open(GamemasterSuggestTasksComponent, {panelClass:"dialog-sexy", width:"500px", data: [this.selectedWorld, this.tasks] }).afterClosed().subscribe(result => {
+    this.dialog.open(GamemasterSuggestTasksComponent, {
+      panelClass: 'dialog-sexy',
+      width: '500px',
+      data: [this.selectedWorld, this.tasks]
+    }).afterClosed().subscribe(result => {
       if (result) {
         this.tasks = this.tasks.concat(result)
       }
@@ -102,7 +101,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   removeTask(task: Task) {
-    let taskIndex = this.tasks.indexOf(task);
+    const taskIndex = this.tasks.indexOf(task);
     this.tasks.splice(taskIndex, 1);
   }
 
@@ -123,8 +122,8 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
     for (let i = 0; i < 15; i++) {
       this.images[i] = {};
-      this.images[i].src = "assets/images/quest/hero" + (i + 1) + ".jpg";
-      this.images[i].name = "hero" + (i + 1);
+      this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
+      this.images[i].name = 'hero' + (i + 1);
     }
   }
 }

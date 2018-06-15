@@ -1,9 +1,7 @@
 package com.viadee.sonarQuest.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="Level")
+@Table(name = "Level")
 public class Level {
 
     @Id
@@ -20,53 +20,51 @@ public class Level {
     private Long id;
 
     @Column(name = "min")
-    private  Long min;
+    private Long min;
 
     @Column(name = "max")
     private Long max;
 
-    @OneToMany(mappedBy="level",cascade = CascadeType.ALL)
-    private List<Developer> developers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "level")
+    private List<User> users;
 
-    @OneToMany(mappedBy="minLevel",cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "minLevel")
     private List<Artefact> artefacts;
 
-
-    protected Level() {
+    public Level() {
     }
-    
 
-    public Level(Long min, Long max) {
+    public Level(final Long min, final Long max) {
         this.min = min;
         this.max = max;
     }
 
-    public Level(Long min, Long max, List<Developer> developers, List<Artefact> artefacts) {
+    public Level(final Long min, final Long max, final List<User> users, final List<Artefact> artefacts) {
         this.min = min;
         this.max = max;
-        this.developers = developers;
+        this.users = users;
         this.artefacts = artefacts;
     }
 
-    public Level(Long minLevel) {
-		this.min = minLevel;
-	}
+    public Level(final Long minLevel) {
+        this.min = minLevel;
+    }
 
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
-  
     public Long getMin() {
         return min;
     }
 
-    public void setMin(Long min) {
+    public void setMin(final Long min) {
         this.min = min;
     }
 
@@ -74,25 +72,23 @@ public class Level {
         return max;
     }
 
-    public void setMax(Long max) {
+    public void setMax(final Long max) {
         this.max = max;
     }
 
-    @JsonIgnore
-    public List<Developer> getDevelopers() {
-        return developers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setDevelopers(List<Developer> developers) {
-        this.developers = developers;
+    public void setUsers(final List<User> users) {
+        this.users = users;
     }
 
-    @JsonIgnore
     public List<Artefact> getArtefacts() {
         return artefacts;
     }
 
-    public void setArtefacts(List<Artefact> artefacts) {
+    public void setArtefacts(final List<Artefact> artefacts) {
         this.artefacts = artefacts;
     }
 }

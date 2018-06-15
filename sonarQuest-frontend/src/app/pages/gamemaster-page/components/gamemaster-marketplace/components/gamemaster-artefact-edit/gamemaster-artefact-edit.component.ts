@@ -1,12 +1,20 @@
-import { MatDialog } from '@angular/material';
-import { GamemasterIconSelectComponent } from './../gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
-import { SkillService } from './../../../../../../services/skill.service';
-import { ITdDataTableColumn, TdDataTableSortingOrder, IPageChangeEvent, ITdDataTableSortChangeEvent, TdDataTableService } from '@covalent/core';
-import { Artefact, Skill, Level } from './../../../../../../Interfaces/Artefact';
-import { ArtefactService } from './../../../../../../services/artefact.service';
-import { GamemasterMarketplaceComponent } from './../../gamemaster-marketplace.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {GamemasterIconSelectComponent} from './../gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
+import {SkillService} from './../../../../../../services/skill.service';
+import {
+  ITdDataTableColumn,
+  TdDataTableSortingOrder,
+  IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService
+} from '@covalent/core';
+import {Artefact} from './../../../../../../Interfaces/Artefact';
+import {ArtefactService} from './../../../../../../services/artefact.service';
+import {GamemasterMarketplaceComponent} from './../../gamemaster-marketplace.component';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Component, OnInit, Inject} from '@angular/core';
+import {Skill} from '../../../../../../Interfaces/Skill';
+import {Level} from '../../../../../../Interfaces/Level';
 
 @Component({
   selector: 'app-gamemaster-artefact-edit',
@@ -15,21 +23,21 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class GamemasterArtefactEditComponent implements OnInit {
 
-  name:         string;
-  min:          number;
-  price:        number;
-  skills:       Skill[];
-  minLevel:     Level;
-  quantity:     number;
-  description:  string;
-  icon:         string  = '';
+  name: string;
+  min: number;
+  price: number;
+  skills: Skill[];
+  minLevel: Level;
+  quantity: number;
+  description: string;
+  icon = '';
 
   columns: ITdDataTableColumn[] = [
-    { name: 'name',  label: 'Name',  width: {min: 80}},
-    { name: 'type',  label: 'Type',  width: {min: 40}},
-    { name: 'value', label: 'Value', width: {min: 40}},
-    { name: 'action', label: '',  }
-  ]
+    {name: 'name', label: 'Name', width: {min: 80}},
+    {name: 'type', label: 'Type', width: {min: 40}},
+    {name: 'value', label: 'Value', width: {min: 40}},
+    {name: 'action', label: ''}
+  ];
 
   // Sort / Filter / Paginate variables
   filteredSkills: Skill[];
@@ -48,45 +56,49 @@ export class GamemasterArtefactEditComponent implements OnInit {
     private artefactService: ArtefactService,
     private skillService: SkillService,
     @Inject(MAT_DIALOG_DATA) public artefact: Artefact,
-    private _dataTableService: TdDataTableService
-  ) { }
+    private _dataTableService: TdDataTableService  ) {
+  }
 
   ngOnInit() {
     this.skillService.getSkillsForArtefact(this.artefact).then(skills => {
-      this.skills = skills
+      this.skills = skills;
       this.filter();
-    })
-    this.name        = this.artefact.name
-    this.min         = this.artefact.minLevel.min
-    this.price       = this.artefact.price
-    this.description = this.artefact.description
-    this.quantity    = this.artefact.quantity
-    this.icon        = this.artefact.icon || ''
+    });
+    this.name = this.artefact.name;
+    this.min = this.artefact.minLevel.min;
+    this.price = this.artefact.price;
+    this.description = this.artefact.description;
+    this.quantity = this.artefact.quantity;
+    this.icon = this.artefact.icon || '';
   }
 
-
-  selectIcon(){
-    this.dialog.open(GamemasterIconSelectComponent,{data: this.icon, panelClass: 'dialog-sexy', width:"800px"}).afterClosed().subscribe(icon=>{
-      if (icon != undefined) this.icon = icon
+  selectIcon() {
+    this.dialog.open(GamemasterIconSelectComponent, {
+      data: this.icon,
+      panelClass: 'dialog-sexy',
+      width: '800px'
+    }).afterClosed().subscribe(icon => {
+      if (icon !== undefined) {
+        this.icon = icon;
+      }
     });
   }
 
   updateArtefact() {
     if (this.name && this.min && this.price) {
-      this.artefact.name        = this.name
-      this.artefact.price       = this.price
-      this.artefact.quantity    = this.quantity
-      this.artefact.description = this.description
-      this.artefact.icon        = this.icon
-      this.artefactService.setMinLevel(this.artefact, this.min)
-      
+      this.artefact.name = this.name;
+      this.artefact.price = this.price;
+      this.artefact.quantity = this.quantity;
+      this.artefact.description = this.description;
+      this.artefact.icon = this.icon;
+      this.artefactService.setMinLevel(this.artefact, this.min);
+
       this.artefactService.updateArtefact(this.artefact).then(() => {
         this.artefactService.getData();
         this.dialogRef.close();
       });
     }
   }
-
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
@@ -106,7 +118,6 @@ export class GamemasterArtefactEditComponent implements OnInit {
     this.filter();
   }
 
-
   filter(): void {
     let newData: any[] = this.skills;
     const excludedColumns: string[] = this.columns
@@ -122,6 +133,4 @@ export class GamemasterArtefactEditComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredSkills = newData;
   }
-
 }
- 

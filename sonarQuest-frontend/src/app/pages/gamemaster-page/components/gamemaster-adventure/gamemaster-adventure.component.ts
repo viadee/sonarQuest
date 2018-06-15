@@ -1,18 +1,18 @@
-import { TranslateService } from '@ngx-translate/core';
-import { WorldService } from './../../../../services/world.service';
-import { GamemasterAdventureEditComponent } from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
-import { Adventure } from './../../../../Interfaces/Adventure';
-import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {WorldService} from './../../../../services/world.service';
+import {GamemasterAdventureEditComponent} from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
+import {Adventure} from './../../../../Interfaces/Adventure';
+import {Component, OnInit} from '@angular/core';
 import {
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder,
   IPageChangeEvent
-} from "@covalent/core";
-import {MatDialog} from "@angular/material";
-import {AdventureService} from "../../../../services/adventure.service";
-import {GamemasterAdventureCreateComponent} from "./components/gamemaster-adventure-create/gamemaster-adventure-create.component";
-import {QuestService} from "../../../../services/quest.service";
-import { World } from '../../../../Interfaces/World';
+} from '@covalent/core';
+import {MatDialog} from '@angular/material';
+import {AdventureService} from '../../../../services/adventure.service';
+import {GamemasterAdventureCreateComponent} from './components/gamemaster-adventure-create/gamemaster-adventure-create.component';
+import {QuestService} from '../../../../services/quest.service';
+import {World} from '../../../../Interfaces/World';
 
 @Component({
   selector: 'app-gamemaster-adventure',
@@ -24,12 +24,12 @@ export class GamemasterAdventureComponent implements OnInit {
   currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
-    { name: 'title', label: 'Title', width:200 },
-    { name: 'gold', label: 'Gold'},
-    { name: 'xp', label: 'XP'},
-    { name: 'story', label: 'Story'},
-    { name: 'status', label: 'Status'},
-    { name: 'edit', label: '', width: 70}
+    {name: 'title', label: 'Title', width: 200},
+    {name: 'gold', label: 'Gold'},
+    {name: 'xp', label: 'XP'},
+    {name: 'story', label: 'Story'},
+    {name: 'status', label: 'Status'},
+    {name: 'edit', label: '', width: 70}
   ]
 
   // Sort / Filter / Paginate variables
@@ -44,58 +44,67 @@ export class GamemasterAdventureComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   constructor(private _dataTableService: TdDataTableService,
-  	private questService: QuestService,
-    private worldService: WorldService,
-    private translateService: TranslateService,
-    private dialog: MatDialog, 
-    private adventureService: AdventureService) { }
+              private questService: QuestService,
+              private worldService: WorldService,
+              private translateService: TranslateService,
+              private dialog: MatDialog,
+              private adventureService: AdventureService) {
+  }
 
   ngOnInit() {
-  	this.translateTable();
-    this.worldService.currentWorld$.subscribe(w => {
-      this.currentWorld = w
-      if (w) this.loadAdventures();
-    })
+    this.translateTable();
+    this.init();
+    this.worldService.onWorldChange().subscribe(() => this.init());
   }
-  
-  translateTable(){
-  	  this.translateService.get("TABLE.COLUMNS").subscribe((col_names) => {
-      this.columns=[
-		    { name: 'title', label: col_names.TITLE, width:200 },
-		    { name: 'gold', label: col_names.GOLD, width: 40},
-		    { name: 'xp', label: col_names.XP, width: 40},
-		    { name: 'story', label: col_names.STORY},
-		    { name: 'status', label: col_names.STATUS},
-		    { name: 'edit', label: '', width: 100}
-    	]
-    });
-  }  
 
-  loadAdventures(){
+  private init() {
+    if (this.worldService.getCurrentWorld()) {
+      this.currentWorld = this.worldService.getCurrentWorld();
+      this.loadAdventures();
+    }
+  }
+
+  translateTable() {
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.columns = [
+        {name: 'title', label: col_names.TITLE, width: 200},
+        {name: 'gold', label: col_names.GOLD, width: 40},
+        {name: 'xp', label: col_names.XP, width: 40},
+        {name: 'story', label: col_names.STORY},
+        {name: 'status', label: col_names.STATUS},
+        {name: 'edit', label: '', width: 100}
+      ]
+    });
+  }
+
+  loadAdventures() {
     return this.adventureService.getAdventuresForWorld(this.currentWorld).subscribe(adventures => {
       this.data = adventures;
       this.filter();
     });
   }
 
-  newAdventure(){
-    this.dialog.open(GamemasterAdventureCreateComponent,{panelClass:"dialog-sexy", width:"500px"}).afterClosed().subscribe((bool)=>{
-      if (bool){
+  newAdventure() {
+    this.dialog.open(GamemasterAdventureCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe((bool) => {
+      if (bool) {
         this.loadAdventures();
         this.questService.refreshQuests(this.currentWorld);
       }
     });
   }
 
-  editAdventure(adventure: Adventure){
-    this.dialog.open(GamemasterAdventureEditComponent,{panelClass:"dialog-sexy", data: adventure, width: "500px"}).afterClosed().subscribe((bool)=>{
-      if (bool){
+  editAdventure(adventure: Adventure) {
+    this.dialog.open(GamemasterAdventureEditComponent, {
+      panelClass: 'dialog-sexy',
+      data: adventure,
+      width: '500px'
+    }).afterClosed().subscribe((bool) => {
+      if (bool) {
         this.loadAdventures();
         this.questService.refreshQuests(this.currentWorld);
       }
     })
   }
-
 
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -121,7 +130,7 @@ export class GamemasterAdventureComponent implements OnInit {
     const excludedColumns: string[] = this.columns
       .filter((column: ITdDataTableColumn) => {
         return ((column.filter === undefined && column.hidden === true) ||
-        (column.filter !== undefined && column.filter === false));
+          (column.filter !== undefined && column.filter === false));
       }).map((column: ITdDataTableColumn) => {
         return column.name;
       });

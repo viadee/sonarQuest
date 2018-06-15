@@ -1,11 +1,11 @@
-import { Developer } from './../Interfaces/Developer.d';
-import { RequestOptions, Http, Response, Headers } from '@angular/http';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
-import { Artefact } from './../Interfaces/Artefact';
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
+import {Response} from '@angular/http';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Subject} from 'rxjs/Subject';
+import {Artefact} from './../Interfaces/Artefact';
+import {Observable} from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ArtefactService {
@@ -16,67 +16,50 @@ export class ArtefactService {
   private artefactsforMarkteplaceSubject: Subject<Artefact[]> = new ReplaySubject(1);
   artefactsforMarkteplace$ = this.artefactsforMarkteplaceSubject.asObservable();
 
-  constructor(public http: Http) { 
-    this.getData()
+  constructor(public http: HttpClient) {
   }
 
-  getData():void{
-    this.getArtefacts()
-    this.getArtefactsforMarkteplace()
+  getData(): void {
+    this.getArtefacts();
+    this.getArtefactsforMarkteplace();
   }
 
-  getArtefacts(): Observable<Artefact[]>{
-    this.http.get(`${environment.endpoint}/artefact/`)
-      .map(this.extractData)
+  getArtefacts(): Observable<Artefact[]> {
+    this.http.get<Artefact[]>(`${environment.endpoint}/artefact/`)
       .subscribe(
         result => this.artefactsSubject.next(result),
-        err    => this.artefactsSubject.error(err)
-      ) 
+        err => this.artefactsSubject.error(err)
+      );
     return this.artefactsSubject.asObservable();
   }
 
-  getArtefactsforMarkteplace(): Observable<Artefact[]>{
-    this.http.get(`${environment.endpoint}/artefact/forMarketplace/`)
-      .map(this.extractData)
+  getArtefactsforMarkteplace(): Observable<Artefact[]> {
+    this.http.get<Artefact[]>(`${environment.endpoint}/artefact/forMarketplace/`)
       .subscribe(
         result => this.artefactsforMarkteplaceSubject.next(result),
-        err    => this.artefactsforMarkteplaceSubject.error(err)
-      ) 
+        err => this.artefactsforMarkteplaceSubject.error(err)
+      );
     return this.artefactsSubject.asObservable();
   }
 
   createArtefact(artefact: any): Promise<Artefact> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${environment.endpoint}/artefact/`, artefact, options)
+    return this.http.post<Artefact>(`${environment.endpoint}/artefact/`, artefact)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
   updateArtefact(artefact: any): Promise<Artefact> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${environment.endpoint}/artefact/${artefact.id}`, artefact, options)
+    return this.http.put<Artefact>(`${environment.endpoint}/artefact/${artefact.id}`, artefact)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  buyArtefact(artefact: Artefact, developer: Developer): Promise<boolean> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${environment.endpoint}/artefact/${artefact.id}/boughtBy/${developer.id}`, options)
+  buyArtefact(artefact: Artefact): Promise<boolean> {
+    return this.http.put<boolean>(`${environment.endpoint}/artefact/${artefact.id}/buy`, null)
       .toPromise()
-      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
-  }
-  
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
@@ -90,7 +73,7 @@ export class ArtefactService {
     return Promise.reject(errMsg);
   }
 
-  setMinLevel(artefact: Artefact, min: number){
+  setMinLevel(artefact: Artefact, min: number) {
     artefact.minLevel.min = min
   }
 }

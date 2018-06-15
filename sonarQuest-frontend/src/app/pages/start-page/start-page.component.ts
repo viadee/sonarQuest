@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Developer } from '../../Interfaces/Developer';
-import { DeveloperService } from '../../services/developer.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
+import {User} from '../../Interfaces/User';
 
 @Component({
   selector: 'app-start-page',
@@ -9,21 +9,20 @@ import { DeveloperService } from '../../services/developer.service';
 })
 export class StartPageComponent implements OnInit {
 
-  public developer: Developer;
-  public XPpercent: number = 0;
-  constructor(public developerService: DeveloperService) { }
+  public XPpercent = 0;
+  protected user: User;
+
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit() {
-    this.developerService.avatar$.subscribe({
-      next: developer => {
-        this.developer = developer;
-        this.xpPercent();
-      }
-    })
+    this.user = this.userService.getUser();
+    this.xpPercent();
   }
 
   public xpPercent(): void {
-    this.XPpercent = 100 / this.developer.level.max * this.developer.xp;
+    console.log('Rufe XP für User auf ' + this.user);
+    this.XPpercent = 100 / this.user.level.max * this.user.xp;
     this.XPpercent.toFixed(2);
   }
 

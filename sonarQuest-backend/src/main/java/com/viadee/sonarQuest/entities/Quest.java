@@ -1,14 +1,22 @@
 package com.viadee.sonarQuest.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Quest")
 public class Quest {
-
 
     @Id
     @GeneratedValue
@@ -17,39 +25,44 @@ public class Quest {
     @Column(name = "title")
     private String title;
 
-    @Column(name="story")
+    @Column(name = "story")
     private String story;
 
-    @Column(name="status")
+    @Column(name = "status")
     private String status;
 
-    @Column(name="gold")
+    @Column(name = "gold")
     private Long gold;
 
-    @Column(name="xp")
+    @Column(name = "xp")
     private Long xp;
 
-    @Column(name="image")
+    @Column(name = "image")
     private String image;
 
+    @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name="world_id")
+    @JoinColumn(name = "world_id")
     private World world;
 
+    @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name="adventure_id")
+    @JoinColumn(name = "adventure_id")
     private Adventure adventure;
 
-    @OneToMany(mappedBy="quest")
+    @JsonIgnore
+    @OneToMany(mappedBy = "quest")
     private List<Task> tasks;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="quest")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quest")
     private List<Participation> participations;
 
     public Quest() {
     }
 
-    public Quest(String title, String story, String status, Long gold, Long xp, String image) {
+    public Quest(final String title, final String story, final String status, final Long gold, final Long xp,
+            final String image) {
         this.title = title;
         this.story = story;
         this.status = status;
@@ -58,7 +71,9 @@ public class Quest {
         this.image = image;
     }
 
-    public Quest(String title, String story, String status, Long gold, Long xp, String image, World world, Adventure adventure, List<Task> tasks, List<Participation> participations) {
+    public Quest(final String title, final String story, final String status, final Long gold, final Long xp,
+            final String image, final World world,
+            final Adventure adventure, final List<Task> tasks, final List<Participation> participations) {
         this.title = title;
         this.story = story;
         this.status = status;
@@ -75,7 +90,7 @@ public class Quest {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -83,7 +98,7 @@ public class Quest {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -91,7 +106,7 @@ public class Quest {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(final String story) {
         this.story = story;
     }
 
@@ -99,7 +114,7 @@ public class Quest {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -107,7 +122,7 @@ public class Quest {
         return gold;
     }
 
-    public void setGold(Long gold) {
+    public void setGold(final Long gold) {
         this.gold = gold;
     }
 
@@ -115,7 +130,7 @@ public class Quest {
         return xp;
     }
 
-    public void setXp(Long xp) {
+    public void setXp(final Long xp) {
         this.xp = xp;
     }
 
@@ -123,43 +138,39 @@ public class Quest {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
-    @JsonIgnore
     public World getWorld() {
         return world;
     }
 
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = world;
     }
 
-    @JsonIgnore
     public Adventure getAdventure() {
         return adventure;
     }
 
-    public void setAdventure(Adventure adventure) {
+    public void setAdventure(final Adventure adventure) {
         this.adventure = adventure;
     }
 
-    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(final List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    @JsonIgnore
     public List<Participation> getParticipations() {
         return participations;
     }
 
-    public void setParticipations(List<Participation> participations) {
+    public void setParticipations(final List<Participation> participations) {
         this.participations = participations;
     }
 }

@@ -1,17 +1,15 @@
-import { Developer } from './../../../../../../Interfaces/Developer.d';
-import { Participation } from './../../../../../../Interfaces/Quest';
-import { QuestService } from './../../../../../../services/quest.service';
-import { TaskService } from './../../../../../../services/task.service';
-import { DeveloperService } from './../../../../../../services/developer.service';
-import { ParticipationService } from './../../../../../../services/participation.service';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { MatDialogRef } from '@angular/material';
-import { AvailableQuestsComponent } from './../../../available-quests/available-quests.component';
-import { Component, OnInit, Inject } from '@angular/core';
-import { Quest, Task } from '../../../../../../Interfaces/Quest';
-import {World} from '../../../../../../Interfaces/Developer';
+import {Participation} from './../../../../../../Interfaces/Participation';
+import {QuestService} from './../../../../../../services/quest.service';
+import {TaskService} from './../../../../../../services/task.service';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {Component, OnInit, Inject} from '@angular/core';
+import {Quest} from '../../../../../../Interfaces/Quest';
+import {World} from '../../../../../../Interfaces/World';
 import {WorldService} from '../../../../../../services/world.service';
 import {SonarCubeService} from '../../../../../../services/sonar-cube.service';
+import {User} from '../../../../../../Interfaces/User';
+import {UserService} from '../../../../../../services/user.service';
+import {Task} from '../../../../../../Interfaces/Task';
 
 @Component({
   selector: 'app-view-participated-quest',
@@ -22,31 +20,26 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   currentWorld: World;
   tasks: Task[];
-  developer: Developer;
 
   constructor(
     private sonarCubeService: SonarCubeService,
     private worldService: WorldService,
-    private dialogRef: MatDialogRef<AvailableQuestsComponent>,
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
-    public participationService: ParticipationService,
-    public developerService: DeveloperService,
+    public userService: UserService,
     public taskService: TaskService,
     public questService: QuestService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.tasks = this.quest.tasks;
-    this.developerService.getMyAvatar().subscribe(dev => {
-      this.developer = dev;
-    })
-    this.worldService.currentWorld$.subscribe(w => this.currentWorld = w);
+    this.currentWorld = this.worldService.getCurrentWorld();
   }
 
   addParticipation(task: Task) {
-    return this.taskService.addParticipation(task, this.developer, this.quest)
+    return this.taskService.addParticipation(task, this.quest)
       .then(() => {
-        return this.questService.getQuest(this.quest.id)
+        return this.questService.getQuest(this.quest.id);
       }).then((updatedQuest: Quest) => {
         this.quest = updatedQuest;
         this.tasks = updatedQuest.tasks
@@ -63,31 +56,31 @@ export class ViewParticipatedQuestComponent implements OnInit {
       })
   }
 
-  participatingDeveloper(task: Task): Developer {
-    let developer = null;
-    if (this.developer) {
-      let participations: Participation[] = this.quest.participations
-      participations.forEach((participation) => {
-        if (participation.tasks.map(task => task.id).includes(task.id)) {
-          developer = participation.developer;
-        }
-      })
-    }
-    return developer;
+  participatingDeveloper(task: Task): User {
+    let user = null;
+
+    const participations: Participation[] = this.quest.participations;
+    participations.forEach((participation) => {
+      if (participation.tasks.map(partTask => partTask.id).includes(task.id)) {
+        user = participation.user;
+      }
+    });
+
+    return user;
   }
 
   participatingDeveloperIsLoggedInDeveloper(task: Task): Boolean {
     let result = false;
-    if (this.developer) {
-      let participations: Participation[] = this.quest.participations
-      participations.forEach((participation) => {
-        if (participation.tasks.map(task => task.id).includes(task.id)) {
-          if (this.developer.id == participation.developer.id) {
-            result = true;
-          }
+
+    const participations: Participation[] = this.quest.participations;
+    participations.forEach((participation) => {
+      if (participation.tasks.map(partTask => partTask.id).includes(task.id)) {
+        if (this.userService.getUser().id === participation.user.id) {
+          result = true;
         }
-      })
-    }
+      }
+    });
+
     return result;
   }
 

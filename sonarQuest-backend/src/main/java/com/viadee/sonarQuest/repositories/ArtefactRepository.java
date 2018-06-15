@@ -1,13 +1,15 @@
 package com.viadee.sonarQuest.repositories;
 
-import com.viadee.sonarQuest.entities.Artefact;
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 
-public interface ArtefactRepository extends CrudRepository<Artefact,Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.viadee.sonarQuest.entities.Artefact;
+
+public interface ArtefactRepository extends JpaRepository<Artefact, Long> {
+
+    @Override
     List<Artefact> findAll();
-    
+
     List<Artefact> findByQuantityIsGreaterThanEqual(Long min);
 }
