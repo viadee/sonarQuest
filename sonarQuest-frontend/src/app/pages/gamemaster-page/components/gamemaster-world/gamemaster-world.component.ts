@@ -76,7 +76,7 @@ export class GamemasterWorldComponent implements OnInit {
   }
 
   loadWorlds() {
-    this.worldService.getWorlds().subscribe(worlds => {
+    this.worldService.getAllWorlds().subscribe(worlds => {
       this.worlds = worlds;
       this.filter();
     });

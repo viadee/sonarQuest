@@ -1,18 +1,6 @@
-import {Participation} from './Participation';
-import {Quest} from './Quest';
-import {World} from './World';
+import {Task} from './Task';
 
-export interface StandardTask {
-  id: number,
-  title: string,
-  status: string,
-  gold: number,
-  xp: number,
-  quest: Quest,
-  world: World,
-  taskType: string,
-  participation: Participation,
-  key: string,
+export interface StandardTask extends Task {
   component: string,
   severity: string,
   type: string,

@@ -1,11 +1,8 @@
 package com.viadee.sonarQuest.controllers;
 
-import static com.viadee.sonarQuest.dtos.TaskDto.toTaskDto;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarQuest.dtos.SpecialTaskDto;
-import com.viadee.sonarQuest.dtos.StandardTaskDto;
-import com.viadee.sonarQuest.dtos.TaskDto;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.SpecialTask;
@@ -81,65 +75,51 @@ public class TaskController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<List<TaskDto>> getAllTasks() {
-        final List<List<TaskDto>> taskDtos = new ArrayList<>();
-        List<TaskDto> specialTaskDtos;
-        List<TaskDto> standardTaskDtos;
-        specialTaskDtos = specialTaskRepository.findAll().stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
-        standardTaskDtos = standardTaskRepository.findAll().stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
-        taskDtos.add(specialTaskDtos);
-        taskDtos.add(standardTaskDtos);
+    public List<List<? extends Task>> getAllTasks() {
+        final List<List<? extends Task>> taskDtos = new ArrayList<>();
+        taskDtos.add(specialTaskRepository.findAll());
+        taskDtos.add(standardTaskRepository.findAll());
         return taskDtos;
     }
 
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
-    public List<List<TaskDto>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+    public List<List<? extends Task>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        final List<List<TaskDto>> taskDtos = new ArrayList<>();
-        List<TaskDto> specialTaskDtos;
-        List<TaskDto> standardTaskDtos;
-        specialTaskDtos = specialTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
-        standardTaskDtos = standardTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
-        taskDtos.add(specialTaskDtos);
-        taskDtos.add(standardTaskDtos);
+        final List<List<? extends Task>> taskDtos = new ArrayList<>();
+        taskDtos.add(specialTaskRepository.findByWorld(w));
+        taskDtos.add(standardTaskRepository.findByWorld(w));
         return taskDtos;
     }
 
     @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
-    public List<TaskDto> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+    public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        return specialTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
+        return specialTaskRepository.findByWorld(w);
     }
 
     @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
-    public List<TaskDto> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
+    public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        return standardTaskRepository.findByWorld(w).stream().map(TaskDto::toTaskDto)
-                .collect(Collectors.toList());
+        return standardTaskRepository.findByWorld(w);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public TaskDto getTaskById(@PathVariable(value = "id") final Long id) {
+    public Task getTaskById(@PathVariable(value = "id") final Long id) {
         final Task task = taskRepository.findById(id);
-        return toTaskDto(task);
+        return task;
     }
 
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public SpecialTaskDto createSpecialTask(@RequestBody final SpecialTaskDto specialTaskDto) {
+    public SpecialTask createSpecialTask(@RequestBody final SpecialTask specialTaskDto) {
         specialTaskService.saveDto(specialTaskDto);
         return specialTaskDto;
     }
 
     @RequestMapping(value = "/standard", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public StandardTaskDto createStandardTask(@RequestBody final StandardTaskDto standardTaskDto) {
-        standardTaskService.saveDto(standardTaskDto);
+    public StandardTask createStandardTask(@RequestBody final StandardTask standardTaskDto) {
+        standardTaskService.save(standardTaskDto);
         return standardTaskDto;
     }
 
@@ -162,14 +142,12 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
-    public List<TaskDto> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
+    public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<TaskDto> freeTasks = null;
+        List<Task> freeTasks = null;
         if (world != null) {
             // List<TaskDto> freeSpecialTasks = null;
-            freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText()).stream()
-                    .map(TaskDto::toTaskDto)
-                    .collect(Collectors.toList());
+            freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
 
             /*
              * @Florian - For what? freeSpecialTasks =
@@ -181,7 +159,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
-    public TaskDto solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
+    public Task solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null && task instanceof SpecialTask) {
             task.setStatus(SonarQuestStatus.SOLVED.getText());
@@ -190,11 +168,11 @@ public class TaskController {
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
-        return toTaskDto(task);
+        return task;
     }
 
     @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
-    public TaskDto closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
+    public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null && task instanceof SpecialTask) {
             task.setStatus(SonarQuestStatus.CLOSED.getText());
@@ -202,12 +180,12 @@ public class TaskController {
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
-        return toTaskDto(task);
+        return task;
     }
 
     @RequestMapping(value = "/{taskId}/addToQuest/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto addToQuest(@PathVariable(value = "taskId") final Long taskId,
+    public Task addToQuest(@PathVariable(value = "taskId") final Long taskId,
             @PathVariable(value = "questId") final Long questId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null) {
@@ -216,7 +194,7 @@ public class TaskController {
             task.setStatus(SonarQuestStatus.OPEN.getText());
             task = taskRepository.save(task);
         }
-        return toTaskDto(task);
+        return task;
     }
 
     @RequestMapping(value = "/{taskId}/deleteFromQuest", method = RequestMethod.DELETE)
@@ -231,7 +209,7 @@ public class TaskController {
 
     @RequestMapping(value = "/{taskId}/addParticipation/{questId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto addParticipation(final Principal principal,
+    public Task addParticipation(final Principal principal,
             @PathVariable(value = "taskId") final Long taskId,
             @PathVariable(value = "questId") final Long questId) {
         final String username = principal.getName();
@@ -244,7 +222,7 @@ public class TaskController {
             task.setStatus(SonarQuestStatus.PROCESSED.getText());
             task = taskRepository.save(task);
         }
-        return toTaskDto(task);
+        return task;
     }
 
     @RequestMapping(value = "/{taskId}/deleteParticipation", method = RequestMethod.DELETE)
@@ -258,13 +236,13 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
-    public List<TaskDto> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
+    public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<TaskDto> taskDtos = null;
+        List<Task> taskDtos = null;
         if (world != null) {
             standardTaskService.updateStandardTasks(world);
             final List<Task> savedTasks = taskRepository.findAll();
-            taskDtos = savedTasks.stream().map(TaskDto::toTaskDto).collect(Collectors.toList());
+            taskDtos = savedTasks;
         }
         return taskDtos;
     }

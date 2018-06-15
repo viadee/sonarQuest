@@ -1,15 +1,5 @@
-import {Quest} from './Quest';
-import {Participation} from './Participation';
+import {Task} from './Task';
 
-export interface SpecialTask {
-  id: number,
-  title: string,
-  status: string,
-  gold: number,
-  xp: number,
-  quest: Quest,
-  world: null,
-  taskType: string,
-  participation: Participation,
+export interface SpecialTask extends Task {
   message: string
 }

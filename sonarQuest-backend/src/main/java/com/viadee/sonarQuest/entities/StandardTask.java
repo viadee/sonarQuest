@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("STANDARD")
 public class StandardTask extends Task {
 
-    @Column(name = "task_key")
-    private String key;
-
     @Column(name = "component")
     private String component;
 
@@ -23,8 +20,8 @@ public class StandardTask extends Task {
     @Column(name = "debt")
     private Integer debt;
 
-	@Column(name = "issue_key")
-	protected String issueKey;
+    @Column(name = "issue_key")
+    protected String issueKey;
 
     public StandardTask() {
     }
@@ -39,20 +36,12 @@ public class StandardTask extends Task {
         this.setXp(xp);
         this.setQuest(quest);
         this.setWorld(world);
-        this.key = key;
+        this.setKey(key);
         this.component = component;
         this.severity = severity;
         this.type = type;
         this.debt = debt;
         this.issueKey = issueKey;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(final String key) {
-        this.key = key;
     }
 
     public String getComponent() {
@@ -87,7 +76,6 @@ public class StandardTask extends Task {
         this.debt = debt;
     }
 
-
     public String getIssueKey() {
         return issueKey;
     }
@@ -95,5 +83,5 @@ public class StandardTask extends Task {
     public void setIssueKey(final String issueKey) {
         this.issueKey = issueKey;
     }
-    
+
 }

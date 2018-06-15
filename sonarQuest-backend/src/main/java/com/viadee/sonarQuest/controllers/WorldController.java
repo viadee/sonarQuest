@@ -52,6 +52,11 @@ public class WorldController {
         return user.getWorlds();
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<World> getAllWorlds(final Principal principal) {
+        return worldService.findAll();
+    }
+
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public World getWorldById(@PathVariable(value = "id") final Long id) {
         return worldRepository.findOne(id);

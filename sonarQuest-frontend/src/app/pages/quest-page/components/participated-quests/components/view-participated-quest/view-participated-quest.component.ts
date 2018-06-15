@@ -10,6 +10,7 @@ import {SonarCubeService} from '../../../../../../services/sonar-cube.service';
 import {User} from '../../../../../../Interfaces/User';
 import {UserService} from '../../../../../../services/user.service';
 import {Task} from '../../../../../../Interfaces/Task';
+import {StandardTask} from '../../../../../../Interfaces/StandardTask';
 
 @Component({
   selector: 'app-view-participated-quest',

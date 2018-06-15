@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarQuest.dtos.StandardTaskDto;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
@@ -41,12 +40,7 @@ public class StandardTaskService {
         adventureService.updateAdventures();
     }
 
-    public StandardTask updateStandardTask(final StandardTask taskDto) {
-        final StandardTask task = standardTaskRepository.findByKey(taskDto.getKey());
-        task.setTitle(taskDto.getTitle());
-        task.setGold(taskDto.getGold());
-        task.setXp(taskDto.getXp());
-
+    public StandardTask updateStandardTask(final StandardTask task) {
         final StandardTask lastState = standardTaskRepository.findByKey(task.getKey());
         if (lastState != null) {
             final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
@@ -69,16 +63,16 @@ public class StandardTaskService {
         this.externalRessourceService = externalRessourceService;
     }
 
-    public void saveDto(final StandardTaskDto standardTaskDto) {
+    public void save(final StandardTask standardTask) {
 
-        final World world = worldRepository.findByProject(standardTaskDto.getWorld().getProject());
+        final World world = worldRepository.findByProject(standardTask.getWorld().getProject());
 
         final StandardTask st = new StandardTask(
-                standardTaskDto.getTitle(),
+                standardTask.getTitle(),
                 SonarQuestStatus.CREATED.getText(),
-                standardTaskDto.getGold(),
-                standardTaskDto.getXp(),
-                standardTaskDto.getQuest(),
+                standardTask.getGold(),
+                standardTask.getXp(),
+                standardTask.getQuest(),
                 world, null, null, null, null, null, null);
 
         standardTaskRepository.save(st);
