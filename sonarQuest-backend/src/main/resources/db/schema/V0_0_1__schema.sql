@@ -50,9 +50,9 @@ CREATE TABLE Artefact_Skill (
 
 CREATE TABLE World (
   id      BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name    VARCHAR(64),
+  name    VARCHAR(255),
   image   VARCHAR(255),
-  project VARCHAR(64),
+  project VARCHAR(255),
   active  BOOLEAN
 );
 

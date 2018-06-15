@@ -42,11 +42,7 @@ public class StandardTaskService {
         adventureService.updateAdventures();
     }
 
-    public StandardTask updateStandardTask(final StandardTask taskDto) {
-        final StandardTask task = standardTaskRepository.findByKey(taskDto.getKey());
-        task.setTitle(taskDto.getTitle());
-        task.setGold(taskDto.getGold());
-        task.setXp(taskDto.getXp());
+    public StandardTask updateStandardTask(final StandardTask task) {
 
         final StandardTask lastState = standardTaskRepository.findByKey(task.getKey());
         if (lastState != null) {

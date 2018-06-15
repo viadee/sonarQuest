@@ -119,7 +119,7 @@ public class GameDataInitializer implements InitializingBean {
     // up being hardcoded here...
     public void afterPropertiesSet() throws Exception {
         worldService.updateWorlds();
-        final World firstWorld = worldRepository.findByProject("org.apache.commons:commons-lang3");
+        final World firstWorld = worldRepository.findById(1L);
         firstWorld.setActive(true);
         worldRepository.save(firstWorld);
         taskController.updateStandardTasksForWorld(firstWorld.getId());
