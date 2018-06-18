@@ -24,6 +24,7 @@ public class Participation {
     @OneToMany(mappedBy = "participation", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;

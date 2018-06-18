@@ -53,7 +53,6 @@ public class Quest {
     @OneToMany(mappedBy = "quest")
     private List<Task> tasks;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quest")
     private List<Participation> participations;
 
