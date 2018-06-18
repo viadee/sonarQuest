@@ -49,6 +49,8 @@ The SonarQuest server is a maven project and can be installed and started with M
 
 SonarQuest can either connect to a real SonarQube server, or simulate one. To use the simulated one start SonarQuest with `--simulateSonarServer=true`, e.g. write `mvn spring-boot:run -DsimulateSonarServer=true` (when you're in the backend directory).
 
+In addition, a profile (prod or dev) is to be selected. This can be specified as a VM argument with `-Dspring.profiles.active = dev`.
+
 The SonarQuest server then initializes the world and quests.
 
 The SonarQuest database is initialised with the scheme `schema.sql` and is filled with the data from `data.sql`.
