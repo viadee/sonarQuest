@@ -1,6 +1,3 @@
-import {WorldService} from './../../../../services/world.service';
-import {AdminSonarCubeSelectBackgroundComponent} from './components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
-import {MatDialog} from '@angular/material';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
@@ -19,12 +16,8 @@ export class AdminSonarCubeComponent implements OnInit {
 
   sonarConfig: SonarCubeConfig;
 
-  image: string;
-
   constructor(private sonarCubeService: SonarCubeService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar,
-              private worldService: WorldService) {
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,11 +28,6 @@ export class AdminSonarCubeComponent implements OnInit {
         }
       }
     );
-
-    const world = this.worldService.getCurrentWorld();
-    if (world != null) {
-      this.image = world.image;
-    }
   }
 
   private aktualisiereFormGroup() {
@@ -57,16 +45,6 @@ export class AdminSonarCubeComponent implements OnInit {
     const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarCubeUrl};
     console.log('saving' + config + config.name + config.sonarServerUrl);
     this.sonarCubeService.saveConfig(config);
-  }
-
-  selectBackground() {
-    this.dialog.open(AdminSonarCubeSelectBackgroundComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe(
-      result => {
-        if (result) {
-          this.image = result
-        }
-      }
-    );
   }
 
 }

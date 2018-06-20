@@ -68,7 +68,7 @@ import {AvatarEditComponent} from './pages/my-avatar-page/components/my-avatar-e
 import {GamemasterIconSelectComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 import {AdminSonarCubeComponent} from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
 import {SonarCubeService} from './services/sonar-cube.service';
-import {AdminSonarCubeSelectBackgroundComponent} from './pages/admin-page/components/admin-sonar-cube/components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
+import {SelectBackgroundComponent} from './pages/gamemaster-page/components/gamemaster-world/components/edit-world/select-background/select-background.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './login/authentication.service';
 import {LocalStorageService} from './login/local-storage.service';
@@ -127,7 +127,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AvatarEditComponent,
     GamemasterIconSelectComponent,
     AdminSonarCubeComponent,
-    AdminSonarCubeSelectBackgroundComponent,
+    SelectBackgroundComponent,
     LoginComponent,
     EmptyPageComponent,
   ],
@@ -154,7 +154,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
     GamemasterIconSelectComponent,
-    AdminSonarCubeSelectBackgroundComponent,
+    SelectBackgroundComponent,
     LoginComponent,
     EmptyPageComponent
   ],
