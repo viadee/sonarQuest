@@ -44,7 +44,6 @@ import {GamemasterAddFreeTaskComponent} from './pages/gamemaster-page/components
 import {GamemasterSuggestTasksComponent} from './pages/gamemaster-page/components/gamemaster-quest/components/gamemaster-quest-create/components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component';
 import {GamemasterSpecialTaskCreateComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-special-task/components/gamemaster-special-task-create/gamemaster-special-task-create.component';
 import {GamemasterSpecialTaskEditComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-special-task/components/gamemaster-special-task-edit/gamemaster-special-task-edit.component';
-import {GamemasterStandardTaskCreateComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-standard-task/components/gamemaster-standard-task-create/gamemaster-standard-task-create.component';
 import {GamemasterStandardTaskEditComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-standard-task/components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 import {GamemasterAdventureCreateComponent} from './pages/gamemaster-page/components/gamemaster-adventure/components/gamemaster-adventure-create/gamemaster-adventure-create.component';
 import {GamemasterAdventureEditComponent} from './pages/gamemaster-page/components/gamemaster-adventure/components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
@@ -107,7 +106,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSuggestTasksComponent,
     GamemasterSpecialTaskCreateComponent,
     GamemasterSpecialTaskEditComponent,
-    GamemasterStandardTaskCreateComponent,
     GamemasterStandardTaskEditComponent,
     GamemasterAdventureCreateComponent,
     GamemasterAdventureEditComponent,
@@ -140,7 +138,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSuggestTasksComponent,
     GamemasterSpecialTaskCreateComponent,
     GamemasterSpecialTaskEditComponent,
-    GamemasterStandardTaskCreateComponent,
     GamemasterStandardTaskEditComponent,
     GamemasterAdventureCreateComponent,
     GamemasterAdventureEditComponent,

@@ -8,7 +8,12 @@
   <div layout="column" layout-padding>
 
     <div flex>
-      <mat-select placeholder="Welt" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
+      <mat-select placeholder="Welt"
+                  [(ngModel)]="selectedWorld"
+                  floatPlaceholder="true"
+                  name="world"
+                  class="full-width"
+                  [disabled]="true">
         <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
       </mat-select>
     </div>
@@ -44,7 +49,7 @@
       <span class="vertical-spacer-10"></span>
       <mat-select placeholder="{{'GLOBAL.CLICK_TO_SELECT' | translate}}" [(ngModel)]="selectedImage">
         <mat-option *ngFor="let image of images" [value]="image.src">
-            <img [src]="image.src">
+          <img [src]="image.src">
           <span>{{image.name}}</span>
         </mat-option>
       </mat-select>
@@ -75,7 +80,6 @@
   </mat-toolbar>
 
 
-
   <mat-list>
     <mat-list-item *ngFor="let task of tasks">
       <h3 mat-line> {{task?.title}} </h3>
@@ -98,5 +102,7 @@
 
 <mat-dialog-actions>
   <span class="toolbar-spacer"></span>
-  <button mat-raised-button color="primary" (click)="createQuest()">{{"GAMEMASTER_PAGE.QUEST.CREATE_QUEST" | translate}}</button>
+  <button mat-raised-button color="primary" (click)="createQuest()">{{"GAMEMASTER_PAGE.QUEST.CREATE_QUEST" |
+    translate}}
+  </button>
 </mat-dialog-actions>

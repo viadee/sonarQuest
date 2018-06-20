@@ -1,11 +1,8 @@
 package com.viadee.sonarQuest.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,17 +19,12 @@ public class SonarConfigController {
     private SonarConfigService sonarConfigService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<SonarConfig> getSonarConfigs() {
-        return sonarConfigService.getAll();
-    }
-
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public SonarConfig getSonarConfig(@PathVariable(value = "name") final String name) {
-        return sonarConfigService.getConfig(name);
+    public SonarConfig getSonarConfigs() {
+        return sonarConfigService.getConfig();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void createSonarConfig(@Valid @RequestBody final SonarConfig sonarConfig) {
+    public void saveSonarConfig(@Valid @RequestBody final SonarConfig sonarConfig) {
         sonarConfigService.saveConfig(sonarConfig);
     }
 

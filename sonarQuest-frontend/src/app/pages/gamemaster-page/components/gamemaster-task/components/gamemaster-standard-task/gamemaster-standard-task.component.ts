@@ -9,7 +9,6 @@ import {
 } from '@covalent/core';
 import {MatDialog} from '@angular/material';
 import {StandardTaskService} from '../../../../../../services/standard-task.service';
-import {GamemasterStandardTaskCreateComponent} from './components/gamemaster-standard-task-create/gamemaster-standard-task-create.component';
 import {GamemasterStandardTaskEditComponent} from './components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 import {StandardTask} from '../../../../../../Interfaces/StandardTask';
 
@@ -98,24 +97,6 @@ export class GamemasterStandardTaskComponent implements OnInit {
         this.loadTasks();
       }
     });
-  }
-
-  newStandardTask() {
-    this.dialog.open(GamemasterStandardTaskCreateComponent, {
-      panelClass: 'dialog-sexy',
-      data: this.currentWorld,
-      width: '500px'
-    }).afterClosed().subscribe((bool) => {
-      if (bool) {
-        this.loadTasks();
-      }
-    });
-  }
-
-  refreshStandardTasks() {
-    this.standardTaskService.refreshStandardTask(this.currentWorld).then(() => {
-      this.standardTaskService.getStandardTasksForWorld(this.currentWorld);
-    })
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

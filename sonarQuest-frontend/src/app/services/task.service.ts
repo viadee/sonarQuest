@@ -19,7 +19,13 @@ export class TaskService {
               private specialTaskService: SpecialTaskService) {
   }
 
-  getFreeTasksForWorld(world: World): Promise<Task[]> {
+  public getTasksForQuest(quest: Quest): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/quest/${quest.id}`)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  public getFreeTasksForWorld(world: World): Promise<Task[]> {
     return this.http.get<Task[]>(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
       .toPromise()
       .catch(this.handleError);

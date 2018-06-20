@@ -91,6 +91,12 @@ public class TaskController {
         return taskDtos;
     }
 
+    @RequestMapping(value = "/quest/{id}", method = RequestMethod.GET)
+    public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId) {
+        final Quest quest = questService.findById(questId);
+        return quest.getTasks();
+    }
+
     @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
     public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
@@ -144,18 +150,7 @@ public class TaskController {
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<Task> freeTasks = null;
-        if (world != null) {
-            // List<TaskDto> freeSpecialTasks = null;
-            freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
-
-            /*
-             * @Florian - For what? freeSpecialTasks =
-             * this.specialTaskRepository.findByStatus(TaskStates.CREATED).stream().map( specialTask ->
-             * toTaskDto(specialTask)).collect(Collectors.toList()); freeTasks.addAll(freeSpecialTasks);
-             */
-        }
-        return freeTasks;
+        return world == null ? null : taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
     }
 
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)

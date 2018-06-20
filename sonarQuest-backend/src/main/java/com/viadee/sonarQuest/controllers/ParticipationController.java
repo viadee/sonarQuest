@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,12 @@ public class ParticipationController {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         return participationService.findParticipationByQuestIdAndUserId(questid, user.getId());
+    }
+
+    @RequestMapping(value = "/{questid}/all", method = RequestMethod.GET)
+    public List<Participation> getParticipations(final Principal principal,
+            @PathVariable(value = "questid") final Long questid) {
+        return participationService.findParticipationByQuestId(questid);
     }
 
     @RequestMapping(value = "/{questid}", method = RequestMethod.POST)

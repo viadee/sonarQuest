@@ -26,15 +26,6 @@ public class UiDesign {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UiDesign() {
-    }
-
-    public UiDesign(final String name, final User user) {
-        super();
-        this.name = name;
-        this.user = user;
-    }
-
     public Long getId() {
         return id;
     }

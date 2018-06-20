@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 
 @Entity
@@ -64,6 +65,7 @@ public class User {
     @JoinColumn(name = "current_world_id")
     private World currentWorld;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
     private List<World> worlds;
@@ -72,9 +74,11 @@ public class User {
     @JoinTable(name = "User_Artefact", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"))
     private List<Artefact> artefacts;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Adventure> adventures;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Participation> participations;
 

@@ -1,12 +1,9 @@
 package com.viadee.sonarQuest.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.viadee.sonarQuest.constants.RessourceEndpoints;
-import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -17,12 +14,6 @@ import com.viadee.sonarQuest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 
 /**
  * Reads data for external requests from locally saved json files
@@ -39,18 +30,20 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
     @Autowired
     private SonarConfigService sonarConfigService;
 
+    @Autowired
+    private WorldService worldService;
+
     @Override
     public List<SonarQubeProject> getSonarQubeProjects() {
         initSonarConfigData();
-        return sonarConfigService.getAll().stream()
-                .map(config -> new SonarQubeProject(config.getSonarProject(), config.getName()))
+        return worldService.findAll().stream()
+                .map(world -> new SonarQubeProject(world.getProject(), world.getName()))
                 .collect(Collectors.toList());
     }
 
     public void initSonarConfigData() {
         final SonarConfig config = new SonarConfig();
         config.setName("World of Dragons");
-        config.setSonarProject("org.apache.commons%3Acommons-lang3");
         config.setSonarServerUrl("https://sonarcloud.io");
         sonarConfigService.saveConfig(config);
     }

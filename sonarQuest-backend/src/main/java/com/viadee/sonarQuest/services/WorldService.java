@@ -38,7 +38,7 @@ public class WorldService {
     }
 
     public World findById(final Long id) {
-        return worldRepository.findById(id);
+        return worldRepository.findOne(id);
     }
 
 }

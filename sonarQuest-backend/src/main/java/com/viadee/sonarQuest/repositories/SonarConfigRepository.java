@@ -7,4 +7,6 @@ import com.viadee.sonarQuest.entities.SonarConfig;
 public interface SonarConfigRepository extends JpaRepository<SonarConfig, Long> {
 
     SonarConfig getByName(String name);
+
+    SonarConfig findFirstBy();
 }

@@ -28,13 +28,13 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taskService.getFreeTasksForWorld(this.data[0]).then(freetasks => {
+    this.currentWorld = this.data[0];
+    this.taskService.getFreeTasksForWorld(this.currentWorld).then(freetasks => {
       const addedTasks = this.data[1].map(task => task.id);
       this.freeTasks = freetasks.filter(task => {
         return addedTasks.indexOf(task.id) < 0
       });
     });
-    this.currentWorld = this.worldService.getCurrentWorld();
   }
 
   addTask(task: Task) {
@@ -42,7 +42,8 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   openIssue(task: Task) {
-    this.sonarCubeService.getIssueLink(task.key, this.currentWorld.name).subscribe(link => window.open(link, '_blank'));
+    this.sonarCubeService.getIssueLink(task.key, this.currentWorld)
+      .then(link => window.open(link, '_blank'));
   }
 
 }

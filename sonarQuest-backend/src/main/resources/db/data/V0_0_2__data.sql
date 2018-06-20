@@ -1,3 +1,6 @@
+INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
+  ('World of Sonar Quest', 'https://sonar.intern.viadee.de');
+
 INSERT INTO Level (min, max) VALUES
   (0, 10),
   (11, 30);
@@ -44,9 +47,6 @@ INSERT INTO Artefact_Skill (artefact_id, skill_id) VALUES
   (1, 3),
   (2, 4),
   (3, 5);
-
-INSERT INTO Sonar_Config (name, sonar_server_url, sonar_project) VALUES
-  ('World of Sonar Quest', 'https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');
 
 INSERT INTO World (name,project, active) VALUES ('SonarWorld', 'com.viadee:sonarWorld',TRUE);
 INSERT INTO World (name,project, active) VALUES ('OpenWorld', 'com.viadee:sonarOpenworld',TRUE);

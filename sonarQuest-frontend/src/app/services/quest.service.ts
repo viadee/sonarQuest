@@ -1,20 +1,24 @@
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
-import {RequestOptions, Response, Headers} from '@angular/http';
+import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Quest} from '../Interfaces/Quest';
 import {World} from '../Interfaces/World';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Task} from '../Interfaces/Task';
+import {ParticipationService} from './participation.service';
+import {TaskService} from './task.service';
 
 @Injectable()
 export class QuestService {
 
   private questSubject;
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient,
+              private participationService: ParticipationService,
+              private taskService: TaskService) {
     this.questSubject = new Subject();
   }
 
@@ -27,10 +31,19 @@ export class QuestService {
     return this.questSubject;
   }
 
-  getQuest(id: number): Promise<Quest> {
+  public getQuest(id: number): Promise<Quest> {
+    let quest: Quest;
     return this.http.get<Quest>(`${environment.endpoint}/quest/${id}`)
-      .toPromise()
-      .catch(this.handleError);
+      .toPromise().then(q => {
+        quest = q;
+        return this.participationService.getParticipations(quest)
+      }).then(participations => {
+        quest.participations = participations;
+        return this.taskService.getTasksForQuest(quest)
+      }).then(tasks => {
+        quest.tasks = tasks;
+        return quest;
+      });
   }
 
 

@@ -40,7 +40,7 @@ public class GameDataInitializer implements InitializingBean {
     @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "true")
     private void createSimData() {
 
-    	createWorldOfDragons(1L);
+        createWorldOfDragons(1L);
 
     }
 
@@ -48,8 +48,8 @@ public class GameDataInitializer implements InitializingBean {
      * World of Dragons SimData
      */
 
-    //XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
-    private void createWorldOfDragons(Long worldId) {
+    // XXX IDs of entities need to be passed back from Controllers, so the don't end up being hardcoded here...
+    private void createWorldOfDragons(final Long worldId) {
 
         // Create Quests
         final Quest quest1 = new Quest("Hidden danger in the woods!",
@@ -119,7 +119,7 @@ public class GameDataInitializer implements InitializingBean {
     // up being hardcoded here...
     public void afterPropertiesSet() throws Exception {
         worldService.updateWorlds();
-        final World firstWorld = worldRepository.findById(1L);
+        final World firstWorld = worldRepository.findOne(1L);
         firstWorld.setActive(true);
         worldRepository.save(firstWorld);
         taskController.updateStandardTasksForWorld(firstWorld.getId());

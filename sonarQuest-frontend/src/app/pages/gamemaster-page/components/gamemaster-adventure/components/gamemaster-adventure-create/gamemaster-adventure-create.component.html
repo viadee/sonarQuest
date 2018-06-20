@@ -6,7 +6,9 @@
 
   <div layout="column" layout-padding>
     <div flex>
-      <mat-select [placeholder]="'WORLD.WORLD' | translate" [(ngModel)]="selectedWorld" floatPlaceholder="true" name="world" class="full-width">
+      <mat-select [placeholder]="'WORLD.WORLD' | translate"
+                  [(ngModel)]="selectedWorld" floatPlaceholder="true"
+                  name="world" class="full-width" [disabled]="true">
         <mat-option *ngFor="let world of worlds" [value]="world">{{ world.name }}</mat-option>
       </mat-select>
     </div>

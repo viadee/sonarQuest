@@ -55,37 +55,10 @@ public class World {
     public World() {
     }
 
-    public World(final String name, final String project) {
-        this.name = name;
-        this.project = project;
-    }
-
     public World(final String name, final String project, final Boolean active) {
         this.name = name;
         this.project = project;
         this.active = active;
-    }
-
-    public World(final Long id, final String name, final String project, final Boolean active, final List<Quest> quests,
-            final List<Task> tasks) {
-        this.id = id;
-        this.name = name;
-        this.project = project;
-        this.active = active;
-        this.quests = quests;
-        this.tasks = tasks;
-    }
-
-    public World(final Long id, final String name, final String project, final Boolean active,
-            final List<Adventure> adventures, final List<Quest> quests,
-            final List<Task> tasks) {
-        this.id = id;
-        this.name = name;
-        this.project = project;
-        this.active = active;
-        this.adventures = adventures;
-        this.quests = quests;
-        this.tasks = tasks;
     }
 
     public Long getId() {

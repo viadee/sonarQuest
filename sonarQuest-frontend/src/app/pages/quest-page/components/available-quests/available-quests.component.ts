@@ -88,11 +88,13 @@ export class AvailableQuestsComponent implements OnInit {
   }
 
   viewQuest(quest: Quest) {
-    this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy', data: quest, width: '500px'})
-      .afterClosed().subscribe(() => {
-      this.loadQuests();
-      this.participationService.announceParticipationUpdate()
-    })
+    this.questService.getQuest(quest.id).then(loadedQuest => {
+      this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy', data: loadedQuest, width: '500px'})
+        .afterClosed().subscribe(() => {
+        this.loadQuests();
+        this.participationService.announceParticipationUpdate()
+      });
+    });
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
