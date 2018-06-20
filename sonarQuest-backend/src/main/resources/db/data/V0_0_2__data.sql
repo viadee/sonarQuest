@@ -62,6 +62,10 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('gm',    '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1,   0,   0, 1, 'ava_barbarian1.jpg', 'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3);
 
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',1);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',2);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',3);
+
 INSERT INTO User_To_World (user_id, world_id) VALUES (1, 1);
 INSERT INTO User_To_World (user_id, world_id) VALUES (1, 2);
 INSERT INTO User_To_World (user_id, world_id) VALUES (2, 1);

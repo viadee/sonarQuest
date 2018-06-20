@@ -122,13 +122,6 @@ public class TaskController {
         return specialTaskDto;
     }
 
-    @RequestMapping(value = "/standard", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public StandardTask createStandardTask(@RequestBody final StandardTask standardTaskDto) {
-        standardTaskService.save(standardTaskDto);
-        return standardTaskDto;
-    }
-
     @RequestMapping(value = "/special", method = RequestMethod.PUT)
     public SpecialTask updateSpecialTask(@RequestBody final SpecialTask taskDto) {
         return specialTaskService.updateSpecialTask(taskDto);

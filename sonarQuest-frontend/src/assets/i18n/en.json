@@ -22,7 +22,10 @@
     "JOIN_QUEST": "Join Quest",
     "AVAILABLE_QUESTS": "Available Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
-    "COMBATED_BY": "combated by"
+    "COMBATED_BY": "combated by",
+    "SHOW_ISSUE_TOOLTIP":"Show Issue",
+    "JOIN_ISSUE_TOOLTIP":"Fight",
+    "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marketplace"
@@ -57,7 +60,9 @@
       "EDIT_SPECIALTASK": "Edit Special Task",
       "EDIT_STANDARDTASK": "Edit Standard Task",
       "CONDITION": "Condition",
-      "AMOUNT": "Amount"
+      "AMOUNT": "Amount",
+      "ADD_FREE_TOOLTIP": "Add free task",
+      "SUGGEST_TASKS_TOOLTIP": "Suggest random tasks"
     }
   },
   "TABLE": {

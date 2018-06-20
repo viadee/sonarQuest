@@ -2,6 +2,8 @@ package com.viadee.sonarQuest.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,8 +20,9 @@ public class UiDesign {
     @GeneratedValue
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
+    private UiDesignName name;
 
     @JsonIgnore
     @OneToOne
@@ -34,11 +37,11 @@ public class UiDesign {
         this.id = id;
     }
 
-    public String getName() {
+    public UiDesignName getName() {
         return name;
     }
 
-    public void setName(final String name) {
+    public void setName(final UiDesignName name) {
         this.name = name;
     }
 

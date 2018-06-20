@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarQuest.entities.UiDesign;
+import com.viadee.sonarQuest.entities.UiDesignName;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.repositories.UiDesignRepository;
 import com.viadee.sonarQuest.services.UiDesignService;
@@ -32,13 +33,13 @@ public class UiDesignController {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         final UiDesign ui = uiDesignRepository.findByUser(user);
-        return ui == null ? uiDesignService.updateUiDesign(user, "light") : ui;
+        return ui == null ? uiDesignService.updateUiDesign(user, UiDesignName.light) : ui;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public UiDesign updateUiDesign(final Principal principal, @RequestBody final String designName) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
-        return uiDesignService.updateUiDesign(user, designName);
+        return uiDesignService.updateUiDesign(user, UiDesignName.valueOf(designName));
     }
 }

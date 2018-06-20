@@ -22,7 +22,10 @@
     "JOIN_QUEST": "Suche annehmen",
     "AVAILABLE_QUESTS": "Verfügbare Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
-    "COMBATED_BY": "angenommen von "
+    "COMBATED_BY": "angenommen von ",
+    "SHOW_ISSUE_TOOLTIP":"Zeige Sonar Issue",
+    "JOIN_ISSUE_TOOLTIP":"Kämpfe",
+    "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marktplatz"
@@ -57,7 +60,9 @@
       "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
       "EDIT_STANDARDTASK": "Auftrag bearbeiten",
       "CONDITION": "Bedingung",
-      "AMOUNT": "Anzahl"
+      "AMOUNT": "Anzahl",
+      "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
+      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor"
     }
   },
   "TABLE": {

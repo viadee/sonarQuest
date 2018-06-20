@@ -55,7 +55,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/');
     this.authService.logout();
     this.userService.loadUser();
-    this.setDesign();
     this.currentWorld = null;
     this.selected = null;
     this.worlds = null;
@@ -69,6 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.userService.onUserChange().subscribe(() => {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
+        this.setDesign();
         this.loadWorlds();
         this.loadWorld();
       }
@@ -94,7 +94,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.currentWorld !== null) {
         const image = this.currentWorld.image || 'bg01';
         this.changebackground(image);
-        this.setDesign();
         this.setSelected();
       } else {
         this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
@@ -116,7 +115,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.pageNames = page_names;
     })
   }
-
 
   determinePageTitle(url: string): string {
     if (this.pageNames) {
@@ -142,7 +140,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       return ''
     }
   }
-
 
   updateWorld(world: World) {
     this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
@@ -181,9 +178,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   removeSubString(fullString: string, removeString: string): string {
-    let newString = fullString.replace(removeString, '');
-    newString = newString.replace('  ', ' ');
-    return newString;
+    const newString = fullString.replace(removeString, '');
+    return newString.replace('  ', ' ');
   }
 
 }
