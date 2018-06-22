@@ -41,20 +41,10 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
 
     @Override
     public List<SonarQubeProject> getSonarQubeProjects() {
-        initSonarConfigData();
         return sonarConfigService.getAll().stream()
                 .map(config -> new SonarQubeProject(config.getSonarProject(), config.getName()))
                 .collect(Collectors.toList());
     }
-
-    public void initSonarConfigData() {
-        final SonarConfig config = new SonarConfig();
-        config.setName("World of Dragons");
-        config.setSonarProject("org.apache.commons%3Acommons-lang3");
-        config.setSonarServerUrl("https://sonarcloud.io");
-        sonarConfigService.saveConfig(config);
-    }
-
     @Override
     public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
         if (issues == null) {
