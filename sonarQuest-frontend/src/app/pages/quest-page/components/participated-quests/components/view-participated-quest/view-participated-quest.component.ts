@@ -10,7 +10,6 @@ import {SonarCubeService} from '../../../../../../services/sonar-cube.service';
 import {User} from '../../../../../../Interfaces/User';
 import {UserService} from '../../../../../../services/user.service';
 import {Task} from '../../../../../../Interfaces/Task';
-import {StandardTask} from '../../../../../../Interfaces/StandardTask';
 
 @Component({
   selector: 'app-view-participated-quest',
@@ -59,9 +58,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   participatingDeveloper(task: Task): User {
     let user = null;
-
-    const participations: Participation[] = this.quest.participations;
-    participations.forEach((participation) => {
+    this.quest.participations.forEach((participation) => {
       if (participation.tasks.map(partTask => partTask.id).includes(task.id)) {
         user = participation.user;
       }
@@ -86,7 +83,8 @@ export class ViewParticipatedQuestComponent implements OnInit {
   }
 
   openIssue(task: Task) {
-    this.sonarCubeService.getIssueLink(task.key, this.currentWorld.name).subscribe(link => window.open(link, '_blank'));
+    this.sonarCubeService.getIssueLink(task.key, this.currentWorld)
+      .then(link => window.open(link, '_blank'));
   }
 
 }

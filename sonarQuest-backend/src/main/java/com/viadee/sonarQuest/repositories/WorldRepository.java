@@ -1,15 +1,11 @@
 package com.viadee.sonarQuest.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.viadee.sonarQuest.entities.World;
-import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
-public interface WorldRepository extends CrudRepository<World,Long> {
-
-    List<World> findAll();
+public interface WorldRepository extends JpaRepository<World, Long> {
 
     World findByProject(String project);
-    
-    World findById(long id);
+
 }

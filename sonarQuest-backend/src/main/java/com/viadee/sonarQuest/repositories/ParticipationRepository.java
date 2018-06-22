@@ -13,4 +13,6 @@ public interface ParticipationRepository extends CrudRepository<Participation, L
     Participation findByQuestAndUser(Quest quest, User user);
 
     List<Participation> findByUser(User user);
+
+    List<Participation> findByQuest(Quest foundQuest);
 }

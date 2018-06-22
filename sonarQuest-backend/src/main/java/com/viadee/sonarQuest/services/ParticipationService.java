@@ -1,5 +1,7 @@
 package com.viadee.sonarQuest.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,10 @@ public class ParticipationService {
             foundParticipation = participationRepository.findByQuestAndUser(foundQuest, foundUser);
         }
         return foundParticipation;
+    }
+
+    public List<Participation> findParticipationByQuestId(final Long questId) {
+        final Quest foundQuest = questRepository.findOne(questId);
+        return participationRepository.findByQuest(foundQuest);
     }
 }

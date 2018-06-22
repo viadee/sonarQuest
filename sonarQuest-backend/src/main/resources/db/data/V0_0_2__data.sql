@@ -1,3 +1,6 @@
+INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
+  ('World of Sonar Quest', 'https://sonar.intern.viadee.de');
+
 INSERT INTO Level (min, max) VALUES
   (0, 10),
   (11, 30);
@@ -45,9 +48,6 @@ INSERT INTO Artefact_Skill (artefact_id, skill_id) VALUES
   (2, 4),
   (3, 5);
 
-INSERT INTO Sonar_Config (name, sonar_server_url, sonar_project) VALUES
-  ('World of Sonar Quest', 'https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');
-
 INSERT INTO World (name,project, active) VALUES ('SonarWorld', 'com.viadee:sonarWorld',TRUE);
 INSERT INTO World (name,project, active) VALUES ('OpenWorld', 'com.viadee:sonarOpenworld',TRUE);
   
@@ -61,6 +61,10 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  VALUES ('dev',   '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 2, 150, 200, 2, 'ava_witch1.jpg', 'The little Witch is a pro with poisons and her broomstick.', 6, 1);
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('gm',    '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1,   0,   0, 1, 'ava_barbarian1.jpg', 'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3);
+
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',1);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',2);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',3);
 
 INSERT INTO User_To_World (user_id, world_id) VALUES (1, 1);
 INSERT INTO User_To_World (user_id, world_id) VALUES (1, 2);

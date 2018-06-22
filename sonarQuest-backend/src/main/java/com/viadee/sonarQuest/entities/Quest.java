@@ -40,7 +40,6 @@ public class Quest {
     @Column(name = "image")
     private String image;
 
-    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "world_id")
     private World world;
@@ -50,9 +49,11 @@ public class Quest {
     @JoinColumn(name = "adventure_id")
     private Adventure adventure;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "quest")
     private List<Task> tasks;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quest")
     private List<Participation> participations;
 

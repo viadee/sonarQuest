@@ -89,12 +89,14 @@ export class ParticipatedQuestsComponent implements OnInit {
   }
 
   viewQuest(quest: Quest) {
-    this.dialog.open(ViewParticipatedQuestComponent, {
-      panelClass: 'dialog-sexy',
-      data: quest,
-      width: '500px'
-    }).afterClosed().subscribe(() => {
-    })
+    this.questService.getQuest(quest.id).then(loadedQuest => {
+      this.dialog.open(ViewParticipatedQuestComponent, {
+        panelClass: 'dialog-sexy',
+        data: loadedQuest,
+        width: '500px'
+      }).afterClosed().subscribe(() => {
+      });
+    });
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

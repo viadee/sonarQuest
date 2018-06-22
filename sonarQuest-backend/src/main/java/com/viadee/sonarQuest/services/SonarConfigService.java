@@ -1,7 +1,5 @@
 package com.viadee.sonarQuest.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +12,19 @@ public class SonarConfigService {
     @Autowired
     private SonarConfigRepository sonarConfigRepository;
 
-    public SonarConfig getConfig(final String name) {
-        return sonarConfigRepository.getByName(name);
+    public SonarConfig getConfig() {
+        return sonarConfigRepository.findFirstBy();
     }
 
     public SonarConfig saveConfig(final SonarConfig config) {
-        final SonarConfig currentConfig = getConfig(config.getName());
+        final SonarConfig currentConfig = getConfig();
         return currentConfig == null ? sonarConfigRepository.save(config) : updateCurrentConfig(config, currentConfig);
     }
 
     private SonarConfig updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
-        currentConfig.setSonarProject(config.getSonarProject());
+        currentConfig.setName(config.getName());
         currentConfig.setSonarServerUrl(config.getSonarServerUrl());
         return sonarConfigRepository.save(currentConfig);
     }
 
-    public List<SonarConfig> getAll() {
-        return sonarConfigRepository.findAll();
-    }
 }

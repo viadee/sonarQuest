@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
 import {SonarCubeConfig} from '../Interfaces/SonarCubeConfig';
+import {World} from '../Interfaces/World';
 
 @Injectable()
 export class SonarCubeService {
@@ -10,26 +10,21 @@ export class SonarCubeService {
   constructor(private http: HttpClient) {
   }
 
-  public getConfigs(): Observable<SonarCubeConfig[]> {
+  public getConfig(): Promise<SonarCubeConfig> {
     const url = `${environment.endpoint}/sonarconfig`;
-    return this.http.get<SonarCubeConfig[]>(url);
+    return this.http.get<SonarCubeConfig>(url).toPromise();
   }
 
-  public getConfig(name: String): Observable<SonarCubeConfig> {
-    const url = `${environment.endpoint}/sonarconfig/${name}`;
-    return this.http.get<SonarCubeConfig>(url);
-  }
-
-  public saveConfig(config: SonarCubeConfig) {
+  public saveConfig(config: SonarCubeConfig): Promise<SonarCubeConfig> {
     const url = `${environment.endpoint}/sonarconfig`;
-    return this.http.post(url, config).subscribe();
+    return this.http.post<SonarCubeConfig>(url, config).toPromise();
   }
 
-  public getIssueLink(key: string, worldName: string): Observable<string> {
-    return this.getConfig(worldName).map(config => this.createIssueLink(key, config));
+  public getIssueLink(key: string, world: World): Promise<string> {
+    return this.getConfig().then(config => this.createIssueLink(key, world, config));
   }
 
-  private createIssueLink(key: string, config: SonarCubeConfig): string {
-    return config.sonarServerUrl + '/project/issues?id=' + config.sonarProject + '&open=' + key;
+  private createIssueLink(key: string, world: World, config: SonarCubeConfig): string {
+    return config.sonarServerUrl + '/project/issues?id=' + world.project + '&open=' + key;
   }
 }

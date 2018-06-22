@@ -35,6 +35,10 @@ public class QuestService implements QuestSuggestion {
     @Autowired
     private ParticipationRepository participationRepository;
 
+    public Quest findById(final Long questId) {
+        return questRepository.findOne(questId);
+    }
+
     @Override
     public List<Task> suggestTasksWithApproxGoldAmount(final World world, final Long goldApprox) {
         final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
@@ -101,4 +105,5 @@ public class QuestService implements QuestSuggestion {
         result.add(freeQuests);
         return result;
     }
+
 }

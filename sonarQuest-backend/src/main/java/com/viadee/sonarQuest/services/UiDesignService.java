@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.UiDesign;
+import com.viadee.sonarQuest.entities.UiDesignName;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.repositories.UiDesignRepository;
 
@@ -13,7 +14,7 @@ public class UiDesignService {
     @Autowired
     private UiDesignRepository uiDesignRepository;
 
-    private UiDesign createUiDesign(final User user, final String name) {
+    private UiDesign createUiDesign(final User user, final UiDesignName name) {
         final UiDesign ui = new UiDesign();
         ui.setName(name);
         ui.setUser(user);
@@ -24,7 +25,7 @@ public class UiDesignService {
         return uiDesignRepository.save(uiDesign);
     }
 
-    public UiDesign updateUiDesign(final User user, final String name) {
+    public UiDesign updateUiDesign(final User user, final UiDesignName name) {
         UiDesign uiDesign = uiDesignRepository.findByUser(user);
         if (uiDesign == null) {
             uiDesign = createUiDesign(user, name);

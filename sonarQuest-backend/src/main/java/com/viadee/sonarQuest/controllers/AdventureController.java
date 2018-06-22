@@ -53,7 +53,7 @@ public class AdventureController {
 
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<Adventure> getAllAdventuresForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findById(world_id);
+        final World w = worldRepository.findOne(world_id);
         return adventureRepository.findByWorld(w);
     }
 

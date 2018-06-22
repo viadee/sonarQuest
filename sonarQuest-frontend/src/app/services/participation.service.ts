@@ -5,6 +5,7 @@ import {Quest} from '../Interfaces/Quest';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Participation} from '../Interfaces/Participation';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ParticipationService {
@@ -19,6 +20,10 @@ export class ParticipationService {
     return this.http.post<Participation>(`${environment.endpoint}/participation/${quest.id}`, null)
       .toPromise()
       .catch(this.handleError);
+  }
+
+  public getParticipations(quest: Quest): Promise<Participation[]> {
+    return this.http.get<Participation[]>(`${environment.endpoint}/participation/${quest.id}/all`).toPromise();
   }
 
   announceParticipationUpdate() {

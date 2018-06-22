@@ -101,14 +101,16 @@ export class GamemasterQuestComponent implements OnInit {
   }
 
   editQuest(quest: Quest) {
-    this.dialog.open(GamemasterQuestEditComponent, {
-      panelClass: 'dialog-sexy',
-      data: quest,
-      width: '500px'
-    }).afterClosed().subscribe((bool) => {
-      if (bool) {
-        this.update();
-      }
+    this.questService.getQuest(quest.id).then(loadedQuest => {
+      this.dialog.open(GamemasterQuestEditComponent, {
+        panelClass: 'dialog-sexy',
+        data: loadedQuest,
+        width: '500px'
+      }).afterClosed().subscribe((bool) => {
+        if (bool) {
+          this.update();
+        }
+      });
     });
   }
 
@@ -122,7 +124,6 @@ export class GamemasterQuestComponent implements OnInit {
     this.questService.getQuestsForWorld(this.currentWorld);
     this.taskService.refreshTasks(this.currentWorld);
   }
-
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

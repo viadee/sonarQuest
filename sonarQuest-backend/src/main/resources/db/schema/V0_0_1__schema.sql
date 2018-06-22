@@ -1,3 +1,9 @@
+CREATE TABLE Sonar_Config (
+  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name             VARCHAR(128),
+  sonar_server_url VARCHAR(128)
+);
+
 CREATE TABLE Level (
   id  BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   min BIGINT,
@@ -79,13 +85,6 @@ CREATE TABLE Quest (
   image        VARCHAR(256),
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (adventure_id) REFERENCES Adventure (id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-CREATE TABLE Sonar_Config (
-  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name             VARCHAR(128),
-  sonar_server_url VARCHAR(128),
-  sonar_project    VARCHAR(128)
 );
 
 CREATE TABLE Role (

@@ -35,19 +35,6 @@ export class StandardTaskService {
       .catch(this.handleError);
   }
 
-  refreshStandardTask(world: World): Promise<any> {
-    return this.http.get<StandardTask>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
-      .toPromise().catch(this.handleError);
-  }
-
-  createStandardTask(standardTask: any): Promise<StandardTask> {
-    standardTask.world.quests = [];
-    standardTask.world.tasks = [];
-    return this.http.post<StandardTask>(`${environment.endpoint}/task/standard`, standardTask)
-      .toPromise()
-      .catch(this.handleError);
-  }
-
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {

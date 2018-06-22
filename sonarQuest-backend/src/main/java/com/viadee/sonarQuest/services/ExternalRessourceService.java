@@ -9,13 +9,12 @@ import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
-import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.rules.SonarQubeStatusMapper;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 /**
- * Actual implementation is either {@link RealExternalRessourceService} or
- * {@link SimulatedExternalRessourceService}, depending on the command line
- * property simulateSonarServer
+ * Actual implementation is either {@link RealExternalRessourceService} or {@link SimulatedExternalRessourceService},
+ * depending on the command line property simulateSonarServer
  */
 public abstract class ExternalRessourceService {
 
@@ -47,11 +46,10 @@ public abstract class ExternalRessourceService {
         final Long gold = standardTaskEvaluationService.evaluateGoldAmount(sonarQubeIssue.getDebt());
         final Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
         final Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
-        SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
+        final SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
         return new StandardTask(sonarQubeIssue.getMessage(), status.getText(), gold, xp, null, world,
                 sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
                 sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
     }
 
 }
-

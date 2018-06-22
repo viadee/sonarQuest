@@ -26,10 +26,6 @@ public class SonarConfig {
     @Column(name = "sonar_server_url")
     private String sonarServerUrl;
 
-    @NotNull
-    @Column(name = "sonar_project")
-    private String sonarProject;
-
     public Long getId() {
         return id;
     }
@@ -52,14 +48,6 @@ public class SonarConfig {
 
     public void setSonarServerUrl(final String sonarServerUrl) {
         this.sonarServerUrl = sonarServerUrl;
-    }
-
-    public String getSonarProject() {
-        return sonarProject;
-    }
-
-    public void setSonarProject(final String sonarProject) {
-        this.sonarProject = sonarProject;
     }
 
 }
