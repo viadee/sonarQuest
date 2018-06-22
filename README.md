@@ -4,6 +4,9 @@
 
 A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification system. Handle your code quality issues in a playful way by solving quests and adventures, earning rewards for refactoring code smells and optimization.
 
+* more about SonarQuest's game concepts and application scenarios: https://www.viadee.de/sonarquest_en
+* Sonar Quest info package: https://github.com/viadee/sonarQuest/blob/master/docs/SonarQuest_info_package.pdf
+
 ## Goal
 
 Reduce technical debts in your code project by converting the refactoring process into a game. Create quests from SonarQube issues and write your own story.
