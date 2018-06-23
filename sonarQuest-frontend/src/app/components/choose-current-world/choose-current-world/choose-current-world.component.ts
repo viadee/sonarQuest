@@ -38,7 +38,7 @@ export class ChooseCurrentWorldComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worldService.getWorlds().subscribe(worlds => {
+    this.worldService.getActiveWorlds().subscribe(worlds => {
       this.worlds = worlds;
       this.filter();
     });

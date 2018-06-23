@@ -76,7 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private loadWorlds() {
-    this.worldService.getWorlds().subscribe(worlds => {
+    this.worldService.getActiveWorlds().subscribe(worlds => {
       this.worlds = worlds;
       this.setSelected();
     });
@@ -96,7 +96,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.changebackground(image);
         this.setSelected();
       } else {
-        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
+        //this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
     }
   }
@@ -106,6 +106,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.selected = this.worlds.filter(world => {
         return (world.name === this.currentWorld.name);
       })[0]
+    } else if (this.worlds) {
+      this.selected = this.worlds[0];
     }
   }
 

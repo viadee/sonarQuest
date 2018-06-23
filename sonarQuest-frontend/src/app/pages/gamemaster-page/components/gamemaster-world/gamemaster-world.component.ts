@@ -59,8 +59,8 @@ export class GamemasterWorldComponent implements OnInit {
   private init() {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
-      this.loadWorlds();
     }
+    this.loadWorlds();
   }
 
   translateTable() {

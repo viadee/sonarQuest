@@ -26,7 +26,7 @@ export class WorldService {
     });
   }
 
-  private worldChanged(): void {
+  public worldChanged(): void {
     this.wordChangeListener.forEach(l => l.next(true));
   }
 
@@ -60,6 +60,14 @@ export class WorldService {
 
   updateBackground(world: World, image: string): Promise<World> {
     return this.http.put<World>(`${environment.endpoint}/world/world/${world.id}/image`, image).toPromise();
+  }
+
+  public getActiveWorlds():Observable<World[]>{
+    return this.http.get<World[]>(`${environment.endpoint}/world/active`);
+  }
+
+  public generateWorldsFromSonarQubeProjects(): Promise<World[]>{
+    return this.http.get<World[]>(`${environment.endpoint}/world/generate`).toPromise();
   }
 
 }

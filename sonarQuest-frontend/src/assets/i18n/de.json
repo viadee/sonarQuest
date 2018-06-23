@@ -35,7 +35,7 @@
     "CREATE_DEVELOPER": "Entwickler anlegen",
     "EDIT_DEVELOPER": "Entwickler bearbeiten",
     "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
-    "SONAR_CUBE_HEADER": "Sonar Cube",
+    "SONAR_CUBE_HEADER": "SonarQube",
     "SELECT_BACKGROUND": "Hintergrund wählen"
   },
   "START_PAGE": {

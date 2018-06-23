@@ -1,3 +1,4 @@
+import { WorldService } from './../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
@@ -12,11 +13,12 @@ export class AdminSonarCubeComponent implements OnInit {
 
   configName: string;
 
-  sonarCubeUrl: string;
+  sonarQubeUrl: string;
 
   sonarConfig: SonarCubeConfig;
 
   constructor(private sonarCubeService: SonarCubeService,
+              private worldService: WorldService,
               private snackBar: MatSnackBar) {
   }
 
@@ -32,7 +34,7 @@ export class AdminSonarCubeComponent implements OnInit {
 
   private aktualisiereFormGroup() {
     this.configName = this.sonarConfig.name;
-    this.sonarCubeUrl = this.sonarConfig.sonarServerUrl;
+    this.sonarQubeUrl = this.sonarConfig.sonarServerUrl;
   }
 
   checkSonarCubeUrl() {
@@ -42,9 +44,13 @@ export class AdminSonarCubeComponent implements OnInit {
   }
 
   save() {
-    const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarCubeUrl};
+    const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarQubeUrl};
     console.log('saving' + config + config.name + config.sonarServerUrl);
-    this.sonarCubeService.saveConfig(config);
+    this.sonarCubeService.saveConfig(config).then(()=>{
+      return this.worldService.generateWorldsFromSonarQubeProjects();
+    }).then(()=>{
+      this.worldService.getAllWorlds()
+    })
   }
 
 }

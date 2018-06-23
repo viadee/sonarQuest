@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -27,18 +28,21 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
 
     private List<SonarQubeIssue> issues = null;
 
-    @Autowired
-    private SonarConfigService sonarConfigService;
-
-    @Autowired
-    private WorldService worldService;
+    private List<SonarQubeProject> projects = null;
 
     @Override
     public List<SonarQubeProject> getSonarQubeProjects() {
-
-        return sonarConfigService.getAll().stream()
-                .map(config -> new SonarQubeProject(config.getSonarProject(), config.getName()))
-                .collect(Collectors.toList());
+        if (projects == null) {
+            try {
+                projects = mapper
+                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/projectRessourceBackup.json"),
+                                SonarQubeProjectRessource.class)
+                        .getSonarQubeProjects();
+            } catch (final IOException e) {
+                throw new BackendServiceRuntimeException("Could not load simulated sonar projects", e);
+            }
+        }
+        return projects;
     }
 
     @Override
