@@ -11,6 +11,9 @@ import {MatDialog} from '@angular/material';
 import {StandardTaskService} from '../../../../../../services/standard-task.service';
 import {GamemasterStandardTaskEditComponent} from './components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 import {StandardTask} from '../../../../../../Interfaces/StandardTask';
+import {TaskService} from '../../../../../../services/task.service';
+import {QuestService} from '../../../../../../services/quest.service';
+import {AdventureService} from '../../../../../../services/adventure.service';
 
 @Component({
   selector: 'app-gamemaster-standard-task',
@@ -46,6 +49,9 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   constructor(
     private standardTaskService: StandardTaskService,
+    private taskService: TaskService,
+    private questService: QuestService,
+    private adventureService :AdventureService,
     private _dataTableService: TdDataTableService,
     private worldService: WorldService,
     private translateService: TranslateService,
@@ -97,6 +103,14 @@ export class GamemasterStandardTaskComponent implements OnInit {
         this.loadTasks();
       }
     });
+  }
+
+  updateStandardTasksStatus(){
+      this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
+        this.taskService.refreshTasks(this.worldService.getCurrentWorld());
+        this.questService.refreshQuests(this.worldService.getCurrentWorld());
+        this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
+      })
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

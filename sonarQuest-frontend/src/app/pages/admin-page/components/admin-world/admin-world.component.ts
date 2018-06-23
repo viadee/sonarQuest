@@ -84,13 +84,7 @@ export class AdminWorldComponent implements OnInit {
     this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => this.loadWorlds())
   }
 
-  updateStandardTasksForWorld(world: World) {
-    this.taskService.updateStandardTasksForWorld(world).then(() => {
-      this.taskService.refreshTasks(this.currentWorld);
-      this.questService.refreshQuests(this.currentWorld);
-      this.adventureService.refreshAdventures(this.currentWorld);
-    })
-  }
+
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

@@ -142,8 +142,8 @@
     "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
     "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
     "AVAILABLE_TASKS": "Verfügbare Aufträge",
-    "MISSION": "Mission"
-
+    "MISSION": "Mission",
+    "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status"
   },
   "ARTEFACT": {
     "ARTEFACTS": "Artefakt",

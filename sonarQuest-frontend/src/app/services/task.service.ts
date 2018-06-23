@@ -47,12 +47,6 @@ export class TaskService {
     this.specialTaskService.getSpecialTasksForWorld(world);
   }
 
-  updateStandardTasksForWorld(world: World): Promise<Task[]> {
-    return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
-      .toPromise()
-      .catch(this.handleError);
-  }
-
   calculateGoldAmountOfTasks(tasks: Task[]): number {
     return tasks.map(task => task.gold).reduce(function (a, b) {
       return a + b;

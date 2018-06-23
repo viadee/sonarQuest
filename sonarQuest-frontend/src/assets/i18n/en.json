@@ -142,7 +142,8 @@
     "SPECIALTASK_FOR_WORLD": "All Special Tasks for ",
     "STANDARDTASK_FOR_WORLD": "All Standard Tasks for ",
     "AVAILABLE_TASKS": "Available Tasks",
-    "MISSION": "Mission"
+    "MISSION": "Mission",
+    "UPDATE_STANDARD_TASKS_STATUS": "Update Status"
   },
   "ARTEFACT": {
     "ARTEFACTS": "Artefacts",
