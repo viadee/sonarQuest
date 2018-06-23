@@ -19,13 +19,6 @@
             </button>
           </div>
         </ng-template>
-        <ng-template tdDataTableTemplate="update" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <button mat-icon-button (click)="updateStandardTasksForWorld(row)">
-              <mat-icon class="icon">refresh</mat-icon>
-            </button>
-          </div>
-        </ng-template>
       </td-data-table>
       <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
         <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>

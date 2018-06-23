@@ -26,8 +26,7 @@ export class AdminWorldComponent implements OnInit {
     {name: 'name', label: 'Name'},
     {name: 'project', label: 'Project'},
     {name: 'active', label: 'Active'},
-    {name: 'edit', label: ''},
-    {name: 'update', label: 'Update Tasks'}
+    {name: 'edit', label: ''}
   ];
 
   // Sort / Filter / Paginate variables
@@ -70,8 +69,7 @@ export class AdminWorldComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'project', label: col_names.PROJECT},
         {name: 'active', label: col_names.ACTIVE},
-        {name: 'edit', label: ''},
-        {name: 'update', label: col_names.UPDATE_TASKS}]
+        {name: 'edit', label: ''}]
     });
   }
 
