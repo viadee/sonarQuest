@@ -26,11 +26,11 @@ import {AdventurePageComponent} from './pages/adventure-page/adventure-page.comp
 import {WorldService} from './services/world.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GamemasterPageComponent} from './pages/gamemaster-page/gamemaster-page.component';
-import {GamemasterWorldComponent} from './pages/gamemaster-page/components/gamemaster-world/gamemaster-world.component';
+import {AdminWorldComponent} from './pages/admin-page/components/admin-world/admin-world.component';
 import {GamemasterAdventureComponent} from './pages/gamemaster-page/components/gamemaster-adventure/gamemaster-adventure.component';
 import {GamemasterQuestComponent} from './pages/gamemaster-page/components/gamemaster-quest/gamemaster-quest.component';
 import {GamemasterTaskComponent} from './pages/gamemaster-page/components/gamemaster-task/gamemaster-task.component';
-import {EditWorldComponent} from './pages/gamemaster-page/components/gamemaster-world/components/edit-world/edit-world.component';
+import {EditWorldComponent} from './pages/admin-page/components/admin-world/components/edit-world/edit-world.component';
 import {AdventureService} from './services/adventure.service';
 import {QuestService} from './services/quest.service';
 import {TaskService} from './services/task.service';
@@ -68,7 +68,7 @@ import {AvatarEditComponent} from './pages/my-avatar-page/components/my-avatar-e
 import {GamemasterIconSelectComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 import {AdminSonarCubeComponent} from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
 import {SonarCubeService} from './services/sonar-cube.service';
-import {SelectBackgroundComponent} from './pages/gamemaster-page/components/gamemaster-world/components/edit-world/select-background/select-background.component';
+import {SelectBackgroundComponent} from './pages/admin-page/components/admin-world/components/edit-world/select-background/select-background.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './login/authentication.service';
 import {LocalStorageService} from './login/local-storage.service';
@@ -94,7 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperComponent,
     MyAvatarPageComponent,
     GamemasterPageComponent,
-    GamemasterWorldComponent,
+    AdminWorldComponent,
     GamemasterAdventureComponent,
     GamemasterQuestComponent,
     GamemasterTaskComponent,

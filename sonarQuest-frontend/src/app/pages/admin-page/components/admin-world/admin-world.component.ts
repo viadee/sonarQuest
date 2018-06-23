@@ -13,11 +13,11 @@ import {QuestService} from '../../../../services/quest.service';
 import {AdventureService} from '../../../../services/adventure.service';
 
 @Component({
-  selector: 'app-gamemaster-world',
-  templateUrl: './gamemaster-world.component.html',
-  styleUrls: ['./gamemaster-world.component.css']
+  selector: 'app-admin-world',
+  templateUrl: './admin-world.component.html',
+  styleUrls: ['./admin-world.component.css']
 })
-export class GamemasterWorldComponent implements OnInit {
+export class AdminWorldComponent implements OnInit {
 
   currentWorld: World;
   worlds: World[];
