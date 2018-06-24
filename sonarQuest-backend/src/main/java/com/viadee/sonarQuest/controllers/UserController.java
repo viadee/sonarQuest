@@ -35,7 +35,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public User user(final Principal principal) {
+    public User getUser(final Principal principal) {
         final String username = principal.getName();
         return userService.findByUsername(username);
     }
@@ -65,8 +65,20 @@ public class UserController {
     public @ResponseBody byte[] avatar(final Principal principal, final HttpServletResponse response)
             throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        final User user = getUser(principal);
+        return loadAvatar(user);
+    }
 
-        final User user = user(principal);
+    @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
+    public @ResponseBody byte[] avatarForUser(final Principal principal,
+            @PathVariable(value = "id") final Long id,
+            final HttpServletResponse response) throws IOException {
+        response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        final User user = userService.findById(id);
+        return loadAvatar(user);
+    }
+
+    private byte[] loadAvatar(final User user) throws IOException {
         String path;
         final String propertiesFilePath = "client.properties";
         File avatarPath = new File(propertiesFilePath);
@@ -91,6 +103,5 @@ public class UserController {
         } else {
             return null;
         }
-
     }
 }

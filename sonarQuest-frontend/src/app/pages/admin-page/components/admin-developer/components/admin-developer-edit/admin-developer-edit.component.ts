@@ -4,6 +4,7 @@ import {AdminDeveloperComponent} from './../../admin-developer.component';
 import {Component, OnInit, Inject} from '@angular/core';
 import {UserService} from '../../../../../../services/user.service';
 import {User} from '../../../../../../Interfaces/User';
+import {ImageService} from '../../../../../../services/image.service';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -12,12 +13,13 @@ import {User} from '../../../../../../Interfaces/User';
 })
 export class AdminDeveloperEditComponent implements OnInit {
 
-  images: any[];
+  imageToShow: any;
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public user: User
+    @Inject(MAT_DIALOG_DATA) public user: User,
+    private imageService: ImageService
   ) {
   }
 
@@ -36,12 +38,8 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   loadImages() {
-    this.images = [];
-
-    for (let i = 0; i < 15; i++) {
-      this.images[i] = {};
-      this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
-      this.images[i].name = 'hero' + (i + 1);
-    }
+    this.userService.getImageForUser(this.user).subscribe((blob) => {
+      this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
+    });
   }
 }

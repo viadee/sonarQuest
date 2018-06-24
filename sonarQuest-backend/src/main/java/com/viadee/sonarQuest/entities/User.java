@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.Validate;
@@ -66,7 +67,7 @@ public class User {
     private World currentWorld;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
     private List<World> worlds;
 
@@ -81,6 +82,9 @@ public class User {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Participation> participations;
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private UiDesign uiDesign;
 
     public Long getId() {
         return id;
@@ -200,6 +204,14 @@ public class User {
         this.worlds = worlds;
     }
 
+    public void addWorld(final World world) {
+        getWorlds().add(world);
+    }
+
+    public void removeWorld(final World world) {
+        getWorlds().remove(world);
+    }
+
     public List<Artefact> getArtefacts() {
         return artefacts;
     }
@@ -232,6 +244,14 @@ public class User {
         this.currentWorld = currentWorld;
     }
 
+    public UiDesign getUiDesign() {
+        return uiDesign;
+    }
+
+    public void setUiDesign(final UiDesign uiDesign) {
+        this.uiDesign = uiDesign;
+    }
+
     @Override
     public int hashCode() {
         return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
@@ -243,4 +263,5 @@ public class User {
                 && this.getClass().isInstance(that)
                 && Objects.equal(this.getId(), ((User) that).getId());
     }
+
 }

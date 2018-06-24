@@ -28,6 +28,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private WorldService worldService;
 
+    @Autowired
+    private LevelService levelService;
+
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
@@ -60,6 +63,9 @@ public class UserService implements UserDetailsService {
             toBeSaved.setPassword(encoder.encode(user.getPassword()));
             toBeSaved.setRole(roleService.findByName(user.getRole().getName()));
             toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setGold(0l);
+            toBeSaved.setXp(0l);
+            toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
         } else {
             toBeSaved = findById(user.getId());
             if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(user.getUsername())) {
@@ -68,6 +74,7 @@ public class UserService implements UserDetailsService {
             toBeSaved.setAboutMe(user.getAboutMe());
             toBeSaved.setPicture(user.getPicture());
             toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setWorlds(user.getWorlds());
         }
 
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;

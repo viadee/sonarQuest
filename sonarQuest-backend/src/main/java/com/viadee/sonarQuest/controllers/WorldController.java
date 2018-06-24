@@ -87,7 +87,6 @@ public class WorldController {
     public List<World> generateWorlds() {
         worldService.updateWorlds();
         return worldRepository.findAll();
-
     }
 
 }

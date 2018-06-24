@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "World")
@@ -125,4 +126,15 @@ public class World {
         this.users = users;
     }
 
+    @Override
+    public int hashCode() {
+        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
+    }
+
+    @Override
+    public boolean equals(final Object that) {
+        return this.getId() == null ? this == that : that != null
+                && this.getClass().isInstance(that)
+                && Objects.equal(this.getId(), ((World) that).getId());
+    }
 }

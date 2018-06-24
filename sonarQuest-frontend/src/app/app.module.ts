@@ -77,6 +77,9 @@ import {UserService} from './services/user.service';
 import {AuthenticationInterceptor} from './login/authentication.interceptor';
 import {ImageService} from './services/image.service';
 import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
+import {AvatarClassService} from './services/avatar-class.service';
+import {AvatarRaceService} from './services/avatar-race.service';
+import {RoleService} from './services/role.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -211,6 +214,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthenticationGuard,
     UserService,
     ImageService,
+    AvatarClassService,
+    AvatarRaceService,
+    RoleService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

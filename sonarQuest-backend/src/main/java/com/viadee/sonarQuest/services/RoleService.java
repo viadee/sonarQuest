@@ -1,5 +1,7 @@
 package com.viadee.sonarQuest.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,9 @@ public class RoleService {
 
     public Role findByName(final RoleName name) {
         return roleRepository.findByName(name);
+    }
+
+    public List<Role> findAll() {
+        return roleRepository.findAll();
     }
 }
