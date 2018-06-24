@@ -92,8 +92,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   private initWorld() {
     if (this.user) {
       if (this.currentWorld !== null) {
-        const image = this.currentWorld.image || 'bg01';
-        this.changebackground(image);
         this.setSelected();
       } else {
         //this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
@@ -109,6 +107,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     } else if (this.worlds) {
       this.selected = this.worlds[0];
     }
+    const image = this.selected.image || 'bg01';
+    this.changebackground(image);
   }
 
   ngAfterViewInit() {

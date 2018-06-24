@@ -5,6 +5,7 @@ import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
 import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {LoadingComponent} from '../../../../components/loading/loading.component';
 import {LoadingService} from '../../../../services/loading.service';
+import {reject} from 'q';
 
 
 @Component({
@@ -63,14 +64,18 @@ export class AdminSonarCubeComponent implements OnInit {
   save() {
     const loading = this.loadingService.getLoadingSpinner();
     const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarQubeUrl};
-    console.log('saving' + config + config.name + config.sonarServerUrl);
-    this.sonarCubeService.saveConfig(config).then(() => {
+    this.sonarCubeService.checkSonarQubeURL(config).then((available) => {
+      if (!available) {
+        return Promise.reject(new Error('Url not available'));
+      } else {
+        return this.sonarCubeService.saveConfig(config);
+      }
     }).then(() => {
       this.worldService.worldChanged();
       loading.close();
     }).catch((error) => {
       loading.close();
-      const message = 'Sonar - Server is not available';
+      const message = 'Sonar Server is not reachable';
       this.snackBar.open(message, null, {duration: 2500});
     })
   }

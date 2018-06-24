@@ -14,6 +14,7 @@ import {StandardTask} from '../../../../../../Interfaces/StandardTask';
 import {TaskService} from '../../../../../../services/task.service';
 import {QuestService} from '../../../../../../services/quest.service';
 import {AdventureService} from '../../../../../../services/adventure.service';
+import {LoadingService} from '../../../../../../services/loading.service';
 
 @Component({
   selector: 'app-gamemaster-standard-task',
@@ -51,11 +52,12 @@ export class GamemasterStandardTaskComponent implements OnInit {
     private standardTaskService: StandardTaskService,
     private taskService: TaskService,
     private questService: QuestService,
-    private adventureService :AdventureService,
+    private adventureService: AdventureService,
     private _dataTableService: TdDataTableService,
     private worldService: WorldService,
     private translateService: TranslateService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -106,11 +108,13 @@ export class GamemasterStandardTaskComponent implements OnInit {
   }
 
   updateStandardTasksStatus(){
+     const loading = this.loadingService.getLoadingSpinner();
       this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
         this.taskService.refreshTasks(this.worldService.getCurrentWorld());
         this.questService.refreshQuests(this.worldService.getCurrentWorld());
         this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
-      })
+        loading.close();
+      }).catch(() => loading.close())
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

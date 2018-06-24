@@ -128,7 +128,8 @@
     "WORLD": "Welt",
     "WORLDS": "Welten",
     "ACTIVE": "Aktiv",
-    "CHOOSE_WORLD": "Wähle deine Welt"
+    "CHOOSE_WORLD": "Wähle deine Welt",
+    "UPDATE_WORLDS": "Aktualisiere Welten"
   },
   "TASK": {
     "TASK": "Auftrag",

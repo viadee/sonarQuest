@@ -11,6 +11,7 @@ import {EditWorldComponent} from './components/edit-world/edit-world.component';
 import {TaskService} from '../../../../services/task.service';
 import {QuestService} from '../../../../services/quest.service';
 import {AdventureService} from '../../../../services/adventure.service';
+import {LoadingService} from '../../../../services/loading.service';
 
 @Component({
   selector: 'app-admin-world',
@@ -46,7 +47,8 @@ export class AdminWorldComponent implements OnInit {
               private taskService: TaskService,
               private _dataTableService: TdDataTableService,
               private translateService: TranslateService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -81,10 +83,19 @@ export class AdminWorldComponent implements OnInit {
   }
 
   editWorld(world: World) {
-    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => this.loadWorlds())
+    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => {
+      this.loadWorlds();
+      this.worldService.worldChanged();
+    })
   }
 
-
+  updateWorlds(){
+    const loading = this.loadingService.getLoadingSpinner();
+    this.worldService.generateWorldsFromSonarQubeProjects().then(() => {
+      this.worldService.worldChanged();
+      loading.close();
+    })
+  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
