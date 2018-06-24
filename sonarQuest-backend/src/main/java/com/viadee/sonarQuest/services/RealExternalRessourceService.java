@@ -10,8 +10,10 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import com.viadee.sonarQuest.entities.SonarConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
@@ -27,6 +29,9 @@ import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
 @ConditionalOnProperty(value = "simulateSonarServer", havingValue = "false", matchIfMissing = true)
 public class RealExternalRessourceService extends ExternalRessourceService {
 
+    @Autowired
+    SonarConfigService sonarConfigService;
+
     private static final Logger log = LoggerFactory.getLogger(RealExternalRessourceService.class);
 
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
@@ -34,20 +39,26 @@ public class RealExternalRessourceService extends ExternalRessourceService {
     @Override
     public List<SonarQubeProject> getSonarQubeProjects() {
         try {
+            SonarConfig sonarConfig = sonarConfigService.getConfig();
 
             final List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
-            final SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(1);
+
+            final SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(sonarConfig,1);
+
             sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
+
             final Integer pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(
                     sonarQubeProjectRessource.getPaging());
+
             for (int i = 2; i <= pagesOfExternalProjects; i++) {
-                sonarQubeProjects.addAll(getSonarQubeProjecRessourceForPageIndex(i).getSonarQubeProjects());
+                sonarQubeProjects.addAll(getSonarQubeProjecRessourceForPageIndex(sonarConfig,i).getSonarQubeProjects());
+
             }
+
             return sonarQubeProjects;
-        } catch (final ResourceAccessException e) {
-            if (e.getCause() instanceof ConnectException) {
-                log.error(ERROR_NO_CONNECTION);
-            }
+        }
+        catch (Exception e) {
+                log.error(e.getMessage());
             throw e;
         }
     }
@@ -56,9 +67,12 @@ public class RealExternalRessourceService extends ExternalRessourceService {
     public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
         try {
 
+            SonarConfig sonarConfig = sonarConfigService.getConfig();
+
             final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
 
             final SonarQubeIssueRessource sonarQubeIssueRessource = getSonarQubeIssueResourceForProjectAndPageIndex(
+                    sonarConfig,
                     projectKey, 1);
 
             sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
@@ -67,7 +81,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
                     sonarQubeIssueRessource.getPaging());
 
             for (int i = 2; i <= pagesOfExternalIssues; i++) {
-                sonarQubeIssueList.addAll(getSonarQubeIssueResourceForProjectAndPageIndex(projectKey, i).getIssues());
+                sonarQubeIssueList.addAll(getSonarQubeIssueResourceForProjectAndPageIndex(sonarConfig,projectKey, i).getIssues());
             }
             return sonarQubeIssueList;
 
@@ -83,11 +97,11 @@ public class RealExternalRessourceService extends ExternalRessourceService {
         return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
     }
 
-    public SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(final String projectKey,
+    public SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(SonarConfig sonarConfig, final String projectKey,
             final int pageIndex) {
         final Client client = ClientBuilder.newClient();
 
-        final WebTarget webTarget = client.target(RessourceEndpoints.DEV_ENDPOINT + "/issues/search?componentRoots="
+        final WebTarget webTarget = client.target(sonarConfig.getSonarServerUrl()+ "/api" + "/issues/search?componentRoots="
                 + projectKey + "&pageSize=500&pageIndex=" + pageIndex);
 
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -97,9 +111,10 @@ public class RealExternalRessourceService extends ExternalRessourceService {
         return sonarQubeIssueRessource;
     }
 
-    public SonarQubeProjectRessource getSonarQubeProjecRessourceForPageIndex(final int pageIndex) {
+    public SonarQubeProjectRessource getSonarQubeProjecRessourceForPageIndex(SonarConfig sonarConfig, final int pageIndex) {
         final Client client = ClientBuilder.newClient();
-        final WebTarget webTarget = client.target(RessourceEndpoints.DEV_ENDPOINT
+        final WebTarget webTarget = client.target(sonarConfig.getSonarServerUrl()
+                + "/api"
                 + "/components/search?qualifiers=TRK&pageSize=500&pageIndex=" + pageIndex);
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         final SonarQubeProjectRessource sonarQubeProjectRessource = invocationBuilder

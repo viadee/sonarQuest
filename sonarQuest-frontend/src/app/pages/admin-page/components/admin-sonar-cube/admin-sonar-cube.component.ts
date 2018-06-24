@@ -38,7 +38,7 @@ export class AdminSonarCubeComponent implements OnInit {
   }
 
   checkSonarCubeUrl() {
-    // TODO
+
     const message = 'Sonar URL is reachable';
     this.snackBar.open(message, null, {duration: 2500});
   }
@@ -48,8 +48,11 @@ export class AdminSonarCubeComponent implements OnInit {
     console.log('saving' + config + config.name + config.sonarServerUrl);
     this.sonarCubeService.saveConfig(config).then(()=>{
       return this.worldService.generateWorldsFromSonarQubeProjects();
-    }).then(()=>{
-      this.worldService.getAllWorlds()
+    }).then(() => {
+      this.worldService.worldChanged();
+    }).catch((error) => {
+      let message = 'Sonar - Server is not available';
+      this.snackBar.open(message, null, {duration: 2500});
     })
   }
 

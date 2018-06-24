@@ -4,17 +4,16 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.UserService;
 import com.viadee.sonarQuest.services.WorldService;
+
+import javax.ws.rs.ProcessingException;
 
 @RestController
 @RequestMapping("/world")
@@ -88,11 +87,18 @@ public class WorldController {
         return world;
     }
 
+
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public List<World> generateWorlds() {
         worldService.updateWorlds();
         return worldRepository.findAll();
 
+    }
+
+    @ResponseStatus(value= HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ProcessingException.class)
+    public void externalServerError() {
+        // Nothing to do
     }
 
 }
