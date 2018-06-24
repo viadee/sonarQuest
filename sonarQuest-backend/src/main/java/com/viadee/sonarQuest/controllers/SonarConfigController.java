@@ -28,4 +28,10 @@ public class SonarConfigController {
         sonarConfigService.saveConfig(sonarConfig);
     }
 
+    @RequestMapping(value = "/checkSonarQubeUrl",method = RequestMethod.POST)
+    public Boolean checkSonarQubeUrl(@Valid @RequestBody final SonarConfig sonarConfig) {
+        return sonarConfigService.checkSonarQubeURL(sonarConfig);
+    }
+
+
 }

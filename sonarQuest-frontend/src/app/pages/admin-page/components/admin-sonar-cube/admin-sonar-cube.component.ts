@@ -4,6 +4,7 @@ import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
 import {MatSnackBar} from '@angular/material';
 
+
 @Component({
   selector: 'app-admin-sonar-cube',
   templateUrl: './admin-sonar-cube.component.html',
@@ -38,9 +39,19 @@ export class AdminSonarCubeComponent implements OnInit {
   }
 
   checkSonarCubeUrl() {
-
-    const message = 'Sonar URL is reachable';
-    this.snackBar.open(message, null, {duration: 2500});
+    let message: string;
+    this.sonarCubeService.checkSonarQubeURL({name: this.configName, sonarServerUrl: this.sonarQubeUrl})
+      .then(available => {
+        if (available){
+          message = 'Sonar Server is reachable';
+      } else {
+          message = 'Sonar Server is not reachable';
+      }
+        this.snackBar.open(message, null, {duration: 2500});
+    }).catch(() => {
+        message = 'Sonar Server is not reachable';
+        this.snackBar.open(message, null, {duration: 2500});
+    });
   }
 
   save() {

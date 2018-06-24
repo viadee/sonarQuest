@@ -28,5 +28,12 @@ export class SonarCubeService {
     return config.sonarServerUrl + '/project/issues?id=' + world.project + '&open=' + key;
   }
 
+  public checkSonarQubeURL(sonarQubeConfig: SonarCubeConfig): Promise<boolean>{
+    const url = `${environment.endpoint}/sonarconfig/checkSonarQubeUrl`;
+    return this.http.post<boolean>(url, sonarQubeConfig).toPromise();
+  }
+
+
+
 
 }
