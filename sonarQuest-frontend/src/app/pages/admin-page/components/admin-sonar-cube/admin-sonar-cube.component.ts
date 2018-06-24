@@ -2,7 +2,9 @@ import { WorldService } from './../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {LoadingComponent} from '../../../../components/loading/loading.component';
+import {LoadingService} from '../../../../services/loading.service';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class AdminSonarCubeComponent implements OnInit {
 
   constructor(private sonarCubeService: SonarCubeService,
               private worldService: WorldService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -39,6 +42,7 @@ export class AdminSonarCubeComponent implements OnInit {
   }
 
   checkSonarCubeUrl() {
+    const loading = this.loadingService.getLoadingSpinner();
     let message: string;
     this.sonarCubeService.checkSonarQubeURL({name: this.configName, sonarServerUrl: this.sonarQubeUrl})
       .then(available => {
@@ -47,22 +51,26 @@ export class AdminSonarCubeComponent implements OnInit {
       } else {
           message = 'Sonar Server is not reachable';
       }
+        loading.close();
         this.snackBar.open(message, null, {duration: 2500});
     }).catch(() => {
+        loading.close();
         message = 'Sonar Server is not reachable';
         this.snackBar.open(message, null, {duration: 2500});
     });
   }
 
   save() {
+    const loading = this.loadingService.getLoadingSpinner();
     const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarQubeUrl};
     console.log('saving' + config + config.name + config.sonarServerUrl);
-    this.sonarCubeService.saveConfig(config).then(()=>{
-      return this.worldService.generateWorldsFromSonarQubeProjects();
+    this.sonarCubeService.saveConfig(config).then(() => {
     }).then(() => {
       this.worldService.worldChanged();
+      loading.close();
     }).catch((error) => {
-      let message = 'Sonar - Server is not available';
+      loading.close();
+      const message = 'Sonar - Server is not available';
       this.snackBar.open(message, null, {duration: 2500});
     })
   }

@@ -77,6 +77,8 @@ import {UserService} from './services/user.service';
 import {AuthenticationInterceptor} from './login/authentication.interceptor';
 import {ImageService} from './services/image.service';
 import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import {LoadingService} from './services/loading.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -130,6 +132,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBackgroundComponent,
     LoginComponent,
     EmptyPageComponent,
+    LoadingComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -156,7 +159,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterIconSelectComponent,
     SelectBackgroundComponent,
     LoginComponent,
-    EmptyPageComponent
+    EmptyPageComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -211,6 +215,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthenticationGuard,
     UserService,
     ImageService,
+    LoadingService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
