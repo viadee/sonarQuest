@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {LoadingComponent} from '../components/loading/loading.component';
 
 @Injectable()

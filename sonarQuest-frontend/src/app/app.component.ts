@@ -11,6 +11,8 @@ import {AuthenticationService} from './login/authentication.service';
 import {LoginComponent} from './login/login.component';
 import {UserService} from './services/user.service';
 import {User} from './Interfaces/User';
+import {PermissionService} from './services/permission.service';
+import {RoutingUrls} from './app-routing/routing-urls';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +28,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   protected user: User = null;
   private ui: UiDesign = null;
 
+  protected myAvatarUrl = RoutingUrls.myAvatar;
+  protected adventuresUrl = RoutingUrls.adventures;
+  protected questsUrl = RoutingUrls.quests;
+  protected marketplaceUrl = RoutingUrls.marketplace;
+  protected gamemasterUrl = RoutingUrls.gamemaster;
+  protected adminUrl = RoutingUrls.admin;
+
+  protected isWorldSelectVisible: boolean;
+  protected isMyAvatarVisible: boolean;
+  protected isAdventuresVisible: boolean;
+  protected isQuestsVisible: boolean;
+  protected isMarketplaceVisible: boolean;
+  protected isGamemasterVisible: boolean;
+  protected isAdminVisible: boolean;
+
   constructor(
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
@@ -34,6 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public translate: TranslateService,
     private dialog: MatDialog,
     private authService: AuthenticationService,
+    private permissionService: PermissionService,
     private userService: UserService) {
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
@@ -57,20 +75,40 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.selected = null;
     this.worlds = null;
     this.user = null;
+    this.updateMenu(false);
   }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn()) {
-      this.userService.loadUser();
-    }
     this.userService.onUserChange().subscribe(() => {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
+        this.updateMenu();
         this.setDesign();
         this.loadWorlds();
         this.loadWorld();
       }
     });
+    this.userService.loadUser();
+  }
+
+  private updateMenu(enable: boolean = true) {
+    if (enable) {
+      this.permissionService.loadPermissions().then(() => {
+        this.updateMenuDirectly();
+      });
+    } else {
+      this.updateMenuDirectly(false);
+    }
+  }
+
+  private updateMenuDirectly(enable: boolean = true) {
+    this.isWorldSelectVisible = enable;
+    this.isMyAvatarVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.myAvatar);
+    this.isAdventuresVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.adventures);
+    this.isQuestsVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.quests);
+    this.isMarketplaceVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.marketplace);
+    this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
+    this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
   }
 
   private loadWorlds() {

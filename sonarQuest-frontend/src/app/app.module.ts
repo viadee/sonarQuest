@@ -82,6 +82,7 @@ import {RoleService} from './services/role.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
+import {PermissionService} from './services/permission.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -221,6 +222,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleService,
     LoadingService,
     UserToWorldService,
+    PermissionService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

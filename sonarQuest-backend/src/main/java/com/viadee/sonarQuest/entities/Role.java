@@ -1,11 +1,17 @@
 package com.viadee.sonarQuest.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +29,11 @@ public class Role {
     @Column(name = "name", nullable = false)
     private RoleName name;
 
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Role_To_Permission", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+    private List<Permission> permissions;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +48,14 @@ public class Role {
 
     public void setName(final RoleName name) {
         this.name = name;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(final List<Permission> permissions) {
+        this.permissions = permissions;
     }
 
 }

@@ -5,7 +5,6 @@ import {Quest} from '../Interfaces/Quest';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Participation} from '../Interfaces/Participation';
-import {Observable} from 'rxjs';
 
 @Injectable()
 export class ParticipationService {

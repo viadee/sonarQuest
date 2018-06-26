@@ -94,6 +94,20 @@ CREATE TABLE Role (
 	name		VARCHAR(128)
 );
 
+CREATE TABLE Permission (
+	id			BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	permission	VARCHAR(128),
+	type  		VARCHAR(24)
+);
+
+CREATE TABLE Role_To_Permission (
+	id 					BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	role_id				BIGINT,
+	permission_id		BIGINT,
+	FOREIGN KEY (role_id) REFERENCES Role(id),
+	FOREIGN KEY (permission_id) REFERENCES Permission(id)
+);
+
 CREATE TABLE User (
 	id				BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username		VARCHAR(64) NOT NULL UNIQUE,

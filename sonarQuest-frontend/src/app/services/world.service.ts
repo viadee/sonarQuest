@@ -5,8 +5,6 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
-import {UserToWorld} from '../Interfaces/UserToWorld';
-import {User} from '../Interfaces/User';
 
 @Injectable()
 export class WorldService {

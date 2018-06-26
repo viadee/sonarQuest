@@ -7,49 +7,59 @@
     <i class="ra ra-sword"></i>
   </div>
   <mat-nav-list td-sidenav-content (click)="!media.query('gt-sm') && navList.close()">
-    <mat-list-item disableRipple>
+    <mat-list-item disableRipple *ngIf="isWorldSelectVisible">
       <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
       <div flex></div>
       <mat-select mat-line placeholder="Welt" [(ngModel)]="selected" floatPlaceholder="never">
-        <mat-option flex="20" *ngFor="let world of worlds" [value]="world" (click)="updateWorld(world)">{{ world.name
-          }}
+        <mat-option flex="20" *ngFor="let world of worlds" [value]="world"
+                    ( click)="updateWorld(world)">{{ world.name }}
         </mat-option>
       </mat-select>
       <div></div>
+      <mat-divider mat-inset></mat-divider>
     </mat-list-item>
-    <mat-divider mat-inset></mat-divider>
-    <a mat-list-item routerLink="/myAvatar">
-      <i mat-list-icon class="ra ra-muscle-up ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.MY_AVATAR"| translate}} </h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
-    <a mat-list-item routerLink="/adventures">
-      <i mat-list-icon class="ra ra-blade-bite ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.ADVENTURES"| translate}} </h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
-    <a mat-list-item routerLink="/quests">
-      <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.QUESTS"| translate}}</h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
-
-    <a mat-list-item routerLink="/marketplace">
-      <i mat-list-icon class="ra ra-capitol ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.MARKETPLACE"| translate}} </h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
-
-    <a mat-list-item routerLink="/gamemaster">
-      <i mat-list-icon class="ra ra-forging ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.GAMEMASTER"| translate}} </h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
-    <a mat-list-item routerLink="/admin">
-      <i mat-list-icon class="ra ra-queen-crown ra-lg navlist"></i>
-      <h3 mat-line>{{"APP_COMPONENT.ADMIN"| translate}} </h3>
-    </a>
-    <mat-divider mat-inset></mat-divider>
+    <div *ngIf="isMyAvatarVisible">
+      <a mat-list-item routerLink="/{{myAvatarUrl}}">
+        <i mat-list-icon class="ra ra-muscle-up ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.MY_AVATAR"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div *ngIf="isAdventuresVisible">
+      <a mat-list-item routerLink="/{{adventuresUrl}}">
+        <i mat-list-icon class="ra ra-blade-bite ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.ADVENTURES"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div *ngIf="isQuestsVisible">
+      <a mat-list-item routerLink="/{{questsUrl}}">
+        <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.QUESTS"| translate}}</h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div *ngIf="isMarketplaceVisible">
+      <a mat-list-item routerLink="/{{marketplaceUrl}}">
+        <i mat-list-icon class="ra ra-capitol ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.MARKETPLACE"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div *ngIf="isGamemasterVisible">
+      <a mat-list-item routerLink="/{{gamemasterUrl}}">
+        <i mat-list-icon class="ra ra-forging ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.GAMEMASTER"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div *ngIf="isAdminVisible">
+      <a mat-list-item routerLink="/{{adminUrl}}">
+        <i mat-list-icon class="ra ra-queen-crown ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.ADMIN"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
   </mat-nav-list>
   <div td-toolbar-content layout="row" flex>
     <div class="vertical-align">{{determinePageTitle(router.url)}}</div>
