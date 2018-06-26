@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChooseCurrentWorldComponent } from './choose-current-world.component';
+import { LoadingComponent } from './loading.component';
 
-describe('ChooseCurrentWorldComponent', () => {
-  let component: ChooseCurrentWorldComponent;
-  let fixture: ComponentFixture<ChooseCurrentWorldComponent>;
+describe('LoadingComponent', () => {
+  let component: LoadingComponent;
+  let fixture: ComponentFixture<LoadingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChooseCurrentWorldComponent ]
+      declarations: [ LoadingComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChooseCurrentWorldComponent);
+    fixture = TestBed.createComponent(LoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,6 +5,8 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
+import {UserToWorld} from '../Interfaces/UserToWorld';
+import {User} from '../Interfaces/User';
 
 @Injectable()
 export class WorldService {
@@ -26,12 +28,16 @@ export class WorldService {
     });
   }
 
-  private worldChanged(): void {
+  public worldChanged(): void {
     this.wordChangeListener.forEach(l => l.next(true));
   }
 
   public getWorlds(): Observable<World[]> {
     return this.http.get<World[]>(`${environment.endpoint}/world/worlds`);
+  }
+
+  public getWorldsPromise(): Promise<World[]> {
+    return this.getWorlds().toPromise();
   }
 
   public getAllWorlds(): Observable<World[]> {
@@ -60,6 +66,14 @@ export class WorldService {
 
   updateBackground(world: World, image: string): Promise<World> {
     return this.http.put<World>(`${environment.endpoint}/world/world/${world.id}/image`, image).toPromise();
+  }
+
+  public getActiveWorlds(): Promise<World[]> {
+    return this.http.get<World[]>(`${environment.endpoint}/world/active`).toPromise();
+  }
+
+  public generateWorldsFromSonarQubeProjects(): Promise<World[]> {
+    return this.http.get<World[]>(`${environment.endpoint}/world/generate`).toPromise();
   }
 
 }

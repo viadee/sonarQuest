@@ -36,6 +36,9 @@ public class UserToWorldController {
         final User user = userService.findById(userId);
         final World world = worldService.findById(worldId);
         user.removeWorld(world);
+        if (user.getCurrentWorld().equals(world)) {
+            user.setCurrentWorld(null);
+        }
         return userService.save(user);
     }
 }

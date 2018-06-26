@@ -11,13 +11,14 @@ import {EditWorldComponent} from './components/edit-world/edit-world.component';
 import {TaskService} from '../../../../services/task.service';
 import {QuestService} from '../../../../services/quest.service';
 import {AdventureService} from '../../../../services/adventure.service';
+import {LoadingService} from '../../../../services/loading.service';
 
 @Component({
-  selector: 'app-gamemaster-world',
-  templateUrl: './gamemaster-world.component.html',
-  styleUrls: ['./gamemaster-world.component.css']
+  selector: 'app-admin-world',
+  templateUrl: './admin-world.component.html',
+  styleUrls: ['./admin-world.component.css']
 })
-export class GamemasterWorldComponent implements OnInit {
+export class AdminWorldComponent implements OnInit {
 
   currentWorld: World;
   worlds: World[];
@@ -26,8 +27,7 @@ export class GamemasterWorldComponent implements OnInit {
     {name: 'name', label: 'Name'},
     {name: 'project', label: 'Project'},
     {name: 'active', label: 'Active'},
-    {name: 'edit', label: ''},
-    {name: 'update', label: 'Update Tasks'}
+    {name: 'edit', label: ''}
   ];
 
   // Sort / Filter / Paginate variables
@@ -47,7 +47,8 @@ export class GamemasterWorldComponent implements OnInit {
               private taskService: TaskService,
               private _dataTableService: TdDataTableService,
               private translateService: TranslateService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -59,8 +60,8 @@ export class GamemasterWorldComponent implements OnInit {
   private init() {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
-      this.loadWorlds();
     }
+    this.loadWorlds();
   }
 
   translateTable() {
@@ -70,8 +71,7 @@ export class GamemasterWorldComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'project', label: col_names.PROJECT},
         {name: 'active', label: col_names.ACTIVE},
-        {name: 'edit', label: ''},
-        {name: 'update', label: col_names.UPDATE_TASKS}]
+        {name: 'edit', label: ''}]
     });
   }
 
@@ -82,15 +82,18 @@ export class GamemasterWorldComponent implements OnInit {
     });
   }
 
-  editWorld(world: World) {
-    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => this.loadWorlds())
+  protected editWorld(world: World) {
+    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => {
+      this.loadWorlds();
+      this.worldService.loadWorld();
+    })
   }
 
-  updateStandardTasksForWorld(world: World) {
-    this.taskService.updateStandardTasksForWorld(world).then(() => {
-      this.taskService.refreshTasks(this.currentWorld);
-      this.questService.refreshQuests(this.currentWorld);
-      this.adventureService.refreshAdventures(this.currentWorld);
+  updateWorlds() {
+    const loading = this.loadingService.getLoadingSpinner();
+    this.worldService.generateWorldsFromSonarQubeProjects().then(() => {
+      this.worldService.worldChanged();
+      loading.close();
     })
   }
 

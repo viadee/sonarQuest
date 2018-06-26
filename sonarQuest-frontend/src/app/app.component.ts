@@ -1,7 +1,5 @@
 import {UiDesignService} from './services/ui-design.service';
 import {MatDialog} from '@angular/material';
-import {ChooseCurrentWorldComponent} from './components/choose-current-world/choose-current-world/choose-current-world.component';
-import {isUndefined} from 'util';
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TdMediaService} from '@covalent/core';
 import {Router} from '@angular/router';
@@ -24,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  public selected;
+  public selected: World;
   protected user: User = null;
   private ui: UiDesign = null;
 
@@ -92,20 +90,23 @@ export class AppComponent implements OnInit, AfterViewInit {
   private initWorld() {
     if (this.user) {
       if (this.currentWorld !== null) {
-        const image = this.currentWorld.image || 'bg01';
-        this.changebackground(image);
         this.setSelected();
-      } else {
-        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
     }
   }
 
   setSelected() {
-    if (this.worlds && this.currentWorld) {
-      this.selected = this.worlds.filter(world => {
-        return (world.name === this.currentWorld.name);
-      })[0]
+    if (this.worlds && this.worlds.length !== 0) {
+      if (this.currentWorld) {
+        this.selected = this.worlds.filter(world => {
+          return (world.name === this.currentWorld.name);
+        })[0];
+      } else {
+        this.selected = this.worlds[0];
+        this.updateWorld(this.worlds[0]);
+      }
+      const image = this.currentWorld.image || 'bg01';
+      this.changebackground(image);
     }
   }
 

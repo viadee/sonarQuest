@@ -10,6 +10,7 @@ import 'rxjs/add/operator/share';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {StandardTask} from '../Interfaces/StandardTask';
 import {HttpClient} from '@angular/common/http';
+import {Task} from '../Interfaces/Task';
 
 @Injectable()
 export class StandardTaskService {
@@ -31,6 +32,12 @@ export class StandardTaskService {
   updateStandardTask(task: StandardTask): Promise<StandardTask> {
     console.log('update: ' + task);
     return this.http.put<StandardTask>(`${environment.endpoint}/task/standard`, task)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  updateStandardTasksForWorld(world: World): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
       .toPromise()
       .catch(this.handleError);
   }

@@ -1,7 +1,10 @@
+import {WorldService} from './../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
 import {MatSnackBar} from '@angular/material';
+import {LoadingService} from '../../../../services/loading.service';
+
 
 @Component({
   selector: 'app-admin-sonar-cube',
@@ -12,12 +15,18 @@ export class AdminSonarCubeComponent implements OnInit {
 
   configName: string;
 
-  sonarCubeUrl: string;
+  sonarQubeUrl: string;
+
+  httpBasicAuthUsername: string;
+
+  httpBasicAuthPassword: string;
 
   sonarConfig: SonarCubeConfig;
 
   constructor(private sonarCubeService: SonarCubeService,
-              private snackBar: MatSnackBar) {
+              private worldService: WorldService,
+              private snackBar: MatSnackBar,
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -32,19 +41,57 @@ export class AdminSonarCubeComponent implements OnInit {
 
   private aktualisiereFormGroup() {
     this.configName = this.sonarConfig.name;
-    this.sonarCubeUrl = this.sonarConfig.sonarServerUrl;
+    this.sonarQubeUrl = this.sonarConfig.sonarServerUrl;
+    this.httpBasicAuthUsername = this.sonarConfig.httpBasicAuthUsername;
+    this.httpBasicAuthPassword = this.sonarConfig.httpBasicAuthPassword;
   }
 
   checkSonarCubeUrl() {
-    // TODO
-    const message = 'Sonar URL is reachable';
-    this.snackBar.open(message, null, {duration: 2500});
+    const loading = this.loadingService.getLoadingSpinner();
+    let message: string;
+    this.sonarCubeService.checkSonarQubeURL({
+      name: this.configName,
+      sonarServerUrl: this.sonarQubeUrl,
+      httpBasicAuthPassword: this.httpBasicAuthPassword,
+      httpBasicAuthUsername: this.httpBasicAuthUsername
+    })
+      .then(available => {
+        if (available) {
+          message = 'Sonar Server is reachable';
+        } else {
+          message = 'Sonar Server is not reachable';
+        }
+        loading.close();
+        this.snackBar.open(message, null, {duration: 2500});
+      }).catch(() => {
+      loading.close();
+      message = 'Sonar Server is not reachable';
+      this.snackBar.open(message, null, {duration: 2500});
+    });
   }
 
   save() {
-    const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarCubeUrl};
-    console.log('saving' + config + config.name + config.sonarServerUrl);
-    this.sonarCubeService.saveConfig(config);
+    const loading = this.loadingService.getLoadingSpinner();
+    const config: SonarCubeConfig = {
+      name: this.configName,
+      sonarServerUrl: this.sonarQubeUrl,
+      httpBasicAuthUsername: this.httpBasicAuthUsername,
+      httpBasicAuthPassword: this.httpBasicAuthPassword
+    };
+    this.sonarCubeService.checkSonarQubeURL(config).then((available) => {
+      if (!available) {
+        return Promise.reject(new Error('Url not available'));
+      } else {
+        return this.sonarCubeService.saveConfig(config);
+      }
+    }).then(() => {
+      this.worldService.worldChanged();
+      loading.close();
+    }).catch((error) => {
+      loading.close();
+      const message = 'Sonar Server is not reachable';
+      this.snackBar.open(message, null, {duration: 2500});
+    })
   }
 
 }

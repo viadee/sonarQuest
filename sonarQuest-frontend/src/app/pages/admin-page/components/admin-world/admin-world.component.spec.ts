@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GamemasterWorldComponent } from './gamemaster-world.component';
+import { AdminWorldComponent } from './admin-world.component';
 
-describe('GamemasterWorldComponent', () => {
-  let component: GamemasterWorldComponent;
-  let fixture: ComponentFixture<GamemasterWorldComponent>;
+describe('AdminWorldComponent', () => {
+  let component: AdminWorldComponent;
+  let fixture: ComponentFixture<AdminWorldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GamemasterWorldComponent ]
+      declarations: [ AdminWorldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GamemasterWorldComponent);
+    fixture = TestBed.createComponent(AdminWorldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

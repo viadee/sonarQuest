@@ -1,5 +1,5 @@
 import {WorldService} from '../../../../../../../services/world.service';
-import {AdminSonarCubeComponent} from '../../../../../../admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
+import {AdminSonarCubeComponent} from '../../../../admin-sonar-cube/admin-sonar-cube.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject, OnInit} from '@angular/core';
 import {World} from '../../../../../../../Interfaces/World';

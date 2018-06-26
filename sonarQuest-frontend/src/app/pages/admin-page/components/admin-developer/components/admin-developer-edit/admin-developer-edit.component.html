@@ -19,6 +19,16 @@
         <input matInput placeholder="File name" [(ngModel)]="user.picture">
       </mat-input-container>
     </div>
+    <div>
+      <td-data-table #dataTable [data]="userToWorlds" [sortable]="true" [columns]="columns">
+        <ng-template tdDataTableTemplate="editJoined" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <mat-checkbox [checked]="row.joined" (change)="row.joined = $event.checked"></mat-checkbox>
+          </div>
+        </ng-template>
+      </td-data-table>
+
+    </div>
   </div>
   <mat-divider></mat-divider>
 </mat-dialog-content>

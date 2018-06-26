@@ -35,7 +35,7 @@
     "CREATE_DEVELOPER": "Entwickler anlegen",
     "EDIT_DEVELOPER": "Entwickler bearbeiten",
     "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
-    "SONAR_CUBE_HEADER": "Sonar Cube",
+    "SONAR_CUBE_HEADER": "SonarQube",
     "SELECT_BACKGROUND": "Hintergrund wählen"
   },
   "START_PAGE": {
@@ -128,7 +128,8 @@
     "WORLD": "Welt",
     "WORLDS": "Welten",
     "ACTIVE": "Aktiv",
-    "CHOOSE_WORLD": "Wähle deine Welt"
+    "CHOOSE_WORLD": "Wähle deine Welt",
+    "UPDATE_WORLDS": "Aktualisiere Welten"
   },
   "TASK": {
     "TASK": "Auftrag",
@@ -142,8 +143,8 @@
     "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
     "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
     "AVAILABLE_TASKS": "Verfügbare Aufträge",
-    "MISSION": "Mission"
-
+    "MISSION": "Mission",
+    "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status"
   },
   "ARTEFACT": {
     "ARTEFACTS": "Artefakt",

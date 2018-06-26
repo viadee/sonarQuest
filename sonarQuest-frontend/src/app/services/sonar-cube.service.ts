@@ -27,4 +27,13 @@ export class SonarCubeService {
   private createIssueLink(key: string, world: World, config: SonarCubeConfig): string {
     return config.sonarServerUrl + '/project/issues?id=' + world.project + '&open=' + key;
   }
+
+  public checkSonarQubeURL(sonarQubeConfig: SonarCubeConfig): Promise<boolean>{
+    const url = `${environment.endpoint}/sonarconfig/checkSonarQubeUrl`;
+    return this.http.post<boolean>(url, sonarQubeConfig).toPromise();
+  }
+
+
+
+
 }

@@ -1,7 +1,9 @@
 CREATE TABLE Sonar_Config (
   id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name             VARCHAR(128),
-  sonar_server_url VARCHAR(128)
+  sonar_server_url VARCHAR(128),
+  http_basic_auth_username VARCHAR(128),
+  http_basic_auth_password VARCHAR(128)
 );
 
 CREATE TABLE Level (
@@ -173,5 +175,3 @@ CREATE TABLE Task (
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
-
-
