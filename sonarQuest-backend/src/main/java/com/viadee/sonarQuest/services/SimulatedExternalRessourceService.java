@@ -2,19 +2,17 @@ package com.viadee.sonarQuest.services;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
+import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
 
 /**
  * Reads data for external requests from locally saved json files
@@ -35,7 +33,8 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
         if (projects == null) {
             try {
                 projects = mapper
-                        .readValue(SimulatedExternalRessourceService.class.getResourceAsStream("/projectRessourceBackup.json"),
+                        .readValue(SimulatedExternalRessourceService.class
+                                .getResourceAsStream("/projectRessourceBackup.json"),
                                 SonarQubeProjectRessource.class)
                         .getSonarQubeProjects();
             } catch (final IOException e) {

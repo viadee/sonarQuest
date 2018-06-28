@@ -46,6 +46,12 @@ public class WorldController {
         return userService.updateUsersCurrentWorld(user, world.getId());
     }
 
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public List<World> getWorldsForUser(@PathVariable(value = "id") final Long id) {
+        final User user = userService.findById(id);
+        return user.getWorlds();
+    }
+
     @RequestMapping(value = "/worlds", method = RequestMethod.GET)
     public List<World> getWorlds(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());

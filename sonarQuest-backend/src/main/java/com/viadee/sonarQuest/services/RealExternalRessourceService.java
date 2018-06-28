@@ -30,7 +30,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
     @Autowired
     private RestTemplateService restTemplateService;
 
-    private static final Logger log = LoggerFactory.getLogger(RealExternalRessourceService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RealExternalRessourceService.class);
 
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
 
@@ -57,7 +57,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
 
             return sonarQubeProjects;
         } catch (final Exception e) {
-            log.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -87,7 +87,7 @@ public class RealExternalRessourceService extends ExternalRessourceService {
 
         } catch (final ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException) {
-                log.error(ERROR_NO_CONNECTION);
+                LOGGER.error(ERROR_NO_CONNECTION);
             }
             throw e;
         }

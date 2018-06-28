@@ -32,13 +32,12 @@ export class UserToWorldService {
     });
   }
 
-  public getUserToWorlds(): Promise<UserToWorld[]> {
-    const user: User = this.userService.getUser();
+  public getUserToWorlds(user: User): Promise<UserToWorld[]> {
     let activeWorlds: World[];
 
     return this.worldService.getActiveWorlds().then(worlds => {
       activeWorlds = worlds;
-      return this.worldService.getWorldsPromise();
+      return this.worldService.getWorldsForUser(user);
     }).then(userWorlds => {
       const userWorldIds: number[] = userWorlds.map(userWorld => userWorld.id);
       return activeWorlds.map(world => <UserToWorld>{

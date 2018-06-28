@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
+import {User} from '../Interfaces/User';
 
 @Injectable()
 export class WorldService {
@@ -34,8 +35,8 @@ export class WorldService {
     return this.http.get<World[]>(`${environment.endpoint}/world/worlds`);
   }
 
-  public getWorldsPromise(): Promise<World[]> {
-    return this.getWorlds().toPromise();
+  public getWorldsForUser(user: User): Promise<World[]> {
+    return this.http.get<World[]>(`${environment.endpoint}/world/user/${user.id}`).toPromise();
   }
 
   public getAllWorlds(): Observable<World[]> {

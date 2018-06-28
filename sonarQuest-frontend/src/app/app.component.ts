@@ -135,12 +135,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   setSelected() {
     if (this.worlds && this.worlds.length !== 0) {
-      if (this.currentWorld) {
+      if (this.currentWorld && this.currentWorld !== null) {
         this.selected = this.worlds.filter(world => {
           return (world.name === this.currentWorld.name);
         })[0];
       } else {
         this.selected = this.worlds[0];
+        this.currentWorld = this.selected;
         this.updateWorld(this.worlds[0]);
       }
       const image = this.currentWorld.image || 'bg01';

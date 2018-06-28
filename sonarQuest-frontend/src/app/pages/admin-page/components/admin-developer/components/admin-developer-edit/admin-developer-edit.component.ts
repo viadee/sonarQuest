@@ -38,7 +38,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   ngOnInit() {
     this.loadImages();
-    this.userToWorldService.getUserToWorlds().then(userToWorlds => this.userToWorlds = userToWorlds);
+    this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
   }
 
   editDeveloper() {
