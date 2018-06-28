@@ -12,7 +12,7 @@
       <div flex></div>
       <mat-select mat-line placeholder="Welt" [(ngModel)]="selected" floatPlaceholder="never">
         <mat-option flex="20" *ngFor="let world of worlds" [value]="world"
-                    ( click)="updateWorld(world)">{{ world.name }}
+                    (click)="updateWorld(world)">{{ world.name }}
         </mat-option>
       </mat-select>
       <div></div>
