@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ public class UserToWorldController {
     @Autowired
     private WorldService worldService;
 
+    @PreAuthorize("hasAuthority('USER_WORLD_AISSIGNMENT')")
     @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.POST)
     public User addUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
@@ -30,6 +32,7 @@ public class UserToWorldController {
         return userService.save(user);
     }
 
+    @PreAuthorize("hasAuthority('USER_WORLD_AISSIGNMENT')")
     @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.DELETE)
     public User removeUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
