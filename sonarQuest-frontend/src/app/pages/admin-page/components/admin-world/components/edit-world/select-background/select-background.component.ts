@@ -35,10 +35,10 @@ export class SelectBackgroundComponent implements OnInit {
   loadImages() {
     this.images = [];
 
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 22; i++) {
       this.images[i - 1] = {};
-      this.images[i - 1].src = 'assets/images/background/bg' + String('00' + i).slice(-2) + '.jpg';
-      this.images[i - 1].name = 'bg' + String('00' + i).slice(-2);
+      this.images[i - 1].src = 'assets/images/background/bg' + String(i) + '.jpg';
+      this.images[i - 1].name = 'bg' + String(i);
     }
   }
 }
