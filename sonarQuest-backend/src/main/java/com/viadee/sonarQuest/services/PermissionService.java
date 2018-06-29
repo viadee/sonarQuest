@@ -18,4 +18,10 @@ public class PermissionService {
                 .collect(Collectors.toSet());
     }
 
+    public Set<Permission> getAccessPermissions(final User user) {
+        return user.getRole().getPermissions().stream()
+                .filter(permission -> permission.getType() == PermissionType.ACCESS)
+                .collect(Collectors.toSet());
+    }
+
 }

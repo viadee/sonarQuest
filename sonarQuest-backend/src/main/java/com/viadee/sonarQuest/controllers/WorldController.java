@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +30,6 @@ public class WorldController {
     @Autowired
     private WorldService worldService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<World> getAllWorlds() {
-        return this.worldRepository.findAll();
-    }
-
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public World getCurrentWorld(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());
@@ -46,6 +42,7 @@ public class WorldController {
         return userService.updateUsersCurrentWorld(user, world.getId());
     }
 
+    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public List<World> getWorldsForUser(@PathVariable(value = "id") final Long id) {
         final User user = userService.findById(id);
@@ -58,11 +55,13 @@ public class WorldController {
         return user.getWorlds();
     }
 
+    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<World> getAllWorlds(final Principal principal) {
         return worldService.findAll();
     }
 
+    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @RequestMapping(value = "/active", method = RequestMethod.GET)
     public List<World> activeWorlds(final Principal principal) {
         return worldService.findAllActiveWorlds();
@@ -73,6 +72,7 @@ public class WorldController {
         return worldRepository.findOne(id);
     }
 
+    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @RequestMapping(value = "/world", method = RequestMethod.POST)
     public World updateWorld(@RequestBody final World data) {
         World world = this.worldRepository.findOne(data.getId());
@@ -84,6 +84,7 @@ public class WorldController {
         return world;
     }
 
+    @PreAuthorize("hasAuthority('ACTIVE_WORLD_ACCESS')")
     @RequestMapping(value = "/world/{id}/image", method = RequestMethod.PUT)
     public World updateBackground(@PathVariable(value = "id") final Long id, @RequestBody final String image) {
         World world = this.worldRepository.findOne(id);
@@ -94,6 +95,7 @@ public class WorldController {
         return world;
     }
 
+    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public List<World> generateWorlds() {
         worldService.updateWorlds();

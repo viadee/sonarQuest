@@ -48,7 +48,7 @@ public class LoginController {
     }
 
     private Token createTokenForUser(final User user) {
-        return jwtHelper.createTokenForUser(user.getUsername());
+        return jwtHelper.createTokenForUser(user.getUsername(), user.getAuthorities());
     }
 
 }
