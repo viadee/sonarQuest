@@ -63,9 +63,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private Authentication createAuthentication(final String authHeader) {
         UsernamePasswordAuthenticationToken token = null;
         final UsernameAndAuthorities usernameAndAuthorities = getUsernameAndAuthorities(authHeader);
-        final String username = usernameAndAuthorities.getUsername();
-        final Collection<GrantedAuthority> authorities = usernameAndAuthorities.getAuthorities();
-        if (username != null) {
+        if (usernameAndAuthorities != null) {
+        	final String username = usernameAndAuthorities.getUsername();
+        	final Collection<GrantedAuthority> authorities = usernameAndAuthorities.getAuthorities();
             token = new UsernamePasswordAuthenticationToken(username, null, authorities);
         }
         return token;
