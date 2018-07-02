@@ -2,6 +2,7 @@ package com.viadee.sonarQuest.services;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,8 @@ public class StandardTaskService {
     }
 
     public StandardTask updateStandardTask(final StandardTask task) {
+    	//FIXME - will not work with Hibernate/Spring-caching - when task is updated Hibernate will return new value here!
+    	//so SOLVED will always be old and new Status with no rewards given
         final StandardTask lastState = standardTaskRepository.findByKey(task.getKey());
         if (lastState != null) {
             final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
