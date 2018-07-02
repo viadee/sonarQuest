@@ -1,16 +1,18 @@
 package com.viadee.sonarQuest.services;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarQuest.entities.Permission;
 import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
@@ -28,13 +30,26 @@ public class UserService implements UserDetailsService {
     @Autowired
     private WorldService worldService;
 
+    @Autowired
+    private LevelService levelService;
+
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final User user = findByUsername(username);
+        final Set<Permission> permissions = permissionService.getAccessPermissions(user);
+
+        final List<SimpleGrantedAuthority> authoritys = permissions
+                .stream()
+                .map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermission()))
+                .collect(Collectors.toList());
+
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), true, true, true, true, Collections.emptyList());
+                user.getUsername(), user.getPassword(), true, true, true, true, authoritys);
     }
 
     public User findByUsername(final String username) {
@@ -60,6 +75,9 @@ public class UserService implements UserDetailsService {
             toBeSaved.setPassword(encoder.encode(user.getPassword()));
             toBeSaved.setRole(roleService.findByName(user.getRole().getName()));
             toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setGold(0l);
+            toBeSaved.setXp(0l);
+            toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
         } else {
             toBeSaved = findById(user.getId());
             if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(user.getUsername())) {
@@ -68,6 +86,7 @@ public class UserService implements UserDetailsService {
             toBeSaved.setAboutMe(user.getAboutMe());
             toBeSaved.setPicture(user.getPicture());
             toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setWorlds(user.getWorlds());
         }
 
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;

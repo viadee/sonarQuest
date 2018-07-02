@@ -1,7 +1,5 @@
 import {UiDesignService} from './services/ui-design.service';
 import {MatDialog} from '@angular/material';
-import {ChooseCurrentWorldComponent} from './components/choose-current-world/choose-current-world/choose-current-world.component';
-import {isUndefined} from 'util';
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TdMediaService} from '@covalent/core';
 import {Router} from '@angular/router';
@@ -13,6 +11,8 @@ import {AuthenticationService} from './login/authentication.service';
 import {LoginComponent} from './login/login.component';
 import {UserService} from './services/user.service';
 import {User} from './Interfaces/User';
+import {PermissionService} from './services/permission.service';
+import {RoutingUrls} from './app-routing/routing-urls';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +24,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  public selected;
+  public selected: World;
   protected user: User = null;
   private ui: UiDesign = null;
+
+  protected myAvatarUrl = RoutingUrls.myAvatar;
+  protected adventuresUrl = RoutingUrls.adventures;
+  protected questsUrl = RoutingUrls.quests;
+  protected marketplaceUrl = RoutingUrls.marketplace;
+  protected gamemasterUrl = RoutingUrls.gamemaster;
+  protected adminUrl = RoutingUrls.admin;
+
+  protected isWorldSelectVisible: boolean;
+  protected isMyAvatarVisible: boolean;
+  protected isAdventuresVisible: boolean;
+  protected isQuestsVisible: boolean;
+  protected isMarketplaceVisible: boolean;
+  protected isGamemasterVisible: boolean;
+  protected isAdminVisible: boolean;
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -36,6 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public translate: TranslateService,
     private dialog: MatDialog,
     private authService: AuthenticationService,
+    private permissionService: PermissionService,
     private userService: UserService) {
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
@@ -55,24 +71,44 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/');
     this.authService.logout();
     this.userService.loadUser();
-    this.setDesign();
     this.currentWorld = null;
     this.selected = null;
     this.worlds = null;
     this.user = null;
+    this.updateMenu(false);
   }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn()) {
-      this.userService.loadUser();
-    }
     this.userService.onUserChange().subscribe(() => {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
+        this.updateMenu();
+        this.setDesign();
         this.loadWorlds();
         this.loadWorld();
       }
     });
+    this.userService.loadUser();
+  }
+
+  private updateMenu(enable: boolean = true) {
+    if (enable) {
+      this.permissionService.loadPermissions().then(() => {
+        this.updateMenuDirectly();
+      });
+    } else {
+      this.updateMenuDirectly(false);
+    }
+  }
+
+  private updateMenuDirectly(enable: boolean = true) {
+    this.isWorldSelectVisible = enable;
+    this.isMyAvatarVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.myAvatar);
+    this.isAdventuresVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.adventures);
+    this.isQuestsVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.quests);
+    this.isMarketplaceVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.marketplace);
+    this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
+    this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
   }
 
   private loadWorlds() {
@@ -92,21 +128,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   private initWorld() {
     if (this.user) {
       if (this.currentWorld !== null) {
-        const image = this.currentWorld.image || 'bg01';
-        this.changebackground(image);
-        this.setDesign();
         this.setSelected();
-      } else {
-        this.dialog.open(ChooseCurrentWorldComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe();
       }
     }
   }
 
   setSelected() {
-    if (this.worlds && this.currentWorld) {
-      this.selected = this.worlds.filter(world => {
-        return (world.name === this.currentWorld.name);
-      })[0]
+    if (this.worlds && this.worlds.length !== 0) {
+      if (this.currentWorld && this.currentWorld !== null) {
+        this.selected = this.worlds.filter(world => {
+          return (world.name === this.currentWorld.name);
+        })[0];
+      } else {
+        this.selected = this.worlds[0];
+        this.currentWorld = this.selected;
+        this.updateWorld(this.worlds[0]);
+      }
+      const image = this.currentWorld.image || 'bg01';
+      this.changebackground(image);
     }
   }
 
@@ -116,7 +155,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.pageNames = page_names;
     })
   }
-
 
   determinePageTitle(url: string): string {
     if (this.pageNames) {
@@ -142,7 +180,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       return ''
     }
   }
-
 
   updateWorld(world: World) {
     this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
@@ -181,9 +218,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   removeSubString(fullString: string, removeString: string): string {
-    let newString = fullString.replace(removeString, '');
-    newString = newString.replace('  ', ' ');
-    return newString;
+    const newString = fullString.replace(removeString, '');
+    return newString.replace('  ', ' ');
   }
 
 }

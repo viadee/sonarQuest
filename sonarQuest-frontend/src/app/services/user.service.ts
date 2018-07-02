@@ -1,11 +1,8 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
-import {Http, Response, ResponseContentType} from '@angular/http';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subject} from 'rxjs/Subject';
 import {AuthenticationService} from '../login/authentication.service';
 import {Subscriber} from 'rxjs/Subscriber';
 
@@ -14,9 +11,10 @@ export class UserService {
 
   private user: User;
 
-  listener: Subscriber<boolean>[] = [];
+  private listener: Subscriber<boolean>[] = [];
 
-  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
+  constructor(private httpClient: HttpClient,
+              private authenticationService: AuthenticationService) {
     authenticationService.onLoginLogout().subscribe(() => {
       if (authenticationService.isLoggedIn()) {
         this.loadUser();
@@ -58,6 +56,11 @@ export class UserService {
 
   public getImage(): Observable<Blob> {
     const url = `${environment.endpoint}/user/avatar`;
+    return this.httpClient.get(url, {responseType: 'blob'});
+  }
+
+  public getImageForUser(user: User): Observable<Blob> {
+    const url = `${environment.endpoint}/user/${user.id}/avatar`;
     return this.httpClient.get(url, {responseType: 'blob'});
   }
 

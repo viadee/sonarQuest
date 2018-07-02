@@ -37,8 +37,12 @@ public class WorldService {
         this.externalRessourceService = externalRessourceService;
     }
 
+    public List<World> findAllActiveWorlds(){
+        return worldRepository.findByActiveTrue();
+    }
+
     public World findById(final Long id) {
-        return worldRepository.findById(id);
+        return worldRepository.findOne(id);
     }
 
 }

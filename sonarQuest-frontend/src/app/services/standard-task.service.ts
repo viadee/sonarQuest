@@ -10,6 +10,7 @@ import 'rxjs/add/operator/share';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {StandardTask} from '../Interfaces/StandardTask';
 import {HttpClient} from '@angular/common/http';
+import {Task} from '../Interfaces/Task';
 
 @Injectable()
 export class StandardTaskService {
@@ -35,15 +36,8 @@ export class StandardTaskService {
       .catch(this.handleError);
   }
 
-  refreshStandardTask(world: World): Promise<any> {
-    return this.http.get<StandardTask>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
-      .toPromise().catch(this.handleError);
-  }
-
-  createStandardTask(standardTask: any): Promise<StandardTask> {
-    standardTask.world.quests = [];
-    standardTask.world.tasks = [];
-    return this.http.post<StandardTask>(`${environment.endpoint}/task/standard`, standardTask)
+  updateStandardTasksForWorld(world: World): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
       .toPromise()
       .catch(this.handleError);
   }

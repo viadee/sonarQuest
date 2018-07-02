@@ -1,7 +1,7 @@
 package com.viadee.sonarQuest.security;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -61,18 +62,20 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private Authentication createAuthentication(final String authHeader) {
         UsernamePasswordAuthenticationToken token = null;
-        final String username = getUsername(authHeader);
+        final UsernameAndAuthorities usernameAndAuthorities = getUsernameAndAuthorities(authHeader);
+        final String username = usernameAndAuthorities.getUsername();
+        final Collection<GrantedAuthority> authorities = usernameAndAuthorities.getAuthorities();
         if (username != null) {
-            token = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+            token = new UsernamePasswordAuthenticationToken(username, null, authorities);
         }
         return token;
     }
 
-    private String getUsername(final String authHeader) {
-        String username = null;
+    private UsernameAndAuthorities getUsernameAndAuthorities(final String authHeader) {
+        UsernameAndAuthorities username = null;
         final String jwt = authHeader.replace(TOKEN_PREFIX, "");
         try {
-            username = jwtHelper.getUsernameFromJwt(jwt);
+            username = jwtHelper.getUsernameWithAuthorities(jwt);
         } catch (final JwtException e) {
             LOGGER.error("Fehler bei der Validierung des JWT: " + e.getMessage());
         }

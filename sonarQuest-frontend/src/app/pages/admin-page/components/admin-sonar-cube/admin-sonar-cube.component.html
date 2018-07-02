@@ -7,26 +7,24 @@
 
   <div flex>
     <mat-input-container>
-      <input matInput placeholder="Sonar Cube URL" [(ngModel)]="sonarCubeUrl">
+      <input matInput placeholder="SonarQube URL" [(ngModel)]="sonarQubeUrl">
     </mat-input-container>
     <button mat-mini-fab color="primary" (click)="checkSonarCubeUrl()">Check</button>
   </div>
 
   <div flex>
     <mat-input-container>
-      <input matInput placeholder="Projectname" [(ngModel)]="projectName">
+      <input matInput placeholder="Http Basic Auth Username" [(ngModel)]="httpBasicAuthUsername">
     </mat-input-container>
-    <button mat-mini-fab color="primary" (click)="checkProjectname()">Check</button>
   </div>
 
   <div flex>
     <mat-input-container>
-      <input matInput placeholder="Background" [(ngModel)]="image" (click)="selectBackground()" >
+      <input matInput placeholder="Http Basic Auth Password" [(ngModel)]="httpBasicAuthPassword">
     </mat-input-container>
-    <button mat-mini-fab color="primary" (click)="selectBackground()">Select</button>
   </div>
 
-  <div> 
+  <div>
     <button mat-button color="primary" (click)="save()">Save</button>
   </div>
-</mat-card-content> 
+</mat-card-content>

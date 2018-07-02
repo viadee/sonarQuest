@@ -48,6 +48,7 @@ public class Task {
     @JoinColumn(name = "world_id")
     private World world;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "participation_id")
     private Participation participation;

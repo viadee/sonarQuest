@@ -1,5 +1,6 @@
 export interface SonarCubeConfig {
   name: string;
   sonarServerUrl: string;
-  sonarProject: string;
+  httpBasicAuthUsername?: string;
+  httpBasicAuthPassword?: string;
 }

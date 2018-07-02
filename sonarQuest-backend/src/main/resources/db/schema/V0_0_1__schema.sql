@@ -1,3 +1,11 @@
+CREATE TABLE Sonar_Config (
+  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name             VARCHAR(128),
+  sonar_server_url VARCHAR(128),
+  http_basic_auth_username VARCHAR(128),
+  http_basic_auth_password VARCHAR(128)
+);
+
 CREATE TABLE Level (
   id  BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   min BIGINT,
@@ -81,16 +89,23 @@ CREATE TABLE Quest (
   FOREIGN KEY (adventure_id) REFERENCES Adventure (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE Sonar_Config (
-  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name             VARCHAR(128),
-  sonar_server_url VARCHAR(128),
-  sonar_project    VARCHAR(128)
-);
-
 CREATE TABLE Role (
 	id			BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name		VARCHAR(128)
+);
+
+CREATE TABLE Permission (
+	id			BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	permission	VARCHAR(128),
+	type  		VARCHAR(24)
+);
+
+CREATE TABLE Role_To_Permission (
+	id 					BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	role_id				BIGINT,
+	permission_id		BIGINT,
+	FOREIGN KEY (role_id) REFERENCES Role(id),
+	FOREIGN KEY (permission_id) REFERENCES Permission(id)
 );
 
 CREATE TABLE User (
@@ -174,5 +189,3 @@ CREATE TABLE Task (
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
-
-

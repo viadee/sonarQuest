@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{world.name}}</h2>
+<mat-dialog-content>
+  <div layout="column">
+    <div flex>
+      <mat-input-container>
+        <input matInput placeholder="Name" [(ngModel)]="world.name">
+      </mat-input-container>
+    </div>
+    <div flex>
+      <mat-checkbox [(ngModel)]="world.active">{{"WORLD.ACTIVE"| translate}}</mat-checkbox>
+    </div>
+    <div flex>
+      <mat-input-container>
+        <input matInput placeholder="Background" [(ngModel)]="world.image" (click)="selectBackground()">
+      </mat-input-container>
+      <button mat-mini-fab color="primary" (click)="selectBackground()">Select</button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="updateWorld()">{{"GLOBAL.SAVE"| translate}}</button>
+</mat-dialog-actions>

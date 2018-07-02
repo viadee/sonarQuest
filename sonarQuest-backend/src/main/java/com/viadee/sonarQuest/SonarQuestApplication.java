@@ -30,8 +30,5 @@ public class SonarQuestApplication implements CommandLineRunner {
         };
     }
 
-    @Bean
-    public GameDataInitializer gameDataInitialializer() {
-        return new GameDataInitializer();
-    }
+
 }

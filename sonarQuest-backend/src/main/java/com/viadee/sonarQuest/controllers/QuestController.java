@@ -60,7 +60,7 @@ public class QuestController {
 
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
     public List<Quest> getAllQuestsForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findById(world_id);
+        final World w = worldRepository.findOne(world_id);
         return questRepository.findByWorld(w);
     }
 

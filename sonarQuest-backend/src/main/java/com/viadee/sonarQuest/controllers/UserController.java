@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.io.Files;
 import com.viadee.sonarQuest.SonarQuestApplication;
-import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.services.UserService;
 
@@ -35,16 +35,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public User user(final Principal principal) {
+    public User getUser(final Principal principal) {
         final String username = principal.getName();
         return userService.findByUsername(username);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/developer")
-    public List<User> developers(final Principal principal) {
-        return userService.findByRole(RoleName.DEVELOPER);
-    }
-
+    @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public List<User> users(final Principal principal) {
         return userService.findAll();
@@ -55,6 +51,7 @@ public class UserController {
         return userService.save(user);
     }
 
+    @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HttpStatus deleteUser(@PathVariable(value = "id") final Long id) {
         userService.delete(id);
@@ -65,8 +62,20 @@ public class UserController {
     public @ResponseBody byte[] avatar(final Principal principal, final HttpServletResponse response)
             throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        final User user = getUser(principal);
+        return loadAvatar(user);
+    }
 
-        final User user = user(principal);
+    @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
+    public @ResponseBody byte[] avatarForUser(final Principal principal,
+            @PathVariable(value = "id") final Long id,
+            final HttpServletResponse response) throws IOException {
+        response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        final User user = userService.findById(id);
+        return loadAvatar(user);
+    }
+
+    private byte[] loadAvatar(final User user) throws IOException {
         String path;
         final String propertiesFilePath = "client.properties";
         File avatarPath = new File(propertiesFilePath);
@@ -91,6 +100,5 @@ public class UserController {
         } else {
             return null;
         }
-
     }
 }

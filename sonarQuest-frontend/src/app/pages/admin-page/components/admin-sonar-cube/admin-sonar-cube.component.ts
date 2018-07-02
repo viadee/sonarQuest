@@ -1,10 +1,10 @@
 import {WorldService} from './../../../../services/world.service';
-import {AdminSonarCubeSelectBackgroundComponent} from './components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
-import {MatDialog} from '@angular/material';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
 import {MatSnackBar} from '@angular/material';
+import {LoadingService} from '../../../../services/loading.service';
+
 
 @Component({
   selector: 'app-admin-sonar-cube',
@@ -15,76 +15,83 @@ export class AdminSonarCubeComponent implements OnInit {
 
   configName: string;
 
-  sonarCubeUrl: string;
+  sonarQubeUrl: string;
 
-  projectName: string;
+  httpBasicAuthUsername: string;
+
+  httpBasicAuthPassword: string;
 
   sonarConfig: SonarCubeConfig;
 
-  image: string;
-
   constructor(private sonarCubeService: SonarCubeService,
-              private dialog: MatDialog,
+              private worldService: WorldService,
               private snackBar: MatSnackBar,
-              private worldService: WorldService) {
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
-    this.sonarCubeService.getConfigs().subscribe(configs => {
-        this.sonarConfig = configs[0];
+    this.sonarCubeService.getConfig().then(config => {
+        this.sonarConfig = config;
         if (this.sonarConfig) {
           this.aktualisiereFormGroup();
         }
       }
     );
-
-    const world = this.worldService.getCurrentWorld();
-    if (world != null) {
-      this.image = world.image;
-    }
   }
 
   private aktualisiereFormGroup() {
     this.configName = this.sonarConfig.name;
-    this.sonarCubeUrl = this.sonarConfig.sonarServerUrl;
-    this.projectName = this.sonarConfig.sonarProject;
+    this.sonarQubeUrl = this.sonarConfig.sonarServerUrl;
+    this.httpBasicAuthUsername = this.sonarConfig.httpBasicAuthUsername;
+    this.httpBasicAuthPassword = this.sonarConfig.httpBasicAuthPassword;
   }
 
   checkSonarCubeUrl() {
-    // TODO
-    const message = 'Sonar URL is reachable';
-    this.snackBar.open(message, null, {duration: 2500});
-  }
-
-  checkProjectname() {
-    this.sonarCubeService.getConfigs().subscribe(configs => {
-      let enthalten = false;
-      for (const config of configs) {
-        if (config.sonarProject === this.projectName) {
-          enthalten = true;
-          break;
+    const loading = this.loadingService.getLoadingSpinner();
+    let message: string;
+    this.sonarCubeService.checkSonarQubeURL({
+      name: this.configName,
+      sonarServerUrl: this.sonarQubeUrl,
+      httpBasicAuthPassword: this.httpBasicAuthPassword,
+      httpBasicAuthUsername: this.httpBasicAuthUsername
+    })
+      .then(available => {
+        if (available) {
+          message = 'Sonar Server is reachable';
+        } else {
+          message = 'Sonar Server is not reachable';
         }
-      }
-      const message: string = enthalten ? 'Sonar Project does exist' : 'Sonar Project does not exists';
+        loading.close();
+        this.snackBar.open(message, null, {duration: 2500});
+      }).catch(() => {
+      loading.close();
+      message = 'Sonar Server is not reachable';
       this.snackBar.open(message, null, {duration: 2500});
     });
-
   }
 
   save() {
-    const config: SonarCubeConfig = {name: this.configName, sonarServerUrl: this.sonarCubeUrl, sonarProject: this.projectName};
-    console.log('saving' + config + config.name + config.sonarServerUrl + config.sonarProject);
-    this.sonarCubeService.saveConfig(config);
-  }
-
-  selectBackground() {
-    this.dialog.open(AdminSonarCubeSelectBackgroundComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe(
-      result => {
-        if (result) {
-          this.image = result
-        }
+    const loading = this.loadingService.getLoadingSpinner();
+    const config: SonarCubeConfig = {
+      name: this.configName,
+      sonarServerUrl: this.sonarQubeUrl,
+      httpBasicAuthUsername: this.httpBasicAuthUsername,
+      httpBasicAuthPassword: this.httpBasicAuthPassword
+    };
+    this.sonarCubeService.checkSonarQubeURL(config).then((available) => {
+      if (!available) {
+        return Promise.reject(new Error('Url not available'));
+      } else {
+        return this.sonarCubeService.saveConfig(config);
       }
-    );
+    }).then(() => {
+      this.worldService.worldChanged();
+      loading.close();
+    }).catch((error) => {
+      loading.close();
+      const message = 'Sonar Server is not reachable';
+      this.snackBar.open(message, null, {duration: 2500});
+    })
   }
 
 }

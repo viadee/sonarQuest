@@ -53,7 +53,8 @@ export class GamemasterMarketplaceComponent implements OnInit {
     this.artefactService.artefacts$.subscribe(artefacts => {
       this.artefacts = artefacts;
       this.filter();
-    })
+    });
+    this.artefactService.getData();
   }
 
   newArtefact() {

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,9 +28,11 @@ public class SonarConfig {
     @Column(name = "sonar_server_url")
     private String sonarServerUrl;
 
-    @NotNull
-    @Column(name = "sonar_project")
-    private String sonarProject;
+    @Column(name = "http_basic_auth_username")
+    private String httpBasicAuthUsername;
+
+    @Column(name = "http_basic_auth_password")
+    private String httpBasicAuthPassword;
 
     public Long getId() {
         return id;
@@ -54,12 +58,23 @@ public class SonarConfig {
         this.sonarServerUrl = sonarServerUrl;
     }
 
-    public String getSonarProject() {
-        return sonarProject;
+    public String getHttpBasicAuthUsername() {
+        return httpBasicAuthUsername;
     }
 
-    public void setSonarProject(final String sonarProject) {
-        this.sonarProject = sonarProject;
+    public void setHttpBasicAuthUsername(final String httpBasicAuthUsername) {
+        this.httpBasicAuthUsername = httpBasicAuthUsername;
     }
 
+    public String getHttpBasicAuthPassword() {
+        return httpBasicAuthPassword;
+    }
+
+    public void setHttpBasicAuthPassword(final String httpBasicAuthPassword) {
+        this.httpBasicAuthPassword = httpBasicAuthPassword;
+    }
+
+    public boolean hasHttpBasicAuth() {
+        return StringUtils.isNotBlank(httpBasicAuthUsername) && StringUtils.isNotBlank(httpBasicAuthPassword);
+    }
 }

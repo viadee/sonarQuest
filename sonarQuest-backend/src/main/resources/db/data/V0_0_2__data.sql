@@ -1,3 +1,6 @@
+INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
+  ('World of Sonar Quest', 'https://sonarcloud.io');
+
 INSERT INTO Level (min, max) VALUES
   (0, 10),
   (11, 30);
@@ -45,15 +48,42 @@ INSERT INTO Artefact_Skill (artefact_id, skill_id) VALUES
   (2, 4),
   (3, 5);
 
-INSERT INTO Sonar_Config (name, sonar_server_url, sonar_project) VALUES
-  ('World of Sonar Quest', 'https://sonar.intern.viadee.de', 'com.viadee:sonarQuest');
-
-INSERT INTO World (name,project, active) VALUES ('SonarWorld', 'com.viadee:sonarWorld',TRUE);
-INSERT INTO World (name,project, active) VALUES ('OpenWorld', 'com.viadee:sonarOpenworld',TRUE);
   
 INSERT INTO Role (id, name) VALUES(1,'GAMEMASTER');
 INSERT INTO Role (id, name) VALUES(2,'DEVELOPER');
 INSERT INTO Role (id, name) VALUES(3,'ADMIN');
+
+INSERT INTO Permission (id, type, permission) VALUES
+ (1, 'URL', 'start'),
+ (2, 'URL', 'myAvatar'),
+ (3, 'URL', 'adventures'),
+ (4, 'URL', 'quests'),
+ (5, 'URL', 'marketplace'),
+ (6, 'URL', 'gamemaster'),
+ (7, 'URL', 'admin'),
+ (8, 'ACCESS', 'FULL_USER_ACCESS'),
+ (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
+ (10, 'ACCESS', 'USER_WORLD_AISSIGNMENT'),
+ (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
+ ;
+ 
+INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
+ (1,1),
+ (1,2),
+ (1,6),
+ (2,1),
+ (2,2),
+ (2,3),
+ (2,4),
+ (3,1),
+ (3,2),
+ (3,7),
+ (3,8),
+ (3,9),
+ (3,10),
+ (1,11),
+ (3,11),
+ ;
 
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3,   0,   0, 1, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
@@ -62,11 +92,10 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('gm',    '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1,   0,   0, 1, 'ava_barbarian1.jpg', 'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3);
 
-INSERT INTO User_To_World (user_id, world_id) VALUES (1, 1);
-INSERT INTO User_To_World (user_id, world_id) VALUES (1, 2);
-INSERT INTO User_To_World (user_id, world_id) VALUES (2, 1);
-INSERT INTO User_To_World (user_id, world_id) VALUES (2, 2);
-INSERT INTO User_To_World (user_id, world_id) VALUES (3, 1);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',1);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',2);
+INSERT INTO Ui_Design (name, user_id) VALUES ('light',3);
+
 
 INSERT INTO User_Artefact (user_id, artefact_id) VALUES
   (1, 3),

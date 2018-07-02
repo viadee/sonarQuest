@@ -19,7 +19,13 @@ export class TaskService {
               private specialTaskService: SpecialTaskService) {
   }
 
-  getFreeTasksForWorld(world: World): Promise<Task[]> {
+  public getTasksForQuest(quest: Quest): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/quest/${quest.id}`)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  public getFreeTasksForWorld(world: World): Promise<Task[]> {
     return this.http.get<Task[]>(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
       .toPromise()
       .catch(this.handleError);
@@ -39,12 +45,6 @@ export class TaskService {
   refreshTasks(world: World) {
     this.standardTaskService.getStandardTasksForWorld(world);
     this.specialTaskService.getSpecialTasksForWorld(world);
-  }
-
-  updateStandardTasksForWorld(world: World): Promise<Task[]> {
-    return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
-      .toPromise()
-      .catch(this.handleError);
   }
 
   calculateGoldAmountOfTasks(tasks: Task[]): number {

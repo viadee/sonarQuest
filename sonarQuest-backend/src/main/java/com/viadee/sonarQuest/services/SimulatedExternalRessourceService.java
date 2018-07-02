@@ -1,28 +1,18 @@
 package com.viadee.sonarQuest.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.viadee.sonarQuest.constants.RessourceEndpoints;
-import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
 
 /**
  * Reads data for external requests from locally saved json files
@@ -36,23 +26,22 @@ public class SimulatedExternalRessourceService extends ExternalRessourceService 
 
     private List<SonarQubeIssue> issues = null;
 
-    @Autowired
-    private SonarConfigService sonarConfigService;
+    private List<SonarQubeProject> projects = null;
 
     @Override
     public List<SonarQubeProject> getSonarQubeProjects() {
-        initSonarConfigData();
-        return sonarConfigService.getAll().stream()
-                .map(config -> new SonarQubeProject(config.getSonarProject(), config.getName()))
-                .collect(Collectors.toList());
-    }
-
-    public void initSonarConfigData() {
-        final SonarConfig config = new SonarConfig();
-        config.setName("World of Dragons");
-        config.setSonarProject("org.apache.commons%3Acommons-lang3");
-        config.setSonarServerUrl("https://sonarcloud.io");
-        sonarConfigService.saveConfig(config);
+        if (projects == null) {
+            try {
+                projects = mapper
+                        .readValue(SimulatedExternalRessourceService.class
+                                .getResourceAsStream("/projectRessourceBackup.json"),
+                                SonarQubeProjectRessource.class)
+                        .getSonarQubeProjects();
+            } catch (final IOException e) {
+                throw new BackendServiceRuntimeException("Could not load simulated sonar projects", e);
+            }
+        }
+        return projects;
     }
 
     @Override

@@ -21,6 +21,10 @@ export class ParticipationService {
       .catch(this.handleError);
   }
 
+  public getParticipations(quest: Quest): Promise<Participation[]> {
+    return this.http.get<Participation[]>(`${environment.endpoint}/participation/${quest.id}/all`).toPromise();
+  }
+
   announceParticipationUpdate() {
     this.participationUpdateSource.next();
   }

@@ -26,11 +26,11 @@ import {AdventurePageComponent} from './pages/adventure-page/adventure-page.comp
 import {WorldService} from './services/world.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GamemasterPageComponent} from './pages/gamemaster-page/gamemaster-page.component';
-import {GamemasterWorldComponent} from './pages/gamemaster-page/components/gamemaster-world/gamemaster-world.component';
+import {AdminWorldComponent} from './pages/admin-page/components/admin-world/admin-world.component';
 import {GamemasterAdventureComponent} from './pages/gamemaster-page/components/gamemaster-adventure/gamemaster-adventure.component';
 import {GamemasterQuestComponent} from './pages/gamemaster-page/components/gamemaster-quest/gamemaster-quest.component';
 import {GamemasterTaskComponent} from './pages/gamemaster-page/components/gamemaster-task/gamemaster-task.component';
-import {EditWorldComponent} from './pages/gamemaster-page/components/gamemaster-world/components/edit-world/edit-world.component';
+import {EditWorldComponent} from './pages/admin-page/components/admin-world/components/edit-world/edit-world.component';
 import {AdventureService} from './services/adventure.service';
 import {QuestService} from './services/quest.service';
 import {TaskService} from './services/task.service';
@@ -44,7 +44,6 @@ import {GamemasterAddFreeTaskComponent} from './pages/gamemaster-page/components
 import {GamemasterSuggestTasksComponent} from './pages/gamemaster-page/components/gamemaster-quest/components/gamemaster-quest-create/components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component';
 import {GamemasterSpecialTaskCreateComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-special-task/components/gamemaster-special-task-create/gamemaster-special-task-create.component';
 import {GamemasterSpecialTaskEditComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-special-task/components/gamemaster-special-task-edit/gamemaster-special-task-edit.component';
-import {GamemasterStandardTaskCreateComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-standard-task/components/gamemaster-standard-task-create/gamemaster-standard-task-create.component';
 import {GamemasterStandardTaskEditComponent} from './pages/gamemaster-page/components/gamemaster-task/components/gamemaster-standard-task/components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 import {GamemasterAdventureCreateComponent} from './pages/gamemaster-page/components/gamemaster-adventure/components/gamemaster-adventure-create/gamemaster-adventure-create.component';
 import {GamemasterAdventureEditComponent} from './pages/gamemaster-page/components/gamemaster-adventure/components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
@@ -60,7 +59,6 @@ import {AdminDeveloperComponent} from './pages/admin-page/components/admin-devel
 import {AdminDeveloperCreateComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-create/admin-developer-create.component';
 import {AdminDeveloperEditComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
 import {AdminDeveloperDeleteComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-delete/admin-developer-delete.component';
-import {ChooseCurrentWorldComponent} from './components/choose-current-world/choose-current-world/choose-current-world.component';
 import {GamemasterMarketplaceComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/gamemaster-marketplace.component';
 import {GamemasterArtefactCreateComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/gamemaster-artefact-create.component';
 import {GamemasterArtefactEditComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
@@ -69,7 +67,7 @@ import {AvatarEditComponent} from './pages/my-avatar-page/components/my-avatar-e
 import {GamemasterIconSelectComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
 import {AdminSonarCubeComponent} from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
 import {SonarCubeService} from './services/sonar-cube.service';
-import {AdminSonarCubeSelectBackgroundComponent} from './pages/admin-page/components/admin-sonar-cube/components/admin-sonar-cube-select-background/admin-sonar-cube-select-background.component';
+import {SelectBackgroundComponent} from './pages/admin-page/components/admin-world/components/edit-world/select-background/select-background.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './login/authentication.service';
 import {LocalStorageService} from './login/local-storage.service';
@@ -78,6 +76,13 @@ import {UserService} from './services/user.service';
 import {AuthenticationInterceptor} from './login/authentication.interceptor';
 import {ImageService} from './services/image.service';
 import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
+import {AvatarClassService} from './services/avatar-class.service';
+import {AvatarRaceService} from './services/avatar-race.service';
+import {RoleService} from './services/role.service';
+import { LoadingComponent } from './components/loading/loading.component';
+import {LoadingService} from './services/loading.service';
+import {UserToWorldService} from './services/user-to-world.service';
+import {PermissionService} from './services/permission.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -95,7 +100,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperComponent,
     MyAvatarPageComponent,
     GamemasterPageComponent,
-    GamemasterWorldComponent,
+    AdminWorldComponent,
     GamemasterAdventureComponent,
     GamemasterQuestComponent,
     GamemasterTaskComponent,
@@ -107,7 +112,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSuggestTasksComponent,
     GamemasterSpecialTaskCreateComponent,
     GamemasterSpecialTaskEditComponent,
-    GamemasterStandardTaskCreateComponent,
     GamemasterStandardTaskEditComponent,
     GamemasterAdventureCreateComponent,
     GamemasterAdventureEditComponent,
@@ -121,7 +125,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent,
     GamemasterMarketplaceComponent,
     GamemasterArtefactCreateComponent,
     GamemasterArtefactEditComponent,
@@ -129,9 +132,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AvatarEditComponent,
     GamemasterIconSelectComponent,
     AdminSonarCubeComponent,
-    AdminSonarCubeSelectBackgroundComponent,
+    SelectBackgroundComponent,
     LoginComponent,
     EmptyPageComponent,
+    LoadingComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -140,7 +144,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterSuggestTasksComponent,
     GamemasterSpecialTaskCreateComponent,
     GamemasterSpecialTaskEditComponent,
-    GamemasterStandardTaskCreateComponent,
     GamemasterStandardTaskEditComponent,
     GamemasterAdventureCreateComponent,
     GamemasterAdventureEditComponent,
@@ -151,15 +154,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,
-    ChooseCurrentWorldComponent,
     GamemasterArtefactCreateComponent,
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
     GamemasterIconSelectComponent,
-    AdminSonarCubeSelectBackgroundComponent,
+    SelectBackgroundComponent,
     LoginComponent,
-    EmptyPageComponent
+    EmptyPageComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -214,6 +217,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthenticationGuard,
     UserService,
     ImageService,
+    AvatarClassService,
+    AvatarRaceService,
+    RoleService,
+    LoadingService,
+    UserToWorldService,
+    PermissionService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

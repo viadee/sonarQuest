@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "Participation")
 public class Participation {
@@ -24,12 +22,10 @@ public class Participation {
     @OneToMany(mappedBy = "participation", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

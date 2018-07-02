@@ -9,18 +9,19 @@ import {MyAvatarPageComponent} from '../pages/my-avatar-page/my-avatar-page.comp
 import {GamemasterPageComponent} from '../pages/gamemaster-page/gamemaster-page.component';
 import {AuthenticationGuard} from '../login/authentication.guard';
 import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
+import {RoutingUrls} from './routing-urls';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/empty', pathMatch: 'full'},
-  {path: 'empty', component: EmptyPageComponent},
-  {path: 'start', component: StartPageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'myAvatar', component: MyAvatarPageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'adventures', component: AdventurePageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'quests', component: QuestPageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'marketplace', component: MarketplacePageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'gamemaster', component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
-  {path: 'admin', component: AdminPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.empty, component: EmptyPageComponent},
+  {path: RoutingUrls.start, component: StartPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.myAvatar, component: MyAvatarPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.adventures, component: AdventurePageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.quests, component: QuestPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.marketplace, component: MarketplacePageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.gamemaster, component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.admin, component: AdminPageComponent, canActivate: [AuthenticationGuard]},
 ];
 
 @NgModule({

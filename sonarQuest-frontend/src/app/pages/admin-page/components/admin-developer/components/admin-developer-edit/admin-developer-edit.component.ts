@@ -4,6 +4,11 @@ import {AdminDeveloperComponent} from './../../admin-developer.component';
 import {Component, OnInit, Inject} from '@angular/core';
 import {UserService} from '../../../../../../services/user.service';
 import {User} from '../../../../../../Interfaces/User';
+import {ImageService} from '../../../../../../services/image.service';
+import {WorldService} from '../../../../../../services/world.service';
+import {UserToWorld} from '../../../../../../Interfaces/UserToWorld';
+import {ITdDataTableColumn} from '@covalent/core';
+import {UserToWorldService} from '../../../../../../services/user-to-world.service';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -12,21 +17,33 @@ import {User} from '../../../../../../Interfaces/User';
 })
 export class AdminDeveloperEditComponent implements OnInit {
 
-  images: any[];
+  imageToShow: any;
+  userToWorlds: UserToWorld[];
+
+  columns: ITdDataTableColumn[] = [
+    {name: 'userId', label: 'UserId', hidden: true},
+    {name: 'worldId', label: 'WorldId', hidden: true},
+    {name: 'worldName', label: 'World'},
+    {name: 'editJoined', label: 'Joined'},
+  ];
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public user: User
+    @Inject(MAT_DIALOG_DATA) public user: User,
+    private imageService: ImageService,
+    private userToWorldService: UserToWorldService
   ) {
   }
 
   ngOnInit() {
     this.loadImages();
+    this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
   }
 
   editDeveloper() {
     this.userService.updateUser(this.user).then(() => {
+      this.userToWorldService.saveUserToWorlds(this.userToWorlds);
       this.dialogRef.close(true);
     })
   }
@@ -36,12 +53,9 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   loadImages() {
-    this.images = [];
-
-    for (let i = 0; i < 15; i++) {
-      this.images[i] = {};
-      this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
-      this.images[i].name = 'hero' + (i + 1);
-    }
+    this.userService.getImageForUser(this.user).subscribe((blob) => {
+      this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
+    });
   }
+
 }

@@ -12,6 +12,7 @@
     <div flex>
       <mat-input-container class="full-width">
         <input class="form-control" formControlName="password" matInput placeholder="Password" [type]="'password'">
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-input-container>
     </div>
     <div flex>
@@ -22,19 +23,31 @@
     <div flex>
       <mat-select placeholder="Role" matInput formControlName="role">
         <mat-option *ngFor="let role of roles" [value]="role">
-          {{role}}
+          {{role.name}}
         </mat-option>
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-select>
-    </div>
-    <div>
-      <img style="max-width:100%; max-height:100%; border: 1px solid #888" [src]="selectedImage">
     </div>
     <div flex>
-      <mat-select placeholder="Image">
-        <mat-option *ngFor="let image of images" [value]="image.src">
-          {{image.name}}
+      <mat-select placeholder="Race" matInput formControlName="race">
+        <mat-option *ngFor="let race of races" [value]="race">
+          {{race.name}}
         </mat-option>
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-select>
+    </div>
+    <div flex>
+      <mat-select placeholder="Class" matInput formControlName="class">
+        <mat-option *ngFor="let class of classes" [value]="class">
+          {{class.name}}
+        </mat-option>
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      </mat-select>
+    </div>
+    <div flex>
+      <mat-input-container class="full-width">
+        <input class="form-control" formControlName="picture" matInput placeholder="File name">
+      </mat-input-container>
     </div>
   </div>
   <mat-divider></mat-divider>
@@ -44,7 +57,7 @@
   <button mat-button (click)="cancel()">
     <mat-icon class="icon">cancel</mat-icon>{{'GLOBAL.CANCEL' | translate}}
   </button>
-  <button mat-button color="primary" (click)="createDeveloper()">
+  <button mat-button color="primary" (click)="createDeveloper()" [disabled]="!createForm.valid">
     <mat-icon class="icon">add</mat-icon>{{'GLOBAL.CREATE' | translate}}
   </button>
 </mat-dialog-actions>

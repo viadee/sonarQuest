@@ -1,22 +1,25 @@
 package com.viadee.sonarQuest.repositories;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
 
-import javax.transaction.Transactional;
-import java.util.List;
-
 @Transactional
-public interface TaskRepository extends TaskBaseRepository<Task>{
+public interface TaskRepository extends TaskBaseRepository<Task> {
 
-     List<Task> findAll();
+    @Override
+    List<Task> findAll();
 
-     List<Task> findAll(Iterable<Long> iterable);
+    @Override
+    List<Task> findAll(Iterable<Long> iterable);
 
-     Task findById(long id);
+    Task findById(Long id);
 
-     List<Task> findByQuestAndStatus(Quest quest, String status);
+    List<Task> findByQuestAndStatus(Quest quest, String status);
 
-     List<Task> findByWorldAndStatus(World world, String status);
+    List<Task> findByWorldAndStatus(World world, String status);
 }

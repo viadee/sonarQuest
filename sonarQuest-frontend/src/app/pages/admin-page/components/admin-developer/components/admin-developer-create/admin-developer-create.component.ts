@@ -4,6 +4,12 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../../../../Interfaces/User';
 import {UserService} from '../../../../../../services/user.service';
+import {AvatarClass} from '../../../../../../Interfaces/AvatarClass';
+import {AvatarRace} from '../../../../../../Interfaces/AvatarRace';
+import {AvatarClassService} from '../../../../../../services/avatar-class.service';
+import {AvatarRaceService} from '../../../../../../services/avatar-race.service';
+import {Role} from '../../../../../../Interfaces/Role';
+import {RoleService} from '../../../../../../services/role.service';
 
 @Component({
   selector: 'app-admin-developer-create',
@@ -14,29 +20,36 @@ export class AdminDeveloperCreateComponent implements OnInit {
 
   public username: String;
   public aboutMe: String;
-  public images: any[];
-  public selectedImage: string;
   public nameTaken: boolean;
 
-  protected roles: String[] = ['GAMEMASTER', 'DEVELOPER', 'ADMIN'];
+  protected roles: Role[];
+  protected classes: AvatarClass[];
+  protected races: AvatarRace[];
 
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
     role: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
-    about: new FormControl()
+    about: new FormControl(),
+    picture: new FormControl(),
+    race: new FormControl(null, [Validators.required]),
+    class: new FormControl(null, [Validators.required])
   });
 
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
+    private avatarClassServoce: AvatarClassService,
+    private avatarRaceServoce: AvatarRaceService,
+    private roleService: RoleService,
     @Inject(MAT_DIALOG_DATA) public users: User[]) {
   }
 
   ngOnInit() {
-    this.loadImages();
-    this.selectedImage = 'http://via.placeholder.com/200x200';
     this.nameTaken = false;
+    this.avatarClassServoce.getClasses().then(classes => this.classes = classes);
+    this.avatarRaceServoce.getRaces().then(races => this.races = races);
+    this.roleService.getRoles().then(roles => this.roles = roles);
   }
 
   matchNameValidator() {
@@ -53,12 +66,14 @@ export class AdminDeveloperCreateComponent implements OnInit {
   }
 
   createDeveloper() {
-    if (!this.nameTaken) {
+    if (!this.nameTaken && this.createForm.valid) {
       const new_developer: User = {
         username: this.createForm.get('name').value,
         aboutMe: this.createForm.get('about').value,
-        picture: this.selectedImage,
-        role: {name: this.createForm.get('role').value},
+        picture: this.createForm.get('picture').value,
+        role: this.createForm.get('role').value,
+        avatarClass:  this.createForm.get('class').value,
+        avatarRace: this.createForm.get('race').value,
         password: this.createForm.get('password').value
       };
       this.userService.updateUser(new_developer)
@@ -68,23 +83,13 @@ export class AdminDeveloperCreateComponent implements OnInit {
     }
   }
 
-
   cancel() {
     this.dialogRef.close();
   }
 
-  loadImages() {
-    this.images = [];
-    for (let i = 0; i < 15; i++) {
-      this.images[i] = {};
-      this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
-      this.images[i].name = 'hero' + (i + 1);
-    }
-  }
-
   getErrorMessage() {
     if (this.createForm.get('name').hasError('required')) {
-      return 'You must enter a name';
+      return 'This value is mandatory';
     }
     if (this.nameTaken) {
       this.createForm.controls['name'].setErrors({'matchNameValidator': true});
