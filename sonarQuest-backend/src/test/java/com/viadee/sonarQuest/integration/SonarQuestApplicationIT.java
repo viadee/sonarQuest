@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,6 +19,8 @@ import com.viadee.sonarQuest.controllers.ParticipationController;
 import com.viadee.sonarQuest.controllers.TaskController;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
+import com.viadee.sonarQuest.entities.RoleName;
+import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
@@ -28,14 +31,21 @@ import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.ExternalRessourceService;
+import com.viadee.sonarQuest.services.RoleService;
 import com.viadee.sonarQuest.services.StandardTaskService;
 import com.viadee.sonarQuest.services.UserService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "simulateSonarServer=true")
+@SpringBootTest
 public class SonarQuestApplicationIT {
 
-    @Autowired
+    private static final String WORLD_NAME = "Discworld";
+
+	private static final String QUEST_NAME = "The Colour of Magic";
+
+	private static final String USERNAME = "Rincewind";
+
+	@Autowired
     private ExternalRessourceService externalRessourceService;
 
     @Autowired
@@ -61,6 +71,9 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private RoleService roleService;
 
     @Test(timeout = 1000) // There is hardly any data to fetch - this should be quick
     public void testWorldStructure() {
@@ -68,7 +81,6 @@ public class SonarQuestApplicationIT {
 
         assertNotNull("Demo data not loaded properly", sonarDungeon);
         assertEquals("Demo data not loaded properly", Long.valueOf(1), sonarDungeon.getId());
-        assertEquals("This is not the expected world data set", "World of Sonar Quest", sonarDungeon.getName());
     }
 
     /**
@@ -79,63 +91,75 @@ public class SonarQuestApplicationIT {
     @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
+    	World discWorld = createWorld();
+        Quest magicQuest = createQuest(discWorld);
+        User rinceWind = createUser(discWorld);
+       
+        Participation epicParticipation = participationController.createParticipation(() -> USERNAME, magicQuest.getId());
+        final List<Participation> epicParticipations = new ArrayList<Participation>();
+        epicParticipations.add(epicParticipation);        
+        magicQuest.setParticipations(epicParticipations);
+        magicQuest = questRepository.save(magicQuest);
+        
+        //User can participate in quest
+        assertNotNull("quest without any participations", magicQuest.getParticipations());
+        Participation activeParticipation = magicQuest.getParticipations().get(0);
+        assertNotNull("participation not added to quest", activeParticipation);
+        assertEquals("quest not properly mapped to quest participation", QUEST_NAME,
+        		activeParticipation.getQuest().getTitle());
+        assertEquals("user not properly mapped to participation", USERNAME,
+        		activeParticipation.getUser().getUsername());
 
-        // Join in on a quest.
-        // Add Participation sonarWarrior, Quest1
-        participationController.createParticipation(() -> "dev", 1L);
+        //User can work on task
+        StandardTask deathFromRetirementTask = createTask(discWorld, magicQuest);
+        deathFromRetirementTask = (StandardTask) taskController.addParticipation(() -> USERNAME, deathFromRetirementTask.getId(), magicQuest.getId());
+                
+        assertNotNull("task without any participations", deathFromRetirementTask.getParticipation());
+        Participation taskParticipation = deathFromRetirementTask.getParticipation();
+        assertNotNull("participation not added to task", taskParticipation);
+        assertEquals("user not properly mapped to task participation", USERNAME,
+        		taskParticipation.getUser().getUsername());
 
-        Quest epicQuest = questRepository.findOne(1L);
-        final List<Participation> participations = epicQuest.getParticipations();
+//        deathFromRetirementTask.setStatus(SonarQuestStatus.SOLVED.getText());
+//        standardTaskService.updateStandardTask(deathFromRetirementTask);
+//        
+//        rinceWind = userService.findByUsername(USERNAME);
+//        assertEquals("reward: Gold not awarded to user", deathFromRetirementTask.getGold(), rinceWind.getGold());
+//        assertEquals("reward: XP not awarded to user", deathFromRetirementTask.getXp(), rinceWind.getXp());
+        }
 
-        assertEquals("createParticipation does not work (Quest)", "Hidden danger in the woods!",
-                participations.get(1).getQuest().getTitle());
-        assertEquals("createParticipation does not work (Developer)", "Mike Magician",
-                participations.get(1).getUser().getUsername());
+	private StandardTask createTask(World discWorld, Quest magicQuest) {
+		StandardTask task = new StandardTask();
+		task.setGold(10L);
+		task.setXp(20L);
+		task.setKey("12345");
+		task.setTitle("coercing Death out of his impromptu retirement");
+        task.setWorld(discWorld);
+        task.setQuest(magicQuest);
+        task.setStatus(SonarQuestStatus.OPEN.getText());
+        return taskRepository.save(task);
+	}
 
-        // Get to work on issue 1
-        Task issue1 = taskRepository.findOne(5L);
-        assertNull("addParticipationToTask does not work (Quest)", issue1.getParticipation());
-        taskController.addParticipation(() -> "dev", 1L, 1L);
-        issue1 = taskRepository.findOne(1L);
+	private User createUser(World discWorld) {
+		User user = new User();
+        user.setUsername(USERNAME);
+        user.setPassword("test");
+        user.setRole(roleService.findByName(RoleName.DEVELOPER));
+        user.setCurrentWorld(discWorld);
+        return userService.save(user);
+	}
 
-        assertEquals("addParticipation does not work (Quest)", "Hidden danger in the woods!",
-                issue1.getParticipation().getQuest().getTitle());
-        assertEquals("addParticipation does not work (Developer)", "Mike Magician",
-                issue1.getParticipation().getUser().getUsername());
-        assertEquals("addParticipation does not work (Status)", SonarQuestStatus.PROCESSED.getText(),
-                issue1.getStatus());
+	private Quest createQuest(World epicWorld) {
+		Quest quest = new Quest();
+        quest.setTitle(QUEST_NAME);
+        quest.setWorld(epicWorld);
+        return questRepository.save(quest);
+	}
 
-        adventureService.updateAdventures(); // no effect expected
-        User sonarWarrior = userService.findByUsername("dev");
-        assertEquals("Gratification during updateAdventures does not work (Gold)", Long.valueOf(18),
-                sonarWarrior.getGold());
-        assertEquals("Gratification during updateAdventures does not work (XP)", Long.valueOf(15),
-                sonarWarrior.getXp());
-
-        // Solve task (close issue 1)
-        final List<SonarQubeIssue> issueList = externalRessourceService.getIssuesForSonarQubeProject("15054");
-        issueList.get(0).setStatus("CLOSED");
-
-        final World sonarDungeon = worldRepository.findOne(1L);
-        standardTaskService.updateStandardTasks(sonarDungeon);
-        issue1 = taskRepository.findOne((long) 1);
-        assertEquals("updateStandardTasks does not work (Title)",
-                "NullPointerException might be thrown as 'toTypeArg' is nullable here",
-                issue1.getTitle());
-        assertEquals("updateStandardTasks does not work (Status)", SonarQuestStatus.SOLVED.getText(),
-                issue1.getStatus());
-
-        // Check Gratification
-        // Gold = 18 (initial value) + 1 (Task) + 2(Magician) + 0 (no Artefacts)= 21
-        // XP = 22 (inital value) + 2 (Task ) = 20
-        sonarWarrior = userService.findByUsername("dev");
-        assertEquals("Gratification during updateStandardTasks does not work (Gold)", Long.valueOf(21),
-                sonarWarrior.getGold());
-        assertEquals("Gratification during updateStandardTasks does not work (XP)", Long.valueOf(20),
-                sonarWarrior.getXp());
-
-        // Check Status of epicQuest
-        epicQuest = questRepository.findOne(1L);
-        assertEquals("QuestStatus not correct", QuestStates.OPEN, epicQuest.getStatus());
-    }
+	private World createWorld() {
+		World world = new World();
+    	world.setName(WORLD_NAME);
+    	world.setActive(true);
+    	return worldRepository.save(world);
+	}
 }
