@@ -13,7 +13,7 @@ import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.services.UserService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "simulateSonarServer=true")
+@SpringBootTest
 public class UserManagementIT {
 
     @Autowired
@@ -25,12 +25,12 @@ public class UserManagementIT {
         final Role role = new Role();
         role.setId(1L);
         final User user = new User();
-        user.setUsername("testusername");
+        user.setUsername("dev");
         user.setPassword("test");
         user.setRole(role);
         // Then
-        final User dev = userService.findByUsername("testusername");
-        assertNotNull("developer could not be created", dev);
+        final User dev = userService.findByUsername("dev");
+        assertNotNull("dev could not be created", dev);
     }
 
 }
