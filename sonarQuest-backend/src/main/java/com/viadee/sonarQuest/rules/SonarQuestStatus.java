@@ -37,7 +37,10 @@ public enum SonarQuestStatus {
      *             status must be mapped.
      */
     public static SonarQuestStatus fromStatusText(String statusText) {
-        for (SonarQuestStatus status : values()) {
+        if (statusText == null) {
+        	return SonarQuestStatus.CREATED;
+        }
+    	for (SonarQuestStatus status : values()) {
             if (status.getText().equals(statusText)) {
                 return status;
             }

@@ -36,7 +36,6 @@ public class GratificationService implements UserGratification {
             user.addGold(task.getGold());
             addSkillReward(user);
             user.setLevel(levelService.getLevelByUserXp(user.getXp()));
-            userService.save(user);
         }
     }
 

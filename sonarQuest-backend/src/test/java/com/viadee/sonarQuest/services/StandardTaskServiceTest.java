@@ -1,13 +1,18 @@
 package com.viadee.sonarQuest.services;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
@@ -22,22 +27,29 @@ public class StandardTaskServiceTest {
     @Mock
     private GratificationService gratificationService;
 
+    @Mock
+    private NamedParameterJdbcTemplate template;
+    
     @InjectMocks
     private StandardTaskService standardTaskService;
 
     @Test
     public void testUpdateStandardTask() {
+    	
 
         // case: new task
-        final StandardTask newStandardTask = new StandardTask();
-        newStandardTask.setId(1l);
-        newStandardTask.setKey("newStandardTask");
+        final StandardTask task = new StandardTask();
+        task.setId(1l);
+        task.setKey("newStandardTask");
 
-        when(standardTaskRepository.findByKey(newStandardTask.getKey())).thenReturn(null);
+        when(standardTaskRepository.findByKey(task.getKey())).thenReturn(null);
+        when(template.queryForObject(Matchers.anyString(), 
+                Matchers.any(SqlParameterSource.class), 
+                Matchers.<Class<String>>any())).thenReturn("OPEN");
 
-        standardTaskService.updateStandardTask(newStandardTask);
+        standardTaskService.updateStandardTask(task);
 
-        assertEquals(SonarQuestStatus.CREATED.getText(), newStandardTask.getStatus());
+        assertEquals(SonarQuestStatus.CREATED.getText(), task.getStatus());
 
         // case: existing created task -> no external changes
         final StandardTask createdStandardTask = new StandardTask();
@@ -45,7 +57,6 @@ public class StandardTaskServiceTest {
         createdStandardTask.setStatus(SonarQuestStatus.CREATED.getText());
 
         when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
-
         standardTaskService.updateStandardTask(createdStandardTask);
 
         assertEquals(SonarQuestStatus.CREATED.getText(), createdStandardTask.getStatus());

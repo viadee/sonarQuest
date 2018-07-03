@@ -8,4 +8,6 @@ import java.util.List;
 public interface AvatarClassRepository extends CrudRepository<AvatarClass,Long> {
 
        List<AvatarClass> findAll();
+       
+       AvatarClass findByName(String name);
 }

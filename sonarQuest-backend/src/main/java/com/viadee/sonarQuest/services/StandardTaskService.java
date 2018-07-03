@@ -2,8 +2,10 @@ package com.viadee.sonarQuest.services;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.StandardTask;
@@ -30,9 +32,11 @@ public class StandardTaskService {
     @Autowired
     private AdventureService adventureService;
 
-
     @Autowired
     private WorldRepository worldRepository;
+    
+    @Autowired
+    private NamedParameterJdbcTemplate template;
 
     public void updateStandardTasks(final World world) {
         final List<StandardTask> externalStandardTasks = externalRessourceService
@@ -42,26 +46,22 @@ public class StandardTaskService {
         adventureService.updateAdventures();
     }
 
+    
     public StandardTask updateStandardTask(final StandardTask task) {
-    	//FIXME - will not work with Hibernate/Spring-caching - when task is updated Hibernate will return new value here!
-    	//so SOLVED will always be old and new Status with no rewards given
-        final StandardTask lastState = standardTaskRepository.findByKey(task.getKey());
-        if (lastState != null) {
-            final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
-            final SonarQuestStatus oldStatus = SonarQuestStatus.fromStatusText(lastState.getStatus());
-            if (oldStatus != SonarQuestStatus.CREATED) {
-                lastState.setStatus(newStatus.getText());
-                standardTaskRepository.saveAndFlush(lastState);
-            }
-            if (newStatus == SonarQuestStatus.SOLVED && !(oldStatus == SonarQuestStatus.SOLVED)) {
-                gratificationService.rewardUserForSolvingTask(lastState);
-            }
-        } else {
-            task.setStatus(SonarQuestStatus.CREATED.getText());
-            standardTaskRepository.saveAndFlush(task);
+    	final SonarQuestStatus oldStatus = getLastState(task);
+    	final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
+        if (newStatus == SonarQuestStatus.SOLVED && oldStatus != SonarQuestStatus.SOLVED) {
+        	gratificationService.rewardUserForSolvingTask(task);
         }
-        return task;
+        task.setStatus(SonarQuestStatus.CREATED.getText());
+        return standardTaskRepository.saveAndFlush(task);
     }
+
+	protected SonarQuestStatus getLastState(final StandardTask task) {
+		SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
+		String sql = "SELECT Status FROM Task WHERE id = :id";
+    	return SonarQuestStatus.fromStatusText(template.queryForObject(sql, params, String.class));
+	}
 
     public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
         this.externalRessourceService = externalRessourceService;

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -73,6 +74,7 @@ public class Task {
         return status;
     }
 
+    //XXX refactor: keep Status as Enum
     public void setStatus(final String status) {
         this.status = status;
     }
