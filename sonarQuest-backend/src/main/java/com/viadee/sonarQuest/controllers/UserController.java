@@ -29,7 +29,7 @@ import com.viadee.sonarQuest.services.UserService;
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
-    
+
     @Value("${avatar.directory}")
     private String avatarDirectoryPath;
 
@@ -65,7 +65,7 @@ public class UserController {
             throws IOException {
         response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
         final User user = getUser(principal);
-        return loadAvatar(user);
+        return user != null ? loadAvatar(user) : null;
     }
 
     @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
