@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Token} from './token';
+import {Token} from './Token';
 
 
 @Injectable()

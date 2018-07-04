@@ -2,7 +2,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {LocalStorageService} from './local-storage.service';
-import {Token} from './token';
+import {Token} from './Token';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';

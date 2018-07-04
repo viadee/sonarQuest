@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from './../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Subscriber} from 'rxjs/Subscriber';
-import {Token} from './token';
+import {Token} from './Token';
 import 'rxjs/add/operator/shareReplay';
 
 @Injectable()
