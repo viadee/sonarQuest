@@ -33,18 +33,16 @@ public class StandardTaskServiceTest {
 
     @Test
     public void testUpdateStandardTask() {
-
-        // case: new task
-        final StandardTask task = new StandardTask();
-        task.setId(1l);
-        task.setKey("newStandardTask");
-
-        when(standardTaskRepository.findByKey(task.getKey())).thenReturn(null);
+        StandardTask task = new StandardTask();
+        task.setKey("Color of Magic!");
+        when(standardTaskRepository.save(Matchers.any(StandardTask.class))).thenReturn(task);
+        when(standardTaskRepository.saveAndFlush(Matchers.any(StandardTask.class))).thenReturn(task);
+        when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
         when(template.queryForObject(Matchers.anyString(),
                 Matchers.any(SqlParameterSource.class),
                 Matchers.<Class<String>>any())).thenReturn("OPEN");
 
-        standardTaskService.updateStandardTask(task);
+        task = standardTaskService.updateStandardTask(task);
 
         assertEquals(SonarQuestStatus.CREATED.getText(), task.getStatus());
 

@@ -54,7 +54,7 @@ public class StandardTaskService {
         if (newStatus == SonarQuestStatus.SOLVED && oldStatus != SonarQuestStatus.SOLVED) {
             gratificationService.rewardUserForSolvingTask(task);
         }
-        task.setStatus(SonarQuestStatus.CREATED.getText());
+        task.setStatus(newStatus.getText());
         return standardTaskRepository.saveAndFlush(task);
     }
 
