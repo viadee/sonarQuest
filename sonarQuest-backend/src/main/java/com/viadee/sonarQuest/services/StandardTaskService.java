@@ -3,6 +3,8 @@ package com.viadee.sonarQuest.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -34,7 +36,7 @@ public class StandardTaskService {
 
     @Autowired
     private WorldRepository worldRepository;
-    
+
     @Autowired
     private NamedParameterJdbcTemplate template;
 
@@ -46,22 +48,24 @@ public class StandardTaskService {
         adventureService.updateAdventures();
     }
 
-    
     public StandardTask updateStandardTask(final StandardTask task) {
-    	final SonarQuestStatus oldStatus = getLastState(task);
-    	final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
+        final SonarQuestStatus oldStatus = getLastState(task);
+        final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
         if (newStatus == SonarQuestStatus.SOLVED && oldStatus != SonarQuestStatus.SOLVED) {
-        	gratificationService.rewardUserForSolvingTask(task);
+            gratificationService.rewardUserForSolvingTask(task);
         }
         task.setStatus(SonarQuestStatus.CREATED.getText());
         return standardTaskRepository.saveAndFlush(task);
     }
 
-	protected SonarQuestStatus getLastState(final StandardTask task) {
-		SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
-		String sql = "SELECT Status FROM Task WHERE id = :id";
-    	return SonarQuestStatus.fromStatusText(template.queryForObject(sql, params, String.class));
-	}
+    protected SonarQuestStatus getLastState(final StandardTask task) {
+        SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
+        String sql = "SELECT Status FROM Task WHERE id = :id";
+        RowMapper<String> rowmapper = new SingleColumnRowMapper<>();
+        List<String> statusTexte = template.query(sql, params, rowmapper);
+        String statusText = statusTexte.isEmpty() ? null : statusTexte.get(0);
+        return SonarQuestStatus.fromStatusText(statusText);
+    }
 
     public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
         this.externalRessourceService = externalRessourceService;

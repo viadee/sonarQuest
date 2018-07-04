@@ -1,6 +1,5 @@
 package com.viadee.sonarQuest.services;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -10,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
@@ -29,13 +27,12 @@ public class StandardTaskServiceTest {
 
     @Mock
     private NamedParameterJdbcTemplate template;
-    
+
     @InjectMocks
     private StandardTaskService standardTaskService;
 
     @Test
     public void testUpdateStandardTask() {
-    	
 
         // case: new task
         final StandardTask task = new StandardTask();
@@ -43,8 +40,8 @@ public class StandardTaskServiceTest {
         task.setKey("newStandardTask");
 
         when(standardTaskRepository.findByKey(task.getKey())).thenReturn(null);
-        when(template.queryForObject(Matchers.anyString(), 
-                Matchers.any(SqlParameterSource.class), 
+        when(template.queryForObject(Matchers.anyString(),
+                Matchers.any(SqlParameterSource.class),
                 Matchers.<Class<String>>any())).thenReturn("OPEN");
 
         standardTaskService.updateStandardTask(task);
@@ -63,4 +60,12 @@ public class StandardTaskServiceTest {
 
         // case: existing created task -> no external changes
     }
+
+    @Test
+    public void testGetLastState() throws Exception {
+        StandardTask task = new StandardTask();
+        SonarQuestStatus lastState = standardTaskService.getLastState(task);
+        assertEquals(SonarQuestStatus.CREATED, lastState);
+    }
+
 }
