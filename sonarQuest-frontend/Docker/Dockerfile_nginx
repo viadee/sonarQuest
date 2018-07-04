@@ -1,0 +1,29 @@
+FROM node:9.11.1
+
+RUN apt update
+RUN apt install -y nginx
+RUN apt install -y vim
+COPY Docker/nginx.conf /etc/nginx/nginx.conf
+
+COPY  . /usr/src/sonarQuest
+WORKDIR /usr/src/sonarQuest
+RUN mkdir /usr/src/sonarQuest-backend
+RUN chown -R node:node /usr/src/sonarQuest
+RUN chown -R node:node /usr/src/sonarQuest-backend
+USER node
+RUN mkdir /home/node/.npm-global
+ENV PATH=/home/node/.npm-global/bin:$PATH
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+RUN npm install -g @angular/cli
+RUN npm install
+
+# will create the app files in /usr/src/sonarQuest-backend/src/main/resources/static
+# which is set as root in nginx.conf
+# The backend server endpoint must be defined in
+# src/environments/environment.ts
+RUN ng build
+
+USER root
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
