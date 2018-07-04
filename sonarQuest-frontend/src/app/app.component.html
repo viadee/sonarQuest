@@ -65,8 +65,10 @@
     <div class="vertical-align">{{determinePageTitle(router.url)}}</div>
     <div flex></div>
     <div class="username-toolbar vertical-align">
-      <mat-icon>person</mat-icon>
-      <span>{{user?.username}}</span>
+        <button *ngIf="user" mat-icon-button routerLink="/{{myAvatarUrl}}">
+          <mat-icon>person</mat-icon>
+          <span>{{user?.username}}</span>
+        </button>
     </div>
     <div flex="5"></div>
     <div>
