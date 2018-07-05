@@ -1,5 +1,5 @@
 .username-toolbar{
-    font-size: 12pt
+    font-size: 12pt;
 }
 
 .button-row {
@@ -9,9 +9,9 @@
 }
 
 .vertical-align{
-    display: flex;
-    align-items: center;
-  justify-content: center;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 mat-sidenav-container{
@@ -20,4 +20,12 @@ mat-sidenav-container{
   background-position: left top;
   background-attachment: fixed;
   background-size: cover;
+}
+
+button.mat-icon-button.ng-star-inserted {
+  width:50%;
+}
+
+.lightning-login-align {
+  width:20%
 }
