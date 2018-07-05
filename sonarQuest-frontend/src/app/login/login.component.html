@@ -3,7 +3,7 @@
 </mat-toolbar>
 <mat-dialog-content>
   <div>
-    <form [formGroup]="loginFormGroup">
+    <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <input matInput placeholder='{{"LOGIN.USERNAME"| translate}}'
                formControlName="username"
@@ -15,15 +15,17 @@
                formControlName="password"
                required>
       </mat-form-field>
+      <div class="buttons">
+        <button mat-button mat-raised-button color="primary" mat-dialog-close>
+          Cancel
+        </button>
+        <button 
+          mat-button mat-raised-button color="primary" 
+          [disabled]="loginFormGroup.invalid"
+          type="submit">
+          Ok
+        </button>
+      </div>
     </form>
-    <div>
-      <button mat-button mat-raised-button color="primary" mat-dialog-close>
-        Cancel
-      </button>
-      <button mat-button mat-raised-button color="primary" [disabled]="loginFormGroup.invalid"
-              [mat-dialog-close]="loginFormGroup.value">
-        Ok
-      </button>
-    </div>
   </div>
 </mat-dialog-content>
