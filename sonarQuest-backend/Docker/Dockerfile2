@@ -1,0 +1,17 @@
+FROM maven:3.5.3-jdk-8
+
+
+LABEL maintainer="https://github.com/aabeling"
+LABEL description="sonarquest backend with external configuration"
+
+COPY  . /usr/src/sonarQuest
+WORKDIR /usr/src/sonarQuest
+
+# build the executable jar
+RUN mvn clean package
+
+EXPOSE 8080
+ENTRYPOINT java \
+           -jar \
+           -Dspring.config.location=/root/conf/application.properties \
+           target/sonarQuest-*.jar
