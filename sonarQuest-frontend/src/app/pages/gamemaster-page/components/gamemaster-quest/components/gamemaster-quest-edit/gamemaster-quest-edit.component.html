@@ -80,6 +80,9 @@
       <button mat-icon-button (click)="removeTask(task)" [disabled]="isSolved">
         <mat-icon>close</mat-icon>
       </button>
+      <button mat-icon-button (click)="solveTask(task)" [disabled]="isSolved">
+          <mat-icon>done</mat-icon>
+      </button>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>

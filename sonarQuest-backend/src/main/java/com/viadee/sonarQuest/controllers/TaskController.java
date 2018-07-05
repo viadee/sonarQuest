@@ -224,6 +224,16 @@ public class TaskController {
             taskRepository.save(task);
         }
     }
+    
+    @RequestMapping(value = "/{taskId}/solveManually", method = RequestMethod.PUT)
+    public void solveManually(@PathVariable(value = "taskId") final Long taskId) {
+        final Task task = taskRepository.findOne(taskId);
+        if (task != null && task.getStatus() != SonarQuestStatus.SOLVED.getText()) {
+            task.setStatus(SonarQuestStatus.SOLVED.getText());
+            gratificationService.rewardUserForSolvingTask(task);
+            taskRepository.save(task);
+        }
+    }
 
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {

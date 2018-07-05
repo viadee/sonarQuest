@@ -42,6 +42,11 @@ export class TaskService {
       .toPromise()
   }
 
+  solveTaskManually(task: any): Promise<any> {
+    return this.http.put(`${environment.endpoint}/task/${task.id}/solveManually`, task.id)
+      .toPromise()
+  }
+
   refreshTasks(world: World) {
     this.standardTaskService.getStandardTasksForWorld(world);
     this.specialTaskService.getSpecialTasksForWorld(world);

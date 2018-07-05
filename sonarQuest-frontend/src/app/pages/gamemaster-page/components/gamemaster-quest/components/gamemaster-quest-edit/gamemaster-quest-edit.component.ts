@@ -30,6 +30,7 @@ export class GamemasterQuestEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    //TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
     if (this.quest.status === 'SOLVED') {
       this.isSolved = true;
     } else {
@@ -67,6 +68,13 @@ export class GamemasterQuestEditComponent implements OnInit {
   removeTask(task: Task) {
     const taskIndex = this.quest.tasks.indexOf(task);
     this.quest.tasks.splice(taskIndex, 1);
+  }
+
+  solveTask(task: Task) {
+    this.taskService.solveTaskManually(task);
+    const taskIndex = this.quest.tasks.indexOf(task);
+    // TODO: get new status from backend
+    this.quest.tasks[taskIndex].status='SOLVED';
   }
 
   editQuest() {
