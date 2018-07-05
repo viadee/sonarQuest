@@ -19,7 +19,7 @@
     "MY_QUESTS": "Meine Quests",
     "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
     "QUESTS_FOR_WORLD": "Alle Quests für ",
-    "JOIN_QUEST": "Suche annehmen",
+    "JOIN_QUEST": "Quest annehmen",
     "AVAILABLE_QUESTS": "Verfügbare Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
     "COMBATED_BY": "angenommen von ",
@@ -50,9 +50,9 @@
     "QUEST": {
       "SUGGEST_TASKS": "Auftrag vorschlagen",
       "GENERATE": "Erzeugen",
-      "CREATE_QUEST": "Suche anlegen",
-      "EDIT_QUEST": "Suche bearbeiten",
-      "EDIT_SOLVED_QUEST": "Diese Suche ist gelöst. Du kannst sie nicht mehr bearbeiten."
+      "CREATE_QUEST": "Quest anlegen",
+      "EDIT_QUEST": "Quest bearbeiten",
+      "EDIT_SOLVED_QUEST": "Diese Quest ist gelöst. Du kannst sie nicht mehr bearbeiten."
     },
     "TASK": {
       "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
