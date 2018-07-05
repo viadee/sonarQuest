@@ -25,7 +25,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.13.RELEASE</version>
+		<version>1.5.14.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -139,7 +139,23 @@
 					<argLine>-Dspring.profiles.active=dev</argLine>
 				</configuration>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                	<!--fail on CVSS v3 critical ratings--> 
+                  <failBuildOnCVSS>8</failBuildOnCVSS>
+              </configuration>
+				<executions>
+                  <execution>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              	</executions>
+            </plugin>
+        </plugins>
 	</build>
 
 
