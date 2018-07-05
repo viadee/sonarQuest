@@ -6,3 +6,7 @@
 .buttonRow{
     padding-top: 2%;
 }
+
+.strikethrough {
+    text-decoration: line-through;
+}
