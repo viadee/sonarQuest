@@ -145,7 +145,7 @@
                 <version>3.2.1</version>
                 <configuration>
                 	<!--fail on CVSS v3 critical ratings--> 
-                  <failBuildOnCVSS>8</failBuildOnCVSS>
+                  <failBuildOnCVSS>9</failBuildOnCVSS>
               </configuration>
 				<executions>
                   <execution>
