@@ -59,12 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   protected login(): void {
-    const dialogRef = this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'});
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.authService.login(result.username, result.password);
-      }
-    });
+    this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'});
   }
 
   protected logout(): void {
