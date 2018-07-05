@@ -21,6 +21,7 @@ import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
+import com.viadee.sonarQuest.repositories.StandardTaskRepository;
 import com.viadee.sonarQuest.rules.SonarQubeStatusMapper;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
@@ -35,6 +36,9 @@ public class ExternalRessourceService {
 
 	@Autowired
 	private SonarQubeStatusMapper statusMapper;
+	
+    @Autowired
+    private StandardTaskRepository standardTaskRepository;
 
 	@Autowired
 	private SonarConfigService sonarConfigService;
@@ -65,9 +69,22 @@ public class ExternalRessourceService {
 		final Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
 		final Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
 		final SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
-		return new StandardTask(sonarQubeIssue.getMessage(), status.getText(), gold, xp, null, world,
-				sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
-				sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
+		return loadTask(sonarQubeIssue, world, gold, xp, debt, status);
+	}
+
+	private StandardTask loadTask(final SonarQubeIssue sonarQubeIssue, final World world, final Long gold,
+			final Long xp, final Integer debt, final SonarQuestStatus status) {
+		StandardTask sonarQubeTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
+		if (sonarQubeTask == null) {
+			//new issue from SonarQube: Create new task
+			sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status.getText(), gold, xp, null, world,
+					sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
+					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
+		} else {
+			//issue already in SonarQuest database: update the task
+			sonarQubeTask.setStatus(status.getText());
+		}
+		return sonarQubeTask;
 	}
 
 	public List<SonarQubeProject> getSonarQubeProjects() {
