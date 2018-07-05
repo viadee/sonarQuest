@@ -143,7 +143,9 @@ public class TaskController {
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        return world == null ? null : taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
+        List<Task> allTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
+        allTasks.addAll(taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText()));
+        return allTasks;
     }
 
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
