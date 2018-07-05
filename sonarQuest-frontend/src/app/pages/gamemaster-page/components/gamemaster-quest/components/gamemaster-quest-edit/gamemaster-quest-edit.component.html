@@ -68,7 +68,7 @@
 
   <mat-list>
     <mat-list-item *ngFor="let task of quest.tasks">
-      <h3 mat-line> {{task?.title}} </h3>
+      <h3 mat-line [class.strikethrough]="task.status==='SOLVED'"> {{task?.title}} </h3>
       <p mat-line>
         <span *ngIf="task?.debt">{{"TASK.STANDARDTASK" | translate}}</span>
         <span *ngIf="!task?.debt">{{"TASK.SPECIALTASK" | translate}}</span>
@@ -91,6 +91,7 @@
 
 <mat-dialog-actions>
   <span class="toolbar-spacer"></span>
+  <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="solveAllTasks()">{{"GLOBAL.SOLVEALLTASKS" | translate}}</button>
   <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="editQuest()">{{"GLOBAL.SAVE" | translate}}</button>
   <button *ngIf="isSolved" mat-raised-button color="primary" [mat-dialog-close]>{{"GLOBAL.CANCEL" | translate}}</button>
 </mat-dialog-actions>
