@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,16 @@ import com.viadee.sonarQuest.services.UserService;
 @RequestMapping("/permission")
 public class PermissionController {
 
-    @Autowired
-    private PermissionService permissionService;
+	@Autowired
+	private PermissionService permissionService;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Set<Permission> getPermissions(final Principal principal) {
-        final String username = principal.getName();
-        final User user = userService.findByUsername(username);
-        return permissionService.getUrlPermissions(user);
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public Set<Permission> getPermissions(final Principal principal) {
+		final String username = principal.getName();
+		final User user = userService.findByUsername(username);
+		return user == null ? Collections.emptySet() : permissionService.getUrlPermissions(user);
+	}
 }
