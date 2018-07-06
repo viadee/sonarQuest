@@ -143,16 +143,14 @@ public class TaskController {
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<Task> allTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
-        allTasks.addAll(taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText()));
-        return allTasks;
+        return taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
     }
 
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
     public Task solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null && task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.SOLVED.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.SOLVED);
             task = taskRepository.save(task);
             gratificationService.rewardUserForSolvingTask(task);
             questService.updateQuest(task.getQuest());
@@ -165,7 +163,7 @@ public class TaskController {
     public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskRepository.findOne(taskId);
         if (task != null && task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.CLOSED.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.CLOSED);
             task = taskRepository.save(task);
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
@@ -181,7 +179,7 @@ public class TaskController {
         if (task != null) {
             final Quest quest = questRepository.findOne(questId);
             task.setQuest(quest);
-            task.setStatus(SonarQuestStatus.OPEN.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.OPEN);
             task = taskRepository.save(task);
         }
         return task;
@@ -192,7 +190,7 @@ public class TaskController {
         final Task task = taskRepository.findOne(taskId);
         if (task != null) {
             task.setQuest(null);
-            task.setStatus(SonarQuestStatus.CREATED.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.OPEN);
             taskRepository.save(task);
         }
     }
@@ -209,7 +207,7 @@ public class TaskController {
                 user.getId());
         if (task != null && participation != null) {
             task.setParticipation(participation);
-            task.setStatus(SonarQuestStatus.PROCESSED.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.PROCESSED);
             task = taskRepository.save(task);
         }
         return task;
@@ -220,7 +218,7 @@ public class TaskController {
         final Task task = taskRepository.findOne(taskId);
         if (task != null) {
             task.setParticipation(null);
-            task.setStatus(SonarQuestStatus.OPEN.getText());
+            task.setSonarQuestStatus(SonarQuestStatus.OPEN);
             taskRepository.save(task);
         }
     }
@@ -228,8 +226,8 @@ public class TaskController {
     @RequestMapping(value = "/{taskId}/solveManually", method = RequestMethod.PUT)
     public void solveManually(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskRepository.findOne(taskId);
-        if (task != null && task.getStatus() != SonarQuestStatus.SOLVED.getText()) {
-            task.setStatus(SonarQuestStatus.SOLVED.getText());
+        if (task != null && !(SonarQuestStatus.SOLVED.equals(task.getSonarQuestStatus()))) {
+            task.setSonarQuestStatus(SonarQuestStatus.SOLVED);
             gratificationService.rewardUserForSolvingTask(task);
             taskRepository.save(task);
         }

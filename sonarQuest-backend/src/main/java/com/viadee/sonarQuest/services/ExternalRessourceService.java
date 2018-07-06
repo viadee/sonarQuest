@@ -82,7 +82,7 @@ public class ExternalRessourceService {
 					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
 		} else {
 			//issue already in SonarQuest database: update the task
-			sonarQubeTask.setStatus(status.getText());
+			sonarQubeTask.setSonarQuestStatus(status);
 		}
 		return sonarQubeTask;
 	}

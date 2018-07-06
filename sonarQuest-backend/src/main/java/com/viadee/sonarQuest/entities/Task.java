@@ -73,10 +73,17 @@ public class Task {
     public String getStatus() {
         return status;
     }
+    
+    public SonarQuestStatus getSonarQuestStatus() {
+        return SonarQuestStatus.fromStatusText(status);
+    }
 
-    //XXX refactor: keep Status as Enum
     public void setStatus(final String status) {
         this.status = status;
+    }
+    
+    public void setSonarQuestStatus(final SonarQuestStatus status) {
+        this.status = status.getText();
     }
 
     public Long getGold() {

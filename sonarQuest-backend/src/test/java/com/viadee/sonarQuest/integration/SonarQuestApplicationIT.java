@@ -119,7 +119,7 @@ public class SonarQuestApplicationIT {
         assertEquals("user not properly mapped to task participation", USERNAME,
         		taskParticipation.getUser().getUsername());
 
-        coerceDeathOutOfRetirementTask.setStatus(SonarQuestStatus.SOLVED.getText());
+        coerceDeathOutOfRetirementTask.setSonarQuestStatus(SonarQuestStatus.SOLVED);
         standardTaskService.updateStandardTask(coerceDeathOutOfRetirementTask);
         
         rinceWind = userService.findByUsername(USERNAME);
@@ -136,7 +136,7 @@ public class SonarQuestApplicationIT {
 		task.setTitle("coercing Death out of his impromptu retirement");
         task.setWorld(discWorld);
         task.setQuest(magicQuest);
-        task.setStatus(SonarQuestStatus.OPEN.getText());
+        task.setSonarQuestStatus(SonarQuestStatus.OPEN);
         return taskRepository.save(task);
 	}
 

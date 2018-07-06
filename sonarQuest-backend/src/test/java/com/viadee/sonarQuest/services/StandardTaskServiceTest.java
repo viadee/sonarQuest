@@ -44,17 +44,17 @@ public class StandardTaskServiceTest {
 
         task = standardTaskService.updateStandardTask(task);
 
-        assertEquals(SonarQuestStatus.CREATED.getText(), task.getStatus());
+        assertEquals(SonarQuestStatus.OPEN, task.getSonarQuestStatus());
 
         // case: existing created task -> no external changes
         final StandardTask createdStandardTask = new StandardTask();
         createdStandardTask.setKey("createdStandardTask");
-        createdStandardTask.setStatus(SonarQuestStatus.CREATED.getText());
+        createdStandardTask.setSonarQuestStatus(SonarQuestStatus.OPEN);
 
         when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
         standardTaskService.updateStandardTask(createdStandardTask);
 
-        assertEquals(SonarQuestStatus.CREATED.getText(), createdStandardTask.getStatus());
+        assertEquals(SonarQuestStatus.OPEN, createdStandardTask.getSonarQuestStatus());
 
         // case: existing created task -> no external changes
     }
@@ -63,7 +63,7 @@ public class StandardTaskServiceTest {
     public void testGetLastState() throws Exception {
         StandardTask task = new StandardTask();
         SonarQuestStatus lastState = standardTaskService.getLastState(task);
-        assertEquals(SonarQuestStatus.CREATED, lastState);
+        assertEquals(SonarQuestStatus.OPEN, lastState);
     }
 
 }

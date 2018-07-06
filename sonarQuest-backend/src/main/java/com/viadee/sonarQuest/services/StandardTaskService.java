@@ -50,11 +50,11 @@ public class StandardTaskService {
 
     public StandardTask updateStandardTask(final StandardTask task) {
         final SonarQuestStatus oldStatus = getLastState(task);
-        final SonarQuestStatus newStatus = SonarQuestStatus.fromStatusText(task.getStatus());
+        final SonarQuestStatus newStatus = task.getSonarQuestStatus();
         if (newStatus == SonarQuestStatus.SOLVED && oldStatus != SonarQuestStatus.SOLVED) {
             gratificationService.rewardUserForSolvingTask(task);
         }
-        task.setStatus(newStatus.getText());
+        task.setSonarQuestStatus(newStatus);
         return standardTaskRepository.saveAndFlush(task);
     }
 
@@ -77,7 +77,7 @@ public class StandardTaskService {
 
         final StandardTask st = new StandardTask(
                 standardTask.getTitle(),
-                SonarQuestStatus.CREATED.getText(),
+                SonarQuestStatus.OPEN.getText(),
                 standardTask.getGold(),
                 standardTask.getXp(),
                 standardTask.getQuest(),

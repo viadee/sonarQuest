@@ -94,7 +94,7 @@ public class QuestController {
         final Quest quest = questRepository.findOne(id);
         if (quest != null) {
             final List<Task> tasks = quest.getTasks();
-            tasks.forEach(task -> task.setStatus(SonarQuestStatus.CREATED.getText()));
+            tasks.forEach(task -> task.setSonarQuestStatus(SonarQuestStatus.OPEN));
             questRepository.delete(quest);
         }
     }
