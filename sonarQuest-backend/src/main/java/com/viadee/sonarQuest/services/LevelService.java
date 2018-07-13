@@ -13,8 +13,8 @@ public class LevelService {
     private LevelRepository levelRepository;
 
     public Level getLevelByUserXp(final Long xp) {
-    	//find highest level within users xp
-        return levelRepository.findFirstByMinXpIsLessThanEqualOrderByLevelDesc(xp, xp);
+        // find highest level within users xp
+        return levelRepository.findFirstByMinXpIsLessThanEqualOrderByLevelDesc(xp);
     }
 
     public Level findById(final Long id) {

@@ -50,7 +50,7 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   public xpPercent(): void {
-    this.XPpercent = 100 / this.user.level.max * this.user.xp;
+    this.XPpercent = 100 / this.user.level.maxXp * this.user.xp;
     this.XPpercent.toFixed(2);
   }
 

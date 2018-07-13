@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -69,19 +70,19 @@ public class User {
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
-    private List<World> worlds;
+    private List<World> worlds = new ArrayList<>(0);
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "User_Artefact", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"))
-    private List<Artefact> artefacts;
+    private List<Artefact> artefacts = new ArrayList<>(0);
 
     @JsonIgnore
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Adventure> adventures;
+    private List<Adventure> adventures = new ArrayList<>(0);
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Participation> participations;
+    private List<Participation> participations = new ArrayList<>(0);
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     private UiDesign uiDesign;
@@ -259,9 +260,10 @@ public class User {
 
     @Override
     public boolean equals(final Object that) {
-        return this.getId() == null ? this == that : that != null
-                && this.getClass().isInstance(that)
-                && Objects.equal(this.getId(), ((User) that).getId());
+        return this.getId() == null ? this == that
+                : that != null
+                        && this.getClass().isInstance(that)
+                        && Objects.equal(this.getId(), ((User) that).getId());
     }
 
 }

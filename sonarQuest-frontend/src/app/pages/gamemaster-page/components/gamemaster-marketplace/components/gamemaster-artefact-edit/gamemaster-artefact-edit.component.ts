@@ -65,7 +65,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
       this.filter();
     });
     this.name = this.artefact.name;
-    this.min = this.artefact.minLevel.min;
+    this.min = this.artefact.minLevel.minXp;
     this.price = this.artefact.price;
     this.description = this.artefact.description;
     this.quantity = this.artefact.quantity;
