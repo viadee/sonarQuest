@@ -5,6 +5,8 @@ addons:
     organization: "viadee"
     token:
       secure: "HlBvsN5OWhBqjswSBJIlk2R6CmlB8b/MotUJpHjPWR7Itipb/e+Zp9TSFJkAR5qGvBScTCQESS+lBdK9w1xMTCKpUuL/1PUi+sQaSHHZdkEkVZux3m5mpjW8pfRvTTWqZT7BKlFRninNB7SrajNCSYLHT8HgskfM2Ew8VkJEok+DTC4vZeBRlEzzyvhENw5U/dOPIU9JX8TX3f6aJ5Ni3nnkWCUPYf9coIVtTWATHJj1RbeZzjfn0NAhPYcQIYhgI1hedQWFRJzfH151pUykf7cYBB/uDo0iqsGrwsrw39r68AGDMe1S55U4rCF1pcZuMAo+lEsYoZw1E8JylJj1RbO0zGVoEXzXDP8mwwO2a7W4ndAMqNavOmaNtFrOEuKQFw8Ge1kDNLfTU+vm+8g6lY/vSyDCEaKJIHAMnbUxXSdQ6DTctn8ydJzlgOCW4XUzg2YW7YopM8nFav1vchnbeKrnkbIZNA4CVdT1e+D1R4xATUUOtVuwdmC/9K7gGcY3paE9zFR7kcInMWINNtPbisylOkY3Gag1dRAuAt9JKwpROCgIyIXFr9NnTaE+3LmLKfNdYpR8v10DCzSqyLX119xzxp2i9zY8syuxLluYPf9PwIZBj+kwSWhmMItsnNUo4PRWDMdNFDi0vh2jcAgJhB3G9mZgnLLTw6H+3Jdmlog="
+  
+  before_script: cd sonarQuest-backend
   script:
     # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
