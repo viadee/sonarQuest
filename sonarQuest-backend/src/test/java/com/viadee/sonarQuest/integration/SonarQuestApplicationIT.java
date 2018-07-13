@@ -167,7 +167,6 @@ public class SonarQuestApplicationIT {
         user.setAvatarClass(avatarClassRepository.findByName(USER_AVATAR_CLASS));
         user.setAvatarRace(avatarRaceRepository.findByName(USER_AVATAR_RACE));
         user.setCurrentWorld(discWorld);
-        // user.setArtefacts(new ArrayList<>());
         user.setLevel(levelService.getLevelByUserXp(0l));
         return userService.save(user);
     }
