@@ -24,7 +24,7 @@ public class SpecialTaskService {
 
         final SpecialTask sp = new SpecialTask(
                 specialTaskDto.getTitle(),
-                SonarQuestStatus.OPEN.getText(),
+                SonarQuestStatus.OPEN,
                 specialTaskDto.getGold(),
                 specialTaskDto.getXp(),
                 specialTaskDto.getQuest(),

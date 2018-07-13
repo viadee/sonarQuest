@@ -35,6 +35,7 @@ public class StandardTaskServiceTest {
     public void testUpdateStandardTask() {
         StandardTask task = new StandardTask();
         task.setKey("Color of Magic!");
+        task.setStatus(SonarQuestStatus.OPEN);
         when(standardTaskRepository.save(Matchers.any(StandardTask.class))).thenReturn(task);
         when(standardTaskRepository.saveAndFlush(Matchers.any(StandardTask.class))).thenReturn(task);
         when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
@@ -44,17 +45,17 @@ public class StandardTaskServiceTest {
 
         task = standardTaskService.updateStandardTask(task);
 
-        assertEquals(SonarQuestStatus.OPEN, task.getSonarQuestStatus());
+        assertEquals(SonarQuestStatus.OPEN, task.getStatus());
 
         // case: existing created task -> no external changes
         final StandardTask createdStandardTask = new StandardTask();
         createdStandardTask.setKey("createdStandardTask");
-        createdStandardTask.setSonarQuestStatus(SonarQuestStatus.OPEN);
+        createdStandardTask.setStatus(SonarQuestStatus.OPEN);
 
         when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
         standardTaskService.updateStandardTask(createdStandardTask);
 
-        assertEquals(SonarQuestStatus.OPEN, createdStandardTask.getSonarQuestStatus());
+        assertEquals(SonarQuestStatus.OPEN, createdStandardTask.getStatus());
 
         // case: existing created task -> no external changes
     }

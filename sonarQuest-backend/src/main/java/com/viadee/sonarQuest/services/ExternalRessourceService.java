@@ -77,12 +77,12 @@ public class ExternalRessourceService {
 		StandardTask sonarQubeTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
 		if (sonarQubeTask == null) {
 			//new issue from SonarQube: Create new task
-			sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status.getText(), gold, xp, null, world,
+			sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status, gold, xp, null, world,
 					sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
 					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
 		} else {
 			//issue already in SonarQuest database: update the task
-			sonarQubeTask.setSonarQuestStatus(status);
+			sonarQubeTask.setStatus(status);
 		}
 		return sonarQubeTask;
 	}

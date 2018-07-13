@@ -10,7 +10,6 @@ public enum SonarQuestStatus {
 
     //@formatter:off
     OPEN("OPEN"),
-    PROCESSED("PROCESSED"),
     CLOSED("CLOSED"),
     SOLVED("SOLVED");
     //@formatter:on
