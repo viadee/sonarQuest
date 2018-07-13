@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
 
 @Transactional
 public interface TaskRepository extends TaskBaseRepository<Task> {
@@ -22,4 +23,6 @@ public interface TaskRepository extends TaskBaseRepository<Task> {
     List<Task> findByQuestAndStatus(Quest quest, String status);
 
     List<Task> findByWorldAndStatus(World world, String status);
+
+	List<Task> findByWorldAndStatusAndQuestIsNull(World world, SonarQuestStatus open);
 }
