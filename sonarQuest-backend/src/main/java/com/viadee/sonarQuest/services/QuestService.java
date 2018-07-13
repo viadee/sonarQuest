@@ -41,7 +41,7 @@ public class QuestService implements QuestSuggestion {
 
     @Override
     public List<Task> suggestTasksWithApproxGoldAmount(final World world, final Long goldApprox) {
-        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
         final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalGoldAmountOfTaskList(suggestedTasks) < goldApprox) && (!freeTasks.isEmpty())) {
             final Task selectedTask = selectRandomTask(freeTasks);
@@ -53,7 +53,7 @@ public class QuestService implements QuestSuggestion {
 
     @Override
     public List<Task> suggestTasksWithApproxXpAmount(final World world, final Long xpApprox) {
-        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText());
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
         final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalXpAmountOfTaskList(suggestedTasks) < xpApprox) && (!freeTasks.isEmpty())) {
             final Task selectedTask = selectRandomTask(freeTasks);

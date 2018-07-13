@@ -164,8 +164,11 @@ CREATE TABLE Ui_Design (
   id      BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name    VARCHAR(64) NOT NULL,
   user_id BIGINT,
-  FOREIGN KEY (user_id) REFERENCES User (id)
+  FOREIGN KEY (user_id) REFERENCES User (id) 
 );
+
+
+
 
 CREATE TABLE Task (
   id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,

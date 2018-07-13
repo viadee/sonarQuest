@@ -23,7 +23,6 @@ import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.SpecialTaskRepository;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
-import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
@@ -32,14 +31,12 @@ import com.viadee.sonarQuest.services.ParticipationService;
 import com.viadee.sonarQuest.services.QuestService;
 import com.viadee.sonarQuest.services.SpecialTaskService;
 import com.viadee.sonarQuest.services.StandardTaskService;
+import com.viadee.sonarQuest.services.TaskService;
 import com.viadee.sonarQuest.services.UserService;
 
 @RestController
 @RequestMapping("/task")
 public class TaskController {
-
-    @Autowired
-    private TaskRepository taskRepository;
 
     @Autowired
     private StandardTaskRepository standardTaskRepository;
@@ -53,6 +50,9 @@ public class TaskController {
     @Autowired
     private ParticipationService participationService;
 
+    @Autowired
+    private TaskService taskService;
+    
     @Autowired
     private StandardTaskService standardTaskService;
 
@@ -111,7 +111,7 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Task getTaskById(@PathVariable(value = "id") final Long id) {
-        final Task task = taskRepository.findById(id);
+        final Task task = taskService.find(id);
         return task;
     }
 
@@ -134,26 +134,24 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable(value = "id") final Long id) {
-        final Task task = taskRepository.findById(id);
+        final Task task = taskService.find(id);
         if (task instanceof SpecialTask) {
-            taskRepository.delete(task);
+            taskService.delete(task);
         }
     }
 
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<Task> allTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
-        allTasks.addAll(taskRepository.findByWorldAndStatus(world, SonarQuestStatus.CREATED.getText()));
-        return allTasks;
+        return taskService.getFreeTasksForWorld(world);
     }
 
     @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
     public Task solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
-        Task task = taskRepository.findOne(taskId);
+        Task task = taskService.find(taskId);
         if (task != null && task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.SOLVED.getText());
-            task = taskRepository.save(task);
+            task.setStatus(SonarQuestStatus.SOLVED);
+            task = taskService.save(task);
             gratificationService.rewardUserForSolvingTask(task);
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
@@ -163,10 +161,10 @@ public class TaskController {
 
     @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
     public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
-        Task task = taskRepository.findOne(taskId);
+        Task task = taskService.find(taskId);
         if (task != null && task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.CLOSED.getText());
-            task = taskRepository.save(task);
+            task.setStatus(SonarQuestStatus.CLOSED);
+            task = taskService.save(task);
             questService.updateQuest(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
@@ -177,23 +175,23 @@ public class TaskController {
     @ResponseStatus(HttpStatus.CREATED)
     public Task addToQuest(@PathVariable(value = "taskId") final Long taskId,
             @PathVariable(value = "questId") final Long questId) {
-        Task task = taskRepository.findOne(taskId);
+        Task task = taskService.find(taskId);
         if (task != null) {
             final Quest quest = questRepository.findOne(questId);
             task.setQuest(quest);
-            task.setStatus(SonarQuestStatus.OPEN.getText());
-            task = taskRepository.save(task);
+            task.setStatus(SonarQuestStatus.OPEN);
+            task = taskService.save(task);
         }
         return task;
     }
 
     @RequestMapping(value = "/{taskId}/deleteFromQuest", method = RequestMethod.DELETE)
     public void deleteFromQuest(@PathVariable(value = "taskId") final Long taskId) {
-        final Task task = taskRepository.findOne(taskId);
+        final Task task = taskService.find(taskId);
         if (task != null) {
             task.setQuest(null);
-            task.setStatus(SonarQuestStatus.CREATED.getText());
-            taskRepository.save(task);
+            task.setStatus(SonarQuestStatus.OPEN);
+            taskService.save(task);
         }
     }
 
@@ -204,47 +202,43 @@ public class TaskController {
             @PathVariable(value = "questId") final Long questId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
-        Task task = taskRepository.findOne(taskId);
+        Task task = taskService.find(taskId);
         final Participation participation = participationService.findParticipationByQuestIdAndUserId(questId,
                 user.getId());
         if (task != null && participation != null) {
             task.setParticipation(participation);
-            task.setStatus(SonarQuestStatus.PROCESSED.getText());
-            task = taskRepository.save(task);
+            task = taskService.save(task);
         }
         return task;
     }
 
     @RequestMapping(value = "/{taskId}/deleteParticipation", method = RequestMethod.DELETE)
     public void deleteParticipation(@PathVariable(value = "taskId") final Long taskId) {
-        final Task task = taskRepository.findOne(taskId);
+        final Task task = taskService.find(taskId);
         if (task != null) {
             task.setParticipation(null);
-            task.setStatus(SonarQuestStatus.OPEN.getText());
-            taskRepository.save(task);
+            task.setStatus(SonarQuestStatus.OPEN);
+            taskService.save(task);
         }
     }
     
     @RequestMapping(value = "/{taskId}/solveManually", method = RequestMethod.PUT)
     public void solveManually(@PathVariable(value = "taskId") final Long taskId) {
-        final Task task = taskRepository.findOne(taskId);
-        if (task != null && task.getStatus() != SonarQuestStatus.SOLVED.getText()) {
-            task.setStatus(SonarQuestStatus.SOLVED.getText());
+        final Task task = taskService.find(taskId);
+        if (task != null && !(SonarQuestStatus.SOLVED.equals(task.getStatus()))) {
+            task.setStatus(SonarQuestStatus.SOLVED);
             gratificationService.rewardUserForSolvingTask(task);
-            taskRepository.save(task);
+            taskService.save(task);
         }
     }
 
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldRepository.findOne(worldId);
-        List<Task> taskDtos = null;
         if (world != null) {
             standardTaskService.updateStandardTasks(world);
-            final List<Task> savedTasks = taskRepository.findAll();
-            taskDtos = savedTasks;
         }
-        return taskDtos;
+        return taskService.findAll();
     }
 
 }

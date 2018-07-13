@@ -9,9 +9,7 @@ package com.viadee.sonarQuest.rules;
 public enum SonarQuestStatus {
 
     //@formatter:off
-    CREATED("CREATED"),
     OPEN("OPEN"),
-    PROCESSED("PROCESSED"),
     CLOSED("CLOSED"),
     SOLVED("SOLVED");
     //@formatter:on
@@ -38,7 +36,7 @@ public enum SonarQuestStatus {
      */
     public static SonarQuestStatus fromStatusText(String statusText) {
         if (statusText == null) {
-        	return SonarQuestStatus.CREATED;
+        	return SonarQuestStatus.OPEN;
         }
     	for (SonarQuestStatus status : values()) {
             if (status.getText().equals(statusText)) {

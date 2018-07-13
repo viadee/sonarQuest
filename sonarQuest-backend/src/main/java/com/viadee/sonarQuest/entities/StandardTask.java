@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.viadee.sonarQuest.rules.SonarQuestStatus;
+
 @Entity
 @DiscriminatorValue("STANDARD")
 public class StandardTask extends Task {
@@ -26,7 +28,7 @@ public class StandardTask extends Task {
     public StandardTask() {
     }
 
-    public StandardTask(final String title, final String status, final Long gold, final Long xp, final Quest quest,
+    public StandardTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp, final Quest quest,
             final World world, final String key,
             final String component, final String severity, final String type, final Integer debt,
             final String issueKey) {

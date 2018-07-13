@@ -4,6 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -29,7 +31,8 @@ public class Task {
     private String title;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private SonarQuestStatus status;
 
     @Column(name = "gold")
     private Long gold;
@@ -69,17 +72,16 @@ public class Task {
     public void setTitle(final String title) {
         this.title = title;
     }
+    
+    public SonarQuestStatus getStatus() {
+		return status;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setStatus(SonarQuestStatus status) {
+		this.status = status;
+	}
 
-    //XXX refactor: keep Status as Enum
-    public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
+	public Long getGold() {
         return gold;
     }
 
