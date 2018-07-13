@@ -28,7 +28,7 @@ import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
-import com.viadee.sonarQuest.services.ExternalRessourceService;
+import com.viadee.sonarQuest.services.LevelService;
 import com.viadee.sonarQuest.services.RoleService;
 import com.viadee.sonarQuest.services.StandardTaskService;
 import com.viadee.sonarQuest.services.UserService;
@@ -55,6 +55,9 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private TaskController taskController;
+    
+    @Autowired
+    private LevelService levelService;
 
     @Autowired
     private QuestRepository questRepository;
@@ -148,7 +151,8 @@ public class SonarQuestApplicationIT {
         user.setAvatarClass(avatarClassRepository.findByName(USER_AVATAR_CLASS));
         user.setAvatarRace(avatarRaceRepository.findByName(USER_AVATAR_RACE));
         user.setCurrentWorld(discWorld);
-        user.setArtefacts(new ArrayList<>());
+//        user.setArtefacts(new ArrayList<>());
+        user.setLevel(levelService.getLevelByUserXp(0l));
         return userService.save(user);
 	}
 

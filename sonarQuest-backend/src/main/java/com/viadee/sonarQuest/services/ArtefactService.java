@@ -35,31 +35,17 @@ public class ArtefactService {
     }
 
     public Artefact createArtefact(final Artefact artefact) {
-        final Level level = new Level();
-        level.setMin(artefact.getMinLevel().getMin());
-        levelService.save(level);
-        artefact.setMinLevel(level);
-        artefactRepository.saveAndFlush(artefact);
-        return artefact;
+        return artefactRepository.save(artefact);
     }
 
     public Artefact updateArtefact(final Long id, final Artefact artefactDto) {
         final Artefact artefact = artefactRepository.findOne(id);
-        Level level;
-        if (artefactDto.getMinLevel().getId() == null) {
-            level = new Level();
-            level.setMin(artefact.getMinLevel().getMin());
-        } else {
-            level = levelService.findById(artefact.getMinLevel().getId());
-        }
-        levelService.save(level);
-
         artefact.setName(artefactDto.getName());
         artefact.setIcon(artefactDto.getIcon());
         artefact.setPrice(artefactDto.getPrice());
         artefact.setDescription(artefactDto.getDescription());
         artefact.setQuantity(artefactDto.getQuantity());
-        artefact.setMinLevel(level);
+        artefact.setMinLevel(levelService.findById(artefactDto.getMinLevel().getId()));
         artefact.setSkills(artefactDto.getSkills());
         return artefactRepository.save(artefact);
     }
@@ -86,11 +72,10 @@ public class ArtefactService {
         }
 
         // When the LEVEL of the developer is too low, then the purchase is canceled
-        final long minLevel = artefact.getMinLevel().getMin();
-        final long xp = user.getXp();
-        final long devLevel = userService.getLevel(xp);
+        final Level minLevel = artefact.getMinLevel();
+        final Level devLevel = user.getLevel();
 
-        if (minLevel > devLevel) {
+        if (minLevel.getLevel() > devLevel.getLevel()) {
             return null;
         }
 

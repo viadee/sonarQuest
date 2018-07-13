@@ -1,9 +1,9 @@
 INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
   ('World of Sonar Quest', 'https://sonarcloud.io');
 
-INSERT INTO Level (min, max) VALUES
-  (0, 10),
-  (11, 30);
+INSERT INTO Level (level, min_xp, max_xp) VALUES
+  (1, 0, 10),
+  (2, 11, 30);
 
 INSERT INTO Avatar_Class (name) VALUES
   ('Magician'),
