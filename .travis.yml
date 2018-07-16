@@ -1,2 +1,12 @@
 language: java
 before_install: cd sonarQuest-backend
+addons:
+  #sonarcloud analysis with the travis plugin, see https://docs.travis-ci.com/user/sonarcloud/
+  sonarcloud:
+    organization: "viadee"
+    #token is provided by the environment variable SONAR_TOKEN in travis settings
+    token:
+      secure: $SONAR_TOKEN
+script:
+    # the following command line builds the project, runs the tests with coverage and then executes the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar 
