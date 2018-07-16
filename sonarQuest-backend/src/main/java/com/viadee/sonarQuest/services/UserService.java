@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.entities.Permission;
 import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
@@ -115,24 +116,8 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public long getLevel(final long xp) {
-        return calculateLevel(xp, 1);
-    }
-
-    private long calculateLevel(final long xp, final long level) {
-        final long step = 10;
-        long xpForNextLevel = 0;
-
-        for (long i = 1; i <= level; i++) {
-            xpForNextLevel = xpForNextLevel + step;
-        }
-
-        // Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
-        if (level == 200 || (xp < xpForNextLevel)) {
-            return level;
-        } else {
-            return calculateLevel(xp, level + 1);
-        }
+    public Level getLevel(final long xp) {
+        return levelService.getLevelByUserXp(xp);
     }
 
 }

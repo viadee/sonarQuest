@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -27,8 +25,6 @@ import com.viadee.sonarQuest.services.UserService;
 @RestController
 @RequestMapping(PathConstants.USER_URL)
 public class UserController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Value("${avatar.directory}")
     private String avatarDirectoryPath;
@@ -78,8 +74,8 @@ public class UserController {
     }
 
     private byte[] loadAvatar(final User user) throws IOException {
-        File avatarDirectory = new File(avatarDirectoryPath);
-        String avatarFilePath = avatarDirectory.getAbsolutePath() + File.separator + user.getPicture();
+        final File avatarDirectory = new File(avatarDirectoryPath);
+        final String avatarFilePath = avatarDirectory.getAbsolutePath() + File.separator + user.getPicture();
         if (new File(avatarFilePath).exists()) {
             return Files.toByteArray(new File(avatarFilePath));
         } else {

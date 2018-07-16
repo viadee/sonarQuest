@@ -6,6 +6,8 @@ import {SpecialTask} from '../Interfaces/SpecialTask';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
+import {Task} from '../Interfaces/Task';
+import {StandardTask} from '../Interfaces/StandardTask';
 
 @Injectable()
 export class SpecialTaskService {
@@ -48,6 +50,15 @@ export class SpecialTaskService {
   solveSpecialTask(specialTask: any): Promise<SpecialTask> {
       return this.http.put<SpecialTask>(`${environment.endpoint}/task/${specialTask.id}/solveSpecialTask/`, specialTask)
       .toPromise()
+      .catch(this.handleError);
+  }
+
+  public getFreeSpecialTasksForWorldExcept(world: World, excludetTasks: Task[]): Promise<SpecialTask[]> {
+    return this.http.get<SpecialTask[]>(`${environment.endpoint}/task/special/world/${world.id}`)
+      .toPromise().then(tasks => {
+        const excludetTaskIds = excludetTasks.map(task => task.id);
+        return tasks.filter(task => !excludetTaskIds.includes(task.id));
+      })
       .catch(this.handleError);
   }
 

@@ -41,7 +41,7 @@ public class QuestService implements QuestSuggestion {
 
     @Override
     public List<Task> suggestTasksWithApproxGoldAmount(final World world, final Long goldApprox) {
-        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN);
         final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalGoldAmountOfTaskList(suggestedTasks) < goldApprox) && (!freeTasks.isEmpty())) {
             final Task selectedTask = selectRandomTask(freeTasks);
@@ -53,7 +53,7 @@ public class QuestService implements QuestSuggestion {
 
     @Override
     public List<Task> suggestTasksWithApproxXpAmount(final World world, final Long xpApprox) {
-        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN.getText());
+        final List<Task> freeTasks = taskRepository.findByWorldAndStatus(world, SonarQuestStatus.OPEN);
         final List<Task> suggestedTasks = new ArrayList<>();
         while ((totalXpAmountOfTaskList(suggestedTasks) < xpApprox) && (!freeTasks.isEmpty())) {
             final Task selectedTask = selectRandomTask(freeTasks);
@@ -84,8 +84,8 @@ public class QuestService implements QuestSuggestion {
 
     public void updateQuest(final Quest quest) {
         final List<Task> tasks = quest.getTasks();
-        final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED.getText());
-        final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED.getText());
+        final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED);
+        final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED);
         if (tasks.size() == (solvedTasks.size() + closedTasks.size())) {
             quest.setStatus(QuestStates.SOLVED);
             questRepository.save(quest);
