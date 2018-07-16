@@ -58,7 +58,7 @@ export class MarketplacePageComponent implements OnInit {
     const user: User = this.userService.getUser();
     const userArtefacts: Artefact[] = user.artefacts;
     userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
-    this.level = this.userService.getLevel(user.xp);
+    this.level = user.level.level;
   }
 
   buyArtefact(artefact: Artefact) {

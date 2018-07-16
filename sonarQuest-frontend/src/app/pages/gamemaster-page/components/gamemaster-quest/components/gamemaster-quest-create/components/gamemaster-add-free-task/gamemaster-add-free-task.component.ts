@@ -1,12 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Task} from 'app/Interfaces/Task';
-import {TaskService} from '../../../../../../../../services/task.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
 import {SonarCubeService} from '../../../../../../../../services/sonar-cube.service';
-import {World} from '../../../../../../../../Interfaces/World';
-import {WorldService} from '../../../../../../../../services/world.service';
-
+import {StandardTask} from '../../../../../../../../Interfaces/StandardTask';
+import {SpecialTask} from '../../../../../../../../Interfaces/SpecialTask';
+import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
+import {SpecialTaskService} from '../../../../../../../../services/special-task.service';
+import {IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder} from '@covalent/core';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',
@@ -15,35 +16,87 @@ import {WorldService} from '../../../../../../../../services/world.service';
 })
 export class GamemasterAddFreeTaskComponent implements OnInit {
 
-  currentWorld: World;
-  freeTasks: Task[];
+  freeStandardTasksColumns: ITdDataTableColumn[] = [
+    {name: 'title', label: 'Title', width: 500},
+    {name: 'gold', label: 'Gold', width: 50},
+    {name: 'xp', label: 'XP', width: 50},
+    {name: 'open_issue', label: ''},
+    {name: 'add_task', label: ''}
+  ];
+  fromRowStandardTasks = 1;
+  currentPageStandardTasks = 1;
+  filteredStandardTasks: StandardTask[];
+
+  freeSpecialTasksColumns: ITdDataTableColumn[] = [
+    {name: 'title', label: 'Title', width: 200},
+    {name: 'gold', label: 'Gold', width: 50},
+    {name: 'xp', label: 'XP', width: 50},
+    {name: 'message', label: 'Message', width: 400},
+    {name: 'add_task', label: ''}
+  ];
+  fromRowSpecialTasks = 1;
+  currentPageSpecialTasks = 1;
+  filteredSpecialTasks: StandardTask[];
+
+  pageSize = 8;
+
+  protected freeStandardTasks: StandardTask[];
+  protected freeSpecialTasks: SpecialTask[];
 
   constructor(
     private sonarCubeService: SonarCubeService,
-    private worldService: WorldService,
-    private taskService: TaskService,
     private dialogRef: MatDialogRef<GamemasterQuestCreateComponent>,
+    private standardTaskService: StandardTaskService,
+    private specialTaskService: SpecialTaskService,
+    private _dataTableService: TdDataTableService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
   }
 
   ngOnInit() {
-    this.currentWorld = this.data[0];
-    this.taskService.getFreeTasksForWorld(this.currentWorld).then(freetasks => {
-      const addedTasks = this.data[1].map(task => task.id);
-      this.freeTasks = freetasks.filter(task => {
-        return addedTasks.indexOf(task.id) < 0
-      });
+    this.specialTaskService.getFreeSpecialTasksForWorldExcept(this.data[0], this.data[1]).then(freeTasks => {
+      this.freeSpecialTasks = freeTasks;
+      this.pageSpecialTaskData();
+    });
+    this.standardTaskService.getFreeStandardTasksForWorldExcept(this.data[0], this.data[1]).then(freeTasks => {
+      this.freeStandardTasks = freeTasks;
+      this.pageStandardTaskData();
     });
   }
 
-  addTask(task: Task) {
+  protected addTask(task: Task) {
     this.dialogRef.close(task);
   }
 
-  openIssue(task: Task) {
-    this.sonarCubeService.getIssueLink(task.key, this.currentWorld)
+  protected openIssue(task: Task) {
+    this.sonarCubeService.getIssueLink(task.key, task.world)
       .then(link => window.open(link, '_blank'));
+  }
+
+  protected pageStandardTask(pagingEvent: IPageChangeEvent): void {
+    this.fromRowStandardTasks = pagingEvent.fromRow;
+    this.currentPageStandardTasks = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.pageStandardTaskData();
+  }
+
+  private pageStandardTaskData(): void {
+    let newData: any[] = this.freeStandardTasks;
+    newData = this._dataTableService.pageData(newData, this.fromRowStandardTasks, this.currentPageStandardTasks * this.pageSize);
+    this.filteredStandardTasks = newData;
+  }
+
+  protected pageSpecialTask(pagingEvent: IPageChangeEvent): void {
+    this.fromRowSpecialTasks = pagingEvent.fromRow;
+    this.currentPageSpecialTasks = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.pageSpecialTaskData();
+  }
+
+  private pageSpecialTaskData(): void {
+    let newData: any[] = this.freeSpecialTasks;
+    newData = this._dataTableService.pageData(newData, this.fromRowSpecialTasks, this.currentPageSpecialTasks * this.pageSize);
+    this.filteredSpecialTasks = newData;
   }
 
 }

@@ -1,5 +1,7 @@
 package com.viadee.sonarQuest.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,18 @@ public class SpecialTaskService {
         task.setXp(taskDto.getXp());
         task.setMessage(taskDto.getMessage());
         return specialTaskRepository.save(task);
+    }
+
+    public List<SpecialTask> findAll() {
+        return specialTaskRepository.findAll();
+    }
+
+    public List<SpecialTask> findByWorld(final World w) {
+        return specialTaskRepository.findByWorld(w);
+    }
+
+    public SpecialTask findById(final Long id) {
+        return specialTaskRepository.findOne(id);
     }
 
 }

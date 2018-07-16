@@ -74,23 +74,4 @@ export class UserService {
     return this.httpClient.delete(url).toPromise();
   }
 
-  public getLevel(xp: number): number {
-    return this.calculateLevel(xp, 1);
-  }
-
-  private calculateLevel(xp: number, level: number): number {
-    const step = 10;
-    let xpForNextLevel = 0;
-
-    for (let i = 1; i <= level; i++) {
-      xpForNextLevel = xpForNextLevel + step;
-    }
-
-    // Termination condition: Level 200 or when XP is smaller than the required XP to the higher level
-    if (level === 200 || (xp < xpForNextLevel)) {
-      return level
-    } else {
-      return this.calculateLevel(xp, level + 1)
-    }
-  }
 }

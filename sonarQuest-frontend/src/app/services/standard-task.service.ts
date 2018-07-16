@@ -25,7 +25,7 @@ export class StandardTaskService {
     this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`).subscribe(
       result => this.standardTaskSubject.next(result),
       err => this.standardTaskSubject.error(err)
-    )
+    );
     return this.standardTaskSubject.asObservable();
   }
 
@@ -39,6 +39,15 @@ export class StandardTaskService {
   updateStandardTasksForWorld(world: World): Promise<Task[]> {
     return this.http.get<Task[]>(`${environment.endpoint}/task/updateStandardTasks/${world.id}`)
       .toPromise()
+      .catch(this.handleError);
+  }
+
+  public getFreeStandardTasksForWorldExcept(world: World, excludetTasks: Task[]): Promise<StandardTask[]> {
+    return this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`)
+      .toPromise().then(tasks => {
+        const excludetTaskIds = excludetTasks.map(task => task.id);
+        return tasks.filter(task => !excludetTaskIds.includes(task.id));
+      })
       .catch(this.handleError);
   }
 

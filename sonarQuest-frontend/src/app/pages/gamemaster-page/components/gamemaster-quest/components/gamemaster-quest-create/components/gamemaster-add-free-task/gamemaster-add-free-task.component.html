@@ -2,26 +2,62 @@
   <h2 mat-dialog-title>{{"TASK.ADD_FREE_TASK" | translate}}</h2>
 </mat-toolbar>
 <mat-dialog-content>
-  <mat-list>
-    <mat-list-item *ngFor="let task of freeTasks">
-      <h3 mat-line> {{task.title}} </h3>
-      <p mat-line>
-        <span *ngIf="task.debt">{{"TASK.STANDARDTASK" | translate}}</span>
-        <span *ngIf="!task.debt">{{"TASK.SPECIALTASK" | translate}}</span>
-      </p>
-      <p mat-line>
-        <span>{{"DEVELOPER.GOLD" | translate}}: {{task.gold}}, </span>
-        <span>{{"DEVELOPER.XP" | translate}}: {{task.xp}}</span>
-      </p>
-      <button mat-fab color="accent" (click)="openIssue(task)">
-        <i class="ra ra-chain"></i>
-      </button>
+  <mat-tab-group>
+    <mat-tab [label]="'TASK.FREE_STANDARDTASKS' | translate">
+      <div *ngIf="freeStandardTasks">
+        <td-data-table #dataTable [data]="filteredStandardTasks" [columns]="freeStandardTasksColumns">
+          <ng-template tdDataTableTemplate="open_issue" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
+              <button mat-icon-button (click)="openIssue(row)">
+                <i class="ra ra-chain"></i>
+              </button>
+            </div>
+          </ng-template>
+          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
+              <button mat-icon-button (click)="addTask(row)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </td-data-table>
+        <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+          <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
+        </div>
+        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar
+                       [pageSize]="pageSize" [total]="freeStandardTasks.length" (change)="pageStandardTask($event)">
+          <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}
+          <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+        </td-paging-bar>
+      </div>
+      <div *ngIf="!freeStandardTasks">
+        <mat-spinner></mat-spinner>
+      </div>
+    </mat-tab>
 
-      <button mat-fab color="accent" (click)="addTask(task)">
-        <mat-icon>add</mat-icon>
-      </button>
-
-    </mat-list-item>
-  </mat-list>
-  <h2 *ngIf="freeTasks?.length==0">{{"TASK.NO_FREE_TASKS_AVAILABLE" | translate}}!</h2>
+    <mat-tab [label]="'TASK.FREE_SPECIALTASKS' | translate">
+      <div *ngIf="freeSpecialTasks">
+        <td-data-table #dataTable [data]="filteredSpecialTasks" [columns]="freeSpecialTasksColumns">
+          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
+              <button mat-icon-button (click)="addTask(row)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </td-data-table>
+        <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+          <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
+        </div>
+        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar
+                       [pageSize]="pageSize" [total]="freeSpecialTasks.length" (change)="pageSpecialTask($event)">
+          <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}
+          <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+        </td-paging-bar>
+      </div>
+      <div *ngIf="!freeSpecialTasks">
+        <mat-spinner></mat-spinner>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>

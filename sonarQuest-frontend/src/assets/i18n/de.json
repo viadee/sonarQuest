@@ -62,7 +62,9 @@
       "CONDITION": "Bedingung",
       "AMOUNT": "Anzahl",
       "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
-      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor"
+      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
+      "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
+      "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
     }
   },
   "TABLE": {
@@ -145,7 +147,9 @@
     "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
     "AVAILABLE_TASKS": "Verfügbare Aufträge",
     "MISSION": "Mission",
-    "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status"
+    "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status",
+    "FREE_STANDARDTASKS": "Standardaufträge",
+    "FREE_SPECIALTASKS": "Spezialaufträge"
   },
   "ARTEFACT": {
     "ARTEFACTS": "Artefakt",

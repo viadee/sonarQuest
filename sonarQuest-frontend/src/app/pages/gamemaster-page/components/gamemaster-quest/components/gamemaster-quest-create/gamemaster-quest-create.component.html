@@ -70,10 +70,16 @@
       <span>{{"DEVELOPER.XP" | translate}}: {{calculateXpAmountOfTasks()}}</span>
     </div>
 
-    <button mat-icon-button color="accent" (click)="addFreeTask()">
+    <button mat-icon-button color="accent" (click)="addFreeTask()"
+            [matTooltip]="'GAMEMASTER_PAGE.TASK.ADD_FREE_TOOLTIP' | translate"
+            [matTooltipClass]="'tooltipMultiline'"
+            matTooltipPosition="after">
       <mat-icon>playlist_add</mat-icon>
     </button>
-    <button mat-icon-button color="accent" (click)="suggestTasks()">
+    <button mat-icon-button color="accent" (click)="suggestTasks()"
+            [matTooltip]="'GAMEMASTER_PAGE.TASK.SUGGEST_TASKS_TOOLTIP' | translate"
+            [matTooltipClass]="'tooltipMultiline'"
+            matTooltipPosition="after">
       <mat-icon>lightbulb_outline</mat-icon>
     </button>
 
