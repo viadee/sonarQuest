@@ -15,6 +15,8 @@ public interface TaskRepository extends TaskBaseRepository<Task> {
     @Override
     List<Task> findAll();
 
+    List<Task> findAllByOrderByScoreDesc();
+
     @Override
     List<Task> findAll(Iterable<Long> iterable);
 
@@ -24,5 +26,5 @@ public interface TaskRepository extends TaskBaseRepository<Task> {
 
     List<Task> findByWorldAndStatus(World world, String status);
 
-	List<Task> findByWorldAndStatusAndQuestIsNull(World world, SonarQuestStatus open);
+	List<Task> findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(World world, SonarQuestStatus open);
 }

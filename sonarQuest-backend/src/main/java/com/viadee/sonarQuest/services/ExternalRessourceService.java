@@ -2,7 +2,9 @@ package com.viadee.sonarQuest.services;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
@@ -30,13 +35,15 @@ import com.viadee.sonarQuest.rules.SonarQuestStatus;
  */
 @Service
 public class ExternalRessourceService {
+    @Autowired
+	private ObjectMapper mapper;
 
 	@Autowired
 	private StandardTaskEvaluationService standardTaskEvaluationService;
 
 	@Autowired
 	private SonarQubeStatusMapper statusMapper;
-	
+
     @Autowired
     private StandardTaskRepository standardTaskRepository;
 
@@ -153,4 +160,26 @@ public class ExternalRessourceService {
 		return response.getBody();
 	}
 
+    public Map<String,Double> getStandardTaskScores(World world) {
+        SonarConfig sonarConfig = sonarConfigService.getConfig();
+
+        RestTemplate restTemplate=new RestTemplate();
+
+        ObjectNode params = mapper.createObjectNode();
+        params.putObject("sonarServer").put("url",sonarConfig.getSonarServerUrl()).put("user",sonarConfig.getHttpBasicAuthUsername()).put("password",sonarConfig.getHttpBasicAuthPassword());
+        params.put("sonarProjectId",world.getProject());
+        params.put("predictionHorizon",256);
+        params.putObject("gitServer").
+                put("url",world.getGitServer().getUrl()).
+                put("user",world.getGitServer().getUsername()).
+                put("password",world.getGitServer().getPassword());
+        params.put("h2oUrl","http://localhost:54321");
+
+        ResponseEntity<JsonNode> response = restTemplate.postForEntity("http://localhost:5432/issues/desirability", params, JsonNode.class);
+
+        Map<String,Double> result = new HashMap<>();
+                response.getBody().fields().forEachRemaining(e->result.put(e.getKey(),e.getValue().get("desirabilityScore").doubleValue()));
+
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -83,4 +84,12 @@ public class StandardTaskService {
         standardTaskRepository.save(st);
     }
 
+    public void updateAllScores(World world, Map<String, Double> scores) {
+        for (StandardTask task : standardTaskRepository.findByWorldOrderByScoreDesc(world)) {
+            if (scores.containsKey(task.getIssueKey())) {
+                task.setScore(scores.get(task.getIssueKey()));
+                standardTaskRepository.save(task);
+            }
+        }
+    }
 }

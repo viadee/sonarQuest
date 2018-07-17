@@ -78,7 +78,7 @@ public class TaskController {
     public List<List<? extends Task>> getAllTasks() {
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
         taskDtos.add(specialTaskRepository.findAll());
-        taskDtos.add(standardTaskRepository.findAll());
+        taskDtos.add(standardTaskRepository.findAllByOrderByScoreDesc());
         return taskDtos;
     }
 
@@ -87,7 +87,7 @@ public class TaskController {
         final World w = worldRepository.findOne(world_id);
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
         taskDtos.add(specialTaskRepository.findByWorld(w));
-        taskDtos.add(standardTaskRepository.findByWorld(w));
+        taskDtos.add(standardTaskRepository.findByWorldOrderByScoreDesc(w));
         return taskDtos;
     }
 
@@ -106,7 +106,7 @@ public class TaskController {
     @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
     public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
-        return standardTaskRepository.findByWorld(w);
+        return standardTaskRepository.findByWorldOrderByScoreDesc(w);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

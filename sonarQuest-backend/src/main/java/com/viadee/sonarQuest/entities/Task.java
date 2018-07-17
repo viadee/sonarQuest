@@ -57,6 +57,9 @@ public class Task {
     @JoinColumn(name = "participation_id")
     private Participation participation;
 
+    @Column(name="score")
+    private double score = 1;
+
     public Long getId() {
         return id;
     }
@@ -129,4 +132,11 @@ public class Task {
         this.key = key;
     }
 
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
 }

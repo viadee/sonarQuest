@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -52,6 +53,10 @@ public class World {
     @ManyToMany
     @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<User> users;
+
+    @JoinColumn(name = "git_server_id")
+    @OneToOne(orphanRemoval = true)
+    private ServerInfo gitServer;
 
     public World() {
     }
@@ -124,6 +129,14 @@ public class World {
 
     public void setUsers(final List<User> users) {
         this.users = users;
+    }
+
+    public ServerInfo getGitServer() {
+        return gitServer;
+    }
+
+    public void setGitServer(ServerInfo gitServer) {
+        this.gitServer = gitServer;
     }
 
     @Override

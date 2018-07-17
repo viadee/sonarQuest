@@ -1,17 +1,19 @@
 package com.viadee.sonarQuest.repositories;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
 
-import javax.transaction.Transactional;
-import java.util.List;
-
 @Transactional
-public interface StandardTaskRepository extends TaskBaseRepository<StandardTask>{
+public interface StandardTaskRepository extends TaskBaseRepository<StandardTask> {
+    @Deprecated List<StandardTask> findAll();
 
-    List<StandardTask> findAll();
+    List<StandardTask> findAllByOrderByScoreDesc();
 
     StandardTask findByKey(String key);
-    
-    List<StandardTask> findByWorld(World world);
+
+    List<StandardTask> findByWorldOrderByScoreDesc(World world);
 }

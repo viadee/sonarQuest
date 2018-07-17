@@ -17,7 +17,7 @@ public class TaskService {
     private TaskRepository taskRepository;
 
 	public List<Task> getFreeTasksForWorld(World world) {
-		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
+		return taskRepository.findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(world, SonarQuestStatus.OPEN);
 	}
 	
 	public Task save(Task task) {
@@ -33,7 +33,7 @@ public class TaskService {
 	}
 
 	public List<Task> findAll() {
-		return taskRepository.findAll();
+		return taskRepository.findAllByOrderByScoreDesc();
 	}
 	
 }
