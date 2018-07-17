@@ -35,7 +35,7 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   private getAvatar() {
-    this.level = this.userService.getLevel(this.user.xp)
+    this.level = this.user.level.level;
     this.xpPercent();
     if (this.user) {
       this.userService.getImage().subscribe((blob) => {
@@ -50,7 +50,7 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   public xpPercent(): void {
-    this.XPpercent = 100 / this.user.level.max * this.user.xp;
+    this.XPpercent = 100 / this.user.level.maxXp * this.user.xp;
     this.XPpercent.toFixed(2);
   }
 

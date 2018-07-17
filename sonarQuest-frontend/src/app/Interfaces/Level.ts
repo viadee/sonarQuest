@@ -1,6 +1,6 @@
 export interface Level {
   id: number,
-  name: string,
-  min: number,
-  max: number
+  level: number,
+  minXp: number,
+  maxXp: number
 }

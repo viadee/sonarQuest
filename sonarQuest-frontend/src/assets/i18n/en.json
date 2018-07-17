@@ -62,7 +62,9 @@
       "CONDITION": "Condition",
       "AMOUNT": "Amount",
       "ADD_FREE_TOOLTIP": "Add free task",
-      "SUGGEST_TASKS_TOOLTIP": "Suggest random tasks"
+      "SUGGEST_TASKS_TOOLTIP": "Suggest random tasks",
+      "SOLVE_TASK_TOOLTIP": "Change status to 'closed'",
+      "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Remove task from quest"
     }
   },
   "TABLE": {
@@ -145,7 +147,9 @@
     "STANDARDTASK_FOR_WORLD": "All Standard Tasks for ",
     "AVAILABLE_TASKS": "Available Tasks",
     "MISSION": "Mission",
-    "UPDATE_STANDARD_TASKS_STATUS": "Update Status"
+    "UPDATE_STANDARD_TASKS_STATUS": "Update Status",
+    "FREE_STANDARDTASKS": "Standard Tasks",
+    "FREE_SPECIALTASKS": "Special Tasks"
   },
   "ARTEFACT": {
     "ARTEFACTS": "Artefacts",

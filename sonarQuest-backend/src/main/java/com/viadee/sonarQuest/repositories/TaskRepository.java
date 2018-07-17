@@ -22,9 +22,9 @@ public interface TaskRepository extends TaskBaseRepository<Task> {
 
     Task findById(Long id);
 
-    List<Task> findByQuestAndStatus(Quest quest, String status);
+    List<Task> findByQuestAndStatus(Quest quest, SonarQuestStatus status);
 
-    List<Task> findByWorldAndStatus(World world, String status);
+    List<Task> findByWorldAndStatus(World world, SonarQuestStatus status);
 
-	List<Task> findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(World world, SonarQuestStatus open);
+	List<Task> findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(World world, SonarQuestStatus status);
 }

@@ -15,15 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "Level")
 public class Level {
 
-    @Id
+	@Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "min")
-    private Long min;
+    @Column(name = "level")
+    private int level;
+    
+    @Column(name = "min_xp")
+    private Long minXp;
 
-    @Column(name = "max")
-    private Long max;
+    @Column(name = "max_xp")
+    private Long maxXp;
 
     @JsonIgnore
     @OneToMany(mappedBy = "level")
@@ -37,19 +40,19 @@ public class Level {
     }
 
     public Level(final Long min, final Long max) {
-        this.min = min;
-        this.max = max;
+        this.minXp = min;
+        this.maxXp = max;
     }
 
     public Level(final Long min, final Long max, final List<User> users, final List<Artefact> artefacts) {
-        this.min = min;
-        this.max = max;
+        this.minXp = min;
+        this.maxXp = max;
         this.users = users;
         this.artefacts = artefacts;
     }
 
     public Level(final Long minLevel) {
-        this.min = minLevel;
+        this.minXp = minLevel;
     }
 
     public Long getId() {
@@ -60,20 +63,20 @@ public class Level {
         this.id = id;
     }
 
-    public Long getMin() {
-        return min;
+    public Long getMinXp() {
+        return minXp;
     }
 
-    public void setMin(final Long min) {
-        this.min = min;
+    public void setMinXp(final Long min) {
+        this.minXp = min;
     }
 
-    public Long getMax() {
-        return max;
+    public Long getMaxXp() {
+        return maxXp;
     }
 
-    public void setMax(final Long max) {
-        this.max = max;
+    public void setMaxXp(final Long max) {
+        this.maxXp = max;
     }
 
     public List<User> getUsers() {
@@ -91,4 +94,12 @@ public class Level {
     public void setArtefacts(final List<Artefact> artefacts) {
         this.artefacts = artefacts;
     }
+    
+    public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 }

@@ -74,6 +74,6 @@ export class ArtefactService {
   }
 
   setMinLevel(artefact: Artefact, min: number) {
-    artefact.minLevel.min = min
+    artefact.minLevel.minXp = min
   }
 }

@@ -16,24 +16,42 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-	public List<Task> getFreeTasksForWorld(World world) {
-		return taskRepository.findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(world, SonarQuestStatus.OPEN);
-	}
-	
-	public Task save(Task task) {
-		return taskRepository.save(task);
-	}
-    
-	public Task find(Long id) {
-		return taskRepository.findById(id);
-	}    
-	
-	public void delete(Task task) {
-		taskRepository.delete(task);	
-	}
+    @Autowired
+    private GratificationService gratificationService;
 
-	public List<Task> findAll() {
-		return taskRepository.findAllByOrderByScoreDesc();
-	}
-	
+    @Autowired
+    private QuestService questService;
+
+    @Autowired
+    private AdventureService adventureService;
+
+    public List<Task> getFreeTasksForWorld(final World world) {
+        return taskRepository.findByWorldAndStatusAndQuestIsNullOrderByScoreDesc(world, SonarQuestStatus.OPEN);
+    }
+
+    public Task save(final Task task) {
+        return taskRepository.save(task);
+    }
+
+    public Task find(final Long id) {
+        return taskRepository.findById(id);
+    }
+
+    public void delete(final Task task) {
+        taskRepository.delete(task);
+    }
+
+    public List<Task> findAll() {
+        return taskRepository.findAllByOrderByScoreDesc();
+    }
+
+    public void solveTaskManually(final Task task) {
+        if (task != null && !(SonarQuestStatus.SOLVED.equals(task.getStatus()))) {
+            task.setStatus(SonarQuestStatus.SOLVED);
+            save(task);
+            gratificationService.rewardUserForSolvingTask(task);
+            questService.updateQuest(task.getQuest());
+            adventureService.updateAdventure(task.getQuest().getAdventure());
+        }
+    }
 }

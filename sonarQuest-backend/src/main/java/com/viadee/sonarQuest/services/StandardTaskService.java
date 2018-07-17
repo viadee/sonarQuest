@@ -60,11 +60,11 @@ public class StandardTaskService {
     }
 
     protected SonarQuestStatus getLastState(final StandardTask task) {
-        SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
-        String sql = "SELECT Status FROM Task WHERE id = :id";
-        RowMapper<String> rowmapper = new SingleColumnRowMapper<>();
-        List<String> statusTexte = template.query(sql, params, rowmapper);
-        String statusText = statusTexte.isEmpty() ? null : statusTexte.get(0);
+        final SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
+        final String sql = "SELECT Status FROM Task WHERE id = :id";
+        final RowMapper<String> rowmapper = new SingleColumnRowMapper<>();
+        final List<String> statusTexte = template.query(sql, params, rowmapper);
+        final String statusText = statusTexte.isEmpty() ? null : statusTexte.get(0);
         return SonarQuestStatus.fromStatusText(statusText);
     }
 
@@ -92,4 +92,14 @@ public class StandardTaskService {
             }
         }
     }
+
+
+    public List<StandardTask> findAll() {
+        return standardTaskRepository.findAll();
+    }
+
+    public List<StandardTask> findByWorld(final World w) {
+        return standardTaskRepository.findByWorldOrderByScoreDesc(w);
+    }
+
 }

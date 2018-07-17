@@ -8,8 +8,9 @@ CREATE TABLE Sonar_Config (
 
 CREATE TABLE Level (
   id  BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  min BIGINT,
-  max BIGINT
+  level int,
+  min_xp BIGINT,
+  max_xp BIGINT
 );
 
 CREATE TABLE Avatar_Class (

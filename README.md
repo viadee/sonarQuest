@@ -60,6 +60,8 @@ The levels are determined based on experience points (XP) as follows:
 |-------|---|----|----|----|----|----|----|----|
 | XP    | 0 | 10 | 30 | 60 | 100| 150| 210| 280|
 
+Levels 1 to 100 are included in the standard game data. In case you want to add some extra levels, consider reading the [level calculation documentation](docs/SonarQuest_Level_Calculation.ods). 
+
 #### Rating system
 Every issue is assessed in experience points and gold. The higher the severity of a issue the more experience points that a user gets.
 * Blocker = 10 XP

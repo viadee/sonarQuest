@@ -30,7 +30,7 @@ export class GamemasterQuestEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    //TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
+    // TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
     if (this.quest.status === 'SOLVED') {
       this.isSolved = true;
     } else {
@@ -48,10 +48,10 @@ export class GamemasterQuestEditComponent implements OnInit {
   }
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, {data: [this.quest.world, this.quest.tasks]})
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.quest.world, this.quest.tasks]})
       .afterClosed().subscribe(result => {
       if (result) {
-        this.quest.tasks.push(result);
+        this.quest.tasks.push(result)
       }
     });
   }
@@ -74,13 +74,13 @@ export class GamemasterQuestEditComponent implements OnInit {
     this.taskService.solveTaskManually(task);
     const taskIndex = this.quest.tasks.indexOf(task);
     // TODO: get new status from backend
-    this.quest.tasks[taskIndex].status='SOLVED';
+    this.quest.tasks[taskIndex].status = 'SOLVED';
   }
 
   solveAllTasks() {
     for (const index in this.quest.tasks) {
       this.taskService.solveTaskManually(this.quest.tasks[index]);
-      this.quest.tasks[index].status='SOLVED';
+      this.quest.tasks[index].status = 'SOLVED';
     }
   }
 

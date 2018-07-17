@@ -20,39 +20,26 @@ import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.repositories.QuestRepository;
-import com.viadee.sonarQuest.repositories.SpecialTaskRepository;
-import com.viadee.sonarQuest.repositories.StandardTaskRepository;
-import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
 import com.viadee.sonarQuest.services.AdventureService;
-import com.viadee.sonarQuest.services.GratificationService;
 import com.viadee.sonarQuest.services.ParticipationService;
 import com.viadee.sonarQuest.services.QuestService;
 import com.viadee.sonarQuest.services.SpecialTaskService;
 import com.viadee.sonarQuest.services.StandardTaskService;
 import com.viadee.sonarQuest.services.TaskService;
 import com.viadee.sonarQuest.services.UserService;
+import com.viadee.sonarQuest.services.WorldService;
 
 @RestController
 @RequestMapping("/task")
 public class TaskController {
 
     @Autowired
-    private StandardTaskRepository standardTaskRepository;
-
-    @Autowired
-    private SpecialTaskRepository specialTaskRepository;
-
-    @Autowired
-    private QuestRepository questRepository;
-
-    @Autowired
     private ParticipationService participationService;
 
     @Autowired
     private TaskService taskService;
-    
+
     @Autowired
     private StandardTaskService standardTaskService;
 
@@ -60,7 +47,7 @@ public class TaskController {
     private SpecialTaskService specialTaskService;
 
     @Autowired
-    private WorldRepository worldRepository;
+    private WorldService worldService;
 
     @Autowired
     private QuestService questService;
@@ -69,25 +56,22 @@ public class TaskController {
     private AdventureService adventureService;
 
     @Autowired
-    private GratificationService gratificationService;
-
-    @Autowired
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<List<? extends Task>> getAllTasks() {
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
-        taskDtos.add(specialTaskRepository.findAll());
-        taskDtos.add(standardTaskRepository.findAllByOrderByScoreDesc());
+        taskDtos.add(specialTaskService.findAll());
+        taskDtos.add(standardTaskService.findAll());
         return taskDtos;
     }
 
     @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
-    public List<List<? extends Task>> getAllTasksForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
+    public List<List<? extends Task>> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+        final World w = worldService.findById(worldId);
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
-        taskDtos.add(specialTaskRepository.findByWorld(w));
-        taskDtos.add(standardTaskRepository.findByWorldOrderByScoreDesc(w));
+        taskDtos.add(specialTaskService.findByWorld(w));
+        taskDtos.add(standardTaskService.findByWorld(w));
         return taskDtos;
     }
 
@@ -98,15 +82,15 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
-    public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
-        return specialTaskRepository.findByWorld(w);
+    public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+        final World w = worldService.findById(worldId);
+        return specialTaskService.findByWorld(w);
     }
 
     @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
-    public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
-        return standardTaskRepository.findByWorldOrderByScoreDesc(w);
+    public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+        final World w = worldService.findById(worldId);
+        return standardTaskService.findByWorld(w);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -142,21 +126,8 @@ public class TaskController {
 
     @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
-        final World world = worldRepository.findOne(worldId);
+        final World world = worldService.findById(worldId);
         return taskService.getFreeTasksForWorld(world);
-    }
-
-    @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
-    public Task solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
-        Task task = taskService.find(taskId);
-        if (task != null && task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.SOLVED);
-            task = taskService.save(task);
-            gratificationService.rewardUserForSolvingTask(task);
-            questService.updateQuest(task.getQuest());
-            adventureService.updateAdventure(task.getQuest().getAdventure());
-        }
-        return task;
     }
 
     @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
@@ -177,7 +148,7 @@ public class TaskController {
             @PathVariable(value = "questId") final Long questId) {
         Task task = taskService.find(taskId);
         if (task != null) {
-            final Quest quest = questRepository.findOne(questId);
+            final Quest quest = questService.findById(questId);
             task.setQuest(quest);
             task.setStatus(SonarQuestStatus.OPEN);
             task = taskService.save(task);
@@ -221,20 +192,24 @@ public class TaskController {
             taskService.save(task);
         }
     }
-    
+
+    @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
+    public SpecialTask solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
+        final SpecialTask task = specialTaskService.findById(taskId);
+        taskService.solveTaskManually(task);
+        return task;
+    }
+
     @RequestMapping(value = "/{taskId}/solveManually", method = RequestMethod.PUT)
-    public void solveManually(@PathVariable(value = "taskId") final Long taskId) {
+    public Task solveTaskManually(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskService.find(taskId);
-        if (task != null && !(SonarQuestStatus.SOLVED.equals(task.getStatus()))) {
-            task.setStatus(SonarQuestStatus.SOLVED);
-            gratificationService.rewardUserForSolvingTask(task);
-            taskService.save(task);
-        }
+        taskService.solveTaskManually(task);
+        return task;
     }
 
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
-        final World world = worldRepository.findOne(worldId);
+        final World world = worldService.findById(worldId);
         if (world != null) {
             standardTaskService.updateStandardTasks(world);
         }
