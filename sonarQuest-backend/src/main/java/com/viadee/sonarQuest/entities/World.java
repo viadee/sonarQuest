@@ -131,6 +131,7 @@ public class World {
         this.users = users;
     }
 
+    @JsonIgnore
     public ServerInfo getGitServer() {
         return gitServer;
     }
