@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{server.url}}</h2>
+<mat-dialog-content>
+  <div layout="column">
+    <div flex>
+      <mat-input-container>
+        <input matInput placeholder="URL" [(ngModel)]="server.url">
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container>
+        <input matInput placeholder="username" [(ngModel)]="server.username">
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container>
+        <input matInput placeholder="password" [(ngModel)]="server.password">
+      </mat-input-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="updateServer()">{{"GLOBAL.SAVE"| translate}}</button>
+
+  <button mat-button (click)="deleteServer()" *ngIf="server.id!==undefined">{{"GLOBAL.DELETE"| translate}}</button>
+</mat-dialog-actions>

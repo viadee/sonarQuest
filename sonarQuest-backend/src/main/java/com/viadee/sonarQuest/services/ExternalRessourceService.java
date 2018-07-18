@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.viadee.sonarQuest.entities.GitServer;
 import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
@@ -26,6 +27,7 @@ import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
 import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
+import com.viadee.sonarQuest.repositories.GitServerRepository;
 import com.viadee.sonarQuest.repositories.StandardTaskRepository;
 import com.viadee.sonarQuest.rules.SonarQubeStatusMapper;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
@@ -52,6 +54,9 @@ public class ExternalRessourceService {
 
 	@Autowired
 	private RestTemplateService restTemplateService;
+
+	@Autowired
+	private GitServerRepository gitServerRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
@@ -162,6 +167,7 @@ public class ExternalRessourceService {
 
     public Map<String,Double> getStandardTaskScores(World world) {
         SonarConfig sonarConfig = sonarConfigService.getConfig();
+		GitServer gitServer = gitServerRepository.findOneByWorld(world);
 
         RestTemplate restTemplate=new RestTemplate();
 
@@ -170,9 +176,9 @@ public class ExternalRessourceService {
         params.put("sonarProjectId",world.getProject());
         params.put("predictionHorizon",256);
         params.putObject("gitServer").
-                put("url",world.getGitServer().getUrl()).
-                put("user",world.getGitServer().getUsername()).
-                put("password",world.getGitServer().getPassword());
+                put("url", gitServer.getUrl()).
+                put("user", gitServer.getUsername()).
+                put("password", gitServer.getPassword());
         params.put("h2oUrl","http://localhost:54321");
 
         ResponseEntity<JsonNode> response = restTemplate.postForEntity("http://localhost:5432/issues/desirability", params, JsonNode.class);

@@ -4,7 +4,9 @@ import {WorldService} from './../../../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {
   IPageChangeEvent,
-  ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
+  ITdDataTableColumn,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
 import {MatDialog} from '@angular/material';
@@ -107,7 +109,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
     });
   }
 
-  updateStandardTasksStatus(){
+  updateStandardTasksStatus() {
      const loading = this.loadingService.getLoadingSpinner();
       this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
         this.taskService.refreshTasks(this.worldService.getCurrentWorld());
@@ -115,6 +117,16 @@ export class GamemasterStandardTaskComponent implements OnInit {
         this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
         loading.close();
       }).catch(() => loading.close())
+  }
+
+  updateStandardTasksScores() {
+    const loading = this.loadingService.getLoadingSpinner();
+    this.standardTaskService.updateStandardTasksScoresForWorld(this.worldService.getCurrentWorld()).then(() => {
+      this.taskService.refreshTasks(this.worldService.getCurrentWorld());
+      this.questService.refreshQuests(this.worldService.getCurrentWorld());
+      this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
+      loading.close();
+    }).catch(() => loading.close())
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

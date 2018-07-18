@@ -3,7 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {WorldService} from '../../../../services/world.service';
 import {World} from '../../../../Interfaces/World';
 import {
-  IPageChangeEvent, ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
+  IPageChangeEvent,
+  ITdDataTableColumn,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
 import {MatDialog} from '@angular/material';
@@ -12,6 +15,8 @@ import {TaskService} from '../../../../services/task.service';
 import {QuestService} from '../../../../services/quest.service';
 import {AdventureService} from '../../../../services/adventure.service';
 import {LoadingService} from '../../../../services/loading.service';
+import {EditGitComponent} from './components/edit-git/edit-git.component';
+import {GitServerService} from '../../../../services/git-server.service';
 
 @Component({
   selector: 'app-admin-world',
@@ -47,6 +52,7 @@ export class AdminWorldComponent implements OnInit {
               private taskService: TaskService,
               private _dataTableService: TdDataTableService,
               private translateService: TranslateService,
+              private gitServerService: GitServerService,
               private dialog: MatDialog,
               private loadingService: LoadingService) {
   }
@@ -87,6 +93,13 @@ export class AdminWorldComponent implements OnInit {
       this.loadWorlds();
       this.worldService.loadWorld();
     })
+  }
+
+
+  protected editServer(world: World) {
+    this.gitServerService.getServerForWorld(world).then((server) => {
+      this.dialog.open(EditGitComponent, {data: server})
+    });
   }
 
   updateWorlds() {

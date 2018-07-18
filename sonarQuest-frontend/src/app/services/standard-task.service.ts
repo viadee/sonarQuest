@@ -42,6 +42,12 @@ export class StandardTaskService {
       .catch(this.handleError);
   }
 
+  updateStandardTasksScoresForWorld(world: World): Promise<void> {
+    return this.http.post<void>(`${environment.endpoint}/externalRessource/updateScores/${world.id}`, null)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   public getFreeStandardTasksForWorldExcept(world: World, excludetTasks: Task[]): Promise<StandardTask[]> {
     return this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`)
       .toPromise().then(tasks => {

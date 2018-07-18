@@ -25,6 +25,8 @@ import {MyAvatarPageComponent} from './pages/my-avatar-page/my-avatar-page.compo
 import {AdventurePageComponent} from './pages/adventure-page/adventure-page.component';
 import {WorldService} from './services/world.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {GitServerService} from './services/git-server.service';
+
 import {GamemasterPageComponent} from './pages/gamemaster-page/gamemaster-page.component';
 import {AdminWorldComponent} from './pages/admin-page/components/admin-world/admin-world.component';
 import {GamemasterAdventureComponent} from './pages/gamemaster-page/components/gamemaster-adventure/gamemaster-adventure.component';
@@ -83,6 +85,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
+import { EditGitComponent } from './pages/admin-page/components/admin-world/components/edit-git/edit-git.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -105,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterQuestComponent,
     GamemasterTaskComponent,
     EditWorldComponent,
+    EditGitComponent,
     GamemasterStandardTaskComponent,
     GamemasterSpecialTaskComponent,
     GamemasterQuestCreateComponent,
@@ -136,9 +140,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     EmptyPageComponent,
     LoadingComponent,
+    EditGitComponent,
   ],
   entryComponents: [
     EditWorldComponent,
+    EditGitComponent,
     GamemasterQuestCreateComponent,
     GamemasterAddFreeTaskComponent,
     GamemasterSuggestTasksComponent,
@@ -203,6 +209,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [TdMediaService,
     WorldService,
     AdventureService,
+    GitServerService,
     QuestService,
     TaskService,
     StandardTaskService,

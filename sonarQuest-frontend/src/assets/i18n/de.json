@@ -23,9 +23,9 @@
     "AVAILABLE_QUESTS": "Verfügbare Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
     "COMBATED_BY": "angenommen von ",
-    "SHOW_ISSUE_TOOLTIP":"Zeige Sonar Issue",
-    "JOIN_ISSUE_TOOLTIP":"Kämpfe",
-    "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
+    "SHOW_ISSUE_TOOLTIP": "Zeige Sonar Issue",
+    "JOIN_ISSUE_TOOLTIP": "Kämpfe",
+    "CANCEL_ISSUE_TOOLTIP": "Höre auf zu kämpfen"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marktplatz"
@@ -99,7 +99,7 @@
     "NO_ENTRIES": "keine Einträge",
     "SEARCH": "Suche",
     "SAVE": "Speichern",
-    "SOLVEALLTASKS" : "Alle Aufgaben lösen",
+    "SOLVEALLTASKS": "Alle Aufgaben lösen",
     "IMAGE": "Bild",
     "CLICK_TO_SELECT": "Klick zum Wählen",
     "GOLD": "Gold",
@@ -148,6 +148,7 @@
     "AVAILABLE_TASKS": "Verfügbare Aufträge",
     "MISSION": "Mission",
     "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status",
+    "UPDATE_SCORES": "Aktualisiere Wertungen",
     "FREE_STANDARDTASKS": "Standardaufträge",
     "FREE_SPECIALTASKS": "Spezialaufträge"
   },
