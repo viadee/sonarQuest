@@ -64,10 +64,12 @@ Afterwards you can access the server at:
 
 So far some basic user data for the three roles exists with the following accounts:
 
-Account/Password: admin / test
-Account/Password: gm / test
-Account/Password: dev / test 
+Account/Password: `admin / test`
 
+Account/Password: `gm / test`
+
+Account/Password: `dev / test`
+ 
 When you start with a fresh DB, these are directly accessible.
 
 #### Test
