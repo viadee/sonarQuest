@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
+import com.viadee.sonarQuest.entities.World;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.services.ExternalRessourceService;
@@ -37,9 +39,11 @@ public class ExternalRessourceController {
 
     @PreAuthorize("hasAuthority('ACTIVE_WORLD_ACCESS')")
     @RequestMapping(value = "/updateScores/{worldId}", method = RequestMethod.POST)
-    public ResponseEntity<Void> updateScores(@PathVariable("worldId") final Long worldId) {
+    public ResponseEntity<Void> updateScores(@PathVariable("worldId") Long worldId) {
         try {
-            standardTaskService.updateAllScores(worldRepository.findOne(worldId), externalRessourceService.getStandardTaskScores(worldRepository.findOne(worldId)));
+            World world = worldRepository.findOne(worldId);
+            Map<String, Double> scoresByIssueId = externalRessourceService.getStandardTaskScores(world);
+            standardTaskService.updateAllScores(world, scoresByIssueId);
             return ResponseEntity.ok().build();
         } catch (RestClientException e) {
             if (e.getMessage().contains("429"))

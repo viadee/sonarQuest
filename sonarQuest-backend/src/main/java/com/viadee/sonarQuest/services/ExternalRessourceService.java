@@ -184,8 +184,8 @@ public class ExternalRessourceService {
 
         ResponseEntity<JsonNode> response = restTemplate.postForEntity("http://localhost:5432/issues/desirability", params, JsonNode.class);
 
-        Map<String,Double> result = new HashMap<>();
-                response.getBody().fields().forEachRemaining(e->result.put(e.getKey(),e.getValue().get("desirabilityScore").doubleValue()));
+        Map<String, Double> result = new HashMap<>();
+        response.getBody().fields().forEachRemaining(e -> result.put(e.getKey(), e.getValue().get("desirabilityScore").doubleValue()));
 
         return result;
     }
