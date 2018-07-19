@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,8 +26,7 @@ public class JwtHelper {
 
     private static final String AUTHORITIES = "authorities";
 
-    @Value("${security.jwt.secret}")
-    private String secret;
+    private String secret = RandomStringUtils.randomAlphanumeric(60);
 
     @Value("${security.jwt.algorithm}")
     private String algorithm;
