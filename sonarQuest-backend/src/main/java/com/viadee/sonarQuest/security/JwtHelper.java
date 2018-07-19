@@ -1,6 +1,6 @@
 package com.viadee.sonarQuest.security;
 
-import java.util.Base64;
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,11 +22,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtHelper {
-
     private static final String AUTHORITIES = "authorities";
 
-    @Value("${security.jwt.secret}")
-    private String secret;
+    private final byte[] key = generateKey();
 
     @Value("${security.jwt.algorithm}")
     private String algorithm;
@@ -48,7 +46,7 @@ public class JwtHelper {
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(expiresAt))
                 .addClaims(authoriesClaim)
-                .signWith(signatureAlgorithm, getSigningKey())
+                .signWith(signatureAlgorithm, key)
                 .compact();
 
         return new Token(jwt, expiresAt);
@@ -57,7 +55,7 @@ public class JwtHelper {
     @SuppressWarnings("unchecked")
     public final UsernameAndAuthorities getUsernameWithAuthorities(final String jwt) {
         final Claims claims = Jwts.parser()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(key)
                 .parseClaimsJws(jwt)
                 .getBody();
         final String username = claims.getSubject();
@@ -68,8 +66,9 @@ public class JwtHelper {
         return new UsernameAndAuthorities(username, authorities);
     }
 
-    private byte[] getSigningKey() {
-        return Base64.getDecoder().decode(secret);
+    private static byte[] generateKey() {
+        byte[] generatedKey = new byte[64];
+        new SecureRandom().nextBytes(generatedKey);
+        return generatedKey;
     }
-
 }
