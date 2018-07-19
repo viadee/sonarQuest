@@ -60,6 +60,18 @@ Afterwards you can access the server at:
 
 `http://localhost:8080`
 
+#### Basic Accounts
+
+So far some basic user data for the three roles exists with the following accounts:
+
+Account/Password: `admin / test`
+
+Account/Password: `gm / test`
+
+Account/Password: `dev / test`
+ 
+When you start with a fresh DB, these are directly accessible.
+
 #### Test
 Momentarily, only one test case exists that tests the most important functions of the server by simulating a game process.
 To execute the test you have to comment the lines in the method `run` of the class `SonarQuestApplication`.
