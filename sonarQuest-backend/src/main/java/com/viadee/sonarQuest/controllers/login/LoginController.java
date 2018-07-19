@@ -37,10 +37,13 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
-        LOGGER.info(String.format("Log-In request received from user %s", credentials.getUsername()));
+
+        LOGGER.info(String.format("Log-In request received from user %s",
+                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
-        LOGGER.info(String.format("Log-In request successful for user %s", credentials.getUsername()));
+        LOGGER.info(String.format("Log-In request successful for user %s",
+                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
         return token;
     }
 
@@ -56,7 +59,8 @@ public class LoginController {
             return authenticationManager.authenticate(authToken);
         } catch (BadCredentialsException ex) {
             LOGGER.warn(
-                    String.format("Log-In request denied with bad credentials for user %s", credentials.getUsername()));
+                    String.format("Log-In request denied with bad credentials for user %s",
+                            (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
             throw ex;
         }
     }
