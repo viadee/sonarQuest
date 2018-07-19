@@ -149,6 +149,9 @@
     "MISSION": "Mission",
     "UPDATE_STANDARD_TASKS_STATUS": "Update Status",
     "UPDATE_SCORES": "Update Scores",
+    "UPDATE_SCORES_STARTED" :"Started updating scores, this will take a while.",
+    "UPDATE_SCORES_FINISHED" :"Scores updated for {{world}}.",
+    "UPDATE_SCORES_ALREADY_RUNNING" :"Scores are already updating, no new update started",
     "FREE_STANDARDTASKS": "Standard Tasks",
     "FREE_SPECIALTASKS": "Special Tasks"
   },

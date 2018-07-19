@@ -44,8 +44,8 @@ export class StandardTaskService {
 
   updateStandardTasksScoresForWorld(world: World): Promise<void> {
     return this.http.post<void>(`${environment.endpoint}/externalRessource/updateScores/${world.id}`, null)
-      .toPromise()
-      .catch(this.handleError);
+      .toPromise().then(() => true, (reason) => reason.status === 429 ? false : reason)
+
   }
 
   public getFreeStandardTasksForWorldExcept(world: World, excludetTasks: Task[]): Promise<StandardTask[]> {

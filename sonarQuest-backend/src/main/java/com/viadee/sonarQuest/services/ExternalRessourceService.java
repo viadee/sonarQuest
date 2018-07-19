@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -165,7 +166,7 @@ public class ExternalRessourceService {
 		return response.getBody();
 	}
 
-    public Map<String,Double> getStandardTaskScores(World world) {
+    public Map<String,Double> getStandardTaskScores(World world) throws RestClientException {
         SonarConfig sonarConfig = sonarConfigService.getConfig();
 		GitServer gitServer = gitServerRepository.findOneByWorld(world);
 

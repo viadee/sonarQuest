@@ -1,6 +1,6 @@
 import {TranslateService} from '@ngx-translate/core';
-import {World} from './../../../../../../Interfaces/World';
-import {WorldService} from './../../../../../../services/world.service';
+import {World} from '../../../../../../Interfaces/World';
+import {WorldService} from '../../../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {
   IPageChangeEvent,
@@ -9,7 +9,7 @@ import {
   TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {StandardTaskService} from '../../../../../../services/standard-task.service';
 import {GamemasterStandardTaskEditComponent} from './components/gamemaster-standard-task-edit/gamemaster-standard-task-edit.component';
 import {StandardTask} from '../../../../../../Interfaces/StandardTask';
@@ -59,6 +59,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
     private worldService: WorldService,
     private translateService: TranslateService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private loadingService: LoadingService) {
   }
 
@@ -110,23 +111,27 @@ export class GamemasterStandardTaskComponent implements OnInit {
   }
 
   updateStandardTasksStatus() {
-     const loading = this.loadingService.getLoadingSpinner();
-      this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
-        this.taskService.refreshTasks(this.worldService.getCurrentWorld());
-        this.questService.refreshQuests(this.worldService.getCurrentWorld());
-        this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
-        loading.close();
-      }).catch(() => loading.close())
-  }
-
-  updateStandardTasksScores() {
     const loading = this.loadingService.getLoadingSpinner();
-    this.standardTaskService.updateStandardTasksScoresForWorld(this.worldService.getCurrentWorld()).then(() => {
+    this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
       this.taskService.refreshTasks(this.worldService.getCurrentWorld());
       this.questService.refreshQuests(this.worldService.getCurrentWorld());
       this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
       loading.close();
     }).catch(() => loading.close())
+  }
+
+  updateStandardTasksScores(worldName: String) {
+    this.snackBar.open(this.translateService.instant('TASK.UPDATE_SCORES_STARTED'), null, {duration: 10000});
+    this.standardTaskService.updateStandardTasksScoresForWorld(this.worldService.getCurrentWorld()).then((updated) => {
+      if (updated) {
+        this.taskService.refreshTasks(this.worldService.getCurrentWorld());
+        this.questService.refreshQuests(this.worldService.getCurrentWorld());
+        this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
+        this.snackBar.open(this.translateService.instant('TASK.UPDATE_SCORES_FINISHED', {world: worldName}), null, {duration: 10000});
+      } else {
+        this.snackBar.open(this.translateService.instant('TASK.UPDATE_SCORES_ALREADY_RUNNING'), null, {duration: 10000});
+      }
+    })
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

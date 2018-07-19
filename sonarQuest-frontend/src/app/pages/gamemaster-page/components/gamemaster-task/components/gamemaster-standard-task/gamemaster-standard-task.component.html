@@ -2,7 +2,7 @@
   <div layout="row">
     <div flex></div>
     <button mat-raised-button color="primary" (click)="updateStandardTasksStatus()">{{"TASK.UPDATE_STANDARD_TASKS_STATUS"|translate}}</button>
-    <button mat-raised-button color="primary" (click)="updateStandardTasksScores()">{{"TASK.UPDATE_SCORES"|translate}}</button>
+    <button mat-raised-button color="primary" (click)="updateStandardTasksScores(currentWorld?.name)">{{"TASK.UPDATE_SCORES"|translate}}</button>
   </div>
   <div layout-padding>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">

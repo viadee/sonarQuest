@@ -149,6 +149,9 @@
     "MISSION": "Mission",
     "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status",
     "UPDATE_SCORES": "Aktualisiere Wertungen",
+    "UPDATE_SCORES_STARTED" :"Wertungen werden aktualisiert, dies wird einige Zeit dauern.",
+    "UPDATE_SCORES_FINISHED" :"Wertungen für {{world}} wurden aktualisiert.",
+    "UPDATE_SCORES_ALREADY_RUNNING" :"Wertungen werden bereits aktualisiert, keine neue Aktualisierung gestartet.",
     "FREE_STANDARDTASKS": "Standardaufträge",
     "FREE_SPECIALTASKS": "Spezialaufträge"
   },
