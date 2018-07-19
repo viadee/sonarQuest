@@ -53,7 +53,7 @@ The licenses of the reused components of the SonarQuest server can be found in [
 A user can choose an individual avatar with a name, a class (e.g. warrior or magician) and a race (e.g. dwarf or elf). A set of predefined avatars is available [here in PDF format](AvatarCards.pdf). 
 Please note the username (login) is the character's name by default (first letter is always uppercase!) and the standard password is `test` for all accounts.
 
-During an adventure of a heroes-team (which may be represented by a project team) the avatar has several possibilities to gain experience points (XP) and get to the next level. Besides, some quests and tasks contain a reward in form of gold -- which can be used to purchase items and improvements in the market place.
+During an adventure the party (which may be represented by a project team) takes on quests and every avatar has several possibilities to gain experience points (XP) and get to the next level. Besides, some quests and tasks contain a reward in form of gold -- which can be used to purchase items and improvements in the marketplace.
 
 The levels are determined based on experience points (XP) as follows:
 
