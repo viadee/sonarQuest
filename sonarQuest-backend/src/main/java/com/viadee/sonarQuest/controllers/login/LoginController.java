@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -49,8 +50,15 @@ public class LoginController {
     }
 
     private Authentication authenticate(final UserCredentials credentials) {
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                credentials.getUsername(), credentials.getPassword());
+        try {
+            return authenticationManager.authenticate(authToken);
+        } catch (BadCredentialsException ex) {
+            LOGGER.warn(
+                    String.format("Log-In request denied with bad credentials for user %s", credentials.getUsername()));
+            throw ex;
+        }
     }
 
     private Token createTokenForUser(final User user) {
