@@ -1,6 +1,6 @@
 package com.viadee.sonarQuest.security;
 
-import java.util.Base64;
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +22,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtHelper {
-
     private static final String AUTHORITIES = "authorities";
 
-    private String secret = RandomStringUtils.randomAlphanumeric(60);
+    private final byte[] key = generateKey();
 
     @Value("${security.jwt.algorithm}")
     private String algorithm;
@@ -48,7 +46,7 @@ public class JwtHelper {
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(expiresAt))
                 .addClaims(authoriesClaim)
-                .signWith(signatureAlgorithm, getSigningKey())
+                .signWith(signatureAlgorithm, key)
                 .compact();
 
         return new Token(jwt, expiresAt);
@@ -57,7 +55,7 @@ public class JwtHelper {
     @SuppressWarnings("unchecked")
     public final UsernameAndAuthorities getUsernameWithAuthorities(final String jwt) {
         final Claims claims = Jwts.parser()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(key)
                 .parseClaimsJws(jwt)
                 .getBody();
         final String username = claims.getSubject();
@@ -68,8 +66,9 @@ public class JwtHelper {
         return new UsernameAndAuthorities(username, authorities);
     }
 
-    private byte[] getSigningKey() {
-        return Base64.getDecoder().decode(secret);
+    private static byte[] generateKey() {
+        byte[] generatedKey = new byte[64];
+        new SecureRandom().nextBytes(generatedKey);
+        return generatedKey;
     }
-
 }
