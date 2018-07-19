@@ -2,6 +2,8 @@ package com.viadee.sonarQuest.controllers.login;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,8 @@ import com.viadee.sonarQuest.security.JwtHelper;
 @RequestMapping(PathConstants.LOGIN_URL)
 public class LoginController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -32,8 +36,10 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
+        LOGGER.info(String.format("Log-In request received from user %s", credentials.getUsername()));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
+        LOGGER.info(String.format("Log-In request successful for user %s", credentials.getUsername()));
         return token;
     }
 
