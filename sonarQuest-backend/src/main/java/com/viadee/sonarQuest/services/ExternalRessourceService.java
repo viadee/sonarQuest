@@ -41,146 +41,157 @@ public class ExternalRessourceService {
     @Autowired
 	private ObjectMapper mapper;
 
-	@Autowired
-	private StandardTaskEvaluationService standardTaskEvaluationService;
+    @Autowired
+    private StandardTaskEvaluationService standardTaskEvaluationService;
 
-	@Autowired
-	private SonarQubeStatusMapper statusMapper;
+    @Autowired
+    private SonarQubeStatusMapper statusMapper;
 
     @Autowired
     private StandardTaskRepository standardTaskRepository;
 
-	@Autowired
-	private SonarConfigService sonarConfigService;
+    @Autowired
+    private SonarConfigService sonarConfigService;
 
-	@Autowired
-	private RestTemplateService restTemplateService;
+    @Autowired
+    private RestTemplateService restTemplateService;
 
 	@Autowired
 	private GitServerRepository gitServerRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
-	private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
+    private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
 
-	public List<World> generateWorldsFromSonarQubeProjects() {
-		return getSonarQubeProjects().stream().map(this::toWorld).collect(Collectors.toList());
-	}
+    public List<World> generateWorldsFromSonarQubeProjects() {
+        return getSonarQubeProjects().stream().map(this::toWorld).collect(Collectors.toList());
+    }
 
-	public World toWorld(final SonarQubeProject sonarQubeProject) {
-		return new World(sonarQubeProject.getName(), sonarQubeProject.getKey(), false);
-	}
+    public World toWorld(final SonarQubeProject sonarQubeProject) {
+        return new World(sonarQubeProject.getName(), sonarQubeProject.getKey(), false);
+    }
 
-	public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(final World world) {
-		final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world.getProject());
-		return sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world))
-				.collect(Collectors.toList());
-	}
+    public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(final World world) {
+        final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world.getProject());
+        return sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world))
+                .collect(Collectors.toList());
+    }
 
-	public StandardTask toTask(final SonarQubeIssue sonarQubeIssue, final World world) {
-		final Long gold = standardTaskEvaluationService.evaluateGoldAmount(sonarQubeIssue.getDebt());
-		final Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
-		final Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
-		final SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
-		return loadTask(sonarQubeIssue, world, gold, xp, debt, status);
-	}
+    public StandardTask toTask(final SonarQubeIssue sonarQubeIssue, final World world) {
+        final Long gold = standardTaskEvaluationService.evaluateGoldAmount(sonarQubeIssue.getDebt());
+        final Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
+        final Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
+        final SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
+        return loadTask(sonarQubeIssue, world, gold, xp, debt, status);
+    }
 
-	private StandardTask loadTask(final SonarQubeIssue sonarQubeIssue, final World world, final Long gold,
-			final Long xp, final Integer debt, final SonarQuestStatus status) {
-		StandardTask sonarQubeTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
-		if (sonarQubeTask == null) {
-			//new issue from SonarQube: Create new task
-			sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status, gold, xp, null, world,
-					sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
-					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
-		} else {
-			//issue already in SonarQuest database: update the task
-			sonarQubeTask.setStatus(status);
-		}
-		return sonarQubeTask;
-	}
+    private StandardTask loadTask(final SonarQubeIssue sonarQubeIssue, final World world, final Long gold,
+            final Long xp, final Integer debt, final SonarQuestStatus status) {
+        StandardTask sonarQubeTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
+        if (sonarQubeTask == null) {
+            // new issue from SonarQube: Create new task
+            sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status, gold, xp, null, world,
+                    sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
+                    sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
+        } else {
+            // issue already in SonarQuest database: update the task
+            sonarQubeTask.setStatus(status);
+        }
+        return sonarQubeTask;
+    }
 
-	public List<SonarQubeProject> getSonarQubeProjects() {
-		try {
-			final SonarConfig sonarConfig = sonarConfigService.getConfig();
-			final List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
-			final SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(sonarConfig, 1);
+    public List<SonarQubeProject> getSonarQubeProjects() {
+        try {
+            final SonarConfig sonarConfig = sonarConfigService.getConfig();
+            final List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
+            final SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjecRessourceForPageIndex(
+                    sonarConfig, 1);
 
-			sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
+            sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
 
-			final Integer pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(sonarQubeProjectRessource.getPaging());
-			for (int i = 2; i <= pagesOfExternalProjects; i++) {
-				sonarQubeProjects.addAll(getSonarQubeProjecRessourceForPageIndex(sonarConfig, i).getSonarQubeProjects());
-			}
-			return sonarQubeProjects;
-		} catch (final Exception e) {
-			LOGGER.error(e.getMessage());
-			throw e;
-		}
-	}
+            final Integer pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(
+                    sonarQubeProjectRessource.getPaging());
+            for (int i = 2; i <= pagesOfExternalProjects; i++) {
+                sonarQubeProjects
+                        .addAll(getSonarQubeProjecRessourceForPageIndex(sonarConfig, i).getSonarQubeProjects());
+            }
+            return sonarQubeProjects;
+        } catch (final Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
 
-	public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
-		try {
-			final SonarConfig sonarConfig = sonarConfigService.getConfig();
-			final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
-			final SonarQubeIssueRessource sonarQubeIssueRessource = getSonarQubeIssueResourceForProjectAndPageIndex(
-					sonarConfig, projectKey, 1);
+    public List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
+        try {
+            LOGGER.info(String.format("Trying to get all SonarQube issues for projectKey %s", projectKey));
+            final SonarConfig sonarConfig = sonarConfigService.getConfig();
+            final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
+            final SonarQubeIssueRessource sonarQubeIssueRessource = getSonarQubeIssueResourceForProjectAndPageIndex(
+                    sonarConfig, projectKey, 1);
 
-			sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
+            sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
 
-			final Integer pagesOfExternalIssues = determinePagesOfExternalRessourcesToBeRequested(
-					sonarQubeIssueRessource.getPaging());
-			for (int i = 2; i <= pagesOfExternalIssues; i++) {
-				sonarQubeIssueList.addAll(getSonarQubeIssueResourceForProjectAndPageIndex(sonarConfig, projectKey, i).getIssues());
-			}
-			return sonarQubeIssueList;
-		} catch (final ResourceAccessException e) {
-			if (e.getCause() instanceof ConnectException) {
-				LOGGER.error(ERROR_NO_CONNECTION);
-			}
-			throw e;
-		}
-	}
+            final Integer pagesOfExternalIssues = determinePagesOfExternalRessourcesToBeRequested(
+                    sonarQubeIssueRessource.getPaging());
+            for (int i = 2; i <= pagesOfExternalIssues; i++) {
+                sonarQubeIssueList.addAll(
+                        getSonarQubeIssueResourceForProjectAndPageIndex(sonarConfig, projectKey, i).getIssues());
+            }
+            LOGGER.info(String.format("Retrieved %s SonarQube issues in total for projectKey %s",
+                    sonarQubeIssueList.size(), projectKey));
+            return sonarQubeIssueList;
+        } catch (final ResourceAccessException e) {
+            if (e.getCause() instanceof ConnectException) {
+                LOGGER.error(ERROR_NO_CONNECTION);
+            }
+            throw e;
+        }
+    }
 
-	public int determinePagesOfExternalRessourcesToBeRequested(final SonarQubePaging sonarQubePaging) {
-		return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
-	}
+    public int determinePagesOfExternalRessourcesToBeRequested(final SonarQubePaging sonarQubePaging) {
+        return sonarQubePaging.getTotal() / sonarQubePaging.getPageSize() + 1;
+    }
 
-	private SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(final SonarConfig sonarConfig,
-			final String projectKey, final int pageIndex) {
-		final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
-		final String fooResourceUrl = sonarConfig.getSonarServerUrl() + "/api/issues/search?componentRoots="
-				+ projectKey + "&pageSize=500&pageIndex=" + pageIndex;
-		final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(fooResourceUrl,
-				SonarQubeIssueRessource.class);
-		return response.getBody();
-	}
+    private SonarQubeIssueRessource getSonarQubeIssueResourceForProjectAndPageIndex(final SonarConfig sonarConfig,
+            final String projectKey, final int pageIndex) {
+        final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
+        final String fooResourceUrl = sonarConfig.getSonarServerUrl() + "/api/issues/search?componentRoots="
+                + projectKey + "&pageSize=500&pageIndex=" + pageIndex;
+        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(fooResourceUrl,
+                SonarQubeIssueRessource.class);
+        return response.getBody();
+    }
 
-	private SonarQubeProjectRessource getSonarQubeProjecRessourceForPageIndex(final SonarConfig sonarConfig,
-			final int pageIndex) {
-		final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
-		final String fooResourceUrl = sonarConfig.getSonarServerUrl()
-				+ "/api/components/search?qualifiers=TRK&pageSize=500&pageIndex=" + pageIndex;
-		final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(fooResourceUrl,
-				SonarQubeProjectRessource.class);
-		return response.getBody();
-	}
+    private SonarQubeProjectRessource getSonarQubeProjecRessourceForPageIndex(final SonarConfig sonarConfig,
+            final int pageIndex) {
+        final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
+        final String fooResourceUrl = sonarConfig.getSonarServerUrl()
+                + "/api/components/search?qualifiers=TRK&pageSize=500&pageIndex=" + pageIndex;
+        final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(fooResourceUrl,
+                SonarQubeProjectRessource.class);
+        return response.getBody();
+    }
 
-    public Map<String,Double> getStandardTaskScores(World world) throws RestClientException {
+    public Map<String, Double> getStandardTaskScores(World world) throws RestClientException {
         SonarConfig sonarConfig = sonarConfigService.getConfig();
-		GitServer gitServer = gitServerRepository.findOneByWorld(world);
+        GitServer gitServer = gitServerRepository.findOneByWorld(world);
 
-        RestTemplate restTemplate=new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
 
         ObjectNode params = mapper.createObjectNode();
-        params.putObject("sonarServer").put("url",sonarConfig.getSonarServerUrl()).put("user",sonarConfig.getHttpBasicAuthUsername()).put("password",sonarConfig.getHttpBasicAuthPassword());
-        params.put("sonarProjectId",world.getProject());
-        params.put("predictionHorizon",256);
+        params.putObject("sonarServer").
+                put("url", sonarConfig.getSonarServerUrl()).
+                put("user", sonarConfig.getHttpBasicAuthUsername()).
+                put("password", sonarConfig.getHttpBasicAuthPassword());
+
+        params.put("sonarProjectId", world.getProject());
+        params.put("predictionHorizon", 256);
         params.putObject("gitServer").
                 put("url", gitServer.getUrl()).
                 put("user", gitServer.getUsername()).
                 put("password", gitServer.getPassword());
-        params.put("h2oUrl","http://localhost:54321");
+        params.put("h2oUrl", "http://localhost:54321");
 
         ResponseEntity<JsonNode> response = restTemplate.postForEntity("http://localhost:5432/issues/desirability", params, JsonNode.class);
 

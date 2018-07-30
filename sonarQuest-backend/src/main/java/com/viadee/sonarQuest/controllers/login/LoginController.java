@@ -2,8 +2,11 @@ package com.viadee.sonarQuest.controllers.login;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +22,8 @@ import com.viadee.sonarQuest.security.JwtHelper;
 @RequestMapping(PathConstants.LOGIN_URL)
 public class LoginController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -32,8 +37,13 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
+
+        LOGGER.info(String.format("Log-In request received from user %s",
+                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
+        LOGGER.info(String.format("Log-In request successful for user %s",
+                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
         return token;
     }
 
@@ -43,8 +53,16 @@ public class LoginController {
     }
 
     private Authentication authenticate(final UserCredentials credentials) {
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                credentials.getUsername(), credentials.getPassword());
+        try {
+            return authenticationManager.authenticate(authToken);
+        } catch (BadCredentialsException ex) {
+            LOGGER.warn(
+                    String.format("Log-In request denied with bad credentials for user %s",
+                            (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
+            throw ex;
+        }
     }
 
     private Token createTokenForUser(final User user) {

@@ -19,6 +19,7 @@ export class AuthenticationService {
   }
 
   public login(username, password): void {
+    console.log('Trying login for user ' + username);
     new Observable<void>(observer => {
       const body = JSON.stringify({username, password});
       const url = `${environment.endpoint}/login`;
