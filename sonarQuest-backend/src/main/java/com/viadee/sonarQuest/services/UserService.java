@@ -77,23 +77,26 @@ public class UserService implements UserDetailsService {
             Role role = user.getRole();
             RoleName roleName = role.getName();
             Role userRole = roleService.findByName(roleName);
-            // XXX user may be null? RLY?
             toBeSaved = usernameFree(username) ? user : null;
-            toBeSaved.setPassword(password);
-            toBeSaved.setRole(userRole);
-            toBeSaved.setCurrentWorld(user.getCurrentWorld());
-            toBeSaved.setGold(0l);
-            toBeSaved.setXp(0l);
-            toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+            if (toBeSaved != null) {
+                toBeSaved.setPassword(password);
+                toBeSaved.setRole(userRole);
+                toBeSaved.setCurrentWorld(user.getCurrentWorld());
+                toBeSaved.setGold(0l);
+                toBeSaved.setXp(0l);
+                toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+            }
         } else {
             toBeSaved = findById(user.getId());
-            if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
-                toBeSaved.setUsername(username);
+            if (toBeSaved != null) {
+                if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
+                    toBeSaved.setUsername(username);
+                }
+                toBeSaved.setAboutMe(user.getAboutMe());
+                toBeSaved.setPicture(user.getPicture());
+                toBeSaved.setCurrentWorld(user.getCurrentWorld());
+                toBeSaved.setWorlds(user.getWorlds());
             }
-            toBeSaved.setAboutMe(user.getAboutMe());
-            toBeSaved.setPicture(user.getPicture());
-            toBeSaved.setCurrentWorld(user.getCurrentWorld());
-            toBeSaved.setWorlds(user.getWorlds());
         }
 
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
