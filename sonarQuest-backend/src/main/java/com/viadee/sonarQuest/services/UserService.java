@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.viadee.sonarQuest.entities.Level;
 import com.viadee.sonarQuest.entities.Permission;
+import com.viadee.sonarQuest.entities.Role;
 import com.viadee.sonarQuest.entities.RoleName;
 import com.viadee.sonarQuest.entities.User;
 import com.viadee.sonarQuest.entities.World;
@@ -33,8 +34,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private LevelService levelService;
-
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     private PermissionService permissionService;
@@ -70,19 +69,26 @@ public class UserService implements UserDetailsService {
 
     public User save(final User user) {
         User toBeSaved = null;
+        String username = user.getUsername();
         if (user.getId() == null) {
-            toBeSaved = usernameFree(user.getUsername()) ? user : null;
             // Only the password hash needs to be saved
-            toBeSaved.setPassword(encoder.encode(user.getPassword()));
-            toBeSaved.setRole(roleService.findByName(user.getRole().getName()));
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String password = encoder.encode(user.getPassword());
+            Role role = user.getRole();
+            RoleName roleName = role.getName();
+            Role userRole = roleService.findByName(roleName);
+            // XXX user may be null? RLY?
+            toBeSaved = usernameFree(username) ? user : null;
+            toBeSaved.setPassword(password);
+            toBeSaved.setRole(userRole);
             toBeSaved.setCurrentWorld(user.getCurrentWorld());
             toBeSaved.setGold(0l);
             toBeSaved.setXp(0l);
             toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
         } else {
             toBeSaved = findById(user.getId());
-            if (!user.getUsername().equals(toBeSaved.getUsername()) && usernameFree(user.getUsername())) {
-                toBeSaved.setUsername(user.getUsername());
+            if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
+                toBeSaved.setUsername(username);
             }
             toBeSaved.setAboutMe(user.getAboutMe());
             toBeSaved.setPicture(user.getPicture());
