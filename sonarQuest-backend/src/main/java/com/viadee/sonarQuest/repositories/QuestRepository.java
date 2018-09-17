@@ -1,17 +1,20 @@
 package com.viadee.sonarQuest.repositories;
 
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.viadee.sonarQuest.constants.QuestState;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.World;
-import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+public interface QuestRepository extends CrudRepository<Quest, Long> {
 
-public interface QuestRepository extends CrudRepository<Quest,Long> {
-
+    @Override
     List<Quest> findAll();
 
-    List<Quest> findByAdventureAndStatus(Adventure adventure,String status);
+    List<Quest> findByAdventureAndStatus(Adventure adventure, QuestState status);
 
     List<Quest> findByWorldAndAdventure(World world, Adventure adventure);
 

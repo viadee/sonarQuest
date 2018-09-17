@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarQuest.constants.QuestStates;
+import com.viadee.sonarQuest.constants.QuestState;
 import com.viadee.sonarQuest.entities.Participation;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.Task;
@@ -87,7 +87,7 @@ public class QuestService implements QuestSuggestion {
         final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED);
         final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED);
         if (tasks.size() == (solvedTasks.size() + closedTasks.size())) {
-            quest.setStatus(QuestStates.SOLVED);
+            quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
             gratificationService.rewardUsersForSolvingQuest(quest);
         }

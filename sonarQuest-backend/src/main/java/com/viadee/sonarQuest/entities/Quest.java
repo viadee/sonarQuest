@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarQuest.constants.QuestState;
 
 @Entity
 @Table(name = "Quest")
@@ -29,7 +32,8 @@ public class Quest {
     private String story;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private QuestState status;
 
     @Column(name = "gold")
     private Long gold;
@@ -60,7 +64,7 @@ public class Quest {
     public Quest() {
     }
 
-    public Quest(final String title, final String story, final String status, final Long gold, final Long xp,
+    public Quest(final String title, final String story, final QuestState status, final Long gold, final Long xp,
             final String image) {
         this.title = title;
         this.story = story;
@@ -70,7 +74,7 @@ public class Quest {
         this.image = image;
     }
 
-    public Quest(final String title, final String story, final String status, final Long gold, final Long xp,
+    public Quest(final String title, final String story, final QuestState status, final Long gold, final Long xp,
             final String image, final World world,
             final Adventure adventure, final List<Task> tasks, final List<Participation> participations) {
         this.title = title;
@@ -109,11 +113,11 @@ public class Quest {
         this.story = story;
     }
 
-    public String getStatus() {
+    public QuestState getStatus() {
         return status;
     }
 
-    public void setStatus(final String status) {
+    public void setStatus(final QuestState status) {
         this.status = status;
     }
 

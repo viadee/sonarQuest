@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.constants.AdventureState;
-import com.viadee.sonarQuest.constants.QuestStates;
+import com.viadee.sonarQuest.constants.QuestState;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.User;
@@ -40,7 +40,7 @@ public class AdventureService {
     public synchronized void updateAdventure(final Adventure adventure) {
         if (adventure != null) {
             final List<Quest> quests = adventure.getQuests();
-            final List<Quest> solvedQuests = questRepository.findByAdventureAndStatus(adventure, QuestStates.SOLVED);
+            final List<Quest> solvedQuests = questRepository.findByAdventureAndStatus(adventure, QuestState.SOLVED);
             if (quests.size() == solvedQuests.size()) {
                 gratificationService.rewardUsersForSolvingAdventure(adventure);
                 adventure.setStatus(AdventureState.SOLVED);
