@@ -5,12 +5,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarQuest.constants.SkillType;
 
 @Entity
 @Table(name = "Skill")
@@ -24,7 +27,8 @@ public class Skill {
     private String name;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private SkillType type;
 
     @Column(name = "value")
     private Long value;
@@ -36,13 +40,13 @@ public class Skill {
     public Skill() {
     }
 
-    public Skill(final String name, final String type, final Long value) {
+    public Skill(final String name, final SkillType type, final Long value) {
         this.name = name;
         this.type = type;
         this.value = value;
     }
 
-    public Skill(final String name, final String type, final Long value, final List<AvatarClass> avatarClasses) {
+    public Skill(final String name, final SkillType type, final Long value, final List<AvatarClass> avatarClasses) {
         this.name = name;
         this.type = type;
         this.value = value;
@@ -65,11 +69,11 @@ public class Skill {
         this.name = name;
     }
 
-    public String getType() {
+    public SkillType getType() {
         return type;
     }
 
-    public void setType(final String type) {
+    public void setType(final SkillType type) {
         this.type = type;
     }
 
