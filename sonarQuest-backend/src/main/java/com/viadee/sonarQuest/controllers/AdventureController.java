@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarQuest.constants.AdventureStates;
+import com.viadee.sonarQuest.constants.AdventureState;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Quest;
 import com.viadee.sonarQuest.entities.User;
@@ -110,7 +110,7 @@ public class AdventureController {
     public void solveAdventure(@PathVariable(value = "adventureId") final Long adventureId) {
         final Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
-            adventure.setStatus(AdventureStates.SOLVED);
+            adventure.setStatus(AdventureState.SOLVED);
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
         }

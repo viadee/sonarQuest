@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarQuest.constants.AdventureState;
 
 @Entity
 @Table(name = "Adventure")
@@ -32,7 +35,8 @@ public class Adventure {
     private String story;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AdventureState status;
 
     @Column(name = "gold")
     private Long gold;
@@ -56,7 +60,8 @@ public class Adventure {
     public Adventure() {
     }
 
-    public Adventure(final String title, final String story, final String status, final Long gold, final Long xp) {
+    public Adventure(final String title, final String story, final AdventureState status, final Long gold,
+            final Long xp) {
         this.title = title;
         this.story = story;
         this.status = status;
@@ -64,7 +69,8 @@ public class Adventure {
         this.xp = xp;
     }
 
-    public Adventure(final Long id, final String title, final String story, final String status, final Long gold,
+    public Adventure(final Long id, final String title, final String story, final AdventureState status,
+            final Long gold,
             final Long xp, final World world,
             final List<Quest> quests, final List<User> users) {
         this.id = id;
@@ -102,11 +108,11 @@ public class Adventure {
         this.story = story;
     }
 
-    public String getStatus() {
+    public AdventureState getStatus() {
         return status;
     }
 
-    public void setStatus(final String status) {
+    public void setStatus(final AdventureState status) {
         this.status = status;
     }
 

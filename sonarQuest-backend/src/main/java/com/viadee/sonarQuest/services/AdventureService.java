@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viadee.sonarQuest.constants.AdventureStates;
+import com.viadee.sonarQuest.constants.AdventureState;
 import com.viadee.sonarQuest.constants.QuestStates;
 import com.viadee.sonarQuest.entities.Adventure;
 import com.viadee.sonarQuest.entities.Quest;
@@ -43,15 +43,15 @@ public class AdventureService {
             final List<Quest> solvedQuests = questRepository.findByAdventureAndStatus(adventure, QuestStates.SOLVED);
             if (quests.size() == solvedQuests.size()) {
                 gratificationService.rewardUsersForSolvingAdventure(adventure);
-                adventure.setStatus(AdventureStates.SOLVED);
+                adventure.setStatus(AdventureState.SOLVED);
                 adventureRepository.save(adventure);
             }
         }
     }
 
     /**
-     * expects a developer object and the current world and returns the adventures that the developer has already
-     * joined.
+     * expects a developer object and the current world and returns the adventures
+     * that the developer has already joined.
      *
      * @param world
      * @param user
@@ -65,7 +65,8 @@ public class AdventureService {
     }
 
     /**
-     * expects a developer object and the current world and returns the adventures that the developer can still enter.
+     * expects a developer object and the current world and returns the adventures
+     * that the developer can still enter.
      *
      * @param world
      * @param user
