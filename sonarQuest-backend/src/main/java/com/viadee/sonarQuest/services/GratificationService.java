@@ -72,14 +72,20 @@ public class GratificationService implements UserGratification {
         final User rewardedUser = user;
         final List<Skill> avatarClassSkills = rewardedUser.getAvatarClass().getSkills();
         final List<Skill> artefactSkills = rewardedUser.getArtefacts().stream()
-                .map(Artefact::getSkills).flatMap(Collection::stream).collect(Collectors.toList());
+                .map(Artefact::getSkills)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
         final List<Skill> totalSkills = new ArrayList<>();
         totalSkills.addAll(avatarClassSkills);
         totalSkills.addAll(artefactSkills);
-        final Long extraGold = totalSkills.stream().filter(skill -> skill.getType().equals(SkillType.GOLD))
-                .mapToLong(Skill::getValue).sum();
-        final Long extraXP = totalSkills.stream().filter(skill -> skill.getType().equals(SkillType.XP))
-                .mapToLong(Skill::getValue).sum();
+        final Long extraGold = totalSkills.stream()
+                .filter(skill -> skill.getType().equals(SkillType.GOLD))
+                .mapToLong(Skill::getValue)
+                .sum();
+        final Long extraXP = totalSkills.stream()
+                .filter(skill -> skill.getType().equals(SkillType.XP))
+                .mapToLong(Skill::getValue)
+                .sum();
         rewardedUser.addGold(extraGold);
         rewardedUser.addXp(extraXP);
         return rewardedUser;
