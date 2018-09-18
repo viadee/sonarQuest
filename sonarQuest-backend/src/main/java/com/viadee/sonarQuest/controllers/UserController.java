@@ -26,6 +26,12 @@ import com.viadee.sonarQuest.services.UserService;
 @RequestMapping(PathConstants.USER_URL)
 public class UserController {
 
+    private static final String DEFAULT_AVATAR_FILE = "avatar.png";
+
+    private static final String HEADER_AVATAR_VALUE = "attachment; filename=" + DEFAULT_AVATAR_FILE;
+
+    private static final String HEADER_AVATAR_NAME = "Content-Disposition";
+
     @Value("${avatar.directory}")
     private String avatarDirectoryPath;
 
@@ -59,7 +65,7 @@ public class UserController {
     @RequestMapping(path = "/avatar", method = RequestMethod.GET)
     public @ResponseBody byte[] avatar(final Principal principal, final HttpServletResponse response)
             throws IOException {
-        response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = getUser(principal);
         return user != null ? loadAvatar(user) : null;
     }
@@ -68,7 +74,7 @@ public class UserController {
     public @ResponseBody byte[] avatarForUser(final Principal principal,
             @PathVariable(value = "id") final Long id,
             final HttpServletResponse response) throws IOException {
-        response.addHeader("Content-Disposition", "attachment; filename=avatar.png");
+        response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
         return loadAvatar(user);
     }
