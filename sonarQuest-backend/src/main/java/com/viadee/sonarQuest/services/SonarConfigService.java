@@ -14,7 +14,7 @@ import com.viadee.sonarQuest.repositories.SonarConfigRepository;
 @Service
 public class SonarConfigService {
 
-    private static final Logger log = LoggerFactory.getLogger(SonarConfigService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SonarConfigService.class);
 
     @Autowired
     private SonarConfigRepository sonarConfigRepository;
@@ -41,6 +41,7 @@ public class SonarConfigService {
         boolean result = false;
 
         final String apiAddress = sonarConfig.getSonarServerUrl() + "/api";
+        LOGGER.info("Testing server at " + apiAddress);
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
 
         try {
@@ -51,7 +52,7 @@ public class SonarConfigService {
                 result = true;
             }
         } catch (final Exception e) {
-            log.error(e.toString());
+            LOGGER.error(e.getMessage(), e);
         }
         return result;
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -97,16 +98,21 @@
 		</dependency>
 
 		<dependency>
-
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.11</version>
 		</dependency>
-		
-        <dependency>
-    		<groupId>org.springframework.cloud</groupId>
-    		<artifactId>spring-cloud-starter-sleuth</artifactId>
-    		<version>1.3.3.RELEASE</version>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+			<version>1.3.3.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -139,23 +145,23 @@
 					<argLine>-Dspring.profiles.active=dev</argLine>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                	<!--fail on CVSS v3 critical ratings--> 
-                  <failBuildOnCVSS>9</failBuildOnCVSS>
-              </configuration>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<!--fail on CVSS v3 critical ratings -->
+					<failBuildOnCVSS>9</failBuildOnCVSS>
+				</configuration>
 				<executions>
-                  <execution>
-                      <goals>
-                          <goal>check</goal>
-                      </goals>
-                  </execution>
-              	</executions>
-            </plugin>
-        </plugins>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 
 

@@ -32,11 +32,15 @@ public class RestTemplateService {
 
     public RestTemplate getRestTemplate(final SonarConfig sonarConfig) {
 
-        return sonarConfig.hasHttpBasicAuth()
-                ? restTemplateBuilder.basicAuthorization(sonarConfig.getHttpBasicAuthUsername(),
-                        sonarConfig.getHttpBasicAuthPassword())
-                        .requestFactory(requestFactory()).build()
-                : restTemplateBuilder.requestFactory(requestFactory()).build();
+        if (sonarConfig.hasHttpBasicAuth()) {
+            LOGGER.debug("Connecting using HTTP Basic Auth");
+            return restTemplateBuilder.basicAuthorization(sonarConfig.getHttpBasicAuthUsername(),
+                    sonarConfig.getHttpBasicAuthPassword())
+                    .requestFactory(requestFactory()).build();
+        } else {
+            LOGGER.debug("Connecting using the SSL Request Factory");
+            return restTemplateBuilder.requestFactory(requestFactory()).build();
+        }
     }
 
     private ClientHttpRequestFactory requestFactory() {
@@ -61,11 +65,11 @@ public class RestTemplateService {
                     .loadTrustMaterial(null, acceptingTrustStrategy)
                     .build();
         } catch (final KeyManagementException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         } catch (final NoSuchAlgorithmException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         } catch (final KeyStoreException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return sslContext;
     }

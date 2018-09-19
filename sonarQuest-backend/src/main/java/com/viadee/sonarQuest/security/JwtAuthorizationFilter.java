@@ -29,7 +29,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final JwtHelper jwtHelper;
 
     public JwtAuthorizationFilter(final JwtHelper jwtHelper) {
-        super();
         this.jwtHelper = jwtHelper;
     }
 
@@ -44,8 +43,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
 
         if (authentication == null) {
+            LOGGER.debug("JWT authentication is null, clearing Context");
             SecurityContextHolder.clearContext();
         } else {
+            LOGGER.debug("JWT authentication accepted, setting Auth in Context");
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
@@ -64,8 +65,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken token = null;
         final UsernameAndAuthorities usernameAndAuthorities = getUsernameAndAuthorities(authHeader);
         if (usernameAndAuthorities != null) {
-        	final String username = usernameAndAuthorities.getUsername();
-        	final Collection<GrantedAuthority> authorities = usernameAndAuthorities.getAuthorities();
+            final String username = usernameAndAuthorities.getUsername();
+            final Collection<GrantedAuthority> authorities = usernameAndAuthorities.getAuthorities();
             token = new UsernamePasswordAuthenticationToken(username, null, authorities);
         }
         return token;
@@ -77,7 +78,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         try {
             username = jwtHelper.getUsernameWithAuthorities(jwt);
         } catch (final JwtException e) {
-            LOGGER.error("Fehler bei der Validierung des JWT: " + e.getMessage());
+            LOGGER.error("Validation error with the JWT: " + e.getMessage(), e);
         }
         return username;
     }
