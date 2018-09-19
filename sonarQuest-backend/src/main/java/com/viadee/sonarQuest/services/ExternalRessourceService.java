@@ -174,22 +174,6 @@ public class ExternalRessourceService {
                 }
             }
 
-            // XXX Funktioniert und ich weiss nicht warum
-            // SonarQubeIssueRessource sonarQubeIssueRessource =
-            // getSonarQubeIssuesWithAllSeverities(
-            // sonarConfig, projectKey, 1);
-            // sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
-            // final int pagesOfExternalIssues =
-            // determinePagesOfExternalRessourcesToBeRequested(
-            // sonarQubeIssueRessource.getPaging());
-            // LOGGER.debug("Found a total of " + pagesOfExternalIssues
-            // + " pages of issues on the SonarQube server. Retrieving them pagewise...");
-            // for (int i = 2; i <= pagesOfExternalIssues; i++) {
-            // sonarQubeIssueList.addAll(
-            // getSonarQubeIssuesWithAllSeverities(sonarConfig, projectKey, i)
-            // .getIssues());
-            // }
-
             LOGGER.info(String.format("Retrieved %s SonarQube issues in total for projectKey %s",
                     sonarQubeIssueList.size(), projectKey));
             return sonarQubeIssueList;
