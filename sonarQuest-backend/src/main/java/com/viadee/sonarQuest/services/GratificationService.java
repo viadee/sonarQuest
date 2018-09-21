@@ -36,7 +36,15 @@ public class GratificationService implements UserGratification {
             user.addGold(task.getGold());
             addSkillReward(user);
             user.setLevel(levelService.getLevelByUserXp(user.getXp()));
+            userService.save(user);
         }
+    }
+
+    private void rewardUserForSolvingAdventure(final User user, final Adventure adventure) {
+        user.addGold(adventure.getGold());
+        user.addXp(adventure.getXp());
+        user.setLevel(levelService.getLevelByUserXp(user.getXp()));
+        userService.save(user);
     }
 
     @Override
@@ -50,13 +58,6 @@ public class GratificationService implements UserGratification {
         final List<User> users = adventure.getUsers();
         users.forEach(user -> rewardUserForSolvingAdventure(user, adventure));
 
-    }
-
-    private void rewardUserForSolvingAdventure(final User user, final Adventure adventure) {
-        user.addGold(adventure.getGold());
-        user.addXp(adventure.getXp());
-        user.setLevel(levelService.getLevelByUserXp(user.getXp()));
-        userService.save(user);
     }
 
     private void rewardParticipation(final Participation participation) {
