@@ -35,6 +35,12 @@ import com.viadee.sonarQuest.rules.SonarQuestStatus;
 @Service
 public class ExternalRessourceService {
 
+    /**
+     * BRC - Sub-projects DIR - Directories FIL - Files TRK - Projects UTS - Test Files
+     */
+    // TODO refactor the REST calls into ENUM usage and use a builder pattern
+    private static final String SONARQUBE_SEARCH_QUALIFIER = "TRK";
+
     @Autowired
     private StandardTaskEvaluationService standardTaskEvaluationService;
 
@@ -215,9 +221,11 @@ public class ExternalRessourceService {
     private SonarQubeProjectRessource getSonarQubeProjectRessourceForPageIndex(final SonarConfig sonarConfig,
             final int pageIndex) {
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
-        final String fooResourceUrl = sonarConfig.getSonarServerUrl()
-                + "/api/components/search?qualifiers=TRK&pageSize=500&pageIndex=" + pageIndex;
-        final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(fooResourceUrl,
+        final String resourceUrl = sonarConfig.getSonarServerUrl()
+                + "/api/components/search?qualifiers=" + SONARQUBE_SEARCH_QUALIFIER + "&pageSize=500&pageIndex="
+                + pageIndex;
+        LOGGER.info("Calling " + resourceUrl);
+        final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(resourceUrl,
                 SonarQubeProjectRessource.class);
         return response.getBody();
     }
