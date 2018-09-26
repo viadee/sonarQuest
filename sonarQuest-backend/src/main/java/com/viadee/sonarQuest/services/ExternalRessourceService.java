@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.ListUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,11 @@ import org.springframework.web.client.RestTemplate;
 import com.viadee.sonarQuest.entities.SonarConfig;
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarQuest.externalRessources.SonarQubeApiCall;
+import com.viadee.sonarQuest.externalRessources.SonarQubeComponentQualifier;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssue;
 import com.viadee.sonarQuest.externalRessources.SonarQubeIssueRessource;
+import com.viadee.sonarQuest.externalRessources.SonarQubeIssueType;
 import com.viadee.sonarQuest.externalRessources.SonarQubePaging;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProject;
 import com.viadee.sonarQuest.externalRessources.SonarQubeProjectRessource;
@@ -34,12 +36,6 @@ import com.viadee.sonarQuest.rules.SonarQuestStatus;
  */
 @Service
 public class ExternalRessourceService {
-
-    /**
-     * BRC - Sub-projects DIR - Directories FIL - Files TRK - Projects UTS - Test Files
-     */
-    // TODO refactor the REST calls into ENUM usage and use a builder pattern
-    private static final String SONARQUBE_SEARCH_QUALIFIER = "TRK";
 
     @Autowired
     private StandardTaskEvaluationService standardTaskEvaluationService;
@@ -58,7 +54,7 @@ public class ExternalRessourceService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
-    private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the sonar server or start this server with --simulateSonarServer=true";
+    private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the SonarQube server";
 
     private static final int ISSUE_PROCESSING_BATCH_SIZE = 500;
 
@@ -143,7 +139,7 @@ public class ExternalRessourceService {
             }
             return sonarQubeProjects;
         } catch (final Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             throw e;
         }
     }
@@ -185,7 +181,7 @@ public class ExternalRessourceService {
             return sonarQubeIssueList;
         } catch (final ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_NO_CONNECTION);
+                LOGGER.error(ERROR_NO_CONNECTION, e);
             }
             throw e;
         }
@@ -198,22 +194,30 @@ public class ExternalRessourceService {
     private SonarQubeIssueRessource getSonarQubeIssuesWithAllSeverities(
             final RestTemplate restTemplate, final String sonarQubeServerUrl,
             final String projectKey, final int pageIndex) {
-
-        final String resourceUrl = sonarQubeServerUrl + "/api/issues/search?componentKeys="
-                + projectKey + "&pageSize=" + MAX_NUMBER_OF_ISSUES_ON_PAGE + "&pageIndex=" + pageIndex;
-        LOGGER.info("Calling " + resourceUrl);
-        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(resourceUrl,
+        SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
+                .onServer(sonarQubeServerUrl)
+                .searchIssues()
+                .withComponentKeys(projectKey)
+                .pageSize(MAX_NUMBER_OF_ISSUES_ON_PAGE)
+                .pageIndex(pageIndex)
+                .build();
+        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(sonarQubeApiCall.asString(),
                 SonarQubeIssueRessource.class);
         return response.getBody();
     }
 
     private SonarQubeIssueRessource getSonarQubeIssuesWithDefaultSeverities(final RestTemplate restTemplate,
             final String sonarQubeServerUrl, final String projectKey) {
-        final String resourceUrl = sonarQubeServerUrl + "/api/issues/search?componentKeys="
-                + projectKey + "&types=CODE_SMELL&pageSize=" + MAX_NUMBER_OF_ISSUES_ON_PAGE + "&pageIndex=1&severities="
-                + StringUtils.join(DEFAULT_ISSUE_SEVERITIES, ",");
-        LOGGER.info("Calling " + resourceUrl);
-        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(resourceUrl,
+        SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
+                .onServer(sonarQubeServerUrl)
+                .searchIssues()
+                .withComponentKeys(projectKey)
+                .withTypes(SonarQubeIssueType.CODE_SMELL)
+                .withSeverities(DEFAULT_ISSUE_SEVERITIES)
+                .pageSize(MAX_NUMBER_OF_ISSUES_ON_PAGE)
+                .pageIndex(1)
+                .build();
+        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(sonarQubeApiCall.asString(),
                 SonarQubeIssueRessource.class);
         return response.getBody();
     }
@@ -221,11 +225,15 @@ public class ExternalRessourceService {
     private SonarQubeProjectRessource getSonarQubeProjectRessourceForPageIndex(final SonarConfig sonarConfig,
             final int pageIndex) {
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
-        final String resourceUrl = sonarConfig.getSonarServerUrl()
-                + "/api/components/search?qualifiers=" + SONARQUBE_SEARCH_QUALIFIER + "&pageSize=500&pageIndex="
-                + pageIndex;
-        LOGGER.info("Calling " + resourceUrl);
-        final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(resourceUrl,
+        SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
+                .onServer(sonarConfig.getSonarServerUrl())
+                .searchComponents()
+                .withQualifiers(SonarQubeComponentQualifier.TRK)
+                .pageSize(MAX_NUMBER_OF_ISSUES_ON_PAGE)
+                .pageIndex(pageIndex)
+                .build();
+        final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(
+                sonarQubeApiCall.asString(),
                 SonarQubeProjectRessource.class);
         return response.getBody();
     }

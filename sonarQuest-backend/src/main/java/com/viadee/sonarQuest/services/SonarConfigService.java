@@ -49,6 +49,7 @@ public class SonarConfigService {
                     SonarQubeApiResponse.class);
 
             if (response.hasBody()) {
+                LOGGER.info("HTML Body returned from server - server is reachable at " + apiAddress);
                 result = true;
             }
         } catch (final Exception e) {
