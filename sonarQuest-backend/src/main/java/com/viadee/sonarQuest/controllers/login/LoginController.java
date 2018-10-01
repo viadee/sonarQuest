@@ -1,5 +1,7 @@
 package com.viadee.sonarQuest.controllers.login;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -38,12 +40,11 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
 
-        LOGGER.info(String.format("Log-In request received from user %s",
-                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
+        String username = credentials.getUsername();
+        LOGGER.info(String.format("Log-In request received from user %s", Objects.hashCode(username)));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
-        LOGGER.info(String.format("Log-In request successful for user %s",
-                (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
+        LOGGER.info(String.format("Log-In request successful for user %s", Objects.hashCode(username)));
         return token;
     }
 
@@ -53,14 +54,14 @@ public class LoginController {
     }
 
     private Authentication authenticate(final UserCredentials credentials) {
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                credentials.getUsername(), credentials.getPassword());
+        String username = credentials.getUsername();
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
+                credentials.getPassword());
         try {
             return authenticationManager.authenticate(authToken);
         } catch (BadCredentialsException ex) {
-            LOGGER.warn(
-                    String.format("Log-In request denied with bad credentials for user %s",
-                            (credentials.getUsername() != null ? credentials.getUsername().hashCode() : null)));
+            LOGGER.warn(String.format("Log-In request denied with bad credentials for user %s",
+                    Objects.hashCode(username)));
             throw ex;
         }
     }
