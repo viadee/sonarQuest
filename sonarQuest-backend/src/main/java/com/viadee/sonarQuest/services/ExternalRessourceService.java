@@ -227,8 +227,7 @@ public class ExternalRessourceService {
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
         SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                 .onServer(sonarConfig.getSonarServerUrl())
-                .searchComponents()
-                .withQualifiers(SonarQubeComponentQualifier.TRK)
+                .searchComponents(SonarQubeComponentQualifier.TRK)
                 .pageSize(MAX_NUMBER_OF_ISSUES_ON_PAGE)
                 .pageIndex(pageIndex)
                 .build();

@@ -53,10 +53,14 @@ public class SonarQubeApiCall {
      * Appends the call for the search components function (e.g. /api/components/search? ) in the SonarQube REST API to
      * the sonarQubeRestApiCall.
      * 
+     * @param qualifier
+     *            _required_ - the Qualifier to search for (e.g. TRK for "projects")
+     * 
      * @see https://sonarcloud.io/web_api/api/components
      */
-    public SonarQubeApiCall searchComponents() {
+    public SonarQubeApiCall searchComponents(SonarQubeComponentQualifier qualifier) {
         sonarQubeRestApiCall += "/api/components/search?";
+        withQualifiers(qualifier);
         return this;
     }
 
@@ -79,8 +83,16 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "qualifiers" with the single value qualifier to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall withQualifiers(SonarQubeComponentQualifier qualifier) {
+    private SonarQubeApiCall withQualifiers(SonarQubeComponentQualifier qualifier) {
         appendSearchParameter("qualifiers=" + qualifier);
+        return this;
+    }
+
+    /**
+     * Appends the parameter "q" (Query) as a text-based simple search param to the sonarQubeRestApiCall.
+     */
+    public SonarQubeApiCall withQuery(String query) {
+        appendSearchParameter("q=" + query);
         return this;
     }
 
