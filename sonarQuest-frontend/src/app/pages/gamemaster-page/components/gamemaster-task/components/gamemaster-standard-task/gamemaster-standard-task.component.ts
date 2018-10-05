@@ -30,6 +30,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
     {name: 'gold', label: 'Gold', width: 50},
     {name: 'xp', label: 'XP', width: 50},
     {name: 'type', label: 'Type'},
+    {name: 'severity', label: 'Severity'},
     {name: 'quest.title', label: 'Quest'},
     {name: 'status', label: 'Status'},
     {name: 'edit', label: ''}
@@ -81,6 +82,7 @@ export class GamemasterStandardTaskComponent implements OnInit {
         {name: 'gold', label: col_names.GOLD, width: 50},
         {name: 'xp', label: col_names.XP, width: 50},
         {name: 'type', label: col_names.TYPE},
+        {name: 'severity', label: col_names.SEVERITY},
         {name: 'quest.title', label: col_names.QUEST},
         {name: 'status', label: col_names.STATUS},
         {name: 'edit', label: '', width: 70}
