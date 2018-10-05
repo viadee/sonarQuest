@@ -80,6 +80,7 @@
       "PROJECT": "Projekt",
       "QUEST": "Quest",
       "TYPE": "Typ",
+      "SEVERITY": "Schwere",
       "WORLD": "Welt",
       "ACTIVE": "Aktiv",
       "UPDATE_TASKS": "Aufgaben aktualisieren",
