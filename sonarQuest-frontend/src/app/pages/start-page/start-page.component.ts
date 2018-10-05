@@ -21,7 +21,7 @@ export class StartPageComponent implements OnInit {
   }
 
   public xpPercent(): void {
-    console.log('Rufe XP für User auf ' + this.user);
+    console.log('Calling XP for user: ' + this.user);
     this.XPpercent = 100 / this.user.level.maxXp * this.user.xp;
     this.XPpercent.toFixed(2);
   }
