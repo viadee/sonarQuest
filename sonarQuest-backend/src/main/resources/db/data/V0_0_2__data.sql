@@ -161,7 +161,7 @@ INSERT INTO Permission (id, type, permission) VALUES
  (7, 'URL', 'admin'),
  (8, 'ACCESS', 'FULL_USER_ACCESS'),
  (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
- (10, 'ACCESS', 'USER_WORLD_AISSIGNMENT'),
+ (10, 'ACCESS', 'USER_WORLD_ASSIGNMENT'),
  (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
  ;
  

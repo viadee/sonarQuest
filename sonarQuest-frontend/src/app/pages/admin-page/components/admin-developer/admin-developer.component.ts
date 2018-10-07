@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {AdminDeveloperDeleteComponent} from './components/admin-developer-delete/admin-developer-delete.component';
 import {AdminDeveloperEditComponent} from './components/admin-developer-edit/admin-developer-edit.component';
 import {TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, TdDataTableService} from '@covalent/core';
@@ -17,7 +18,6 @@ export class AdminDeveloperComponent implements OnInit {
   public users: User[];
 
   columns: ITdDataTableColumn[] = [
-    // { name: 'id',       label: 'ID',        width: 50},
     {name: 'username', label: 'Username', width: {min: 100}},
     {name: 'xp', label: 'XP', width: 50},
     {name: 'gold', label: 'Gold', width: 50},
@@ -38,12 +38,25 @@ export class AdminDeveloperComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
+    private translateService: TranslateService,
     private _dataTableService: TdDataTableService) {
   }
 
   ngOnInit() {
+  	this.translateTable();
     this.userService.getUsers().subscribe(users => this.setUsers(users));
   }
+  
+  translateTable() {
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.columns = [
+        {name: 'username', label: col_names.USERNAME},
+        {name: 'xp', label: col_names.XP},
+        {name: 'gold', label: col_names.GOLD},
+        {name: 'aboutMe', label: col_names.ABOUT_ME},
+        {name: 'edit', label: ''}]
+    });
+  }  
 
   setUsers(users: User[]) {
     this.users = users;

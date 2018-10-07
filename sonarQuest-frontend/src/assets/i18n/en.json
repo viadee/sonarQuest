@@ -84,7 +84,10 @@
       "WORLD": "World",
       "ACTIVE": "Active",
       "UPDATE_TASKS": "Update Tasks",
-      "MISSION": "Mission"
+      "MISSION": "Mission",
+      "ABOUT_ME": "About Me",
+      "USERNAME": "Username",
+      "JOINED": "Joined"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",
@@ -170,7 +173,7 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
-    "USERNAME": "Benutzername",
-    "PASSWORD": "Passwort"
+    "USERNAME": "Username",
+    "PASSWORD": "Password"
   }
 }

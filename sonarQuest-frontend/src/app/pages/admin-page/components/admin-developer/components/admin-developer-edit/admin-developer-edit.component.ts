@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {MatDialogRef} from '@angular/material';
 import {AdminDeveloperComponent} from './../../admin-developer.component';
@@ -30,6 +31,7 @@ export class AdminDeveloperEditComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
+    private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public user: User,
     private imageService: ImageService,
     private userToWorldService: UserToWorldService
@@ -37,9 +39,18 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.translateTable();
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
   }
+  
+  translateTable() {
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.columns = [
+        {name: 'worldName', label: col_names.WORLD},
+        {name: 'editJoined', label: col_names.JOINED}]
+    });
+  }    
 
   editDeveloper() {
     this.userService.updateUser(this.user).then(() => {

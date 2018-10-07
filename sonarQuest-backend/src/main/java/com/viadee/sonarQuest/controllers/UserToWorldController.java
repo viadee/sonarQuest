@@ -22,7 +22,7 @@ public class UserToWorldController {
     @Autowired
     private WorldService worldService;
 
-    @PreAuthorize("hasAuthority('USER_WORLD_AISSIGNMENT')")
+    @PreAuthorize("hasAuthority('USER_WORLD_ASSIGNMENT')")
     @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.POST)
     public User addUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
@@ -32,7 +32,7 @@ public class UserToWorldController {
         return userService.save(user);
     }
 
-    @PreAuthorize("hasAuthority('USER_WORLD_AISSIGNMENT')")
+    @PreAuthorize("hasAuthority('USER_WORLD_ASSIGNMENT')")
     @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.DELETE)
     public User removeUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
