@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.constants.QuestState;
 import com.viadee.sonarQuest.entities.Participation;
@@ -82,7 +83,8 @@ public class QuestService implements QuestSuggestion {
         quests.forEach(this::updateQuest);
     }
 
-    public void updateQuest(final Quest quest) {
+    @Transactional // Quest updates are not to be mixed
+    public synchronized void updateQuest(final Quest quest) {
         final List<Task> tasks = quest.getTasks();
         final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED);
         final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED);
