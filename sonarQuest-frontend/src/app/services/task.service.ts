@@ -41,6 +41,11 @@ export class TaskService {
       .toPromise()
   }
 
+  solveAllTasksInQuest(quest: any): Promise<any> {
+    return this.http.put(`${environment.endpoint}/task/solveAllTasksInQuest/${quest.id}`, quest.id)
+      .toPromise()
+  }
+
   refreshTasks(world: World) {
     this.standardTaskService.getStandardTasksForWorld(world);
     this.specialTaskService.getSpecialTasksForWorld(world);
