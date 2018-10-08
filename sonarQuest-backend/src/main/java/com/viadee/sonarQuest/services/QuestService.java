@@ -89,9 +89,9 @@ public class QuestService implements QuestSuggestion {
         final List<Task> solvedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.SOLVED);
         final List<Task> closedTasks = taskRepository.findByQuestAndStatus(quest, SonarQuestStatus.CLOSED);
         if (tasks.size() == (solvedTasks.size() + closedTasks.size())) {
+            gratificationService.rewardUsersForSolvingQuest(quest);
             quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
-            gratificationService.rewardUsersForSolvingQuest(quest);
         }
     }
 

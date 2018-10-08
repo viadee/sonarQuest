@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.entities.Task;
 import com.viadee.sonarQuest.entities.World;
@@ -45,8 +46,9 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    @Transactional
     public void solveTaskManually(final Task task) {
-        if (task != null && !(SonarQuestStatus.SOLVED.equals(task.getStatus()))) {
+        if (task != null && task.getStatus() != SonarQuestStatus.SOLVED) {
             task.setStatus(SonarQuestStatus.SOLVED);
             save(task);
             gratificationService.rewardUserForSolvingTask(task);

@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
         return user.getCurrentWorld();
     }
 
-    public User save(final User user) {
+    public synchronized User save(final User user) {
         User toBeSaved = null;
         String username = user.getUsername();
         if (user.getId() == null) {
@@ -96,6 +96,9 @@ public class UserService implements UserDetailsService {
                 toBeSaved.setPicture(user.getPicture());
                 toBeSaved.setCurrentWorld(user.getCurrentWorld());
                 toBeSaved.setWorlds(user.getWorlds());
+                toBeSaved.setGold(user.getGold());
+                toBeSaved.setXp(user.getXp());
+                toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
             }
         }
 

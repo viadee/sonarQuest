@@ -103,10 +103,10 @@ public class QuestController {
     public void solveQuest(@PathVariable(value = "questId") final Long questId) {
         final Quest quest = questRepository.findOne(questId);
         if (quest != null) {
-            quest.setStatus(QuestState.SOLVED);
-            questRepository.save(quest);
             gratificationService.rewardUsersForSolvingQuest(quest);
             adventureService.updateAdventure(quest.getAdventure());
+            quest.setStatus(QuestState.SOLVED);
+            questRepository.save(quest);
         }
     }
 

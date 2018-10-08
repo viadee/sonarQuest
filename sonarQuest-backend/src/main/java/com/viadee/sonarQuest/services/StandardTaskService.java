@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarQuest.entities.StandardTask;
 import com.viadee.sonarQuest.entities.World;
@@ -40,6 +41,7 @@ public class StandardTaskService {
     @Autowired
     private NamedParameterJdbcTemplate template;
 
+    @Transactional
     public void updateStandardTasks(final World world) {
         final List<StandardTask> externalStandardTasks = externalRessourceService
                 .generateStandardTasksFromSonarQubeIssuesForWorld(world);
