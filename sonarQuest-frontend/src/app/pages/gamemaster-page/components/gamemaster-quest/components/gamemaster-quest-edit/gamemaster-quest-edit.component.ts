@@ -78,8 +78,8 @@ export class GamemasterQuestEditComponent implements OnInit {
   }
 
   solveAllTasks() {
+  	this.taskService.solveAllTasksInQuest(this.quest);
     for (const index in this.quest.tasks) {
-      this.taskService.solveTaskManually(this.quest.tasks[index]);
       this.quest.tasks[index].status = 'SOLVED';
     }
   }

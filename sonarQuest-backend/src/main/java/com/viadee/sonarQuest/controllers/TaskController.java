@@ -207,6 +207,12 @@ public class TaskController {
         return task;
     }
 
+    @RequestMapping(value = "/solveAllTasksInQuest/{questId}", method = RequestMethod.PUT)
+    public void solveAllTasksInQuest(@PathVariable(value = "questId") final Long questId) {
+        final Quest quest = questService.findById(questId);
+        taskService.solveAllTasksInQuest(quest);
+    }
+
     @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
     public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldService.findById(worldId);
