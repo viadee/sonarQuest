@@ -37,23 +37,27 @@ export class ViewParticipatedQuestComponent implements OnInit {
   }
 
   addParticipation(task: Task) {
-    return this.taskService.addParticipation(task, this.quest)
-      .then(() => {
-        return this.questService.getQuest(this.quest.id);
-      }).then((updatedQuest: Quest) => {
-        this.quest = updatedQuest;
-        this.tasks = updatedQuest.tasks
-      })
+    //if (task.status != 'SOLVED') {
+      return this.taskService.addParticipation(task, this.quest)
+        .then(() => {
+          return this.questService.getQuest(this.quest.id);
+        }).then((updatedQuest: Quest) => {
+          this.quest = updatedQuest;
+          this.tasks = updatedQuest.tasks
+        })
+    //}
   }
 
   removeParticipation(task: Task) {
-    return this.taskService.removeParticipation(task)
-      .then(() => {
-        return this.questService.getQuest(this.quest.id)
-      }).then((updatedQuest: Quest) => {
-        this.quest = updatedQuest;
-        this.tasks = updatedQuest.tasks
-      })
+    //if (task.status != 'SOLVED') {
+      return this.taskService.removeParticipation(task)
+        .then(() => {
+          return this.questService.getQuest(this.quest.id)
+        }).then((updatedQuest: Quest) => {
+          this.quest = updatedQuest;
+          this.tasks = updatedQuest.tasks
+        })
+    //}
   }
 
   participatingDeveloper(task: Task): User {
