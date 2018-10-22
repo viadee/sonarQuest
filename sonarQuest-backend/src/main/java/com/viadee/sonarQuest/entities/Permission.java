@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarQuest.constants.PermissionType;
 
 @Entity
 @Table(name = "permission")

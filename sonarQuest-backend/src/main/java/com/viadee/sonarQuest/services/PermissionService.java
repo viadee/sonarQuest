@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarQuest.constants.PermissionType;
 import com.viadee.sonarQuest.entities.Permission;
-import com.viadee.sonarQuest.entities.PermissionType;
 import com.viadee.sonarQuest.entities.User;
 
 @Service
