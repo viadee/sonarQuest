@@ -33,6 +33,7 @@ export class GamemasterQuestComponent implements OnInit {
     {name: 'world.name', label: 'Welt'},
     {name: 'adventure.title', label: 'Abenteuer'},
     {name: 'status', label: 'Status'},
+    {name: 'participants', label: 'Spieler'},
     {name: 'edit', label: ''}
   ];
 
@@ -79,6 +80,7 @@ export class GamemasterQuestComponent implements OnInit {
         {name: 'story', label: col_names.STORY},
         {name: 'adventure.title', label: col_names.ADVENTURE},
         {name: 'status', label: col_names.STATUS},
+        {name: 'participants', label: col_names.PLAYERS},
         {name: 'edit', label: '', width: 100}
       ]
     });

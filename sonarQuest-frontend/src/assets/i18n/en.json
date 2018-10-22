@@ -87,7 +87,8 @@
       "MISSION": "Mission",
       "ABOUT_ME": "About Me",
       "USERNAME": "Username",
-      "JOINED": "Joined"
+      "JOINED": "Joined",
+      "PLAYERS": "Players"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",

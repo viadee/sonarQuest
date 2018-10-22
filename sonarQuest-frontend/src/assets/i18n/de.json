@@ -87,7 +87,8 @@
       "MISSION": "Mission",
       "ABOUT_ME": "Kurzbio",
       "USERNAME": "Username",
-      "JOINED": "Freigeschaltet"
+      "JOINED": "Freigeschaltet",
+      "PLAYERS": "Spieler"
     },
     "INFO": {
       "NO_ENTRIES": "keine Einträge",

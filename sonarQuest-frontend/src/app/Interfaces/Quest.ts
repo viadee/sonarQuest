@@ -14,7 +14,8 @@ export interface Quest {
   world: World,
   adventure: Adventure,
   tasks: Task[];
-  participations: Participation[]
+  participations: Participation[];
+  participants: string[];
 }
 
 

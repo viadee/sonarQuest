@@ -1,6 +1,8 @@
 package com.viadee.sonarQuest.entities;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarQuest.constants.QuestState;
@@ -175,5 +179,16 @@ public class Quest {
 
     public void setParticipations(final List<Participation> participations) {
         this.participations = participations;
+    }
+
+    public List<String> getParticipants() {
+        if (participations != null) {
+            return participations.stream()
+                    .map(Participation::getUser)
+                    .map(u -> StringUtils.SPACE + u.getUsername())
+                    .collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
     }
 }
