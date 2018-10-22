@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarQuest.constants.QuestState;
 
@@ -181,11 +179,14 @@ public class Quest {
         this.participations = participations;
     }
 
+    /**
+     * Looks up the usernames of all participants in this quests and returns them in a list.
+     */
     public List<String> getParticipants() {
         if (participations != null) {
             return participations.stream()
                     .map(Participation::getUser)
-                    .map(u -> StringUtils.SPACE + u.getUsername())
+                    .map(User::getUsername)
                     .collect(Collectors.toList());
         } else {
             return new ArrayList<>();
