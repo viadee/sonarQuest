@@ -6,7 +6,11 @@
     "QUESTS": "Quests",
     "MARKETPLACE": "Marketplace",
     "GAMEMASTER": "Gamemaster",
-    "ADMIN": "Admin"
+    "ADMIN": "Admin",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "BACKGROUND": "Switch transparency of background",
+    "USER_PROFILE": "Open user profile"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",

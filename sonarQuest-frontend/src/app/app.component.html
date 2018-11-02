@@ -65,20 +65,32 @@
     <div class="vertical-align">{{determinePageTitle(router.url)}}</div>
     <div flex></div>
     <div class="username-toolbar vertical-align">
-        <button *ngIf="user" mat-icon-button routerLink="/{{myAvatarUrl}}">
+        <button *ngIf="user" mat-icon-button routerLink="/{{myAvatarUrl}}"
+                [matTooltip]="'APP_COMPONENT.USER_PROFILE' | translate"
+                [matTooltipClass]="'tooltipMultiline'"
+                matTooltipPosition="below">
           <mat-icon>person</mat-icon>
           <span>{{user?.username}}</span>
         </button>
     </div>
     <div flex="5"></div>
     <div class="lightning-login-align">
-      <button mat-icon-button (click)="toggleDesign()">
+      <button mat-icon-button (click)="toggleDesign()"
+              [matTooltip]="'APP_COMPONENT.BACKGROUND' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="below">
         <i mat-list-icon class="ra ra-lightning-bolt ra-2x navlist"></i>
       </button>
-      <button *ngIf="!user" mat-icon-button (click)="login()">
+      <button *ngIf="!user" mat-icon-button (click)="login()"
+              [matTooltip]="'APP_COMPONENT.LOGIN' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="below">
         <mat-icon>launch</mat-icon>
       </button>
-      <button *ngIf="user" mat-icon-button (click)="logout()">
+      <button *ngIf="user" mat-icon-button (click)="logout()"
+              [matTooltip]="'APP_COMPONENT.LOGOUT' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="below">
         <mat-icon>power_settings_new</mat-icon>
       </button>
     </div>
