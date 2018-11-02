@@ -10,6 +10,11 @@
 
   <td-data-table #dataTable [data]="filteredData" [sortable]="true" [columns]="columns" [sortBy]="sortBy" [(ngModel)]="selectedRows"
     [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="avatar" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <img style="max-width:20px;" [src]="value">
+      </div>
+    </ng-template>
     <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
       <div layout="row">
         <button mat-icon-button (click)="editUser(row)">

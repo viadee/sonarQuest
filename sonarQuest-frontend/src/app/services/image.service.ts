@@ -3,6 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Injectable} from '@angular/core';
+import { environment } from 'environments/environment.prod';
 
 @Injectable()
 export class ImageService {
@@ -22,6 +23,10 @@ export class ImageService {
       reader.readAsDataURL(image);
     }
     return this.imageSubject;
+  }
+
+  createAvatarImageUrl(userId: string) {
+    return `${environment.endpoint}/${userId}/avatar`;
   }
 
 }

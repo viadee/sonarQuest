@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {User} from '../../../../Interfaces/User';
 import {UserService} from '../../../../services/user.service';
+import { ImageService } from 'app/services/image.service';
 
 @Component({
   selector: 'app-admin-developer',
@@ -18,6 +19,7 @@ export class AdminDeveloperComponent implements OnInit {
   public users: User[];
 
   columns: ITdDataTableColumn[] = [
+    {name: 'avatar', label: 'Avatar', width: {min: 20}},
     {name: 'username', label: 'Username', width: {min: 100}},
     {name: 'xp', label: 'XP', width: 50},
     {name: 'gold', label: 'Gold', width: 50},
@@ -37,26 +39,28 @@ export class AdminDeveloperComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private imageService: ImageService,
     private dialog: MatDialog,
     private translateService: TranslateService,
     private _dataTableService: TdDataTableService) {
   }
 
   ngOnInit() {
-  	this.translateTable();
+    this.translateTable();
     this.userService.getUsers().subscribe(users => this.setUsers(users));
   }
-  
+
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
+        {name: 'avatar', label: col_names.AVATAR},
         {name: 'username', label: col_names.USERNAME},
         {name: 'xp', label: col_names.XP},
         {name: 'gold', label: col_names.GOLD},
         {name: 'aboutMe', label: col_names.ABOUT_ME},
         {name: 'edit', label: ''}]
     });
-  }  
+  }
 
   setUsers(users: User[]) {
     this.users = users;
@@ -94,10 +98,17 @@ export class AdminDeveloperComponent implements OnInit {
         return column.name;
       });
     newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+    this.mapPicture(newData);
     this.filteredTotal = newData.length;
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
   }
 
+  mapPicture(rows: any[]): void {
+    rows.forEach(row => {
+      // REST ressource for user avatar
+      row.avatar = this.imageService.createAvatarImageUrl(row.id);
+    });
+  }
 }
