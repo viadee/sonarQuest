@@ -134,7 +134,8 @@
   "ADVENTURE": {
     "ADVENTURE": "Abenteuer",
     "ADVENTURES": "Abenteuer",
-    "NEW_ADVENTURE": "Neues Abenteuer"
+    "NEW_ADVENTURE": "Neues Abenteuer",
+    "SOLVEADVENTURE": "Abenteuer abschließen"
   },
   "WORLD": {
     "WORLD": "Welt",

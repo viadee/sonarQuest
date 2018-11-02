@@ -54,5 +54,8 @@
 
 <mat-dialog-actions>
   <span class="toolbar-spacer"></span>
+  <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="solveAdventure()">{{"ADVENTURE.SOLVEADVENTURE" |
+    translate}}
+  </button>
   <button mat-raised-button color="primary" (click)="editAdventure()">{{"GLOBAL.SAVE" | translate}}</button>
 </mat-dialog-actions>

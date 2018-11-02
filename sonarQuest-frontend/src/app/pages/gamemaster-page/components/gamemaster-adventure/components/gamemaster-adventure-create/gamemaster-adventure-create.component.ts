@@ -7,6 +7,7 @@ import {GamemasterAddFreeQuestComponent} from './components/gamemaster-add-free-
 import {WorldService} from '../../../../../../services/world.service';
 import {World} from '../../../../../../Interfaces/World';
 import {Quest} from '../../../../../../Interfaces/Quest';
+import { AdventureState } from 'app/Interfaces/AdventureState';
 
 @Component({
   selector: 'app-gamemaster-adventure-create',

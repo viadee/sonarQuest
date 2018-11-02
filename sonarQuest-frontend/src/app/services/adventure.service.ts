@@ -66,6 +66,12 @@ export class AdventureService {
       .catch(this.handleError);
   }
 
+  solveAdventure(adventure: any): Promise<Adventure> {
+    return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/solveAdventure`, adventure)
+      .toPromise()
+      .catch(this.handleError);
+  }  
+
   updateAdventure(adventure: Adventure): Promise<any> {
     return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}`, adventure)
       .toPromise()

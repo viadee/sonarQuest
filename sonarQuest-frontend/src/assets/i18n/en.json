@@ -134,7 +134,8 @@
   "ADVENTURE": {
     "ADVENTURE": "Adventure",
     "ADVENTURES": "Adventures",
-    "NEW_ADVENTURE": "New Adventure"
+    "NEW_ADVENTURE": "New Adventure",
+    "SOLVEADVENTURE": "Solve Adventure"
   },
   "WORLD": {
     "WORLD": "World",

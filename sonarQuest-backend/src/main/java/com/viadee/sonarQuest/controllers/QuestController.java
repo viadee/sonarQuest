@@ -72,6 +72,7 @@ public class QuestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Quest createQuest(@RequestBody final Quest questDto) {
+        questDto.setStatus(QuestState.OPEN);
         return questRepository.save(questDto);
     }
 

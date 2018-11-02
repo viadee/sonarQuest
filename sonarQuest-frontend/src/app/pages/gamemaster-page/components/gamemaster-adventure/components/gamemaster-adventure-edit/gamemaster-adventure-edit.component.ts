@@ -9,6 +9,7 @@ import {MatDialogRef} from '@angular/material';
 import {Component, OnInit, Inject} from '@angular/core';
 import {GamemasterAdventureComponent} from '../../gamemaster-adventure.component';
 import {Quest} from '../../../../../../Interfaces/Quest';
+import { AdventureState } from 'app/Interfaces/AdventureState';
 
 @Component({
   selector: 'app-gamemaster-adventure-edit',
@@ -17,7 +18,7 @@ import {Quest} from '../../../../../../Interfaces/Quest';
 })
 export class GamemasterAdventureEditComponent implements OnInit {
 
-
+  isSolved: boolean;
   oldQuests: Quest[];
   currentWorld: World;
 
@@ -25,13 +26,19 @@ export class GamemasterAdventureEditComponent implements OnInit {
     private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
     @Inject(MAT_DIALOG_DATA) public adventure: Adventure,
     public questService: QuestService,
-    public advantureService: AdventureService,
+    public adventureService: AdventureService,
     public worldService: WorldService,
     private dialog: MatDialog) {
     this.oldQuests = this.adventure.quests.filter(() => true)
   }
 
   ngOnInit() {
+    // TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
+    if (this.adventure.status === AdventureState.SOLVED) {
+      this.isSolved = true;
+    } else {
+      this.isSolved = false;
+    }    
     this.currentWorld = this.worldService.getCurrentWorld();
     this.calculateGoldAmountOfQuests();
     this.calculateXpAmountOfQuests();
@@ -60,18 +67,24 @@ export class GamemasterAdventureEditComponent implements OnInit {
     this.adventure.quests.splice(questIndex, 1);
   }
 
+  solveAdventure(){    
+    this.adventureService.solveAdventure(this.adventure).then(() => {
+      this.dialogRef.close(true);
+    })
+  }
+
 
   editAdventure() {
     if (this.adventure.title && this.adventure.gold && this.adventure.xp && this.adventure.story && (this.adventure.quests.length > 0)) {
       const newQuests = this.questService.identifyNewTasks(this.oldQuests, this.adventure.quests);
-      const deselcetedQuests = this.questService.identifyDeselectedTasks(this.oldQuests, this.adventure.quests);
-      this.advantureService.updateAdventure(this.adventure).then(() => {
+      const deselectedQuests = this.questService.identifyDeselectedTasks(this.oldQuests, this.adventure.quests);
+      this.adventureService.updateAdventure(this.adventure).then(() => {
         const promiseArray = [];
         newQuests.forEach((value, index) => {
           const addQuestToAdventure = this.questService.addToAdventure(value, this.adventure);
           promiseArray.push(addQuestToAdventure);
         });
-        deselcetedQuests.forEach((value, index) => {
+        deselectedQuests.forEach((value, index) => {
           const removeQuestFromAdventure = this.questService.deleteFromAdventure(value);
           promiseArray.push(removeQuestFromAdventure);
         });

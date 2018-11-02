@@ -81,6 +81,7 @@ public class AdventureController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(@RequestBody final Adventure adventure) {
+        adventure.setStatus(AdventureState.OPEN);
         return adventureRepository.save(adventure);
     }
 
@@ -106,14 +107,15 @@ public class AdventureController {
         }
     }
 
-    @RequestMapping(value = "/{adventureId}/solveAdventure/", method = RequestMethod.PUT)
-    public void solveAdventure(@PathVariable(value = "adventureId") final Long adventureId) {
+    @RequestMapping(value = "/{adventureId}/solveAdventure", method = RequestMethod.PUT)
+    public Adventure solveAdventure(@PathVariable(value = "adventureId") final Long adventureId) {
         final Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
             adventure.setStatus(AdventureState.SOLVED);
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
         }
+        return adventure;
     }
 
     @RequestMapping(value = "/{adventureId}/addQuest/{questId}", method = RequestMethod.POST)
