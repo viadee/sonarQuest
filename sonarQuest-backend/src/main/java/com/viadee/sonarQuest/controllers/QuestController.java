@@ -184,6 +184,7 @@ public class QuestController {
         List<Quest> freeQuests = null;
         if (world != null) {
             freeQuests = questRepository.findByWorldAndAdventure(world, null);
+            freeQuests.removeIf(q -> q.getStatus() == QuestState.SOLVED);
         }
         return freeQuests;
     }
