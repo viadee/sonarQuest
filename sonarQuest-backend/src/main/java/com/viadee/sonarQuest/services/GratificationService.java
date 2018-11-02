@@ -80,7 +80,7 @@ public class GratificationService implements UserGratification {
             }
             LOGGER.info((String.format(
                     "A Quest has been solved by the following user IDs: %s and now the quest reward will be paid out to everyone.",
-                    usersThatTookPart.stream().map(User::getId).toArray())));
+                    (Object) usersThatTookPart.stream().map(User::getId).toArray())));
             // Now, reward them
             for (User user : usersThatTookPart) {
                 rewardQuestParticipation(quest, user);
