@@ -1,12 +1,12 @@
-import {TranslateService} from '@ngx-translate/core';
-import {AdminDeveloperDeleteComponent} from './components/admin-developer-delete/admin-developer-delete.component';
-import {AdminDeveloperEditComponent} from './components/admin-developer-edit/admin-developer-edit.component';
-import {TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, TdDataTableService} from '@covalent/core';
-import {AdminDeveloperCreateComponent} from './components/admin-developer-create/admin-developer-create.component';
-import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {User} from '../../../../Interfaces/User';
-import {UserService} from '../../../../services/user.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AdminDeveloperDeleteComponent } from './components/admin-developer-delete/admin-developer-delete.component';
+import { AdminDeveloperEditComponent } from './components/admin-developer-edit/admin-developer-edit.component';
+import { TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, TdDataTableService } from '@covalent/core';
+import { AdminDeveloperCreateComponent } from './components/admin-developer-create/admin-developer-create.component';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { User } from '../../../../Interfaces/User';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-admin-developer',
@@ -18,11 +18,12 @@ export class AdminDeveloperComponent implements OnInit {
   public users: User[];
 
   columns: ITdDataTableColumn[] = [
-    {name: 'username', label: 'Username', width: {min: 100}},
-    {name: 'xp', label: 'XP', width: 50},
-    {name: 'gold', label: 'Gold', width: 50},
-    {name: 'aboutMe', label: 'About Me', width: {min: 100}},
-    {name: 'edit', label: '', width: 120}
+    { name: 'username', label: 'Username', width: { min: 100 } },
+    { name: 'level.level', label: 'Level', width: 25 },
+    { name: 'xp', label: 'XP', width: 50 },
+    { name: 'gold', label: 'Gold', width: 50 },
+    { name: 'currentWorld.name', label: 'Current World', width: { min: 100 } },
+    { name: 'edit', label: '', width: 120 }
   ];
 
   sortBy = 'username';
@@ -43,20 +44,21 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   ngOnInit() {
-  	this.translateTable();
+    this.translateTable();
     this.userService.getUsers().subscribe(users => this.setUsers(users));
   }
-  
+
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'username', label: col_names.USERNAME},
-        {name: 'xp', label: col_names.XP},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'aboutMe', label: col_names.ABOUT_ME},
-        {name: 'edit', label: ''}]
+        { name: 'username', label: col_names.USERNAME },
+        { name: 'level.level', label: col_names.LEVEL },
+        { name: 'xp', label: col_names.XP },
+        { name: 'gold', label: col_names.GOLD },
+        { name: 'currentWorld.name', label: col_names.ACTIVE_WORLD },
+        { name: 'edit', label: '' }]
     });
-  }  
+  }
 
   setUsers(users: User[]) {
     this.users = users;
@@ -64,17 +66,17 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   createUser() {
-    this.dialog.open(AdminDeveloperCreateComponent, {data: this.users, width: '500px'}).afterClosed()
+    this.dialog.open(AdminDeveloperCreateComponent, { data: this.users, width: '500px' }).afterClosed()
       .subscribe(() => this.ngOnInit());
   }
 
   editUser(user: User) {
-    this.dialog.open(AdminDeveloperEditComponent, {data: user, width: '500px'}).afterClosed()
+    this.dialog.open(AdminDeveloperEditComponent, { data: user, width: '500px' }).afterClosed()
       .subscribe(() => this.ngOnInit());
   }
 
   deleteUser(user: User) {
-    this.dialog.open(AdminDeveloperDeleteComponent, {data: user, width: '500px'}).afterClosed()
+    this.dialog.open(AdminDeveloperDeleteComponent, { data: user, width: '500px' }).afterClosed()
       .subscribe(() => this.ngOnInit());
   }
 
