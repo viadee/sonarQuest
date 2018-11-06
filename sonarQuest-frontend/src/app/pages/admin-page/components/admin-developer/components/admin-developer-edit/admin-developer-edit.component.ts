@@ -1,15 +1,15 @@
-import {TranslateService} from '@ngx-translate/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
-import {MatDialogRef} from '@angular/material';
-import {AdminDeveloperComponent} from './../../admin-developer.component';
-import {Component, OnInit, Inject} from '@angular/core';
-import {UserService} from '../../../../../../services/user.service';
-import {User} from '../../../../../../Interfaces/User';
-import {ImageService} from '../../../../../../services/image.service';
-import {WorldService} from '../../../../../../services/world.service';
-import {UserToWorld} from '../../../../../../Interfaces/UserToWorld';
-import {ITdDataTableColumn} from '@covalent/core';
-import {UserToWorldService} from '../../../../../../services/user-to-world.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
+import { AdminDeveloperComponent } from './../../admin-developer.component';
+import { Component, OnInit, Inject } from '@angular/core';
+import { UserService } from '../../../../../../services/user.service';
+import { User } from '../../../../../../Interfaces/User';
+import { ImageService } from '../../../../../../services/image.service';
+import { WorldService } from '../../../../../../services/world.service';
+import { UserToWorld } from '../../../../../../Interfaces/UserToWorld';
+import { ITdDataTableColumn } from '@covalent/core';
+import { UserToWorldService } from '../../../../../../services/user-to-world.service';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -22,10 +22,10 @@ export class AdminDeveloperEditComponent implements OnInit {
   userToWorlds: UserToWorld[];
 
   columns: ITdDataTableColumn[] = [
-    {name: 'userId', label: 'UserId', hidden: true},
-    {name: 'worldId', label: 'WorldId', hidden: true},
-    {name: 'worldName', label: 'World'},
-    {name: 'editJoined', label: 'Joined'},
+    { name: 'userId', label: 'UserId', hidden: true },
+    { name: 'worldId', label: 'WorldId', hidden: true },
+    { name: 'worldName', label: 'World' },
+    { name: 'editJoined', label: 'Joined' },
   ];
 
   constructor(
@@ -43,14 +43,14 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
   }
-  
+
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'worldName', label: col_names.WORLD},
-        {name: 'editJoined', label: col_names.JOINED}]
+        { name: 'worldName', label: col_names.WORLD },
+        { name: 'editJoined', label: col_names.JOINED }]
     });
-  }    
+  }
 
   editDeveloper() {
     this.userService.updateUser(this.user).then(() => {
