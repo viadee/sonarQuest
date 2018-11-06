@@ -14,6 +14,8 @@
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",
+	"JOIN_ADVENTURE": "Dieses Abenteuer beginnen!",
+	"LEAVE_ADVENTURE": "Dieses Abenteuer verlassen...",
     "MY_ADVENTURES_FOR_WORLD": "Meine Abenteuer für ",
     "ADVENTURES_FOR_WORLD": "Alle Abenteuer für ",
     "AVAILABLE_ADVENTURES": "Verfügbare Abenteuer",
@@ -21,6 +23,7 @@
   },
   "QUEST_PAGE": {
     "MY_QUESTS": "Meine Quests",
+	"SHOW_QUEST": "Quest anzeigen",
     "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
     "QUESTS_FOR_WORLD": "Alle Quests für ",
     "JOIN_QUEST": "Quest annehmen",

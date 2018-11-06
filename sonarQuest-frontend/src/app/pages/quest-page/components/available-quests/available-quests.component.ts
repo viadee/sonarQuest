@@ -63,7 +63,7 @@ export class AvailableQuestsComponent implements OnInit {
         {name: 'xp', label: col_names.XP, width: 30},
         {name: 'story', label: col_names.STORY, width: 300},
         {name: 'adventure.title', label: col_names.ADVENTURE, width: 100},
-        {name: 'status', label: col_names.STATUS, width: 40},
+        {name: 'status', label: col_names.STATUS, width: 80},
         {name: 'edit', label: ''}]
     });
     if (this.worldService.getCurrentWorld()) {

@@ -29,8 +29,8 @@ export class ParticipatedQuestsComponent implements OnInit {
     {name: 'xp', label: 'XP', width: {min: 40}},
     {name: 'story', label: 'Story', width: {min: 200}},
     {name: 'adventure.title', label: 'Adventure', width: {min: 80}},
-    {name: 'status', label: 'Status', width: {min: 60}},
-    {name: 'edit', label: '', width: {min: 60}}
+    {name: 'status', label: 'Status', width: {min: 90}},
+    {name: 'edit', label: '', width: {min: 90}}
   ];
 
   // Sort / Filter / Paginate variables
@@ -64,7 +64,7 @@ export class ParticipatedQuestsComponent implements OnInit {
         {name: 'xp', label: col_names.XP, width: 30},
         {name: 'story', label: col_names.STORY, width: 300},
         {name: 'adventure.title', label: col_names.ADVENTURE, width: 100},
-        {name: 'status', label: col_names.STATUS, width: 40},
+        {name: 'status', label: col_names.STATUS, width: 80},
         {name: 'edit', label: ''}]
     });
     if (this.worldService.getCurrentWorld()) {

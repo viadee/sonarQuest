@@ -60,7 +60,7 @@ export class AdventurePageComponent implements OnInit {
         {name: 'gold', label: col_names.GOLD, width: 30},
         {name: 'xp', label: col_names.XP, width: 30},
         {name: 'story', label: col_names.STORY, width: 500},
-        {name: 'status', label: col_names.STATUS, width: 50},
+        {name: 'status', label: col_names.STATUS, width: 75},
         {name: 'edit', label: ''}]
     });
     this.init()
