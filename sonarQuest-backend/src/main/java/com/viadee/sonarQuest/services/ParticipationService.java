@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,24 @@ public class ParticipationService {
     private UserService userService;
 
     public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
-        final Quest foundQuest = questRepository.findOne(questId);
-        final User foundUser = userService.findById(userId);
-        Participation foundParticipation = null;
-        if ((foundQuest != null) && (foundUser != null)) {
-            foundParticipation = participationRepository.findByQuestAndUser(foundQuest, foundUser);
+        final Quest quest = questRepository.findOne(questId);
+        final User user = userService.findById(userId);
+        if (quest != null && user != null) {
+            return participationRepository.findByQuestAndUser(quest, user);
         }
-        return foundParticipation;
+        return null;
     }
 
     public List<Participation> findParticipationByQuestId(final Long questId) {
         final Quest foundQuest = questRepository.findOne(questId);
         return participationRepository.findByQuest(foundQuest);
+    }
+
+    public List<Participation> findParticipationByUser(final User user) {
+        List<Participation> participations = new ArrayList<>();
+        if (user != null) {
+            participations = participationRepository.findByUser(user);
+        }
+        return participations;
     }
 }

@@ -37,7 +37,7 @@ public class ParticipationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Participation> getAllParticipations() {
-        return this.participationRepository.findAll();
+        return participationRepository.findAll();
     }
 
     @RequestMapping(value = "/{questid}", method = RequestMethod.GET)
@@ -52,6 +52,13 @@ public class ParticipationController {
     public List<Participation> getParticipations(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
         return participationService.findParticipationByQuestId(questid);
+    }
+
+    @RequestMapping(value = "/allMyParticipations", method = RequestMethod.GET)
+    public List<Participation> getAllMyParticipations(final Principal principal) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        return participationService.findParticipationByUser(user);
     }
 
     @RequestMapping(value = "/{questid}", method = RequestMethod.POST)
