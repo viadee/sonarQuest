@@ -25,6 +25,10 @@ export class ParticipationService {
     return this.http.get<Participation[]>(`${environment.endpoint}/participation/${quest.id}/all`).toPromise();
   }
 
+  public getAllMyParticipations(quest: Quest): Promise<Participation[]> {
+    return this.http.get<Participation[]>(`${environment.endpoint}/participation/allMyParticipations`).toPromise();
+  }
+
   announceParticipationUpdate() {
     this.participationUpdateSource.next();
   }
