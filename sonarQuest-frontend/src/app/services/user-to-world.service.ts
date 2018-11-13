@@ -5,12 +5,10 @@ import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {UserToWorld} from '../Interfaces/UserToWorld';
 import {WorldService} from './world.service';
-import {UserService} from './user.service';
 
 @Injectable()
 export class UserToWorldService {
   constructor(private http: HttpClient,
-              private userService: UserService,
               private worldService: WorldService) {
   }
 

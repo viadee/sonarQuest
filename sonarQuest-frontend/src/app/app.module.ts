@@ -84,6 +84,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
+import { WizardService } from './services/wizard.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -224,6 +225,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingService,
     UserToWorldService,
     PermissionService,
+    WizardService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

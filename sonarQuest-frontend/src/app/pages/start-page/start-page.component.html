@@ -8,11 +8,11 @@
           <div layout="column">
             <div layout="row">
               <div flex>{{"DEVELOPER.LEVEL"| translate}}:</div>
-              <div flex style="font-weight:bold; font-size:30pt">{{user?.level.name}}</div>
+              <div flex style="font-weight:bold; font-size:30pt">{{user?.level.level}}</div>
             </div>
             <div layout="row">
               <div flex></div>
-              <div flex-end>{{user?.xp}}/{{user?.level.max}} XP ({{XPpercent}}%)</div>
+              <div flex-end>{{user?.xp}}/{{user?.level.maxXp}} XP ({{XPpercent}}%)</div>
             </div>
             <mat-progress-bar flex mode="determinate" [value]="XPpercent"></mat-progress-bar>
           </div>

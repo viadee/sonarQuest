@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Wizard } from '../../Interfaces/Wizard';
+import { WizardService } from '../../services/wizard.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-admin-page',
@@ -7,10 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPageComponent implements OnInit {
 
-  constructor() { }
+  wizard$: Observable<Wizard>;
+
+  constructor(private wizardService: WizardService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(() => {
+      this.wizard$ = this.wizardService.getWizardMessage();
+    });
   }
-
 
 }
