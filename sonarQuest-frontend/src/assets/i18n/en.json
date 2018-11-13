@@ -97,7 +97,8 @@
       "ABOUT_ME": "About Me",
       "USERNAME": "Username",
       "JOINED": "Joined",
-      "PLAYERS": "Players"
+      "PLAYERS": "Players",
+      "ROLE": "Role"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",

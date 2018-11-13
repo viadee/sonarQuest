@@ -19,9 +19,10 @@ export class AdminDeveloperComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
     { name: 'username', label: 'Username', width: { min: 100 } },
+    { name: 'role.name', label: 'Role', width: 50 },
     { name: 'level.level', label: 'Level', width: 25 },
-    { name: 'xp', label: 'XP', width: 50 },
-    { name: 'gold', label: 'Gold', width: 50 },
+    { name: 'xp', label: 'XP', width: 25 },
+    { name: 'gold', label: 'Gold', width: 25 },
     { name: 'currentWorld.name', label: 'Current World', width: { min: 100 } },
     { name: 'edit', label: '', width: 120 }
   ];
@@ -52,6 +53,7 @@ export class AdminDeveloperComponent implements OnInit {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
         { name: 'username', label: col_names.USERNAME },
+        { name: 'role.name', label: col_names.ROLE },
         { name: 'level.level', label: col_names.LEVEL },
         { name: 'xp', label: col_names.XP },
         { name: 'gold', label: col_names.GOLD },

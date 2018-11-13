@@ -97,7 +97,8 @@
       "ABOUT_ME": "Kurzbio",
       "USERNAME": "Username",
       "JOINED": "Freigeschaltet",
-      "PLAYERS": "Spieler"
+      "PLAYERS": "Spieler",
+      "ROLE": "Rolle"
     },
     "INFO": {
       "NO_ENTRIES": "keine Einträge",
