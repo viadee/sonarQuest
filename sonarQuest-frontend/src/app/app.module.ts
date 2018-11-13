@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length
 import {UiDesignService} from './services/ui-design.service';
 import {SkillService} from './services/skill.service';
 import {AdminPageComponent} from './pages/admin-page/admin-page.component';
