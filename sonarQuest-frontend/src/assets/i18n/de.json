@@ -186,5 +186,22 @@
     "LOGIN": "Login",
     "USERNAME": "Benutzername",
     "PASSWORD": "Passwort"
+  },
+  "WIZARD": {
+    "WIZARD_SAYS": "Der Wizard meint...",
+    "MSG_NO_WORLDS_FOUND": "Keine Spielwelt vorhanden",
+    "HINT_NO_WORLDS_FOUND": "Um die SonarQube-Projekte abzurufen, muss der Admin im Reiter 'Welten' auf 'Aktualisiere Welten' klicken",
+    "MSG_NO_ACTIVE_WORLD": "Keine Spielwelt ist aktiv",
+    "HINT_NO_ACTIVE_WORLD": "Zum Aktivieren einer Welt muss der Admin im Reiter 'Welten' bei einer Welt den 'Aktiv'-Haken setzen!",
+    "MSG_NO_PLAYERS_ASSIGNED": "Der aktiven Welt sind keine Spieler zugeordnet",
+    "HINT_NO_PLAYERS_ASSIGNED": "Zum Freischalten eines Spielers muss der Admin im Reiter 'Entwickler' bei einem Spieler den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+    "MSG_NO_GAMEMASTER_ASSIGNED": "Der aktiven Welt fehlt ein Spielleiter, der die Quests erstellen kann",
+    "HINT_NO_GAMEMASTER_ASSIGNED": "Im Reiter 'Entwickler' muss der Admin bei einem Spieler mit der Rolle 'Spielleiter' den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+    "MSG_NO_TASKS_FOUND": "Es sind noch keine Aufgaben/Issues von SonarQube abgerufen worden",
+    "HINT_NO_TASKS_FOUND": "Der Spielleiter muss im Reiter 'Aufträge' auf 'Aktualisiere Status' klicken, um die Issues abzurufen!",
+    "MSG_NO_QUESTS_FOUND": "Es sind noch keine Quests erstellt worden",
+    "HINT_NO_QUESTS_FOUND": "Der Spielleiter muss im Reiter 'Quests' eine neue Quest anlegen und Aufträge zuordnen, die die Spieler lösen sollen!",
+    "MSG_NO_WORLD_SELECTED": "Keine aktive Spielwelt ist ausgewählt",
+    "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
   }
 }

@@ -1,3 +1,14 @@
+<ng-container *ngIf="(wizard$ | async) as wizard">
+  <mat-card>
+    <mat-card-content [style.backgroundColor]="'yellow'">
+      <i mat-list-icon class="ra ra-fairy-wand ra-2x"
+        [matTooltip]="'WIZARD.WIZARD_SAYS' | translate"
+        [matTooltipClass]="'tooltipMultiline'"
+        matTooltipPosition="below"></i>
+          {{wizard.message | translate}}:&nbsp;{{wizard.solution | translate}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
 <mat-card>
   <mat-tab-group>
     <mat-tab [label]="'DEVELOPER.DEVELOPER' | translate" class="tab">
@@ -11,3 +22,4 @@
     </mat-tab>
   </mat-tab-group>
 </mat-card>
+

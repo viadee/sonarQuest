@@ -186,5 +186,22 @@
     "LOGIN": "Login",
     "USERNAME": "Username",
     "PASSWORD": "Password"
-  }
+  },
+  "WIZARD": {
+    "WIZARD_SAYS": "The wizard thinks...",
+    "MSG_NO_WORLDS_FOUND": "No game world found",
+    "HINT_NO_WORLDS_FOUND": "To download SonarQube-Projects as worlds, the admin clicks the button 'Update worlds' in the worlds tab.",
+    "MSG_NO_ACTIVE_WORLD": "No active world found",
+    "HINT_NO_ACTIVE_WORLD": "To activate a world, the admin hits the worlds tab and edits a world and sets 'active' to play it!",
+    "MSG_NO_PLAYERS_ASSIGNED": "No players have been assigned to the active world yet",
+    "HINT_NO_PLAYERS_ASSIGNED": "To activate a player the admin hits the developers tab, selects a player and clicks 'active' at the chosen world!",
+    "MSG_NO_GAMEMASTER_ASSIGNED": "The current world is missing a gamemaster who will be creating the quests",
+    "HINT_NO_GAMEMASTER_ASSIGNED": "The admin hits the tab 'developers' and sets a player with the role 'gamemaster' as active for the world!",
+    "MSG_NO_TASKS_FOUND": "No tasks/issues from SonarQube have been retrieved yet",
+    "HINT_NO_TASKS_FOUND": "The gamemaster must hit the tab 'Tasks' and use the button 'Update Status' to connect to SonarQube and get the issues!",
+    "MSG_NO_QUESTS_FOUND": "No quests found",
+    "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
+    "MSG_NO_WORLD_SELECTED": "No active world selected",
+    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."    
+  }  
 }
