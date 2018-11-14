@@ -24,11 +24,10 @@ export class AvailableQuestsComponent implements OnInit {
 
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: {min: 80}},
+    {name: 'title', label: 'Title'},
     {name: 'gold', label: 'Gold'},
     {name: 'xp', label: 'XP'},
-    {name: 'story', label: 'Story', width: {min: 300}},
-    {name: 'adventure.title', label: 'Adventure', width: {min: 80}},
+    {name: 'adventure.title', label: 'Adventure'},
     {name: 'status', label: 'Status'},
     {name: 'edit', label: ''}
   ];
@@ -58,11 +57,10 @@ export class AvailableQuestsComponent implements OnInit {
   ngOnInit() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'title', label: col_names.TITLE, width: {min: 80}},
+        {name: 'title', label: col_names.TITLE},
         {name: 'gold', label: col_names.GOLD},
         {name: 'xp', label: col_names.XP},
-        {name: 'story', label: col_names.STORY, width: {min: 300}},
-        {name: 'adventure.title', label: col_names.ADVENTURE, width: {min: 80}},
+        {name: 'adventure.title', label: col_names.ADVENTURE},
         {name: 'status', label: col_names.STATUS},
         {name: 'edit', label: ''}]
     });
