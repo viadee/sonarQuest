@@ -8,6 +8,7 @@ import {SpecialTask} from '../../../../../../../../Interfaces/SpecialTask';
 import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
 import {SpecialTaskService} from '../../../../../../../../services/special-task.service';
 import {IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder} from '@covalent/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',
@@ -18,6 +19,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
 
   freeStandardTasksColumns: ITdDataTableColumn[] = [
     {name: 'title', label: 'Title', width: 500},
+    {name: 'severity', label: 'Severity', width: 150},
     {name: 'gold', label: 'Gold', width: 50},
     {name: 'xp', label: 'XP', width: 50},
     {name: 'open_issue', label: ''},
@@ -49,11 +51,13 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     private standardTaskService: StandardTaskService,
     private specialTaskService: SpecialTaskService,
     private _dataTableService: TdDataTableService,
+    private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
   }
 
   ngOnInit() {
+    this.translateTable();
     this.specialTaskService.getFreeSpecialTasksForWorldExcept(this.data[0], this.data[1]).then(freeTasks => {
       this.freeSpecialTasks = freeTasks;
       this.pageSpecialTaskData();
@@ -63,6 +67,28 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
       this.pageStandardTaskData();
     });
   }
+
+  private translateTable() {
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.freeStandardTasksColumns = [
+        {name: 'title', label: col_names.TITLE, width: 500},
+        {name: 'severity', label: col_names.SEVERITY, width: 150},
+        {name: 'gold', label: col_names.GOLD, width: 50},
+        {name: 'xp', label: col_names.XP, width: 50},
+        {name: 'open_issue', label: ''},
+        {name: 'add_task', label: ''}
+      ]
+    });
+    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+      this.freeSpecialTasksColumns = [
+        {name: 'title', label: col_names.TITLE, width: 250},
+        {name: 'gold', label: col_names.GOLD, width: 50},
+        {name: 'xp', label: col_names.XP, width: 50},
+        {name: 'message', label: col_names.MISSION, width: 400},
+        {name: 'add_task', label: ''}
+      ]
+    });    
+  }  
 
   protected addTask(task: Task) {
     this.dialogRef.close(task);
