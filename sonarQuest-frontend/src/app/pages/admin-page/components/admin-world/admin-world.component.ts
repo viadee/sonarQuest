@@ -25,7 +25,7 @@ export class AdminWorldComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     {name: 'id', label: 'Id'},
     {name: 'name', label: 'Name'},
-    {name: 'project', label: 'Project'},
+    {name: 'project', label: 'Project', width: { min: 400 } },
     {name: 'active', label: 'Active'},
     {name: 'edit', label: ''}
   ];
@@ -67,9 +67,9 @@ export class AdminWorldComponent implements OnInit {
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'id', label: col_names.ID},
+        {name: 'id', label: col_names.ID, width: 35},
         {name: 'name', label: col_names.NAME},
-        {name: 'project', label: col_names.PROJECT},
+        {name: 'project', label: col_names.PROJECT, width: { min: 400 }},
         {name: 'active', label: col_names.ACTIVE},
         {name: 'edit', label: ''}]
     });

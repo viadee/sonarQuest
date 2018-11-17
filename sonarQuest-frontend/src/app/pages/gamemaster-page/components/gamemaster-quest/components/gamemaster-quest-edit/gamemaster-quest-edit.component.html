@@ -11,26 +11,22 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="quest.title"
-               [disabled]="isSolved">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="quest.title" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="quest.gold"
-               [disabled]="isSolved">
+        <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="quest.xp"
-               [disabled]="isSolved">
+        <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="quest.story"
-                  [disabled]="isSolved"></textarea>
+        <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
       </mat-input-container>
     </div>
 
@@ -56,16 +52,12 @@
       <span>{{"DEVELOPER.XP" | translate}}: {{calculateXpAmountOfTasks()}}</span>
     </div>
 
-    <button mat-icon-button color="accent" (click)="addFreeTask()"
-            [matTooltip]="'GAMEMASTER_PAGE.TASK.ADD_FREE_TOOLTIP' | translate"
-            [matTooltipClass]="'tooltipMultiline'"
-            matTooltipPosition="after">
+    <button mat-icon-button color="accent" (click)="addFreeTask()" [matTooltip]="'GAMEMASTER_PAGE.TASK.ADD_FREE_TOOLTIP' | translate"
+      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
       <mat-icon>playlist_add</mat-icon>
     </button>
-    <button mat-icon-button color="accent" (click)="suggestTasks()"
-            [matTooltip]="'GAMEMASTER_PAGE.TASK.SUGGEST_TASKS_TOOLTIP' | translate"
-            [matTooltipClass]="'tooltipMultiline'"
-            matTooltipPosition="after">
+    <button mat-icon-button color="accent" (click)="suggestTasks()" [matTooltip]="'GAMEMASTER_PAGE.TASK.SUGGEST_TASKS_TOOLTIP' | translate"
+      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
       <mat-icon>lightbulb_outline</mat-icon>
     </button>
   </mat-toolbar>
@@ -81,16 +73,12 @@
         <span>{{"DEVELOPER.GOLD" | translate}}: {{task?.gold}}, </span>
         <span>{{"DEVELOPER.XP" | translate}}: {{task?.xp}}</span>
       </p>
-      <button mat-icon-button (click)="removeTask(task)" [disabled]="isSolved"
-              [matTooltip]="'GAMEMASTER_PAGE.TASK.REMOVE_TASK_FROM_QUEST_TOOLTIP' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="after">
+      <button mat-icon-button (click)="removeTask(task)" [disabled]="isSolved" [matTooltip]="'GAMEMASTER_PAGE.TASK.REMOVE_TASK_FROM_QUEST_TOOLTIP' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
         <mat-icon>close</mat-icon>
       </button>
-      <button mat-icon-button (click)="solveTask(task)" [disabled]="isSolved"
-              [matTooltip]="'GAMEMASTER_PAGE.TASK.SOLVE_TASK_TOOLTIP' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="after">
+      <button mat-icon-button (click)="solveTask(task)" [disabled]="isSolved" [matTooltip]="'GAMEMASTER_PAGE.TASK.SOLVE_TASK_TOOLTIP' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
         <mat-icon>done</mat-icon>
       </button>
     </mat-list-item>

@@ -14,6 +14,8 @@ export class MyAvatarPageComponent implements OnInit {
 
   public XPpercent = 0;
   public level: number;
+  public maxXp: number;
+  public minXpForLevel2 = 10;
   protected user: User;
   imageToShow: any;
 
@@ -30,13 +32,14 @@ export class MyAvatarPageComponent implements OnInit {
   private init() {
     if (this.userService.getUser()) {
       this.user = this.userService.getUser();
+      this.level = (this.user.level ? this.user.level.level : 1);
+      this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
+      this.xpPercent();      
       this.getAvatar();
     }
   }
 
   private getAvatar() {
-    this.level = this.user.level.level;
-    this.xpPercent();
     if (this.user) {
       this.userService.getImage().subscribe((blob) => {
         this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
@@ -50,7 +53,11 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   public xpPercent(): void {
-    this.XPpercent = 100 / this.user.level.maxXp * this.user.xp;
+    if (this.user.level != null && this.user.level.maxXp > 0 && this.user.xp > 0) {
+      this.XPpercent = 100 / this.user.level.maxXp * this.user.xp;
+    } else {
+      this.XPpercent = 0;
+    }
     this.XPpercent.toFixed(2);
   }
 
