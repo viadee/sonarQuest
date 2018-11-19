@@ -19,7 +19,7 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 ## Getting Started
 
-See [INSTALLATION.md](installation.md) for instruction to get startet with SonarQuest. These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+See [INSTALLATION.md](installation.md) for instruction to get started with SonarQuest. These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 
 ### Used technologies and projects
