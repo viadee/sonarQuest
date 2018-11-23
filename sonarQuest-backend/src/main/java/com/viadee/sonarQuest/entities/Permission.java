@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarQuest.constants.PermissionType;
 
 @Entity
-@Table(name = "permission")
+@Table(name = "Permission")
 public class Permission {
 
     @JsonIgnore

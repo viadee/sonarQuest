@@ -188,7 +188,7 @@ CREATE TABLE Task (
   message          VARCHAR(256),
   participation_id BIGINT,
   issue_key        VARCHAR(256),
-  key			   VARCHAR(256),
+  `key`              VARCHAR(256),
   FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
