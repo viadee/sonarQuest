@@ -162,8 +162,7 @@ INSERT INTO Permission (id, type, permission) VALUES
  (8, 'ACCESS', 'FULL_USER_ACCESS'),
  (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
  (10, 'ACCESS', 'USER_WORLD_ASSIGNMENT'),
- (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
- ;
+ (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS');
  
 INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
  (1,1),
@@ -180,8 +179,7 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (3,9),
  (3,10),
  (1,11),
- (3,11),
- ;
+ (3,11);
 
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3,   0,   0, 1, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
