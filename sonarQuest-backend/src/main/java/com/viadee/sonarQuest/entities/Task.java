@@ -1,5 +1,7 @@
 package com.viadee.sonarQuest.entities;
 
+import java.sql.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -26,6 +28,12 @@ public class Task {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(name = "startdate")
+    private Date startdate;
+
+    @Column(name = "enddate")
+    private Date enddate;
 
     @Column(name = "title")
     private String title;

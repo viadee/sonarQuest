@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.entities;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,15 @@ public class Quest {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(name = "startdate")
+    private Date startdate;
+
+    @Column(name = "enddate")
+    private Date enddate;
+
+    @Column(name = "visible")
+    private Boolean visible;
 
     @Column(name = "title")
     private String title;
