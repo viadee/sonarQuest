@@ -29,7 +29,6 @@ import com.viadee.sonarQuest.repositories.QuestRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
-import com.viadee.sonarQuest.services.AdventureService;
 import com.viadee.sonarQuest.services.LevelService;
 import com.viadee.sonarQuest.services.RoleService;
 import com.viadee.sonarQuest.services.StandardTaskService;
@@ -69,9 +68,6 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private ParticipationController participationController;
-
-    @Autowired
-    private AdventureService adventureService;
 
     @Autowired
     private StandardTaskService standardTaskService;
