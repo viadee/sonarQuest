@@ -15,6 +15,11 @@
       </mat-input-container>
     </div>
     <div flex>
+      <mat-checkbox 
+        [matTooltip]="'QUEST.TOOLTIP_VISIBLE' | translate" matTooltipPosition="after"
+        [(ngModel)]="quest.visible">{{"QUEST.VISIBLE"| translate}}</mat-checkbox>
+    </div>
+    <div flex>
       <mat-input-container class="full-width">
         <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
       </mat-input-container>

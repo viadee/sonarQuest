@@ -173,4 +173,28 @@ public class Adventure {
     public void setWorld(final World world) {
         this.world = world;
     }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
+    public Date getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
 }

@@ -5,8 +5,11 @@ export interface Adventure {
   title: string,
   story: string,
   status: AdventureState,
+  visible: boolean,
   gold: number,
   xp: number,
   quests: any,
-  users: any
+  users: any,
+  startdate: Date,
+  enddate: Date
 }

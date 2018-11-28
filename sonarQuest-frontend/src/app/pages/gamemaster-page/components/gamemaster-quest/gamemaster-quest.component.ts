@@ -27,6 +27,7 @@ export class GamemasterQuestComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     {name: 'id', label: 'Id'},
     {name: 'title', label: 'Titel'},
+    {name: 'visible', label: 'Sichtbar'},
     {name: 'gold', label: 'Gold'},
     {name: 'xp', label: 'XP'},
     {name: 'world.name', label: 'Welt'},
@@ -74,6 +75,7 @@ export class GamemasterQuestComponent implements OnInit {
       this.columns = [
         {name: 'image', label: ''},
         {name: 'title', label: col_names.TITLE},
+        {name: 'visible', label: col_names.VISIBLE},
         {name: 'gold', label: col_names.GOLD, width: 40},
         {name: 'xp', label: col_names.XP, width: 40},
         {name: 'adventure.title', label: col_names.ADVENTURE},

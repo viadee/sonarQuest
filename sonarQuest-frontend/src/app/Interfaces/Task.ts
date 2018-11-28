@@ -13,5 +13,7 @@ export interface Task {
   message: string,
   world: World,
   issueKey: string,
-  key: string
+  key: string,
+  startdate: Date,
+  enddate: Date
 }

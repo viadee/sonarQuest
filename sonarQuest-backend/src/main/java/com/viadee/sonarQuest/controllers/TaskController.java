@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,7 @@ public class TaskController {
             final Quest quest = questService.findById(questId);
             task.setQuest(quest);
             task.setStatus(SonarQuestStatus.OPEN);
+            task.setStartdate(new Date(System.currentTimeMillis()));
             task = taskService.save(task);
         }
         return task;
@@ -162,6 +164,7 @@ public class TaskController {
         if (task != null) {
             task.setQuest(null);
             task.setStatus(SonarQuestStatus.OPEN);
+            task.setStartdate(null);
             taskService.save(task);
         }
     }

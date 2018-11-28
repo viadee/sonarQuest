@@ -1,9 +1,13 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +35,8 @@ import com.viadee.sonarQuest.services.UserService;
 @RestController
 @RequestMapping("/quest")
 public class QuestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuestController.class);
 
     @Autowired
     private QuestRepository questRepository;
@@ -72,6 +78,7 @@ public class QuestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Quest createQuest(@RequestBody final Quest questDto) {
+        questDto.setStartdate(new Date(System.currentTimeMillis()));
         questDto.setStatus(QuestState.OPEN);
         return questRepository.save(questDto);
     }
@@ -85,6 +92,7 @@ public class QuestController {
             quest.setXp(data.getXp());
             quest.setStory(data.getStory());
             quest.setImage(data.getImage());
+            quest.setVisible(data.getVisible());
             quest = questRepository.save(quest);
         }
         return quest;
@@ -106,6 +114,7 @@ public class QuestController {
         if (quest != null) {
             gratificationService.rewardUsersForSolvingQuest(quest);
             adventureService.updateAdventure(quest.getAdventure());
+            quest.setEnddate(new Date(System.currentTimeMillis()));
             quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
         }
@@ -201,9 +210,21 @@ public class QuestController {
             final List<List<Quest>> allQuestsForWorldAndDeveloper = questService
                     .getAllQuestsForWorldAndUser(world, user);
 
-            quests = allQuestsForWorldAndDeveloper.stream()
-                    .map(questlist -> questlist.stream().collect(Collectors.toList()))
+            // now filter visible quests for the dev
+            if (user.isDeveloper()) {
+                LOGGER.debug("Returning getAllQuestsForWorldAndUser with visible Quests only (for devs)");
+                quests = allQuestsForWorldAndDeveloper.stream()
+                        .map(questlist -> questlist.stream()
+                                .filter(quest -> BooleanUtils.isTrue(quest.getVisible()))
+                                .collect(Collectors.toList()))
+                        .collect(Collectors.toList());
+            } else {
+                LOGGER.debug("Returning getAllQuestsForWorldAndUser with ALL Quests (for gm/admin)");
+                quests = allQuestsForWorldAndDeveloper.stream()
+                        .map(questlist -> questlist.stream()
+                                .collect(Collectors.toList()))
                     .collect(Collectors.toList());
+            }
         }
         return quests;
     }

@@ -98,7 +98,8 @@
       "USERNAME": "Username",
       "JOINED": "Freigeschaltet",
       "PLAYERS": "Spieler",
-      "ROLE": "Rolle"
+      "ROLE": "Rolle",
+      "VISIBLE": "Sichtbar"
     },
     "INFO": {
       "NO_ENTRIES": "keine Einträge",
@@ -135,7 +136,9 @@
     "QUESTS": "Quests",
     "NEW_QUEST": "Neue Quest",
     "ADD_FREE_QUEST": "Freie Quest anlegen",
-    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden"
+    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden",
+    "VISIBLE": "Sichtbar",
+    "TOOLTIP_VISIBLE": "Diese Quest bei den Spielern sichtbar machen?"
   },
   "ADVENTURE": {
     "ADVENTURE": "Abenteuer",

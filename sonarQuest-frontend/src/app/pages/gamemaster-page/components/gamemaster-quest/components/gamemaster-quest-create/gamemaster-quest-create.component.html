@@ -27,6 +27,12 @@
     </div>
 
     <div flex>
+      <mat-checkbox 
+        [matTooltip]="'QUEST.TOOLTIP_VISIBLE' | translate" matTooltipPosition="after"
+        [(ngModel)]="visible">{{"QUEST.VISIBLE"| translate}}</mat-checkbox>
+    </div>
+
+    <div flex>
       <mat-input-container class="full-width">
         <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="gold">
       </mat-input-container>

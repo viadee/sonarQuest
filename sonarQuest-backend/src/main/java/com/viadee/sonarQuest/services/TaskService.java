@@ -1,5 +1,6 @@
 package com.viadee.sonarQuest.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -56,6 +57,7 @@ public class TaskService {
     public void solveTaskManually(final Task task) {
         if (task != null && task.getStatus() != SonarQuestStatus.SOLVED) {
             task.setStatus(SonarQuestStatus.SOLVED);
+            task.setEnddate(new Date(System.currentTimeMillis()));
             save(task);
             gratificationService.rewardUserForSolvingTask(task);
             questService.updateQuest(task.getQuest());
@@ -71,6 +73,7 @@ public class TaskService {
             for (Task task : tasks) {
                 gratificationService.rewardUserForSolvingTask(task);
                 task.setStatus(SonarQuestStatus.SOLVED);
+                task.setEnddate(new Date(System.currentTimeMillis()));
                 save(task);
             }
             questService.updateQuest(quest);

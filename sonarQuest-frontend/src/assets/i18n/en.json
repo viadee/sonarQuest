@@ -98,7 +98,8 @@
       "USERNAME": "Username",
       "JOINED": "Joined",
       "PLAYERS": "Players",
-      "ROLE": "Role"
+      "ROLE": "Role",
+      "VISIBLE": "Visible"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",
@@ -135,7 +136,9 @@
     "QUESTS": "Quests",
     "NEW_QUEST": "New Quest",
     "ADD_FREE_QUEST": "Add free quest",
-    "NO_FREE_QUESTS_AVAILABLE": "No free quests available"
+    "NO_FREE_QUESTS_AVAILABLE": "No free quests available",
+    "VISIBLE": "Visible",
+    "TOOLTIP_VISIBLE": "Make this quest visible to the players?"
   },
   "ADVENTURE": {
     "ADVENTURE": "Adventure",

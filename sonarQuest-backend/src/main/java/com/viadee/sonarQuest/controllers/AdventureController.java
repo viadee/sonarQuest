@@ -1,6 +1,7 @@
 package com.viadee.sonarQuest.controllers;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class AdventureController {
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(@RequestBody final Adventure adventure) {
         adventure.setStatus(AdventureState.OPEN);
+        adventure.setStartdate(new Date(System.currentTimeMillis()));
         return adventureRepository.save(adventure);
     }
 
@@ -94,6 +96,7 @@ public class AdventureController {
             adventure.setGold(data.getGold());
             adventure.setXp(data.getXp());
             adventure.setStory(data.getStory());
+            adventure.setVisible(data.getVisible());
             adventure = adventureRepository.save(adventure);
         }
         return adventure;
@@ -112,6 +115,7 @@ public class AdventureController {
         final Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
             adventure.setStatus(AdventureState.SOLVED);
+            adventure.setEnddate(new Date(System.currentTimeMillis()));
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
         }

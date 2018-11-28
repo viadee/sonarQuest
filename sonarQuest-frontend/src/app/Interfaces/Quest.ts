@@ -12,6 +12,9 @@ export interface Quest {
   gold: number,
   xp: number,
   image: string,
+  visible: boolean,
+  startdate: Date,
+  enddate: Date,
   world: World,
   adventure: Adventure,
   tasks: Task[];
