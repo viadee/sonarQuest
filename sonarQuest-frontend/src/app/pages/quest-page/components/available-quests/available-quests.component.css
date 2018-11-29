@@ -1,0 +1,10 @@
+div#tobecovered{
+    position: relative;
+}
+
+div#tobecovered img.cover{
+    position: absolute;
+    /* position in top left of #tobecovered */
+    top: 0; /* top of #tobecovered */
+    left: 0; /* left of #tobecovered */
+}
