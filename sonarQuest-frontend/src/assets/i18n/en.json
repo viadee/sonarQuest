@@ -99,7 +99,8 @@
       "JOINED": "Joined",
       "PLAYERS": "Players",
       "ROLE": "Role",
-      "VISIBLE": "Visible"
+      "VISIBLE": "Visible",
+      "USE_QUEST_CARDS": "Questcards"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",
@@ -151,7 +152,10 @@
     "WORLDS": "Worlds",
     "ACTIVE": "Active",
     "CHOOSE_WORLD": "Choose your current world",
-    "UPDATE_WORLDS": "Update Worlds"
+    "UPDATE_WORLDS": "Update Worlds",
+    "USE_QUEST_CARDS": "Use Questcard UI?",
+    "TOOLTIP_USE_QUEST_CARDS": "When checked, the players will see their quests in a matrix with cards instead of a table",
+    "TOOLTIP_ACTIVE": "When checked this world is selectable for playing"
   },
   "TASK": {
     "TASK": "Task",

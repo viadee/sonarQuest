@@ -99,7 +99,8 @@
       "JOINED": "Freigeschaltet",
       "PLAYERS": "Spieler",
       "ROLE": "Rolle",
-      "VISIBLE": "Sichtbar"
+      "VISIBLE": "Sichtbar",
+      "USE_QUEST_CARDS": "Questcards"
     },
     "INFO": {
       "NO_ENTRIES": "keine Einträge",
@@ -151,7 +152,10 @@
     "WORLDS": "Welten",
     "ACTIVE": "Aktiv",
     "CHOOSE_WORLD": "Wähle deine Welt",
-    "UPDATE_WORLDS": "Aktualisiere Welten"
+    "UPDATE_WORLDS": "Aktualisiere Welten",
+    "USE_QUEST_CARDS": "Questcard-Layout",
+    "TOOLTIP_USE_QUEST_CARDS": "Wenn angehakt wird bei den Spielern bei der Questdarstellung ein Karten-Layout verwendet statt einer Tabelle",
+    "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
   },
   "TASK": {
     "TASK": "Auftrag",

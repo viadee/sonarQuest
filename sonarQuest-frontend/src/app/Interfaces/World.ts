@@ -3,5 +3,6 @@ export interface World {
   name: string,
   project: string,
   active: boolean,
+  usequestcards: boolean,
   image: string
 }

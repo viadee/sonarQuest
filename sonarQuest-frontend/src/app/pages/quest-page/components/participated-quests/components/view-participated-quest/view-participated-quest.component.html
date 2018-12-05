@@ -37,14 +37,14 @@
               [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
               [matTooltipClass]="'tooltipMultiline'"
               matTooltipPosition="after">
-        <i class="ra ra-chain"></i>
+        <i class="ra ra-chain ra-2x"></i>
       </button>
       <button mat-icon-button (click)="addParticipation(task)" 
               *ngIf="!participatingDeveloper(task) && task.status !== 'SOLVED'"
               [matTooltip]="'QUEST_PAGE.JOIN_ISSUE_TOOLTIP' | translate"
               [matTooltipClass]="'tooltipMultiline'"
               matTooltipPosition="after">
-        <i class="ra ra-sword"></i>
+        <i class="ra ra-sword ra-2x"></i>
       </button>
       <button mat-icon-button (click)="removeParticipation(task)"
               *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status !== 'SOLVED'"

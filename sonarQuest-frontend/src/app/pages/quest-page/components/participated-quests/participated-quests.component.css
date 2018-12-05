@@ -8,3 +8,7 @@ div#tobecovered img.cover{
     top: 0; /* top of #tobecovered */
     left: 0; /* left of #tobecovered */
 }
+
+mat-card#questcard {
+    width: 250px
+}

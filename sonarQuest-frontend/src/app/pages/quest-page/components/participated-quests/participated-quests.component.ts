@@ -130,5 +130,4 @@ export class ParticipatedQuestsComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
   }
-
 }
