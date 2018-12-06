@@ -20,121 +20,134 @@ import com.google.common.base.Objects;
 @Table(name = "World")
 public class World {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @Column(name = "project")
-    private String project;
+	@Column(name = "project")
+	private String project;
 
-    @Column(name = "image")
-    private String image;
+	@Column(name = "image")
+	private String image;
 
-    @Column(name = "active")
-    private Boolean active;
+	@Column(name = "active")
+	private Boolean active;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "world")
-    private List<Adventure> adventures;
+	@Column(name = "usequestcards")
+	private Boolean usequestcards;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "world")
-    private List<Quest> quests;
+	@JsonIgnore
+	@OneToMany(mappedBy = "world")
+	private List<Adventure> adventures;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "world", cascade = CascadeType.ALL)
-    private List<Task> tasks;
+	@JsonIgnore
+	@OneToMany(mappedBy = "world")
+	private List<Quest> quests;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
+	@JsonIgnore
+	@OneToMany(mappedBy = "world", cascade = CascadeType.ALL)
+	private List<Task> tasks;
 
-    public World() {
-    }
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+	private List<User> users;
 
-    public World(final String name, final String project, final Boolean active) {
-        this.name = name;
-        this.project = project;
-        this.active = active;
-    }
+	public World() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public World(final String name, final String project, final Boolean active, final Boolean usequestcards) {
+		this.name = name;
+		this.project = project;
+		this.active = active;
+		this.usequestcards = usequestcards;
+	}
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getProject() {
-        return project;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-    public void setProject(final String project) {
-        this.project = project;
-    }
+	public String getProject() {
+		return project;
+	}
 
-    public List<Quest> getQuests() {
-        return quests;
-    }
+	public void setProject(final String project) {
+		this.project = project;
+	}
 
-    public void setQuests(final List<Quest> quests) {
-        this.quests = quests;
-    }
+	public List<Quest> getQuests() {
+		return quests;
+	}
 
-    public Boolean getActive() {
-        return active;
-    }
+	public void setQuests(final List<Quest> quests) {
+		this.quests = quests;
+	}
 
-    public void setActive(final Boolean active) {
-        this.active = active;
-    }
+	public Boolean getActive() {
+		return active;
+	}
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
+	public void setActive(final Boolean active) {
+		this.active = active;
+	}
 
-    public void setTasks(final List<Task> tasks) {
-        this.tasks = tasks;
-    }
+	public Boolean getUsequestcards() {
+		return usequestcards;
+	}
 
-    public String getImage() {
-        return image;
-    }
+	public void setUsequestcards(Boolean usequestcards) {
+		this.usequestcards = usequestcards;
+	}
 
-    public void setImage(final String image) {
-        this.image = image;
-    }
+	public List<Task> getTasks() {
+		return tasks;
+	}
 
-    public List<User> getUsers() {
-        return users;
-    }
+	public void setTasks(final List<Task> tasks) {
+		this.tasks = tasks;
+	}
 
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
+	public String getImage() {
+		return image;
+	}
 
-    @Override
-    public int hashCode() {
-        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
-    }
+	public void setImage(final String image) {
+		this.image = image;
+	}
 
-    @Override
-    public boolean equals(final Object that) {
-        return this.getId() == null ? this == that : that != null
-                && this.getClass().isInstance(that)
-                && Objects.equal(this.getId(), ((World) that).getId());
-    }
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(final List<User> users) {
+		this.users = users;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
+	}
+
+	@Override
+	public boolean equals(final Object that) {
+		return this.getId() == null ? this == that
+				: that != null && this.getClass().isInstance(that)
+						&& Objects.equal(this.getId(), ((World) that).getId());
+	}
+
 }

@@ -27,6 +27,7 @@ export class AdminWorldComponent implements OnInit {
     {name: 'name', label: 'Name'},
     {name: 'project', label: 'Project', width: { min: 400 } },
     {name: 'active', label: 'Active'},
+    {name: 'usequestcards', label: 'Questcards'},
     {name: 'edit', label: ''}
   ];
 
@@ -71,6 +72,7 @@ export class AdminWorldComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'project', label: col_names.PROJECT, width: { min: 400 }},
         {name: 'active', label: col_names.ACTIVE},
+        {name: 'usequestcards', label: col_names.USE_QUEST_CARDS},
         {name: 'edit', label: ''}]
     });
   }

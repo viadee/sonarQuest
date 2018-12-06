@@ -95,6 +95,14 @@ export class AvailableQuestsComponent implements OnInit {
     });
   }
 
+  participateInQuest(quest: Quest) {
+    return this.participationService.createParticipation(quest)
+      .then((msg) => {
+        this.loadQuests();
+        this.participationService.announceParticipationUpdate();
+      })
+  }
+
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
@@ -127,5 +135,5 @@ export class AvailableQuestsComponent implements OnInit {
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
-  }
+  }  
 }

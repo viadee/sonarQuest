@@ -1,25 +1,23 @@
-<mat-card>
+<mat-card *ngIf="!currentWorld?.usequestcards">
   <mat-card-content>
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-          <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-            <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">
-              {{"QUEST_PAGE.MY_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
-            </span>
+        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+          <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">
+            {{"QUEST_PAGE.MY_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
           </span>
+        </span>
         <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
-                       flex>
+          flex>
         </td-search-box>
       </div>
       <mat-divider></mat-divider>
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns"
-                     [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
+        [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <button mat-icon-button (click)="viewQuest(row)"
-              [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="below">              
+            <button mat-icon-button (click)="viewQuest(row)" [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
+              [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
               <i class="ra ra-quill-ink ra-lg"></i>
             </button>
           </div>
@@ -29,8 +27,51 @@
         <h3>{{"TABLE.INFO.NO_ENTRIES"| translate}}</h3>
       </div>
       <td-paging-bar #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}:</span> {{pagingBar.range}} <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}:</span> {{pagingBar.range}}
+        <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
       </td-paging-bar>
     </div>
   </mat-card-content>
 </mat-card>
+
+<mat-card *ngIf="currentWorld?.usequestcards">
+  <mat-card-content>
+    <div align="center">
+      <h2>
+        {{"QUEST_PAGE.MY_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
+      </h2>
+    </div>
+    <mat-grid-list cols="4" rowHeight="2:1">
+      <mat-grid-tile *ngFor="let quest of participatedQuests">
+        <div id="tobecovered">
+          <img src="assets\images\dagger.png" class="cover" />
+          <mat-card id="questcard">
+            <mat-card-header>
+              <img mat-card-avatar [src]="quest.image">
+              <mat-card-title>
+                <h3>{{quest.title}}</h3>
+              </mat-card-title>
+              <mat-card-subtitle>{{adventure?.title}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div>
+                {{"TABLE.COLUMNS.GOLD" | translate}}: {{quest.gold}}
+                <br />
+                {{"TABLE.COLUMNS.XP" | translate}}: {{quest.xp}}
+                <br />
+                {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <div align="right">
+                <button mat-icon-button (click)="viewQuest(quest)" [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
+                  [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                  <i class="ra ra-quill-ink ra-2x"></i>
+                </button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
