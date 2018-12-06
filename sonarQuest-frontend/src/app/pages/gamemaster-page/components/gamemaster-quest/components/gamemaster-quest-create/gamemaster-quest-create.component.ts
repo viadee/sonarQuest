@@ -21,6 +21,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   gold: number;
   xp: number;
   story: string;
+  visible: boolean;
   currentWorld: World;
   selectedWorld: World;
   worlds: World[];
@@ -58,6 +59,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
         title: this.title,
         gold: this.gold,
         xp: this.xp,
+        visible: this.visible,
         story: this.story,
         world: this.selectedWorld,
         image: this.selectedImage
