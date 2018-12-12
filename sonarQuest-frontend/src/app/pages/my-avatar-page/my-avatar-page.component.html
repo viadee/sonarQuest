@@ -22,8 +22,9 @@
             <div layout="row">
               <div flex></div>
               <div flex-end>
-                <button mat-icon-button (click)="editAvatar()">
-                  <mat-icon class="icon">mode_edit</mat-icon>
+                <button mat-icon-button (click)="editAvatar()" [matTooltip]="'DEVELOPER.TOOLTIP_EDIT' | translate"
+                [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                  <i class="ra ra-quill-ink ra-2x"></i>
                 </button>
               </div>
             </div>

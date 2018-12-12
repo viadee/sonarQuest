@@ -130,7 +130,8 @@
     "ABOUTME": "Über mich",
     "AVATARRACE": "Rasse",
     "AVATARCLASS": "Klasse",
-    "TROPHIES": "Trophäen"
+    "TROPHIES": "Trophäen",
+    "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten"
   },
   "QUEST": {
     "QUEST": "Quest",
