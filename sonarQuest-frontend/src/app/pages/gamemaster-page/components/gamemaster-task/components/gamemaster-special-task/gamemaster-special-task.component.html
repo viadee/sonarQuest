@@ -26,8 +26,9 @@
           <button mat-icon-button *ngIf="row?.status != 'CREATED'" (click)="solveSpecialTask(row)">
             <mat-icon class="icon">check</mat-icon>
           </button>
-          <button mat-icon-button *ngIf="row?.status == 'CREATED'" (click)="deleteSpecialTask(row)">
-            <mat-icon class="icon">delete</mat-icon>
+          <button mat-icon-button *ngIf="row?.status == 'CREATED'" (click)="deleteSpecialTask(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-broken-skull ra-2x"></i>
           </button>
         </div>
       </ng-template>
