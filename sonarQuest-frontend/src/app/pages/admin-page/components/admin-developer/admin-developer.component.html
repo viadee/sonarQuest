@@ -12,11 +12,13 @@
     [sortOrder]="sortOrder" (sortChange)="sort($event)">
     <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
       <div layout="row">
-        <button mat-icon-button (click)="editUser(row)">
-          <mat-icon class="icon">mode_edit</mat-icon>
+        <button mat-icon-button (click)="editUser(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+          <i class="ra ra-quill-ink ra-2x"></i>
         </button>
-        <button mat-icon-button (click)="deleteUser(row)">
-          <mat-icon class="icon">delete</mat-icon>
+        <button mat-icon-button (click)="deleteUser(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+          <i class="ra ra-broken-skull ra-2x"></i>
         </button>
       </div>
     </ng-template>
