@@ -50,8 +50,9 @@
   [sortOrder]="sortOrder" (sortChange)="sort($event)"> 
   <ng-template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <button mat-icon-button (click)="removeSkill(row)">
-        <mat-icon class="icon">remove</mat-icon>
+      <button mat-icon-button (click)="removeSkill(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+        <i class="ra ra-broken-skull ra-2x"></i>
       </button>
     </div> 
   </ng-template>

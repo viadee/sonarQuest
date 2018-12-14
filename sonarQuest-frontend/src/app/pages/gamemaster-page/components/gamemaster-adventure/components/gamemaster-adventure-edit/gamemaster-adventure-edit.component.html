@@ -43,8 +43,9 @@
         <span>Gold: {{quest?.gold}}, </span>
         <span>XP: {{quest?.xp}}</span>
       </p>
-      <button mat-icon-button (click)="removeQuest(quest)">
-        <mat-icon>close</mat-icon>
+      <button mat-icon-button (click)="removeQuest(quest)" [matTooltip]="'GLOBAL.DELETE' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+        <i class="ra ra-broken-skull ra-2x"></i>
       </button>
     </mat-list-item>
   </mat-list>
