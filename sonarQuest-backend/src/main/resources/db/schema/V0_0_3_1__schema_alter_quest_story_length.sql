@@ -1,2 +1,2 @@
--- Set the task_key to VARBINARY to allow for case sensitive searches in MYSQL databases
-ALTER TABLE Task MODIFY COLUMN task_key VARBINARY;
+-- Set the length of the story column to 10000 characters in order to allowe lengthy stories
+ALTER TABLE Quest MODIFY COLUMN Story VARCHAR (10000);
