@@ -10,6 +10,11 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
+        <input matInput placeholder="Password" [(ngModel)]="user.password" [type]="'password'" size="15">
+      </mat-input-container>
+    </div>    
+    <div flex>
+      <mat-input-container class="full-width">
         <textarea matInput placeholder="AboutMe" [(ngModel)]="user.aboutMe"></textarea>
       </mat-input-container>
     </div>
