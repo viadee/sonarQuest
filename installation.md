@@ -106,3 +106,10 @@ You can access the SonarQuest server at: `http://localhost:8080`
 
 You can access the SonarQuest client in a browser at `http://localhost:4200`
 
+### MySQL setup
+
+There have been some problems regarding case sensitivity with task keys from SonarQube so a specific MySQL setup is required to make SonarQuest work.
+If you want to run SonarQuest with MySQL you need to change the following:
+1. in the `application.properties`, add `flyway.locations=db/schema,db/data,db/mysql`
+2. also change connection details in this file accordingly (see the example `application.properties.mysql` in the backend folder `src/test/resources`.
+3. to make sure everything works fine replace the `application.properties` with `application.properties.mysql` in `src/test/resources` and run all the tests - they should all pass now.  
