@@ -36,6 +36,8 @@ public class QuestService implements QuestSuggestion {
     @Autowired
     private ParticipationRepository participationRepository;
 
+    final Random random = new Random();
+    
     public Quest findById(final Long questId) {
         return questRepository.findOne(questId);
     }
@@ -65,7 +67,7 @@ public class QuestService implements QuestSuggestion {
     }
 
     private Task selectRandomTask(final List<Task> taskList) {
-        final Random random = new Random();
+
         final Integer randomIndex = random.nextInt(taskList.size());
         return taskList.get(randomIndex);
     }

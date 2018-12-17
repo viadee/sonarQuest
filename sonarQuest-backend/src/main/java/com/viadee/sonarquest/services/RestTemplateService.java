@@ -64,11 +64,7 @@ public class RestTemplateService {
             sslContext = org.apache.http.ssl.SSLContexts.custom()
                     .loadTrustMaterial(null, acceptingTrustStrategy)
                     .build();
-        } catch (final KeyManagementException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final NoSuchAlgorithmException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final KeyStoreException e) {
+        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return sslContext;

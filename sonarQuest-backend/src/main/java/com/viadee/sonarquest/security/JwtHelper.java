@@ -61,7 +61,7 @@ public class JwtHelper {
         final String username = claims.getSubject();
         final List<HashMap<String, String>> authoritiesMap = (List<HashMap<String, String>>) claims.get(AUTHORITIES);
         final Collection<GrantedAuthority> authorities = authoritiesMap.stream().flatMap(map -> map.values().stream())
-                .map(authority -> new SimpleGrantedAuthority(authority))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
         return new UsernameAndAuthorities(username, authorities);
     }

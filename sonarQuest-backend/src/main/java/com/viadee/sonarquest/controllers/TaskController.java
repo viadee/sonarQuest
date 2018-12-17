@@ -99,8 +99,7 @@ public class TaskController {
 
     @GetMapping(value = "/{id}")
     public Task getTaskById(@PathVariable(value = "id") final Long id) {
-        final Task task = taskService.find(id);
-        return task;
+        return taskService.find(id);
     }
 
     @PostMapping(value = "/special")
@@ -137,7 +136,7 @@ public class TaskController {
     @PutMapping(value = "/{taskId}/closeSpecialTask/")
     public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskService.find(taskId);
-        if (task != null && task instanceof SpecialTask) {
+        if (task instanceof SpecialTask) {
             task.setStatus(SonarQuestStatus.CLOSED);
             task = taskService.save(task);
             questService.updateQuest(task.getQuest());
