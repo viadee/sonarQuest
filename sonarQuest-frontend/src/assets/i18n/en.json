@@ -30,7 +30,7 @@
     "AVAILABLE_QUESTS": "Available Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
     "COMBATED_BY": "combated by",
-    "SHOW_ISSUE_TOOLTIP":"Show Issue",
+    "SHOW_ISSUE_TOOLTIP":"Show SonarQube issue",
     "JOIN_ISSUE_TOOLTIP":"Fight",
     "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
   },

@@ -30,7 +30,7 @@
     "AVAILABLE_QUESTS": "Verfügbare Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
     "COMBATED_BY": "angenommen von ",
-    "SHOW_ISSUE_TOOLTIP":"Zeige Sonar Issue",
+    "SHOW_ISSUE_TOOLTIP":"Zeige SonarQube Issue",
     "JOIN_ISSUE_TOOLTIP":"Kämpfe",
     "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
   },
