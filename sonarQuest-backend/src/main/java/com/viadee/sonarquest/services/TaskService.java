@@ -68,7 +68,7 @@ public class TaskService {
 	@Transactional
 	public void solveAllTasksInQuest(Quest quest) {
 		if (quest != null && quest.getStatus() != QuestState.SOLVED) {
-			LOGGER.info("Solving all tasks in quest with ID " + quest.getId());
+			LOGGER.info("Solving all tasks in quest with ID {}", quest.getId());
 			List<Task> tasks = quest.getTasks();
 			for (Task task : tasks) {
 				gratificationService.rewardUserForSolvingTask(task);

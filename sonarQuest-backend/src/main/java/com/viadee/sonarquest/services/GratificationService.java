@@ -42,8 +42,8 @@ public class GratificationService implements UserGratification {
         final Participation participation = task.getParticipation();
         if (participation != null) {
             final User user = participation.getUser();
-            LOGGER.info(String.format("Task %s solved - Rewarding userID %s with %s gold and %s xp", task.getKey(),
-                    user.getId(), task.getGold(), task.getXp()));
+            LOGGER.info("Task {} solved - Rewarding userID {} with {} gold and {} xp", 
+                    task.getKey(), user.getId(), task.getGold(), task.getXp());
             user.addXp(task.getXp());
             user.addGold(task.getGold());
             addSkillReward(user);
@@ -54,17 +54,15 @@ public class GratificationService implements UserGratification {
 
     private void rewardUserForSolvingAdventure(final User user, final Adventure adventure) {
         if (adventure.getStatus() != AdventureState.SOLVED) {
-            LOGGER.info(
-                    String.format("Adventure %s solved - Rewarding userID %s with %s gold and %s xp", adventure.getId(),
-                            user.getId(), adventure.getGold(), adventure.getXp()));
+            LOGGER.info("Adventure {} solved - Rewarding userID {} with {} gold and {} xp", 
+                    adventure.getId(), user.getId(), adventure.getGold(), adventure.getXp());
             user.addGold(adventure.getGold());
             user.addXp(adventure.getXp());
             user.setLevel(levelService.getLevelByUserXp(user.getXp()));
             userService.save(user);
         } else {
-            LOGGER.warn(String.format(
-                    "Adventure with ID %s is called for rewarding but is already solved. No rewards will be paid out.",
-                    adventure.getId()));
+            LOGGER.warn("Adventure with ID {} is called for rewarding but is already solved. No rewards will be paid out.",
+                    adventure.getId());
         }
     }
 
@@ -78,17 +76,15 @@ public class GratificationService implements UserGratification {
             for (Participation participation : participations) {
                 usersThatTookPart.add(participation.getUser());
             }
-            LOGGER.info((String.format(
-                    "A Quest has been solved by the following user IDs: %s and now the quest reward will be paid out to everyone.",
-                    (Object) usersThatTookPart.stream().map(User::getId).toArray())));
+            LOGGER.info("A Quest has been solved by the following user IDs: {} and now the quest reward will be paid out to everyone.",
+                    (Object) usersThatTookPart.stream().map(User::getId).toArray());
             // Now, reward them
             for (User user : usersThatTookPart) {
                 rewardQuestParticipation(quest, user);
             }
         } else {
-            LOGGER.warn(String.format(
-                    "Quest with ID %s is called for rewarding but is already solved. No rewards will be paid out.",
-                    quest.getId()));
+            LOGGER.warn("Quest with ID {} is called for rewarding but is already solved. No rewards will be paid out.",
+                    quest.getId());
         }
     }
 
@@ -99,9 +95,8 @@ public class GratificationService implements UserGratification {
     }
 
     private void rewardQuestParticipation(Quest quest, User user) {
-        LOGGER.info(String.format(
-                "Rewarding participation in solving quest %s - Rewarding userID %s with %s gold and %s xp",
-                quest.getId(), user.getId(), quest.getGold(), quest.getXp()));
+        LOGGER.info("Rewarding participation in solving quest {} - Rewarding userID {} with {} gold and {} xp",
+                quest.getId(), user.getId(), quest.getGold(), quest.getXp());
         user.addGold(quest.getGold());
         user.addXp(quest.getXp());
         user.setLevel(levelService.getLevelByUserXp(user.getXp()));
@@ -126,8 +121,8 @@ public class GratificationService implements UserGratification {
                 .filter(skill -> skill.getType().equals(SkillType.XP))
                 .mapToLong(Skill::getValue)
                 .sum();
-        LOGGER.info(String.format("Adding skill rewards to user ID %s - extra gold %s and extra xp %s", user.getId(),
-                extraGold, extraXP));
+        LOGGER.info("Adding skill rewards to user ID {} - extra gold {} and extra xp {}", 
+                user.getId(), extraGold, extraXP);
         rewardedUser.addGold(extraGold);
         rewardedUser.addXp(extraXP);
         return rewardedUser;

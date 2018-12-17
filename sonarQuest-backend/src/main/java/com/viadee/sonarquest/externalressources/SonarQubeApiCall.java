@@ -131,7 +131,7 @@ public class SonarQubeApiCall {
      * Returns the API Call built as a String.
      */
     public String asString() {
-        LOGGER.info("Built SonarQube API Call: " + sonarQubeRestApiCall);
+        LOGGER.info("Built SonarQube API Call: {}", sonarQubeRestApiCall);
         return sonarQubeRestApiCall;
     }
 

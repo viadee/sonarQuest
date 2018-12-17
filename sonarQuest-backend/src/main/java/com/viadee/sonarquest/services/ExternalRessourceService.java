@@ -75,15 +75,14 @@ public class ExternalRessourceService {
 		final List<StandardTask> standardTasks;
 		final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world.getProject());
 		int numberOfIssues = sonarQubeIssues.size();
-		LOGGER.info("Mapping " + numberOfIssues + " issues to SonarQuest tasks - this may take a while...");
+		LOGGER.info("Mapping {} issues to SonarQuest tasks - this may take a while...", numberOfIssues);
 		if (numberOfIssues > ISSUE_PROCESSING_BATCH_SIZE) {
 			standardTasks = new ArrayList<>();
 			List<List<SonarQubeIssue>> partitions = ListUtils.partition(sonarQubeIssues, ISSUE_PROCESSING_BATCH_SIZE);
-			LOGGER.info("Processing " + partitions.size() + " partitions with a size of " + ISSUE_PROCESSING_BATCH_SIZE
-					+ " issues each");
+			LOGGER.info("Processing {} partitions with a size of {} issues each", partitions.size(), ISSUE_PROCESSING_BATCH_SIZE);
 			int partitionNumber = 1;
 			for (List<SonarQubeIssue> partition : partitions) {
-				LOGGER.info("Mapping partition number: " + partitionNumber++);
+				LOGGER.info("Mapping partition number: {}", partitionNumber++);
 				List<StandardTask> tasksForThisPartition = partition.stream()
 						.map(sonarQubeIssue -> toTask(sonarQubeIssue, world)).collect(Collectors.toList());
 				standardTasks.addAll(tasksForThisPartition);
@@ -142,8 +141,8 @@ public class ExternalRessourceService {
 
 	private List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
 		try {
-			LOGGER.info(String.format("Trying to get SonarQube issues with severities %s for projectKey %s",
-					DEFAULT_ISSUE_SEVERITIES, projectKey));
+			LOGGER.info("Trying to get SonarQube issues with severities {} for projectKey {}",
+					DEFAULT_ISSUE_SEVERITIES, projectKey);
 			final SonarConfig sonarConfig = sonarConfigService.getConfig();
 			final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
 			final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
@@ -152,25 +151,23 @@ public class ExternalRessourceService {
 			sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
 
 			if (sonarQubeIssueList.size() < MAX_NUMBER_OF_ISSUES_ON_PAGE) {
-				LOGGER.info(String.format(
-						"Only %s issues have been found - dropping them and loading issues with ALL severities instead",
-						sonarQubeIssueList.size()));
+				LOGGER.info("Only {} issues have been found - dropping them and loading issues with ALL severities instead",
+						sonarQubeIssueList.size());
 				sonarQubeIssueList.clear();
 				sonarQubeIssueRessource = getSonarQubeIssuesWithAllSeverities(restTemplate,
 						sonarConfig.getSonarServerUrl(), projectKey, 1);
 				sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
 				final int pagesOfExternalIssues = determinePagesOfExternalRessourcesToBeRequested(
 						sonarQubeIssueRessource.getPaging());
-				LOGGER.debug("Found a total of " + pagesOfExternalIssues
-						+ " pages of issues on the SonarQube server. Retrieving them pagewise...");
+				LOGGER.debug("Found a total of {} pages of issues on the SonarQube server. Retrieving them pagewise...", pagesOfExternalIssues);
 				for (int i = 2; i <= pagesOfExternalIssues; i++) {
 					sonarQubeIssueList.addAll(getSonarQubeIssuesWithAllSeverities(restTemplate,
 							sonarConfig.getSonarServerUrl(), projectKey, i).getIssues());
 				}
 			}
 
-			LOGGER.info(String.format("Retrieved %s SonarQube issues in total for projectKey %s",
-					sonarQubeIssueList.size(), projectKey));
+			LOGGER.info("Retrieved {} SonarQube issues in total for projectKey {}",
+					sonarQubeIssueList.size(), projectKey);
 			return sonarQubeIssueList;
 		} catch (final ResourceAccessException e) {
 			if (e.getCause() instanceof ConnectException) {

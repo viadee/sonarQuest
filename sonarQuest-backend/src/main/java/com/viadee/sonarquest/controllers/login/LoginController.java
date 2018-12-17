@@ -42,10 +42,10 @@ public class LoginController {
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
 
         String username = credentials.getUsername();
-        LOGGER.info(String.format("Log-In request received from user %s", Objects.hashCode(username)));
+        LOGGER.info("Log-In request received from user {}", Objects.hashCode(username));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
-        LOGGER.info(String.format("Log-In request successful for user %s", Objects.hashCode(username)));
+        LOGGER.info("Log-In request successful for user {}", Objects.hashCode(username));
         return token;
     }
 
