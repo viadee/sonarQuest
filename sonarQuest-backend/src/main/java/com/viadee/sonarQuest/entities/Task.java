@@ -48,8 +48,7 @@ public class Task {
     @Column(name = "xp")
     private Long xp;
 
-    // key is case sensitive in SonarQube, see https://github.com/viadee/sonarQuest/issues/162
-    @Column(name = "task_key", columnDefinition = "VARBINARY")
+    @Column(name = "task_key")
     private String key;
 
     @JsonIgnore
