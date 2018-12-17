@@ -2,9 +2,10 @@ package com.viadee.sonarquest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.User;
@@ -23,7 +24,7 @@ public class UserToWorldController {
     private WorldService worldService;
 
     @PreAuthorize("hasAuthority('USER_WORLD_ASSIGNMENT')")
-    @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.POST)
+    @PostMapping(value = "/{user_id}/{world_id}")
     public User addUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
         final User user = userService.findById(userId);
@@ -33,7 +34,7 @@ public class UserToWorldController {
     }
 
     @PreAuthorize("hasAuthority('USER_WORLD_ASSIGNMENT')")
-    @RequestMapping(value = "/{user_id}/{world_id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{user_id}/{world_id}")
     public User removeUserToWorld(@PathVariable(value = "user_id") final Long userId,
             @PathVariable(value = "world_id") final Long worldId) {
         final User user = userService.findById(userId);

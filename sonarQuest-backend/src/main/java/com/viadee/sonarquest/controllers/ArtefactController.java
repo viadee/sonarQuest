@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,34 +34,34 @@ public class ArtefactController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Artefact> getAllArtefacts() {
         return artefactService.getArtefacts();
     }
 
-    @RequestMapping(value = "/forMarketplace/", method = RequestMethod.GET)
+    @GetMapping(value = "/forMarketplace/")
     public List<Artefact> getArtefactsforMarkteplace() {
         return artefactService.getArtefactsforMarkteplace();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Artefact getArtefactById(@PathVariable(value = "id") final Long id) {
         return artefactService.getArtefact(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Artefact createArtefact(@RequestBody final Artefact artefact) {
         return artefactService.createArtefact(artefact);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public Artefact updateArtefact(@PathVariable(value = "id") final Long id,
             @RequestBody final Artefact artefactDto) {
         return artefactService.updateArtefact(id, artefactDto);
     }
 
-    @RequestMapping(value = "/{artefact_id}/buy", method = RequestMethod.PUT)
+    @PutMapping(value = "/{artefact_id}/buy")
     public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
         final User user = userService.findByUsername(principal.getName());
         final Artefact artefact = artefactRepository.findOne(artefact_id);
@@ -66,7 +69,7 @@ public class ArtefactController {
         return artefactService.buyArtefact(artefact, user) != null;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteArtefact(@PathVariable(value = "id") final Long id) {
         if (artefactRepository.findOne(id) != null) {
             artefactRepository.delete(id);

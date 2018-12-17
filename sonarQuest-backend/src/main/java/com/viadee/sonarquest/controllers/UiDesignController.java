@@ -3,9 +3,10 @@ package com.viadee.sonarquest.controllers;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.UiDesign;
@@ -28,7 +29,7 @@ public class UiDesignController {
     @Autowired
     private UiDesignRepository uiDesignRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public UiDesign getUiDesign(final Principal principal) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
@@ -36,7 +37,7 @@ public class UiDesignController {
         return ui == null ? uiDesignService.updateUiDesign(user, UiDesignName.light) : ui;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public UiDesign updateUiDesign(final Principal principal, @RequestBody final String designName) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);

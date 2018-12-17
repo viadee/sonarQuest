@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,31 +40,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public User getUser(final Principal principal) {
         final String username = principal.getName();
         return userService.findByUsername(username);
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
-    @RequestMapping(method = RequestMethod.GET, path = "/all")
+    @GetMapping(path = "/all")
     public List<User> users(final Principal principal) {
         return userService.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public User updateUser(@RequestBody final User user) {
         return userService.save(user);
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public HttpStatus deleteUser(@PathVariable(value = "id") final Long id) {
         userService.delete(id);
         return HttpStatus.OK;
     }
 
-    @RequestMapping(path = "/avatar", method = RequestMethod.GET)
+    @GetMapping(path = "/avatar")
     public @ResponseBody byte[] avatar(final Principal principal, final HttpServletResponse response)
             throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
@@ -70,7 +72,7 @@ public class UserController {
         return user != null ? loadAvatar(user) : null;
     }
 
-    @RequestMapping(path = "/{id}/avatar", method = RequestMethod.GET)
+    @GetMapping(path = "/{id}/avatar")
     public @ResponseBody byte[] avatarForUser(final Principal principal,
             @PathVariable(value = "id") final Long id,
             final HttpServletResponse response) throws IOException {

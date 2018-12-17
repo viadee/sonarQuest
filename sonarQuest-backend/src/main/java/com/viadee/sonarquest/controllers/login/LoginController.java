@@ -12,9 +12,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.controllers.PathConstants;
@@ -32,12 +33,12 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String info() {
         return "Dies ist eine Login Seite";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
 
         String username = credentials.getUsername();

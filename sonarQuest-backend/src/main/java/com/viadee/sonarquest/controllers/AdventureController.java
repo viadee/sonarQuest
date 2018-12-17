@@ -6,10 +6,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,23 +50,23 @@ public class AdventureController {
     @Autowired
     private GratificationService gratificationService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Adventure> getAllAdventures() {
         return adventureRepository.findAll();
     }
 
-    @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/world/{id}")
     public List<Adventure> getAllAdventuresForWorld(@PathVariable(value = "id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
         return adventureRepository.findByWorld(w);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Adventure getAdventureById(@PathVariable(value = "id") final Long id) {
         return adventureRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/getJoined/{world_id}", method = RequestMethod.GET)
+    @GetMapping(value = "/getJoined/{world_id}")
     public List<Adventure> getJoinedAdventures(final Principal principal,
             @PathVariable(value = "world_id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
@@ -71,7 +74,7 @@ public class AdventureController {
         return adventureService.getJoinedAdventuresForUserInWorld(w, user);
     }
 
-    @RequestMapping(value = "/getFree/{world_id}", method = RequestMethod.GET)
+    @GetMapping(value = "/getFree/{world_id}")
     public List<Adventure> getFreeAdventures(final Principal principal,
             @PathVariable(value = "world_id") final Long world_id) {
         final World w = worldRepository.findOne(world_id);
@@ -79,7 +82,7 @@ public class AdventureController {
         return adventureService.getFreeAdventuresForUserInWorld(w, user);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(@RequestBody final Adventure adventure) {
         adventure.setStatus(AdventureState.OPEN);
@@ -87,7 +90,7 @@ public class AdventureController {
         return adventureRepository.save(adventure);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public Adventure updateAdventure(@PathVariable(value = "id") final Long id,
             @RequestBody final Adventure data) {
         Adventure adventure = adventureRepository.findOne(id);
@@ -102,7 +105,7 @@ public class AdventureController {
         return adventure;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteAdventure(@PathVariable(value = "id") final Long id) {
         final Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
@@ -110,7 +113,7 @@ public class AdventureController {
         }
     }
 
-    @RequestMapping(value = "/{adventureId}/solveAdventure", method = RequestMethod.PUT)
+    @PutMapping(value = "/{adventureId}/solveAdventure")
     public Adventure solveAdventure(@PathVariable(value = "adventureId") final Long adventureId) {
         final Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
@@ -122,7 +125,7 @@ public class AdventureController {
         return adventure;
     }
 
-    @RequestMapping(value = "/{adventureId}/addQuest/{questId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{adventureId}/addQuest/{questId}")
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addQuest(@PathVariable(value = "adventureId") final Long adventureId,
             @PathVariable(value = "questId") final Long questId) {
@@ -140,7 +143,7 @@ public class AdventureController {
         return adventure;
     }
 
-    @RequestMapping(value = "/{adventureId}/join", method = RequestMethod.POST)
+    @PostMapping(value = "/{adventureId}/join")
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure join(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();
@@ -156,7 +159,7 @@ public class AdventureController {
      *            The id of the developer to remove
      * @return Gives the adventure where the Developer was removed
      */
-    @RequestMapping(value = "/{adventureId}/leave", method = RequestMethod.POST)
+    @PostMapping(value = "/{adventureId}/leave")
     public Adventure leave(final Principal principal,
             @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();

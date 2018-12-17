@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,24 +36,24 @@ public class SkillController {
         this.skillRepository = skillRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Skill> getAllSkills() {
         return this.skillRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Skill getSkillById(@PathVariable(value = "id") final Long id) {
         return this.skillRepository.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Skill createSkill(@RequestBody final Skill skillDto) {
         return this.skillRepository.save(skillDto);
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public Skill updateSkill(@PathVariable(value = "id") final Long id, @RequestBody final Skill data) {
         Skill skill = this.skillRepository.findOne(id);
         if (skill != null) {
@@ -60,12 +63,12 @@ public class SkillController {
         return skill;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteSkill(@PathVariable(value = "id") final Long id) {
         this.skillService.deleteSkill(this.skillRepository.findOne(id));
     }
 
-    @RequestMapping(value = "artefact/{artefact_id}", method = RequestMethod.GET)
+    @GetMapping(value = "artefact/{artefact_id}")
     public List<Skill> getSkillsForArtefact(@PathVariable(value = "artefact_id") final Long id) {
         final Artefact a = this.artefactService.getArtefact(id);
         return this.skillService.getSkillsForArtefact(a);

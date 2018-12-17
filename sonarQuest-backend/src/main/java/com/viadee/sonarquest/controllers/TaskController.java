@@ -7,10 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,7 +62,7 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<List<? extends Task>> getAllTasks() {
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
         taskDtos.add(specialTaskService.findAll());
@@ -67,7 +70,7 @@ public class TaskController {
         return taskDtos;
     }
 
-    @RequestMapping(value = "/world/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/world/{id}")
     public List<List<? extends Task>> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
         final List<List<? extends Task>> taskDtos = new ArrayList<>();
@@ -76,48 +79,48 @@ public class TaskController {
         return taskDtos;
     }
 
-    @RequestMapping(value = "/quest/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/quest/{id}")
     public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId) {
         final Quest quest = questService.findById(questId);
         return quest.getTasks();
     }
 
-    @RequestMapping(value = "/special/world/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/special/world/{id}")
     public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
         return specialTaskService.findByWorld(w);
     }
 
-    @RequestMapping(value = "/standard/world/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/standard/world/{id}")
     public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
         return standardTaskService.findByWorld(w);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Task getTaskById(@PathVariable(value = "id") final Long id) {
         final Task task = taskService.find(id);
         return task;
     }
 
-    @RequestMapping(value = "/special", method = RequestMethod.POST)
+    @PostMapping(value = "/special")
     @ResponseStatus(HttpStatus.CREATED)
     public SpecialTask createSpecialTask(@RequestBody final SpecialTask specialTaskDto) {
         specialTaskService.saveDto(specialTaskDto);
         return specialTaskDto;
     }
 
-    @RequestMapping(value = "/special", method = RequestMethod.PUT)
+    @PutMapping(value = "/special")
     public SpecialTask updateSpecialTask(@RequestBody final SpecialTask taskDto) {
         return specialTaskService.updateSpecialTask(taskDto);
     }
 
-    @RequestMapping(value = "/standard", method = RequestMethod.PUT)
+    @PutMapping(value = "/standard")
     public StandardTask updateStandardTask(@RequestBody final StandardTask taskDto) {
         return standardTaskService.updateStandardTask(taskDto);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteTask(@PathVariable(value = "id") final Long id) {
         final Task task = taskService.find(id);
         if (task instanceof SpecialTask) {
@@ -125,13 +128,13 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/getFreeForWorld/{worldId}", method = RequestMethod.GET)
+    @GetMapping(value = "/getFreeForWorld/{worldId}")
     public List<Task> getFreeTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldService.findById(worldId);
         return taskService.getFreeTasksForWorld(world);
     }
 
-    @RequestMapping(value = "/{taskId}/closeSpecialTask/", method = RequestMethod.PUT)
+    @PutMapping(value = "/{taskId}/closeSpecialTask/")
     public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskService.find(taskId);
         if (task != null && task instanceof SpecialTask) {
@@ -143,7 +146,7 @@ public class TaskController {
         return task;
     }
 
-    @RequestMapping(value = "/{taskId}/addToQuest/{questId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{taskId}/addToQuest/{questId}")
     @ResponseStatus(HttpStatus.CREATED)
     public Task addToQuest(@PathVariable(value = "taskId") final Long taskId,
             @PathVariable(value = "questId") final Long questId) {
@@ -158,7 +161,7 @@ public class TaskController {
         return task;
     }
 
-    @RequestMapping(value = "/{taskId}/deleteFromQuest", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{taskId}/deleteFromQuest")
     public void deleteFromQuest(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskService.find(taskId);
         if (task != null) {
@@ -169,7 +172,7 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/{taskId}/addParticipation/{questId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{taskId}/addParticipation/{questId}")
     @ResponseStatus(HttpStatus.CREATED)
     public Task addParticipation(final Principal principal,
             @PathVariable(value = "taskId") final Long taskId,
@@ -186,7 +189,7 @@ public class TaskController {
         return task;
     }
 
-    @RequestMapping(value = "/{taskId}/deleteParticipation", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{taskId}/deleteParticipation")
     public void deleteParticipation(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskService.find(taskId);
         if (task != null) {
@@ -196,27 +199,27 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/{taskId}/solveSpecialTask/", method = RequestMethod.PUT)
+    @PutMapping(value = "/{taskId}/solveSpecialTask/")
     public SpecialTask solveSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         final SpecialTask task = specialTaskService.findById(taskId);
         taskService.solveTaskManually(task);
         return task;
     }
 
-    @RequestMapping(value = "/{taskId}/solveManually", method = RequestMethod.PUT)
+    @PutMapping(value = "/{taskId}/solveManually")
     public Task solveTaskManually(@PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskService.find(taskId);
         taskService.solveTaskManually(task);
         return task;
     }
 
-    @RequestMapping(value = "/solveAllTasksInQuest/{questId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/solveAllTasksInQuest/{questId}")
     public void solveAllTasksInQuest(@PathVariable(value = "questId") final Long questId) {
         final Quest quest = questService.findById(questId);
         taskService.solveAllTasksInQuest(quest);
     }
 
-    @RequestMapping(value = "/updateStandardTasks/{worldId}", method = RequestMethod.GET)
+    @GetMapping(value = "/updateStandardTasks/{worldId}")
     public List<Task> updateStandardTasksForWorld(@PathVariable(value = "worldId") final Long worldId) {
         final World world = worldService.findById(worldId);
         if (world != null) {

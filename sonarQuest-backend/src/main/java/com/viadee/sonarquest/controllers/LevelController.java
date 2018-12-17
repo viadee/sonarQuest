@@ -2,9 +2,9 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Level;
@@ -20,12 +20,12 @@ public class LevelController {
         this.levelRepository = levelRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Level> getAllLevels() {
         return levelRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Level getLevelById(@PathVariable(value = "id") final Long id) {
         return levelRepository.findById(id);
     }

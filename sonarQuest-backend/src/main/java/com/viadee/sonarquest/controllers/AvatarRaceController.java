@@ -3,10 +3,13 @@ package com.viadee.sonarquest.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,24 +26,24 @@ public class AvatarRaceController {
         this.avatarRaceRepository = avatarRaceRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<AvatarRace> getAllAvatarRaces() {
         return avatarRaceRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public AvatarRace getAvatarRaceById(@PathVariable(value = "id") final Long id) {
         return avatarRaceRepository.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AvatarRace createAvatarRace(@RequestBody final AvatarRace avatarRace) {
         return avatarRaceRepository.save(avatarRace);
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public AvatarRace updateAvatarRace(@PathVariable(value = "id") final Long id, @RequestBody final AvatarRace data) {
         AvatarRace avatarRace = avatarRaceRepository.findOne(id);
         if (avatarRace != null) {
@@ -50,7 +53,7 @@ public class AvatarRaceController {
         return avatarRace;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteAvatarRace(@PathVariable(value = "id") final Long id) {
         final AvatarRace level = avatarRaceRepository.findOne(id);
         if (level != null) {

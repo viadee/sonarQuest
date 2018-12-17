@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Permission;
@@ -24,7 +24,7 @@ public class PermissionController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public Set<Permission> getPermissions(final Principal principal) {
 		final String username = principal.getName();
 		final User user = userService.findByUsername(username);

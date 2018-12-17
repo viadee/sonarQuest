@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,12 +37,12 @@ public class ParticipationController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public Iterable<Participation> getAllParticipations() {
         return participationRepository.findAll();
     }
 
-    @RequestMapping(value = "/{questid}", method = RequestMethod.GET)
+    @GetMapping(value = "/{questid}")
     public Participation getParticipation(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
         final String username = principal.getName();
@@ -48,20 +50,20 @@ public class ParticipationController {
         return participationService.findParticipationByQuestIdAndUserId(questid, user.getId());
     }
 
-    @RequestMapping(value = "/{questid}/all", method = RequestMethod.GET)
+    @GetMapping(value = "/{questid}/all")
     public List<Participation> getParticipations(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
         return participationService.findParticipationByQuestId(questid);
     }
 
-    @RequestMapping(value = "/allMyParticipations", method = RequestMethod.GET)
+    @GetMapping(value = "/allMyParticipations")
     public List<Participation> getAllMyParticipations(final Principal principal) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         return participationService.findParticipationByUser(user);
     }
 
-    @RequestMapping(value = "/{questid}", method = RequestMethod.POST)
+    @PostMapping(value = "/{questid}")
     @ResponseStatus(HttpStatus.CREATED)
     public Participation createParticipation(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
@@ -77,7 +79,7 @@ public class ParticipationController {
         return participation;
     }
 
-    @RequestMapping(value = "/{questid}/{developerid}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{questid}/{developerid}")
     public void deleteDeleteParticipation(final Principal principal,
             @PathVariable(value = "questid") final Long questid) {
         final String username = principal.getName();

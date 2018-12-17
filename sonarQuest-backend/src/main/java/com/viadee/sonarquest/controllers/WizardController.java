@@ -3,9 +3,9 @@ package com.viadee.sonarquest.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.WizardMessage;
@@ -23,7 +23,7 @@ public class WizardController {
 	@Autowired
 	private WorldRepository worldRepository;
 
-	@RequestMapping(value = { "/world/{id}", "/world" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/world/{id}", "/world" })
 	public WizardMessage getWizardMessageForWorld(@PathVariable(value = "id") final Optional<Long> id) {
 		World world = new World();
 		if (id.isPresent()) {
