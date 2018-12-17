@@ -2,6 +2,7 @@ package com.viadee.sonarQuest.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.viadee.sonarQuest.repositories.AvatarClassRepository;
 import com.viadee.sonarQuest.repositories.AvatarRaceRepository;
 import com.viadee.sonarQuest.repositories.LevelRepository;
 import com.viadee.sonarQuest.repositories.QuestRepository;
+import com.viadee.sonarQuest.repositories.StandardTaskRepository;
 import com.viadee.sonarQuest.repositories.TaskRepository;
 import com.viadee.sonarQuest.repositories.WorldRepository;
 import com.viadee.sonarQuest.rules.SonarQuestStatus;
@@ -84,6 +86,9 @@ public class SonarQuestApplicationIT {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private StandardTaskRepository standardTaskRepository;
+    
     /**
      * Walk through the participation on the backend with a developer perspective. This test assumes a spring
      * environment including a simulated sonar server and database access.
@@ -179,5 +184,30 @@ public class SonarQuestApplicationIT {
         world.setName(WORLD_NAME);
         world.setActive(true);
         return worldRepository.save(world);
+    }
+    
+    /**
+     * Regression test for issue #162.
+     */
+    @Test
+    @Transactional
+    public void caseSensitiveTaskKeys() {
+        
+        final World discWorld = createWorld();
+        Quest magicQuest = createQuest(discWorld);
+        
+        final StandardTask task = new StandardTask();
+        task.setGold(10L);
+        task.setXp(20L);
+        task.setKey("AWc3A2KEoXX3DuVBrVTc");
+        task.setTitle("coercing Death out of his impromptu retirement");
+        task.setWorld(discWorld);
+        task.setQuest(magicQuest);
+        task.setStatus(SonarQuestStatus.OPEN);
+        taskRepository.save(task);
+        
+        assertNull("unexpected Task", standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTC"));
+        standardTaskRepository.findAll().forEach(t -> System.out.println(">>>" + t.getId() + " " + t.getKey()));
+        assertNotNull(standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTc"));
     }
 }
