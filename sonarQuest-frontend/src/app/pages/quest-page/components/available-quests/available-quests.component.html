@@ -2,7 +2,7 @@
   <mat-card-content>
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span *ngIf="!searchBox.searchVisible && currentWorld?.name" class="push-left-sm">
           <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">
             {{"QUEST_PAGE.AVAILABLE_QUESTS_FOR_WORLD"| translate}}
             <strong>{{currentWorld?.name}}</strong>
@@ -37,7 +37,7 @@
 
 <mat-card *ngIf="currentWorld?.usequestcards">
   <mat-card-content>
-    <div align="center">
+    <div align="center" *ngIf="currentWorld?.name">
       <h2>
         {{"QUEST_PAGE.AVAILABLE_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
       </h2>

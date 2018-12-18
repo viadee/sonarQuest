@@ -7,7 +7,7 @@
 
   <div layout-padding>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span *ngIf="!searchBox.searchVisible && currentWorld?.name" class="push-left-sm">
           <span class="mat-card-title" style="margin:0">
             {{"ADVENTURE_PAGE.ADVENTURES_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
           </span>
