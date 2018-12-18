@@ -189,15 +189,24 @@
     "CREATE_ARTEFACT": "Create Artefact",
     "EDIT_ARTEFACT": "Edit Artefact",
     "SELECT_ICON": "Select icon",
-    "CLICK_TO_SELECT": "Click to select"
+    "CLICK_TO_SELECT": "Click to select",
+    "PRICE": "Price",
+    "MIN_LEVEL": "Level req.",
+    "QUANTITY": "Available",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "SKILLS": "Powers"    
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",
     "MORE_XP": "More XP",
-    "CREATE_SKILL": "Create Skill",
-    "ADD_SKILL": "Add Skill",
-    "SKILLS": "Skills",
-    "NEW_SKILL": "New Skill"
+    "CREATE_SKILL": "Create Power",
+    "ADD_SKILL": "Add Power",
+    "SKILLS": "Powers",
+    "NEW_SKILL": "New Power",
+    "TYPE": "Type",
+    "VALUE": "Amount",
+    "NAME": "Name"    
   },
   "LOGIN": {
     "LOGIN": "Login",

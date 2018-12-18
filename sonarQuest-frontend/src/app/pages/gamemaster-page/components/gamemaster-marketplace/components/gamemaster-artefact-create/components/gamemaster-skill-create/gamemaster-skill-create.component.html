@@ -7,19 +7,19 @@
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Name" [(ngModel)]="name">
+        <input matInput [placeholder]="'SKILL.NAME' | translate" [(ngModel)]="name">
       </mat-input-container>
     </div>
 
     <div flex>
-      <mat-select mat-line placeholder="Type" floatPlaceholder="never" [(ngModel)]="type">
+      <mat-select mat-line [placeholder]="'SKILL.TYPE' | translate" floatPlaceholder="never" [(ngModel)]="type">
         <mat-option flex="20" *ngFor="let t of types" [value]="t">{{t}}</mat-option>
       </mat-select>
     </div>
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Value" type="number" min="0" [(ngModel)]="value">
+        <input matInput [placeholder]="'SKILL.VALUE' | translate" type="number" min="0" [(ngModel)]="value">
       </mat-input-container>
     </div>
 

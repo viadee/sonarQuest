@@ -12,6 +12,7 @@ import {User} from '../../Interfaces/User';
 import {UserService} from '../../services/user.service';
 import { MatDialog } from '@angular/material';
 import { ArtefactViewDetailsComponent } from './components/marketplace-artefact-view/marketplace-artefact-view.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-marketplace-page',
@@ -48,11 +49,21 @@ export class MarketplacePageComponent implements OnInit {
     private artefactService: ArtefactService,
     private userService: UserService,
     private dialog: MatDialog,
+    private translateService: TranslateService,
     private _dataTableService: TdDataTableService
   ) {
   }
 
   ngOnInit() {
+    this.translateService.get('ARTEFACT').subscribe((col_names) => {
+      this.columns = [
+        {name: 'icon', label: ''},
+        {name: 'name', label: col_names.NAME},
+        {name: 'price', label: col_names.PRICE},
+        {name: 'quantity', label: col_names.QUANTITY},
+        {name: 'minLevel.min', label: col_names.MIN_LEVEL},
+        {name: 'buy', label: ''}]
+    });    
     this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
       this.artefacts = artefacts;
       this.filter();

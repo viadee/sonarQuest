@@ -14,27 +14,27 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Name" [(ngModel)]="name">
+        <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="name">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="min. Level" type="number" min="1" [(ngModel)]="min">
+        <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="min">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Price" type="number" min="0" [(ngModel)]="price">
+        <input matInput [placeholder]="'ARTEFACT.PRICE' | translate" type="number" min="0" [(ngModel)]="price">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="available quantity" type="number" min="0" [(ngModel)]="quantity">
+        <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="quantity">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Description" maxlength="255" [(ngModel)]="description"></textarea>
+        <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="description"></textarea>
       </mat-input-container>
     </div>
   </div>

@@ -189,15 +189,24 @@
     "CREATE_ARTEFACT": "Artefakt anlegen",
     "EDIT_ARTEFACT": "Artefakt bearbeiten",
     "SELECT_ICON": "Icon wählen",
-    "CLICK_TO_SELECT": "Klicken zum Auswählen"
+    "CLICK_TO_SELECT": "Klicken zum Auswählen",
+    "PRICE": "Preis",
+    "MIN_LEVEL": "Min. Level",
+    "QUANTITY": "Anzahl vorhanden",
+    "NAME": "Name",
+    "DESCRIPTION": "Beschreibung",
+    "SKILLS": "Kräfte"
   },
   "SKILL": {
     "MORE_GOLD": "Mehr Gold",
     "MORE_XP": "Mehr XP",
-    "CREATE_SKILL": "Talent anlegen",
-    "ADD_SKILL": "Talent hinzufügen",
-    "SKILLS": "Talente",
-    "NEW_SKILL": "Neues Talent"
+    "CREATE_SKILL": "Kraft anlegen",
+    "ADD_SKILL": "Kraft hinzufügen",
+    "SKILLS": "Kräfte",
+    "NEW_SKILL": "Neue Kraft",
+    "TYPE": "Typ",
+    "VALUE": "Betrag",
+    "NAME": "Name"
   },
   "LOGIN": {
     "LOGIN": "Login",

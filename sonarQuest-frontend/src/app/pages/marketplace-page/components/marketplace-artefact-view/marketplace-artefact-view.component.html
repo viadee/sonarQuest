@@ -2,9 +2,9 @@
   <h2 mat-dialog-title>{{"ARTEFACT_VIEW_PAGE.TITLE" | translate}}</h2>
   <span class="toolbar-spacer"></span>
 
-  <button *ngIf="icon!=''" mat-button disabled>
-    <i *ngIf="icon!=''" class="ra ra-4x" [ngClass]="artefact.icon"></i>
-  </button>
+  <div *ngIf="icon!=''" mat-button disabled>
+    <i *ngIf="icon!=''" class="ra ra-3x" [ngClass]="artefact.icon"></i>
+  </div>
   
 </mat-toolbar>
 
@@ -13,31 +13,31 @@
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Name" [(ngModel)]="artefact.name" disabled>
+        <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="artefact.name" disabled>
       </mat-input-container>
     </div>
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="min. Level" type="number" min="1" [(ngModel)]="artefact.min" disabled>
+        <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="artefact.min" disabled>
       </mat-input-container>
     </div>
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Price" type="number" min="0" [(ngModel)]="artefact.price" disabled>
+        <input matInput [placeholder]="'ARTEFACT.PRICE' | translate" type="number" min="0" [(ngModel)]="artefact.price" disabled>
       </mat-input-container>
     </div>
 
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="available quantity" type="number" min="0" [(ngModel)]="artefact.quantity" disabled>
+        <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="artefact.quantity" disabled>
       </mat-input-container>
     </div>
 
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="Description" maxlength="255" [(ngModel)]="artefact.description" disabled></textarea>
+        <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="artefact.description" disabled></textarea>
       </mat-input-container>
     </div>
 
@@ -50,6 +50,9 @@
 <td-data-table #dataTable [data]="artefact.skills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="artefact.skills"
   [sortOrder]="sortOrder" (sortChange)="sort($event)">
 </td-data-table>
+<div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+  {{"TABLE.INFO.NO_ENTRIES" | translate}}
+</div>
 
 <mat-divider></mat-divider>
 

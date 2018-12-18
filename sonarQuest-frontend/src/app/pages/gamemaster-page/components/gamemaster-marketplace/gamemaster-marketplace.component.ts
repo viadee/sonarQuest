@@ -11,6 +11,7 @@ import {
 import {ArtefactService} from './../../../../services/artefact.service';
 import {Component, OnInit} from '@angular/core';
 import {Artefact} from '../../../../Interfaces/Artefact';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -46,10 +47,21 @@ export class GamemasterMarketplaceComponent implements OnInit {
   constructor(
     private _dataTableService: TdDataTableService,
     private artefactService: ArtefactService,
+    private translateService: TranslateService,
     private dialog: MatDialog) {
   }
 
   ngOnInit() {
+    this.translateService.get('ARTEFACT').subscribe((col_names) => {
+      this.columns = [
+        {name: 'icon', label: ''},
+        {name: 'name', label: col_names.NAME},
+        {name: 'price', label: col_names.PRICE},
+        {name: 'quantity', label: col_names.QUANTITY},
+        {name: 'minLevel.min', label: col_names.MIN_LEVEL},
+        {name: 'skills', label: col_names.SKILLS},
+        {name: 'buy', label: ''}]
+    });      
     this.artefactService.artefacts$.subscribe(artefacts => {
       this.artefacts = artefacts;
       this.filter();
