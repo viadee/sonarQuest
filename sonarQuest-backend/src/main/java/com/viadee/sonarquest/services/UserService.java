@@ -95,13 +95,16 @@ public class UserService implements UserDetailsService {
 				if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
 					toBeSaved.setUsername(username);
 				}
-				// change password only if it differs from the old one
-				String oldPassHash = toBeSaved.getPassword();
-				if (!encoder.matches(user.getPassword(), oldPassHash)) {
-					String password = encoder.encode(user.getPassword());
-					toBeSaved.setPassword(password);
-					LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
-							+ ") has been changed.");
+                // if there are identical hashes in the pw fields, do not touch them
+                if (!toBeSaved.getPassword().equals(user.getPassword())) {
+                    // change password only if it differs from the old one
+                    String oldPassHash = toBeSaved.getPassword();
+                    if (!oldPassHash.equals(user.getPassword()) || !encoder.matches(user.getPassword(), oldPassHash)) {
+                        String password = encoder.encode(user.getPassword());
+                        toBeSaved.setPassword(password);
+                        LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
+                                + ") has been changed.");
+                    }
 				}
 				toBeSaved.setAboutMe(user.getAboutMe());
 				toBeSaved.setPicture(user.getPicture());
