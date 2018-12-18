@@ -167,18 +167,20 @@ INSERT INTO Permission (id, type, permission) VALUES
 INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
  (1,1),
  (1,2),
+ (1,5),
  (1,6),
+ (1,11),
  (2,1),
  (2,2),
  (2,3),
  (2,4),
+ (2,5),
  (3,1),
  (3,2),
  (3,7),
  (3,8),
  (3,9),
  (3,10),
- (1,11),
  (3,11);
 
 INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
