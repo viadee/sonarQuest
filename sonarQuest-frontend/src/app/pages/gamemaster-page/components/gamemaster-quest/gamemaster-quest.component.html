@@ -2,7 +2,7 @@
 <mat-card-content>
   <div layout="row">
     <div flex></div>
-    <button mat-raised-button color="primary" (click)="newQuest()">{{"QUEST.NEW_QUEST"|translate}}</button>
+    <button mat-raised-button color="primary" (click)="newQuest()" [disabled]="!currentWorld?.name">{{"QUEST.NEW_QUEST"|translate}}</button>
   </div>
 
   <div layout-padding>
