@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"ARTEFACT_VIEW_PAGE.TITLE" | translate}}</h2>
+  <span class="toolbar-spacer"></span>
+
+  <button *ngIf="icon!=''" mat-button disabled>
+    <i *ngIf="icon!=''" class="ra ra-4x" [ngClass]="artefact.icon"></i>
+  </button>
+  
+</mat-toolbar>
+
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Name" [(ngModel)]="artefact.name" disabled>
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="min. Level" type="number" min="1" [(ngModel)]="artefact.min" disabled>
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Price" type="number" min="0" [(ngModel)]="artefact.price" disabled>
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="available quantity" type="number" min="0" [(ngModel)]="artefact.quantity" disabled>
+      </mat-input-container>
+    </div>
+
+    <div flex>
+      <mat-input-container class="full-width">
+        <textarea matInput placeholder="Description" maxlength="255" [(ngModel)]="artefact.description" disabled></textarea>
+      </mat-input-container>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+<mat-toolbar>
+  <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
+</mat-toolbar>
+<td-data-table #dataTable [data]="artefact.skills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="artefact.skills"
+  [sortOrder]="sortOrder" (sortChange)="sort($event)">
+</td-data-table>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
+  <button mat-button (click)="cancel()">
+    <mat-icon class="icon">close</mat-icon>{{'GLOBAL.CLOSE' | translate}}
+  </button>
+</mat-dialog-actions>

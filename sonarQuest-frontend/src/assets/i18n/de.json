@@ -37,7 +37,11 @@
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marktplatz",
     "ALREADY_OWNED_ITEM": "Bereits in meinem Besitz!",
-    "BUY_ITEM_COMPULSORY": "Mit einem Click jetzt kaufen!"
+    "BUY_ITEM_COMPULSORY": "Mit einem Click jetzt kaufen!",
+    "SHOW_ITEM": "Artefakt anzeigen"
+  },
+  "ARTEFACT_VIEW_PAGE": {
+  	"TITLE": "Artefaktsteckbrief"
   },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "Alle Entwickler",
@@ -122,7 +126,8 @@
     "IMAGE": "Bild",
     "CLICK_TO_SELECT": "Klick zum Wählen",
     "GOLD": "Gold",
-    "XP": "XP"
+    "XP": "XP",
+    "CLOSE": "Schließen"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",

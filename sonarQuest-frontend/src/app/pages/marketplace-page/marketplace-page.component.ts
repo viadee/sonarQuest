@@ -10,6 +10,8 @@ import {ArtefactService} from './../../services/artefact.service';
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../Interfaces/User';
 import {UserService} from '../../services/user.service';
+import { MatDialog } from '@angular/material';
+import { ArtefactViewDetailsComponent } from './components/marketplace-artefact-view/marketplace-artefact-view.component';
 
 @Component({
   selector: 'app-marketplace-page',
@@ -31,7 +33,7 @@ export class MarketplacePageComponent implements OnInit {
     {name: 'minLevel.min', label: 'min. Level'},
     {name: 'buy', label: ''}
   ];
-
+ 
   filteredData: any[];
   filteredTotal: number;
   searchTerm = '';
@@ -45,6 +47,7 @@ export class MarketplacePageComponent implements OnInit {
   constructor(
     private artefactService: ArtefactService,
     private userService: UserService,
+    private dialog: MatDialog,
     private _dataTableService: TdDataTableService
   ) {
   }
@@ -103,5 +106,14 @@ export class MarketplacePageComponent implements OnInit {
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
+  }
+
+  viewArtefact(artefact: Artefact) {
+    this.dialog.open(ArtefactViewDetailsComponent, {
+      panelClass: 'dialog-sexy',
+      data: artefact,
+      width: '500px'
+    }).afterClosed().subscribe(() => {
+    });
   }
 }

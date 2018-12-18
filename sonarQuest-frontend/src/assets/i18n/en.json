@@ -37,8 +37,12 @@
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marketplace",
     "ALREADY_OWNED_ITEM": "Already mine!",
-    "BUY_ITEM_COMPULSORY": "One click buy now!"
+    "BUY_ITEM_COMPULSORY": "One click buy now!",
+    "SHOW_ITEM": "Show artefact details"
   },
+  "ARTEFACT_VIEW_PAGE": {
+  	"TITLE": "Artefact description"
+  },  
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "All Developer",
     "CREATE_DEVELOPER": "Create Developer",
@@ -122,7 +126,8 @@
     "IMAGE": "Image",
     "CLICK_TO_SELECT": "clickt to select",
     "GOLD": "Gold",
-    "XP": "XP"
+    "XP": "XP",
+    "CLOSE": "Close"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",

@@ -39,6 +39,14 @@
                   [matTooltipClass]="'tooltipMultiline'" 
                   matTooltipPosition="below">check_box</mat-icon>
               </div>
+              <div layout="row">
+                <button mat-icon-button (click)="viewArtefact(row)" 
+                  [matTooltip]="'MARKETPLACE_PAGE.SHOW_ITEM' | translate"
+                  [matTooltipClass]="'tooltipMultiline'" 
+                  matTooltipPosition="below">
+                  <i class="ra ra-scroll-unfurled ra-2x"></i>
+                </button>
+              </div>
             </div>
           </ng-template>
         </td-data-table>

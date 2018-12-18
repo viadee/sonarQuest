@@ -85,6 +85,7 @@ import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
 import { WizardService } from './services/wizard.service';
+import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -132,6 +133,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
+    ArtefactViewDetailsComponent,
     GamemasterIconSelectComponent,
     AdminSonarCubeComponent,
     SelectBackgroundComponent,
@@ -160,6 +162,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterArtefactEditComponent,
     GamemasterSkillCreateComponent,
     AvatarEditComponent,
+    ArtefactViewDetailsComponent,
     GamemasterIconSelectComponent,
     SelectBackgroundComponent,
     LoginComponent,
