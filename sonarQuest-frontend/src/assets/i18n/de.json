@@ -35,7 +35,9 @@
     "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
   },
   "MARKETPLACE_PAGE": {
-    "MARKETPLACE": "Marktplatz"
+    "MARKETPLACE": "Marktplatz",
+    "ALREADY_OWNED_ITEM": "Bereits in meinem Besitz!",
+    "BUY_ITEM_COMPULSORY": "Mit einem Click jetzt kaufen!"
   },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "Alle Entwickler",

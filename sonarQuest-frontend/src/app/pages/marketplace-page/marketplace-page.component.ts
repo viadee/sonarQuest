@@ -54,6 +54,7 @@ export class MarketplacePageComponent implements OnInit {
       this.artefacts = artefacts;
       this.filter();
     });
+    this.artefactService.getData();
 
     const user: User = this.userService.getUser();
     const userArtefacts: Artefact[] = user.artefacts;

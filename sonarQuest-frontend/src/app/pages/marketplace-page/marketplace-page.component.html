@@ -1,49 +1,55 @@
 <div class="background">
-<mat-card>
-  <mat-card-content>
-    <div layout-padding>
-      <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-          <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">
-            {{"MARKETPLACE_PAGE.MARKETPLACE"| translate}}
+  <mat-card>
+    <mat-card-content>
+      <div layout-padding>
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+          <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+            <span *ngIf="!selectedRows.length || !selectable" class="mat-card-title" style="margin:0">
+              {{"MARKETPLACE_PAGE.MARKETPLACE"| translate}}
+            </span>
           </span>
-        </span>
-        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
-          flex>
-        </td-search-box>
-      </div>
-      <div>
+          <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
+            flex>
+          </td-search-box>
+        </div>
+        <div>
           <span>Gold: {{developer?.gold}} | Level: {{level}}</span>
-      </div>
-      <mat-divider></mat-divider>
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
-        [sortOrder]="sortOrder" (sortChange)="sort($event)">
-        <ng-template tdDataTableTemplate="icon" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <i class="ra ra-3x" [ngClass]="value"></i>
-          </div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="buy" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
+        </div>
+        <mat-divider></mat-divider>
+        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
+          [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+          <ng-template tdDataTableTemplate="icon" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
+              <i class="ra ra-3x" [ngClass]="value"></i>
+            </div>
+          </ng-template>
+          <ng-template tdDataTableTemplate="buy" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
               <div *ngIf="!my_artefacts_id.includes(row.id)">
-              <button mat-icon-button (click)="buyArtefact(row)">
-                <mat-icon class="icon">attach_money</mat-icon>
-              </button>
+                <button mat-icon-button (click)="buyArtefact(row)" 
+                  [matTooltip]="'MARKETPLACE_PAGE.BUY_ITEM_COMPULSORY' | translate"
+                  [matTooltipClass]="'tooltipMultiline'" 
+                  matTooltipPosition="below">
+                  <i class="ra ra-diamond ra-2x"></i>
+                </button>
+              </div>
+              <div *ngIf="my_artefacts_id.includes(row.id)">
+                <mat-icon class="icon" 
+                  [matTooltip]="'MARKETPLACE_PAGE.ALREADY_OWNED_ITEM' | translate"
+                  [matTooltipClass]="'tooltipMultiline'" 
+                  matTooltipPosition="below">check_box</mat-icon>
+              </div>
             </div>
-            <div *ngIf="my_artefacts_id.includes(row.id)">
-                <mat-icon class="icon">check_box</mat-icon>
-            </div>
-          </div>
-        </ng-template>
-      </td-data-table>
-      <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-        <h3>{{"TABLE.INFO.NO_ENTRIES"| translate}}</h3>
+          </ng-template>
+        </td-data-table>
+        <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+          <h3>{{"TABLE.INFO.NO_ENTRIES"| translate}}</h3>
+        </div>
+        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
+          <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}</span> {{pagingBar.range}}
+          <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+        </td-paging-bar>
       </div>
-      <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE"| translate}}</span> {{pagingBar.range}}
-        <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
-      </td-paging-bar>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>

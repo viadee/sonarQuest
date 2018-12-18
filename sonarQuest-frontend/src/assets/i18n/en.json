@@ -35,7 +35,9 @@
     "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
   },
   "MARKETPLACE_PAGE": {
-    "MARKETPLACE": "Marketplace"
+    "MARKETPLACE": "Marketplace",
+    "ALREADY_OWNED_ITEM": "Already mine!",
+    "BUY_ITEM_COMPULSORY": "One click buy now!"
   },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "All Developer",
