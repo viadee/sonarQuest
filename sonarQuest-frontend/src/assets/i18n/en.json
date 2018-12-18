@@ -178,7 +178,8 @@
     "STANDARDTASK_FOR_WORLD": "All Standard Tasks for ",
     "AVAILABLE_TASKS": "Available Tasks",
     "MISSION": "Mission",
-    "UPDATE_STANDARD_TASKS_STATUS": "Update Status",
+    "UPDATE_STANDARD_TASKS_STATUS": "Update Status with SonarQube",
+    "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Updating issues from SonarQube is not possible since no world has been set!",
     "FREE_STANDARDTASKS": "Standard Tasks",
     "FREE_SPECIALTASKS": "Special Tasks"
   },

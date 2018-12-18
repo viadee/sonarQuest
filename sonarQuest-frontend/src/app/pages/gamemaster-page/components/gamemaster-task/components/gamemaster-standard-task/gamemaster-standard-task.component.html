@@ -1,7 +1,11 @@
 <mat-card-content>
   <div layout="row">
     <div flex></div>
-    <button mat-raised-button color="primary" (click)="updateStandardTasksStatus()">{{"TASK.UPDATE_STANDARD_TASKS_STATUS"|translate}}</button>
+    <button *ngIf="currentWorld" mat-raised-button color="primary" (click)="updateStandardTasksStatus()">{{"TASK.UPDATE_STANDARD_TASKS_STATUS"|translate}}</button>
+    <button *ngIf="!currentWorld" mat-raised-button color="primary" disabled
+      [matTooltip]="'TASK.UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP' | translate"
+      [matTooltipClass]="'tooltipMultiline'" 
+      matTooltipPosition="below">{{"TASK.UPDATE_STANDARD_TASKS_STATUS"|translate}}</button>
   </div>
   <div layout-padding>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">

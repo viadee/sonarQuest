@@ -178,7 +178,8 @@
     "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
     "AVAILABLE_TASKS": "Verfügbare Aufträge",
     "MISSION": "Mission",
-    "UPDATE_STANDARD_TASKS_STATUS": "Aktualisiere Status",
+    "UPDATE_STANDARD_TASKS_STATUS": "Update Issues vom SonarQube Server",
+    "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Abrufen der SonarQube Issues nicht möglich, da keine Welt festgelegt wurde!",
     "FREE_STANDARDTASKS": "Standardaufträge",
     "FREE_SPECIALTASKS": "Spezialaufträge"
   },
