@@ -8,6 +8,7 @@ import {LocalStorageService} from './local-storage.service';
 import {Subscriber} from 'rxjs/Subscriber';
 import {Token} from './Token';
 import 'rxjs/add/operator/shareReplay';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -15,6 +16,7 @@ export class AuthenticationService {
   listener: Subscriber<boolean>[] = [];
 
   constructor(private http: HttpClient,
+              private router: Router,
               private storageService: LocalStorageService) {
   }
 
@@ -66,6 +68,7 @@ export class AuthenticationService {
 
   private onLogin(): void {
     this.listener.forEach(l => l.next(true));
+    this.router.navigate(['/myAvatar'], {skipLocationChange: false});
   }
 
   private onLogout(): void {
