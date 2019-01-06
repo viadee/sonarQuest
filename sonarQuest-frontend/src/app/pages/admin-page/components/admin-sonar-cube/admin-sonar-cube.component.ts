@@ -57,9 +57,9 @@ export class AdminSonarCubeComponent implements OnInit {
     })
       .then(available => {
         if (available) {
-          message = 'Sonar Server is reachable';
+          message = 'Sonar Server is reachable :)';
         } else {
-          message = 'Sonar Server is not reachable';
+          message = 'Warning! Sonar Server is not reachable!';
         }
         loading.close();
         this.snackBar.open(message, null, {duration: 2500});
