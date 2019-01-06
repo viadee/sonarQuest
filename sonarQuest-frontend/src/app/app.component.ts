@@ -189,8 +189,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.uiDesignService.getUiDesign().subscribe(ui => {
       this.ui = ui;
       const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-      const className = body.className;
-      body.className = className + ' ' + this.ui.name;
+      this.uiDesignService.updateUiDesign('light');
     }, error => {
       this.ui = null;
     });
