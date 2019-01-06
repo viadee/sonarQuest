@@ -4,5 +4,6 @@ export interface World {
   project: string,
   active: boolean,
   usequestcards: boolean,
-  image: string
+  image: string,
+  hasQuests: boolean
 }

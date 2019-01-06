@@ -138,6 +138,10 @@ public class World {
 		this.users = users;
 	}
 
+	public boolean hasQuests() {
+		return !getQuests().isEmpty();
+	}
+
 	@Override
 	public int hashCode() {
 		return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
