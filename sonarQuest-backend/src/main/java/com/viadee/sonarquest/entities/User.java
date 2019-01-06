@@ -2,6 +2,7 @@ package com.viadee.sonarquest.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -263,6 +264,18 @@ public class User {
 
 	public boolean isDeveloper() {
 		return getRole().getName() == RoleName.DEVELOPER;
+	}
+
+	/**
+	 * Looks up the names of all joined ("active") worlds and returns them in a
+	 * list.
+	 */
+	public List<String> getJoinedWorlds() {
+		if (worlds != null) {
+			return worlds.stream().map(World::getName).collect(Collectors.toList());
+		} else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override

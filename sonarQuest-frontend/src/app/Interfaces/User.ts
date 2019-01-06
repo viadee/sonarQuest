@@ -18,7 +18,8 @@ export interface User {
   level?: Level,
   artefacts?: Artefact[],
   password?: string,
-  currentWorld?: World
+  currentWorld?: World,
+  joinedWorlds?: string[]
 }
 
 

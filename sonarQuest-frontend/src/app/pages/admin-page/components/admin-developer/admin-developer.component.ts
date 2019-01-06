@@ -18,13 +18,14 @@ export class AdminDeveloperComponent implements OnInit {
   public users: User[];
 
   columns: ITdDataTableColumn[] = [
-    { name: 'username', label: 'Username', width: { min: 100 } },
-    { name: 'role.name', label: 'Role', width: 50 },
-    { name: 'level.level', label: 'Level', width: 25 },
-    { name: 'xp', label: 'XP', width: 25 },
-    { name: 'gold', label: 'Gold', width: 25 },
-    { name: 'currentWorld.name', label: 'Current World', width: { min: 100 } },
-    { name: 'edit', label: '', width: 120 }
+    { name: 'username', label: 'Username'},
+    { name: 'role.name', label: 'Role'},
+    { name: 'level.level', label: 'Level'},
+    { name: 'xp', label: 'XP'},
+    { name: 'gold', label: 'Gold'},
+    { name: 'currentWorld.name', label: 'Current World' },
+    { name: 'joinedWorlds', label: 'Active Worlds' },
+    { name: 'edit', label: '' }
   ];
 
   sortBy = 'username';
@@ -58,6 +59,7 @@ export class AdminDeveloperComponent implements OnInit {
         { name: 'xp', label: col_names.XP },
         { name: 'gold', label: col_names.GOLD },
         { name: 'currentWorld.name', label: col_names.ACTIVE_WORLD },
+        { name: 'joinedWorlds', label: col_names.JOINED },
         { name: 'edit', label: '' }]
     });
   }
