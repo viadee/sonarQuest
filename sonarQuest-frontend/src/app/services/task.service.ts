@@ -25,6 +25,12 @@ export class TaskService {
       .catch(this.handleError);
   }
 
+  public getFreeForWorld(world: World): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
+      .toPromise() 
+      .catch(this.handleError);
+  }  
+
   addToQuest(task: any, quest: any): Promise<Task> {
     return this.http.post<Task>(`${environment.endpoint}/task/${task.id}/addToQuest/${quest.id}`, null)
       .toPromise()
