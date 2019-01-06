@@ -23,8 +23,8 @@ export class MarketplacePageComponent implements OnInit {
 
   artefacts: Artefact[];
   my_artefacts_id: number[] = [];
-  level: number;
-
+  level: number;  
+  gold: number;
 
   columns: ITdDataTableColumn[] = [
     {name: 'icon', label: '', width: {min: 80}},
@@ -73,7 +73,16 @@ export class MarketplacePageComponent implements OnInit {
     const user: User = this.userService.getUser();
     const userArtefacts: Artefact[] = user.artefacts;
     userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
-    this.level = user.level.level;
+    if (user.level) {
+      this.level = user.level.level;
+    } else {
+      this.level = 1;
+    }
+    if (user.gold) {
+      this.gold = user.gold;
+    } else {
+      this.gold = 0;
+    }
   }
 
   buyArtefact(artefact: Artefact) {
