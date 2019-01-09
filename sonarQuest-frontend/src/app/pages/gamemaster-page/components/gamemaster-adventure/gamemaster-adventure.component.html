@@ -2,7 +2,7 @@
 <mat-card-content>
   <div layout="row">
     <div flex></div>
-    <button mat-raised-button color="primary" (click)="newAdventure()" [disabled]="!currentWorld?.name || !currentWorld?.hasQuests">{{"ADVENTURE.NEW_ADVENTURE"|translate}}</button>
+    <button mat-raised-button color="primary" (click)="newAdventure()" [disabled]="!currentWorld?.name">{{"ADVENTURE.NEW_ADVENTURE"|translate}}</button>
   </div>
 
   <div layout-padding>
@@ -23,6 +23,10 @@
           <button mat-icon-button (click)="editAdventure(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
+          </button>
+          <button mat-icon-button (click)="deleteAdventure(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-broken-skull ra-2x"></i>
           </button>
         </div>
       </ng-template>

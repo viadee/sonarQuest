@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +33,8 @@ import com.viadee.sonarquest.services.UserService;
 @RestController
 @RequestMapping("/adventure")
 public class AdventureController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdventureController.class);
 
     @Autowired
     private AdventureRepository adventureRepository;
@@ -110,6 +114,7 @@ public class AdventureController {
         final Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventureRepository.delete(adventure);
+	    LOGGER.info("Deleted adventure with id " + id);
         }
     }
 

@@ -13,6 +13,7 @@ import {AdventureService} from '../../../../services/adventure.service';
 import {GamemasterAdventureCreateComponent} from './components/gamemaster-adventure-create/gamemaster-adventure-create.component';
 import {QuestService} from '../../../../services/quest.service';
 import {World} from '../../../../Interfaces/World';
+import { TaskService } from 'app/services/task.service';
 
 @Component({
   selector: 'app-gamemaster-adventure',
@@ -48,6 +49,7 @@ export class GamemasterAdventureComponent implements OnInit {
               private worldService: WorldService,
               private translateService: TranslateService,
               private dialog: MatDialog,
+              private taskService: TaskService,
               private adventureService: AdventureService) {
   }
 
@@ -106,6 +108,19 @@ export class GamemasterAdventureComponent implements OnInit {
     })
   }
 
+  deleteAdventure(adventure: Adventure) {
+    var msg = "";
+    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
+    if(confirm(msg)) {
+      this.adventureService.deleteAdventure(adventure).then(() => {
+        this.update();
+      });
+    }
+  }
+
+  update() {
+    this.taskService.refreshTasks(this.currentWorld);
+  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

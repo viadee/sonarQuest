@@ -108,6 +108,7 @@ public class QuestController {
             final List<Task> tasks = quest.getTasks();
             tasks.forEach(task -> task.setStatus(SonarQuestStatus.OPEN));
             questRepository.delete(quest);
+	    LOGGER.info("Deleted quest with id " + id);
         }
     }
 

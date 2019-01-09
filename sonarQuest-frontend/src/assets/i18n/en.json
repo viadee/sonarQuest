@@ -128,7 +128,8 @@
     "CLICK_TO_SELECT": "clickt to select",
     "GOLD": "Gold",
     "XP": "XP",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "CONFIRMATION_MESSAGE": "Really delete this?"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",

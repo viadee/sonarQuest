@@ -88,6 +88,11 @@ export class AdventureService {
     this.getAdventuresForWorld(world);
   }
 
+  deleteAdventure(adventure: Adventure): Promise<any> {
+    return this.httpClient.delete(`${environment.endpoint}/adventure/${adventure.id}`)
+      .toPromise()
+  }
+
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {

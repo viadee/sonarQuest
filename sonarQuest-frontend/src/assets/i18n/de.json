@@ -128,7 +128,8 @@
     "CLICK_TO_SELECT": "Klick zum Wählen",
     "GOLD": "Gold",
     "XP": "XP",
-    "CLOSE": "Schließen"
+    "CLOSE": "Schließen",
+    "CONFIRMATION_MESSAGE": "Wirklich löschen?"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",
