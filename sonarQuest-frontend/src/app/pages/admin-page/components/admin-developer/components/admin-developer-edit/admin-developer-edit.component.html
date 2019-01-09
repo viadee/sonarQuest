@@ -3,20 +3,28 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Username" [(ngModel)]="user.username">
+        <input matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}" [(ngModel)]="user.username">
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea matInput placeholder="AboutMe" [(ngModel)]="user.aboutMe"></textarea>
+        <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="user.aboutMe"></textarea>
       </mat-input-container>
     </div>
+    <div flex>
+      <mat-select placeholder="{{'TABLE.COLUMNS.ROLE' | translate}}" matInput [(ngModel)]="user.role">
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{role.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <hr/>
     <div>
       <img [src]="imageToShow">
     </div>
     <div>
       <mat-input-container class="full-width">
-        <input matInput placeholder="File name" [(ngModel)]="user.picture">
+        <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="user.picture">
       </mat-input-container>
     </div>
     <div>

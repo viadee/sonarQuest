@@ -25,123 +25,127 @@ import com.viadee.sonarquest.repositories.UserRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-	@Autowired
-	private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private WorldService worldService;
+    @Autowired
+    private WorldService worldService;
 
-	@Autowired
-	private LevelService levelService;
+    @Autowired
+    private LevelService levelService;
 
-	@Autowired
-	private PermissionService permissionService;
+    @Autowired
+    private PermissionService permissionService;
 
-	@Override
-	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		final User user = findByUsername(username);
-		final Set<Permission> permissions = permissionService.getAccessPermissions(user);
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+	final User user = findByUsername(username);
+	final Set<Permission> permissions = permissionService.getAccessPermissions(user);
 
-		final List<SimpleGrantedAuthority> authoritys = permissions.stream()
-				.map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermission()))
-				.collect(Collectors.toList());
+	final List<SimpleGrantedAuthority> authoritys = permissions.stream()
+		.map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermission()))
+		.collect(Collectors.toList());
 
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
-				true, true, true, authoritys);
-	}
+	return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
+		true, true, true, authoritys);
+    }
 
-	public User findByUsername(final String username) {
-		return userRepository.findByUsername(username);
-	}
+    public User findByUsername(final String username) {
+	return userRepository.findByUsername(username);
+    }
 
-	private User findById(final Long id) {
-		return userRepository.findOne(id);
-	}
+    private User findById(final Long id) {
+	return userRepository.findOne(id);
+    }
 
-	public World updateUsersCurrentWorld(final User user, final Long worldId) {
-		final World world = worldService.findById(worldId);
-		user.setCurrentWorld(world);
-		userRepository.saveAndFlush(user);
-		return user.getCurrentWorld();
-	}
+    public World updateUsersCurrentWorld(final User user, final Long worldId) {
+	final World world = worldService.findById(worldId);
+	user.setCurrentWorld(world);
+	userRepository.saveAndFlush(user);
+	return user.getCurrentWorld();
+    }
 
-	public synchronized User save(final User user) {
-		User toBeSaved = null;
-		String username = user.getUsername();
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		if (user.getId() == null) {
-			// Only the password hash needs to be saved
-			String password = encoder.encode(user.getPassword());
-			Role role = user.getRole();
-			RoleName roleName = role.getName();
-			Role userRole = roleService.findByName(roleName);
-			toBeSaved = usernameFree(username) ? user : null;
-			if (toBeSaved != null) {
-				toBeSaved.setPassword(password);
-				toBeSaved.setRole(userRole);
-				toBeSaved.setCurrentWorld(user.getCurrentWorld());
-				toBeSaved.setGold(0l);
-				toBeSaved.setXp(0l);
-				toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
-			}
-		} else {
-			toBeSaved = findById(user.getId());
-			if (toBeSaved != null) {
-				if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
-					toBeSaved.setUsername(username);
-				}
-                // if there are identical hashes in the pw fields, do not touch them
-                if (!toBeSaved.getPassword().equals(user.getPassword())) {
-                    // change password only if it differs from the old one
-                    String oldPassHash = toBeSaved.getPassword();
-                    if (!oldPassHash.equals(user.getPassword()) || !encoder.matches(user.getPassword(), oldPassHash)) {
-                        String password = encoder.encode(user.getPassword());
-                        toBeSaved.setPassword(password);
-                        LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
-                                + ") has been changed.");
-                    }
-				}
-				toBeSaved.setAboutMe(user.getAboutMe());
-				toBeSaved.setPicture(user.getPicture());
-				toBeSaved.setCurrentWorld(user.getCurrentWorld());
-				toBeSaved.setWorlds(user.getWorlds());
-				toBeSaved.setGold(user.getGold());
-				toBeSaved.setXp(user.getXp());
-				toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
-			}
+    public synchronized User save(final User user) {
+	User toBeSaved = null;
+	String username = user.getUsername();
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	if (user.getId() == null) {
+	    // Only the password hash needs to be saved
+	    String password = encoder.encode(user.getPassword());
+	    Role role = user.getRole();
+	    RoleName roleName = role.getName();
+	    Role userRole = roleService.findByName(roleName);
+	    toBeSaved = usernameFree(username) ? user : null;
+	    if (toBeSaved != null) {
+		toBeSaved.setPassword(password);
+		toBeSaved.setRole(userRole);
+		toBeSaved.setCurrentWorld(user.getCurrentWorld());
+		toBeSaved.setGold(0l);
+		toBeSaved.setXp(0l);
+		toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+	    }
+	} else {
+	    toBeSaved = findById(user.getId());
+	    if (toBeSaved != null) {
+		if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
+		    toBeSaved.setUsername(username);
 		}
-
-		return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
+		// if there are identical hashes in the pw fields, do not touch them
+		if (!toBeSaved.getPassword().equals(user.getPassword())) {
+		    // change password only if it differs from the old one
+		    String oldPassHash = toBeSaved.getPassword();
+		    if (!oldPassHash.equals(user.getPassword()) || !encoder.matches(user.getPassword(), oldPassHash)) {
+			String password = encoder.encode(user.getPassword());
+			toBeSaved.setPassword(password);
+			LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
+				+ ") has been changed.");
+		    }
+		}
+		Role role = user.getRole();
+		RoleName roleName = role.getName();
+		Role userRole = roleService.findByName(roleName);
+		toBeSaved.setRole(userRole);
+		toBeSaved.setAboutMe(user.getAboutMe());
+		toBeSaved.setPicture(user.getPicture());
+		toBeSaved.setCurrentWorld(user.getCurrentWorld());
+		toBeSaved.setWorlds(user.getWorlds());
+		toBeSaved.setGold(user.getGold());
+		toBeSaved.setXp(user.getXp());
+		toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
+	    }
 	}
 
-	private boolean usernameFree(final String username) {
-		return userRepository.findByUsername(username) == null;
-	}
+	return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
+    }
 
-	public void delete(final Long userId) {
-		final User user = findById(userId);
-		userRepository.delete(user);
-	}
+    private boolean usernameFree(final String username) {
+	return userRepository.findByUsername(username) == null;
+    }
 
-	public User findById(final long userId) {
-		return userRepository.findOne(userId);
-	}
+    public void delete(final Long userId) {
+	final User user = findById(userId);
+	userRepository.delete(user);
+    }
 
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+    public User findById(final long userId) {
+	return userRepository.findOne(userId);
+    }
 
-	public List<User> findByRole(final RoleName roleName) {
-		return findAll().stream().filter(user -> user.getRole().getName() == roleName).collect(Collectors.toList());
-	}
+    public List<User> findAll() {
+	return userRepository.findAll();
+    }
 
-	public Level getLevel(final long xp) {
-		return levelService.getLevelByUserXp(xp);
-	}
+    public List<User> findByRole(final RoleName roleName) {
+	return findAll().stream().filter(user -> user.getRole().getName() == roleName).collect(Collectors.toList());
+    }
+
+    public Level getLevel(final long xp) {
+	return levelService.getLevelByUserXp(xp);
+    }
 
 }

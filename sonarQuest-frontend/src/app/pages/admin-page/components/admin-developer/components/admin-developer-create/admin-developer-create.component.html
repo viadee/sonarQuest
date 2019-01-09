@@ -5,23 +5,23 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-input-container class="full-width">
-        <input class="form-control" formControlName="name" matInput placeholder="Username">   
+        <input class="form-control" formControlName="name" matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}">   
         <mat-error>{{getErrorMessage()}}</mat-error>            
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input class="form-control" formControlName="password" matInput placeholder="Password" [type]="'password'">
+        <input class="form-control" formControlName="password" matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [type]="'password'">
         <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-input-container>
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <textarea class="form-control" formControlName="about" matInput placeholder="AboutMe"></textarea>
+        <textarea class="form-control" formControlName="about" matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}"></textarea>
       </mat-input-container>
     </div>
     <div flex>
-      <mat-select placeholder="Role" matInput formControlName="role">
+      <mat-select placeholder="{{'TABLE.COLUMNS.ROLE' | translate}}" matInput formControlName="role">
         <mat-option *ngFor="let role of roles" [value]="role">
           {{role.name}}
         </mat-option>
@@ -29,7 +29,7 @@
       </mat-select>
     </div>
     <div flex>
-      <mat-select placeholder="Race" matInput formControlName="race">
+      <mat-select placeholder="{{'DEVELOPER.AVATARRACE' | translate}}" matInput formControlName="race">
         <mat-option *ngFor="let race of races" [value]="race">
           {{race.name}}
         </mat-option>
@@ -37,7 +37,7 @@
       </mat-select>
     </div>
     <div flex>
-      <mat-select placeholder="Class" matInput formControlName="class">
+      <mat-select placeholder="{{'DEVELOPER.AVATARCLASS' | translate}}" matInput formControlName="class">
         <mat-option *ngFor="let class of classes" [value]="class">
           {{class.name}}
         </mat-option>
@@ -46,7 +46,7 @@
     </div>
     <div flex>
       <mat-input-container class="full-width">
-        <input class="form-control" formControlName="picture" matInput placeholder="File name">
+        <input class="form-control" formControlName="picture" matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}">
       </mat-input-container>
     </div>
   </div>

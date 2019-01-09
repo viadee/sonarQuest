@@ -6,10 +6,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../../../../../../services/user.service';
 import { User } from '../../../../../../Interfaces/User';
 import { ImageService } from '../../../../../../services/image.service';
-import { WorldService } from '../../../../../../services/world.service';
 import { UserToWorld } from '../../../../../../Interfaces/UserToWorld';
 import { ITdDataTableColumn } from '@covalent/core';
 import { UserToWorldService } from '../../../../../../services/user-to-world.service';
+import { Role } from 'app/Interfaces/Role';
+import { RoleService } from 'app/services/role.service';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -20,6 +21,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   imageToShow: any;
   userToWorlds: UserToWorld[];
+  roles: Role[];
 
   columns: ITdDataTableColumn[] = [
     { name: 'userId', label: 'UserId', hidden: true },
@@ -34,6 +36,7 @@ export class AdminDeveloperEditComponent implements OnInit {
     private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public user: User,
     private imageService: ImageService,
+    private roleService: RoleService,
     private userToWorldService: UserToWorldService
   ) {
   }
@@ -42,6 +45,7 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.translateTable();
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
+    this.roleService.getRoles().then(roles => this.roles = roles);
   }
 
   translateTable() {
