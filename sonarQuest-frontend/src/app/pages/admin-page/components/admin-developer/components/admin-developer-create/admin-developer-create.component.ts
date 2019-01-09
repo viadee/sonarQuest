@@ -39,16 +39,16 @@ export class AdminDeveloperCreateComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
-    private avatarClassServoce: AvatarClassService,
-    private avatarRaceServoce: AvatarRaceService,
+    private avatarClassService: AvatarClassService,
+    private avatarRaceService: AvatarRaceService,
     private roleService: RoleService,
     @Inject(MAT_DIALOG_DATA) public users: User[]) {
   }
 
   ngOnInit() {
     this.nameTaken = false;
-    this.avatarClassServoce.getClasses().then(classes => this.classes = classes);
-    this.avatarRaceServoce.getRaces().then(races => this.races = races);
+    this.avatarClassService.getClasses().then(classes => this.classes = classes);
+    this.avatarRaceService.getRaces().then(races => this.races = races);
     this.roleService.getRoles().then(roles => this.roles = roles);
   }
 
