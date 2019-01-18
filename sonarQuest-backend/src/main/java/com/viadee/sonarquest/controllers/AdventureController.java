@@ -95,8 +95,7 @@ public class AdventureController {
     }
 
     @PutMapping(value = "/{id}")
-    public Adventure updateAdventure(@PathVariable(value = "id") final Long id,
-            @RequestBody final Adventure data) {
+    public Adventure updateAdventure(@PathVariable(value = "id") final Long id, @RequestBody final Adventure data) {
         Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventure.setTitle(data.getTitle());
@@ -114,7 +113,7 @@ public class AdventureController {
         final Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventureRepository.delete(adventure);
-	    LOGGER.info("Deleted adventure with id " + id);
+            LOGGER.info("Deleted adventure with id " + id);
         }
     }
 
@@ -158,15 +157,12 @@ public class AdventureController {
 
     /**
      * 
-     * @param adventureId
-     *            The id of the adventure
-     * @param developerId
-     *            The id of the developer to remove
+     * @param adventureId The id of the adventure
+     * @param developerId The id of the developer to remove
      * @return Gives the adventure where the Developer was removed
      */
     @PostMapping(value = "/{adventureId}/leave")
-    public Adventure leave(final Principal principal,
-            @PathVariable(value = "adventureId") final Long adventureId) {
+    public Adventure leave(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         return adventureService.removeUserFromAdventure(adventureId, user.getId());
