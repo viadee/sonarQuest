@@ -56,8 +56,7 @@ public class ArtefactController {
     }
 
     @PutMapping(value = "/{id}")
-    public Artefact updateArtefact(@PathVariable(value = "id") final Long id,
-            @RequestBody final Artefact artefactDto) {
+    public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact artefactDto) {
         return artefactService.updateArtefact(id, artefactDto);
     }
 
