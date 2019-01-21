@@ -1,4 +1,4 @@
-package com.viadee.sonarQuest.entities;
+package com.viadee.sonarquest.entities;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.viadee.sonarQuest.constants.AdventureState;
-import com.viadee.sonarQuest.constants.QuestState;
+import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.constants.QuestState;
 
 @Entity
 @Table(name = "Event")

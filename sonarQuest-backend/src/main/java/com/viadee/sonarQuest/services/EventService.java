@@ -1,4 +1,4 @@
-package com.viadee.sonarQuest.services;
+package com.viadee.sonarquest.services;
 
 import java.util.List;
 
@@ -7,16 +7,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarQuest.constants.AdventureState;
-import com.viadee.sonarQuest.constants.QuestState;
-import com.viadee.sonarQuest.entities.Adventure;
-import com.viadee.sonarQuest.entities.Event;
-import com.viadee.sonarQuest.entities.Quest;
-import com.viadee.sonarQuest.entities.User;
-import com.viadee.sonarQuest.entities.World;
-import com.viadee.sonarQuest.repositories.EventRepository;
-import com.viadee.sonarQuest.repositories.UserRepository;
-import com.viadee.sonarQuest.repositories.WorldRepository;
+import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.entities.Adventure;
+import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.repositories.EventRepository;
+import com.viadee.sonarquest.repositories.UserRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
 
 @Service
 public class EventService {

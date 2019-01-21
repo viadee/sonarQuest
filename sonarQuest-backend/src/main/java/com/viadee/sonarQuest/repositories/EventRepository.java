@@ -1,11 +1,11 @@
-package com.viadee.sonarQuest.repositories;
+package com.viadee.sonarquest.repositories;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.viadee.sonarQuest.entities.Event;
-import com.viadee.sonarQuest.entities.World;
+import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.World;
 
 public interface EventRepository extends CrudRepository<Event,Long>  {
 

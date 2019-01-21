@@ -1,4 +1,4 @@
-package com.viadee.sonarQuest.controllers;
+package com.viadee.sonarquest.controllers;
 
 
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarQuest.entities.Event;
-import com.viadee.sonarQuest.services.EventService;
+import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.services.EventService;
 
 @RestController
 @RequestMapping("/event")
