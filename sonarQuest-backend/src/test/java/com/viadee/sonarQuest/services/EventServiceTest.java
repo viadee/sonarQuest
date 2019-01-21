@@ -1,4 +1,4 @@
-package com.viadee.sonarQuest.services;
+package com.viadee.sonarquest.services;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.viadee.sonarQuest.entities.Event;
+import com.viadee.sonarquest.entities.Event;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
