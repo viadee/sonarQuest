@@ -1,0 +1,49 @@
+<div class="outer-events">
+<div class="events">
+  <div class="e" *ngFor="let e of events">
+    <div class="event {{e.type}}">
+      <div layout="row">
+        <div class="timestamp">
+          <span class="day">
+            {{ e?.timestamp| date : 'dd.MM.' }}
+          </span><br>
+          <span class="time">
+            {{ e?.timestamp| date : 'HH:mm' }}
+          </span>
+        </div>
+
+        <div class="content">
+          <div flex>
+              <span class="author">{{ e.user?.username }}</span>
+              <span *ngIf=e.headline class="headline">{{"TIMELINE." + e.headline | translate}}</span>
+          </div>
+
+
+          <div flex>
+            <div *ngIf=e.image class="event-image-div">
+              <img class="event-image" [src]="e.image">
+            </div>
+            <div *ngIf=e.title>
+              <span class="title" >{{ e?.title }}</span>
+            </div>
+            <div *ngIf=e.story>
+              <span class="text" >{{ e?.story }}</span>
+            </div>
+          </div> 
+        </div> 
+      </div>
+    </div> 
+  </div>
+</div>
+</div>
+
+
+<div class="chat ">
+  <div layout="row">
+    <div flex>
+      <mat-input-container class="full-width">
+        <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)">
+      </mat-input-container>
+    </div>
+  </div>
+</div>

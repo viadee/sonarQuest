@@ -34,6 +34,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   protected marketplaceUrl = RoutingUrls.marketplace;
   protected gamemasterUrl = RoutingUrls.gamemaster;
   protected adminUrl = RoutingUrls.admin;
+  protected eventUrl = RoutingUrls.events;
+  protected startUrl = RoutingUrls.start;
 
   protected isWorldSelectVisible: boolean;
   protected isMyAvatarVisible: boolean;
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   protected isMarketplaceVisible: boolean;
   protected isGamemasterVisible: boolean;
   protected isAdminVisible: boolean;
+  protected isEventVisible: boolean;
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -104,6 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isMarketplaceVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.marketplace);
     this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
     this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
+    this.isEventVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.events);
   }
 
   private loadWorlds() {
@@ -168,6 +172,8 @@ export class AppComponent implements OnInit, AfterViewInit {
           return this.pageNames.GAMEMASTER;
         case '/admin':
           return this.pageNames.ADMIN;
+        case '/events':
+          return this.pageNames.EVENT;
         default:
           return '';
       }

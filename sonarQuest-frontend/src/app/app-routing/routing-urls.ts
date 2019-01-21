@@ -7,5 +7,6 @@ export const RoutingUrls = {
   quests: 'quests',
   marketplace: 'marketplace',
   gamemaster: 'gamemaster',
-  admin: 'admin'
+  admin: 'admin',
+  events: 'events'
 }

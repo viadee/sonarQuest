@@ -60,6 +60,15 @@
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
+    
+    <div>
+      <a mat-list-item routerLink="/{{eventUrl}}">
+        <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>
+        <h3 mat-line>Events</h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+
   </mat-nav-list>
   <div td-toolbar-content layout="row" flex>
     <div class="vertical-align">{{determinePageTitle(router.url)}}</div>
