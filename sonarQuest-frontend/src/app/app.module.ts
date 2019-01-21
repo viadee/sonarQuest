@@ -86,6 +86,8 @@ import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
 import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
+import {EventService} from './services/event.service'
+import { EventPageComponent } from './pages/event-page/event-page.component'; 
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -140,6 +142,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     EmptyPageComponent,
     LoadingComponent,
+    EventPageComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -229,6 +232,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserToWorldService,
     PermissionService,
     WizardService,
+    EventService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

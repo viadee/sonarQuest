@@ -1,3 +1,4 @@
+import {EventPageComponent} from './../pages/event-page/event-page.component';
 import {AdminPageComponent} from './../pages/admin-page/admin-page.component';
 import {MarketplacePageComponent} from '../pages/marketplace-page/marketplace-page.component';
 import {QuestPageComponent} from './../pages/quest-page/quest-page.component';
@@ -22,9 +23,10 @@ const appRoutes: Routes = [
   {path: RoutingUrls.marketplace, component: MarketplacePageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.gamemaster, component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.admin, component: AdminPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.events, component: EventPageComponent}
 ];
 
-@NgModule({
+@NgModule({ 
   imports: [
     RouterModule.forRoot(appRoutes)
   ],
