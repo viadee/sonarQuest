@@ -1,3 +1,4 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
 import {HttpClient} from '@angular/common/http';
@@ -5,11 +6,15 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../login/authentication.service';
 import {Subscriber} from 'rxjs/Subscriber';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class UserService {
 
   private user: User;
+
+  private userSubject: Subject<User> = new ReplaySubject(1);
+  user$ = this.userSubject.asObservable();
 
   private listener: Subscriber<boolean>[] = [];
 
@@ -37,6 +42,7 @@ export class UserService {
   public loadUser(): void {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
+      this.userSubject.next(user);
       this.user = user;
       this.userLoaded();
     }, error1 => {

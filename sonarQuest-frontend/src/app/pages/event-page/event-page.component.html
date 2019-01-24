@@ -1,12 +1,11 @@
 <div class="outer-events">
 <div class="events">
-  <div class="e" *ngFor="let e of events">
-    <div class="event {{e.type}}">
+  <div class="event {{e.type}}" *ngFor="let e of events">
       <div layout="row">
         <div class="timestamp">
-          <span class="day">
+          <!--<span class="day">
             {{ e?.timestamp| date : 'dd.MM.' }}
-          </span><br>
+          </span><br>-->
           <span class="time">
             {{ e?.timestamp| date : 'HH:mm' }}
           </span>
@@ -32,7 +31,6 @@
           </div> 
         </div> 
       </div>
-    </div> 
   </div>
 </div>
 </div>

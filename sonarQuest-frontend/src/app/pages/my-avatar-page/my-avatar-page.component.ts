@@ -30,13 +30,13 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   private init() {
-    if (this.userService.getUser()) {
-      this.user = this.userService.getUser();
+    this.userService.user$.subscribe(user =>{
+      this.user = user;
       this.level = (this.user.level ? this.user.level.level : 1);
       this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
       this.xpPercent();      
       this.getAvatar();
-    }
+    })
   }
 
   private getAvatar() {

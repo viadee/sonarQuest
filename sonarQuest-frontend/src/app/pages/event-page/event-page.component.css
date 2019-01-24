@@ -2,18 +2,28 @@
     margin-bottom: 10px;
 }
 
+.events{
+    
+    height: 92%;
+    overflow-y: scroll;
+}
+
+.outer-events{
+    height: 100%;
+}
+
 .event:hover{
-    background-color: rgba(250,250,250,0.35)
+    background-color: rgba(250,250,250,0.35);
 }
 
 .Quest .timestamp{
-    background-color: rgba(102, 51, 153,0.35)
+    background-color: rgba(102, 51, 153,0.35);
 }
 .Message .timestamp{
-    background-color: rgba(204, 173,0,0.35)
+    background-color: rgba(204, 173,0,0.35);
 }
 .Adventure .timestamp{
-    background-color: rgba(0, 129, 204, 0.35)
+    background-color: rgba(0, 129, 204, 0.35);
 }
 
 .Quest span.author{
@@ -60,7 +70,7 @@ span.author{
 
 .chat{
     width:100%;
-    background: #c62828;;
+    background: #c62828;
     position: fixed;
     bottom: 0;
 }

@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { User } from './../Interfaces/User';
 import { WorldService } from './world.service';
 import { World } from './../Interfaces/World';
@@ -18,19 +19,22 @@ export class EventService {
 
 
   currentWorld: World;
-  avatar: User;
+  user: User;
 
   
   messages: Subject<any>;
 
   constructor(
     public http: HttpClient,
-    public worldService: WorldService
+    public worldService: WorldService,
+    public userService: UserService
     ) {
       this.eventsSubject = new Subject;
       this.events$ = this.eventsSubject.asObservable();
 
       this.currentWorld = worldService.getCurrentWorld(); 
+
+      this.userService.user$.subscribe(user =>{ this.user = user })
   }
 
    sendMsg(msg) {
@@ -41,24 +45,22 @@ export class EventService {
 
   getEvents(): Observable<Event[]>{
     //this.http.get(`${environment.endpoint}/event/world/${this.currentWorld.id}`)
-    console.log("getEvents()")
     this.http.get(`${environment.endpoint}/event/world/1`)
       .subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
       ) 
-      console.log(this.events$);
     return this.eventsSubject;
   }
-
   
 
-  sendChat(message: string): Promise<any> {
-    //return this.http.post(`${environment.endpoint}/event/world/${this.currentWorld.id}/sendChat/${this.avatar.id}`, message)
-    return this.http.post(`${environment.endpoint}/event/world/1/sendChat/1`, message)
+  sendChat(message: string): Promise<Event> {
+    return this.http.post<Event>(`${environment.endpoint}/event/world/1/sendChat/${this.user.id}`, message)
       .toPromise()
       .catch(this.handleError);
   }
+  
+
   
   private handleError(error: Response | any) {
     let errMsg: string;

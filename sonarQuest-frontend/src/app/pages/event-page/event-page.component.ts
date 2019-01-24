@@ -10,21 +10,27 @@ import { Event } from '../../Interfaces/Event';
 export class EventPageComponent implements OnInit {
 
   events: Event[]
+
   message: string = '';
 
   constructor(
     private eventService: EventService
   ) { 
+    this.eventService.events$.subscribe(events => {
+      this.events = events
+    });
+
+    
+    this.getEvents()
     
   }
 
   ngOnInit() {
-    this.getEvents()
   }
 
 
   sendChat(){
-    //this.eventService.sendChat(this.message).then(this.getEvents());
+    this.eventService.sendChat(this.message).then(event => { this.events.push(event) })
     this.message = "";
   }
 
@@ -35,14 +41,7 @@ export class EventPageComponent implements OnInit {
   }
 
   getEvents(){
-    console.log("getEvents()")
-    
-    this.eventService.getEvents();
-
-    this.eventService.events$.subscribe(events => {
-      this.events = events
-      console.log(events)
-    });
+    this.eventService.getEvents(); 
   }
 
 }
