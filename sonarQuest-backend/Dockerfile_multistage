@@ -1,5 +1,10 @@
+FROM maven:3.5.3-jdk-8 as build_container
+COPY  . /usr/src/sonarQuest
+WORKDIR /usr/src/sonarQuest
+RUN mvn clean package
+
 FROM openjdk:8-jdk-alpine
-COPY target/sonarQuest.jar app.jar
+COPY --from=build_container /usr/src/sonarQuest/target/sonarQuest.jar app.jar
 
 RUN addgroup -g 1000 appuser && \
     adduser -D -u 1000 -G appuser appuser
