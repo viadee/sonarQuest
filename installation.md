@@ -60,6 +60,28 @@ Afterwards you can access the server at:
 
 `http://localhost:8080`
 
+#### Test
+Momentarily, only one test case exists that tests the most important functions of the server by simulating a game process.
+To execute the test you have to comment the lines in the method `run` of the class `SonarQuestApplication`.
+This prevents the initialisation of the data from the (simulated) sonar server and allows the execution with mock data.
+Finally, you can run the test by executing the class `SonarQuestApplicationTests` in the folder `src/test/java/com/viadee/sonarQuest`.
+
+
+### SonarQuest client
+
+Firstly, you have to install *Node.js*. Please follow the instructions on the [Node.js](https://nodejs.org) website.
+*Angular-Cli* is required for starting a development environment and building the application.
+Install *Angular-Cli* globally with
+
+`npm install -g @angular/cli`
+
+After that you can start the SonarQuest client:
+1. switch to the directory: `cd sonarQuest-frontend`
+2. install the node modules: `npm install`
+3. start the test server with the SonarQuest client: `ng serve`
+
+You can access the SonarQuest client in a browser at `http://localhost:4200`
+
 #### Basic Accounts
 
 So far some basic user data for the three roles exists with the following accounts:
@@ -72,29 +94,13 @@ Account/Password: `dev / test`
  
 When you start with a fresh DB, these are directly accessible.
 
-#### Test
-Momentarily, only one test case exists that tests the most important functions of the server by simulating a game process.
-To execute the test you have to comment the lines in the method `run` of the class `SonarQuestApplication`.
-This prevents the initialisation of the data from the (simulated) sonar server and allows the execution with mock data.
-Finally, you can run the test by executing the class `SonarQuestApplicationTests` in the folder `src/test/java/com/viadee/sonarQuest`.
-
-
-### SonarQuest client
-
-Firstly, you have to install *Node.js*. Please follow the instructions on the *Node.js* website.
-*Angular-Cli* is required for starting a development environment and building the application.
-Install *Angular-Cli* globally with
-
-`npm install -g @angular/cli`
-
-After that you can start the SonarQuest client:
-1. switch to the directorty: `cd sonarQuest-frontend`
-2. install the node modules: `npm install`
-3. start the test server with the SonarQuest client: `ng server`
-
-You can access the SonarQuest client in a browser at `http://localhost:4200`
-
+#### Create a build of the SonarQuest client
 Use `ng build` to create a build of the SonarQuest client. This is integrated into the directory `src/main/resources/static` and can be accessed in a browser at `http://localhost:8080` if the SonarQuest server is running.
+
+_Note: You have to comment in the following line in the class **WebSecurityConfig** for this to work:_
+```Java
+.antMatchers(HttpMethod.GET, "/*").permitAll()
+```
 
 ### SonarQuest client (Docker)
 To run the SonarQuest client and server dockerized, you need to have Docker installed first.
