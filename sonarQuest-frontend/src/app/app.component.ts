@@ -46,6 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   protected isAdminVisible: boolean;
   protected isEventVisible: boolean;
 
+  readonly body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+
   constructor(
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
@@ -59,6 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
     translate.use(translate.getBrowserLang()); // The lang to use. If the lang isn't available, it will use the current loader to get them.
+
   }
 
   protected login(): void {
@@ -128,10 +131,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   */
 
   private susbcribeWorlds(){
-    this.worldService.currentWorld$.subscribe(world =>{ this.currentWorld = world;  })
+    this.worldService.currentWorld$.subscribe(world =>{ this.currentWorld = world;  
+      this.setSelected();
+    })
     this.worldService.worlds$      .subscribe(worlds=>{ this.worlds       = worlds; })
   }
 
+  /*
   private initWorld() {
     if (this.user) {
       if (this.currentWorld !== null) {
@@ -139,6 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     }
   }
+  */
 
   setSelected() {
     if (this.worlds && this.worlds.length !== 0) {
@@ -195,17 +202,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changebackground(image: string) {
-    const x = (<HTMLScriptElement><any>document.getElementsByClassName('background-image')[0]);
-    x.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    (<HTMLScriptElement><any>document.getElementsByClassName('background-image')[0]).style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
   }
 
   setDesign() {
     this.uiDesignService.getUiDesign().subscribe(ui => {
-      this.ui = ui;
-      const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-      this.uiDesignService.updateUiDesign('light');
-    }, error => {
-      this.ui = null;
+      this.ui = ui;      
+      this.body.className = this.ui.name;
     });
   }
 
@@ -213,16 +216,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     const dark = 'dark';
     const light = 'light';
 
-    const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-    const body_light = <HTMLScriptElement><any>document.getElementsByClassName(light)[0];
-
-    if (body_light) {
-      body.className = this.removeSubString(body.className, light) + ' ' + dark;
+    if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
+      this.body.className = this.removeSubString(this.body.className, light) + dark;
       this.uiDesignService.updateUiDesign(dark);
-    } else {
-      body.className = this.removeSubString(body.className, dark) + ' ' + light;
+    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, toggle to light
+      this.body.className = this.removeSubString(this.body.className, dark) + light;
       this.uiDesignService.updateUiDesign(light);
+    } else { // If no design is choosen
+      this.body.className = dark;
+      this.uiDesignService.updateUiDesign(dark);
     }
+  }
+
+  hasClass(element: HTMLScriptElement, cssClass: string): Boolean{
+    return element.classList.contains(cssClass);
   }
 
   removeSubString(fullString: string, removeString: string): string {

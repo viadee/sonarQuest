@@ -18,12 +18,7 @@ export class EventPageComponent implements OnInit {
   ) { 
     this.eventService.events$.subscribe(events => {
       this.events = events
-    });
-
-    console.log(this.eventService.currentWorld)
-    
-    //this.getEvents()
-    
+    });    
   }
 
   ngOnInit() {
