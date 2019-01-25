@@ -14,13 +14,11 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class EventService {
-  private eventsSubject;
-  public  events$;
-
+  private eventsSubject: Subject<Event[]> = new ReplaySubject(1); 
+  public  events$ = this.eventsSubject.asObservable();
 
   currentWorld: World;
   user: User;
-
   
   messages: Subject<any>;
 
@@ -29,12 +27,11 @@ export class EventService {
     public worldService: WorldService,
     public userService: UserService
     ) {
-      this.eventsSubject = new Subject;
-      this.events$ = this.eventsSubject.asObservable();
-
-      this.currentWorld = worldService.getCurrentWorld(); 
-
-      this.userService.user$.subscribe(user =>{ this.user = user })
+      worldService.currentWorld$.subscribe(world=> {  
+        this.currentWorld = world
+        this.getEvents()
+      });
+      userService.user$.subscribe(user =>{ this.user = user })
   }
 
    sendMsg(msg) {
@@ -44,9 +41,8 @@ export class EventService {
 
 
   getEvents(): Observable<Event[]>{
-    //this.http.get(`${environment.endpoint}/event/world/${this.currentWorld.id}`)
-    this.http.get(`${environment.endpoint}/event/world/1`)
-      .subscribe(
+    console.log(this.currentWorld)
+    this.http.get<Event[]>(`${environment.endpoint}/event/world/${this.currentWorld.id}`).subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
       ) 
@@ -55,7 +51,7 @@ export class EventService {
   
 
   sendChat(message: string): Promise<Event> {
-    return this.http.post<Event>(`${environment.endpoint}/event/world/1/sendChat/${this.user.id}`, message)
+    return this.http.post<Event>(`${environment.endpoint}/event/world/${this.currentWorld.id}/sendChat/${this.user.id}`, message)
       .toPromise()
       .catch(this.handleError);
   }

@@ -13,11 +13,11 @@ import {User} from '../../Interfaces/User';
 export class MyAvatarPageComponent implements OnInit {
 
   public XPpercent = 0;
-  public level: number;
-  public maxXp: number;
+  public level: number = 0;
+  public maxXp: number = 0;
   public minXpForLevel2 = 10;
   protected user: User;
-  imageToShow: any;
+  imageToShow: any = "";
 
   constructor(private userService: UserService,
               private dialog: MatDialog,

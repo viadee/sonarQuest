@@ -82,8 +82,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.user = this.userService.getUser();
         this.updateMenu();
         this.setDesign();
-        this.loadWorlds();
-        this.loadWorld();
+        //this.loadWorlds();
+        //this.loadWorld();
+        this.susbcribeWorlds();
       }
     });
     this.userService.loadUser();
@@ -110,6 +111,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isEventVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.events);
   }
 
+  /*
   private loadWorlds() {
     this.worldService.getWorlds().subscribe(worlds => {
       this.worlds = worlds;
@@ -122,6 +124,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.currentWorld = this.worldService.getCurrentWorld();
       this.initWorld();
     });
+  }
+  */
+
+  private susbcribeWorlds(){
+    this.worldService.currentWorld$.subscribe(world =>{ this.currentWorld = world;  })
+    this.worldService.worlds$      .subscribe(worlds=>{ this.worlds       = worlds; })
   }
 
   private initWorld() {
@@ -183,7 +191,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   updateWorld(world: World) {
-    this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
+    this.worldService.setCurrentWorld(world);
   }
 
   changebackground(image: string) {

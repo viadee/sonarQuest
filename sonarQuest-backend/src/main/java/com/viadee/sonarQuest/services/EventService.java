@@ -75,8 +75,8 @@ public class EventService {
 	public Event newMessage(Long worldId, String message, Long userId) {
 		String type  = "Message";
 		String story = message;
-		//World world  = worldRepository.findOne(worldId);
-		World world  = worldRepository.findFirst1By();
+		World world  = worldRepository.findOne(worldId);
+		//World world  = worldRepository.findFirst1By();
 		User user = userRepository.findOne(userId);
 		
 		// create event
@@ -85,9 +85,8 @@ public class EventService {
 	}
 
 	public List<Event> getEventsForWorld(Long worldId) {
-		//World world = worldRepository.findOne(worldId);
-        //List<Event> events =  eventRepository.findByWorld(world);
-        List<Event> events =  eventRepository.findAll();
+		World world = worldRepository.findOne(worldId);
+        List<Event> events =  eventRepository.findByWorld(world);
         /*for(int i = 0; i < events.size(); i++) {
         	if (events.get(i).getUser()==null) {
         		User user = new User();

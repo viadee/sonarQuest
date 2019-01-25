@@ -1,3 +1,4 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {World} from '../Interfaces/World';
@@ -6,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
 import {User} from '../Interfaces/User';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class WorldService {
@@ -13,12 +15,33 @@ export class WorldService {
   world: World = null;
   wordChangeListener: Subscriber<boolean>[] = [];
 
+  private worldsSubject: Subject<World[]> = new ReplaySubject(1);
+  worlds$ = this.worldsSubject.asObservable();
+
+  private currentWorldSubject: Subject<World> = new ReplaySubject(1);
+  currentWorld$ = this.currentWorldSubject.asObservable();
+
   constructor(private http: HttpClient, private userService: UserService) {
+    this.getWorlds();
+
+    userService.user$.subscribe(user => {
+      this.loadWorld()
+
+      if (this.world == null){
+        this.world = user.currentWorld
+        this.currentWorldSubject.next(user.currentWorld)
+      }
+    })
+
+    
+
+    /*
     userService.onUserChange().subscribe(() => {
       if (userService.getUser()) {
         this.loadWorld();
       }
     });
+    */
   }
 
   public onWorldChange(): Observable<boolean> {
@@ -32,7 +55,11 @@ export class WorldService {
   }
 
   public getWorlds(): Observable<World[]> {
-    return this.http.get<World[]>(`${environment.endpoint}/world/worlds`);
+    this.http.get<World[]>(`${environment.endpoint}/world/worlds`).subscribe(
+      result => this.worldsSubject.next(result),
+      err => this.worldsSubject.error(err)
+    );
+    return this.worldsSubject;
   }
 
   public getWorldsForUser(user: User): Promise<World[]> {
@@ -44,19 +71,35 @@ export class WorldService {
   }
 
   public loadWorld(): void {
-    this.http.get<World>(`${environment.endpoint}/world/current`)
-      .subscribe(world => {
+    this.http.get<World>(`${environment.endpoint}/world/current`).subscribe(
+      world => {
+        this.currentWorldSubject.next(world);
         this.world = world;
         this.worldChanged();
       });
   }
 
+  /* Kann weg, wenn die Aufrufer statt dieser Methode das CurrentWorldSubject abrufen*/
   public getCurrentWorld(): World {
     return this.world;
   }
 
+  /*
   public setCurrentWorld(world: World): Promise<World> {
+    this.worldSubject.next(world)
     return this.http.post<World>(`${environment.endpoint}/world/current`, world).toPromise();
+  }
+  */
+
+  public setCurrentWorld(world: World): Observable<World> {
+    this.http.post<World>(`${environment.endpoint}/world/current`, world).subscribe(
+      result => {
+        this.currentWorldSubject.next(result)
+        this.world = result;
+      },
+      err => this.currentWorldSubject.error(err)
+    );
+    return this.currentWorldSubject;
   }
 
   updateWorld(world: World): Promise<World> {

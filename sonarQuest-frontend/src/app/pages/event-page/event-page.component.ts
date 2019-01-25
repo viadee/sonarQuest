@@ -20,8 +20,9 @@ export class EventPageComponent implements OnInit {
       this.events = events
     });
 
+    console.log(this.eventService.currentWorld)
     
-    this.getEvents()
+    //this.getEvents()
     
   }
 
