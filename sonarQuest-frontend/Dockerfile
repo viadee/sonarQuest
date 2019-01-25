@@ -13,12 +13,12 @@ RUN npm install
 RUN ng build
 
 
-
-
 FROM nginx:1.14.0-alpine
+
 COPY --from=build_container /usr/src/sonarQuest/dist/ /var/www/html/
 COPY nginx/sonarquest.conf /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY avatar/ /var/www/html/avatar
 
 CMD ["nginx", "-g", "daemon off;"]
 EXPOSE 80
