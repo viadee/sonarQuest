@@ -6,9 +6,9 @@ CREATE TABLE Sonar_Config (
   http_basic_auth_password VARCHAR(128)
 );
 
-CREATE TABLE Level (
+CREATE TABLE SQLevel (
   id  BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  level int,
+  sqlevel int,
   min_xp BIGINT,
   max_xp BIGINT
 );
@@ -46,7 +46,7 @@ CREATE TABLE Artefact (
   level_id    BIGINT,
   quantity    BIGINT,
   description VARCHAR(256),
-  FOREIGN KEY (level_id) REFERENCES Level (id)
+  FOREIGN KEY (level_id) REFERENCES SQLevel (id)
 );
 
 CREATE TABLE Artefact_Skill (
@@ -123,7 +123,7 @@ CREATE TABLE SQUser (
 	level_id        BIGINT,
 	current_world_id BIGINT,
 	FOREIGN KEY (role_id) REFERENCES Role(id),
-	FOREIGN KEY (level_id) REFERENCES Level(id),
+	FOREIGN KEY (level_id) REFERENCES SQLevel(id),
 	FOREIGN KEY (avatar_class_id) REFERENCES Avatar_Class(id),
 	FOREIGN KEY (avatar_race_id) REFERENCES Avatar_Race(id),
 	FOREIGN KEY (current_world_id) REFERENCES World(id)

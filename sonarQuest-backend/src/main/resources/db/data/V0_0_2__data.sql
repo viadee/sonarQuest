@@ -1,7 +1,7 @@
 INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
   ('World of Sonar Quest', 'https://sonarcloud.io');
 
-INSERT INTO Level (level, min_xp, max_xp) VALUES
+INSERT INTO SQLevel (sqlevel, min_xp, max_xp) VALUES
 	(1,1,9),
 	(2,10,29),
 	(3,30,59),

@@ -1,7 +1,7 @@
 INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
   ('World of Sonar Quest', 'https://sonar.intern.viadee.de');
 
-INSERT INTO Level (min, max) VALUES
+INSERT INTO SQLevel (min, max) VALUES
   (0, 10),
   (11, 30);
 
