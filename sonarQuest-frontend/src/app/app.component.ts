@@ -24,7 +24,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  public selected: World;
   protected user: User = null;
   private ui: UiDesign = null;
 
@@ -73,10 +72,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.authService.logout();
     this.userService.loadUser();
     this.currentWorld = null;
-    this.selected = null;
     this.worlds = null;
     this.user = null;
     this.updateMenu(false);
+    this.changebackground("");
   }
 
   ngOnInit() {
@@ -85,8 +84,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.user = this.userService.getUser();
         this.updateMenu();
         this.setDesign();
-        //this.loadWorlds();
-        //this.loadWorld();
         this.susbcribeWorlds();
       }
     });
@@ -114,53 +111,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isEventVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.events);
   }
 
-  /*
-  private loadWorlds() {
-    this.worldService.getWorlds().subscribe(worlds => {
-      this.worlds = worlds;
-      this.setSelected();
-    });
-  }
-
-  private loadWorld() {
-    this.worldService.onWorldChange().subscribe(() => {
-      this.currentWorld = this.worldService.getCurrentWorld();
-      this.initWorld();
-    });
-  }
-  */
 
   private susbcribeWorlds(){
-    this.worldService.currentWorld$.subscribe(world =>{ this.currentWorld = world;  
-      this.setSelected();
+    this.worldService.currentWorld$.subscribe(world =>{ 
+      this.currentWorld = world;  
+      this.changebackground(world.image);
     })
-    this.worldService.worlds$      .subscribe(worlds=>{ this.worlds       = worlds; })
-  }
-
-  /*
-  private initWorld() {
-    if (this.user) {
-      if (this.currentWorld !== null) {
-        this.setSelected();
-      }
-    }
-  }
-  */
-
-  setSelected() {
-    if (this.worlds && this.worlds.length !== 0) {
-      if (this.currentWorld && this.currentWorld !== null) {
-        this.selected = this.worlds.filter(world => {
-          return (world.name === this.currentWorld.name);
-        })[0];
-      } else {
-        this.selected = this.worlds[0];
-        this.currentWorld = this.selected;
-        this.updateWorld(this.worlds[0]);
-      }
-      const image = this.currentWorld.image || 'bg01';
-      this.changebackground(image);
-    }
+    this.worldService.worlds$      .subscribe(worlds=>{ 
+      this.worlds       = worlds; 
+    })
   }
 
   ngAfterViewInit() {
@@ -202,7 +161,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changebackground(image: string) {
-    (<HTMLScriptElement><any>document.getElementsByClassName('background-image')[0]).style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    if (image != ""){
+      document.getElementsByTagName('body')[0].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    } else {
+      document.getElementsByTagName('body')[0].style.backgroundImage = '';
+    }
   }
 
   setDesign() {

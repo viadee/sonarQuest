@@ -10,9 +10,9 @@
     <mat-list-item disableRipple *ngIf="isWorldSelectVisible">
       <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
       <div flex></div>
-      <mat-select mat-line placeholder="{{'WORLD.WORLD'| translate}}" [(ngModel)]="currentWorld" floatPlaceholder="never">
-        <mat-option flex="20" *ngFor="let world of worlds" [value]="world"
-                    (click)="updateWorld(world)">{{ world.name }}
+      <mat-select mat-line [placeholder]="currentWorld.name" [(ngModel)]="currentWorld" floatPlaceholder="never">
+        <mat-option flex="20" *ngFor="let world of worlds" [value]="world" (click)="updateWorld(world)">
+          {{ world.name }}
         </mat-option>
       </mat-select>
       <div></div>
