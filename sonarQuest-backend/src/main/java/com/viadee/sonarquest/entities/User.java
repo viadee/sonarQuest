@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 
 @Entity
-@Table(name = "User")
+@Table(name = "SQUser")
 public class User {
 
 	@Id
