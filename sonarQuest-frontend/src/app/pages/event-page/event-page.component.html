@@ -40,7 +40,7 @@
   <div layout="row">
     <div flex>
       <mat-input-container class="full-width">
-        <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)">
+        <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off">
       </mat-input-container>
     </div>
   </div>
