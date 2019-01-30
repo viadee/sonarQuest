@@ -12,7 +12,7 @@
       </mat-input-container>
     </div>
     <div flex>
-      <mat-select placeholder="{{'TABLE.COLUMNS.ROLE' | translate}}" matInput [(ngModel)]="user.role">
+      <mat-select [placeholder]="user.role.name" matInput [(ngModel)]="user.role">
         <mat-option *ngFor="let role of roles" [value]="role">
           {{role.name}}
         </mat-option>
