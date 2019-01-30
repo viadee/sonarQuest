@@ -2,15 +2,21 @@
     margin-bottom: 10px;
 }
 
-.events{
-    
-    height: 92%;
-    overflow-y: scroll;
-}
 
 .outer-events{
-    height: 100%;
+    height: calc(100% - 16px);
 }
+
+.events{
+    height: calc(100% - 113px);
+    overflow-y: scroll;
+    margin-bottom: 0px;
+}
+
+.this{
+    height: 0px;
+}
+
 
 .event:hover{
     background-color: rgba(250,250,250,0.35);
@@ -65,14 +71,7 @@ span.author{
 }
 
 .text{
-    font-size: 0.8em;
-}
-
-.chat{
-    width:100%;
-    background: #c62828;
-    position: fixed;
-    bottom: 0;
+    font-size: 0.9em;
 }
 
 .content{

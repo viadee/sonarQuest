@@ -41,7 +41,6 @@ export class EventService {
 
 
   getEvents(): Observable<Event[]>{
-    console.log(this.currentWorld)
     this.http.get<Event[]>(`${environment.endpoint}/event/world/${this.currentWorld.id}`).subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
