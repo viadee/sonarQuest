@@ -88,12 +88,16 @@ public class UserController {
     }
 
     private byte[] loadAvatar(final User user) throws IOException {
-        final String avatarFilePath = Paths.get(avatarDirectoryPath, user.getPicture()).toString();
-        File avatarPathAndFile = new ClassPathResource(avatarFilePath).getFile();
-        if (avatarPathAndFile.exists()) {
-            return Files.toByteArray(avatarPathAndFile);
+        if (user.getPicture() != null) {
+            final String avatarFilePath = Paths.get(avatarDirectoryPath, user.getPicture()).toString();
+            File avatarPathAndFile = new ClassPathResource(avatarFilePath).getFile();
+            if (avatarPathAndFile.exists()) {
+                return Files.toByteArray(avatarPathAndFile);
+            } else {
+                LOGGER.error("Avatar file not found: " + avatarPathAndFile.getAbsolutePath());
+                return null;
+            }
         } else {
-            LOGGER.error("Avatar file not found: " + avatarPathAndFile.getAbsolutePath());
             return null;
         }
     }

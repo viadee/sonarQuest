@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.viadee.sonarquest.controllers.UserController;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.UserService;
 
@@ -46,7 +45,7 @@ public class UserControllerTest {
         when(user.getPicture()).thenReturn(null);
         when(userService.findByUsername("Aria")).thenReturn(user);
         ReflectionTestUtils.setField(userController, "avatarDirectoryPath",
-                ".");
+                "avatar");
         HttpServletResponse response = mock(HttpServletResponse.class);
         byte[] avatar = userController.avatar(principal, response);
         assertNull(avatar);
