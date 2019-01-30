@@ -12,90 +12,90 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Level")
+@Table(name = "SQLevel")
 public class Level {
 
 	@Id
-    @GeneratedValue
-    private Long id;
+	@GeneratedValue
+	private Long id;
 
-    @Column(name = "level")
-    private int level;
-    
-    @Column(name = "min_xp")
-    private Long minXp;
+	@Column(name = "sqlevel")
+	private int level;
 
-    @Column(name = "max_xp")
-    private Long maxXp;
+	@Column(name = "min_xp")
+	private Long minXp;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "level")
-    private List<User> users;
+	@Column(name = "max_xp")
+	private Long maxXp;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "minLevel")
-    private List<Artefact> artefacts;
+	@JsonIgnore
+	@OneToMany(mappedBy = "level")
+	private List<User> users;
 
-    public Level() {
-    }
+	@JsonIgnore
+	@OneToMany(mappedBy = "minLevel")
+	private List<Artefact> artefacts;
 
-    public Level(final Long min, final Long max) {
-        this.minXp = min;
-        this.maxXp = max;
-    }
+	public Level() {
+	}
 
-    public Level(final Long min, final Long max, final List<User> users, final List<Artefact> artefacts) {
-        this.minXp = min;
-        this.maxXp = max;
-        this.users = users;
-        this.artefacts = artefacts;
-    }
+	public Level(final Long min, final Long max) {
+		this.minXp = min;
+		this.maxXp = max;
+	}
 
-    public Level(final Long minLevel) {
-        this.minXp = minLevel;
-    }
+	public Level(final Long min, final Long max, final List<User> users, final List<Artefact> artefacts) {
+		this.minXp = min;
+		this.maxXp = max;
+		this.users = users;
+		this.artefacts = artefacts;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Level(final Long minLevel) {
+		this.minXp = minLevel;
+	}
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getMinXp() {
-        return minXp;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public void setMinXp(final Long min) {
-        this.minXp = min;
-    }
+	public Long getMinXp() {
+		return minXp;
+	}
 
-    public Long getMaxXp() {
-        return maxXp;
-    }
+	public void setMinXp(final Long min) {
+		this.minXp = min;
+	}
 
-    public void setMaxXp(final Long max) {
-        this.maxXp = max;
-    }
+	public Long getMaxXp() {
+		return maxXp;
+	}
 
-    public List<User> getUsers() {
-        return users;
-    }
+	public void setMaxXp(final Long max) {
+		this.maxXp = max;
+	}
 
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
+	public List<User> getUsers() {
+		return users;
+	}
 
-    public List<Artefact> getArtefacts() {
-        return artefacts;
-    }
+	public void setUsers(final List<User> users) {
+		this.users = users;
+	}
 
-    public void setArtefacts(final List<Artefact> artefacts) {
-        this.artefacts = artefacts;
-    }
-    
-    public int getLevel() {
+	public List<Artefact> getArtefacts() {
+		return artefacts;
+	}
+
+	public void setArtefacts(final List<Artefact> artefacts) {
+		this.artefacts = artefacts;
+	}
+
+	public int getLevel() {
 		return level;
 	}
 

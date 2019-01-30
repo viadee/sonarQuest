@@ -1,4 +1,4 @@
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Kron',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -11,7 +11,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  2 /* Warrior */, 
  3 /* Barbarian */);
 
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Bingo',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -24,7 +24,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  5 /* Bard */, 
  1 /* Human */);
  
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Ravurv',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -37,7 +37,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  7 /* Druid */, 
  1 /* Human */);
  
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Ghilanna',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -50,7 +50,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  2 /* Warrior */, 
  4 /* Elf */);
  
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Clawbender',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -63,7 +63,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  2 /* Warrior */, 
  1 /* Human */);
  
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Heribald',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -76,7 +76,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  3 /* Adventurer */, 
  5 /* Hobbit */);
  
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Reimfred',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -89,7 +89,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  8 /* Knight */, 
  1 /* Human */); 
 
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Hildegor',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -102,7 +102,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  8 /* Knight */, 
  1 /* Human */); 
  
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Zefarihm',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -115,7 +115,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  1 /* Mage */, 
  1 /* Human */);  
  
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Grimace',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -128,7 +128,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  4 /* Thief */, 
  1 /* Human */);   
  
- INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+ INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Rawena',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
@@ -141,7 +141,7 @@ INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, abou
  6 /* Witch */, 
  1 /* Human */);   
 
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES (
  'Tolana',   
  '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 
