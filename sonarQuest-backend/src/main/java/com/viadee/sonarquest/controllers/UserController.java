@@ -1,16 +1,18 @@
 package com.viadee.sonarquest.controllers;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.io.Files;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.UserService;
 
@@ -73,7 +74,7 @@ public class UserController {
             throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = getUser(principal);
-        return user != null ? loadAvatar(user) : null;
+        return user != null ? loadAvatar(avatarDirectoryPath, user.getPicture()) : null;
     }
 
     @GetMapping(path = "/{id}/avatar")
@@ -82,21 +83,19 @@ public class UserController {
             final HttpServletResponse response) throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
-        return loadAvatar(user);
+        return loadAvatar(avatarDirectoryPath, user.getPicture());
     }
 
-    private byte[] loadAvatar(final User user) throws IOException {
-        if (user.getPicture() != null) {
-            String avaFilename = getClass().getResource(avatarDirectoryPath + user.getPicture()).getFile();
-            File avatarPathAndFile = new File(avaFilename);
-            if (avatarPathAndFile.exists()) {
-                return Files.toByteArray(avatarPathAndFile);
-            } else {
-                LOGGER.error("Avatar file not found: " + avatarPathAndFile.getAbsolutePath());
-                return null;
+    public byte[] loadAvatar(String avaDir, final String avatarPic) {
+        if (avatarPic != null) {
+            String avatarFileName = avaDir + avatarPic;
+            InputStream inputStream = SpringApplication.class.getResourceAsStream(avatarFileName);
+            try {
+                return IOUtils.toByteArray(inputStream);
+            } catch (IOException ex) {
+                LOGGER.error("Avatar file not found: " + avatarFileName, ex);
             }
-        } else {
-            return null;
         }
+        return null;
     }
 }
