@@ -2,6 +2,7 @@ package com.viadee.sonarquest.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -86,9 +88,8 @@ public class UserController {
     }
 
     private byte[] loadAvatar(final User user) throws IOException {
-        final File avatarDirectory = new File(avatarDirectoryPath);
-        final String avatarFilePath = avatarDirectory.getPath() + File.separator + user.getPicture();
-        File avatarPathAndFile = new File(avatarFilePath);
+        final String avatarFilePath = Paths.get(avatarDirectoryPath, user.getPicture()).toString();
+        File avatarPathAndFile = new ClassPathResource(avatarFilePath).getFile();
         if (avatarPathAndFile.exists()) {
             return Files.toByteArray(avatarPathAndFile);
         } else {
