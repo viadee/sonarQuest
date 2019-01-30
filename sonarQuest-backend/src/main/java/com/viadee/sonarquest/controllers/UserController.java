@@ -11,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,9 +43,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @GetMapping
     public User getUser(final Principal principal) {
@@ -92,8 +87,8 @@ public class UserController {
 
     private byte[] loadAvatar(final User user) throws IOException {
         if (user.getPicture() != null) {
-            Resource avaResource = resourceLoader.getResource("classpath:" + avatarDirectoryPath + user.getPicture());
-            File avatarPathAndFile = avaResource.getFile();
+            String avaFilename = getClass().getResource(avatarDirectoryPath + user.getPicture()).getFile();
+            File avatarPathAndFile = new File(avaFilename);
             if (avatarPathAndFile.exists()) {
                 return Files.toByteArray(avatarPathAndFile);
             } else {
