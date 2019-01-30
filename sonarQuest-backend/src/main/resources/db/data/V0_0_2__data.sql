@@ -1,7 +1,7 @@
 INSERT INTO Sonar_Config (name, sonar_server_url) VALUES
   ('World of Sonar Quest', 'https://sonarcloud.io');
 
-INSERT INTO Level (level, min_xp, max_xp) VALUES
+INSERT INTO SQLevel (sqlevel, min_xp, max_xp) VALUES
 	(1,1,9),
 	(2,10,29),
 	(3,30,59),
@@ -183,11 +183,11 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (3,10),
  (3,11);
 
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3,   0,   0, 1, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id) 
  VALUES ('dev',   '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 2, 0, 0, 1, 'ava_witch1.jpg', 'The little Witch is a pro with poisons and her broomstick.', 6, 1);
-INSERT INTO User (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
+INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('gm',    '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 1,   0,   0, 1, 'ava_barbarian1.jpg', 'The mighty barbarian has the strength and the tools to do the job. Brute force ftw!', 2, 3);
 
 INSERT INTO Ui_Design (name, user_id) VALUES ('light',1);

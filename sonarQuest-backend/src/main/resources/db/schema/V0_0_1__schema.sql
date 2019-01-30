@@ -6,9 +6,9 @@ CREATE TABLE Sonar_Config (
   http_basic_auth_password VARCHAR(128)
 );
 
-CREATE TABLE Level (
+CREATE TABLE SQLevel (
   id  BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  level int,
+  sqlevel int,
   min_xp BIGINT,
   max_xp BIGINT
 );
@@ -46,7 +46,7 @@ CREATE TABLE Artefact (
   level_id    BIGINT,
   quantity    BIGINT,
   description VARCHAR(256),
-  FOREIGN KEY (level_id) REFERENCES Level (id)
+  FOREIGN KEY (level_id) REFERENCES SQLevel (id)
 );
 
 CREATE TABLE Artefact_Skill (
@@ -109,7 +109,7 @@ CREATE TABLE Role_To_Permission (
 	FOREIGN KEY (permission_id) REFERENCES Permission(id)
 );
 
-CREATE TABLE User (
+CREATE TABLE SQUser (
 	id				BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username		VARCHAR(64) NOT NULL UNIQUE,
 	password		VARCHAR(60) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE User (
 	level_id        BIGINT,
 	current_world_id BIGINT,
 	FOREIGN KEY (role_id) REFERENCES Role(id),
-	FOREIGN KEY (level_id) REFERENCES Level(id),
+	FOREIGN KEY (level_id) REFERENCES SQLevel(id),
 	FOREIGN KEY (avatar_class_id) REFERENCES Avatar_Class(id),
 	FOREIGN KEY (avatar_race_id) REFERENCES Avatar_Race(id),
 	FOREIGN KEY (current_world_id) REFERENCES World(id)
@@ -133,7 +133,7 @@ CREATE TABLE User_To_World (
 	id 				BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	user_id			BIGINT,
 	world_id		BIGINT,
-	FOREIGN KEY (user_id) REFERENCES User(id),
+	FOREIGN KEY (user_id) REFERENCES SQUser(id),
 	FOREIGN KEY (world_id) REFERENCES World(id)
 );
 
@@ -141,7 +141,7 @@ CREATE TABLE User_Artefact (
   user_id BIGINT NOT NULL,
   artefact_id  BIGINT NOT NULL,
   PRIMARY KEY (user_id, artefact_id),
-  FOREIGN KEY (user_id) REFERENCES User (id),
+  FOREIGN KEY (user_id) REFERENCES SQUser (id),
   FOREIGN KEY (artefact_id) REFERENCES Artefact (id)
 );
 
@@ -150,14 +150,14 @@ CREATE TABLE Adventure_User (
   user_id BIGINT NOT NULL,
   PRIMARY KEY (adventure_id, user_id),
   FOREIGN KEY (adventure_id) REFERENCES Adventure (id),
-  FOREIGN KEY (user_id) REFERENCES User (id)
+  FOREIGN KEY (user_id) REFERENCES SQUser (id)
 );
 
 CREATE TABLE Participation (
   id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   quest_id     BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES User (id),
+  FOREIGN KEY (user_id) REFERENCES SQUser (id),
   FOREIGN KEY (quest_id) REFERENCES Quest (id)
 );
 
@@ -165,7 +165,7 @@ CREATE TABLE Ui_Design (
   id      BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name    VARCHAR(64) NOT NULL,
   user_id BIGINT,
-  FOREIGN KEY (user_id) REFERENCES User (id) 
+  FOREIGN KEY (user_id) REFERENCES SQUser (id) 
 );
 
 
