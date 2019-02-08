@@ -31,7 +31,7 @@ export class MarketplacePageComponent implements OnInit {
     {name: 'name', label: 'Name'},
     {name: 'price', label: 'Price(Gold)'},
     {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.min', label: 'min. Level'},
+    {name: 'minLevel.level', label: 'min. Level'},
     {name: 'buy', label: ''}
   ];
  
@@ -61,7 +61,7 @@ export class MarketplacePageComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'price', label: col_names.PRICE},
         {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.min', label: col_names.MIN_LEVEL},
+        {name: 'minLevel.level', label: col_names.MIN_LEVEL},
         {name: 'buy', label: ''}]
     });    
     this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {

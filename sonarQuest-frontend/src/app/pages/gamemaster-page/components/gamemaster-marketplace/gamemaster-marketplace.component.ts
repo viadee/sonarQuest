@@ -12,6 +12,7 @@ import {ArtefactService} from './../../../../services/artefact.service';
 import {Component, OnInit} from '@angular/core';
 import {Artefact} from '../../../../Interfaces/Artefact';
 import { TranslateService } from '@ngx-translate/core';
+import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -28,7 +29,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
     {name: 'name', label: 'name'},
     {name: 'price', label: 'Price (in Gold)'},
     {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.min', label: 'min. Level'},
+    {name: 'minLevel.level', label: 'min. Level'},
     {name: 'skills', label: 'Skills'},
     {name: 'edit', label: ''}
   ];
@@ -58,15 +59,11 @@ export class GamemasterMarketplaceComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'price', label: col_names.PRICE},
         {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.min', label: col_names.MIN_LEVEL},
+        {name: 'minLevel.level', label: col_names.MIN_LEVEL},
         {name: 'skills', label: col_names.SKILLS},
-        {name: 'buy', label: ''}]
+        {name: 'edit', label: ''}]
     });      
-    this.artefactService.artefacts$.subscribe(artefacts => {
-      this.artefacts = artefacts;
-      this.filter();
-    });
-    this.artefactService.getData();
+    this.update();
   }
 
   newArtefact() {
@@ -82,6 +79,24 @@ export class GamemasterMarketplaceComponent implements OnInit {
       width: '500px'
     }).afterClosed().subscribe(() => {
     });
+  }
+
+  deleteArtefact(artefact: Artefact) {
+    var msg = "";
+    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
+    if(confirm(msg)) {
+      this.artefactService.deleteArtefact(artefact).then(() => {
+        this.update();
+      });
+    }
+  }
+
+  update() {
+    this.artefactService.artefacts$.subscribe(artefacts => {
+      this.artefacts = artefacts;
+      this.filter();
+    });
+    this.artefactService.getData();
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

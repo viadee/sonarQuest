@@ -38,8 +38,12 @@
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <button mat-icon-button (click)="editArtefact(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
-          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
+          </button>
+          <button mat-icon-button (click)="deleteArtefact(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-broken-skull ra-2x"></i>
           </button>
         </div>
       </ng-template>

@@ -96,7 +96,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
       this.quantity = 1;
     }
 
-    if (this.name && this.min && this.price && this.quantity && this.skills.length > 0) {
+    if (this.name && this.min && this.price && this.quantity) {
       const artefact = {
         name: this.name,
         price: this.price,
@@ -105,7 +105,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
         skills: this.skills,
         icon: this.icon,
         minLevel: {
-          min: this.min
+          level: this.min
         }
       };
 

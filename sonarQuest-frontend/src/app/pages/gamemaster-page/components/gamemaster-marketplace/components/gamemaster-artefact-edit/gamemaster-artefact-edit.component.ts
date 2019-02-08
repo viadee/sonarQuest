@@ -65,7 +65,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
       this.filter();
     });
     this.name = this.artefact.name;
-    this.min = this.artefact.minLevel.minXp;
+    this.min = this.artefact.minLevel.level;
     this.price = this.artefact.price;
     this.description = this.artefact.description;
     this.quantity = this.artefact.quantity;
@@ -85,18 +85,21 @@ export class GamemasterArtefactEditComponent implements OnInit {
   }
 
   updateArtefact() {
+    console.log('Checking artefact update...');
     if (this.name && this.min && this.price) {
       this.artefact.name = this.name;
       this.artefact.price = this.price;
       this.artefact.quantity = this.quantity;
       this.artefact.description = this.description;
       this.artefact.icon = this.icon;
-      this.artefactService.setMinLevel(this.artefact, this.min);
+      this.artefact.minLevel.level = this.min;
 
       this.artefactService.updateArtefact(this.artefact).then(() => {
         this.artefactService.getData();
         this.dialogRef.close();
       });
+    } else {
+      console.error('Error updating artefact: '  + this.name);
     }
   }
 

@@ -9,4 +9,6 @@ public interface LevelRepository extends JpaRepository<Level, Long> {
     Level findById(Long id);
 
     Level findFirstByMinXpIsLessThanEqualOrderByLevelDesc(Long xp);
+
+    Level findFirstByLevelOrderByLevelDesc(int level);
 }
