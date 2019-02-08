@@ -55,13 +55,17 @@ export class AdminDeveloperComponent implements OnInit {
       this.columns = [
         { name: 'username', label: col_names.USERNAME },
         { name: 'role.name', label: col_names.ROLE },
-        { name: 'level.level', label: col_names.LEVEL },
+        { name: 'level.level', label: col_names.LEVEL, format: this.formatNullIntoOne() },
         { name: 'xp', label: col_names.XP },
         { name: 'gold', label: col_names.GOLD },
         { name: 'currentWorld.name', label: col_names.ACTIVE_WORLD },
         { name: 'joinedWorlds', label: col_names.JOINED },
         { name: 'edit', label: '' }]
     });
+  }
+
+  private formatNullIntoOne(): (value: any) => any {
+    return v => v === null ? 1 : v;
   }
 
   setUsers(users: User[]) {
