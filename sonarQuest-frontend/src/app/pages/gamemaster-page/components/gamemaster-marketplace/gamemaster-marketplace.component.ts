@@ -12,7 +12,6 @@ import {ArtefactService} from './../../../../services/artefact.service';
 import {Component, OnInit} from '@angular/core';
 import {Artefact} from '../../../../Interfaces/Artefact';
 import { TranslateService } from '@ngx-translate/core';
-import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -120,12 +119,8 @@ export class GamemasterMarketplaceComponent implements OnInit {
   filter(): void {
     let newData: any[] = this.artefacts;
     const excludedColumns: string[] = this.columns
-      .filter((column: ITdDataTableColumn) => {
-        return ((column.filter === undefined && column.hidden === true) ||
-          (column.filter !== undefined && column.filter === false));
-      }).map((column: ITdDataTableColumn) => {
-        return column.name;
-      });
+      .filter((column: ITdDataTableColumn) => ((column.filter === undefined && column.hidden === true) ||
+        (column.filter !== undefined && column.filter === false))).map((column: ITdDataTableColumn) => column.name);
     newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
     this.filteredTotal = newData.length;
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);

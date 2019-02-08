@@ -26,10 +26,10 @@ export class GamemasterArtefactEditComponent implements OnInit {
   name: string;
   min: number;
   price: number;
-  skills: Skill[];
   minLevel: Level;
   quantity: number;
   description: string;
+  skills: Skill[];
   icon = '';
 
   columns: ITdDataTableColumn[] = [

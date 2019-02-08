@@ -26,10 +26,10 @@
         <mat-list>
           <mat-list-item *ngFor="let skill of value">
             <div *ngIf="skill.type == 'GOLD'">
-              <span>{{"SKILL.MORE_GOLD"|translate}}:{{skill.value}}</span>
+              <span>{{"SKILL.MORE_GOLD"|translate}}:&nbsp;{{skill.value}}</span>
             </div>
             <div *ngIf="skill.type == 'XP'">
-              <span>{{"SKILL.MORE_XP"|translate}}:{{skill.value}}</span>
+              <span>{{"SKILL.MORE_XP"|translate}}:&nbsp;{{skill.value}}</span>
             </div>
           </mat-list-item>
         </mat-list>
