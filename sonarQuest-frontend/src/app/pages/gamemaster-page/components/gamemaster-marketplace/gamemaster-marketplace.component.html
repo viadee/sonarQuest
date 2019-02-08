@@ -23,16 +23,9 @@
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="skills" let-value="value" let-row="row" let-column="column">
-        <mat-list>
-          <mat-list-item *ngFor="let skill of value">
-            <div *ngIf="skill.type == 'GOLD'">
-              <span>{{"SKILL.MORE_GOLD"|translate}}:&nbsp;{{skill.value}}</span>
-            </div>
-            <div *ngIf="skill.type == 'XP'">
-              <span>{{"SKILL.MORE_XP"|translate}}:&nbsp;{{skill.value}}</span>
-            </div>
-          </mat-list-item>
-        </mat-list>
+        <div *ngFor="let skill of value">
+            <div>{{skill.name}}&nbsp;</div>
+        </div>
       </ng-template>
 
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
