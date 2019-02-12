@@ -115,7 +115,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private susbcribeWorlds(){
     this.worldService.currentWorld$.subscribe(world =>{ 
       this.currentWorld = world;  
-      this.changebackground(world.image);
+      if(world) this.changebackground(world.image);
     })
     this.worldService.worlds$      .subscribe(worlds=>{ 
       this.worlds       = worlds; 
