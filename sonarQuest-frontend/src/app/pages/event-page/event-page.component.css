@@ -10,6 +10,7 @@
 .events{
     height: calc(100% - 113px);
     overflow-y: scroll;
+    overflow-x: hidden;
     margin-bottom: 0px;
 }
 
@@ -43,9 +44,9 @@
 }
 
 .timestamp{
-    text-align: center;
     padding: 0 5px;
-    line-height: 0.7em;
+    align-items: center;
+    display: inline-flex;
 }
 
 span.day{
@@ -55,14 +56,8 @@ span.day{
     border-bottom: 1px solid #767676;
 }
 
-span.time{
-    font-size: 0.6em;
-    margin: 0;
-    padding: 0;
-}
-
 span.author{
-    font-size: 0.8em;
+    font-size: 1.3em;
     font-weight: 500;
 }
 
@@ -71,7 +66,7 @@ span.author{
 }
 
 .text{
-    font-size: 0.9em;
+    font-size: 1.4em;
 }
 
 .content{
