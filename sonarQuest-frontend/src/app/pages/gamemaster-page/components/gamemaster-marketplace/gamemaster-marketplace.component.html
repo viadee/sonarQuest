@@ -23,23 +23,20 @@
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="skills" let-value="value" let-row="row" let-column="column">
-        <mat-list>
-          <mat-list-item *ngFor="let skill of value">
-            <div *ngIf="skill.type == 'GOLD'">
-              <span>{{"SKILL.MORE_GOLD"|translate}}:{{skill.value}}</span>
-            </div>
-            <div *ngIf="skill.type == 'XP'">
-              <span>{{"SKILL.MORE_XP"|translate}}:{{skill.value}}</span>
-            </div>
-          </mat-list-item>
-        </mat-list>
+        <div *ngFor="let skill of value">
+            <div>{{skill.name}}&nbsp;</div>
+        </div>
       </ng-template>
 
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <button mat-icon-button (click)="editArtefact(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
-          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
+          </button>
+          <button mat-icon-button (click)="deleteArtefact(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-broken-skull ra-2x"></i>
           </button>
         </div>
       </ng-template>

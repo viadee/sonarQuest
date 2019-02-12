@@ -20,4 +20,12 @@ public class LevelService {
     public Level findById(final Long id) {
         return levelRepository.findById(id);
     }
+
+    public void createLevel(Level newLevel) {
+        levelRepository.save(newLevel);
+    }
+
+    public Level findByLevel(int level) {
+        return levelRepository.findFirstByLevelOrderByLevelDesc(level);
+    }
 }

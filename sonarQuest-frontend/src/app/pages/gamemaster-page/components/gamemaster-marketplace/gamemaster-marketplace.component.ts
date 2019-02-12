@@ -28,7 +28,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
     {name: 'name', label: 'name'},
     {name: 'price', label: 'Price (in Gold)'},
     {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.min', label: 'min. Level'},
+    {name: 'minLevel.level', label: 'min. Level'},
     {name: 'skills', label: 'Skills'},
     {name: 'edit', label: ''}
   ];
@@ -58,15 +58,11 @@ export class GamemasterMarketplaceComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'price', label: col_names.PRICE},
         {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.min', label: col_names.MIN_LEVEL},
+        {name: 'minLevel.level', label: col_names.MIN_LEVEL},
         {name: 'skills', label: col_names.SKILLS},
-        {name: 'buy', label: ''}]
+        {name: 'edit', label: ''}]
     });      
-    this.artefactService.artefacts$.subscribe(artefacts => {
-      this.artefacts = artefacts;
-      this.filter();
-    });
-    this.artefactService.getData();
+    this.update();
   }
 
   newArtefact() {
@@ -82,6 +78,24 @@ export class GamemasterMarketplaceComponent implements OnInit {
       width: '500px'
     }).afterClosed().subscribe(() => {
     });
+  }
+
+  deleteArtefact(artefact: Artefact) {
+    var msg = "";
+    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
+    if(confirm(msg)) {
+      this.artefactService.deleteArtefact(artefact).then(() => {
+        this.update();
+      });
+    }
+  }
+
+  update() {
+    this.artefactService.artefacts$.subscribe(artefacts => {
+      this.artefacts = artefacts;
+      this.filter();
+    });
+    this.artefactService.getData();
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -105,12 +119,8 @@ export class GamemasterMarketplaceComponent implements OnInit {
   filter(): void {
     let newData: any[] = this.artefacts;
     const excludedColumns: string[] = this.columns
-      .filter((column: ITdDataTableColumn) => {
-        return ((column.filter === undefined && column.hidden === true) ||
-          (column.filter !== undefined && column.filter === false));
-      }).map((column: ITdDataTableColumn) => {
-        return column.name;
-      });
+      .filter((column: ITdDataTableColumn) => ((column.filter === undefined && column.hidden === true) ||
+        (column.filter !== undefined && column.filter === false))).map((column: ITdDataTableColumn) => column.name);
     newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
     this.filteredTotal = newData.length;
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);

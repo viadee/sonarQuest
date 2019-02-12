@@ -2,6 +2,10 @@ package com.viadee.sonarquest.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +16,8 @@ import com.viadee.sonarquest.repositories.ArtefactRepository;
 
 @Service
 public class ArtefactService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
 
     @Autowired
     private ArtefactRepository artefactRepository;
@@ -34,24 +40,40 @@ public class ArtefactService {
         return artefactRepository.findOne(id);
     }
 
+    @Transactional
     public Artefact createArtefact(final Artefact artefact) {
+        LOGGER.info("Creating new artefact " + artefact.getName());
+        Level minLevel = artefact.getMinLevel();
+        Level existingLevel = levelService.findByLevel(minLevel.getLevel());
+        if (existingLevel != null) {
+            artefact.setMinLevel(existingLevel);
+        } else {
+            LOGGER.info("Artefact Level " + minLevel.getLevel() + " does not exist yet - creating it...");
+            levelService.createLevel(minLevel);
+            artefact.setMinLevel(minLevel);
+        }
         return artefactRepository.save(artefact);
     }
 
+    @Transactional
     public Artefact updateArtefact(final Long id, final Artefact artefactDto) {
+        LOGGER.info("Updating artefact " + id);
         final Artefact artefact = artefactRepository.findOne(id);
         artefact.setName(artefactDto.getName());
         artefact.setIcon(artefactDto.getIcon());
         artefact.setPrice(artefactDto.getPrice());
         artefact.setDescription(artefactDto.getDescription());
         artefact.setQuantity(artefactDto.getQuantity());
-        artefact.setMinLevel(levelService.findById(artefactDto.getMinLevel().getId()));
         artefact.setSkills(artefactDto.getSkills());
+        int minLevel = artefactDto.getMinLevel().getLevel();
+        Level newLevel = levelService.findByLevel(minLevel);
+        artefact.setMinLevel(newLevel);
         return artefactRepository.save(artefact);
     }
 
-    public Artefact buyArtefact(Artefact artefact, final User user) {
-
+    @Transactional
+    public synchronized Artefact buyArtefact(Artefact artefact, final User user) {
+        LOGGER.info("User " + user.getId() + " tries to buy artefact " + artefact.getId());
         // If developer has TOO LITTLE GOLD, Then the purchase is canceled
         final long gold = user.getGold() - artefact.getPrice();
         if (gold < 0) {
@@ -85,6 +107,7 @@ public class ArtefactService {
 
         artefact.setQuantity(artefact.getQuantity() - 1);
         artefact = artefactRepository.save(artefact);
+        LOGGER.info("User " + user.getId() + " successfully bought artefact " + artefact.getId());
         return artefact;
     }
 

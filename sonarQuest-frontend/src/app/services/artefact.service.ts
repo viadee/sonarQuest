@@ -49,6 +49,7 @@ export class ArtefactService {
   }
 
   updateArtefact(artefact: any): Promise<Artefact> {
+    console.log('Updating artefact ' + artefact.id);
     return this.http.put<Artefact>(`${environment.endpoint}/artefact/${artefact.id}`, artefact)
       .toPromise()
       .catch(this.handleError);
@@ -58,6 +59,11 @@ export class ArtefactService {
     return this.http.put<boolean>(`${environment.endpoint}/artefact/${artefact.id}/buy`, null)
       .toPromise()
       .catch(this.handleError);
+  }
+
+  deleteArtefact(artefact: Artefact): Promise<any> {
+    return this.http.delete(`${environment.endpoint}/artefact/${artefact.id}`)
+      .toPromise()
   }
 
   private handleError(error: Response | any) {
@@ -71,9 +77,5 @@ export class ArtefactService {
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
-  }
-
-  setMinLevel(artefact: Artefact, min: number) {
-    artefact.minLevel.minXp = min
   }
 }

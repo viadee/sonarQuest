@@ -2,6 +2,8 @@ package com.viadee.sonarquest.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ public class SkillService {
     @Autowired
     private ArtefactRepository artefactRepository;
 
+    @Transactional
     public Skill createSkill(final Skill skillDto) {
         final Skill skill = new Skill();
         skill.setName(skillDto.getName());
@@ -31,6 +34,7 @@ public class SkillService {
         return artefactRepository.findOne(a.getId()).getSkills();
     }
 
+    @Transactional
     public void deleteSkill(final Skill skill) {
         if (skill != null) {
             skillRepository.delete(skill);
