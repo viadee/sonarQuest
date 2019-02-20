@@ -73,24 +73,3 @@ export class EventPageComponent implements OnInit {
   }
 
 }
-
-
-class UserImageMap<Observable> {
-  private userImages: { [key: number]: Observable };
-
-  constructor() {
-      this.userImages = {};
-  }
-
-  add(key: number, value: Observable): void {
-      this.userImages[key] = value;
-  }
-
-  has(key: number): boolean {
-      return key in this.userImages;
-  }
-
-  get(key: number): Observable {
-      return this.userImages[key];
-  }
-}

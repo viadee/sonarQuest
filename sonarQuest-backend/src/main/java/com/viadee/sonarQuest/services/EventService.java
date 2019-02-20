@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.constants.EventType;
-import com.viadee.sonarquest.controllers.UserController;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.Quest;
@@ -31,9 +30,6 @@ public class EventService {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private UserController userController;
 	
 	
 	
@@ -77,12 +73,12 @@ public class EventService {
 		return eventRepository.findAll();
 	}
 
-	public Event newMessage(Long worldId, String message, Principal principal) {
+	public Event newMessage(String message, Principal principal) {
 		final String username = principal.getName();
 		User user = userService.findByUsername(username);
 		EventType type  = EventType.MESSAGE;
 		String story = message;
-		World world  = worldRepository.findOne(worldId);
+		World world  = user.getCurrentWorld();
 		
 		// create event
 		return eventRepository.save(new Event(type, story, world, user));
@@ -106,8 +102,10 @@ public class EventService {
 		
 	}
 
-	public List<Event> getEventsForWorld(Long worldId) {
-		World world = worldRepository.findOne(worldId);
+	public List<Event> getEventsForWorld(Principal principal) {
+		final String username = principal.getName();
+		User user = userService.findByUsername(username);
+		World world = user.getCurrentWorld();
         List<Event> events =  eventRepository.findByWorld(world);        
         return events;
 	}

@@ -59,11 +59,12 @@
               {{"TABLE.COLUMNS.XP" | translate}}: {{quest.xp}}
               <br />
               {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
-            </div>
-            <button mat-icon-button (click)="solveDummy(quest)" [matTooltip]="'SOLVE'"
+              <button mat-icon-button (click)="solveDummy(quest)" [matTooltip]="'SOLVE'"
                 [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
                 SOLVE
               </button>
+            </div>
+            
           </mat-card-content>
           <mat-card-actions>
             <div align="right">

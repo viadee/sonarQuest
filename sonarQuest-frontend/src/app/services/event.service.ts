@@ -33,6 +33,7 @@ export class EventService {
         this.getEventsOfCurrentWorld()
       });
       userService.user$.subscribe(user =>{ this.user = user })
+
   }
 
    sendMsg(msg) {
@@ -42,7 +43,7 @@ export class EventService {
 
 
   getEventsOfCurrentWorld(): Observable<Event[]>{
-    this.http.get<Event[]>(`${environment.endpoint}/event/world/${this.currentWorld.id}`).subscribe(
+    this.http.get<Event[]>(`${environment.endpoint}/event/currentWorld`).subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
       ) 
@@ -51,7 +52,7 @@ export class EventService {
   
 
   sendChat(message: string): Promise<Event> {
-    return this.http.post<Event>(`${environment.endpoint}/event/world/${this.currentWorld.id}/sendChat`, message)
+    return this.http.post<Event>(`${environment.endpoint}/event/sendChat`, message)
       .toPromise()
       .catch(this.handleError);
   }
