@@ -50,7 +50,7 @@
             <mat-card-title>
               <h3>{{quest.title}}</h3>
             </mat-card-title>
-            <mat-card-subtitle>{{adventure?.title}}</mat-card-subtitle>
+            <mat-card-subtitle>{{quest.adventure?.title}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
             <div>
@@ -60,6 +60,10 @@
               <br />
               {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
             </div>
+            <button mat-icon-button (click)="solveDummy(quest)" [matTooltip]="'SOLVE'"
+                [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                SOLVE
+              </button>
           </mat-card-content>
           <mat-card-actions>
             <div align="right">

@@ -1,3 +1,4 @@
+import { User } from './../Interfaces/User';
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
@@ -10,16 +11,20 @@ import {HttpClient} from '@angular/common/http';
 import {Task} from '../Interfaces/Task';
 import {ParticipationService} from './participation.service';
 import {TaskService} from './task.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class QuestService {
 
   private questSubject;
+  user: User;
 
   constructor(private http: HttpClient,
               private participationService: ParticipationService,
-              private taskService: TaskService) {
+              private taskService: TaskService,
+              private userService: UserService) {
     this.questSubject = new Subject();
+    userService.user$.subscribe(user => {this.user = user})
   }
 
   getQuestsForWorld(world: World): Observable<Quest[]> {
@@ -44,6 +49,21 @@ export class QuestService {
         quest.tasks = tasks;
         return quest;
       });
+  }
+
+  solveQuestDummy(quest: Quest): Promise<Quest> {
+    return this.http.put<Quest>(`${environment.endpoint}/quest/${quest.id}/solveQuestDummy`, this.user)
+      .toPromise()
+      .catch(this.handleError);
+  }
+  
+  solveQuestDummyy(quest: Quest): Observable<Quest[]> {
+    this.http.get<Quest[]>(`${environment.endpoint}/quest/${quest.id}/solveQuestDummy`)
+      .subscribe(
+        result => console.log(result),
+        err => console.log(err)
+      );
+    return this.questSubject;
   }
 
 

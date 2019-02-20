@@ -23,23 +23,23 @@
     background-color: rgba(250,250,250,0.35);
 }
 
-.Quest .timestamp{
+.QUEST .timestamp{
     background-color: rgba(102, 51, 153,0.35);
 }
-.Message .timestamp{
+.MESSAGE .timestamp{
     background-color: rgba(204, 173,0,0.35);
 }
-.Adventure .timestamp{
+.ADVENTURE .timestamp{
     background-color: rgba(0, 129, 204, 0.35);
 }
 
-.Quest span.author{
+.QUEST span.author{
     color: rebeccapurple !important;
 }
-.Message span.author{
+.MESSAGE span.author{
     color: rgb(204, 173, 0)    !important;
 }
-.Adventure span.author{
+.ADVENTURE span.author{
     color: rgb(0, 129, 204)    !important;
 }
 
@@ -79,10 +79,9 @@ span.author{
 }
 
 .event-image-div{
-    float: left;
-    margin: 0px 5px -4px -5px;
 }
 
 .title{
     font-weight: 600;
+    font-size: 1.4em;
 }

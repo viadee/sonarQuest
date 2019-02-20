@@ -17,7 +17,7 @@ export class MyAvatarPageComponent implements OnInit {
   public maxXp: number = 0;
   public minXpForLevel2 = 10;
   protected user: User;
-  imageToShow: any = "";
+  public imageToShow: any = "";
 
   constructor(private userService: UserService,
               private dialog: MatDialog,

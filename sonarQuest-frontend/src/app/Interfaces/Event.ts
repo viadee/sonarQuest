@@ -5,7 +5,7 @@ export interface Event {
     title: string,
     story: string,
     status: string,
-    image: string,
+    image: any,
     world_id: number,
     timestamp: Date,
     user: User,

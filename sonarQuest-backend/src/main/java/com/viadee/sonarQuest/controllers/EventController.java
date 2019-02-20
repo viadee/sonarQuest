@@ -1,6 +1,9 @@
 package com.viadee.sonarquest.controllers;
 
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.services.EventService;
 
@@ -28,23 +32,35 @@ public class EventController {
 	
 	@RequestMapping(method = RequestMethod.GET)
     public List<Event> getAllEvents(){
-        return eventService.getAllEvents();
+        List<Event> events = new ArrayList<>();
+        
+        Iterator<Event> i = eventService.getAllEvents().iterator();
+        while (i.hasNext()) {
+        	Event e = i.next();
+        	e.getType();
+			if (e.getType() == EventType.MESSAGE) {
+        		e.setImage(e.getUser().getPicture());
+        	}
+			events.add(e);
+        }
+        
+        return events;
     }
 
 	
 	@CrossOrigin
     @RequestMapping(value = "/world/{worldId}", method = RequestMethod.GET)
     public List<Event> getEventsForWorld(@PathVariable(value = "worldId") final Long worldId) {
-		return eventService.getEventsForWorld(worldId);
+        return eventService.getEventsForWorld(worldId);
     }
 	
 	
 
     @CrossOrigin
-    @RequestMapping(value = "/world/{worldId}/sendChat/{developerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/world/{worldId}/sendChat", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Event sendChat(@PathVariable(value = "worldId") final Long worldId, @PathVariable(value = "developerId") final Long developerId, @RequestBody String message) {
-    	return eventService.newMessage(worldId, message, developerId);
+    public Event sendChat(final Principal principal, @PathVariable(value = "worldId") final Long worldId, @RequestBody String message) {
+    	return eventService.newMessage(worldId, message, principal);
     }
     
     

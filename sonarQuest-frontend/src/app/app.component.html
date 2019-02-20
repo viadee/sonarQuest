@@ -61,9 +61,9 @@
       <mat-divider mat-inset></mat-divider>
     </div>
     
-    <div>
+    <div *ngIf="isEventVisible">
       <a mat-list-item routerLink="/{{eventUrl}}">
-        <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>
+        <i mat-list-icon class="ra ra-book ra-lg navlist"></i>
         <h3 mat-line>Events</h3>
       </a>
       <mat-divider mat-inset></mat-divider>

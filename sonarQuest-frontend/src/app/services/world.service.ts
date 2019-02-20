@@ -33,15 +33,6 @@ export class WorldService {
       }
     })
 
-    
-
-    /*
-    userService.onUserChange().subscribe(() => {
-      if (userService.getUser()) {
-        this.loadWorld();
-      }
-    });
-    */
   }
 
   public onWorldChange(): Observable<boolean> {

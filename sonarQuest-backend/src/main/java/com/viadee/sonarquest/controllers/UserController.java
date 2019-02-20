@@ -78,9 +78,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}/avatar")
-    public @ResponseBody byte[] avatarForUser(final Principal principal,
-            @PathVariable(value = "id") final Long id,
-            final HttpServletResponse response) throws IOException {
+    public @ResponseBody byte[] avatarForUser(final Principal principal, @PathVariable(value = "id") final Long id, final HttpServletResponse response) 
+    		throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
         return loadAvatar(avatarDirectoryPath, user.getPicture());
@@ -98,4 +97,8 @@ public class UserController {
         }
         return null;
     }
+
+	public String getAvatarDirectoryPath() {
+		return avatarDirectoryPath;
+	}
 }

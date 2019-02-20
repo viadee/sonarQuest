@@ -19,14 +19,20 @@
 
 
               <div flex>
-                <div *ngIf=e.image class="event-image-div">
-                  <img class="event-image" [src]="e.image">
-                </div>
-                <div *ngIf=e.title>
-                  <span class="title">{{ e?.title }}</span>
-                </div>
-                <div *ngIf=e.story>
-                  <span class="text">{{ e?.story }}</span>
+                <div layout="row">
+                  <div flex>
+                      <div *ngIf=e.image class="event-image-div">
+                          <img class="event-image" [src]="e.image" >
+                      </div>
+                  </div>
+                  <div flex-end>
+                      <div *ngIf=e.title>
+                          <span class="title">{{ e?.title }}</span>
+                        </div>
+                        <div *ngIf=e.story>
+                          <span class="text">{{ e?.story }}</span>
+                        </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { ImageService } from 'app/services/image.service';
 import { UserService } from './user.service';
 import { User } from './../Interfaces/User';
 import { WorldService } from './world.service';
@@ -19,17 +20,17 @@ export class EventService {
 
   currentWorld: World;
   user: User;
-  
   messages: Subject<any>;
 
   constructor(
     public http: HttpClient,
     public worldService: WorldService,
-    public userService: UserService
+    public userService: UserService,
+    public imageService: ImageService
     ) {
       worldService.currentWorld$.subscribe(world=> {  
         this.currentWorld = world
-        this.getEvents()
+        this.getEventsOfCurrentWorld()
       });
       userService.user$.subscribe(user =>{ this.user = user })
   }
@@ -40,7 +41,7 @@ export class EventService {
 
 
 
-  getEvents(): Observable<Event[]>{
+  getEventsOfCurrentWorld(): Observable<Event[]>{
     this.http.get<Event[]>(`${environment.endpoint}/event/world/${this.currentWorld.id}`).subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
@@ -50,7 +51,7 @@ export class EventService {
   
 
   sendChat(message: string): Promise<Event> {
-    return this.http.post<Event>(`${environment.endpoint}/event/world/${this.currentWorld.id}/sendChat/${this.user.id}`, message)
+    return this.http.post<Event>(`${environment.endpoint}/event/world/${this.currentWorld.id}/sendChat`, message)
       .toPromise()
       .catch(this.handleError);
   }

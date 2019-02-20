@@ -70,6 +70,10 @@ export class AvailableQuestsComponent implements OnInit {
     this.worldService.onWorldChange().subscribe(() => this.init());
   }
 
+  solveDummy(q: Quest){
+    this.questService.solveQuestDummy(q)
+  }
+
   private init() {
     this.currentWorld = this.worldService.getCurrentWorld();
     this.loadQuests();
