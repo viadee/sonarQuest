@@ -85,10 +85,7 @@ public class QuestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Quest createQuest(@RequestBody final Quest questDto) {
-        questDto.setStartdate(new Date(System.currentTimeMillis()));
-        questDto.setStatus(QuestState.OPEN);
-        eventService.createEventForCreateQuest(questDto);
-        return questRepository.save(questDto);
+        return questService.createQuest(questDto);
     }
 
     @PutMapping(value = "/{id}")

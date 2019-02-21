@@ -13,6 +13,8 @@ public interface EventRepository extends CrudRepository<Event,Long>  {
 	List<Event> findAll();
 	
 	List<Event> findByWorld(World world);
+	
+	List<Event> findByWorldOrWorldIsNull(World world);
 
 	List<Event> findFirst1ByOrderByTimestampDesc();
 	

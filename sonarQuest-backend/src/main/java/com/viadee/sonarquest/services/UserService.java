@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -147,5 +148,10 @@ public class UserService implements UserDetailsService {
     public Level getLevel(final long xp) {
 	return levelService.getLevelByUserXp(xp);
     }
+
+	public User getUser(Principal principal) {
+		final String username = principal.getName();
+		return findByUsername(username);
+	}
 
 }

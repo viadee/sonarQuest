@@ -32,37 +32,44 @@
 .ADVENTURE .timestamp{
     background-color: rgba(0, 129, 204, 0.35);
 }
+.ARTEFACT .timestamp{
+    background-color: rgba(114, 177, 255, 0.35);
+}
 
-.QUEST span.author{
+.QUEST span.state{
     color: rebeccapurple !important;
 }
 .MESSAGE span.author{
     color: rgb(204, 173, 0)    !important;
 }
-.ADVENTURE span.author{
+.ADVENTURE span.state{
     color: rgb(0, 129, 204)    !important;
+}
+.ARTEFACT span.state{
+    color: rgb(0, 76, 171) !important;
 }
 
 .timestamp{
     padding: 0 5px;
     align-items: center;
     display: inline-flex;
+    text-align: center;
 }
 
 span.day{
-    font-size: 0.6em;
+    font-size: 2.0em;
     margin: 0;
     padding: 0;
     border-bottom: 1px solid #767676;
 }
 
 span.author{
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: 500;
 }
 
-.headline{
-    font-size: 0.8em;
+.state span{
+    font-size: 1.2em;
 }
 
 .text{
@@ -74,14 +81,18 @@ span.author{
 }
 
 .event-image{
-    max-width: 60px;
-    max-height: 60px;
+    width: 50px;
 }
 
 .event-image-div{
+    width: 50px;
 }
 
 .title{
     font-weight: 600;
     font-size: 1.4em;
+}
+
+div.day{
+    background-color: rgba(50,50,50,0.6);
 }

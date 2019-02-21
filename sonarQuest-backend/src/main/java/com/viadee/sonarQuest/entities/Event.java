@@ -11,9 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.constants.EventState;
 import com.viadee.sonarquest.constants.EventType;
-import com.viadee.sonarquest.constants.QuestState;
 
 @Entity
 @Table(name = "Event")
@@ -32,8 +31,8 @@ public class Event {
 	@Column(name = "story")
 	private String story;
 
-	@Column(name = "status")
-	private String status;
+	@Column(name = "state")
+	private EventState state;
 
 	@Column(name = "image")
 	private String image;
@@ -60,24 +59,22 @@ public class Event {
 		this.title = title;
 	}
 
-	public Event(EventType type, String title, String story, String status, String image, World world, String headline) {
-		super();
+	public Event(EventType type, String title, String story, EventState state, String image, World world, String headline) {
 		this.type = type;
 		this.title = title;
 		this.story = story;
-		this.status = status;
+		this.state = state;
 		this.image = image;
 		this.world = world;
 		this.timestamp = new Timestamp(System.currentTimeMillis());
 		this.headline = headline;
 	}
 
-	public Event(EventType type, String title, String story, String status, String image, World world,
-			String headline, User user) {
+	public Event(EventType type, String title, String story, EventState state, String image, World world, String headline, User user) {
 		this.type = type;
 		this.title = title;
 		this.story = story;
-		this.status = status.toString();
+		this.state = state;
 		this.image = image;
 		this.world = world;
 		this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -85,33 +82,11 @@ public class Event {
 		this.user = user;
 	}
 
-	public Event(EventType type, String title, String story, String status, World world, String headline) {
+	public Event(EventType type, String title, String story, EventState state, World world, String headline) {
 		this.type = type;
 		this.title = title;
 		this.story = story;
-		this.status = status;
-		this.world = world;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-	}
-
-	public Event(EventType type, String title, String story, QuestState status, World world, String headline) {
-		String s = status.toString();
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.status = s;
-		this.world = world;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-	}
-
-	public Event(EventType type, String title, String story, AdventureState status, World world, String headline) {
-		String s = status.toString();
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.status = s;
+		this.state = state;
 		this.world = world;
 		this.timestamp = new Timestamp(System.currentTimeMillis());
 		this.headline = headline;
@@ -123,6 +98,15 @@ public class Event {
 		this.world = world;
 		this.user = user;
 		this.image = user.getPicture();
+		this.timestamp = new Timestamp(System.currentTimeMillis());
+	}
+
+	public Event(EventType type, String title, String story, EventState state, String image) {
+		this.type = type;
+		this.story = story;
+		this.title = title;
+		this.image = image;
+		this.state = state;
 		this.timestamp = new Timestamp(System.currentTimeMillis());
 	}
 
@@ -166,12 +150,12 @@ public class Event {
 		this.story = story;
 	}
 
-	public String getStatus() {
-		return status;
+	public EventState getState() {
+		return state;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setState(EventState state) {
+		this.state = state;
 	}
 
 	public String getImage() {

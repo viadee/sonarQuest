@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class ParticipationService {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private EventService eventService;
 
     public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
         final Quest quest = questRepository.findOne(questId);
@@ -45,4 +49,21 @@ public class ParticipationService {
         }
         return participations;
     }
+
+	public Participation createParticipation(Principal principal, Long questid) {
+		final Quest foundQuest = questRepository.findOne(questid);
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        final Participation foundParticipation = participationRepository.findByQuestAndUser(foundQuest, user);
+        Participation participation = null;
+        if ((foundQuest != null) && (user != null) && (foundParticipation == null)) {
+            participation = new Participation(foundQuest, user);
+            participation = participationRepository.save(participation);
+        }
+        
+        // Create Event for User join Quest
+        this.eventService.createEventForUserJoinQuest(foundQuest,user);
+        
+		return participation;
+	}
 }

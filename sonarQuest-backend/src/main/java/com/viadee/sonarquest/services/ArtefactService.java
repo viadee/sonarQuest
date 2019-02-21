@@ -27,6 +27,9 @@ public class ArtefactService {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private EventService eventService;
 
     public List<Artefact> getArtefacts() {
         return artefactRepository.findAll();
@@ -52,6 +55,9 @@ public class ArtefactService {
             levelService.createLevel(minLevel);
             artefact.setMinLevel(minLevel);
         }
+        
+        eventService.createEventForCreateArtefact(artefact);
+        
         return artefactRepository.save(artefact);
     }
 

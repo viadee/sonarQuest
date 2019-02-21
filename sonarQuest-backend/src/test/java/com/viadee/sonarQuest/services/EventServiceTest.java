@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.repositories.EventRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -21,6 +22,9 @@ public class EventServiceTest {
 
 	@Autowired
     private EventService eventService;
+	
+	@Autowired
+	private EventRepository eventRepository;
     
 	
 	@Test
@@ -30,7 +34,7 @@ public class EventServiceTest {
 		Event event1 = new Event();
 		event1.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		event1.setTitle("event1");
-		eventService.storeEvent(event1);
+		eventRepository.save(event1);
 		
 		
 		// get Event lists
@@ -45,12 +49,12 @@ public class EventServiceTest {
 		Event event2 = new Event();
 		event2.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		event2.setTitle("event2");
-		eventService.storeEvent(event2);
+		eventRepository.save(event2);
 		
 		Event event3 = new Event();
 		event3.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		event3.setTitle("event3");
-		eventService.storeEvent(event3);
+		eventRepository.save(event3);
         
 
 
