@@ -58,9 +58,6 @@
 
 span.day{
     font-size: 2.0em;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid #767676;
 }
 
 span.author{
