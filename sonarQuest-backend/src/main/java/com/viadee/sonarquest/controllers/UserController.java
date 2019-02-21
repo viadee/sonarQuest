@@ -58,8 +58,27 @@ public class UserController {
     }
 
     @PostMapping
-    public User updateUser(@RequestBody final User user) {
-        return userService.save(user);
+    public User updateUser(@RequestBody final User data) {
+        User user = userService.findById(data.getId());
+        if (user != null) {
+            user.setAboutMe(data.getAboutMe());
+            user.setAdventures(data.getAdventures());
+            user.setArtefacts(data.getArtefacts());
+            user.setAvatarClass(data.getAvatarClass());
+            user.setCurrentWorld(data.getCurrentWorld());
+            user.setGold(data.getGold());
+            user.setLevel(data.getLevel());
+            user.setParticipations(data.getParticipations());
+            user.setPassword(data.getPassword());
+            user.setPicture(data.getPicture());
+            user.setRole(data.getRole());
+            user.setUiDesign(data.getUiDesign());
+            user.setUsername(data.getUsername());
+            user.setWorlds(data.getWorlds());
+            user.setXp(data.getXp());
+            return userService.save(user);
+        }
+        return user;
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")

@@ -77,12 +77,12 @@ public class WorldController {
 	@PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
 	@PostMapping(value = "/world")
 	public World updateWorld(@RequestBody final World data) {
-		World world = this.worldRepository.findOne(data.getId());
+        World world = worldRepository.findOne(data.getId());
 		if (world != null) {
 			world.setName(data.getName());
 			world.setActive(data.getActive());
 			world.setUsequestcards(data.getUsequestcards());
-			world = this.worldRepository.save(world);
+			world = worldRepository.save(world);
 		}
 		return world;
 	}
@@ -90,10 +90,10 @@ public class WorldController {
 	@PreAuthorize("hasAuthority('ACTIVE_WORLD_ACCESS')")
 	@PutMapping(value = "/world/{id}/image")
 	public World updateBackground(@PathVariable(value = "id") final Long id, @RequestBody final String image) {
-		World world = this.worldRepository.findOne(id);
+		World world = worldRepository.findOne(id);
 		if (world != null) {
 			world.setImage(image);
-			world = this.worldRepository.save(world);
+			world = worldRepository.save(world);
 		}
 		return world;
 	}
