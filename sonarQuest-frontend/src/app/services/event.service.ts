@@ -22,6 +22,7 @@ export class EventService {
   user: User;
   messages: Subject<any>;
 
+
   constructor(
     public http: HttpClient,
     public worldService: WorldService,
@@ -34,6 +35,7 @@ export class EventService {
       });
       userService.user$.subscribe(user =>{ this.user = user })
 
+      
   }
 
    sendMsg(msg) {
@@ -56,6 +58,7 @@ export class EventService {
       .toPromise()
       .catch(this.handleError);
   }
+  
   
 
   

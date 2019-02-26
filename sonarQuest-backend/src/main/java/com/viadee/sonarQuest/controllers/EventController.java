@@ -39,7 +39,7 @@ public class EventController {
     }
 	
 	
-
+	
     @CrossOrigin
     @RequestMapping(value = "/sendChat", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)

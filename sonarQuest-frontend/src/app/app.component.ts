@@ -47,6 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   readonly body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
+
   constructor(
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
@@ -201,4 +202,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     return newString.replace('  ', ' ');
   }
 
+
+  
 }
