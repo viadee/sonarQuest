@@ -9,6 +9,20 @@ A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification s
 
 ## NEWS - 1st SonarQuest Coding Night
 
+*2019-02-27 / 4.19pm*
+
+Checklist before Takeoff
+* Git pull executed, Eclipse updated and Visual Studio Code prepared - CHECK
+* Beverages cooled - CHECK
+* Laptop stickers prepared - CHECK
+* Giant dragon invited - CHECK
+* Ink quill readied for extreme pizza ordering - CHECK
+* Armor & Sword polished - CHECK
+
+Guess we are good to go :)
+
+(Chris)
+
 *2019-02-27 / 1.49pm*
 
 I have preselected some issues for tonight that are a perfect place to start coding. They have their own label and you can just pick one of them and assign yourself or by adding a comment like "Issue #125" when you commit the source code.
