@@ -21,13 +21,24 @@ export class UserToWorldService {
   }
 
   public saveUserToWorlds(userToWorlds: UserToWorld[]) {
+    this.updateUserToWorld(userToWorlds)
+    /*
+    console.log(userToWorlds)
     userToWorlds.forEach(userToWorld => {
       if (userToWorld.joined) {
+        console.log(userToWorld)
         this.addUserToWorld(userToWorld.userId, userToWorld.worldId);
       } else {
         this.removeUserToWorld(userToWorld.userId, userToWorld.worldId);
       }
     });
+
+    */
+  }
+
+  private updateUserToWorld(userToWorlds: UserToWorld[]): Promise<User[]> {
+    console.log(userToWorlds)
+    return this.http.put<User[]>(`${environment.endpoint}/user_to_world/update`, userToWorlds).toPromise();
   }
 
   public getUserToWorlds(user: User): Promise<UserToWorld[]> {
