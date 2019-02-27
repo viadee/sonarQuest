@@ -20,7 +20,7 @@ public class Level {
 	private Long id;
 
 	@Column(name = "sqlevel")
-	private int level;
+	private int levelNumber;
 
 	@Column(name = "min_xp")
 	private Long minXp;
@@ -40,19 +40,19 @@ public class Level {
 	}
 
 	public Level(final Long min, final Long max) {
-		this.minXp = min;
-		this.maxXp = max;
+		minXp = min;
+		maxXp = max;
 	}
 
 	public Level(final Long min, final Long max, final List<User> users, final List<Artefact> artefacts) {
-		this.minXp = min;
-		this.maxXp = max;
+		minXp = min;
+		maxXp = max;
 		this.users = users;
 		this.artefacts = artefacts;
 	}
 
 	public Level(final Long minLevel) {
-		this.minXp = minLevel;
+		minXp = minLevel;
 	}
 
 	public Long getId() {
@@ -68,7 +68,7 @@ public class Level {
 	}
 
 	public void setMinXp(final Long min) {
-		this.minXp = min;
+		minXp = min;
 	}
 
 	public Long getMaxXp() {
@@ -76,7 +76,7 @@ public class Level {
 	}
 
 	public void setMaxXp(final Long max) {
-		this.maxXp = max;
+		maxXp = max;
 	}
 
 	public List<User> getUsers() {
@@ -95,11 +95,11 @@ public class Level {
 		this.artefacts = artefacts;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getLevelNumber() {
+		return levelNumber;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setLevelNumber(int level) {
+		levelNumber = level;
 	}
 }

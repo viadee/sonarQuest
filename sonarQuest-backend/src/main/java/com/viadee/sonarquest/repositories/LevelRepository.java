@@ -6,9 +6,9 @@ import com.viadee.sonarquest.entities.Level;
 
 public interface LevelRepository extends JpaRepository<Level, Long> {
 
-    Level findById(Long id);
+	Level findById(Long id);
 
-    Level findFirstByMinXpIsLessThanEqualOrderByLevelDesc(Long xp);
+	Level findFirstByMinXpIsLessThanEqualOrderByLevelNumberDesc(Long xp);
 
-    Level findFirstByLevelOrderByLevelDesc(int level);
+	Level findFirstByLevelNumberOrderByLevelNumberDesc(int levelNumber);
 }
