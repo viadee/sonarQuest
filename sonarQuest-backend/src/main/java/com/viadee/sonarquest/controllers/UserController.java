@@ -1,16 +1,18 @@
 package com.viadee.sonarquest.controllers;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.io.Files;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.UserService;
 
@@ -57,8 +58,27 @@ public class UserController {
     }
 
     @PostMapping
-    public User updateUser(@RequestBody final User user) {
-        return userService.save(user);
+    public User updateUser(@RequestBody final User data) {
+        User user = userService.findById(data.getId());
+        if (user != null) {
+            user.setAboutMe(data.getAboutMe());
+            user.setAdventures(data.getAdventures());
+            user.setArtefacts(data.getArtefacts());
+            user.setAvatarClass(data.getAvatarClass());
+            user.setCurrentWorld(data.getCurrentWorld());
+            user.setGold(data.getGold());
+            user.setLevel(data.getLevel());
+            user.setParticipations(data.getParticipations());
+            user.setPassword(data.getPassword());
+            user.setPicture(data.getPicture());
+            user.setRole(data.getRole());
+            user.setUiDesign(data.getUiDesign());
+            user.setUsername(data.getUsername());
+            user.setWorlds(data.getWorlds());
+            user.setXp(data.getXp());
+            return userService.save(user);
+        }
+        return user;
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
@@ -73,7 +93,7 @@ public class UserController {
             throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = getUser(principal);
-        return user != null ? loadAvatar(user) : null;
+        return user != null ? loadAvatar(avatarDirectoryPath, user.getPicture()) : null;
     }
 
     @GetMapping(path = "/{id}/avatar")
@@ -82,18 +102,19 @@ public class UserController {
             final HttpServletResponse response) throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
-        return loadAvatar(user);
+        return loadAvatar(avatarDirectoryPath, user.getPicture());
     }
 
-    private byte[] loadAvatar(final User user) throws IOException {
-        final File avatarDirectory = new File(avatarDirectoryPath);
-        final String avatarFilePath = avatarDirectory.getPath() + File.separator + user.getPicture();
-        File avatarPathAndFile = new File(avatarFilePath);
-        if (avatarPathAndFile.exists()) {
-            return Files.toByteArray(avatarPathAndFile);
-        } else {
-            LOGGER.error("Avatar file not found: " + avatarPathAndFile.getAbsolutePath());
-            return null;
+    public byte[] loadAvatar(String avaDir, final String avatarPic) {
+        if (avatarPic != null) {
+            String avatarFileName = avaDir + avatarPic;
+            InputStream inputStream = SpringApplication.class.getResourceAsStream(avatarFileName);
+            try {
+                return IOUtils.toByteArray(inputStream);
+            } catch (IOException ex) {
+                LOGGER.error("Avatar file not found: " + avatarFileName, ex);
+            }
         }
+        return null;
     }
 }
