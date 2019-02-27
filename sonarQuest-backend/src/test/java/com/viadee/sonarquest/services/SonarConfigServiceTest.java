@@ -10,18 +10,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.services.SonarConfigService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SonarConfigServiceTest {
 
     @Autowired
-    SonarConfigService sonarConfigService;
+    private SonarConfigService sonarConfigService;
 
     @Test
     public void testSonarQubeServerURLCheck() {
-        SonarConfig sonarConfig = new SonarConfig();
+        final SonarConfig sonarConfig = new SonarConfig();
         sonarConfig.setSonarServerUrl("https://www.sonarcloud.io");
         assertTrue(sonarConfigService.checkSonarQubeURL(sonarConfig));
 

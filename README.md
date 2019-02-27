@@ -9,6 +9,7 @@ A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification s
 
 ## NEWS - 1st SonarQuest Coding Night
 
+=======
 *2019-02-27 / 8.07pm*
 
 We have embarked on our Epic Coding Night For Mighty Pizza Loot! 
