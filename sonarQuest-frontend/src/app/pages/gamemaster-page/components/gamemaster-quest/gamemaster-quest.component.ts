@@ -117,9 +117,9 @@ export class GamemasterQuestComponent implements OnInit {
   }
 
   deleteQuest(quest: Quest) {
-    var msg = "";
+    const msg = '';
     this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
-    if(confirm(msg)) {
+    if (confirm(msg)) {
       this.questService.deleteQuest(quest).then(() => {
         this.update();
       });
