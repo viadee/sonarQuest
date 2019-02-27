@@ -7,6 +7,15 @@ A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification s
 * more about SonarQuest's game concepts and application scenarios: https://www.viadee.de/sonarquest_en
 * Sonar Quest info package: https://github.com/viadee/sonarQuest/blob/master/docs/SonarQuest_info_package.pdf
 
+## NEWS
+
+*2019-02-27 / 7:23am*
+
+German SonarQuest Coders are invited to the 1st Coding Night: https://lp.viadee.de/sonar-quest-coding-night-anmeldung
+Coding Night starts at 1800 hrs today!
+
+Watch this site for updates! (Chris)
+
 ## Goal
 
 Reduce technical debts in your code project by converting the refactoring process into a game. Create quests from SonarQube issues and write your own story.
