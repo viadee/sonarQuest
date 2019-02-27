@@ -7,14 +7,24 @@ A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification s
 * more about SonarQuest's game concepts and application scenarios: https://www.viadee.de/sonarquest_en
 * Sonar Quest info package: https://github.com/viadee/sonarQuest/blob/master/docs/SonarQuest_info_package.pdf
 
-## NEWS
+## NEWS - 1st SonarQuest Coding Night
 
-*2019-02-27 / 7:23am*
+*2019-02-27 / 1.49pm *
+
+I have preselected some issues for tonight that are a perfect place to start coding. They have their own label and you can just pick one of them and assign yourself or by adding a comment like "Issue #125" when you commit the source code.
+
+https://github.com/viadee/sonarQuest/issues?q=is%3Aissue+is%3Aopen+label%3A%221st+Coding+Night%22
+
+(Chris)
+
+*2019-02-27 / 7.23am *
 
 German SonarQuest Coders are invited to the 1st Coding Night: https://lp.viadee.de/sonar-quest-coding-night-anmeldung
 Coding Night starts at 1800 hrs today!
 
-Watch this site for updates! (Chris)
+Watch this site for updates! 
+
+(Chris)
 
 ## Goal
 
