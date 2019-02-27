@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
 		final Set<Permission> permissions = permissionService.getAccessPermissions(user);
 
 		final List<SimpleGrantedAuthority> authoritys = permissions.stream()
-				.map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermissionDescription()))
+                .map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermission()))
 				.collect(Collectors.toList());
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
