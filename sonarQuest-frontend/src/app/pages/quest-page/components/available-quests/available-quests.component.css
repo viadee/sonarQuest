@@ -1,14 +1,35 @@
-div#tobecovered{
-    position: relative;
+#questcard {
+  background-image: url('/assets/images/dagger.png');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-blend-mode: difference;
+  width: 100%;
 }
 
-div#tobecovered img.cover{
-    position: absolute;
-    /* position in top left of #tobecovered */
-    top: 0; /* top of #tobecovered */
-    left: 0; /* left of #tobecovered */
+.quest-container {
+  display: grid;
+  grid-column-gap: 10px;
 }
 
-mat-card#questcard {
-    width: 250px
+@media only screen and (min-width: 320px) and (max-width: 600px){
+  .quest-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 980px){
+  .quest-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (min-device-width: 981px) and (max-width: 1600px){
+  .quest-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-device-width: 1601px){
+  .quest-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

@@ -9,23 +9,23 @@ import com.viadee.sonarquest.repositories.LevelRepository;
 @Service
 public class LevelService {
 
-    @Autowired
-    private LevelRepository levelRepository;
+	@Autowired
+	private LevelRepository levelRepository;
 
-    public Level getLevelByUserXp(final Long xp) {
-        // find highest level within users xp
-        return levelRepository.findFirstByMinXpIsLessThanEqualOrderByLevelDesc(xp);
-    }
+	public Level getLevelByUserXp(final Long xp) {
+		// find highest level within users xp
+		return levelRepository.findFirstByMinXpIsLessThanEqualOrderByLevelNumberDesc(xp);
+	}
 
-    public Level findById(final Long id) {
-        return levelRepository.findById(id);
-    }
+	public Level findById(final Long id) {
+		return levelRepository.findById(id);
+	}
 
-    public void createLevel(Level newLevel) {
-        levelRepository.save(newLevel);
-    }
+	public void createLevel(Level newLevel) {
+		levelRepository.save(newLevel);
+	}
 
-    public Level findByLevel(int level) {
-        return levelRepository.findFirstByLevelOrderByLevelDesc(level);
-    }
+	public Level findByLevel(int levelNumber) {
+		return levelRepository.findFirstByLevelNumberOrderByLevelNumberDesc(levelNumber);
+	}
 }
