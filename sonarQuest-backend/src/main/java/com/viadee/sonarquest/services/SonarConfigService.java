@@ -53,7 +53,7 @@ public class SonarConfigService {
                 result = true;
             }
         } catch (final Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.debug(e.getMessage(), e);
         }
         return result;
     }
