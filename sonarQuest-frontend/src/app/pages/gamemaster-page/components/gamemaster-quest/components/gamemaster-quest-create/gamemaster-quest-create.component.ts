@@ -9,6 +9,7 @@ import {QuestService} from '../../../../../../services/quest.service';
 import {GamemasterQuestComponent} from 'app/pages/gamemaster-page/components/gamemaster-quest/gamemaster-quest.component';
 import {TaskService} from '../../../../../../services/task.service';
 import { QuestState } from 'app/Interfaces/QuestState';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-gamemaster-quest-create',
@@ -33,7 +34,8 @@ export class GamemasterQuestCreateComponent implements OnInit {
               private taskService: TaskService,
               private dialog: MatDialog,
               private worldService: WorldService,
-              private dialogRef: MatDialogRef<GamemasterQuestComponent>) {
+              private dialogRef: MatDialogRef<GamemasterQuestComponent>,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -62,7 +64,8 @@ export class GamemasterQuestCreateComponent implements OnInit {
         visible: this.visible,
         story: this.story,
         world: this.selectedWorld,
-        image: this.selectedImage
+        image: this.selectedImage,
+        creatorName: this.userService.getUser().username 
       };
       this.questService.createQuest(quest).then((createdQuest) => {
         if (createdQuest.id) {

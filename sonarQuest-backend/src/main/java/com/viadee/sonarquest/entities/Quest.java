@@ -43,6 +43,9 @@ public class Quest {
 	@Column(name = "story")
 	private String story;
 
+    @Column(name = "creator_name")
+    private String creatorname;
+
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private QuestState status;
@@ -227,4 +230,12 @@ public class Quest {
 	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
+
+    public String getCreatorName() {
+        return creatorname;
+    }
+
+    public void setCreatorName(String creatorname) {
+        this.creatorname = creatorname;
+    }
 }

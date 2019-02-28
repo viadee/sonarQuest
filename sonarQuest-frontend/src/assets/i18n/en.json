@@ -106,7 +106,8 @@
       "PLAYERS": "Players",
       "ROLE": "Role",
       "VISIBLE": "Visible",
-      "USE_QUEST_CARDS": "Questcards"
+      "USE_QUEST_CARDS": "Questcards",
+      "CREATORNAME": "By"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",
