@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {Observable} from 'rxjs/Observable';
-
+import {Observable, Subscriber} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
 import {environment} from './../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
-import {Subscriber} from 'rxjs/Subscriber';
 import {Token} from './Token';
-import 'rxjs/add/operator/shareReplay';
+
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -29,7 +28,7 @@ export class AuthenticationService {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
         responseType: 'json',
         observe: 'response'
-      }).shareReplay().subscribe((response) => {
+      }).pipe(shareReplay()).subscribe((response) => {
         if (response.body && response.status === 200) {
           const token = response.body as Token;
           this.storageService.saveJWTToken(token);

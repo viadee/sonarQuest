@@ -5,8 +5,8 @@ import {Response} from '@angular/http';
 
 import {environment} from '../../environments/environment';
 import {World} from '../Interfaces/World';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
+
 import {StandardTaskService} from './standard-task.service';
 import {SpecialTaskService} from './special-task.service';
 import {HttpClient} from '@angular/common/http';

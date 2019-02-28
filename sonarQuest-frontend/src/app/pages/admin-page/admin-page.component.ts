@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Wizard } from '../../Interfaces/Wizard';
 import { WizardService } from '../../services/wizard.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-page',

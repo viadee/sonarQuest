@@ -1,11 +1,9 @@
-import {Subject} from 'rxjs/Subject';
+import {Subject, Observable, ReplaySubject} from 'rxjs';
 import {Adventure} from './../Interfaces/Adventure';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
 import {World} from '../Interfaces/World';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
