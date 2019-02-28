@@ -2,7 +2,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {WorldService} from './../../../../services/world.service';
 import {GamemasterAdventureEditComponent} from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
 import {Adventure} from './../../../../Interfaces/Adventure';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges, Input, SimpleChanges} from '@angular/core';
 import {
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder,
@@ -20,7 +20,8 @@ import { TaskService } from 'app/services/task.service';
   templateUrl: './gamemaster-adventure.component.html',
   styleUrls: ['./gamemaster-adventure.component.css']
 })
-export class GamemasterAdventureComponent implements OnInit {
+export class GamemasterAdventureComponent implements OnInit, OnChanges {
+  @Input() isSelected: boolean;
 
   currentWorld: World;
   data: any[] = [];
@@ -43,6 +44,7 @@ export class GamemasterAdventureComponent implements OnInit {
   sortBy = 'title';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
+  freeQuestsAvailable: boolean;
 
   constructor(private _dataTableService: TdDataTableService,
               private questService: QuestService,
@@ -63,6 +65,14 @@ export class GamemasterAdventureComponent implements OnInit {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
       this.loadAdventures();
+      this.questService.getFreeQuestsForWorld(this.currentWorld)
+        .then(quests => quests.length > 0 ? this.freeQuestsAvailable = true : this.freeQuestsAvailable = false);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isSelected.currentValue === true) {
+      this.init();
     }
   }
 
