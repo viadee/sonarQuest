@@ -1,8 +1,6 @@
 import {Response} from '@angular/http';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subject} from 'rxjs/Subject';
+import {ReplaySubject, Subject, Observable} from 'rxjs';
 import {Artefact} from './../Interfaces/Artefact';
-import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';

@@ -4,21 +4,21 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input class="form-control" formControlName="name" matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}">   
         <mat-error>{{getErrorMessage()}}</mat-error>            
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input class="form-control" formControlName="password" matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [type]="'password'">
         <mat-error>{{getErrorMessage()}}</mat-error>
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea class="form-control" formControlName="about" matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}"></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
       <mat-select placeholder="{{'TABLE.COLUMNS.ROLE' | translate}}" matInput formControlName="role">
@@ -45,9 +45,9 @@
       </mat-select>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input class="form-control" formControlName="picture" matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}">
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </div>
   <mat-divider></mat-divider>

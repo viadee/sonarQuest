@@ -1,9 +1,8 @@
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subscriber} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
 import {User} from '../Interfaces/User';
 

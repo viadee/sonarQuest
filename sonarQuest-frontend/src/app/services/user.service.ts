@@ -2,9 +2,8 @@ import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subscriber} from 'rxjs';
 import {AuthenticationService} from '../login/authentication.service';
-import {Subscriber} from 'rxjs/Subscriber';
 
 @Injectable()
 export class UserService {

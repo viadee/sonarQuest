@@ -2,24 +2,24 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="specialTask.title">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="specialTask.gold">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="specialTask.xp">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea matInput [placeholder]="'TASK.MISSION' | translate" [(ngModel)]="specialTask.message"></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </div>
 </mat-dialog-content>
