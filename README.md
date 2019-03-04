@@ -1,6 +1,6 @@
 # SonarQuest
 
-[![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest)
+[![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest) [![](https://img.shields.io/github/release-pre/viadee/sonarquest.svg)]
 
 A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification system. Handle your code quality issues in a playful way by solving quests and adventures, earning rewards for refactoring code smells and optimization.
 
