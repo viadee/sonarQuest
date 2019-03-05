@@ -21,8 +21,10 @@ import com.viadee.sonarquest.entities.Permission;
 import com.viadee.sonarquest.entities.Role;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.UserToWorldDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -43,6 +45,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PermissionService permissionService;
+    
+    @Autowired
+    private WorldRepository worldRepository;
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
@@ -154,5 +159,21 @@ public class UserService implements UserDetailsService {
         final User user = findByUsername(username);
         user.setLastLogin(Timestamp.valueOf(LocalDateTime.now()));
         save(user);
+    }
+    
+    public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) {
+    	    	
+        userToWorlds.forEach(userToWorld -> {
+        	User user = userRepository.findOne(userToWorld.getUserId());
+        	if (userToWorld.getJoined()) {
+        		user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
+        	} else {
+        		user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
+        	}
+
+    		userRepository.save(user);
+        });
+        
+        return true;
     }
 }

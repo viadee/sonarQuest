@@ -62,8 +62,6 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   editDeveloper() {
     this.userService.updateUser(this.user).then(() => {
-      
-      console.log(this.userToWorlds)
       this.userToWorldService.saveUserToWorlds(this.userToWorlds);
       this.dialogRef.close(true);
     })

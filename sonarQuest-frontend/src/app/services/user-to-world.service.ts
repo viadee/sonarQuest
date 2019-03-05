@@ -36,9 +36,8 @@ export class UserToWorldService {
     */
   }
 
-  private updateUserToWorld(userToWorlds: UserToWorld[]): Promise<User[]> {
-    console.log(userToWorlds)
-    return this.http.put<User[]>(`${environment.endpoint}/user_to_world/update`, userToWorlds).toPromise();
+  private updateUserToWorld(userToWorlds: UserToWorld[]): Promise<Boolean> {
+    return this.http.put<Boolean>(`${environment.endpoint}/user_to_world/update`, userToWorlds).toPromise();
   }
 
   public getUserToWorlds(user: User): Promise<UserToWorld[]> {
