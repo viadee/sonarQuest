@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable, Subscriber} from 'rxjs';
 import {AuthenticationService} from '../login/authentication.service';
+import {Subscriber} from 'rxjs/Subscriber';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -50,7 +52,11 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     const url = `${environment.endpoint}/user/all`;
-    return this.httpClient.get <User[]>(url);
+    return this.httpClient.get <User[]>(url).pipe(tap((users: User[]) => {
+      users.forEach(user =>
+        user.lastLogin = user.lastLogin ? new Date(user.lastLogin).toTimeString() : null
+      )
+    }));
   }
 
   public getImage(): Observable<Blob> {

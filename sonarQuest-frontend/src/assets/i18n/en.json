@@ -107,6 +107,7 @@
       "ROLE": "Role",
       "VISIBLE": "Visible",
       "USE_QUEST_CARDS": "Questcards",
+      "LAST_LOGIN": "Last Login",
       "CREATORNAME": "By"
     },
     "INFO": {
