@@ -2,9 +2,9 @@
 <mat-dialog-content>
   <div layout="column">
     <div flex>
-      <mat-input-container>
+      <mat-form-field>
         <input matInput placeholder="Name" [(ngModel)]="world.name">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
       <mat-checkbox [(ngModel)]="world.active" 
@@ -20,9 +20,9 @@
     </div>    
     <div flex>&nbsp;</div>
     <div flex>
-      <mat-input-container>
+      <mat-form-field>
         <input matInput placeholder="Background" [(ngModel)]="world.image" (click)="selectBackground()">
-      </mat-input-container>
+      </mat-form-field>
       <button mat-mini-fab color="primary" (click)="selectBackground()">Select</button>
     </div>
   </div>

@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Permission} from '../Interfaces/Permission';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {AuthenticationService} from '../login/authentication.service';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class PermissionService {
   }
 
   private loadPermittedUrls(): Promise<string[]> {
-    return this.getPermissions().map(permissions => permissions.map(permission => permission.permission)).toPromise();
+    return this.getPermissions().pipe(map(permissions => permissions.map(permission => permission.permission))).toPromise();
   }
 
   public isUrlPermitted(url: string): boolean | Promise<boolean> {

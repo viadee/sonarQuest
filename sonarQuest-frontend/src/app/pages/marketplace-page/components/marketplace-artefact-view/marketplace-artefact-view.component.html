@@ -12,33 +12,33 @@
   <div layout="column" layout-padding>
 
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="name" disabled>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="min" disabled>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'ARTEFACT.PRICE' | translate" type="number" min="0" [(ngModel)]="price" disabled>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="quantity" disabled>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="description" disabled></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
   </div>

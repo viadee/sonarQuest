@@ -142,7 +142,7 @@ public class SonarQuestApplicationIT {
 
     private void createInitialLevel() {
         final Level level = new Level();
-        level.setLevel(1);
+        level.setLevelNumber(1);
         level.setMinXp(0l);
         level.setMaxXp(10l);
         levelRepository.save(level);
