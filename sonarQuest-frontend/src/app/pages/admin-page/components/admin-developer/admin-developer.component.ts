@@ -67,7 +67,7 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   private formatNullIntoOne(): (value: any) => any {
-    return v => v === null ? 1 : v;
+    return v => v == null ? 1 : v;
   }
 
   setUsers(users: User[]) {
