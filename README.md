@@ -1,44 +1,14 @@
 # SonarQuest
 
-[![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest)
+[![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest) 
+[![](https://img.shields.io/github/release-pre/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/releases) 
+[![](https://img.shields.io/github/license/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/blob/master/LICENSE)
+[![](https://img.shields.io/github/stars/viadee/sonarquest.svg?style=social)](https://github.com/viadee/sonarQuest/stargazers)
 
 A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification system. Handle your code quality issues in a playful way by solving quests and adventures, earning rewards for refactoring code smells and optimization.
 
 * more about SonarQuest's game concepts and application scenarios: https://www.viadee.de/sonarquest_en
 * Sonar Quest info package: https://github.com/viadee/sonarQuest/blob/master/docs/SonarQuest_info_package.pdf
-
-## NEWS - 1st SonarQuest Coding Night
-
-*2019-02-27 / 4.19pm*
-
-Checklist before Takeoff
-* Git pull executed, Eclipse updated and Visual Studio Code prepared - CHECK
-* Beverages cooled - CHECK
-* Laptop stickers prepared - CHECK
-* Giant dragon invited - CHECK
-* Ink quill readied for extreme pizza ordering - CHECK
-* Armor & Sword polished - CHECK
-
-Guess we are good to go :)
-
-(Chris)
-
-*2019-02-27 / 1.49pm*
-
-I have preselected some issues for tonight that are a perfect place to start coding. They have their own label and you can just pick one of them and assign yourself or by adding a comment like "Issue #125" when you commit the source code.
-
-https://github.com/viadee/sonarQuest/issues?q=is%3Aissue+is%3Aopen+label%3A%221st+Coding+Night%22
-
-(Chris)
-
-*2019-02-27 / 7.23am*
-
-German SonarQuest Coders are invited to the 1st Coding Night: https://lp.viadee.de/sonar-quest-coding-night-anmeldung
-Coding Night starts at 1800 hrs today!
-
-Watch this site for updates! 
-
-(Chris)
 
 ## Goal
 

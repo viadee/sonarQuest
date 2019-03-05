@@ -10,9 +10,9 @@
       <p>{{"GAMEMASTER_PAGE.QUEST.EDIT_SOLVED_QUEST" | translate}}</p>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="quest.title" [disabled]="isSolved">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
       <mat-checkbox 
@@ -20,19 +20,19 @@
         [(ngModel)]="quest.visible">{{"QUEST.VISIBLE"| translate}}</mat-checkbox>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="quest.gold" [disabled]="isSolved">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="quest.xp" [disabled]="isSolved">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea matInput [placeholder]="'TABLE.COLUMNS.STORY' | translate" [(ngModel)]="quest.story" [disabled]="isSolved"></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div flex layout="row">

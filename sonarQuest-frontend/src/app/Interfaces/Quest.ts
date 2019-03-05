@@ -8,6 +8,7 @@ export interface Quest {
   id: number,
   title: string,
   story: string,
+  creatorName: string,
   status: QuestState,
   gold: number,
   xp: number,

@@ -19,7 +19,8 @@ export interface User {
   artefacts?: Artefact[],
   password?: string,
   currentWorld?: World,
-  joinedWorlds?: string[]
+  joinedWorlds?: string[],
+  lastLogin?: string
 }
 
 

@@ -1,6 +1,4 @@
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {ReplaySubject, Subject, Observable} from 'rxjs';
 import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Skill} from './../Interfaces/Skill';

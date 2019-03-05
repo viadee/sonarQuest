@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.entities;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,268 +27,278 @@ import com.google.common.base.Objects;
 @Table(name = "SQUser")
 public class User {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(name = "username")
-	private String username;
+    @Column(name = "username")
+    private String username;
 
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-	@Column(name = "picture")
-	private String picture;
+    @Column(name = "picture")
+    private String picture;
 
-	@Column(name = "about_me")
-	private String aboutMe;
+    @Column(name = "about_me")
+    private String aboutMe;
 
-	@ManyToOne
-	@JoinColumn(name = "avatar_class_id")
-	private AvatarClass avatarClass;
+    @ManyToOne
+    @JoinColumn(name = "avatar_class_id")
+    private AvatarClass avatarClass;
 
-	@ManyToOne
-	@JoinColumn(name = "avatar_race_id")
-	private AvatarRace avatarRace;
+    @ManyToOne
+    @JoinColumn(name = "avatar_race_id")
+    private AvatarRace avatarRace;
 
-	@Column(name = "gold")
-	private Long gold;
+    @Column(name = "gold")
+    private Long gold;
 
-	@Column(name = "xp")
-	private Long xp;
+    @Column(name = "xp")
+    private Long xp;
 
-	@ManyToOne
-	@JoinColumn(name = "level_id")
-	private Level level;
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    private Level level;
 
-	@ManyToOne
-	@JoinColumn(name = "current_world_id")
-	private World currentWorld;
+    @ManyToOne
+    @JoinColumn(name = "current_world_id")
+    private World currentWorld;
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
-	private List<World> worlds = new ArrayList<>(0);
+    @Column(name = "last_login")
+    private Timestamp lastLogin;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "User_Artefact", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"))
-	private List<Artefact> artefacts = new ArrayList<>(0);
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
+    private List<World> worlds = new ArrayList<>(0);
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-	private List<Adventure> adventures = new ArrayList<>(0);
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "User_Artefact", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"))
+    private List<Artefact> artefacts = new ArrayList<>(0);
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Participation> participations = new ArrayList<>(0);
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Adventure> adventures = new ArrayList<>(0);
 
-	@OneToOne(mappedBy = "user", orphanRemoval = true)
-	private UiDesign uiDesign;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Participation> participations = new ArrayList<>(0);
 
-	public Long getId() {
-		return id;
-	}
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private UiDesign uiDesign;
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public void setUsername(final String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(final String username) {
+        this.username = username;
+    }
 
-	public void setPassword(final String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public void setPassword(final String password) {
+        this.password = password;
+    }
 
-	public void setRole(final Role role) {
-		this.role = role;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public void setRole(final Role role) {
+        this.role = role;
+    }
 
-	public void setPicture(final String picture) {
-		this.picture = picture;
-	}
+    public String getPicture() {
+        return picture;
+    }
 
-	public String getAboutMe() {
-		return aboutMe;
-	}
+    public void setPicture(final String picture) {
+        this.picture = picture;
+    }
 
-	public void setAboutMe(final String aboutMe) {
-		this.aboutMe = aboutMe;
-	}
+    public String getAboutMe() {
+        return aboutMe;
+    }
 
-	public AvatarClass getAvatarClass() {
-		return avatarClass;
-	}
+    public void setAboutMe(final String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
 
-	public void setAvatarClass(final AvatarClass avatarClass) {
-		this.avatarClass = avatarClass;
-	}
+    public AvatarClass getAvatarClass() {
+        return avatarClass;
+    }
 
-	public AvatarRace getAvatarRace() {
-		return avatarRace;
-	}
+    public void setAvatarClass(final AvatarClass avatarClass) {
+        this.avatarClass = avatarClass;
+    }
 
-	public void setAvatarRace(final AvatarRace avatarRace) {
-		this.avatarRace = avatarRace;
-	}
+    public AvatarRace getAvatarRace() {
+        return avatarRace;
+    }
 
-	public Long getGold() {
-		return gold;
-	}
+    public void setAvatarRace(final AvatarRace avatarRace) {
+        this.avatarRace = avatarRace;
+    }
 
-	public void setGold(final Long gold) {
-		this.gold = gold;
-	}
+    public Long getGold() {
+        return gold;
+    }
 
-	public Long getXp() {
-		return xp;
-	}
+    public void setGold(final Long gold) {
+        this.gold = gold;
+    }
 
-	public void setXp(final Long xp) {
-		this.xp = xp;
-	}
+    public Long getXp() {
+        return xp;
+    }
 
-	/**
-	 * Adds the specified amount of gold.
-	 * 
-	 * @param gold
-	 *            the amount to add, must be positive or zero.
-	 */
-	public void addGold(final long gold) {
-		Validate.isTrue(gold >= 0);
-		this.gold += gold;
-	}
+    public void setXp(final Long xp) {
+        this.xp = xp;
+    }
 
-	/**
-	 * Adds the specified amount of XPerience Points.
-	 * 
-	 * @param xp
-	 *            the amount to add, must be positive or zero.
-	 */
-	public void addXp(final long xp) {
-		Validate.isTrue(xp >= 0);
-		this.xp += xp;
-	}
+    /**
+     * Adds the specified amount of gold.
+     * 
+     * @param gold
+     *            the amount to add, must be positive or zero.
+     */
+    public void addGold(final long gold) {
+        Validate.isTrue(gold >= 0);
+        this.gold += gold;
+    }
 
-	public Level getLevel() {
-		return level;
-	}
+    /**
+     * Adds the specified amount of XPerience Points.
+     * 
+     * @param xp
+     *            the amount to add, must be positive or zero.
+     */
+    public void addXp(final long xp) {
+        Validate.isTrue(xp >= 0);
+        this.xp += xp;
+    }
 
-	public void setLevel(final Level level) {
-		this.level = level;
-	}
+    public Level getLevel() {
+        return level;
+    }
 
-	public List<World> getWorlds() {
-		return worlds;
-	}
+    public void setLevel(final Level level) {
+        this.level = level;
+    }
 
-	public void setWorlds(final List<World> worlds) {
-		this.worlds = worlds;
-	}
+    public List<World> getWorlds() {
+        return worlds;
+    }
 
-	public void addWorld(final World world) {
-		getWorlds().add(world);
-	}
+    public void setWorlds(final List<World> worlds) {
+        this.worlds = worlds;
+    }
 
-	public void removeWorld(final World world) {
-		getWorlds().remove(world);
-	}
+    public void addWorld(final World world) {
+        getWorlds().add(world);
+    }
 
-	public List<Artefact> getArtefacts() {
-		return artefacts;
-	}
+    public void removeWorld(final World world) {
+        getWorlds().remove(world);
+    }
 
-	public void setArtefacts(final List<Artefact> artefacts) {
-		this.artefacts = artefacts;
-	}
+    public List<Artefact> getArtefacts() {
+        return artefacts;
+    }
 
-	public List<Adventure> getAdventures() {
-		return adventures;
-	}
+    public void setArtefacts(final List<Artefact> artefacts) {
+        this.artefacts = artefacts;
+    }
 
-	public void setAdventures(final List<Adventure> adventures) {
-		this.adventures = adventures;
-	}
+    public List<Adventure> getAdventures() {
+        return adventures;
+    }
 
-	public List<Participation> getParticipations() {
-		return participations;
-	}
+    public void setAdventures(final List<Adventure> adventures) {
+        this.adventures = adventures;
+    }
 
-	public void setParticipations(final List<Participation> participations) {
-		this.participations = participations;
-	}
+    public List<Participation> getParticipations() {
+        return participations;
+    }
 
-	public World getCurrentWorld() {
-		return currentWorld;
-	}
+    public void setParticipations(final List<Participation> participations) {
+        this.participations = participations;
+    }
 
-	public void setCurrentWorld(final World currentWorld) {
-		this.currentWorld = currentWorld;
-	}
+    public World getCurrentWorld() {
+        return currentWorld;
+    }
 
-	public UiDesign getUiDesign() {
-		return uiDesign;
-	}
+    public void setCurrentWorld(final World currentWorld) {
+        this.currentWorld = currentWorld;
+    }
 
-	public void setUiDesign(final UiDesign uiDesign) {
-		this.uiDesign = uiDesign;
-	}
+    public UiDesign getUiDesign() {
+        return uiDesign;
+    }
 
-	public boolean isGamemaster() {
-		return getRole().getName() == RoleName.GAMEMASTER;
-	}
+    public void setUiDesign(final UiDesign uiDesign) {
+        this.uiDesign = uiDesign;
+    }
 
-	public boolean isAdmin() {
-		return getRole().getName() == RoleName.ADMIN;
-	}
+    public boolean isGamemaster() {
+        return getRole().getName() == RoleName.GAMEMASTER;
+    }
 
-	public boolean isDeveloper() {
-		return getRole().getName() == RoleName.DEVELOPER;
-	}
+    public boolean isAdmin() {
+        return getRole().getName() == RoleName.ADMIN;
+    }
 
-	/**
-	 * Looks up the names of all joined ("active") worlds and returns them in a
-	 * list.
-	 */
-	public List<String> getJoinedWorlds() {
-		if (worlds != null) {
-			return worlds.stream().map(World::getName).collect(Collectors.toList());
-		} else {
-			return new ArrayList<>();
-		}
-	}
+    public boolean isDeveloper() {
+        return getRole().getName() == RoleName.DEVELOPER;
+    }
 
-	@Override
-	public int hashCode() {
-		return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
-	}
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
 
-	@Override
-	public boolean equals(final Object that) {
-		return this.getId() == null ? this == that
-				: that != null && this.getClass().isInstance(that)
-						&& Objects.equal(this.getId(), ((User) that).getId());
-	}
+    public void setLastLogin(final Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    /**
+     * Looks up the names of all joined ("active") worlds and returns them in a list.
+     */
+    public List<String> getJoinedWorlds() {
+        if (worlds != null) {
+            return worlds.stream().map(World::getName).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
+    }
+
+    @Override
+    public boolean equals(final Object that) {
+        return this.getId() == null ? this == that
+                : that != null && this.getClass().isInstance(that)
+                        && Objects.equal(this.getId(), ((User) that).getId());
+    }
 
 }
