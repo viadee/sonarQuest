@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { UserService } from '../../services/user.service';
 import { ImageService } from 'app/services/image.service';
-import { Observable } from 'rxjs';
-import { r } from '@angular/core/src/render3';
-import { Conditional } from '@angular/compiler';
 
 @Component({
   selector: 'app-event-page',

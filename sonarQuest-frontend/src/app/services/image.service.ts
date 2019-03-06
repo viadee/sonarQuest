@@ -36,7 +36,7 @@ export class ImageService {
     var imageSubject: Subject<any> = new Subject;
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result));
+      imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString()));
     }, false);
 
     if (image) {

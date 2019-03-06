@@ -32,11 +32,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   }
 
   handleResponse(req: HttpRequest<any>, event) {
-    console.log('Handling response for ', req.url, event);
+    //console.log('Handling response for ', req.url, event);
     if (event instanceof HttpResponse) {
-      console.log('Request for ', req.url,
-        ' Response Status ', event.status,
-        ' With body ', event.body);
+      //console.log('Request for ', req.url,
+      //  ' Response Status ', event.status,
+      //  ' With body ', event.body);
     }
   }
 

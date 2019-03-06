@@ -1,5 +1,5 @@
 import { WorldService } from './world.service';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
 import {HttpClient} from '@angular/common/http';
