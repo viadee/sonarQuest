@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { UserService } from '../../services/user.service';
 import { ImageService } from 'app/services/image.service';
-import * as Stomp from 'stompjs';
+import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 
 @Component({
@@ -95,7 +95,7 @@ export class EventPageComponent implements OnInit {
 
   initializeWebSocketConnection(){
     let ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
+    this.stompClient = Stomp.Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe("/chat", (message) => {
