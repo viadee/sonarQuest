@@ -26,6 +26,7 @@ export class AdminDeveloperComponent implements OnInit {
     { name: 'gold', label: 'Gold'},
     { name: 'currentWorld.name', label: 'Current World' },
     { name: 'joinedWorlds', label: 'Active Worlds' },
+    { name: 'lastLogin', label: 'Last Login' },
     { name: 'edit', label: '' }
   ];
 
@@ -62,12 +63,13 @@ export class AdminDeveloperComponent implements OnInit {
         { name: 'gold', label: col_names.GOLD },
         { name: 'currentWorld.name', label: col_names.ACTIVE_WORLD },
         { name: 'joinedWorlds', label: col_names.JOINED },
+        { name: 'lastLogin', label: col_names.LAST_LOGIN },
         { name: 'edit', label: '' }]
     });
   }
 
   private formatNullIntoOne(): (value: any) => any {
-    return v => v === null ? 1 : v;
+    return v => v == null ? 1 : v;
   }
 
   setUsers(users: User[]) {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Wizard } from '../Interfaces/Wizard';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { WorldService } from './world.service';
 import { World } from '../Interfaces/World';
 

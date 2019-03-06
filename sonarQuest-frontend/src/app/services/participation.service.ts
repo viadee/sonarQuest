@@ -1,4 +1,4 @@
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
 import {Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Quest} from '../Interfaces/Quest';

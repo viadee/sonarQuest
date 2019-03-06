@@ -1,7 +1,5 @@
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {ReplaySubject, Subject, Observable} from 'rxjs';
+import {DomSanitizer} from '@angular/platform-browser';
 import {Injectable} from '@angular/core';
 
 @Injectable()
@@ -19,7 +17,7 @@ export class ImageService {
   createImageFromBlob(image: Blob): Observable<any> {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result));
+      this.imageSubject.next(this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString()));
     }, false);
 
     if (image) {

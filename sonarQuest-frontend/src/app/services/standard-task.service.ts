@@ -2,12 +2,9 @@ import {World} from './../Interfaces/World';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/publishLast';
-import 'rxjs/add/operator/share';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
+
+
+import {Observable, ReplaySubject} from 'rxjs';
 import {StandardTask} from '../Interfaces/StandardTask';
 import {HttpClient} from '@angular/common/http';
 import {Task} from '../Interfaces/Task';

@@ -56,8 +56,20 @@ public class ArtefactController {
     }
 
     @PutMapping(value = "/{id}")
-    public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact artefactDto) {
-        return artefactService.updateArtefact(id, artefactDto);
+    public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
+        Artefact artefact = artefactRepository.findOne(data.getId());
+        if (artefact != null) {
+            artefact.setDescription(data.getDescription());
+            artefact.setIcon(data.getIcon());
+            artefact.setMinLevel(data.getMinLevel());
+            artefact.setName(data.getName());
+            artefact.setPrice(data.getPrice());
+            artefact.setQuantity(data.getQuantity());
+            artefact.setSkills(data.getSkills());
+            artefact.setUsers(data.getUsers());
+            artefactService.updateArtefact(id, artefact);
+        }
+        return artefact;
     }
 
     @PutMapping(value = "/{artefact_id}/buy")

@@ -44,7 +44,11 @@ export class AdminDeveloperEditComponent implements OnInit {
   ngOnInit() {
     this.translateTable();
     this.loadImages();
-    this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => this.userToWorlds = userToWorlds);
+    this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => {
+      this.userToWorlds = userToWorlds
+      console.log(userToWorlds)
+    });
+    
     this.roleService.getRoles().then(roles => this.roles = roles);
   }
 

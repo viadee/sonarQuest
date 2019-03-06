@@ -4,24 +4,24 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-input-container class="full-width">
-        <input matInput placeholder="Username" [(ngModel)]="user.username">
-      </mat-input-container>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="{{'LOGIN.USERNAME' | translate}}" [(ngModel)]="user.username">
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
-        <input matInput placeholder="Password" [(ngModel)]="user.password" [type]="'password'" size="15">
-      </mat-input-container>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [(ngModel)]="user.password" [type]="'password'" size="15">
+      </mat-form-field>
     </div>    
     <div flex>
-      <mat-input-container class="full-width">
-        <textarea matInput placeholder="AboutMe" [(ngModel)]="user.aboutMe"></textarea>
-      </mat-input-container>
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="user.aboutMe"></textarea>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
-        <input matInput placeholder="File name" [(ngModel)]="user.picture">
-      </mat-input-container>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="user.picture">
+      </mat-form-field>
     </div>
   </div>
 </mat-dialog-content>
