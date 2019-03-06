@@ -67,7 +67,7 @@ export class QuestService {
 
 
   createQuest(quest: any): Promise<Quest> {
-    return this.http.post<Quest>(`${environment.endpoint}/quest/`, quest)
+    return this.http.post<Quest>(`${environment.endpoint}/quest`, quest)
       .toPromise()
       .catch(this.handleError);
   }

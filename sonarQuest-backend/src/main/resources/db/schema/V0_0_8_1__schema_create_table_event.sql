@@ -4,7 +4,7 @@ CREATE TABLE Event (
   type     INTEGER      ,
   title    VARCHAR(256) ,
   story    VARCHAR(256) ,
-  status   VARCHAR(64)  ,
+  state    INTEGER		,
   image    VARCHAR(256) ,
   headline VARCHAR(64)  ,
   world_id BIGINT       ,

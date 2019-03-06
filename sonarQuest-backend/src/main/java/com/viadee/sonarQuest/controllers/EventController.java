@@ -44,7 +44,7 @@ public class EventController {
     @RequestMapping(value = "/sendChat", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Event sendChat(final Principal principal, @RequestBody String message) {
-    	return eventService.newMessage(message, principal);
+    	return eventService.createEventForNewMessage(message, principal);
     }
     
     

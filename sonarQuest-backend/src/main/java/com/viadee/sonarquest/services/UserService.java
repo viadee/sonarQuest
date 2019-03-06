@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -77,6 +78,25 @@ public class UserService implements UserDetailsService {
         return user.getCurrentWorld();
     }
 
+    
+
+    
+    public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) {
+    	    	
+        userToWorlds.forEach(userToWorld -> {
+        	User user = userRepository.findOne(userToWorld.getUserId());
+        	if (userToWorld.getJoined()) {
+        		user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
+        	} else {
+        		user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
+        	}
+
+    		userRepository.save(user);
+        });
+        
+        return true;
+    }
+    
     public synchronized User save(final User user) {
         User toBeSaved = null;
         final String username = user.getUsername();
@@ -130,7 +150,12 @@ public class UserService implements UserDetailsService {
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
     }
 
-    private boolean usernameFree(final String username) {
+	public User getUser(Principal principal) {
+		final String username = principal.getName();
+		return findByUsername(username);
+	}
+	
+	private boolean usernameFree(final String username) {
         return userRepository.findByUsername(username) == null;
     }
 
@@ -161,19 +186,5 @@ public class UserService implements UserDetailsService {
         save(user);
     }
     
-    public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) {
-    	    	
-        userToWorlds.forEach(userToWorld -> {
-        	User user = userRepository.findOne(userToWorld.getUserId());
-        	if (userToWorld.getJoined()) {
-        		user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
-        	} else {
-        		user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
-        	}
 
-    		userRepository.save(user);
-        });
-        
-        return true;
-    }
 }

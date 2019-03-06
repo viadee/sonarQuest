@@ -4,6 +4,8 @@ import { EventService } from '../../services/event.service';
 import { UserService } from '../../services/user.service';
 import { ImageService } from 'app/services/image.service';
 import { Observable } from 'rxjs';
+import { r } from '@angular/core/src/render3';
+import { Conditional } from '@angular/compiler';
 
 @Component({
   selector: 'app-event-page',
@@ -13,6 +15,7 @@ import { Observable } from 'rxjs';
 export class EventPageComponent implements OnInit {
 
   events: Event[]
+  oldEvent: Event = null;
   message: string = '';
 
   constructor(
@@ -21,6 +24,8 @@ export class EventPageComponent implements OnInit {
     private imageService: ImageService
   ) { 
     this.eventService.events$.subscribe(events => {
+      console.log(events)
+
       this.events = this.getImageForMessages(events)     
     });
   }
@@ -29,6 +34,19 @@ export class EventPageComponent implements OnInit {
     
   }; 
   
+  checkNewDay(event: Event): Boolean{
+    if (this.oldEvent==null){
+      this.oldEvent = event;
+      return true;
+    } else if (this.events[0].id == event.id){
+      return true;
+    } else if (new Date(this.oldEvent.timestamp).getDate() < new Date(event.timestamp).getDate()){
+      return true;
+    } else {
+      this.oldEvent=event
+      return false;
+    }
+  }
 
   getImageForMessages(events: Event[]): Event[]{
     events.forEach(event => {
@@ -54,7 +72,6 @@ export class EventPageComponent implements OnInit {
       this.events.push(event)
     }).then(()=>{
       var i = document.getElementsByClassName('event').length;
-      console.log(document.getElementsByClassName('event')[i-1].getElementsByClassName('text')[0].textContent)
       document.getElementsByClassName('event')[i-1].scrollIntoView(false)
     })
     this.message = "";
