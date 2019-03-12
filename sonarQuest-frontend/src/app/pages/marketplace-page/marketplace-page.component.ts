@@ -74,7 +74,7 @@ export class MarketplacePageComponent implements OnInit {
     const userArtefacts: Artefact[] = user.artefacts;
     userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
     if (user.level) {
-      this.level = user.level.level;
+      this.level = user.level.levelNumber;
     } else {
       this.level = 1;
     }

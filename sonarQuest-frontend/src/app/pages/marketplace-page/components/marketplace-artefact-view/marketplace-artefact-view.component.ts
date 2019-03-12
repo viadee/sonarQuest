@@ -47,7 +47,7 @@ export class ArtefactViewDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public artefact: Artefact) {
     this.artefact = { ...this.artefact };
     this.name = this.artefact.name;
-    this.min = this.artefact.minLevel.level;
+    this.min = this.artefact.minLevel.levelNumber;
     this.price = this.artefact.price;
     this.description = this.artefact.description;
     this.quantity = this.artefact.quantity;
