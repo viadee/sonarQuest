@@ -22,9 +22,9 @@ export class AdminDeveloperCreateComponent implements OnInit {
   public aboutMe: String;
   public nameTaken: boolean;
 
-  protected roles: Role[];
-  protected classes: AvatarClass[];
-  protected races: AvatarRace[];
+  public roles: Role[];
+  public classes: AvatarClass[];
+  public races: AvatarRace[];
 
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),

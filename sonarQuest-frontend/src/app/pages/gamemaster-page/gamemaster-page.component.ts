@@ -9,7 +9,7 @@ import { PermissionService } from 'app/services/permission.service';
 })
 export class GamemasterPageComponent implements OnInit {
 
-  protected isMarketplaceVisible: boolean;
+  public isMarketplaceVisible: boolean;
   selectedTab: number;
 
   constructor(private permissionService: PermissionService) {

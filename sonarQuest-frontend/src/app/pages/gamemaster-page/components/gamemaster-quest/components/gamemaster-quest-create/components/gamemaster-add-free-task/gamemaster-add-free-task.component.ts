@@ -42,8 +42,8 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
 
   pageSize = 8;
 
-  protected freeStandardTasks: StandardTask[];
-  protected freeSpecialTasks: SpecialTask[];
+  public freeStandardTasks: StandardTask[];
+  public freeSpecialTasks: SpecialTask[];
 
   constructor(
     private sonarCubeService: SonarCubeService,

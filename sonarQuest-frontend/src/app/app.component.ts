@@ -25,23 +25,23 @@ export class AppComponent implements OnInit, AfterViewInit {
   public worlds: World[];
   public pageNames: any;
   public selected: World;
-  protected user: User = null;
+  public user: User = null;
   private ui: UiDesign = null;
 
-  protected myAvatarUrl = RoutingUrls.myAvatar;
-  protected adventuresUrl = RoutingUrls.adventures;
-  protected questsUrl = RoutingUrls.quests;
-  protected marketplaceUrl = RoutingUrls.marketplace;
-  protected gamemasterUrl = RoutingUrls.gamemaster;
-  protected adminUrl = RoutingUrls.admin;
+  public myAvatarUrl = RoutingUrls.myAvatar;
+  public adventuresUrl = RoutingUrls.adventures;
+  public questsUrl = RoutingUrls.quests;
+  public marketplaceUrl = RoutingUrls.marketplace;
+  public gamemasterUrl = RoutingUrls.gamemaster;
+  public adminUrl = RoutingUrls.admin;
 
-  protected isWorldSelectVisible: boolean;
-  protected isMyAvatarVisible: boolean;
-  protected isAdventuresVisible: boolean;
-  protected isQuestsVisible: boolean;
-  protected isMarketplaceVisible: boolean;
-  protected isGamemasterVisible: boolean;
-  protected isAdminVisible: boolean;
+  public isWorldSelectVisible: boolean;
+  public isMyAvatarVisible: boolean;
+  public isAdventuresVisible: boolean;
+  public isQuestsVisible: boolean;
+  public isMarketplaceVisible: boolean;
+  public isGamemasterVisible: boolean;
+  public isAdminVisible: boolean;
 
   constructor(
     private uiDesignService: UiDesignService,

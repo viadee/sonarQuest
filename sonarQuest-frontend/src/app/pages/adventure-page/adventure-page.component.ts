@@ -19,7 +19,7 @@ import {World} from '../../Interfaces/World';
 
 export class AdventurePageComponent implements OnInit {
 
-  protected currentWorld: World;
+  public currentWorld: World;
 
   columns: ITdDataTableColumn[] = [
     {name: 'title', label: 'Title', width: 200},
