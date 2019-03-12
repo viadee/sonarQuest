@@ -23,6 +23,12 @@ export class ArtefactViewDetailsComponent implements OnInit {
   quantity: number;
   description: string;
 
+  columns: ITdDataTableColumn[] = [
+    {name: 'name', label: 'Name', width: {min: 80}},
+    {name: 'type', label: 'Type', width: {min: 40}},
+    {name: 'value', label: 'Value', width: {min: 40}}
+  ];
+
   // Sort / Filter / Paginate variables
   filteredSkills: Skill[];
   filteredTotal: number
