@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +79,7 @@ public class UserService implements UserDetailsService {
         return user.getCurrentWorld();
     }
 
+    @Transactional
     public synchronized User save(final User user) {
         User toBeSaved = null;
         final String username = user.getUsername();
@@ -175,5 +178,13 @@ public class UserService implements UserDetailsService {
         });
         
         return true;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }
