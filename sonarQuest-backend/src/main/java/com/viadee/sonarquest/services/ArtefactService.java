@@ -17,98 +17,117 @@ import com.viadee.sonarquest.repositories.ArtefactRepository;
 @Service
 public class ArtefactService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
+	private enum PurchaseResult {
+		NOT_ENOUGH_GOLD, 
+		MIN_LEVEL_NOT_HIGH_ENOUGH, 
+		ITEM_SOLD_OUT,
+		ITEM_ALREADY_BOUGHT,
+		SUCCESS
+	}
 
-    @Autowired
-    private ArtefactRepository artefactRepository;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
 
-    @Autowired
-    private LevelService levelService;
+	@Autowired
+	private ArtefactRepository artefactRepository;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private LevelService levelService;
 
-    public List<Artefact> getArtefacts() {
-        return artefactRepository.findAll();
-    }
+	@Autowired
+	private UserService userService;
 
-    public List<Artefact> getArtefactsForMarketplace() {
-        return artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
-    }
+	public List<Artefact> getArtefacts() {
+		return artefactRepository.findAll();
+	}
 
-    public Artefact getArtefact(final long id) {
-        return artefactRepository.findOne(id);
-    }
+	public List<Artefact> getArtefactsForMarketplace() {
+		return artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
+	}
 
-    @Transactional
-    public Artefact createArtefact(final Artefact artefact) {
-        LOGGER.info("Creating new artefact " + artefact.getName());
-        Level minLevel = artefact.getMinLevel();
-        Level existingLevel = levelService.findByLevel(minLevel.getLevelNumber());
-        if (existingLevel != null) {
-            artefact.setMinLevel(existingLevel);
-        } else {
-            LOGGER.info("Artefact Level " + minLevel.getLevelNumber() + " does not exist yet - creating it...");
-            levelService.createLevel(minLevel);
-            artefact.setMinLevel(minLevel);
-        }
-        return artefactRepository.save(artefact);
-    }
+	public Artefact getArtefact(final long id) {
+		return artefactRepository.findOne(id);
+	}
 
-    @Transactional
-    public Artefact updateArtefact(final Long id, final Artefact artefactDto) {
-        LOGGER.info("Updating artefact " + id);
-        final Artefact artefact = artefactRepository.findOne(id);
-        artefact.setName(artefactDto.getName());
-        artefact.setIcon(artefactDto.getIcon());
-        artefact.setPrice(artefactDto.getPrice());
-        artefact.setDescription(artefactDto.getDescription());
-        artefact.setQuantity(artefactDto.getQuantity());
-        artefact.setSkills(artefactDto.getSkills());
-        int minLevel = artefactDto.getMinLevel().getLevelNumber();
-        Level newLevel = levelService.findByLevel(minLevel);
-        artefact.setMinLevel(newLevel);
-        return artefactRepository.save(artefact);
-    }
+	@Transactional
+	public Artefact createArtefact(final Artefact artefact) {
+		LOGGER.info("Creating new artefact " + artefact.getName());
+		Level minLevel = artefact.getMinLevel();
+		Level existingLevel = levelService.findByLevel(minLevel.getLevelNumber());
+		if (existingLevel != null) {
+			artefact.setMinLevel(existingLevel);
+		} else {
+			LOGGER.info("Artefact Level " + minLevel.getLevelNumber() + " does not exist yet - creating it...");
+			levelService.createLevel(minLevel);
+			artefact.setMinLevel(minLevel);
+		}
+		return artefactRepository.save(artefact);
+	}
 
-    @Transactional
-    public synchronized Artefact buyArtefact(Artefact artefact, final User user) {
-        LOGGER.info("User " + user.getId() + " tries to buy artefact " + artefact.getId());
-        // If developer has TOO LITTLE GOLD, Then the purchase is canceled
-        final long gold = user.getGold() - artefact.getPrice();
-        if (gold < 0) {
-            return null;
-        }
+	@Transactional
+	public Artefact updateArtefact(final Long id, final Artefact artefactDto) {
+		LOGGER.info("Updating artefact " + id);
+		final Artefact artefact = artefactRepository.findOne(id);
+		artefact.setName(artefactDto.getName());
+		artefact.setIcon(artefactDto.getIcon());
+		artefact.setPrice(artefactDto.getPrice());
+		artefact.setDescription(artefactDto.getDescription());
+		artefact.setQuantity(artefactDto.getQuantity());
+		artefact.setSkills(artefactDto.getSkills());
+		int minLevel = artefactDto.getMinLevel().getLevelNumber();
+		Level newLevel = levelService.findByLevel(minLevel);
+		artefact.setMinLevel(newLevel);
+		return artefactRepository.save(artefact);
+	}
 
-        // If the developer has ALREADY BOUGHT the Artefact, Then the purchase is
-        // canceled
-        for (final Artefact a : user.getArtefacts()) {
-            if (a.equals(artefact)) {
-                return null;
-            }
-        }
+	@Transactional
+	public synchronized Artefact buyArtefact(Artefact artefactToBuy, final User user) {
+		Artefact artefact = artefactToBuy;
+		LOGGER.info(String.format("UserId %s tries to buy artefactId %s", user.getId(), artefactToBuy.getId()));
 
-        // If the artefact is SOLD OUT, then the purchase is canceled
-        if (artefact.getQuantity() < 1) {
-            return null;
-        }
+		final Level minLevel = artefact.getMinLevel();
+		final Level devLevel = user.getLevel();
 
-        // When the LEVEL of the developer is too low, then the purchase is canceled
-        final Level minLevel = artefact.getMinLevel();
-        final Level devLevel = user.getLevel();
+		PurchaseResult reason = PurchaseResult.SUCCESS;
 
-        if (minLevel.getLevelNumber() > devLevel.getLevelNumber()) {
-            return null;
-        }
+		final long gold = user.getGold() - artefact.getPrice();
+		// If developer has TOO LITTLE GOLD left after the purchase, Then the purchase
+		// is canceled
+		if (gold < 0) {
+			reason = PurchaseResult.NOT_ENOUGH_GOLD;
+		}
+		// If the artefact is SOLD OUT, then the purchase is canceled
+		else if (artefact.getQuantity() < 1) {
+			reason = PurchaseResult.ITEM_SOLD_OUT;
+		}
+		// When the LEVEL of the developer is too low, then the purchase is canceled
+		else if (minLevel.getLevelNumber() > devLevel.getLevelNumber()) {
+			reason = PurchaseResult.MIN_LEVEL_NOT_HIGH_ENOUGH;
+		} else {
+			// If the developer has ALREADY BOUGHT the Artefact, Then the purchase is
+			// canceled
+			for (final Artefact a : user.getArtefacts()) {
+				if (a.equals(artefact)) {
+					reason = PurchaseResult.ITEM_ALREADY_BOUGHT;
+					break;
+				}
+			}
+		}
 
-        user.getArtefacts().add(artefact);
-        user.setGold(gold);
-        userService.save(user);
+		if (reason == PurchaseResult.SUCCESS) {
+			user.getArtefacts().add(artefact);
+			user.setGold(gold);
+			userService.save(user);
 
-        artefact.setQuantity(artefact.getQuantity() - 1);
-        artefact = artefactRepository.save(artefact);
-        LOGGER.info("User " + user.getId() + " successfully bought artefact " + artefact.getId());
-        return artefact;
-    }
+			artefact.setQuantity(artefact.getQuantity() - 1);
+			artefact = artefactRepository.save(artefact);
+			LOGGER.info(
+					String.format("UserId %s successfully bought artefactId %s", user.getId(), artefactToBuy.getId()));
+		} else {
+			artefact = null;
+			LOGGER.info(String.format("UserId %s could not buy artefactId %s, Reason %s", user.getId(),
+					artefactToBuy.getId(), reason));
+		}
+		return artefact;
+	}
 
 }
