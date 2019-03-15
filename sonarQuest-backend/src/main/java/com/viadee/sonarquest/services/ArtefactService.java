@@ -32,7 +32,7 @@ public class ArtefactService {
         return artefactRepository.findAll();
     }
 
-    public List<Artefact> getArtefactsforMarkteplace() {
+    public List<Artefact> getArtefactsForMarketplace() {
         return artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
     }
 
