@@ -171,6 +171,7 @@ public class UserService implements UserDetailsService {
         return levelService.getLevelByUserXp(xp);
     }
 
+    @Transactional
     public void updateLastLogin(final String username) {
         final User user = findByUsername(username);
         user.setLastLogin(Timestamp.valueOf(LocalDateTime.now()));
