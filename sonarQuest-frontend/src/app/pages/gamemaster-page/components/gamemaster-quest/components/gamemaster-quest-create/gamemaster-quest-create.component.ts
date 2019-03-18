@@ -97,7 +97,6 @@ export class GamemasterQuestCreateComponent implements OnInit {
   suggestTasks() {
     this.dialog.open(GamemasterSuggestTasksComponent, {
       panelClass: 'dialog-sexy',
-      width: '500px',
       data: [this.selectedWorld, this.tasks]
     }).afterClosed().subscribe(result => {
       if (result) {

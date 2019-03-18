@@ -6,20 +6,18 @@
     <mat-tab [label]="'TASK.FREE_STANDARDTASKS' | translate">
       <div *ngIf="freeStandardTasks">
         <td-data-table #dataTable [data]="filteredStandardTasks" [columns]="freeStandardTasksColumns">
-          <ng-template tdDataTableTemplate="open_issue" let-value="value" let-row="row" let-column="column">
+          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
+            <div layout="row">
+              <button mat-icon-button (click)="addTask(row)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
             <div layout="row">
               <button mat-icon-button (click)="openIssue(row)" 
                 [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
                 [matTooltipClass]="'tooltipMultiline'"
                 matTooltipPosition="after">
                 <i class="ra ra-chain"></i>
-              </button>
-            </div>
-          </ng-template>
-          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
-            <div layout="row">
-              <button mat-icon-button (click)="addTask(row)">
-                <mat-icon>add</mat-icon>
               </button>
             </div>
           </ng-template>

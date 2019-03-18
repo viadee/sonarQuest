@@ -18,10 +18,10 @@ import {TranslateService} from '@ngx-translate/core';
 export class GamemasterAddFreeTaskComponent implements OnInit {
 
   freeStandardTasksColumns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: 500},
-    {name: 'severity', label: 'Severity', width: 150},
-    {name: 'gold', label: 'Gold', width: 50},
-    {name: 'xp', label: 'XP', width: 50},
+    {name: 'title', label: 'Title', width: 600},
+    {name: 'severity', label: 'Severity'},
+    {name: 'gold', label: 'Gold'},
+    {name: 'xp', label: 'XP'},
     {name: 'open_issue', label: ''},
     {name: 'add_task', label: ''}
   ];
@@ -30,10 +30,10 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   filteredStandardTasks: StandardTask[];
 
   freeSpecialTasksColumns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: 200},
-    {name: 'gold', label: 'Gold', width: 50},
-    {name: 'xp', label: 'XP', width: 50},
-    {name: 'message', label: 'Message', width: 400},
+    {name: 'title', label: 'Title'},
+    {name: 'gold', label: 'Gold'},
+    {name: 'xp', label: 'XP'},
+    {name: 'message', label: 'Message', width: 500},
     {name: 'add_task', label: ''}
   ];
   fromRowSpecialTasks = 1;
@@ -71,20 +71,20 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   private translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeStandardTasksColumns = [
-        {name: 'title', label: col_names.TITLE, width: 500},
-        {name: 'severity', label: col_names.SEVERITY, width: 150},
-        {name: 'gold', label: col_names.GOLD, width: 50},
-        {name: 'xp', label: col_names.XP, width: 50},
+        {name: 'title', label: col_names.TITLE, width: 600},
+        {name: 'severity', label: col_names.SEVERITY},
+        {name: 'gold', label: col_names.GOLD},
+        {name: 'xp', label: col_names.XP},
         {name: 'open_issue', label: ''},
         {name: 'add_task', label: ''}
       ]
     });
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeSpecialTasksColumns = [
-        {name: 'title', label: col_names.TITLE, width: 250},
-        {name: 'gold', label: col_names.GOLD, width: 50},
-        {name: 'xp', label: col_names.XP, width: 50},
-        {name: 'message', label: col_names.MISSION, width: 400},
+        {name: 'title', label: col_names.TITLE},
+        {name: 'gold', label: col_names.GOLD},
+        {name: 'xp', label: col_names.XP},
+        {name: 'message', label: col_names.MISSION, width: 500},
         {name: 'add_task', label: ''}
       ]
     });    
