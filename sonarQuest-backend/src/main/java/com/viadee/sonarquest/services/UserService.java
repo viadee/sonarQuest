@@ -102,23 +102,11 @@ public class UserService implements UserDetailsService {
         } else {
             toBeSaved = findById(user.getId());
             if (toBeSaved != null) {
-                if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
-                    toBeSaved.setUsername(username);
-                }
-                // if there are identical hashes in the pw fields, do not touch them
-                if (!toBeSaved.getPassword().equals(user.getPassword())) {
-                    // change password only if it differs from the old one
-                    final String oldPassHash = toBeSaved.getPassword();
-                    if (!oldPassHash.equals(user.getPassword()) || !encoder.matches(user.getPassword(), oldPassHash)) {
-                        final String password = encoder.encode(user.getPassword());
-                        toBeSaved.setPassword(password);
-                        LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
-                                + ") has been changed.");
-                    }
-                }
                 final Role role = user.getRole();
                 final RoleName roleName = role.getName();
                 final Role userRole = roleService.findByName(roleName);
+                setUsername(toBeSaved, username);
+                setPassword(user, toBeSaved, encoder);
                 toBeSaved.setRole(userRole);
                 toBeSaved.setAboutMe(user.getAboutMe());
                 toBeSaved.setPicture(user.getPicture());
@@ -127,10 +115,35 @@ public class UserService implements UserDetailsService {
                 toBeSaved.setGold(user.getGold());
                 toBeSaved.setXp(user.getXp());
                 toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
+                toBeSaved.setAdventures(user.getAdventures());
+                toBeSaved.setArtefacts(user.getArtefacts());
+                toBeSaved.setAvatarClass(user.getAvatarClass());
+                toBeSaved.setParticipations(user.getParticipations());
+                toBeSaved.setUiDesign(user.getUiDesign());
             }
         }
 
         return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
+    }
+
+    private void setUsername(User toBeSaved, final String username) {
+        if (!username.equals(toBeSaved.getUsername()) && usernameFree(username)) {
+            toBeSaved.setUsername(username);
+        }
+    }
+
+    private void setPassword(final User user, User toBeSaved, final BCryptPasswordEncoder encoder) {
+        // if there are identical hashes in the pw fields, do not touch them
+        if (!toBeSaved.getPassword().equals(user.getPassword())) {
+            // change password only if it differs from the old one
+            final String oldPassHash = toBeSaved.getPassword();
+            if (!oldPassHash.equals(user.getPassword()) || !encoder.matches(user.getPassword(), oldPassHash)) {
+                final String password = encoder.encode(user.getPassword());
+                toBeSaved.setPassword(password);
+                LOGGER.info("The password for user " + user.getUsername() + " (id: " + user.getId()
+                        + ") has been changed.");
+            }
+        }
     }
 
     private boolean usernameFree(final String username) {
