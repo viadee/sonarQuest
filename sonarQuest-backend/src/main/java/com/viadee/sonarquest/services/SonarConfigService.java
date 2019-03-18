@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.services;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,22 @@ public class SonarConfigService {
 
     public SonarConfig saveConfig(final SonarConfig config) {
         final SonarConfig currentConfig = getConfig();
-        return currentConfig == null ? sonarConfigRepository.save(config) : updateCurrentConfig(config, currentConfig);
+        return currentConfig == null ? saveNewConfig(config) : updateCurrentConfig(config, currentConfig);
+    }
+
+    private SonarConfig saveNewConfig(final SonarConfig config) {
+        config.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
+        return sonarConfigRepository.save(config);
+    }
+
+    private String configUrlWithoutSlash(final String url) {
+        return StringUtils.removeEnd(url, "/");
     }
 
     private SonarConfig updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
         currentConfig.setName(config.getName());
-        currentConfig.setSonarServerUrl(config.getSonarServerUrl());
-        return sonarConfigRepository.save(currentConfig);
+        currentConfig.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
+        return saveNewConfig(currentConfig);
     }
 
     public boolean checkSonarQubeURL(final SonarConfig sonarConfig) {
