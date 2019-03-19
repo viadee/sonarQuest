@@ -193,3 +193,41 @@ CREATE TABLE Task (
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+
+CREATE TABLE user_skill (
+	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    description varchar(255),
+    skill_name varchar(255),
+    is_root 	BOOLEAN
+     );
+     
+CREATE TABLE sonar_rule (
+	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    rule_key varchar(255),
+    rule_name varchar(255)
+    );
+   
+CREATE TABLE user_skill_following (
+	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_skill_id				BIGINT NOT NULL,
+	following_user_skill_id		BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
+	FOREIGN KEY (following_user_skill_id) 	REFERENCES User_Skill(id)   
+    );
+    
+/*CREATE TABLE user_skill_previous (
+	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_skill_id				BIGINT NOT NULL,
+	previous_user_skill_id		BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
+	FOREIGN KEY (previous_user_skill_id) 	REFERENCES User_Skill(id)
+    );*/
+    
+CREATE TABLE user_skill_to_sonar_rule (
+    id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_skill_id				BIGINT NOT NULL,
+	sonar_rule_id				BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),
+	FOREIGN KEY (sonar_rule_id) REFERENCES Sonar_Rule(id)
+    );

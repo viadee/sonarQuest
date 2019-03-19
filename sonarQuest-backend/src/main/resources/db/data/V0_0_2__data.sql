@@ -201,3 +201,25 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
   (1, 4),
   (2, 4),
   (3, 1);
+
+INSERT INTO Sonar_Rule(rule_name,rule_key) VALUES ('Servlets should not have mutable instance fields','squid:S2226');
+
+INSERT INTO User_Skill(skill_name,description,is_root) VALUES 
+('IF','IF-Verzweigungen',1),
+('Array','Array',0),
+('Loop','Loop',0);
+
+
+INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES (1,2);
+
+
+
+
+
+
+
+
+
+

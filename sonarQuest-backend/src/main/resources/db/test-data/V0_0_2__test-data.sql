@@ -78,3 +78,5 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
   (1, 4),
   (2, 4),
   (3, 1);
+  
+  
