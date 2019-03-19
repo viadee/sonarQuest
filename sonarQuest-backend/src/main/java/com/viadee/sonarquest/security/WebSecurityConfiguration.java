@@ -77,6 +77,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // .antMatchers(HttpMethod.GET, "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/userskill/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/userskill/**").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/userskill/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/h2-console/**").permitAll()
                 .anyRequest().authenticated();
         if (corsHeaderActive) {
             http.cors();
