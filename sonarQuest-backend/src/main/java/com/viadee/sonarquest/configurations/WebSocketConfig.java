@@ -8,7 +8,6 @@ import org.springframework.web.socket.config.annotation.AbstractWebSocketMessage
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
-
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
@@ -18,8 +17,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 		LOGGER.info("------------------------------------registerStompEndpoints");
         registry.addEndpoint("/socket")
-                .setAllowedOrigins("http://localhost:4200")
-                .withSockJS();
+                //.setAllowedOrigins("http://localhost:4200")
+                .withSockJS()
+                ;
     }
 
     @Override

@@ -15,15 +15,25 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Value("${cors.header.active:false}")
 	private boolean corsHeaderActive;
 
+	/*
 	@Override
 	public void addCorsMappings(final CorsRegistry registry) {
 		if (corsHeaderActive) {
             LOGGER.info("|||||||||||||||||||||||||corsHeaderActive|||||||||||||||||||||");
 			registry.addMapping("/**").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-					.allowedOrigins("http://localhost:4200").allowCredentials(true).maxAge(3600)
-					.allowedHeaders("Accept", "Content-Type", "Origin", "Authorization", "X-Auth-Token")
-					.exposedHeaders("X-Auth-Token", "Authorization");
+					.allowedOrigins("").allowCredentials(true).maxAge(36000)
+					.allowedHeaders("*")
+					.exposedHeaders();
 		}
 	}
-
+	*/
+	
+	@Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        if (corsHeaderActive) {
+            registry.addMapping("http://localhost:4200").allowedOrigins("http://localhost:4200")	
+                    .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+        }
+    }
+	 
 }

@@ -47,11 +47,11 @@ public class ArtefactService {
     public Artefact createArtefact(final Artefact artefact) {
         LOGGER.info("Creating new artefact " + artefact.getName());
         Level minLevel = artefact.getMinLevel();
-        Level existingLevel = levelService.findByLevel(minLevel.getLevel());
+        Level existingLevel = levelService.findByLevel(minLevel.getLevelNumber());
         if (existingLevel != null) {
             artefact.setMinLevel(existingLevel);
         } else {
-            LOGGER.info("Artefact Level " + minLevel.getLevel() + " does not exist yet - creating it...");
+            LOGGER.info("Artefact Level " + minLevel.getLevelNumber() + " does not exist yet - creating it...");
             levelService.createLevel(minLevel);
             artefact.setMinLevel(minLevel);
         }
@@ -71,7 +71,7 @@ public class ArtefactService {
         artefact.setDescription(artefactDto.getDescription());
         artefact.setQuantity(artefactDto.getQuantity());
         artefact.setSkills(artefactDto.getSkills());
-        int minLevel = artefactDto.getMinLevel().getLevel();
+        int minLevel = artefactDto.getMinLevel().getLevelNumber();
         Level newLevel = levelService.findByLevel(minLevel);
         artefact.setMinLevel(newLevel);
         return artefactRepository.save(artefact);
@@ -103,7 +103,7 @@ public class ArtefactService {
         final Level minLevel = artefact.getMinLevel();
         final Level devLevel = user.getLevel();
 
-        if (minLevel.getLevel() > devLevel.getLevel()) {
+        if (minLevel.getLevelNumber() > devLevel.getLevelNumber()) {
             return null;
         }
 

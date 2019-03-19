@@ -84,8 +84,14 @@ public class QuestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Quest createQuest(@RequestBody final Quest questDto) {
-        return questService.createQuest(questDto);
+    public Quest createQuest(final Principal principal, @RequestBody final Quest questDto) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        questDto.setStartdate(new Date(System.currentTimeMillis()));
+        questDto.setStatus(QuestState.OPEN);
+        eventService.createEventForCreateQuest(questDto);
+        questDto.setCreatorName(user.getUsername());
+        return questRepository.save(questDto);
     }
 
     @PutMapping(value = "/{id}")
@@ -98,6 +104,7 @@ public class QuestController {
             quest.setStory(data.getStory());
             quest.setImage(data.getImage());
             quest.setVisible(data.getVisible());
+            quest.setCreatorName(data.getCreatorName());
             quest = questRepository.save(quest);
         }
         return quest;

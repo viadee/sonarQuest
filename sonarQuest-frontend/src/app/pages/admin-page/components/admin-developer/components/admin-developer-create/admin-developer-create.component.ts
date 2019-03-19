@@ -60,7 +60,6 @@ export class AdminDeveloperCreateComponent implements OnInit {
       } else {
         this.nameTaken = false;
       }
-      console.log(this.nameTaken);
       return this.nameTaken ? {'currentName': {nameVal}} : null;
     }
   }

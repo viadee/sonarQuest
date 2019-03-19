@@ -2,14 +2,14 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}" [(ngModel)]="user.username">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="user.aboutMe"></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
       <mat-select [placeholder]="user.role.name" matInput [(ngModel)]="user.role">
@@ -23,9 +23,9 @@
       <img [src]="imageToShow">
     </div>
     <div>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="user.picture">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div>
       <td-data-table #dataTable [data]="userToWorlds" [sortable]="true" [columns]="columns">

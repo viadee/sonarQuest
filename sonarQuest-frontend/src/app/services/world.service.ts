@@ -1,10 +1,8 @@
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subscriber, ReplaySubject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Subscriber} from 'rxjs/Subscriber';
 import {UserService} from './user.service';
 import {User} from '../Interfaces/User';
 import { Subject } from 'rxjs';
@@ -27,7 +25,7 @@ export class WorldService {
     userService.user$.subscribe(user => {
       this.loadWorld()
 
-      if (this.world == null){
+      if (this.world == null && user){
         this.world = user.currentWorld
         this.currentWorldSubject.next(user.currentWorld)
       }

@@ -4,24 +4,24 @@
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="gold">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <input matInput [placeholder]="'DEVELOPER.XP' | translate"  type="number" [(ngModel)]="xp">
-      </mat-input-container>
+      </mat-form-field>
     </div>
     <div flex>
-      <mat-input-container class="full-width">
+      <mat-form-field class="full-width">
         <textarea matInput [placeholder]="'TASK.MISSION' | translate" [(ngModel)]="message"></textarea>
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </div>
 </mat-dialog-content>

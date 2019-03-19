@@ -33,3 +33,30 @@ public class WebSocketController {
 	}
 	
 }
+
+/*
+@CrossOrigin
+@RestController(value = "chatCtrl")
+@RequestMapping("api/v1/chats")
+public class ChatCtrl {
+
+    @Autowired
+    ChatRepo repo;
+
+    @Autowired
+    MessageRepo messageRepo;
+
+    @Autowired
+    private SimpMessagingTemplate template;
+
+    @RequestMapping(value="/{id}/messages", method=RequestMethod.POST)
+    public void processMessage(@PathVariable Long id, @RequestBody Message message){
+        //Process Message
+        System.out.println("Method invoked!");
+        message.setChat(repo.findOne(id));
+        messageRepo.save(message);
+        //Notify clients
+        this.template.convertAndSend("/chat", message);
+    }
+}
+*/

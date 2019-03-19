@@ -48,12 +48,16 @@
         </div>
       </div>    
   </mat-card-content>
+  <mat-card-content>
+    <button (click)="click()" >CLICK1</button>
+    <button (click)="something()" >CLICK2</button>
+  </mat-card-content>
   <mat-card-content class="chat">
     <div>
       <div>
-        <mat-input-container class="full-width">
+        <mat-form-field class="full-width">
           <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off">
-        </mat-input-container>
+        </mat-form-field>
       </div>
     </div>
   </mat-card-content>

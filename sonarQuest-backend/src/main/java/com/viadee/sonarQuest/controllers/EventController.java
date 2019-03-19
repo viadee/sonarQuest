@@ -46,6 +46,16 @@ public class EventController {
     public Event sendChat(final Principal principal, @RequestBody String message) {
     	return eventService.createEventForNewMessage(message, principal);
     }
+	
+	
+	
+    @CrossOrigin
+    @RequestMapping(value = "/something", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public String something(@RequestBody String message) {
+        LOGGER.info("Something()");
+        return "Server";
+    }
     
     
 }

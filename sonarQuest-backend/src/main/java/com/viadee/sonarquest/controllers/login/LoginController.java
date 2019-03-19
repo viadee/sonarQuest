@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.controllers.PathConstants;
 import com.viadee.sonarquest.security.JwtHelper;
+import com.viadee.sonarquest.services.UserService;
 
 @RestController
 @RequestMapping(PathConstants.LOGIN_URL)
@@ -33,6 +34,9 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public String info() {
         return "Dies ist eine Login Seite";
@@ -41,10 +45,11 @@ public class LoginController {
     @PostMapping
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
 
-        String username = credentials.getUsername();
+        final String username = credentials.getUsername();
         LOGGER.info("Log-In request received from user {}", Objects.hashCode(username));
         final User authenticatedUser = authentificateUser(credentials);
         final Token token = createTokenForUser(authenticatedUser);
+        userService.updateLastLogin(authenticatedUser.getUsername());
         LOGGER.info("Log-In request successful for user {}", Objects.hashCode(username));
         return token;
     }
@@ -55,12 +60,12 @@ public class LoginController {
     }
 
     private Authentication authenticate(final UserCredentials credentials) {
-        String username = credentials.getUsername();
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
+        final String username = credentials.getUsername();
+        final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
                 credentials.getPassword());
         try {
             return authenticationManager.authenticate(authToken);
-        } catch (BadCredentialsException ex) {
+        } catch (final BadCredentialsException ex) {
             LOGGER.warn(String.format("Log-In request denied with bad credentials for user %s",
                     Objects.hashCode(username)));
             throw ex;

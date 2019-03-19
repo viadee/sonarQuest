@@ -1,14 +1,21 @@
 package com.viadee.sonarquest.controllers;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.UserToWorldDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.services.UserService;
 import com.viadee.sonarquest.services.WorldService;
@@ -16,6 +23,7 @@ import com.viadee.sonarquest.services.WorldService;
 @RestController
 @RequestMapping("/user_to_world")
 public class UserToWorldController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserToWorldController.class);
 
     @Autowired
     private UserService userService;
@@ -44,5 +52,11 @@ public class UserToWorldController {
             user.setCurrentWorld(null);
         }
         return userService.save(user);
+    }
+
+    @PreAuthorize("hasAuthority('USER_WORLD_ASSIGNMENT')")
+    @PutMapping(value = "/update")
+    public Boolean updateUserToWorld(@RequestBody final List<UserToWorldDto> userToWorlds) {
+    	return userService.updateUserToWorld(userToWorlds);
     }
 }

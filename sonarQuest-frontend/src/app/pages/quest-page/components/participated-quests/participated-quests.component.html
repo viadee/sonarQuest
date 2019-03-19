@@ -34,6 +34,8 @@
   </mat-card-content>
 </mat-card>
 
+
+
 <mat-card *ngIf="currentWorld?.usequestcards">
   <mat-card-content>
     <div align="center" *ngIf="currentWorld?.name">
@@ -41,10 +43,9 @@
         {{"QUEST_PAGE.MY_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
       </h2>
     </div>
-    <mat-grid-list cols="4" rowHeight="2:1" gutterSize="10px">
-      <mat-grid-tile *ngFor="let quest of participatedQuests">
-        <div id="tobecovered">
-          <img src="assets\images\dagger.png" class="cover" />
+        <div *ngFor="let quest of participatedQuests" class="quest-container">
+
+
           <mat-card id="questcard">
             <mat-card-header>
               <img mat-card-avatar [src]="quest.image">
@@ -60,6 +61,8 @@
                 {{"TABLE.COLUMNS.XP" | translate}}: {{quest.xp}}
                 <br />
                 {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
+                <br />
+                {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}                
                 <button mat-icon-button (click)="solveDummy(quest)" [matTooltip]="'SOLVE'"
                   [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
                   SOLVE
@@ -76,6 +79,4 @@
             </mat-card-actions>
           </mat-card>
         </div>
-      </mat-grid-tile>
-    </mat-grid-list>
   </mat-card-content>

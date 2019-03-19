@@ -58,6 +58,16 @@ export class EventService {
       .toPromise()
       .catch(this.handleError);
   }
+
+  something() {
+    console.log("something()")
+    var message = "Sender"
+    this.http.post<string>(`${environment.endpoint}/event/something`, message).subscribe(s => {
+      console.log(s)
+    })
+    
+     
+  }
   
   
 

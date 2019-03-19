@@ -1,12 +1,13 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {Injectable} from '@angular/core';
-import {LocalStorageService} from './local-storage.service';
-import {Token} from './Token';
-import {Router} from '@angular/router';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
+import { Token } from './Token';
+import { Router } from '@angular/router';
+
+
+
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -23,19 +24,28 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request).do((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          // do stuff with response if you want
-        }
-      }, (err: any) => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            console.log('Session timeout');
-            this.router.navigate(['/'], {skipLocationChange: true});
-          }
-        }
-      }
+    return next.handle(request).pipe(tap(
+      event => this.handleResponse(request, event),
+      error => this.handleError(request, error)
+      )
     );
+  }
 
+  handleResponse(req: HttpRequest<any>, event) {
+    //console.log('Handling response for ', req.url, event);
+    if (event instanceof HttpResponse) {
+      //console.log('Request for ', req.url,
+      //  ' Response Status ', event.status,
+      //  ' With body ', event.body);
+    }
+  }
+
+  handleError(req: HttpRequest<any>, event) {
+    if (event.status === 401) {
+      console.log('Session timeout');
+      this.router.navigate(['/'], {skipLocationChange: true});
+    }
   }
 }
+
+

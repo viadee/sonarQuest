@@ -73,7 +73,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, PathConstants.LOGIN_URL).permitAll()
-                .antMatchers(HttpMethod.GET, PathConstants.LOGIN_URL).permitAll()
+                //.antMatchers(HttpMethod.GET, PathConstants.LOGIN_URL).permitAll()
+                /*
                 .antMatchers(HttpMethod.GET, "/socket/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/socket/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/chat/**").permitAll()
@@ -86,11 +87,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/chat").permitAll()
                 .antMatchers(HttpMethod.GET, "/app").permitAll()
                 .antMatchers(HttpMethod.POST, "/app").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET, "/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
-                .anyRequest().authenticated();
+                */
+                //.antMatchers(HttpMethod.OPTIONS).permitAll()
+                //.antMatchers(HttpMethod.GET, "/*").permitAll()
+                //.antMatchers(HttpMethod.POST, "/*").permitAll()
+                //.antMatchers(HttpMethod.GET, "/assets/**").permitAll()
+                //.anyRequest().authenticated()
+                ;
+        
         if (corsHeaderActive) {
             http.cors();
         }
@@ -101,9 +105,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("*"));
-        configuration.setAllowedMethods(ImmutableList.of("HEAD",
-                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:4200"));
+        configuration.setAllowedMethods(ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -1,12 +1,11 @@
 import { User } from './../Interfaces/User';
 import {Adventure} from './../Interfaces/Adventure';
-import {Subject} from 'rxjs/Subject';
+import {Subject, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Quest} from '../Interfaces/Quest';
 import {World} from '../Interfaces/World';
-import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Task} from '../Interfaces/Task';
 import {ParticipationService} from './participation.service';

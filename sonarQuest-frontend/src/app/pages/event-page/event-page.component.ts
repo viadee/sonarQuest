@@ -87,16 +87,48 @@ export class EventPageComponent implements OnInit {
   }
 
   onKeyDown(event) {
-    console.log(event )
     if (event.key === "Enter") {
       this.sendChat();
     }
   }
 
+  click(){
+    console.log('CLICK')
+    this.initializeWebSocketConnection()
+  }
+
+  something(){
+    this.eventService.something()
+  }
+
   initializeWebSocketConnection(){
+    //var sockJsProtocols = ["websocket"];
+    //var sockJsProtocols = ["xhr-streaming", "xhr-polling"];
+    
+    //let wss = new SockJS(this.serverUrl, null, {transports: sockJsProtocols});
+    /*
+    let wsss = new SockJS(this.serverUrl, null, {'Access-Control-Allow-Origin': 'all'});
+    
+    */
     let ws = new SockJS(this.serverUrl);
+    console.log(ws)
+    ws.onopen = function() {
+        console.log('open');
+        ws.send('test');
+    };
+  
+    ws.onmessage = function(e) {
+        console.log('message', e.data);
+        ws.close();
+    };
+  
+    ws.onclose = function() {
+        console.log('close');
+    };
     this.stompClient = Stomp.Stomp.over(ws);
     let that = this;
+  
+ /* 
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe("/chat", (message) => {
         alert(message.body)
@@ -105,9 +137,10 @@ export class EventPageComponent implements OnInit {
           $(".chat").append("<div class='message'>"+message.body+"</div>")
           console.log(message.body);
         }
-        */
+        /
       });
     });
+    */
   }
 
   sendMessage(message){

@@ -1,6 +1,5 @@
 package com.viadee.sonarquest.services;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -113,12 +112,5 @@ public class QuestService implements QuestSuggestion {
         result.add(freeQuests);
         return result;
     }
-
-	public Quest createQuest(Quest questDto) {
-		questDto.setStartdate(new Date(System.currentTimeMillis()));
-        questDto.setStatus(QuestState.OPEN);
-        eventService.createEventForCreateQuest(questDto);
-        return questRepository.save(questDto);
-	}
 
 }

@@ -42,9 +42,8 @@
         {{"QUEST_PAGE.AVAILABLE_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
       </h2>
     </div>
-    <mat-grid-list cols="4" rowHeight="2:1">
-      <mat-grid-tile *ngFor="let quest of availableQuests">
-        <mat-card id="questcard">
+    <div *ngFor="let quest of availableQuests" class="quest-container">
+      <mat-card id="questcard">
           <mat-card-header>
             <img mat-card-avatar [src]="quest.image">
             <mat-card-title>
@@ -59,6 +58,8 @@
               {{"TABLE.COLUMNS.XP" | translate}}: {{quest.xp}}
               <br />
               {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
+              <br />
+              {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}     
             </div>
             
           </mat-card-content>
@@ -75,7 +76,6 @@
             </div>
           </mat-card-actions>
         </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
   </mat-card-content>
 </mat-card>
