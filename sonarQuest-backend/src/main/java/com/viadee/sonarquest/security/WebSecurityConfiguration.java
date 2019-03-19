@@ -73,28 +73,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, PathConstants.LOGIN_URL).permitAll()
-                //.antMatchers(HttpMethod.GET, PathConstants.LOGIN_URL).permitAll()
-                /*
-                .antMatchers(HttpMethod.GET, "/socket/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/socket/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/chat/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/chat/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/app/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/app/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/socket").permitAll()
-                .antMatchers(HttpMethod.POST, "/socket").permitAll()
-                .antMatchers(HttpMethod.GET, "/chat").permitAll()
-                .antMatchers(HttpMethod.POST, "/chat").permitAll()
-                .antMatchers(HttpMethod.GET, "/app").permitAll()
-                .antMatchers(HttpMethod.POST, "/app").permitAll()
-                */
-                //.antMatchers(HttpMethod.OPTIONS).permitAll()
-                //.antMatchers(HttpMethod.GET, "/*").permitAll()
-                //.antMatchers(HttpMethod.POST, "/*").permitAll()
-                //.antMatchers(HttpMethod.GET, "/assets/**").permitAll()
-                //.anyRequest().authenticated()
-                ;
-        
+
+                .antMatchers("/socket/**").permitAll()
+                .antMatchers("/socket").permitAll()
+                .antMatchers("/app").permitAll()
+                .antMatchers("/app/**").permitAll()
+                .antMatchers("/chat/**").permitAll()
+                .antMatchers("/chat").permitAll()
+
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.GET, "/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
+                .anyRequest().authenticated();
+
         if (corsHeaderActive) {
             http.cors();
         }

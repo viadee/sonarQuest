@@ -13,50 +13,21 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
 public class WebSocketController {
-	protected static final Log LOGGER = LogFactory.getLog(WebSocketController.class);
-	
-	private final SimpMessagingTemplate template;
-	
-	@Autowired
-	WebSocketController(SimpMessagingTemplate template){
-		this.template = template;
-	}
-	
-	
-	
+
+    protected static final Log LOGGER = LogFactory.getLog(WebSocketController.class);
+
+    private final SimpMessagingTemplate template;
+
+    @Autowired
+    WebSocketController(final SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
     @CrossOrigin
     @MessageMapping("/send/message")
-	public void onReceivedMessage(String message) {
-		LOGGER.info("----------------------------------------------------------onReceivedMessage(String message)");
-		this.template.convertAndSend("/chat", new SimpleDateFormat("HH:mm:ss").format(new Date())+"- "+message);
-	}
-	
-}
-
-/*
-@CrossOrigin
-@RestController(value = "chatCtrl")
-@RequestMapping("api/v1/chats")
-public class ChatCtrl {
-
-    @Autowired
-    ChatRepo repo;
-
-    @Autowired
-    MessageRepo messageRepo;
-
-    @Autowired
-    private SimpMessagingTemplate template;
-
-    @RequestMapping(value="/{id}/messages", method=RequestMethod.POST)
-    public void processMessage(@PathVariable Long id, @RequestBody Message message){
-        //Process Message
-        System.out.println("Method invoked!");
-        message.setChat(repo.findOne(id));
-        messageRepo.save(message);
-        //Notify clients
-        this.template.convertAndSend("/chat", message);
+    public void onReceivedMessage(final String message) {
+        LOGGER.info("----------------------------------------------------------onReceivedMessage(String message)");
+        this.template.convertAndSend("/chat", new SimpleDateFormat("HH:mm:ss").format(new Date()) + "- " + message);
     }
+
 }
-*/

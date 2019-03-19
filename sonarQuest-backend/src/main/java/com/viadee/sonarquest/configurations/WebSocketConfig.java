@@ -10,25 +10,23 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
-	protected static final Log LOGGER = LogFactory.getLog(WebSocketConfig.class);
+public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
-	@Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-		LOGGER.info("------------------------------------registerStompEndpoints");
-        registry.addEndpoint("/socket")
-                //.setAllowedOrigins("http://localhost:4200")
-                .withSockJS()
-                ;
+    protected static final Log LOGGER = LogFactory.getLog(WebSocketConfig.class);
+
+    @Override
+    public void configureMessageBroker(final MessageBrokerRegistry registry) {
+        LOGGER.info("------------------------------------configureMessageBroker");
+        registry.enableSimpleBroker("/chat");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-		LOGGER.info("------------------------------------configureMessageBroker");
-        registry.setApplicationDestinationPrefixes("/app")
-                .enableSimpleBroker("/chat");
-       
+    public void registerStompEndpoints(final StompEndpointRegistry registry) {
+        LOGGER.info("------------------------------------registerStompEndpoints");
+        registry.addEndpoint("/socket")
+                .setAllowedOrigins("http://localhost:4200")
+                .withSockJS();
     }
-    
-    
+
 }
