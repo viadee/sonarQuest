@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public marketplaceUrl = RoutingUrls.marketplace;
   public gamemasterUrl = RoutingUrls.gamemaster;
   public adminUrl = RoutingUrls.admin;
+  public skillTreeUrl = RoutingUrls.skilltree;
 
   public isWorldSelectVisible: boolean;
   public isMyAvatarVisible: boolean;
@@ -42,6 +43,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public isMarketplaceVisible: boolean;
   public isGamemasterVisible: boolean;
   public isAdminVisible: boolean;
+
+  public isSkillTreeVisible: boolean;
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -104,6 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isMarketplaceVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.marketplace);
     this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
     this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
+    this.isSkillTreeVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.skilltree);
   }
 
   private loadWorlds() {
@@ -168,6 +172,8 @@ export class AppComponent implements OnInit, AfterViewInit {
           return this.pageNames.GAMEMASTER;
         case '/admin':
           return this.pageNames.ADMIN;
+        case '/skilltree':
+            return this.pageNames.SKILLTREE;
         default:
           return '';
       }

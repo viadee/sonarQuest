@@ -10,7 +10,8 @@
     "LOGIN": "Anmelden",
     "LOGOUT": "Abmelden",
     "BACKGROUND": "Schalte Hintergrund-Transparenz um",
-    "USER_PROFILE": "Öffne Benutzerprofil"
+    "USER_PROFILE": "Öffne Benutzerprofil",
+    "SKILL_TREE":"Skill-Tree"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",

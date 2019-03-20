@@ -86,6 +86,7 @@ import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
 import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
+import { SkillTreePageComponent } from './pages/skill-tree-page/skill-tree-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -140,6 +141,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     EmptyPageComponent,
     LoadingComponent,
+    SkillTreePageComponent,
   ],
   entryComponents: [
     EditWorldComponent,

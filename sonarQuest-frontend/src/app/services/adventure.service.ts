@@ -68,7 +68,7 @@ export class AdventureService {
     return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/solveAdventure`, adventure)
       .toPromise()
       .catch(this.handleError);
-  }  
+  }
 
   updateAdventure(adventure: Adventure): Promise<any> {
     return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}`, adventure)

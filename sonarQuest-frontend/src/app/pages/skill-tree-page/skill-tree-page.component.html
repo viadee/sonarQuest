@@ -1,0 +1,20 @@
+<div class="background">
+    <mat-card>
+        <mat-card-content>
+            <div *ngFor="let userskill of userskills">
+
+                <div style="border-radius: 50%; width: 50px; background-color: blue; color:white">
+                    {{userskill.name}}
+
+                </div>
+                <p> </p>
+                <li *ngFor="let following of userskill.followingUserSkills">
+                    {{following.name+' '+following.id}}
+
+                </li>
+
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

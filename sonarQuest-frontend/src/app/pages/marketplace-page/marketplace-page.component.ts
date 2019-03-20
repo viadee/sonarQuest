@@ -23,7 +23,7 @@ export class MarketplacePageComponent implements OnInit {
 
   artefacts: Artefact[];
   my_artefacts_id: number[] = [];
-  public level: number;  
+  public level: number;
   public gold: number;
 
   columns: ITdDataTableColumn[] = [
@@ -34,7 +34,7 @@ export class MarketplacePageComponent implements OnInit {
     {name: 'minLevel.levelNumber', label: 'min. Level'},
     {name: 'buy', label: ''}
   ];
- 
+
   filteredData: any[];
   filteredTotal: number;
   searchTerm = '';

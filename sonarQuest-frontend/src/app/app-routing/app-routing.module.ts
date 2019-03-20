@@ -10,6 +10,7 @@ import {GamemasterPageComponent} from '../pages/gamemaster-page/gamemaster-page.
 import {AuthenticationGuard} from '../login/authentication.guard';
 import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
+import {SkillTreePageComponent} from './../pages/skill-tree-page/skill-tree-page.component';
 
 
 const appRoutes: Routes = [
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   {path: RoutingUrls.marketplace, component: MarketplacePageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.gamemaster, component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.admin, component: AdminPageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.skilltree, component: SkillTreePageComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({
