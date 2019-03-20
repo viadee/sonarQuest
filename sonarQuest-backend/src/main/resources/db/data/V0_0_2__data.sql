@@ -162,7 +162,8 @@ INSERT INTO Permission (id, type, permission) VALUES
  (8, 'ACCESS', 'FULL_USER_ACCESS'),
  (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
  (10, 'ACCESS', 'USER_WORLD_ASSIGNMENT'),
- (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS');
+ (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
+ (12,'URL', 'skilltree');
  
 INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
  (1,1),
@@ -175,6 +176,7 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (2,3),
  (2,4),
  (2,5),
+ (2,12),
  (3,1),
  (3,2),
  (3,7),
@@ -212,7 +214,7 @@ INSERT INTO User_Skill(skill_name,description,is_root) VALUES
 
 INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
 
-INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES (1,2);
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES (1,2),(2,3);
 
 
 
