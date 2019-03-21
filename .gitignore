@@ -51,6 +51,7 @@ nbdist/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+sonarQuest-frontend/\.vscode/
 
 # misc
 /sonarQuest-frontend/.sass-cache
@@ -78,3 +79,5 @@ Thumbs.db
 *.class
 
 .metadata
+
+
