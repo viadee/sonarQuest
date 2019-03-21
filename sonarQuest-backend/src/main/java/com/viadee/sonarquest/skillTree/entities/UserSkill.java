@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,6 +46,10 @@ public class UserSkill {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "User_Skill_TO_Sonar_Rule", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sonar_rule_id", referencedColumnName = "id"))
     private List<SonarRule> sonarRules = new ArrayList<SonarRule>(0);
+    
+    @ManyToOne()
+    @JoinColumn(name = "user_skill_group_id")
+    private UserSkillGroup userSkillGroup;
 
     public UserSkill() {
 
@@ -137,6 +142,16 @@ public class UserSkill {
     
     public void setRoot(boolean isRoot) {
         this.isRoot = isRoot;
+    }
+
+    
+    public UserSkillGroup getUserSkillGroup() {
+        return userSkillGroup;
+    }
+
+    
+    public void setUserSkillGroup(UserSkillGroup userSkillGroup) {
+        this.userSkillGroup = userSkillGroup;
     }
 
 }

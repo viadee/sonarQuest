@@ -1,10 +1,13 @@
 import { SonarRule } from './SonarRule';
+import { UserSkillGroup } from './UserSkillGroup';
 
 export interface UserSkill {
-  id: number,
-  name: string,
-  description: string,
-  isRoot: boolean,
-  followingUserSkills: UserSkill[],
-  sonarRules: SonarRule[]
+    id?: number,
+    name: string,
+    description?: string,
+    isRoot?: boolean,
+    followingUserSkills: UserSkill[],
+    sonarRules?: SonarRule[],
+    userSkillGroup?: UserSkillGroup,
+    root?: boolean;
 }

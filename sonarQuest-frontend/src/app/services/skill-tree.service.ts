@@ -14,7 +14,7 @@ export class SkillTreeService {
     constructor(public http: HttpClient) { }
 
     getUserSkills(): Observable<UserSkill[]> {
-    this.http.get<UserSkill[]>(`${environment.endpoint}/userskill/`)
+    this.http.get<UserSkill[]>(`${environment.endpoint}/userskill/roots/`)
       .subscribe(
         result => this.userSkillsSubject.next(result),
         err => this.userSkillsSubject.error(err)

@@ -1,4 +1,6 @@
-package com.viadee.sonarquest.skillTree;
+package com.viadee.sonarquest.skillTree.services;
+
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -27,7 +29,7 @@ public class UserSkillService {
     private UserSkill findById(final Long id) {
         return userSkillRepositroy.findOne(id);
     }
-    
+        
     
     @Transactional
     public UserSkill createUserSkill(final UserSkill userSkill) {
@@ -49,5 +51,6 @@ public class UserSkillService {
         
         return false;
     }
+    
       
 }

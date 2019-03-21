@@ -1,238 +1,241 @@
 {
-  "APP_COMPONENT": {
-    "STARTPAGE": "Startpage",
-    "MY_AVATAR": "My Avatar",
-    "ADVENTURES": "Adventures",
-    "QUESTS": "Quests",
-    "MARKETPLACE": "Marketplace",
-    "GAMEMASTER": "Gamemaster",
-    "ADMIN": "Admin",
-    "LOGIN": "Login",
-    "LOGOUT": "Logout",
-    "BACKGROUND": "Switch transparency of background",
-    "USER_PROFILE": "Open user profile",
-    "SKILL_TREE":"Skill-Tree"
-  },
-  "ADVENTURE_PAGE": {
-    "MY_ADVENTURES": "My Adventures",
-	"JOIN_ADVENTURE": "Join this adventure!",
-	"LEAVE_ADVENTURE": "Leave this adventure...",
-    "MY_ADVENTURES_FOR_WORLD": "My Adventures for ",
-    "ADVENTURES_FOR_WORLD": "All Adventures for ",
-    "AVAILABLE_ADVENTURES": "Available Adventures",
-    "AVAILABLE_ADVENTURES_FOR_WORLD": "Available Adventures for "
-  },
-  "QUEST_PAGE": {
-    "MY_QUESTS": "My Quests",
-	"SHOW_QUEST": "Show Quest",
-    "MY_QUESTS_FOR_WORLD": "My Quests for ",
-    "QUESTS_FOR_WORLD": "All Quests for ",
-    "JOIN_QUEST": "Join Quest",
-    "AVAILABLE_QUESTS": "Available Quests",
-    "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
-    "COMBATED_BY": "combated by",
-    "SHOW_ISSUE_TOOLTIP":"Show SonarQube issue",
-    "JOIN_ISSUE_TOOLTIP":"Fight",
-    "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
-  },
-  "MARKETPLACE_PAGE": {
-    "MARKETPLACE": "Marketplace",
-    "ALREADY_OWNED_ITEM": "Already mine!",
-    "BUY_ITEM_COMPULSORY": "One click buy now!",
-    "SHOW_ITEM": "Show artefact details"
-  },
-  "ARTEFACT_VIEW_PAGE": {
-  	"TITLE": "Artefact description"
-  },  
-  "ADMIN_PAGE": {
-    "ALL_DEVELOPER": "All Developer",
-    "CREATE_DEVELOPER": "Create Developer",
-    "EDIT_DEVELOPER": "Edit Developer",
-    "DELETE_DEVELOPER": "Are you sure to delete?",
-    "SONAR_CUBE_HEADER": "SonarQube",
-    "SELECT_BACKGROUND": "Select Background"
-  },
-  "START_PAGE": {
-    "CURRENT_PROGRESS": "Current Progress",
-    "PLEASE_LOG_IN": "Feel free to log in"
-  },
-  "GAMEMASTER_PAGE": {
-    "ADVENTURE": {
-      "CREATE_ADVENTURE": "Create adventure",
-      "EDIT_ADVENTURE": "Edit adventure"
+    "APP_COMPONENT": {
+        "STARTPAGE": "Startpage",
+        "MY_AVATAR": "My Avatar",
+        "ADVENTURES": "Adventures",
+        "QUESTS": "Quests",
+        "MARKETPLACE": "Marketplace",
+        "GAMEMASTER": "Gamemaster",
+        "ADMIN": "Admin",
+        "LOGIN": "Login",
+        "LOGOUT": "Logout",
+        "BACKGROUND": "Switch transparency of background",
+        "USER_PROFILE": "Open user profile",
+        "SKILL_TREE": "Skill-Tree"
+    },
+    "ADVENTURE_PAGE": {
+        "MY_ADVENTURES": "My Adventures",
+        "JOIN_ADVENTURE": "Join this adventure!",
+        "LEAVE_ADVENTURE": "Leave this adventure...",
+        "MY_ADVENTURES_FOR_WORLD": "My Adventures for ",
+        "ADVENTURES_FOR_WORLD": "All Adventures for ",
+        "AVAILABLE_ADVENTURES": "Available Adventures",
+        "AVAILABLE_ADVENTURES_FOR_WORLD": "Available Adventures for "
+    },
+    "QUEST_PAGE": {
+        "MY_QUESTS": "My Quests",
+        "SHOW_QUEST": "Show Quest",
+        "MY_QUESTS_FOR_WORLD": "My Quests for ",
+        "QUESTS_FOR_WORLD": "All Quests for ",
+        "JOIN_QUEST": "Join Quest",
+        "AVAILABLE_QUESTS": "Available Quests",
+        "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
+        "COMBATED_BY": "combated by",
+        "SHOW_ISSUE_TOOLTIP": "Show SonarQube issue",
+        "JOIN_ISSUE_TOOLTIP": "Fight",
+        "CANCEL_ISSUE_TOOLTIP": "Stop fighting"
+    },
+    "MARKETPLACE_PAGE": {
+        "MARKETPLACE": "Marketplace",
+        "ALREADY_OWNED_ITEM": "Already mine!",
+        "BUY_ITEM_COMPULSORY": "One click buy now!",
+        "SHOW_ITEM": "Show artefact details"
+    },
+    "ARTEFACT_VIEW_PAGE": {
+        "TITLE": "Artefact description"
+    },
+    "ADMIN_PAGE": {
+        "ALL_DEVELOPER": "All Developer",
+        "CREATE_DEVELOPER": "Create Developer",
+        "EDIT_DEVELOPER": "Edit Developer",
+        "DELETE_DEVELOPER": "Are you sure to delete?",
+        "SONAR_CUBE_HEADER": "SonarQube",
+        "SELECT_BACKGROUND": "Select Background"
+    },
+    "START_PAGE": {
+        "CURRENT_PROGRESS": "Current Progress",
+        "PLEASE_LOG_IN": "Feel free to log in"
+    },
+    "GAMEMASTER_PAGE": {
+        "ADVENTURE": {
+            "CREATE_ADVENTURE": "Create adventure",
+            "EDIT_ADVENTURE": "Edit adventure"
+        },
+        "QUEST": {
+            "SUGGEST_TASKS": "Suggest tasks",
+            "GENERATE": "Generate",
+            "CREATE_QUEST": "Create quest",
+            "EDIT_QUEST": "Edit quest",
+            "EDIT_SOLVED_QUEST": "This quest is solved. You cannot edit it anymore."
+        },
+        "TASK": {
+            "CREATE_SPECIALTASK": "Create Special Task",
+            "CREATE_STANDARDTASK": "Create Standard Task",
+            "EDIT_SPECIALTASK": "Edit Special Task",
+            "EDIT_STANDARDTASK": "Edit Standard Task",
+            "CONDITION": "Condition",
+            "AMOUNT": "Amount",
+            "ADD_FREE_TOOLTIP": "Add free task",
+            "SUGGEST_TASKS_TOOLTIP": "Suggest random tasks",
+            "SOLVE_TASK_TOOLTIP": "Change status to 'closed'",
+            "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Remove task from quest"
+        }
+    },
+    "TABLE": {
+        "COLUMNS": {
+            "TITLE": "Title",
+            "GOLD": "Gold",
+            "XP": "XP",
+            "LEVEL": "Level",
+            "ADVENTURE": "Adventure",
+            "STORY": "Story",
+            "STATUS": "Status",
+            "ID": "Id",
+            "NAME": "Name",
+            "PROJECT": "Project",
+            "QUEST": "Quest",
+            "TYPE": "Type",
+            "SEVERITY": "Severity",
+            "WORLD": "World",
+            "ACTIVE_WORLD": "Last active world",
+            "ACTIVE": "Active",
+            "UPDATE_TASKS": "Update Tasks",
+            "MISSION": "Mission",
+            "ABOUT_ME": "About Me",
+            "USERNAME": "Username",
+            "JOINED": "Joined",
+            "PLAYERS": "Players",
+            "ROLE": "Role",
+            "VISIBLE": "Visible",
+            "USE_QUEST_CARDS": "Questcards",
+            "LAST_LOGIN": "Last Login",
+            "CREATORNAME": "By"
+        },
+        "INFO": {
+            "NO_ENTRIES": "no entries",
+            "OF": "of",
+            "ENTRIES_OF_THIS_PAGE": "Entries of this page:"
+        }
+    },
+    "GLOBAL": {
+        "CANCEL": "Cancel",
+        "CREATE": "Create",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "NO_ENTRIES": "no entries",
+        "SEARCH": "Search",
+        "SAVE": "Save",
+        "SOLVEALLTASKS": "Solve all tasks",
+        "IMAGE": "Image",
+        "FILENAME_IMAGE": "Filename image",
+        "CLICK_TO_SELECT": "clickt to select",
+        "GOLD": "Gold",
+        "XP": "XP",
+        "CLOSE": "Close",
+        "CONFIRMATION_MESSAGE": "Really delete this?"
+    },
+    "DEVELOPER": {
+        "DEVELOPER": "Developer",
+        "GOLD": "Gold",
+        "XP": "XP",
+        "LEVEL": "Level",
+        "ABOUTME": "About me",
+        "AVATARRACE": "Race",
+        "AVATARCLASS": "Class",
+        "TROPHIES": "Trophies",
+        "TOOLTIP_EDIT": "Edit personal settings"
     },
     "QUEST": {
-      "SUGGEST_TASKS": "Suggest tasks",
-      "GENERATE": "Generate",
-      "CREATE_QUEST": "Create quest",
-      "EDIT_QUEST": "Edit quest",
-      "EDIT_SOLVED_QUEST": "This quest is solved. You cannot edit it anymore."
+        "QUEST": "Quest",
+        "QUESTS": "Quests",
+        "NEW_QUEST": "New Quest",
+        "ADD_FREE_QUEST": "Add free quest",
+        "NO_FREE_QUESTS_AVAILABLE": "No free quests available",
+        "VISIBLE": "Visible",
+        "TOOLTIP_VISIBLE": "Make this quest visible to the players?"
+    },
+    "ADVENTURE": {
+        "ADVENTURE": "Adventure",
+        "ADVENTURES": "Adventures",
+        "NEW_ADVENTURE": "New Adventure",
+        "SOLVEADVENTURE": "Solve Adventure"
+    },
+    "WORLD": {
+        "WORLD": "World",
+        "WORLDS": "Worlds",
+        "ACTIVE": "Active",
+        "CHOOSE_WORLD": "Choose your current world",
+        "UPDATE_WORLDS": "Update Worlds",
+        "USE_QUEST_CARDS": "Use Questcard UI?",
+        "TOOLTIP_USE_QUEST_CARDS": "When checked, the players will see their quests in a matrix with cards instead of a table",
+        "TOOLTIP_ACTIVE": "When checked this world is selectable for playing"
     },
     "TASK": {
-      "CREATE_SPECIALTASK": "Create Special Task",
-      "CREATE_STANDARDTASK": "Create Standard Task",
-      "EDIT_SPECIALTASK": "Edit Special Task",
-      "EDIT_STANDARDTASK": "Edit Standard Task",
-      "CONDITION": "Condition",
-      "AMOUNT": "Amount",
-      "ADD_FREE_TOOLTIP": "Add free task",
-      "SUGGEST_TASKS_TOOLTIP": "Suggest random tasks",
-      "SOLVE_TASK_TOOLTIP": "Change status to 'closed'",
-      "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Remove task from quest"
-    }
-  },
-  "TABLE": {
-    "COLUMNS": {
-      "TITLE": "Title",
-      "GOLD": "Gold",
-      "XP": "XP",
-      "LEVEL": "Level",
-      "ADVENTURE": "Adventure",
-      "STORY": "Story",
-      "STATUS": "Status",
-      "ID": "Id",
-      "NAME": "Name",
-      "PROJECT": "Project",
-      "QUEST": "Quest",
-      "TYPE": "Type",
-      "SEVERITY": "Severity",
-      "WORLD": "World",
-      "ACTIVE_WORLD": "Last active world",
-      "ACTIVE": "Active",
-      "UPDATE_TASKS": "Update Tasks",
-      "MISSION": "Mission",
-      "ABOUT_ME": "About Me",
-      "USERNAME": "Username",
-      "JOINED": "Joined",
-      "PLAYERS": "Players",
-      "ROLE": "Role",
-      "VISIBLE": "Visible",
-      "USE_QUEST_CARDS": "Questcards",
-      "LAST_LOGIN": "Last Login",
-      "CREATORNAME": "By"
+        "TASK": "Task",
+        "TASKS": "Tasks",
+        "SPECIALTASK": "Special Task",
+        "STANDARDTASK": "Standard Task",
+        "NEW_SPECIALTASK": "New Special Task",
+        "NEW_STANDARDTASK": "New Standard Task",
+        "ADD_FREE_TASK": "Add free task",
+        "NO_FREE_TASKS_AVAILABLE": "No free tasks available",
+        "SPECIALTASK_FOR_WORLD": "All Special Tasks for ",
+        "STANDARDTASK_FOR_WORLD": "All Standard Tasks for ",
+        "AVAILABLE_TASKS": "Available Tasks",
+        "MISSION": "Mission",
+        "UPDATE_STANDARD_TASKS_STATUS": "Update Status with SonarQube",
+        "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Updating issues from SonarQube is not possible since no world has been set!",
+        "FREE_STANDARDTASKS": "Standard Tasks",
+        "FREE_SPECIALTASKS": "Special Tasks"
     },
-    "INFO": {
-      "NO_ENTRIES": "no entries",
-      "OF": "of",
-      "ENTRIES_OF_THIS_PAGE": "Entries of this page:"
+    "ARTEFACT": {
+        "ARTEFACTS": "Artefacts",
+        "NEW_ARTEFACT": "New Artefact",
+        "CREATE_ARTEFACT": "Create Artefact",
+        "EDIT_ARTEFACT": "Edit Artefact",
+        "SELECT_ICON": "Select icon",
+        "CLICK_TO_SELECT": "Click to select",
+        "PRICE": "Price",
+        "MIN_LEVEL": "Level req.",
+        "QUANTITY": "Available",
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "SKILLS": "Powers"
+    },
+    "SKILL": {
+        "MORE_GOLD": "More Gold",
+        "MORE_XP": "More XP",
+        "CREATE_SKILL": "Create Power",
+        "ADD_SKILL": "Add Power",
+        "SKILLS": "Powers",
+        "NEW_SKILL": "New Power",
+        "TYPE": "Type",
+        "VALUE": "Amount",
+        "NAME": "Name"
+    },
+    "LOGIN": {
+        "LOGIN": "Login",
+        "USERNAME": "Username",
+        "PASSWORD": "Password"
+    },
+    "WIZARD": {
+        "WIZARD_SAYS": "The wizard thinks...",
+        "MSG_NO_WORLDS_FOUND": "No game world found",
+        "HINT_NO_WORLDS_FOUND": "To download SonarQube-Projects as worlds, the admin clicks the button 'Update worlds' in the worlds tab.",
+        "MSG_NO_ACTIVE_WORLD": "No active world found",
+        "HINT_NO_ACTIVE_WORLD": "To activate a world, the admin hits the worlds tab and edits a world and sets 'active' to play it!",
+        "MSG_NO_PLAYERS_ASSIGNED": "No players have been assigned to the active world yet",
+        "HINT_NO_PLAYERS_ASSIGNED": "To activate a player the admin hits the developers tab, selects a player and clicks 'active' at the chosen world!",
+        "MSG_NO_GAMEMASTER_ASSIGNED": "The current world is missing a gamemaster who will be creating the quests",
+        "HINT_NO_GAMEMASTER_ASSIGNED": "The admin hits the tab 'developers' and sets a player with the role 'gamemaster' as active for the world!",
+        "MSG_NO_TASKS_FOUND": "No tasks/issues from SonarQube have been retrieved yet",
+        "HINT_NO_TASKS_FOUND": "The gamemaster must hit the tab 'Tasks' and use the button 'Update Status' to connect to SonarQube and get the issues!",
+        "MSG_NO_QUESTS_FOUND": "No quests found",
+        "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
+        "MSG_NO_WORLD_SELECTED": "No active world selected",
+        "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
+    },
+    "SKILL_TREE_PAGE": {
+        "SKILL_TREE": "Skill-Tree"
     }
-  },
-  "GLOBAL": {
-    "CANCEL": "Cancel",
-    "CREATE": "Create",
-    "EDIT": "Edit",
-    "DELETE": "Delete",
-    "NO_ENTRIES": "no entries",
-    "SEARCH": "Search",
-    "SAVE": "Save",
-    "SOLVEALLTASKS" : "Solve all tasks",
-    "IMAGE": "Image",
-    "FILENAME_IMAGE": "Filename image",
-    "CLICK_TO_SELECT": "clickt to select",
-    "GOLD": "Gold",
-    "XP": "XP",
-    "CLOSE": "Close",
-    "CONFIRMATION_MESSAGE": "Really delete this?"
-  },
-  "DEVELOPER": {
-    "DEVELOPER": "Developer",
-    "GOLD": "Gold",
-    "XP": "XP",
-    "LEVEL": "Level",
-    "ABOUTME": "About me",
-    "AVATARRACE": "Race",
-    "AVATARCLASS": "Class",
-    "TROPHIES": "Trophies",
-    "TOOLTIP_EDIT": "Edit personal settings"
-  },
-  "QUEST": {
-    "QUEST": "Quest",
-    "QUESTS": "Quests",
-    "NEW_QUEST": "New Quest",
-    "ADD_FREE_QUEST": "Add free quest",
-    "NO_FREE_QUESTS_AVAILABLE": "No free quests available",
-    "VISIBLE": "Visible",
-    "TOOLTIP_VISIBLE": "Make this quest visible to the players?"
-  },
-  "ADVENTURE": {
-    "ADVENTURE": "Adventure",
-    "ADVENTURES": "Adventures",
-    "NEW_ADVENTURE": "New Adventure",
-    "SOLVEADVENTURE": "Solve Adventure"
-  },
-  "WORLD": {
-    "WORLD": "World",
-    "WORLDS": "Worlds",
-    "ACTIVE": "Active",
-    "CHOOSE_WORLD": "Choose your current world",
-    "UPDATE_WORLDS": "Update Worlds",
-    "USE_QUEST_CARDS": "Use Questcard UI?",
-    "TOOLTIP_USE_QUEST_CARDS": "When checked, the players will see their quests in a matrix with cards instead of a table",
-    "TOOLTIP_ACTIVE": "When checked this world is selectable for playing"
-  },
-  "TASK": {
-    "TASK": "Task",
-    "TASKS": "Tasks",
-    "SPECIALTASK": "Special Task",
-    "STANDARDTASK": "Standard Task",
-    "NEW_SPECIALTASK": "New Special Task",
-    "NEW_STANDARDTASK": "New Standard Task",
-    "ADD_FREE_TASK": "Add free task",
-    "NO_FREE_TASKS_AVAILABLE": "No free tasks available",
-    "SPECIALTASK_FOR_WORLD": "All Special Tasks for ",
-    "STANDARDTASK_FOR_WORLD": "All Standard Tasks for ",
-    "AVAILABLE_TASKS": "Available Tasks",
-    "MISSION": "Mission",
-    "UPDATE_STANDARD_TASKS_STATUS": "Update Status with SonarQube",
-    "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Updating issues from SonarQube is not possible since no world has been set!",
-    "FREE_STANDARDTASKS": "Standard Tasks",
-    "FREE_SPECIALTASKS": "Special Tasks"
-  },
-  "ARTEFACT": {
-    "ARTEFACTS": "Artefacts",
-    "NEW_ARTEFACT": "New Artefact",
-    "CREATE_ARTEFACT": "Create Artefact",
-    "EDIT_ARTEFACT": "Edit Artefact",
-    "SELECT_ICON": "Select icon",
-    "CLICK_TO_SELECT": "Click to select",
-    "PRICE": "Price",
-    "MIN_LEVEL": "Level req.",
-    "QUANTITY": "Available",
-    "NAME": "Name",
-    "DESCRIPTION": "Description",
-    "SKILLS": "Powers"    
-  },
-  "SKILL": {
-    "MORE_GOLD": "More Gold",
-    "MORE_XP": "More XP",
-    "CREATE_SKILL": "Create Power",
-    "ADD_SKILL": "Add Power",
-    "SKILLS": "Powers",
-    "NEW_SKILL": "New Power",
-    "TYPE": "Type",
-    "VALUE": "Amount",
-    "NAME": "Name"    
-  },
-  "LOGIN": {
-    "LOGIN": "Login",
-    "USERNAME": "Username",
-    "PASSWORD": "Password"
-  },
-  "WIZARD": {
-    "WIZARD_SAYS": "The wizard thinks...",
-    "MSG_NO_WORLDS_FOUND": "No game world found",
-    "HINT_NO_WORLDS_FOUND": "To download SonarQube-Projects as worlds, the admin clicks the button 'Update worlds' in the worlds tab.",
-    "MSG_NO_ACTIVE_WORLD": "No active world found",
-    "HINT_NO_ACTIVE_WORLD": "To activate a world, the admin hits the worlds tab and edits a world and sets 'active' to play it!",
-    "MSG_NO_PLAYERS_ASSIGNED": "No players have been assigned to the active world yet",
-    "HINT_NO_PLAYERS_ASSIGNED": "To activate a player the admin hits the developers tab, selects a player and clicks 'active' at the chosen world!",
-    "MSG_NO_GAMEMASTER_ASSIGNED": "The current world is missing a gamemaster who will be creating the quests",
-    "HINT_NO_GAMEMASTER_ASSIGNED": "The admin hits the tab 'developers' and sets a player with the role 'gamemaster' as active for the world!",
-    "MSG_NO_TASKS_FOUND": "No tasks/issues from SonarQube have been retrieved yet",
-    "HINT_NO_TASKS_FOUND": "The gamemaster must hit the tab 'Tasks' and use the button 'Update Status' to connect to SonarQube and get the issues!",
-    "MSG_NO_QUESTS_FOUND": "No quests found",
-    "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
-    "MSG_NO_WORLD_SELECTED": "No active world selected",
-    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."    
-  }  
 }

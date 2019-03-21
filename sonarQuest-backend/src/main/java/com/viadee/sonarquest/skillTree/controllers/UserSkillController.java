@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Artefact;
-import com.viadee.sonarquest.skillTree.UserSkillService;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @RestController
 @RequestMapping("/userskill")
@@ -33,8 +33,13 @@ public class UserSkillController {
     
 
     @GetMapping
-    public List<UserSkill> getAllLevels() {
+    public List<UserSkill> getAllUserSkills() {
         return userSkillRepository.findAll();
+    }
+    
+    @GetMapping(value="/roots/")
+    public List<UserSkill> getAllRootUserSkills() {
+        return userSkillRepository.findAllRootUserSkills(true);
     }
     
     @PostMapping

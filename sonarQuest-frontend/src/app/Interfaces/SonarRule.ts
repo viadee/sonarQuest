@@ -1,5 +1,5 @@
 export interface SonarRule {
-  id: number,
+  id?: number,
   name: string,
   key: string
 }

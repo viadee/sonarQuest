@@ -1,20 +1,41 @@
 <div class="background">
     <mat-card>
         <mat-card-content>
-            <div *ngFor="let userskill of userskills">
-
-                <div style="border-radius: 50%; width: 50px; background-color: blue; color:white">
-                    {{userskill.name}}
-
+            <div layout-padding>
+                <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+                    <span class="mat-card-title" style="margin:0">
+                        {{"SKILL_TREE_PAGE.SKILL_TREE"| translate}}
+                    </span>
                 </div>
-                <p> </p>
-                <li *ngFor="let following of userskill.followingUserSkills">
-                    {{following.name+' '+following.id}}
-
-                </li>
-
-
             </div>
+            <mat-divider></mat-divider>
+
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+                    <li class="mat-tree-node">
+                        <!-- use a disabled button to provide padding for tree leaf -->
+                        <button mat-icon-button disabled></button>
+                        {{node.name}}
+                    </li>
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                    <li>
+                        <div class="mat-tree-node">
+                            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                </mat-icon>
+                            </button>
+                            {{node.name}}
+                        </div>
+                        <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                            <ng-container matTreeNodeOutlet></ng-container>
+                        </ul>
+                    </li>
+                </mat-nested-tree-node>
+            </mat-tree>
         </mat-card-content>
     </mat-card>
 </div>
