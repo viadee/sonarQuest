@@ -24,6 +24,7 @@ import com.viadee.sonarquest.entities.Skill;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.interfaces.UserGratification;
+import com.viadee.sonarquest.repositories.StandardTaskRepository;
 
 @Service
 public class GratificationService implements UserGratification {
@@ -34,11 +35,15 @@ public class GratificationService implements UserGratification {
     @Autowired
     private LevelService levelService;
 
+    @Autowired
+    private StandardTaskRepository taskRepo;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
 
     @Override
     @Transactional
     public synchronized void rewardUserForSolvingTask(final Task task) {
+        LOGGER.debug("Task ID {} has changed the status from OPEN to SOLVED, rewarding users...", task.getId());
         final Participation participation = task.getParticipation();
         if (participation != null) {
             final User user = participation.getUser();
@@ -49,6 +54,8 @@ public class GratificationService implements UserGratification {
             addSkillReward(user);
             user.setLevel(levelService.getLevelByUserXp(user.getXp()));
             userService.save(user);
+        } else {
+            LOGGER.info("No SQUser participations found for task {}, so no rewards are paid out", task.getKey());
         }
     }
 

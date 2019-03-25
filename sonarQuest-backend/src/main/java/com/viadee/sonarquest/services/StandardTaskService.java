@@ -24,9 +24,6 @@ public class StandardTaskService {
     private ExternalRessourceService externalRessourceService;
 
     @Autowired
-    private GratificationService gratificationService;
-
-    @Autowired
     private StandardTaskRepository standardTaskRepository;
 
     @Autowired
@@ -37,6 +34,9 @@ public class StandardTaskService {
 
     @Autowired
     private WorldRepository worldRepository;
+
+    @Autowired
+    private GratificationService gratificationService;
 
     @Autowired
     private NamedParameterJdbcTemplate template;
@@ -50,6 +50,7 @@ public class StandardTaskService {
         adventureService.updateAdventures();
     }
 
+    @Transactional
     public StandardTask updateStandardTask(final StandardTask task) {
         final SonarQuestStatus oldStatus = getLastState(task);
         final SonarQuestStatus newStatus = task.getStatus();
@@ -73,6 +74,7 @@ public class StandardTaskService {
         this.externalRessourceService = externalRessourceService;
     }
 
+    @Transactional
     public void save(final StandardTask standardTask) {
         final World world = worldRepository.findByProject(standardTask.getWorld().getProject());
         final StandardTask st = new StandardTask(

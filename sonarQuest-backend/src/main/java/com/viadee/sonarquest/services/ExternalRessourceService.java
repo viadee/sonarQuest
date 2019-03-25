@@ -52,6 +52,9 @@ public class ExternalRessourceService {
     @Autowired
     private RestTemplateService restTemplateService;
 
+    @Autowired
+    private GratificationService gratificationService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
     private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the SonarQube server";
@@ -94,6 +97,7 @@ public class ExternalRessourceService {
             standardTasks = sonarQubeIssues.stream().map(sonarQubeIssue -> toTask(sonarQubeIssue, world))
                     .collect(Collectors.toList());
         }
+        LOGGER.info("Mapping done.");
         return standardTasks;
     }
 
@@ -106,18 +110,22 @@ public class ExternalRessourceService {
     }
 
     private StandardTask loadTask(final SonarQubeIssue sonarQubeIssue, final World world, final Long gold,
-            final Long xp, final Integer debt, final SonarQuestStatus status) {
-        StandardTask sonarQubeTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
-        if (sonarQubeTask == null) {
+            final Long xp, final Integer debt, final SonarQuestStatus newStatus) {
+        StandardTask savedTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
+        if (savedTask == null) {
             // new issue from SonarQube: Create new task
-            sonarQubeTask = new StandardTask(sonarQubeIssue.getMessage(), status, gold, xp, null, world,
+            savedTask = new StandardTask(sonarQubeIssue.getMessage(), newStatus, gold, xp, null, world,
                     sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
                     sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
-        } else {
-            // issue already in SonarQuest database: update the task
-            sonarQubeTask.setStatus(status);
         }
-        return sonarQubeTask;
+        else {
+            final SonarQuestStatus lastStatus = savedTask.getStatus();
+            if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {
+                gratificationService.rewardUserForSolvingTask(savedTask);
+            }
+            savedTask.setStatus(newStatus);
+        }
+        return savedTask;
     }
 
     public List<SonarQubeProject> getSonarQubeProjects() {
