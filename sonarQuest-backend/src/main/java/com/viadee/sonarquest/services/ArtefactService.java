@@ -82,7 +82,7 @@ public class ArtefactService {
 	@Transactional
 	public synchronized Artefact buyArtefact(Artefact artefactToBuy, final User user) {
 		Artefact artefact = artefactToBuy;
-		LOGGER.info(String.format("UserId %s tries to buy artefactId %s", user.getId(), artefactToBuy.getId()));
+        LOGGER.info("UserId {0} tries to buy artefactId {1}", user.getId(), artefactToBuy.getId());
 
 		final Level minLevel = artefact.getMinLevel();
 		final Level devLevel = user.getLevel();
