@@ -82,7 +82,7 @@ public class ArtefactService {
 	@Transactional
 	public synchronized Artefact buyArtefact(Artefact artefactToBuy, final User user) {
 		Artefact artefact = artefactToBuy;
-        LOGGER.info("UserId {0} tries to buy artefactId {1}", user.getId(), artefactToBuy.getId());
+        LOGGER.info("UserId {} tries to buy artefactId {}", user.getId(), artefactToBuy.getId());
 
 		final Level minLevel = artefact.getMinLevel();
 		final Level devLevel = user.getLevel();
@@ -120,8 +120,7 @@ public class ArtefactService {
 
 			artefact.setQuantity(artefact.getQuantity() - 1);
 			artefact = artefactRepository.save(artefact);
-			LOGGER.info(
-					String.format("UserId %s successfully bought artefactId %s", user.getId(), artefactToBuy.getId()));
+            LOGGER.info("UserId {} successfully bought artefactId {}", user.getId(), artefactToBuy.getId());
 		} else {
 			artefact = null;
 			LOGGER.info(String.format("UserId %s could not buy artefactId %s, Reason %s", user.getId(),
