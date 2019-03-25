@@ -1,5 +1,7 @@
 package com.viadee.sonarquest.services;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
@@ -92,7 +95,17 @@ public class StandardTaskService {
     }
 
     public List<StandardTask> findByWorld(final World w) {
-        return standardTaskRepository.findByWorld(w);
+		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
+		Collections.sort(tasks, new Comparator<StandardTask>() {
+
+			@Override
+			public int compare(StandardTask task1, StandardTask task2) {
+				SonarQubeSeverity severity1 = SonarQubeSeverity.fromString(task1.getSeverity());
+				SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
+				return severity2.getRank().compareTo(severity1.getRank());
+			}
+		});
+		return tasks;
     }
 
 }
