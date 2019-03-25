@@ -39,10 +39,10 @@ export class StandardTaskService {
       .catch(this.handleError);
   }
 
-  public getFreeStandardTasksForWorldExcept(world: World, excludetTasks: Task[]): Promise<StandardTask[]> {
+  public getFreeStandardTasksForWorldExcept(world: World, excludedTasks: Task[]): Promise<StandardTask[]> {
     return this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`)
       .toPromise().then(tasks => {
-        const excludetTaskIds = excludetTasks.map(task => task.id);
+        const excludetTaskIds = excludedTasks.map(task => task.id);
         return tasks.filter(task => !excludetTaskIds.includes(task.id));
       })
       .catch(this.handleError);
