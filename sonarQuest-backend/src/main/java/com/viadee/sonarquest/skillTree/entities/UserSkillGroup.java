@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +24,13 @@ public class UserSkillGroup {
 
     @Column(name = "group_name")
     private String name;
+    
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "User_Skill_Group_Following", joinColumns = @JoinColumn(name = "user_skill_group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "following_user_skill_group_id", referencedColumnName = "id"))
+    private List<UserSkillGroup> followingUserSkillGroups = new ArrayList<UserSkillGroup>(0);
+    
+    @Column(name = "is_root")
+    private boolean isRoot;
 
 //    @OneToMany(mappedBy = "userSkillGroup", cascade = CascadeType.ALL)
 //    private List<UserSkill> userskills = new ArrayList<UserSkill>(0);
@@ -28,10 +38,10 @@ public class UserSkillGroup {
     public UserSkillGroup() {
     }
 
-    public UserSkillGroup(Long id, String name, List<UserSkill> userskills) {
-        super();
+    public UserSkillGroup(Long id, String name, boolean isRoot) {
         this.id = id;
         this.name = name;
+        this.isRoot = isRoot;
         //this.userskills = userskills;
     }
 
@@ -50,6 +60,30 @@ public class UserSkillGroup {
     public void setName(String name) {
         this.name = name;
     }
+
+	public List<UserSkillGroup> getFollowingUserSkillGroups() {
+		return followingUserSkillGroups;
+	}
+
+	public void setFollowingUserSkillGroups(List<UserSkillGroup> followingUserSkillGroups) {
+		this.followingUserSkillGroups = followingUserSkillGroups;
+	}
+    
+	public void addFollowingUserSkillGroup(UserSkillGroup userSkillGroup) {
+		this.followingUserSkillGroups.add(userSkillGroup);
+	}
+	
+	public void removeFollowingUserSkillGroup(UserSkillGroup userSkillGroup) {
+		this.followingUserSkillGroups.remove(userSkillGroup);
+	}
+
+	public boolean isRoot() {
+		return isRoot;
+	}
+
+	public void setRoot(boolean isRoot) {
+		this.isRoot = isRoot;
+	}
 
 //    public List<UserSkill> getUserskills() {
 //        return userskills;

@@ -206,15 +206,55 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
 
 INSERT INTO Sonar_Rule(rule_name,rule_key) VALUES ('Servlets should not have mutable instance fields','squid:S2226');
 
-INSERT INTO User_Skill(skill_name,description,is_root) VALUES 
-('IF','IF-Verzweigungen',1),
-('Array','Array',0),
-('Loop','Loop',0);
+INSERT INTO User_Skill_Group(group_name,is_root) VALUES 
+('Java-Basics I',1),
+('Build and Debugging',1),
+('Style & Structure',1),
+('Java Basics II',0),
+('Network Programming',0),
+('Threading',0),
+('Security',0),
+('Spring Framework',0),
+('File Handling',0);
 
+INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill_group_id) VALUES
+(1,4),
+(2,5),
+(2,6),
+(2,7),
+(2,9),
+(5,8);
+
+INSERT INTO User_Skill(skill_name,description,is_root,user_skill_group_id) VALUES 
+('Java-Basics','Fundamental java basic skills',1,1),
+('Primitive types','Easy data types',0,1),
+('Packages','Structure your code project',0,1),
+('Java Doc','Stay informed! Document your code',0,1),
+('Scopes','Where is the code reachable',0,1),
+('Static','Global and unique useable',0,1),
+('Floating point numbers','More flexible numbers',0,1),
+('Switch-case','asd',0,1),
+('Operators','+ - * / =',0,1),
+('If','If-statement',0,1),
+('Methods','Build your own functionality',0,1);
 
 INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
 
-INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES (1,2),(2,3);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(1,2),
+(1,3),
+(1,4),
+(1,5),
+(1,6),
+(2,7),
+(2,8),
+(2,9),
+(9,10),
+(10,11),
+(6,11);
+
+
 
 
 

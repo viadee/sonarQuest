@@ -199,7 +199,15 @@ CREATE TABLE user_skill (
 	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     description varchar(255),
     skill_name varchar(255),
-    is_root 	BOOLEAN
+    is_root 	BOOLEAN,
+    user_skill_group_id BIGINT,
+     );
+     
+CREATE TABLE user_skill_group (
+	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,    
+    group_name varchar(255),
+    is_root BOOLEAN
+    
      );
      
 CREATE TABLE sonar_rule (
@@ -214,6 +222,14 @@ CREATE TABLE user_skill_following (
 	following_user_skill_id		BIGINT NOT NULL,
 	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
 	FOREIGN KEY (following_user_skill_id) 	REFERENCES User_Skill(id)   
+    );
+    
+CREATE TABLE user_skill_group_following (
+	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_skill_group_id			BIGINT NOT NULL,
+	following_user_skill_group_id		BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_group_id) 			REFERENCES User_Skill_Group(id),
+	FOREIGN KEY (following_user_skill_group_id) 	REFERENCES User_Skill_Group(id)   
     );
     
 /*CREATE TABLE user_skill_previous (

@@ -55,11 +55,12 @@ public class UserSkill {
 
     }
 
-    public UserSkill(String description, String name, boolean isRoot) {
+    public UserSkill(String description, String name, boolean isRoot, UserSkillGroup userSkillGroup) {
         super();
         this.description = description;
         this.name = name;
         this.isRoot=isRoot;
+        this.userSkillGroup = userSkillGroup;
     }
 
     public Long getId() {

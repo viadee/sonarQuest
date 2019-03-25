@@ -41,11 +41,11 @@ public class UserSkillController {
     public List<UserSkill> getAllRootUserSkills() {
         return userSkillRepository.findAllRootUserSkills(true);
     }
-    
+        
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserSkill createUserSkill() {
-        return userSkillService.createUserSkill(new UserSkill("testbeschreibug","testname",false));
+        return userSkillService.createUserSkill(new UserSkill("testbeschreibug","testname",false, null));
     }
     
     @DeleteMapping(value = "/{id}")
