@@ -11,8 +11,9 @@ import {AuthenticationGuard} from '../login/authentication.guard';
 import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
 import {SkillTreePageComponent} from './../pages/skill-tree-page/skill-tree-page.component';
+import {InnerSkillTreeComponent} from './../pages/skill-tree-page/components/inner-skill-tree/inner-skill-tree.component';
 
-
+//TODO canActivate InnerSkillTree
 const appRoutes: Routes = [
   {path: '', redirectTo: '/empty', pathMatch: 'full'},
   {path: RoutingUrls.empty, component: EmptyPageComponent},
@@ -23,7 +24,9 @@ const appRoutes: Routes = [
   {path: RoutingUrls.marketplace, component: MarketplacePageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.gamemaster, component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.admin, component: AdminPageComponent, canActivate: [AuthenticationGuard]},
-  {path: RoutingUrls.skilltree, component: SkillTreePageComponent, canActivate: [AuthenticationGuard]}
+  {path: RoutingUrls.skilltree, component: SkillTreePageComponent, canActivate: [AuthenticationGuard]},
+  {path: RoutingUrls.innerskilltree + '/:id', component: InnerSkillTreeComponent, }
+
 ];
 
 @NgModule({

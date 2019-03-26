@@ -236,6 +236,7 @@
         "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
     },
     "SKILL_TREE_PAGE": {
-        "SKILL_TREE": "Skill-Tree"
+        "SKILL_TREE": "Skill-Tree",
+        "INNER_SKILL_TREE_BACK": "Skill-Tree Overview"
     }
 }

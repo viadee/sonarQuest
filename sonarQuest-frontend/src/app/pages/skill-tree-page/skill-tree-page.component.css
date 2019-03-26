@@ -1,10 +1,30 @@
-.example-tree-invisible {
-  display: none;
+:host ::ng-deep .oc-border {
+	border: 1px solid green;
+}
+ 
+.oc-background {
+	background-color: limegreen;
 }
 
-.example-tree ul,
-.example-tree li {
-  margin-top: 0;
-  margin-bottom: 0;
-  list-style-type: none;
+.oc-name {
+	font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+	white-space: nowrap;
+}
+
+.oc-designation {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-style: italic;
+	white-space: nowrap;
+}
+
+mat-card-content{
+	height: 100%;
+}
+
+mat-card {
+height: 90%;
+
+}
+.ngx-charts{
+	height: 100%;
 }

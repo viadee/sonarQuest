@@ -236,6 +236,7 @@
         "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
     },
     "SKILL_TREE_PAGE": {
-        "SKILL_TREE": "Skill-Tree"
+        "SKILL_TREE": "Skill-Tree",
+        "INNER_SKILL_TREE_BACK": "Skill-Tree Übersicht"
     }
 }

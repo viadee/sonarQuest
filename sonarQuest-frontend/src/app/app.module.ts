@@ -88,6 +88,11 @@ import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import { SkillTreePageComponent } from './pages/skill-tree-page/skill-tree-page.component';
 
+import {NgxGraphModule } from '@swimlane/ngx-graph';
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { InnerSkillTreeComponent } from './pages/skill-tree-page/components/inner-skill-tree/inner-skill-tree.component';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -142,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EmptyPageComponent,
     LoadingComponent,
     SkillTreePageComponent,
+    InnerSkillTreeComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -206,7 +212,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxGraphModule,
+    NgxChartsModule
   ],
   providers: [TdMediaService,
     WorldService,

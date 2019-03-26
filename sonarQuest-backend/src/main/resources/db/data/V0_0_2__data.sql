@@ -163,7 +163,8 @@ INSERT INTO Permission (id, type, permission) VALUES
  (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
  (10, 'ACCESS', 'USER_WORLD_ASSIGNMENT'),
  (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
- (12,'URL', 'skilltree');
+ (12,'URL', 'skilltree'),
+ (13,'URL','innerskilltree');
  
 INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
  (1,1),
@@ -177,6 +178,7 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (2,4),
  (2,5),
  (2,12),
+ (2,13),
  (3,1),
  (3,2),
  (3,7),
@@ -219,10 +221,10 @@ INSERT INTO User_Skill_Group(group_name,is_root) VALUES
 
 INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill_group_id) VALUES
 (1,4),
-(2,5),
-(2,6),
-(2,7),
-(2,9),
+(4,5),
+(4,6),
+(4,7),
+(4,9),
 (5,8);
 
 INSERT INTO User_Skill(skill_name,description,is_root,user_skill_group_id) VALUES 

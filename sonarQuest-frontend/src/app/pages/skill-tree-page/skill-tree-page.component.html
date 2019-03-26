@@ -9,6 +9,51 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
+            <ngx-graph
+            class="chart-container"
+            [links]="hierarchialGraph.links"
+            [nodes]="hierarchialGraph.nodes"
+            [legend]="false"
+            [curve]="curve"
+            [draggingEnabled]="false"
+            [orientation]="TopToBottom"
+            scheme = "fire"
+            >
+          
+            <ng-template #defsTemplate>
+              <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+                <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+              </svg:marker>
+            </ng-template>
+          
+            <ng-template #nodeTemplate let-node>
+              <svg:g class="node"
+              ngx-tooltip
+              [tooltipPlacement]="'top'"
+              [tooltipType]="'tooltip'"
+              [tooltipTitle]="node.label"
+              >
+                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
+                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2" (click)="navigatToInnerSkilLTree(node.id)" >{{node.label}}</svg:text>
+              </svg:g>
+            </ng-template>
+          
+            <ng-template #linkTemplate let-link>
+              <svg:g class="edge">
+                <svg:path
+                  class="line"
+                  stroke-width="2"
+                  marker-end="url(#arrow)" >
+                </svg:path>
+                <svg:text
+                  class="edge-label"
+                  text-anchor="none">
+              </svg:text>
+              </svg:g>
+            </ng-template>
+          
+          </ngx-graph>
+
 
             <!--<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                 <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
@@ -33,7 +78,7 @@
                     </li>
                 </mat-nested-tree-node>
             </mat-tree>-->
-            
+
         </mat-card-content>
     </mat-card>
 </div>

@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public gamemasterUrl = RoutingUrls.gamemaster;
   public adminUrl = RoutingUrls.admin;
   public skillTreeUrl = RoutingUrls.skilltree;
+  public innerSkillTreeUrl = RoutingUrls.innerskilltree;
 
   public isWorldSelectVisible: boolean;
   public isMyAvatarVisible: boolean;
@@ -173,6 +174,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/skilltree':
+            return this.pageNames.SKILLTREE;
+        case '/innerskilltree':
             return this.pageNames.SKILLTREE;
         default:
           return '';

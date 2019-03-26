@@ -14,5 +14,8 @@ public interface UserSkillRepositroy extends JpaRepository<UserSkill, Long> {
     //UserSkill findById(Long id);
     @Query("SELECT u FROM UserSkill u WHERE isRoot = :isRoot")
     public List<UserSkill> findAllRootUserSkills(@Param("isRoot") boolean isRoot);
+    
+    @Query("SELECT u FROM UserSkill u WHERE userSkillGroup.id = :id")
+	public List<UserSkill> findUserSkillsByGroup(@Param("id") Long id);
 
 }

@@ -3,149 +3,50 @@ import { UserSkill } from '../../Interfaces/UserSkill';
 import { SkillTreeService } from '../../services/skill-tree.service';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import * as shape from 'd3-shape';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { UserSkillGroup } from 'app/Interfaces/UserSkillGroup';
+import {Router, RouterModule} from '@angular/router';
+import { RoutingUrls } from 'app/app-routing/routing-urls';
 
 
 @Component({
-    selector: 'app-skill-tree-page',
-    templateUrl: './skill-tree-page.component.html',
-    styleUrls: ['./skill-tree-page.component.css']
+  selector: 'app-skill-tree-page',
+  templateUrl: './skill-tree-page.component.html',
+  styleUrls: ['./skill-tree-page.component.css']
 })
 export class SkillTreePageComponent implements OnInit {
-    userskills: UserSkill[];
+  userSkills: UserSkill[];
+  userSkillGroups: UserSkillGroup[];
 
-    treeControl: NestedTreeControl<UserSkill>;
-    dataSource: MatTreeNestedDataSource<UserSkill>;
-    /* TREE_DATA: UserSkill[] = [
-       {
-            'id': 1,
-            'description': 'IF-Verzweigungen',
-            'name': 'IF',
-            'followingUserSkills': [
-                {
-                    'id': 2,
-                    'description': 'Array',
-                    'name': 'Array',
-                    'followingUserSkills': [
-                        {
-                            'id': 3,
-                            'description': 'Loop',
-                            'name': 'Loop',
-                            'followingUserSkills': [],
-                            'sonarRules': [
-                                {
-                                    'name': 'Servlets should not have mutable instance fields',
-                                    'key': 'squid:S2226'
-                                }
-                            ],
-                            'userSkillGroup': {
-                                'id': 1,
-                                'name': 'Java-Basics'
-                            },
-                            'root': false
-                        }
-                    ],
-                    'sonarRules': [
-                        {
-                            'name': 'Servlets should not have mutable instance fields',
-                            'key': 'squid:S2226'
-                        }
-                    ],
-                    'userSkillGroup': {
-                        'id': 1,
-                        'name': 'Java-Basics'
-                    },
-                    'root': false
-                }
-            ],
-            'sonarRules': [
-                {
-                    'name': 'Servlets should not have mutable instance fields',
-                    'key': 'squid:S2226'
-                }
-            ],
-            'userSkillGroup': {
-                'id': 1,
-                'name': 'Java-Basics'
-            },
-            'root': true
-        },
-        {
-            'id': 2,
-            'description': 'Array',
-            'name': 'Array',
-            'followingUserSkills': [
-                {
-                    'id': 3,
-                    'description': 'Loop',
-                    'name': 'Loop',
-                    'followingUserSkills': [],
-                    'sonarRules': [
-                        {
-                            'name': 'Servlets should not have mutable instance fields',
-                            'key': 'squid:S2226'
-                        }
-                    ],
-                    'userSkillGroup': {
-                        'id': 1,
-                        'name': 'Java-Basics'
-                    },
-                    'root': false
-                }
-            ],
-            'sonarRules': [
-                {
-                    'name': 'Servlets should not have mutable instance fields',
-                    'key': 'squid:S2226'
-                }
-            ],
-            'userSkillGroup': {
-                'id': 1,
-                'name': 'Java-Basics'
-            },
-            'root': false
-        },
-        {
-            'id': 3,
-            'description': 'Loop',
-            'name': 'Loop',
-            'followingUserSkills': [],
-            'sonarRules': [
-                {
-                    'name': 'Servlets should not have mutable instance fields',
-                    'key': 'squid:S2226'
-                }
-            ],
-            'userSkillGroup': {
-                'id': 1,
-                'name': 'Java-Basics'
-            },
-            'root': false
-        }
-    ];*/
-
-    constructor(private skillTreeService: SkillTreeService) {
-
-        this.skillTreeService.userskills$.subscribe(userskills => {
-            this.userskills = userskills;
-        });
-        this.skillTreeService.getData();
-        this.treeControl = new NestedTreeControl<UserSkill>(node => node.followingUserSkills);
-        this.dataSource = new MatTreeNestedDataSource<UserSkill>();
-                this.dataSource.data = this.userskills;
-    }
+  userSkillGroupTree: { nodes: [], links: [] };
+  hierarchialGraph = { nodes: [], links: [] };
+  curve = shape.curveBundle.beta(1);
+ // curve = shape.curveLinear;
 
 
+  constructor(private skillTreeService: SkillTreeService, private router: Router) { }
 
-    hasChild = (_: number, node: UserSkill) => !!node.followingUserSkills && node.followingUserSkills.length > 0;
+  ngOnInit() {
+    this.skillTreeService.userSkills$.subscribe(userskills => {
+      this.userSkills = userskills;
+    });
+    this.skillTreeService.userSkillGroupTree$.subscribe(userSkillGroupTree => {
+      this.userSkillGroupTree = userSkillGroupTree;
+    });
+    this.skillTreeService.getData();
+    this.hierarchialGraph = this.userSkillGroupTree;
+   // this.showGraph();
+  }
+  navigatToInnerSkilLTree(id: number) {
+    this.router.navigate([RoutingUrls.innerskilltree, id]);
+    console.log(RoutingUrls.innerskilltree);
+  }
 
-    ngOnInit() {
-       /* this.skillTreeService.userskills$.subscribe(userskills => {
-            this.userskills = userskills;
-        });
-
-        this.skillTreeService.getData();
-        this.dataSource.data = this.userskills;*/
-    }
-
+  /*showGraph() {
+    
+    console.log("####### Data from Server#####");
+    console.log(this.userSkillGroupTree)
+  
+  }*/
 }
-

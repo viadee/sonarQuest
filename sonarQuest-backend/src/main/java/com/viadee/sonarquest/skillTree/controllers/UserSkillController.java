@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Artefact;
+import com.viadee.sonarquest.skillTree.dto.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skillTree.dto.SkillTreeLinksDTO;
+import com.viadee.sonarquest.skillTree.dto.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
+import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
@@ -41,7 +45,24 @@ public class UserSkillController {
     public List<UserSkill> getAllRootUserSkills() {
         return userSkillRepository.findAllRootUserSkills(true);
     }
-        
+    
+    
+    @GetMapping(value = "/tree/fromgroup/{id}")
+	public SkillTreeDiagramDTO getGroupSkillTree(@PathVariable(value = "id") final Long id) {
+		List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
+		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
+
+		for (UserSkill userSkill : userSkills) {
+			skillTreeDiagramDTO.addNode(new SkillTreeObjectDTO(String.valueOf(userSkill.getId()), String.valueOf(userSkill.getName())));
+			for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+				skillTreeDiagramDTO
+						.addLine(new SkillTreeLinksDTO(String.valueOf(userSkill.getId()), String.valueOf(followingUserSkill.getId())));
+			}
+		}
+		return skillTreeDiagramDTO;
+
+	}
+           
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserSkill createUserSkill() {
