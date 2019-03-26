@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
 public class WebSocketController {
@@ -23,7 +22,6 @@ public class WebSocketController {
         this.template = template;
     }
 
-    @CrossOrigin
     @MessageMapping("/send/message")
     public void onReceivedMessage(final String message) {
         LOGGER.info("----------------------------------------------------------onReceivedMessage(String message)");

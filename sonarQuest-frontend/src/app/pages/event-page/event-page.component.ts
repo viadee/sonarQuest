@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { ImageService } from 'app/services/image.service';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
+import { WebSocketService } from 'app/services/websocket.service';
 
 @Component({
   selector: 'app-event-page',
@@ -19,19 +20,16 @@ export class EventPageComponent implements OnInit {
   
   private serverUrl = 'http://localhost:8080/socket'
   private stompClient;
-  //private stompClient: Stomp.Client;
 
   constructor(
     private eventService: EventService,
     private userService: UserService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private wsSerive: WebSocketService
   ) { 
     this.eventService.events$.subscribe(events => {
       this.events = this.getImageForMessages(events)     
     });
-
-
-    this.initializeWebSocketConnection();
   }
 
   ngOnInit() {
@@ -73,13 +71,13 @@ export class EventPageComponent implements OnInit {
   }
 
   sendChat(){
-    this.sendMessage(this.message)
+    this.wsSerive.sendMessage(this.message)
     this.eventService.sendChat(this.message).then(event => { 
       this.getImageForMessage(event)
       this.events.push(event)
     }).then(()=>{
-      var i = document.getElementsByClassName('event').length;
-      document.getElementsByClassName('event')[i-1].scrollIntoView(false)
+      //var i = document.getElementsByClassName('event').length;
+      //document.getElementsByClassName('event')[i-1].scrollIntoView(false)
     })
     this.message = "";
 
@@ -94,57 +92,11 @@ export class EventPageComponent implements OnInit {
 
   click(){
     console.log('CLICK')
-    this.initializeWebSocketConnection()
+    this.wsSerive.initializeWebSocketConnection()
   }
 
   something(){
     this.eventService.something()
   }
 
-  initializeWebSocketConnection(){
-    //var sockJsProtocols = ["websocket"];
-    //var sockJsProtocols = ["xhr-streaming", "xhr-polling"];
-    
-    //let wss = new SockJS(this.serverUrl, null, {transports: sockJsProtocols});
-    /*
-    let wsss = new SockJS(this.serverUrl, null, {'Access-Control-Allow-Origin': 'all'});
-    
-    */
-    let ws = new SockJS(this.serverUrl);
-    console.log(ws)
-    ws.onopen = function() {
-        console.log('open');
-        ws.send('test');
-    };
-  
-    ws.onmessage = function(e) {
-        console.log('message', e.data);
-        ws.close();
-    };
-  
-    ws.onclose = function() {
-        console.log('close');
-    };
-    this.stompClient = Stomp.Stomp.over(ws);
-    let that = this;
-  
- /* 
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/chat", (message) => {
-        alert(message.body)
-        /*
-        if(message.body) {
-          $(".chat").append("<div class='message'>"+message.body+"</div>")
-          console.log(message.body);
-        }
-        /
-      });
-    });
-    */
-  }
-
-  sendMessage(message){
-    this.stompClient.send("/app/send/message" , {}, message);
-    /*$('#input').val('');*/
-  }
 }

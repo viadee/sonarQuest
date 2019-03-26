@@ -10,8 +10,8 @@ public class SocketSecurityConfig
 
     @Override
     protected void configureInbound(final MessageSecurityMetadataSourceRegistry messages) {
-        messages.simpDestMatchers("/**").authenticated()
-                .anyMessage().authenticated();
+        messages.simpDestMatchers("/**").permitAll()
+                .anyMessage().permitAll();
     }
 
     @Override

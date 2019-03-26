@@ -82,8 +82,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/chat").permitAll()
 
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET, "/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/*").permitAll()
+                //.antMatchers(HttpMethod.GET, "/*").permitAll()
+                //.antMatchers(HttpMethod.POST, "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
                 .anyRequest().authenticated();
 

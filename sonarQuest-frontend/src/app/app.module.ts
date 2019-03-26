@@ -88,6 +88,7 @@ import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import {EventService} from './services/event.service'
 import { EventPageComponent } from './pages/event-page/event-page.component'; 
+import {WebSocketService} from './services/websocket.service'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -233,6 +234,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PermissionService,
     WizardService,
     EventService,
+    WebSocketService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

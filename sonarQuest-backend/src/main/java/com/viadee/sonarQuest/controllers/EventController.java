@@ -52,7 +52,7 @@ public class EventController {
     @CrossOrigin
     @RequestMapping(value = "/something", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public String something(@RequestBody String message) {
+    public String something(final Principal principal, @RequestBody String message) {
         LOGGER.info("Something()");
         return "Server";
     }
