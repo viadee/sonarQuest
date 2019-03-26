@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.skillTree.dto;
+package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
 
 public class SkillTreeLinksDTO {
 

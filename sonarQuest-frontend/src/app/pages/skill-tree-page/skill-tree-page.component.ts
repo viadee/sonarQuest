@@ -16,26 +16,20 @@ import { RoutingUrls } from 'app/app-routing/routing-urls';
   styleUrls: ['./skill-tree-page.component.css']
 })
 export class SkillTreePageComponent implements OnInit {
-  userSkills: UserSkill[];
-  userSkillGroups: UserSkillGroup[];
 
   userSkillGroupTree: { nodes: [], links: [] };
-  hierarchialGraph = { nodes: [], links: [] };
-  curve = shape.curveBundle.beta(1);
+  curve = shape.curveLinear
+  nodecolor =  "#c0c0c0";
  // curve = shape.curveLinear;
 
 
   constructor(private skillTreeService: SkillTreeService, private router: Router) { }
 
   ngOnInit() {
-    this.skillTreeService.userSkills$.subscribe(userskills => {
-      this.userSkills = userskills;
-    });
     this.skillTreeService.userSkillGroupTree$.subscribe(userSkillGroupTree => {
       this.userSkillGroupTree = userSkillGroupTree;
     });
     this.skillTreeService.getData();
-    this.hierarchialGraph = this.userSkillGroupTree;
    // this.showGraph();
   }
   navigatToInnerSkilLTree(id: number) {

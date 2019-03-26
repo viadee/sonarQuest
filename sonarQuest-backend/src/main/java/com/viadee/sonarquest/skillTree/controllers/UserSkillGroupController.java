@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.interfaces.UserGratification;
-import com.viadee.sonarquest.skillTree.dto.SkillTreeDiagramDTO;
-import com.viadee.sonarquest.skillTree.dto.SkillTreeLinksDTO;
-import com.viadee.sonarquest.skillTree.dto.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.dto.UserSkillGroupDTO;
+import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeLinksDTO;
+import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;

@@ -11,8 +11,8 @@
             <mat-divider></mat-divider>
             <ngx-graph
             class="chart-container"
-            [links]="hierarchialGraph.links"
-            [nodes]="hierarchialGraph.nodes"
+            [links]="userSkillGroupTree.links"
+            [nodes]="userSkillGroupTree.nodes"
             [legend]="false"
             [curve]="curve"
             [draggingEnabled]="false"
@@ -33,7 +33,7 @@
               [tooltipType]="'tooltip'"
               [tooltipTitle]="node.label"
               >
-                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
+                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />
                 <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2" (click)="navigatToInnerSkilLTree(node.id)" >{{node.label}}</svg:text>
               </svg:g>
             </ng-template>

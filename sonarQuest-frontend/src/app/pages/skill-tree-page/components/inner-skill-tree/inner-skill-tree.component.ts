@@ -14,26 +14,28 @@ import { Subject } from 'rxjs';
 export class InnerSkillTreeComponent implements OnInit{ 
 
   public skillTreeUrl = RoutingUrls.skilltree;
-  userSkillTree: { nodes: [], links: [] };
-  hierarchialGraph: { nodes: [], links: [] };
-  curve = shape.curveBundle.beta(1);
+  userSkillTree: { nodes: [], links: []};
+  curve = shape.curveLinear;
   isDataAvailable: boolean;
   private id: number;
+  nodecolor =  "#c0c0c0";
 
-  constructor(private skillTreeService: SkillTreeService, private _route: ActivatedRoute) { }
+  constructor(private skillTreeService: SkillTreeService, private _route: ActivatedRoute) { 
+  }
 
   ngOnInit() {
     this.id = +this._route.snapshot.params['id'];
     console.log(this.id);
     this.userSkillTree= null;
-    this.hierarchialGraph = null;
+
     this.skillTreeService.userSkillTree$.subscribe(userSkillTree => {
       this.userSkillTree = userSkillTree;
     });
     this.skillTreeService.getUserSkillTree(this.id);
     console.log('############## Server Data ############');
     console.log(this.userSkillTree);
-    this.hierarchialGraph = this.userSkillTree;
   }
-
+  select(event){
+console.log(event)
+  }
 }

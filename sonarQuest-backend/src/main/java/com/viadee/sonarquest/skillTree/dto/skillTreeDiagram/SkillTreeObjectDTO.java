@@ -1,9 +1,10 @@
-package com.viadee.sonarquest.skillTree.dto;
+package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
 
 public class SkillTreeObjectDTO {
 
 	private String id;
 	private String label;
+	
 
 	public SkillTreeObjectDTO() {
 	}
@@ -11,6 +12,7 @@ public class SkillTreeObjectDTO {
 	public SkillTreeObjectDTO(String id, String label) {
 		this.id = id;
 		this.label = label;
+		
 	}
 
 	public String getId() {

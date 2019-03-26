@@ -15,14 +15,15 @@
       </div>
       <mat-divider></mat-divider>
       <ngx-graph
+            [orientation]="TopToBottom"
             class="chart-container"
-            [links]="hierarchialGraph.links"
-            [nodes]="hierarchialGraph.nodes"
+            [links]="userSkillTree.links"
+            [nodes]="userSkillTree.nodes"
             [legend]="false"
             [curve]="curve"
-            [draggingEnabled]="false"
-            [orientation]="TopToBottom"
-            scheme = "fire">
+            [draggingEnabled]="false"            
+            scheme = "fire"
+            (select)="select($event)">
           
             <ng-template #defsTemplate>
               <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
@@ -37,8 +38,8 @@
               [tooltipType]="'tooltip'"
               [tooltipTitle]="node.label"
               >
-                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
-                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2" (click)="navigatToInnerSkilLTree(node.id)" >{{node.label}}</svg:text>
+                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />
+                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
               </svg:g>
             </ng-template>
           
