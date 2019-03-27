@@ -24,6 +24,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       });
     }
 
+    console.log(request)
+
     return next.handle(request).pipe(tap(
       event => this.handleResponse(request, event),
       error => this.handleError(request, error)
