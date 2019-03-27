@@ -92,6 +92,7 @@ import {NgxGraphModule } from '@swimlane/ngx-graph';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { InnerSkillTreeComponent } from './pages/skill-tree-page/components/inner-skill-tree/inner-skill-tree.component';
+import { InnerSkillDetailDialogComponent } from './pages/skill-tree-page/components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -147,7 +148,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EmptyPageComponent,
     LoadingComponent,
     SkillTreePageComponent,
-    InnerSkillTreeComponent
+    InnerSkillTreeComponent,
+    InnerSkillDetailDialogComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -175,7 +177,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBackgroundComponent,
     LoginComponent,
     EmptyPageComponent,
-    LoadingComponent
+    LoadingComponent,
+    InnerSkillDetailDialogComponent
   ],
   imports: [
     BrowserModule,
