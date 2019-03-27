@@ -6,7 +6,7 @@
 
 	<groupId>com.viadee</groupId>
 	<artifactId>sonarQuest</artifactId>
-	<version>0.6.2-SNAPSHOT</version>
+	<version>0.6.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SonarQuest</name>
 	<inceptionYear>2017</inceptionYear>
@@ -151,22 +151,22 @@
 					<argLine>-Dspring.profiles.active=dev</argLine>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<!--fail on CVSS v3 critical ratings -->
-					<failBuildOnCVSS>9</failBuildOnCVSS>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.owasp</groupId> -->
+<!-- 				<artifactId>dependency-check-maven</artifactId> -->
+<!-- 				<version>3.2.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					fail on CVSS v3 critical ratings -->
+<!-- 					<failBuildOnCVSS>9</failBuildOnCVSS> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>check</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 

@@ -2,8 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +21,6 @@ import com.viadee.sonarquest.services.WorldService;
 @RestController
 @RequestMapping("/user_to_world")
 public class UserToWorldController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserToWorldController.class);
 
     @Autowired
     private UserService userService;
