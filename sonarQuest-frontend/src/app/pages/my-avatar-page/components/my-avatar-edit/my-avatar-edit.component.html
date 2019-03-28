@@ -10,6 +10,11 @@
     </div>
     <div flex>
       <mat-form-field class="full-width">
+        <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="user.mail">
+      </mat-form-field>
+    </div>
+    <div flex>
+      <mat-form-field class="full-width">
         <input matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [(ngModel)]="user.password" [type]="'password'" size="15">
       </mat-form-field>
     </div>    

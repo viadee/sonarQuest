@@ -8,6 +8,11 @@
     </div>
     <div flex>
       <mat-form-field class="full-width">
+        <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="user.mail">
+      </mat-form-field>
+    </div>
+    <div flex>
+      <mat-form-field class="full-width">
         <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="user.aboutMe"></textarea>
       </mat-form-field>
     </div>

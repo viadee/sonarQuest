@@ -11,6 +11,12 @@
     </div>
     <div flex>
       <mat-form-field class="full-width">
+        <input class="form-control" formControlName="mail" matInput placeholder="{{'LOGIN.MAIL' | translate}}">   
+        <mat-error>{{getErrorMessage()}}</mat-error>            
+      </mat-form-field>
+    </div>
+    <div flex>
+      <mat-form-field class="full-width">
         <input class="form-control" formControlName="password" matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [type]="'password'">
         <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-form-field>

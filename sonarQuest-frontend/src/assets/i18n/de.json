@@ -102,6 +102,7 @@
       "MISSION": "Mission",
       "ABOUT_ME": "Kurzbio",
       "USERNAME": "Username",
+      "MAIL": "E-Mail",
       "JOINED": "Freigeschaltet",
       "PLAYERS": "Spieler",
       "ROLE": "Rolle",
@@ -215,6 +216,7 @@
   "LOGIN": {
     "LOGIN": "Login",
     "USERNAME": "Benutzername",
+    "MAIL": "E-Mail",
     "PASSWORD": "Passwort"
   },
   "WIZARD": {
