@@ -10,7 +10,8 @@
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "BACKGROUND": "Switch transparency of background",
-    "USER_PROFILE": "Open user profile"
+    "USER_PROFILE": "Open user profile",
+    "SKILL_TREE": "Skill-Tree"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",

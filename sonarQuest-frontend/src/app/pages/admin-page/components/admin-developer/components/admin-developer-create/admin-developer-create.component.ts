@@ -104,8 +104,8 @@ export class AdminDeveloperCreateComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getErrorMessage() {
-    if (this.createForm.get('name').hasError('required')) {
+  getErrorMessage(control: string) {
+    if (this.createForm.get(control).hasError('required')) {
       return 'This value is mandatory';
     }
     if (this.nameTaken) {

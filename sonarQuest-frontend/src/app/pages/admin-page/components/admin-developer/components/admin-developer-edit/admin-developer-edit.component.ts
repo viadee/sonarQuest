@@ -115,8 +115,8 @@ export class AdminDeveloperEditComponent implements OnInit {
     }
   }
 
-  getErrorMessage() {
-    if (this.editForm.get('name').hasError('required')) {
+  getErrorMessage(control: string) {
+    if (this.editForm.get(control).hasError('required')) {
       return 'This value is mandatory';
     }
     if (this.nameTaken) {

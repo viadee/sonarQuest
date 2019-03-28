@@ -5,13 +5,13 @@
     <div flex>
       <mat-form-field class="full-width">
         <input matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}" [(ngModel)]="data.user.username" class="form-control" formControlName="name">
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('name')}}</mat-error>
       </mat-form-field>
     </div>
     <div flex>
       <mat-form-field class="full-width">
         <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="data.user.mail" class="form-control" formControlName="mail">
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('mail')}}</mat-error>
       </mat-form-field>
     </div>
     <div flex>
@@ -24,7 +24,7 @@
         <mat-option *ngFor="let role of roles" [value]="role">
           {{role.name}}
         </mat-option>
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('role')}}</mat-error>
       </mat-select>
     </div>
     <hr/>

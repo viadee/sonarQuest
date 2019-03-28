@@ -6,19 +6,19 @@
     <div flex>
       <mat-form-field class="full-width">
         <input class="form-control" formControlName="name" matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}">   
-        <mat-error>{{getErrorMessage()}}</mat-error>            
+        <mat-error>{{getErrorMessage('name')}}</mat-error>            
       </mat-form-field>
     </div>
     <div flex>
       <mat-form-field class="full-width">
         <input class="form-control" formControlName="mail" matInput placeholder="{{'LOGIN.MAIL' | translate}}">   
-        <mat-error>{{getErrorMessage()}}</mat-error>            
+        <mat-error>{{getErrorMessage('mail')}}</mat-error>            
       </mat-form-field>
     </div>
     <div flex>
       <mat-form-field class="full-width">
         <input class="form-control" formControlName="password" matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [type]="'password'">
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('password')}}</mat-error>
       </mat-form-field>
     </div>
     <div flex>
@@ -31,7 +31,7 @@
         <mat-option *ngFor="let role of roles" [value]="role">
           {{role.name}}
         </mat-option>
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('role')}}</mat-error>
       </mat-select>
     </div>
     <div flex>
@@ -39,7 +39,7 @@
         <mat-option *ngFor="let race of races" [value]="race">
           {{race.name}}
         </mat-option>
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('race')}}</mat-error>
       </mat-select>
     </div>
     <div flex>
@@ -47,7 +47,7 @@
         <mat-option *ngFor="let class of classes" [value]="class">
           {{class.name}}
         </mat-option>
-        <mat-error>{{getErrorMessage()}}</mat-error>
+        <mat-error>{{getErrorMessage('class')}}</mat-error>
       </mat-select>
     </div>
     <div flex>
