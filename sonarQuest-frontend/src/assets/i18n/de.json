@@ -1,270 +1,244 @@
 {
     "APP_COMPONENT": {
-        "STARTPAGE": "Startseite-de",
-        "MY_AVATAR": "Mein Avatar",
-        "ADVENTURES": "Abenteuer",
-        "QUESTS": "Quests",
-        "MARKETPLACE": "Marktplatz",
-        "GAMEMASTER": "Spielleiter",
-        "ADMIN": "Admin",
-        "LOGIN": "Anmelden",
-        "LOGOUT": "Abmelden",
-        "BACKGROUND": "Schalte Hintergrund-Transparenz um",
-        "USER_PROFILE": "Öffne Benutzerprofil",
-        "SKILL_TREE": "Skill-Tree"
+      "STARTPAGE": "Startseite-de",
+      "MY_AVATAR": "Mein Avatar",
+      "ADVENTURES": "Abenteuer",
+      "QUESTS": "Quests",
+      "MARKETPLACE": "Marktplatz",
+      "GAMEMASTER": "Spielleiter",
+      "ADMIN": "Admin",
+      "LOGIN": "Anmelden",
+      "LOGOUT": "Abmelden",
+      "BACKGROUND": "Schalte Hintergrund-Transparenz um",
+      "USER_PROFILE": "Öffne Benutzerprofil"
     },
     "ADVENTURE_PAGE": {
-        "MY_ADVENTURES": "Meine Abenteuer",
-        "JOIN_ADVENTURE": "Dieses Abenteuer beginnen!",
-        "LEAVE_ADVENTURE": "Dieses Abenteuer verlassen...",
-        "MY_ADVENTURES_FOR_WORLD": "Meine Abenteuer für ",
-        "ADVENTURES_FOR_WORLD": "Alle Abenteuer für ",
-        "AVAILABLE_ADVENTURES": "Verfügbare Abenteuer",
-        "AVAILABLE_ADVENTURES_FOR_WORLD": "Verfügbare Abenteuer für "
+      "MY_ADVENTURES": "Meine Abenteuer",
+      "JOIN_ADVENTURE": "Dieses Abenteuer beginnen!",
+      "LEAVE_ADVENTURE": "Dieses Abenteuer verlassen...",
+      "MY_ADVENTURES_FOR_WORLD": "Meine Abenteuer für ",
+      "ADVENTURES_FOR_WORLD": "Alle Abenteuer für ",
+      "AVAILABLE_ADVENTURES": "Verfügbare Abenteuer",
+      "AVAILABLE_ADVENTURES_FOR_WORLD": "Verfügbare Abenteuer für "
     },
     "QUEST_PAGE": {
-        "MY_QUESTS": "Meine Quests",
-        "SHOW_QUEST": "Quest anzeigen",
-        "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
-        "QUESTS_FOR_WORLD": "Alle Quests für ",
-        "JOIN_QUEST": "Quest annehmen",
-        "AVAILABLE_QUESTS": "Verfügbare Quests",
-        "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
-        "COMBATED_BY": "angenommen von ",
-        "SHOW_ISSUE_TOOLTIP": "Zeige SonarQube Issue",
-        "JOIN_ISSUE_TOOLTIP": "Kämpfe",
-        "CANCEL_ISSUE_TOOLTIP": "Höre auf zu kämpfen"
+      "MY_QUESTS": "Meine Quests",
+      "SHOW_QUEST": "Quest anzeigen",
+      "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
+      "QUESTS_FOR_WORLD": "Alle Quests für ",
+      "JOIN_QUEST": "Quest annehmen",
+      "AVAILABLE_QUESTS": "Verfügbare Quests",
+      "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
+      "COMBATED_BY": "angenommen von ",
+      "SHOW_ISSUE_TOOLTIP":"Zeige SonarQube Issue",
+      "JOIN_ISSUE_TOOLTIP":"Kämpfe",
+      "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
     },
     "MARKETPLACE_PAGE": {
-        "MARKETPLACE": "Marktplatz",
-        "ALREADY_OWNED_ITEM": "Bereits in meinem Besitz!",
-        "BUY_ITEM_COMPULSORY": "Mit einem Click jetzt kaufen!",
-        "SHOW_ITEM": "Artefakt anzeigen"
+      "MARKETPLACE": "Marktplatz",
+      "ALREADY_OWNED_ITEM": "Bereits in meinem Besitz!",
+      "BUY_ITEM_COMPULSORY": "Mit einem Click jetzt kaufen!",
+      "SHOW_ITEM": "Artefakt anzeigen"
     },
     "ARTEFACT_VIEW_PAGE": {
         "TITLE": "Artefaktsteckbrief"
     },
     "ADMIN_PAGE": {
-        "ALL_DEVELOPER": "Alle Entwickler",
-        "CREATE_DEVELOPER": "Entwickler anlegen",
-        "EDIT_DEVELOPER": "Entwickler bearbeiten",
-        "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
-        "SONAR_CUBE_HEADER": "SonarQube",
-        "SELECT_BACKGROUND": "Hintergrund wählen"
+      "ALL_DEVELOPER": "Alle Entwickler",
+      "CREATE_DEVELOPER": "Entwickler anlegen",
+      "EDIT_DEVELOPER": "Entwickler bearbeiten",
+      "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
+      "SONAR_CUBE_HEADER": "SonarQube",
+      "SELECT_BACKGROUND": "Hintergrund wählen"
     },
     "START_PAGE": {
-        "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
-        "PLEASE_LOG_IN": "Bitte loggen Sie sich ein"
+      "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
+      "PLEASE_LOG_IN": "Bitte loggen Sie sich ein"
     },
     "GAMEMASTER_PAGE": {
-        "ADVENTURE": {
-            "CREATE_ADVENTURE": "Abenteuer anlegen",
-            "EDIT_ADVENTURE": "Abenteuer bearbeiten"
-        },
-        "QUEST": {
-            "SUGGEST_TASKS": "Auftrag vorschlagen",
-            "GENERATE": "Erzeugen",
-            "CREATE_QUEST": "Quest anlegen",
-            "EDIT_QUEST": "Quest bearbeiten",
-            "EDIT_SOLVED_QUEST": "Diese Quest ist gelöst. Du kannst sie nicht mehr bearbeiten."
-        },
-        "TASK": {
-            "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
-            "CREATE_STANDARDTASK": "Auftrag anlegen",
-            "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
-            "EDIT_STANDARDTASK": "Auftrag bearbeiten",
-            "CONDITION": "Bedingung",
-            "AMOUNT": "Anzahl",
-            "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
-            "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
-            "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
-            "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
-        }
+      "ADVENTURE": {
+        "CREATE_ADVENTURE": "Abenteuer anlegen",
+        "EDIT_ADVENTURE": "Abenteuer bearbeiten"
+      },
+      "QUEST": {
+        "SUGGEST_TASKS": "Auftrag vorschlagen",
+        "GENERATE": "Erzeugen",
+        "CREATE_QUEST": "Quest anlegen",
+        "EDIT_QUEST": "Quest bearbeiten",
+        "EDIT_SOLVED_QUEST": "Diese Quest ist gelöst. Du kannst sie nicht mehr bearbeiten."
+      },
+      "TASK": {
+        "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
+        "CREATE_STANDARDTASK": "Auftrag anlegen",
+        "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
+        "EDIT_STANDARDTASK": "Auftrag bearbeiten",
+        "CONDITION": "Bedingung",
+        "AMOUNT": "Anzahl",
+        "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
+        "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
+        "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
+        "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
+      }
     },
     "TABLE": {
-        "COLUMNS": {
-            "TITLE": "Titel",
-            "GOLD": "Gold",
-            "XP": "XP",
-            "LEVEL": "Level",
-            "ADVENTURE": "Abenteuer",
-            "STORY": "Story",
-            "STATUS": "Status",
-            "ID": "Id",
-            "NAME": "Name",
-            "PROJECT": "Projekt",
-            "QUEST": "Quest",
-            "TYPE": "Typ",
-            "SEVERITY": "Schwere",
-            "WORLD": "Welt",
-            "ACTIVE_WORLD": "Letzte Spielwelt",
-            "ACTIVE": "Aktiv",
-            "UPDATE_TASKS": "Aufgaben aktualisieren",
-            "MISSION": "Mission",
-            "ABOUT_ME": "Kurzbio",
-            "USERNAME": "Username",
-            "MAIL": "E-Mail",
-            "JOINED": "Freigeschaltet",
-            "PLAYERS": "Spieler",
-            "ROLE": "Rolle",
-            "VISIBLE": "Sichtbar",
-            "USE_QUEST_CARDS": "Questcards",
-            "LAST_LOGIN": "Letzter Login",
-            "CREATORNAME": "Von"
-        },
-        "INFO": {
-            "NO_ENTRIES": "keine Einträge",
-            "OF": "von",
-            "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
-        }
+      "COLUMNS": {
+        "TITLE": "Titel",
+        "GOLD": "Gold",
+        "XP": "XP",
+        "LEVEL": "Level",
+        "ADVENTURE": "Abenteuer",
+        "STORY": "Story",
+        "STATUS": "Status",
+        "ID": "Id",
+        "NAME": "Name",
+        "PROJECT": "Projekt",
+        "QUEST": "Quest",
+        "TYPE": "Typ",
+        "SEVERITY": "Schwere",
+        "WORLD": "Welt",
+        "ACTIVE_WORLD": "Letzte Spielwelt",
+        "ACTIVE": "Aktiv",
+        "UPDATE_TASKS": "Aufgaben aktualisieren",
+        "MISSION": "Mission",
+        "ABOUT_ME": "Kurzbio",
+        "USERNAME": "Username",
+        "MAIL": "E-Mail",
+        "JOINED": "Freigeschaltet",
+        "PLAYERS": "Spieler",
+        "ROLE": "Rolle",
+        "VISIBLE": "Sichtbar",
+        "USE_QUEST_CARDS": "Questcards",
+        "LAST_LOGIN": "Letzter Login",
+        "CREATORNAME": "Von"
+      },
+      "INFO": {
+        "NO_ENTRIES": "keine Einträge",
+        "OF": "von",
+        "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
+      }
     },
     "GLOBAL": {
-        "CANCEL": "Abbrechen",
-        "CREATE": "Anlegen",
-        "EDIT": "Bearbeiten",
-        "DELETE": "Löschen",
-        "NO_ENTRIES": "keine Einträge",
-        "SEARCH": "Suche",
-        "SAVE": "Speichern",
-        "SOLVEALLTASKS": "Alle Aufgaben lösen",
-        "IMAGE": "Bild",
-        "FILENAME_IMAGE": "Dateiname Bild",
-        "CLICK_TO_SELECT": "Klick zum Wählen",
-        "GOLD": "Gold",
-        "XP": "XP",
-        "CLOSE": "Schließen",
-        "CONFIRMATION_MESSAGE": "Wirklich löschen?"
-    },
-    "DEVELOPER": {
-        "DEVELOPER": "Entwickler",
-        "GOLD": "Gold",
-        "XP": "XP",
-        "LEVEL": "Stufe",
-        "ABOUTME": "Über mich",
-        "AVATARRACE": "Rasse",
-        "AVATARCLASS": "Klasse",
-        "TROPHIES": "Trophäen",
-        "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten"
-    },
-    "QUEST": {
-        "QUEST": "Quest",
-        "QUESTS": "Quests",
-        "NEW_QUEST": "Neue Quest",
-        "ADD_FREE_QUEST": "Freie Quest anlegen",
-        "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden",
-        "VISIBLE": "Sichtbar",
-        "TOOLTIP_VISIBLE": "Diese Quest bei den Spielern sichtbar machen?"
-    },
-    "ADVENTURE": {
-        "ADVENTURE": "Abenteuer",
-        "ADVENTURES": "Abenteuer",
-        "NEW_ADVENTURE": "Neues Abenteuer",
-        "SOLVEADVENTURE": "Abenteuer abschließen"
-    },
-    "WORLD": {
-        "WORLD": "Welt",
-        "WORLDS": "Welten",
-        "ACTIVE": "Aktiv",
-        "CHOOSE_WORLD": "Wähle deine Welt",
-        "UPDATE_WORLDS": "Aktualisiere Welten",
-        "USE_QUEST_CARDS": "Questcard-Layout",
-        "TOOLTIP_USE_QUEST_CARDS": "Wenn angehakt wird bei den Spielern bei der Questdarstellung ein Karten-Layout verwendet statt einer Tabelle",
-        "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
-    },
-    "TASK": {
-      "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
-      "CREATE_STANDARDTASK": "Auftrag anlegen",
-      "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
-      "EDIT_STANDARDTASK": "Auftrag bearbeiten",
-      "CONDITION": "Bedingung",
-      "AMOUNT": "Anzahl",
-      "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
-      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
-      "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
-      "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
-    }
-  },
-  "TABLE": {
-    "COLUMNS": {
-      "TITLE": "Titel",
+      "CANCEL": "Abbrechen",
+      "CREATE": "Anlegen",
+      "EDIT": "Bearbeiten",
+      "DELETE": "Löschen",
+      "NO_ENTRIES": "keine Einträge",
+      "SEARCH": "Suche",
+      "SAVE": "Speichern",
+      "SOLVEALLTASKS" : "Alle Aufgaben lösen",
+      "IMAGE": "Bild",
+      "FILENAME_IMAGE": "Dateiname Bild",
+      "CLICK_TO_SELECT": "Klick zum Wählen",
       "GOLD": "Gold",
       "XP": "XP",
-      "LEVEL": "Level",
-      "ADVENTURE": "Abenteuer",
-      "STORY": "Story",
-      "STATUS": "Status",
-      "ID": "Id",
-      "NAME": "Name",
-      "PROJECT": "Projekt",
+      "CLOSE": "Schließen",
+      "CONFIRMATION_MESSAGE": "Wirklich löschen?"
+    },
+    "DEVELOPER": {
+      "DEVELOPER": "Entwickler",
+      "GOLD": "Gold",
+      "XP": "XP",
+      "LEVEL": "Stufe",
+      "ABOUTME": "Über mich",
+      "AVATARRACE": "Rasse",
+      "AVATARCLASS": "Klasse",
+      "TROPHIES": "Trophäen",
+      "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten"
+    },
+    "QUEST": {
       "QUEST": "Quest",
-      "TYPE": "Typ",
-      "SEVERITY": "Schwere",
-      "WORLD": "Welt",
-      "ACTIVE_WORLD": "Letzte Spielwelt",
-      "ACTIVE": "Aktiv",
-      "UPDATE_TASKS": "Aufgaben aktualisieren",
-      "MISSION": "Mission",
-      "ABOUT_ME": "Kurzbio",
-      "USERNAME": "Username",
-      "JOINED": "Freigeschaltet",
-      "PLAYERS": "Spieler",
-      "ROLE": "Rolle",
+      "QUESTS": "Quests",
+      "NEW_QUEST": "Neue Quest",
+      "ADD_FREE_QUEST": "Freie Quest anlegen",
+      "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden",
       "VISIBLE": "Sichtbar",
-      "USE_QUEST_CARDS": "Questcards",
-      "LAST_LOGIN": "Letzter Login",
-      "CREATORNAME": "Von"
+      "TOOLTIP_VISIBLE": "Diese Quest bei den Spielern sichtbar machen?"
+    },
+    "ADVENTURE": {
+      "ADVENTURE": "Abenteuer",
+      "ADVENTURES": "Abenteuer",
+      "NEW_ADVENTURE": "Neues Abenteuer",
+      "SOLVEADVENTURE": "Abenteuer abschließen"
+    },
+    "WORLD": {
+      "WORLD": "Welt",
+      "WORLDS": "Welten",
+      "ACTIVE": "Aktiv",
+      "CHOOSE_WORLD": "Wähle deine Welt",
+      "UPDATE_WORLDS": "Aktualisiere Welten",
+      "USE_QUEST_CARDS": "Questcard-Layout",
+      "TOOLTIP_USE_QUEST_CARDS": "Wenn angehakt wird bei den Spielern bei der Questdarstellung ein Karten-Layout verwendet statt einer Tabelle",
+      "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
+    },
+    "TASK": {
+      "TASK": "Auftrag",
+      "TASKS": "Aufträge",
+      "SPECIALTASK": "Spezialauftrag",
+      "STANDARDTASK": "Standardauftrag",
+      "NEW_SPECIALTASK": "Neuer Spezialauftrag",
+      "NEW_STANDARDTASK": "Neuer Standardauftrag",
+      "ADD_FREE_TASK": "Freien Auftrag anlegen",
+      "NO_FREE_TASKS_AVAILABLE": "Keine freien Aufträge gefunden",
+      "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
+      "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
+      "AVAILABLE_TASKS": "Verfügbare Aufträge",
+      "MISSION": "Mission",
+      "UPDATE_STANDARD_TASKS_STATUS": "Update Issues vom SonarQube Server",
+      "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Abrufen der SonarQube Issues nicht möglich, da keine Welt festgelegt wurde!",
+      "FREE_STANDARDTASKS": "Standardaufträge",
+      "FREE_SPECIALTASKS": "Spezialaufträge"
     },
     "ARTEFACT": {
-        "ARTEFACTS": "Artefakte",
-        "NEW_ARTEFACT": "Neues Artefakt",
-        "CREATE_ARTEFACT": "Artefakt anlegen",
-        "EDIT_ARTEFACT": "Artefakt bearbeiten",
-        "SELECT_ICON": "Icon wählen",
-        "CLICK_TO_SELECT": "Klicken zum Auswählen",
-        "PRICE": "Preis",
-        "MIN_LEVEL": "Min. Level",
-        "QUANTITY": "Anzahl vorhanden",
-        "NAME": "Name",
-        "DESCRIPTION": "Beschreibung",
-        "SKILLS": "Kräfte"
+      "ARTEFACTS": "Artefakte",
+      "NEW_ARTEFACT": "Neues Artefakt",
+      "CREATE_ARTEFACT": "Artefakt anlegen",
+      "EDIT_ARTEFACT": "Artefakt bearbeiten",
+      "SELECT_ICON": "Icon wählen",
+      "CLICK_TO_SELECT": "Klicken zum Auswählen",
+      "PRICE": "Preis",
+      "MIN_LEVEL": "Min. Level",
+      "QUANTITY": "Anzahl vorhanden",
+      "NAME": "Name",
+      "DESCRIPTION": "Beschreibung",
+      "SKILLS": "Kräfte"
     },
     "SKILL": {
-        "MORE_GOLD": "Mehr Gold",
-        "MORE_XP": "Mehr XP",
-        "CREATE_SKILL": "Kraft anlegen",
-        "ADD_SKILL": "Kraft hinzufügen",
-        "SKILLS": "Kräfte",
-        "NEW_SKILL": "Neue Kraft",
-        "TYPE": "Typ",
-        "VALUE": "Betrag",
-        "NAME": "Name"
+      "MORE_GOLD": "Mehr Gold",
+      "MORE_XP": "Mehr XP",
+      "CREATE_SKILL": "Kraft anlegen",
+      "ADD_SKILL": "Kraft hinzufügen",
+      "SKILLS": "Kräfte",
+      "NEW_SKILL": "Neue Kraft",
+      "TYPE": "Typ",
+      "VALUE": "Betrag",
+      "NAME": "Name"
     },
     "LOGIN": {
-        "LOGIN": "Login",
-        "USERNAME": "Benutzername",
-        "MAIL": "E-Mail",
-        "PASSWORD": "Passwort"
+      "LOGIN": "Login",
+      "USERNAME": "Benutzername",
+      "MAIL": "E-Mail",
+      "PASSWORD": "Passwort"
     },
     "WIZARD": {
-        "WIZARD_SAYS": "Der Wizard meint...",
-        "MSG_NO_WORLDS_FOUND": "Keine Spielwelt vorhanden",
-        "HINT_NO_WORLDS_FOUND": "Um die SonarQube-Projekte abzurufen, muss der Admin im Reiter 'Welten' auf 'Aktualisiere Welten' klicken",
-        "MSG_NO_ACTIVE_WORLD": "Keine Spielwelt ist aktiv",
-        "HINT_NO_ACTIVE_WORLD": "Zum Aktivieren einer Welt muss der Admin im Reiter 'Welten' bei einer Welt den 'Aktiv'-Haken setzen!",
-        "MSG_NO_PLAYERS_ASSIGNED": "Der aktiven Welt sind keine Spieler zugeordnet",
-        "HINT_NO_PLAYERS_ASSIGNED": "Zum Freischalten eines Spielers muss der Admin im Reiter 'Entwickler' bei einem Spieler den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
-        "MSG_NO_GAMEMASTER_ASSIGNED": "Der aktiven Welt fehlt ein Spielleiter, der die Quests erstellen kann",
-        "HINT_NO_GAMEMASTER_ASSIGNED": "Im Reiter 'Entwickler' muss der Admin bei einem Spieler mit der Rolle 'Spielleiter' den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
-        "MSG_NO_TASKS_FOUND": "Es sind noch keine Aufgaben/Issues von SonarQube abgerufen worden",
-        "HINT_NO_TASKS_FOUND": "Der Spielleiter muss im Reiter 'Aufträge' auf 'Aktualisiere Status' klicken, um die Issues abzurufen!",
-        "MSG_NO_QUESTS_FOUND": "Es sind noch keine Quests erstellt worden",
-        "HINT_NO_QUESTS_FOUND": "Der Spielleiter muss im Reiter 'Quests' eine neue Quest anlegen und Aufträge zuordnen, die die Spieler lösen sollen!",
-        "MSG_NO_WORLD_SELECTED": "Keine aktive Spielwelt ist ausgewählt",
-        "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
+      "WIZARD_SAYS": "Der Wizard meint...",
+      "MSG_NO_WORLDS_FOUND": "Keine Spielwelt vorhanden",
+      "HINT_NO_WORLDS_FOUND": "Um die SonarQube-Projekte abzurufen, muss der Admin im Reiter 'Welten' auf 'Aktualisiere Welten' klicken",
+      "MSG_NO_ACTIVE_WORLD": "Keine Spielwelt ist aktiv",
+      "HINT_NO_ACTIVE_WORLD": "Zum Aktivieren einer Welt muss der Admin im Reiter 'Welten' bei einer Welt den 'Aktiv'-Haken setzen!",
+      "MSG_NO_PLAYERS_ASSIGNED": "Der aktiven Welt sind keine Spieler zugeordnet",
+      "HINT_NO_PLAYERS_ASSIGNED": "Zum Freischalten eines Spielers muss der Admin im Reiter 'Entwickler' bei einem Spieler den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+      "MSG_NO_GAMEMASTER_ASSIGNED": "Der aktiven Welt fehlt ein Spielleiter, der die Quests erstellen kann",
+      "HINT_NO_GAMEMASTER_ASSIGNED": "Im Reiter 'Entwickler' muss der Admin bei einem Spieler mit der Rolle 'Spielleiter' den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+      "MSG_NO_TASKS_FOUND": "Es sind noch keine Aufgaben/Issues von SonarQube abgerufen worden",
+      "HINT_NO_TASKS_FOUND": "Der Spielleiter muss im Reiter 'Aufträge' auf 'Aktualisiere Status' klicken, um die Issues abzurufen!",
+      "MSG_NO_QUESTS_FOUND": "Es sind noch keine Quests erstellt worden",
+      "HINT_NO_QUESTS_FOUND": "Der Spielleiter muss im Reiter 'Quests' eine neue Quest anlegen und Aufträge zuordnen, die die Spieler lösen sollen!",
+      "MSG_NO_WORLD_SELECTED": "Keine aktive Spielwelt ist ausgewählt",
+      "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
     },
     "SKILL_TREE_PAGE": {
         "SKILL_TREE": "Skill-Tree",
-        "INNER_SKILL_TREE_BACK": "Skill-Tree Übersicht"
-    }
-   
-}
+        "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick"
+      } 
+  }
+  
