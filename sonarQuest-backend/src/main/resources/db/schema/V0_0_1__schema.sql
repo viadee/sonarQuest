@@ -247,3 +247,18 @@ CREATE TABLE user_skill_to_sonar_rule (
 	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),
 	FOREIGN KEY (sonar_rule_id) REFERENCES Sonar_Rule(id)
     );
+    
+    CREATE TABLE skill_tree_user (
+	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    mail varchar(255)
+    );  
+    
+    CREATE TABLE user_skill_to_skill_tree_user (
+    id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    repeats						INT,
+    learned_on					TIMESTAMP,
+	user_skill_id				BIGINT NOT NULL,
+	skill_tree_user_id			BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),
+	FOREIGN KEY (skill_tree_user_id) REFERENCES Skill_Tree_User(id)
+    );

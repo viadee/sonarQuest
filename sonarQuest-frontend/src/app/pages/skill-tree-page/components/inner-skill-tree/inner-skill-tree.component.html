@@ -23,8 +23,7 @@
             [curve]="curve"
             [draggingEnabled]="false"            
             scheme = "fire"
-            (select)="openDialog($event)"
-            *ngIf="isDataAvailable">
+            (select)="openDialog($event)">
           
             <ng-template #defsTemplate>
               <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
@@ -39,25 +38,12 @@
               [tooltipType]="'tooltip'"
               [tooltipTitle]="node.label"
               >
-              <svg:g [attr.x]="10" [attr.y]="node.height">
-                <path d="M512.848,101.16L416,4.312l-96.848,96.848l30.72,245.776H320v32h48v128h96v-128h48v-32h-29.872L512.848,101.16z
-				 M432,474.936h-32v-96h32V474.936z M449.872,346.936h-67.744l-29.28-234.224L400,65.56v153.376h32V65.56l47.152,47.152
-				L449.872,346.936z"/>
-			<path d="M208,473.336c-54.784-25.968-176-99.104-176-174.4V87.432l176-44l107.328,26.816l7.776-31.024L208,10.44l-208,52v236.496
-				c0,115.2,193.248,202.928,201.456,206.608l6.544,2.992l6.544-2.928c46.299-21.529,89.618-48.957,128.88-81.6l-20.944-24.272
-				C287.445,428.82,249.003,453.534,208,473.336z"/>
-			<path d="M208,109.352l92.112,23.024l7.776-31.04L208,76.36l-144,36v186.576c0,49.056,85.792,107.792,136.48,134.768l7.52,4
-				l7.536-4.016c24.689-13.15,48.238-28.339,70.4-45.408l-19.584-25.344c-18.457,14.25-37.963,27.086-58.352,38.4
-				c-67.328-37.28-112-82.4-112-102.4v-161.6L208,109.352z"/>
-			<rect x="400" y="250.936" width="32" height="32"/>
-              </svg:g>
-                <!--<svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />-->
+              
+                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />
                 <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
                 
                
-              </svg:g>
-
-               
+              </svg:g>        
                
 
                 

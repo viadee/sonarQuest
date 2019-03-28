@@ -50,6 +50,13 @@ public class UserSkill {
     @ManyToOne()
     @JoinColumn(name = "user_skill_group_id")
     private UserSkillGroup userSkillGroup;
+    
+    @OneToMany(
+            mappedBy = "userSkill",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+        )
+    private List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers;
 
     public UserSkill() {
 
@@ -155,4 +162,20 @@ public class UserSkill {
         this.userSkillGroup = userSkillGroup;
     }
 
+	public List<UserSkillToSkillTreeUser> getUserSkillToSkillTreeUsers() {
+		return userSkillToSkillTreeUsers;
+	}
+
+	public void setUserSkillToSkillTreeUsers(List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers) {
+		this.userSkillToSkillTreeUsers = userSkillToSkillTreeUsers;
+	}
+	
+	public void addUserSkillToSkilLTreeUsers(UserSkillToSkillTreeUser userSkillToSkillTreeUser) {
+		this.userSkillToSkillTreeUsers.add(userSkillToSkillTreeUser);
+	}
+
+	public int getRequiredRepetitions() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

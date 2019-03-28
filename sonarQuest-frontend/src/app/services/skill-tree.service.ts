@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ReplaySubject, Subject, Observable } from 'rxjs';
 import { UserSkill } from '../Interfaces/UserSkill';
 import { environment } from '../../environments/environment';
@@ -17,6 +17,7 @@ export class SkillTreeService {
 
   constructor(public http: HttpClient) { }
 
+  //TODO evtl. ueberflüssig
   getUserSkills(): Observable<UserSkill[]> {
     this.http.get<UserSkill[]>(`${environment.endpoint}/userskill/roots/`)
       .subscribe(
@@ -26,8 +27,9 @@ export class SkillTreeService {
     return this.userSkillsSubject.asObservable();
   }
 
-  getUserSkillTree(id: number): Observable<{ nodes: [], links: [] }> {
-    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/userskill/tree/fromgroup/` + id)
+  getUserSkillTree(id): Observable<{ nodes: [], links: [] }> {
+    const params = new HttpParams().set('id', id)
+    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/skilltree/fromgroup/`, {params: params})
       .subscribe(
         result => this.userSkillTreeSubject.next(result),
         err => this.userSkillTreeSubject.error(err)
@@ -36,7 +38,7 @@ export class SkillTreeService {
   }
 
   getUserSkillGroupTree(): Observable<{ nodes: [], links: [] }> {
-    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/userskillgroup/tree/`)
+    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/skilltree/overview/`)
       .subscribe(
         result => this.userSkillGroupTreeSubject.next(result),
         err => this.userSkillGroupTreeSubject.error(err)
@@ -45,7 +47,7 @@ export class SkillTreeService {
   }
 
   getData(): void {
-    this.getUserSkills();
+   // this.getUserSkills();
     this.getUserSkillGroupTree();
   }
 }

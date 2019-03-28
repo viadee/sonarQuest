@@ -32,7 +32,6 @@ export class InnerSkillTreeComponent implements OnInit {
       this.userSkillTree = userSkillTree;
     });
     this.skillTreeService.getUserSkillTree(this.id);
-    this.isDataAvailable = true;
 
   }
 

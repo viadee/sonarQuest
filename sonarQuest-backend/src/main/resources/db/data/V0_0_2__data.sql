@@ -257,6 +257,10 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (6,11);
 
 
+INSERT INTO skill_tree_user (mail) VALUES ('test@test.de');
+
+INSERT INTO user_skill_to_skill_tree_user (learned_on, repeats, user_skill_id, skill_tree_user_id) VALUES ('2016-11-16 06:43:19.77',1,1,1);
+
 
 
 
