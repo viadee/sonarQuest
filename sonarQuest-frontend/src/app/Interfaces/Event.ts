@@ -1,3 +1,4 @@
+import { World } from './World';
 import { User } from './User';
 
 export enum EventState {
@@ -14,7 +15,7 @@ export interface Event {
     story: string,
     state: EventState,
     image: any,
-    world_id: number,
+    world: World,
     timestamp: Date,
     user: User,
     headline: string

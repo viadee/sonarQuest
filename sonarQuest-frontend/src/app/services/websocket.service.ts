@@ -1,11 +1,13 @@
-import { Token } from './../login/Token';
-import { LocalStorageService } from './../login/local-storage.service';
-import { AuthenticationService } from './../login/authentication.service';
-import { environment } from './../../environments/environment';
+import { World } from './../Interfaces/World';
+import { WorldService } from './world.service';
+import { EventService } from 'app/services/event.service';
+import { UserService } from 'app/services/user.service';
+import { Message } from './../Interfaces/Message';
+import { Event } from './../Interfaces/Event';
 import * as SockJS from 'sockjs-client';
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
-import {HttpClient} from '@angular/common/http';
+import { User } from 'app/Interfaces/User';
 
 
 @Injectable()
@@ -13,9 +15,16 @@ export class WebSocketService {
 
   private serverUrl = 'http://localhost:8080/socket'
   private stompClient;
+  private user: User;
+  private currentWorld: World;
 
-  constructor( private httpClient: HttpClient
+  constructor( 
+    public userService:  UserService,
+    public eventService: EventService,
+    public worldService: WorldService
     ) {
+      userService.user$.subscribe(user => { this.user = user })
+      worldService.currentWorld$.subscribe(currentWorld => { this.currentWorld = currentWorld })
       this.initializeWebSocketConnection();
   }
 
@@ -23,33 +32,25 @@ export class WebSocketService {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
-    that.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {
-          //$(".chat").append("<div class='message'>"+message.body+"</div>")
-          console.log(message.body);
-        }
+    this.stompClient.connect({}, function(frame) {
+      that.stompClient.subscribe("/chat", message => {
+        var event: Event = JSON.parse(message.body);
+        that.eventService.addEvent(event);
       });
     });
   }
-
-  
-
   
   sendMessage(message){
-    this.a(message);
-    this.b(message)
-  }
-  
-  a(message){
-    console.log("a")
-    this.stompClient.send("/app/send/message" , {}, message);
+    var messageDto: Message = {
+      message: message,
+      userId: this.user.id
+    };
+
+    this.stompClient.send("/app/send/message" , {}, JSON.stringify(messageDto));
   }
 
-  public b(message) {
-    console.log("b")
-    const url = `${environment.endpoint}/app/send/message`;
-    this.httpClient.post<any>(url, message);
+  closeWebSocket(){
+      //TODO
   }
 }
 

@@ -1,4 +1,3 @@
-import { WorldService } from './world.service';
 import { ReplaySubject } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
@@ -20,14 +19,8 @@ export class UserService {
 
   private listener: Subscriber<boolean>[] = [];
 
-  constructor(private httpClient: HttpClient,
-              private authenticationService: AuthenticationService) {
-    authenticationService.onLoginLogout().subscribe(() => {
-      if (authenticationService.isLoggedIn()) {
-        this.loadUser();
-      }
-    });
-  }
+  constructor(private httpClient: HttpClient
+    ) {}
 
   public onUserChange(): Observable<boolean> {
     return new Observable<boolean>(

@@ -13,6 +13,7 @@ import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
@@ -36,8 +37,8 @@ public class EventService {
 
 	public List<Event> getEventsForWorld(Principal principal) {
 		User user = userService.getUser(principal);
-		World world = user.getCurrentWorld();
-        List<Event> events =  eventRepository.findByWorldOrWorldIsNull(world);
+		World currentWorld = user.getCurrentWorld();
+        List<Event> events =  eventRepository.findByWorld(currentWorld);
                 
         return events;
 	}
@@ -102,6 +103,15 @@ public class EventService {
 		User user = userService.getUser(principal);
 		EventType type  = EventType.MESSAGE;
 		String story 	= message;
+		World world  	= user.getCurrentWorld();
+		
+		return eventRepository.save(new Event(type, story, world, user));
+	}
+
+	public Event createEventForNewMessage(MessageDto messageDto) {
+		User user = userService.findById(messageDto.getUserId());
+		EventType type  = EventType.MESSAGE;
+		String story 	= messageDto.getMessage();
 		World world  	= user.getCurrentWorld();
 		
 		return eventRepository.save(new Event(type, story, world, user));

@@ -41,6 +41,7 @@ public class EventController {
 	
 	
     @CrossOrigin
+    //@SendTo("/send/message")
     @RequestMapping(value = "/sendChat", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Event sendChat(final Principal principal, @RequestBody String message) {
