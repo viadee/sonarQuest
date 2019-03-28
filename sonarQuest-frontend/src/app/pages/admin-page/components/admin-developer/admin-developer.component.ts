@@ -1,4 +1,3 @@
-import { WorldService } from './../../../../services/world.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AdminDeveloperDeleteComponent } from './components/admin-developer-delete/admin-developer-delete.component';
 import { AdminDeveloperEditComponent } from './components/admin-developer-edit/admin-developer-edit.component';
@@ -20,8 +19,9 @@ export class AdminDeveloperComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
     { name: 'username', label: 'Username'},
+    {name: 'mail', label: 'E-Mail'},
     { name: 'role.name', label: 'Role'},
-    { name: 'level.level', label: 'Level'},
+    { name: 'level.levelNumber', label: 'Level'},
     { name: 'xp', label: 'XP'},
     { name: 'gold', label: 'Gold'},
     { name: 'currentWorld.name', label: 'Current World' },
@@ -44,8 +44,7 @@ export class AdminDeveloperComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private translateService: TranslateService,
-    private _dataTableService: TdDataTableService,
-    private worldService: WorldService) {
+    private _dataTableService: TdDataTableService) {
   }
 
   ngOnInit() {
@@ -57,8 +56,9 @@ export class AdminDeveloperComponent implements OnInit {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
         { name: 'username', label: col_names.USERNAME },
+        { name: 'mail', label: col_names.MAIL },
         { name: 'role.name', label: col_names.ROLE },
-        { name: 'level.level', label: col_names.LEVEL, format: this.formatNullIntoOne() },
+        { name: 'level.levelNumber', label: col_names.LEVEL, format: this.formatNullIntoOne() },
         { name: 'xp', label: col_names.XP },
         { name: 'gold', label: col_names.GOLD },
         { name: 'currentWorld.name', label: col_names.ACTIVE_WORLD },
@@ -69,7 +69,7 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   private formatNullIntoOne(): (value: any) => any {
-    return v => v == null ? 1 : v;
+    return v => v == undefined ? 1 : v;
   }
 
   setUsers(users: User[]) {
@@ -83,11 +83,8 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   editUser(user: User) {
-    this.dialog.open(AdminDeveloperEditComponent, { data: user, width: '500px' }).afterClosed()
-      .subscribe(() => {
-        if (user.role.name == "ADMIN") this.worldService.getWorlds()
-        this.ngOnInit()
-      });
+    this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   deleteUser(user: User) {

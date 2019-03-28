@@ -40,8 +40,8 @@ public class ArtefactController {
     }
 
     @GetMapping(value = "/forMarketplace/")
-    public List<Artefact> getArtefactsforMarkteplace() {
-        return artefactService.getArtefactsforMarkteplace();
+    public List<Artefact> getArtefactsforMarketplace() {
+        return artefactService.getArtefactsForMarketplace();
     }
 
     @GetMapping(value = "/{id}")

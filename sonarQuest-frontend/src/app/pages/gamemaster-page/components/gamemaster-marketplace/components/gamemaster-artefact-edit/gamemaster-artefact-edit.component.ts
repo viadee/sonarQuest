@@ -65,7 +65,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
       this.filter();
     });
     this.name = this.artefact.name;
-    this.min = this.artefact.minLevel.level;
+    this.min = this.artefact.minLevel.levelNumber;
     this.price = this.artefact.price;
     this.description = this.artefact.description;
     this.quantity = this.artefact.quantity;
@@ -92,7 +92,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
       this.artefact.quantity = this.quantity;
       this.artefact.description = this.description;
       this.artefact.icon = this.icon;
-      this.artefact.minLevel.level = this.min;
+      this.artefact.minLevel.levelNumber = this.min;
 
       this.artefactService.updateArtefact(this.artefact).then(() => {
         this.artefactService.getData();

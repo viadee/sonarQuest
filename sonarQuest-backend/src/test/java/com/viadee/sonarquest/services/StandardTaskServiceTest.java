@@ -3,6 +3,9 @@ package com.viadee.sonarquest.services;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,10 +16,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.services.GratificationService;
-import com.viadee.sonarquest.services.StandardTaskService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StandardTaskServiceTest {
@@ -68,5 +71,30 @@ public class StandardTaskServiceTest {
         SonarQuestStatus lastState = standardTaskService.getLastState(task);
         assertEquals(SonarQuestStatus.OPEN, lastState);
     }
+
+	@Test
+	public void testFindByWorld() throws Exception {
+		// Given
+		World world = new World();
+		List<StandardTask> unsortedTasks = new ArrayList<>();
+		unsortedTasks.add(mockStandardTask("BLOCKER"));
+		unsortedTasks.add(mockStandardTask("MAJOR"));
+		unsortedTasks.add(mockStandardTask("CRITICAL"));
+		unsortedTasks.add(mockStandardTask("MAJOR"));
+		when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
+		// When
+		List<StandardTask> tasks = standardTaskService.findByWorld(world);
+		// Then
+		assertEquals(SonarQubeSeverity.BLOCKER.name(), tasks.get(0).getSeverity());
+		assertEquals(SonarQubeSeverity.CRITICAL.name(), tasks.get(1).getSeverity());
+		assertEquals(SonarQubeSeverity.MAJOR.name(), tasks.get(2).getSeverity());
+		assertEquals(SonarQubeSeverity.MAJOR.name(), tasks.get(3).getSeverity());
+	}
+
+	private StandardTask mockStandardTask(String severity) {
+		StandardTask task = new StandardTask();
+		task.setSeverity(severity);
+		return task;
+	}
 
 }

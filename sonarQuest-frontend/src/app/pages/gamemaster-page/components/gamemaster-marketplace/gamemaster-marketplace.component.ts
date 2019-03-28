@@ -28,7 +28,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
     {name: 'name', label: 'name'},
     {name: 'price', label: 'Price (in Gold)'},
     {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.level', label: 'min. Level'},
+    {name: 'minLevel.levelNumber', label: 'min. Level'},
     {name: 'skills', label: 'Skills'},
     {name: 'edit', label: ''}
   ];
@@ -58,7 +58,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
         {name: 'name', label: col_names.NAME},
         {name: 'price', label: col_names.PRICE},
         {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.level', label: col_names.MIN_LEVEL},
+        {name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL},
         {name: 'skills', label: col_names.SKILLS},
         {name: 'edit', label: ''}]
     });      

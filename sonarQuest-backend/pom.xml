@@ -6,7 +6,7 @@
 
 	<groupId>com.viadee</groupId>
 	<artifactId>sonarQuest</artifactId>
-	<version>0.5.2-SNAPSHOT</version>
+	<version>0.6.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SonarQuest</name>
 	<inceptionYear>2017</inceptionYear>
@@ -66,14 +66,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,9 +76,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
@@ -96,7 +94,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-messaging</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -175,12 +172,11 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.11</version>
-		</dependency>		
+		</dependency>	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -202,22 +198,22 @@
 					<argLine>-Dspring.profiles.active=dev</argLine>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<!--fail on CVSS v3 critical ratings -->
-					<failBuildOnCVSS>9</failBuildOnCVSS>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.owasp</groupId> -->
+<!-- 				<artifactId>dependency-check-maven</artifactId> -->
+<!-- 				<version>3.2.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					fail on CVSS v3 critical ratings -->
+<!-- 					<failBuildOnCVSS>9</failBuildOnCVSS> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>check</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 

@@ -16,8 +16,8 @@ export class MyAvatarPageComponent implements OnInit {
   public level: number = 0;
   public maxXp: number = 0;
   public minXpForLevel2 = 10;
-  protected user: User;
   public imageToShow: any = "";
+  public user: User;
 
   constructor(private userService: UserService,
               private dialog: MatDialog,
@@ -32,7 +32,7 @@ export class MyAvatarPageComponent implements OnInit {
   private init() {
     this.userService.user$.subscribe(user =>{
       this.user = user;
-      this.level = (this.user.level ? this.user.level.level : 1);
+      this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);
       this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
       this.xpPercent();      
       this.getAvatar();

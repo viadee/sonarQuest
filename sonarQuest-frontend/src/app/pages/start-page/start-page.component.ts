@@ -10,7 +10,7 @@ import {User} from '../../Interfaces/User';
 export class StartPageComponent implements OnInit {
 
   public XPpercent = 0;
-  protected user: User;
+  public user: User;
 
   constructor(public userService: UserService) {
   }

@@ -21,13 +21,16 @@ export class AdminDeveloperCreateComponent implements OnInit {
   public username: String;
   public aboutMe: String;
   public nameTaken: boolean;
+  public mail: String;
+  public mailTaken: boolean;
 
-  protected roles: Role[];
-  protected classes: AvatarClass[];
-  protected races: AvatarRace[];
+  public roles: Role[];
+  public classes: AvatarClass[];
+  public races: AvatarRace[];
 
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
+    mail: new FormControl(null, [Validators.required, this.matchMailValidator()]),
     role: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     about: new FormControl(),
@@ -47,6 +50,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
 
   ngOnInit() {
     this.nameTaken = false;
+    this.mailTaken = false;
     this.avatarClassService.getClasses().then(classes => this.classes = classes);
     this.avatarRaceService.getRaces().then(races => this.races = races);
     this.roleService.getRoles().then(roles => this.roles = roles);
@@ -60,14 +64,28 @@ export class AdminDeveloperCreateComponent implements OnInit {
       } else {
         this.nameTaken = false;
       }
+      console.log(this.nameTaken);
       return this.nameTaken ? {'currentName': {nameVal}} : null;
+    }
+  }
+  matchMailValidator() {
+    return (control: FormControl) => {
+      const mailVal = control.value;
+      if (this.users.filter(user => (user.mail === mailVal)).length !== 0) {
+        this.mailTaken = true;
+      } else {
+        this.mailTaken = false;
+      }
+      console.log(this.mailTaken);
+      return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
     }
   }
 
   createDeveloper() {
-    if (!this.nameTaken && this.createForm.valid) {
+    if (!this.nameTaken && !this.mailTaken &&  this.createForm.valid) {
       const new_developer: User = {
         username: this.createForm.get('name').value,
+        mail: this.createForm.get('mail').value,
         aboutMe: this.createForm.get('about').value,
         picture: this.createForm.get('picture').value,
         role: this.createForm.get('role').value,
@@ -93,6 +111,10 @@ export class AdminDeveloperCreateComponent implements OnInit {
     if (this.nameTaken) {
       this.createForm.controls['name'].setErrors({'matchNameValidator': true});
       return 'Name already taken. Please choose a different name';
+    }
+    if (this.mailTaken && this.createForm.get('mail').value != null ) {
+      this.createForm.controls['mail'].setErrors({'matchMailValidator': true});
+      return 'E-Mail already taken. Please choose a different E-Mail';
     }
   }
 }

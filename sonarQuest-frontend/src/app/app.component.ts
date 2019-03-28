@@ -24,26 +24,26 @@ export class AppComponent implements OnInit, AfterViewInit {
   public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  protected user: User = null;
+  public selected: World;
+  public user: User = null;
   private ui: UiDesign = null;
 
-  protected myAvatarUrl = RoutingUrls.myAvatar;
-  protected adventuresUrl = RoutingUrls.adventures;
-  protected questsUrl = RoutingUrls.quests;
-  protected marketplaceUrl = RoutingUrls.marketplace;
-  protected gamemasterUrl = RoutingUrls.gamemaster;
-  protected adminUrl = RoutingUrls.admin;
-  protected eventUrl = RoutingUrls.events;
-  protected startUrl = RoutingUrls.start;
+  public myAvatarUrl = RoutingUrls.myAvatar;
+  public adventuresUrl = RoutingUrls.adventures;
+  public questsUrl = RoutingUrls.quests;
+  public marketplaceUrl = RoutingUrls.marketplace;
+  public gamemasterUrl = RoutingUrls.gamemaster;
+  public adminUrl = RoutingUrls.admin;
+  public eventUrl = RoutingUrls.events;
 
-  protected isWorldSelectVisible: boolean;
-  protected isMyAvatarVisible: boolean;
-  protected isAdventuresVisible: boolean;
-  protected isQuestsVisible: boolean;
-  protected isMarketplaceVisible: boolean;
-  protected isGamemasterVisible: boolean;
-  protected isAdminVisible: boolean;
-  protected isEventVisible: boolean;
+  public isWorldSelectVisible: boolean;
+  public isMyAvatarVisible: boolean;
+  public isAdventuresVisible: boolean;
+  public isQuestsVisible: boolean;
+  public isMarketplaceVisible: boolean;
+  public isGamemasterVisible: boolean;
+  public isAdminVisible: boolean;
+  public isEventVisible: boolean;
 
   readonly body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
@@ -61,7 +61,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
     translate.use(translate.getBrowserLang()); // The lang to use. If the lang isn't available, it will use the current loader to get them.
-
   }
 
   protected login(): void {
@@ -73,6 +72,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.authService.logout();
     this.userService.loadUser();
     this.currentWorld = null;
+    this.selected = null;
     this.worlds = null;
     this.user = null;
     this.updateMenu(false);
@@ -201,7 +201,4 @@ export class AppComponent implements OnInit, AfterViewInit {
     const newString = fullString.replace(removeString, '');
     return newString.replace('  ', ' ');
   }
-
-
-  
 }

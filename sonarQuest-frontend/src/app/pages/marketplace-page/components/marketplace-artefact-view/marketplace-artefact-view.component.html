@@ -3,7 +3,7 @@
   <span class="toolbar-spacer"></span>
 
   <div *ngIf="icon!=''" mat-button disabled>
-    <i *ngIf="icon!=''" class="ra ra-3x" [ngClass]="artefact.icon"></i>
+    <i *ngIf="icon!=''" class="ra ra-3x" [ngClass]="icon"></i>
   </div>
   
 </mat-toolbar>
@@ -47,8 +47,7 @@
 <mat-toolbar>
   <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
 </mat-toolbar>
-<td-data-table #dataTable [data]="artefact.skills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="artefact.skills"
-  [sortOrder]="sortOrder" (sortChange)="sort($event)">
+<td-data-table #dataTable [data]="artefact.skills" [columns]="columns">
 </td-data-table>
 <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
   {{"TABLE.INFO.NO_ENTRIES" | translate}}

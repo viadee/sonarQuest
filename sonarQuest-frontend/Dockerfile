@@ -10,7 +10,7 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 RUN npm install -g @angular/cli
 RUN npm install
-RUN ng build --env=prod
+RUN ng build --prod
 
 
 

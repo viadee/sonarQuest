@@ -105,7 +105,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
         skills: this.skills,
         icon: this.icon,
         minLevel: {
-          level: this.min
+          levelNumber: this.min
         }
       };
 
