@@ -8,6 +8,7 @@ import {World} from './World';
 export interface User {
   id?: number,
   username: string,
+  mail?: string,
   role: Role,
   picture?: string,
   aboutMe?: string,

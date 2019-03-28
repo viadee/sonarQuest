@@ -19,6 +19,7 @@ export class AdminDeveloperComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
     { name: 'username', label: 'Username'},
+    {name: 'mail', label: 'E-Mail'},
     { name: 'role.name', label: 'Role'},
     { name: 'level.levelNumber', label: 'Level'},
     { name: 'xp', label: 'XP'},
@@ -55,6 +56,7 @@ export class AdminDeveloperComponent implements OnInit {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
         { name: 'username', label: col_names.USERNAME },
+        { name: 'mail', label: col_names.MAIL },
         { name: 'role.name', label: col_names.ROLE },
         { name: 'level.levelNumber', label: col_names.LEVEL, format: this.formatNullIntoOne() },
         { name: 'xp', label: col_names.XP },
@@ -81,7 +83,7 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   editUser(user: User) {
-    this.dialog.open(AdminDeveloperEditComponent, { data: user, width: '500px' }).afterClosed()
+    this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
       .subscribe(() => this.ngOnInit());
   }
 
