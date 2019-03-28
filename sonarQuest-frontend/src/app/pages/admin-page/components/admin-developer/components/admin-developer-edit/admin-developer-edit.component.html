@@ -1,21 +1,30 @@
 <h2 mat-dialog-title>{{'ADMIN_PAGE.EDIT_DEVELOPER' | translate}}</h2>
+<form [formGroup]="editForm">
 <mat-dialog-content>
   <div layout="column" layout-padding>
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}" [(ngModel)]="user.username">
+        <input matInput placeholder="{{'DEVELOPER.DEVELOPER' | translate}}" [(ngModel)]="data.user.username" class="form-control" formControlName="name">
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
     <div flex>
       <mat-form-field class="full-width">
-        <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="user.aboutMe"></textarea>
+        <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="data.user.mail" class="form-control" formControlName="mail">
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
     <div flex>
-      <mat-select [placeholder]="user.role.name" matInput [(ngModel)]="user.role">
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="{{'DEVELOPER.ABOUTME' | translate}}" [(ngModel)]="data.user.aboutMe" class="form-control" formControlName="about"></textarea>
+      </mat-form-field>
+    </div>
+    <div flex>
+      <mat-select [placeholder]="data.user.role.name" matInput [(ngModel)]="data.user.role" formControlName="role">
         <mat-option *ngFor="let role of roles" [value]="role">
           {{role.name}}
         </mat-option>
+        <mat-error>{{getErrorMessage()}}</mat-error>
       </mat-select>
     </div>
     <hr/>
@@ -24,7 +33,7 @@
     </div>
     <div>
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="user.picture">
+        <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="data.user.picture" class="form-control" formControlName="picture">
       </mat-form-field>
     </div>
     <div>
@@ -51,3 +60,4 @@
     {{'GLOBAL.SAVE' | translate}}
   </button>
 </mat-dialog-actions>
+</form>

@@ -83,6 +83,7 @@ public class UserService implements UserDetailsService {
 	public synchronized User save(final User user) {
 		User toBeSaved = null;
 		final String username = user.getUsername();
+		final String mail = user.getMail();
 		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		if (user.getId() == null) {
 			// Only the password hash needs to be saved
@@ -92,6 +93,7 @@ public class UserService implements UserDetailsService {
 			final Role userRole = roleService.findByName(roleName);
 			toBeSaved = usernameFree(username) ? user : null;
 			if (toBeSaved != null) {
+				setMail(toBeSaved, mail);
 				toBeSaved.setPassword(password);
 				toBeSaved.setRole(userRole);
 				toBeSaved.setCurrentWorld(user.getCurrentWorld());
@@ -106,6 +108,7 @@ public class UserService implements UserDetailsService {
 				final RoleName roleName = role.getName();
 				final Role userRole = roleService.findByName(roleName);
 				setUsername(toBeSaved, username);
+				setMail(toBeSaved, mail);
 				setPassword(user, toBeSaved, encoder);
 				toBeSaved.setRole(userRole);
 				toBeSaved.setAboutMe(user.getAboutMe());
@@ -132,6 +135,17 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
+	private void setMail(User toBeSaved, final String mail) {
+		if(toBeSaved.getMail() != null) {
+			if (!mail.equals(toBeSaved.getMail()) && mailFree(mail)) {
+				toBeSaved.setMail(mail);
+			}	
+		}else if(mailFree(mail)){
+			toBeSaved.setMail(mail);
+		}
+		
+	}
+
 	private void setPassword(final User user, User toBeSaved, final BCryptPasswordEncoder encoder) {
 		// if there are identical hashes in the pw fields, do not touch them
 		if (!toBeSaved.getPassword().equals(user.getPassword())) {
@@ -148,6 +162,10 @@ public class UserService implements UserDetailsService {
 
 	private boolean usernameFree(final String username) {
 		return userRepository.findByUsername(username) == null;
+	}
+
+	private boolean mailFree(final String mail) {
+		return userRepository.findByMail(mail) == null;
 	}
 
 	public void delete(final Long userId) {

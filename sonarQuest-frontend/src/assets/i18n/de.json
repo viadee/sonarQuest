@@ -103,6 +103,7 @@
             "MISSION": "Mission",
             "ABOUT_ME": "Kurzbio",
             "USERNAME": "Username",
+            "MAIL": "E-Mail",
             "JOINED": "Freigeschaltet",
             "PLAYERS": "Spieler",
             "ROLE": "Rolle",
@@ -171,22 +172,47 @@
         "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
     },
     "TASK": {
-        "TASK": "Auftrag",
-        "TASKS": "Aufträge",
-        "SPECIALTASK": "Spezialauftrag",
-        "STANDARDTASK": "Standardauftrag",
-        "NEW_SPECIALTASK": "Neuer Spezialauftrag",
-        "NEW_STANDARDTASK": "Neuer Standardauftrag",
-        "ADD_FREE_TASK": "Freien Auftrag anlegen",
-        "NO_FREE_TASKS_AVAILABLE": "Keine freien Aufträge gefunden",
-        "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
-        "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
-        "AVAILABLE_TASKS": "Verfügbare Aufträge",
-        "MISSION": "Mission",
-        "UPDATE_STANDARD_TASKS_STATUS": "Update Issues vom SonarQube Server",
-        "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Abrufen der SonarQube Issues nicht möglich, da keine Welt festgelegt wurde!",
-        "FREE_STANDARDTASKS": "Standardaufträge",
-        "FREE_SPECIALTASKS": "Spezialaufträge"
+      "CREATE_SPECIALTASK": "Spezialauftrag anlegen",
+      "CREATE_STANDARDTASK": "Auftrag anlegen",
+      "EDIT_SPECIALTASK": "Spezialauftrag bearbeiten",
+      "EDIT_STANDARDTASK": "Auftrag bearbeiten",
+      "CONDITION": "Bedingung",
+      "AMOUNT": "Anzahl",
+      "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
+      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
+      "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
+      "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
+    }
+  },
+  "TABLE": {
+    "COLUMNS": {
+      "TITLE": "Titel",
+      "GOLD": "Gold",
+      "XP": "XP",
+      "LEVEL": "Level",
+      "ADVENTURE": "Abenteuer",
+      "STORY": "Story",
+      "STATUS": "Status",
+      "ID": "Id",
+      "NAME": "Name",
+      "PROJECT": "Projekt",
+      "QUEST": "Quest",
+      "TYPE": "Typ",
+      "SEVERITY": "Schwere",
+      "WORLD": "Welt",
+      "ACTIVE_WORLD": "Letzte Spielwelt",
+      "ACTIVE": "Aktiv",
+      "UPDATE_TASKS": "Aufgaben aktualisieren",
+      "MISSION": "Mission",
+      "ABOUT_ME": "Kurzbio",
+      "USERNAME": "Username",
+      "JOINED": "Freigeschaltet",
+      "PLAYERS": "Spieler",
+      "ROLE": "Rolle",
+      "VISIBLE": "Sichtbar",
+      "USE_QUEST_CARDS": "Questcards",
+      "LAST_LOGIN": "Letzter Login",
+      "CREATORNAME": "Von"
     },
     "ARTEFACT": {
         "ARTEFACTS": "Artefakte",
@@ -216,6 +242,7 @@
     "LOGIN": {
         "LOGIN": "Login",
         "USERNAME": "Benutzername",
+        "MAIL": "E-Mail",
         "PASSWORD": "Passwort"
     },
     "WIZARD": {
@@ -239,4 +266,5 @@
         "SKILL_TREE": "Skill-Tree",
         "INNER_SKILL_TREE_BACK": "Skill-Tree Übersicht"
     }
+   
 }
