@@ -83,7 +83,7 @@ export class AdminDeveloperComponent implements OnInit {
   }
 
   editUser(user: User) {
-    this.dialog.open(AdminDeveloperEditComponent, { data: user, width: '500px' }).afterClosed()
+    this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
       .subscribe(() => this.ngOnInit());
   }
 

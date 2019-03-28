@@ -11,6 +11,7 @@ import { ITdDataTableColumn } from '@covalent/core';
 import { UserToWorldService } from '../../../../../../services/user-to-world.service';
 import { Role } from 'app/Interfaces/Role';
 import { RoleService } from 'app/services/role.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -22,19 +23,27 @@ export class AdminDeveloperEditComponent implements OnInit {
   imageToShow: any;
   userToWorlds: UserToWorld[];
   roles: Role[];
+  nameTaken: boolean;
+  mailTaken: boolean;
 
   columns: ITdDataTableColumn[] = [
     { name: 'userId', label: 'UserId', hidden: true },
     { name: 'worldId', label: 'WorldId', hidden: true },
     { name: 'worldName', label: 'World' },
     { name: 'editJoined', label: 'Joined' },
-  ];
-
+  ]; 
+  editForm = new FormGroup({
+    name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
+    mail: new FormControl(null, [Validators.required, this.matchMailValidator()]),
+    role: new FormControl(null, [Validators.required]),
+    about: new FormControl(),
+    picture: new FormControl()
+  });
   constructor(
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
     private translateService: TranslateService,
-    @Inject(MAT_DIALOG_DATA) public user: User,
+    @Inject(MAT_DIALOG_DATA) public data: {user: User, users: User[]},
     private imageService: ImageService,
     private roleService: RoleService,
     private userToWorldService: UserToWorldService
@@ -42,14 +51,17 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.translateTable();
     this.loadImages();
-    this.userToWorldService.getUserToWorlds(this.user).then(userToWorlds => {
+    this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
       console.log(userToWorlds)
     });
     
     this.roleService.getRoles().then(roles => this.roles = roles);
+    this.nameTaken = false;
+    this.mailTaken = false;
   }
 
   translateTable() {
@@ -61,7 +73,7 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   editDeveloper() {
-    this.userService.updateUser(this.user).then(() => {
+    this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.saveUserToWorlds(this.userToWorlds);
       this.dialogRef.close(true);
     })
@@ -72,9 +84,48 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   loadImages() {
-    this.userService.getImageForUser(this.user).subscribe((blob) => {
+    this.userService.getImageForUser(this.data.user).subscribe((blob) => {
       this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
     });
   }
 
+  matchNameValidator() {
+    console.log(this.data);
+    return (control: FormControl) => {
+      const nameVal = control.value;
+      if (this.data.users.filter(user => (user.username === nameVal && user.username !== this.data.user.username)).length !== 0) {
+        this.nameTaken = true;
+      } else {
+        this.nameTaken = false;
+      }
+      console.log(this.nameTaken);
+      return this.nameTaken ? {'currentName': {nameVal}} : null;
+    }
+  }
+  matchMailValidator() {
+    return (control: FormControl) => {
+      const mailVal = control.value;
+      if (this.data.users.filter(user => (user.mail === mailVal && user.mail !== this.data.user.mail)).length !== 0) {
+        this.mailTaken = true;
+      } else {
+        this.mailTaken = false;
+      }
+      console.log(this.mailTaken);
+      return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
+    }
+  }
+
+  getErrorMessage() {
+    if (this.editForm.get('name').hasError('required')) {
+      return 'This value is mandatory';
+    }
+    if (this.nameTaken) {
+      this.editForm.controls['name'].setErrors({'matchNameValidator': true});
+      return 'Name already taken. Please choose a different name';
+    }
+    if (this.mailTaken && this.editForm.get('mail').value != null ) {
+      this.editForm.controls['mail'].setErrors({'matchMailValidator': true});
+      return 'E-Mail already taken. Please choose a different E-Mail';
+    }
+  }
 }
