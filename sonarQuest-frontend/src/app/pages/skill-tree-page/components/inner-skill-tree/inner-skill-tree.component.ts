@@ -21,6 +21,10 @@ export class InnerSkillTreeComponent implements OnInit {
   isDataAvailable: boolean;
   private id: number;
   nodecolor = '#c0c0c0';
+  color = 'primary';
+  mode = 'determinate';
+  value = 50;
+  bufferValue = 75;
 
   constructor(private skillTreeService: SkillTreeService, private _route: ActivatedRoute, public dialog: MatDialog) {
   }

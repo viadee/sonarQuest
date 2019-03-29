@@ -227,18 +227,18 @@ INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill
 (4,9),
 (5,8);
 
-INSERT INTO User_Skill(skill_name,description,is_root,user_skill_group_id) VALUES 
-('Java-Basics','Fundamental java basic skills',1,1),
-('Primitive types','Easy data types',0,1),
-('Packages','Structure your code project',0,1),
-('Java Doc','Stay informed! Document your code',0,1),
-('Scopes','Where is the code reachable',0,1),
-('Static','Global and unique useable',0,1),
-('Floating point numbers','More flexible numbers',0,1),
-('Switch-case','asd',0,1),
-('Operators','+ - * / =',0,1),
-('If','If-statement',0,1),
-('Methods','Build your own functionality',0,1);
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Java-Basics','Fundamental java basic skills',1,3,1),
+('Primitive types','Easy data types',0,3,1),
+('Packages','Structure your code project',0,3,1),
+('Java Doc','Stay informed! Document your code',0,3,1),
+('Scopes','Where is the code reachable',0,3,1),
+('Static','Global and unique useable',0,3,1),
+('Floating point numbers','More flexible numbers',0,3,1),
+('Switch-case','asd',0,3,1),
+('Operators','+ - * / =',0,3,1),
+('If','If-statement',0,3,1),
+('Methods','Build your own functionality',0,3,1);
 
 INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
 

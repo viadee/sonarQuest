@@ -39,12 +39,11 @@
               [tooltipTitle]="node.label"
               >
               
-                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />
-                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
-                
-               
+                <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="nodecolor" />
+                <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2" text-anchor="middle">{{node.label}}</svg:text>
+                <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle">{{ node.repeats}} | {{node.requiredRepetitions}}</svg:text>
               </svg:g>        
-               
+
 
                 
             </ng-template>

@@ -49,7 +49,7 @@ public class UserSkillController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserSkill createUserSkill() {
-        return userSkillService.createUserSkill(new UserSkill("testbeschreibug","testname",false, null));
+        return userSkillService.createUserSkill(new UserSkill("testbeschreibug","testname",false, null,0));
     }
     
     @DeleteMapping(value = "/{id}")

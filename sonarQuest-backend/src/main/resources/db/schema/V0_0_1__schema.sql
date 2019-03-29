@@ -200,6 +200,7 @@ CREATE TABLE user_skill (
     description varchar(255),
     skill_name varchar(255),
     is_root 	BOOLEAN,
+    required_repetitions INT,
     user_skill_group_id BIGINT,
      );
      
@@ -232,6 +233,7 @@ CREATE TABLE user_skill_group_following (
 	FOREIGN KEY (following_user_skill_group_id) 	REFERENCES User_Skill_Group(id)   
     );
     
+    /*TODO*/
 /*CREATE TABLE user_skill_previous (
 	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	user_skill_id				BIGINT NOT NULL,
