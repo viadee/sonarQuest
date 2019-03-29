@@ -214,7 +214,8 @@ CREATE TABLE user_skill_group (
 CREATE TABLE sonar_rule (
 	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     rule_key varchar(255),
-    rule_name varchar(255)
+    rule_name varchar(255),
+    user_skill_id BIGINT
     );
    
 CREATE TABLE user_skill_following (
@@ -233,23 +234,24 @@ CREATE TABLE user_skill_group_following (
 	FOREIGN KEY (following_user_skill_group_id) 	REFERENCES User_Skill_Group(id)   
     );
     
-    /*TODO*/
-/*CREATE TABLE user_skill_previous (
-	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	user_skill_id				BIGINT NOT NULL,
-	previous_user_skill_id		BIGINT NOT NULL,
-	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
-	FOREIGN KEY (previous_user_skill_id) 	REFERENCES User_Skill(id)
-    );*/
+    --TODO
+-- CREATE TABLE user_skill_previous (
+-- 	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- 	user_skill_id				BIGINT NOT NULL,
+-- 	previous_user_skill_id		BIGINT NOT NULL,
+-- 	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
+-- 	FOREIGN KEY (previous_user_skill_id) 	REFERENCES User_Skill(id)
+--     );
     
-CREATE TABLE user_skill_to_sonar_rule (
-    id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	user_skill_id				BIGINT NOT NULL,
-	sonar_rule_id				BIGINT NOT NULL,
-	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),
-	FOREIGN KEY (sonar_rule_id) REFERENCES Sonar_Rule(id)
-    );
-    
+--     Currently needed
+-- CREATE TABLE user_skill_to_sonar_rule (
+--     id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- 	user_skill_id				BIGINT NOT NULL,
+-- 	sonar_rule_id				BIGINT NOT NULL,
+-- 	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),
+-- 	FOREIGN KEY (sonar_rule_id) REFERENCES Sonar_Rule(id)
+--     );
+--    
     CREATE TABLE skill_tree_user (
 	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     mail varchar(255)

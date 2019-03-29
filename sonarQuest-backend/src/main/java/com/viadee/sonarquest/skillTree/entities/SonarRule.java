@@ -6,10 +6,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Sonar_Rule")
@@ -25,13 +30,19 @@ public class SonarRule {
     @Column(name = "rule_key")
     private String key;
     
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_skill_id")
+    @JsonIgnore
+    private UserSkill userSkill;
+    
 
     public SonarRule() {
     }
 
-    public SonarRule(String name, String key) {
+    public SonarRule(String name, String key, UserSkill userSkill) {
         this.name = name;
         this.key = key;
+        this.userSkill = userSkill;
     }
 
     public Long getId() {
@@ -59,5 +70,13 @@ public class SonarRule {
     public void setKey(String key) {
         this.key = key;
     }
+
+	public UserSkill getUserSkill() {
+		return userSkill;
+	}
+
+	public void setUserSkill(UserSkill userSkill) {
+		this.userSkill = userSkill;
+	}
 
 }

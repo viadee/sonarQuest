@@ -206,7 +206,9 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
   (2, 4),
   (3, 1);
 
-INSERT INTO Sonar_Rule(rule_name,rule_key) VALUES ('Servlets should not have mutable instance fields','squid:S2226');
+INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES 
+('Servlets should not have mutable instance fields','squid:S2226',1),
+('Sections of code should not be commented out','xml:S125',2);
 
 INSERT INTO User_Skill_Group(group_name,is_root) VALUES 
 ('Java-Basics I',1),
@@ -240,7 +242,7 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 ('If','If-statement',0,3,1),
 ('Methods','Build your own functionality',0,3,1);
 
-INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
+-- INSERT INTO User_Skill_TO_Sonar_Rule (user_skill_id,sonar_rule_id) VALUES (1,1), (2,1), (3,1);
 
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
@@ -259,7 +261,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 
 INSERT INTO skill_tree_user (mail) VALUES ('test@test.de');
 
-INSERT INTO user_skill_to_skill_tree_user (learned_on, repeats, user_skill_id, skill_tree_user_id) VALUES ('2016-11-16 06:43:19.77',1,1,1);
+INSERT INTO user_skill_to_skill_tree_user (learned_on, repeats, user_skill_id, skill_tree_user_id) VALUES (NULL,1,1,1);
 
 
 

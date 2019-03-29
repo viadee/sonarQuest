@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 
 @Entity
@@ -46,14 +47,24 @@ public class UserSkill {
 	@JoinTable(name = "User_Skill_Following", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "following_user_skill_id", referencedColumnName = "id"))
 	private List<UserSkill> followingUserSkills = new ArrayList<UserSkill>(0);
 
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "User_Skill_TO_Sonar_Rule", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sonar_rule_id", referencedColumnName = "id"))
-	private List<SonarRule> sonarRules = new ArrayList<SonarRule>(0);
+	/*
+	 * @ManyToMany(cascade = CascadeType.MERGE)
+	 * 
+	 * @JoinTable(name = "User_Skill_TO_Sonar_Rule", joinColumns = @JoinColumn(name
+	 * = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns
+	 * = @JoinColumn(name = "sonar_rule_id", referencedColumnName = "id")) private
+	 * List<SonarRule> sonarRules = new ArrayList<SonarRule>(0);
+	 */
+	
+	
+	@OneToMany(mappedBy = "userSkill", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SonarRule> sonarRules;
 
 	@ManyToOne()
 	@JoinColumn(name = "user_skill_group_id")
 	private UserSkillGroup userSkillGroup;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userSkill", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers;
 

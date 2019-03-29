@@ -34,9 +34,9 @@ public class UserSkillService {
     @Transactional
     public UserSkill createUserSkill(final UserSkill userSkill) {
         LOGGER.info("Creating new userskill " + userSkill.getName());
-        SonarRule rule = new SonarRule("testname","testkey");
-       sonarRuleRepository.save(rule);
-        userSkill.addSonarRule(rule);
+       // SonarRule rule = new SonarRule("testname","testkey",1);
+       //sonarRuleRepository.save(rule);
+        //userSkill.addSonarRule(rule);
        
         return userSkillRepositroy.save(userSkill);
     }

@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.skillTree.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.services.ArtefactService;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeLinksDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
+import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
+import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
 
 @Service
 public class SkillTreeService {
@@ -33,6 +38,12 @@ public class SkillTreeService {
 
 	@Autowired
 	private UserSkillRepositroy userSkillRepository;
+
+	@Autowired
+	private SonarRuleRepository sonarRuleRepository;
+
+	@Autowired
+	private UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
 
@@ -66,34 +77,35 @@ public class SkillTreeService {
 		} else {
 			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 			if (user == null) {
-				LOGGER.info("User with mail: '" + mail + "' does not exist!");
-			} else {
-				List<UserSkill> skillsFromUser = new ArrayList<UserSkill>();
-				List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
-				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
-					if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
-						skillsFromUser.add(userSkillToSkillTreeUser.getUserSkill());
-						skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser.getUserSkill(),
-								userSkillToSkillTreeUser.getRepeats()));
-						for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
-								.getFollowingUserSkills()) {
-							skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
-									String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
-									String.valueOf(followingUserSkill.getId())));
-						}
-					}
-				}
-
-				userSkills.removeAll(skillsFromUser);
-
-				for (UserSkill userSkill : userSkills) {
-					skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkill, 0));
-					for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
-						skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSkill.getId()),
-								String.valueOf(followingUserSkill.getId())));
+				LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
+				user = this.createSkillTreeUser(mail);
+			}
+			List<UserSkill> skillsFromUser = new ArrayList<UserSkill>();
+			List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
+			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+				if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
+					skillsFromUser.add(userSkillToSkillTreeUser.getUserSkill());
+					skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser.getUserSkill(),
+							userSkillToSkillTreeUser.getRepeats()));
+					for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
+							.getFollowingUserSkills()) {
+						skillTreeDiagramDTO.addLine(
+								new SkillTreeLinksDTO(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
+										String.valueOf(followingUserSkill.getId())));
 					}
 				}
 			}
+
+			userSkills.removeAll(skillsFromUser);
+
+			for (UserSkill userSkill : userSkills) {
+				skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkill, 0));
+				for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+					skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSkill.getId()),
+							String.valueOf(followingUserSkill.getId())));
+				}
+			}
+
 		}
 
 		return skillTreeDiagramDTO;
@@ -108,4 +120,61 @@ public class SkillTreeService {
 		return skillTreeObjectDTO;
 	}
 
+	@Transactional
+	public SkillTreeObjectDTO learnSkill(String mail, String key) {
+		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
+		boolean ruleNotFound = true;
+		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+			if (userSkillToSkillTreeUser.getLearnedOn() == null) {
+
+				for (SonarRule sonarRule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
+					if (sonarRule.getKey().equals(key)) {
+						userSkillToSkillTreeUser.setRepeats(userSkillToSkillTreeUser.getRepeats() + 1);
+						if (userSkillToSkillTreeUser.getRepeats() == userSkillToSkillTreeUser.getUserSkill()
+								.getRequiredRepetitions()) {
+							userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
+						}
+						skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
+						skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
+						skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
+						skillTreeObjectDTO.setRequiredRepetitions(
+								userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+						ruleNotFound = false;
+						break outter;
+					}
+				}
+			}
+			if (userSkillToSkillTreeUser.getUserSkill().getSonarRules().stream()
+					.filter(sonarRule -> key.equals(sonarRule.getKey())).findAny().orElse(null) != null) {
+				skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
+				skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
+				skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
+				skillTreeObjectDTO.setRequiredRepetitions(
+						userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+				ruleNotFound = false;
+				break outter;
+			}
+		}
+		if (ruleNotFound) {
+			UserSkillToSkillTreeUser newUserSkillToSkillTreeUser = new UserSkillToSkillTreeUser();
+			newUserSkillToSkillTreeUser.setRepeats(1);
+			newUserSkillToSkillTreeUser.setSkillTreeUser(user);
+			newUserSkillToSkillTreeUser.setUserSkill(sonarRuleRepository.findSonarRuleByKey(key).getUserSkill());
+			userSkillToSkillTreeUserRepository.save(newUserSkillToSkillTreeUser);
+			user.addUserSkillToSkillTreeUser(newUserSkillToSkillTreeUser);
+
+			skillTreeObjectDTO.setId(String.valueOf(newUserSkillToSkillTreeUser.getUserSkill().getId()));
+			skillTreeObjectDTO.setLabel(newUserSkillToSkillTreeUser.getUserSkill().getName());
+			skillTreeObjectDTO.setRepeats(newUserSkillToSkillTreeUser.getRepeats());
+			skillTreeObjectDTO
+					.setRequiredRepetitions(newUserSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+		}
+		skillTreeUserRepository.save(user);
+		return skillTreeObjectDTO;
+	}
+
+	public SkillTreeUser createSkillTreeUser(String mail) {
+		return skillTreeUserRepository.save(new SkillTreeUser(mail));
+	}
 }
