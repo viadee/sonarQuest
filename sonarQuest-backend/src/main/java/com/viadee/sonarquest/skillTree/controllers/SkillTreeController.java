@@ -37,7 +37,7 @@ public class SkillTreeController {
 	@Autowired
 	private SkillTreeService skillTreeService;
 
-	@GetMapping(value = "/fromgroup/")
+	@GetMapping(value = "/fromgroup/user/")
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
 			@RequestParam(value = "mail", required = false) String mail) {
 		// SkillTreeDiagramDTO skillTreeDiagramDTO =
@@ -49,6 +49,12 @@ public class SkillTreeController {
 		 * 
 		 * return ResponseEntity.status(HttpStatus.OK).body(skillTreeDiagramDTO);
 		 */
+	}
+	
+	@GetMapping(value="/fromgroup/team/")
+	public SkillTreeDiagramDTO getSkillTreeforTeamByGroupID(@RequestParam(value = "id") final Long id,
+			@RequestParam(value = "mails") String[] mails) {
+		return skillTreeService.generateSkillTreeForTeamByGroupID(id, mails);
 	}
 
 	@GetMapping(value = "/overview/")

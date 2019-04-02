@@ -215,6 +215,7 @@ CREATE TABLE sonar_rule (
 	id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     rule_key varchar(255),
     rule_name varchar(255),
+    added_at TIMESTAMP,
     user_skill_id BIGINT
     );
    

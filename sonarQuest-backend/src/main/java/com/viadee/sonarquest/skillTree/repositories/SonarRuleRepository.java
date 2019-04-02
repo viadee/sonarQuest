@@ -11,5 +11,8 @@ public interface SonarRuleRepository extends JpaRepository<SonarRule, Long> {
 	
 	@Query("SELECT sr FROM SonarRule sr WHERE LOWER(sr.key) = LOWER(:key)")
 	public SonarRule findSonarRuleByKey(@Param("key") String key);
+	
+	@Query("SELECT MAX(sr.addedAT) FROM SonarRule sr")
+	public SonarRule findLastAddedSonarRule();
 
 }

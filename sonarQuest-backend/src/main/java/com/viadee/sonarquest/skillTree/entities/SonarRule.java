@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.skillTree.entities;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +36,18 @@ public class SonarRule {
     @JsonIgnore
     private UserSkill userSkill;
     
+    @Column(name="added_at")
+    private Timestamp addedAT;
+    
 
     public SonarRule() {
     }
 
-    public SonarRule(String name, String key, UserSkill userSkill) {
+    public SonarRule(String name, String key, UserSkill userSkill, Timestamp addedAt) {
         this.name = name;
         this.key = key;
         this.userSkill = userSkill;
+        this.addedAT=addedAt;
     }
 
     public Long getId() {
@@ -77,6 +82,14 @@ public class SonarRule {
 
 	public void setUserSkill(UserSkill userSkill) {
 		this.userSkill = userSkill;
+	}
+
+	public Timestamp getAddedAT() {
+		return addedAT;
+	}
+
+	public void setAddedAT(Timestamp addedAT) {
+		this.addedAT = addedAT;
 	}
 
 }

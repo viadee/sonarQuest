@@ -67,6 +67,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    //TODO 
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.httpBasic().disable();
@@ -80,6 +81,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/skilltree/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/skilltree/learn/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/sonarrule/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/userskillgroup/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/userskill/**").permitAll()

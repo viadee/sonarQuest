@@ -111,6 +111,51 @@ public class SkillTreeService {
 		return skillTreeDiagramDTO;
 	}
 
+	public SkillTreeDiagramDTO generateSkillTreeForTeamByGroupID(Long id, String[] mails) {
+		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
+		List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
+		List<UserSkill> skillsFromUser = new ArrayList<UserSkill>();
+
+		for (String mail : mails) {
+			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+			if (user == null) {
+				LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
+				user = this.createSkillTreeUser(mail);
+			}
+
+			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+				if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
+					skillsFromUser.add(userSkillToSkillTreeUser.getUserSkill());
+					if (skillTreeDiagramDTO
+							.getNodes().stream().filter(entry -> String
+									.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()).equals(entry.getId()))
+							.findAny().orElse(null) == null) {
+						skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser.getUserSkill(),
+								userSkillToSkillTreeUser.getRepeats()));
+						for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
+								.getFollowingUserSkills()) {
+							skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
+									String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
+									String.valueOf(followingUserSkill.getId())));
+						}
+					}
+
+				}
+			}
+
+		}
+		userSkills.removeAll(skillsFromUser);
+
+		for (UserSkill userSkill : userSkills) {
+			skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkill, 0));
+			for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSkill.getId()),
+						String.valueOf(followingUserSkill.getId())));
+			}
+		}
+		return skillTreeDiagramDTO;
+	}
+
 	private SkillTreeObjectDTO buildSkillTreeObject(UserSkill userSkill, int repetas) {
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
 		skillTreeObjectDTO.setId(String.valueOf(userSkill.getId()));
@@ -150,8 +195,8 @@ public class SkillTreeService {
 				skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
 				skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
 				skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
-				skillTreeObjectDTO.setRequiredRepetitions(
-						userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+				skillTreeObjectDTO
+						.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
 				ruleNotFound = false;
 				break outter;
 			}

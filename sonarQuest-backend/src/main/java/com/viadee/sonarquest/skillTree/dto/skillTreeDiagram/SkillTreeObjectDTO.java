@@ -1,5 +1,9 @@
 package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
 
+import java.util.Objects;
+
+import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
+
 public class SkillTreeObjectDTO {
 
 	private String id;
@@ -54,4 +58,20 @@ public class SkillTreeObjectDTO {
 		this.requiredRepetitions = requiredRepetitions;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof SkillTreeObjectDTO))
+			return false;
+		SkillTreeObjectDTO that = (SkillTreeObjectDTO) o;
+		return Objects.equals(this.getId(), that.getId()) && Objects.equals(this.getLabel(), that.getLabel())
+				&& Objects.equals(this.getRepeats(), that.getRepeats())
+				&& Objects.equals(this.getRequiredRepetitions(), that.getRequiredRepetitions());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, label, requiredRepetitions, repeats);
+	}
 }

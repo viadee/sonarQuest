@@ -134,5 +134,42 @@ public class SonarQubeApiCall {
         LOGGER.info("Built SonarQube API Call: {}", sonarQubeRestApiCall);
         return sonarQubeRestApiCall;
     }
+    
+    /**
+     * @see https://sonarcloud.io/web_api/api/rules/search
+     * Search for SonarQube Rules 
+     * @return 
+     */
+    public SonarQubeApiCall searchRules() {
+        sonarQubeRestApiCall += "/api/rules/search?";
+        return this;
+    }
+    /**
+     * Appends the parameter "languages" with the value language 
+     * @param language
+     * @return
+     */
+    public SonarQubeApiCall language(String language) {
+    	appendSearchParameter("languages="+language);
+    	return this;
+    }
+    
+    /**
+     * Appends the parameter "s" with the value sort 
+     */
+    public SonarQubeApiCall sort(String sort) {
+    	appendSearchParameter("s="+sort);
+    	return this;
+    }
+    
+    /**
+     * Appends the parameter "available_since" with the value date in the Format yyyy-mm-dd 
+     * @param date
+     * @return
+     */
+    public SonarQubeApiCall availableSince(String date) {
+    	appendSearchParameter("available_since="+date);
+    	return this;
+    }
 
 }
