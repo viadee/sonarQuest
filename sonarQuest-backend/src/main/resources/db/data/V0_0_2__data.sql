@@ -172,6 +172,8 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (1,5),
  (1,6),
  (1,11),
+ (1,12),
+ (1,13),
  (2,1),
  (2,2),
  (2,3),
@@ -185,7 +187,9 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (3,8),
  (3,9),
  (3,10),
- (3,11);
+ (3,11),
+ (3,12),
+ (3,13);
 
 INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3,   0,   0, 1, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
@@ -206,9 +210,11 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
   (2, 4),
   (3, 1);
 
---INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES 
---('Servlets should not have mutable instance fields','squid:S2226',1),
---('Sections of code should not be commented out','xml:S125',2);
+INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES 
+('Servlets should not have mutable instance fields','squid:S2226',1),
+('Sections of code should not be commented out','xml:S125',1);
+
+
 
 INSERT INTO User_Skill_Group(group_name,is_root) VALUES 
 ('Java-Basics I',1),

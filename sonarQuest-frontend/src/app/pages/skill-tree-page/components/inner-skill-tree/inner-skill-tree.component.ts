@@ -7,6 +7,10 @@ import * as shape from 'd3-shape';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { InnerSkillDetailDialogComponent } from '../inner-skill-detail-dialog/inner-skill-detail-dialog.component';
+import { SonarRule } from 'app/Interfaces/SonarRule';
+import { PermissionService } from 'app/services/permission.service';
+import { UserService } from 'app/services/user.service';
+import { WorldService } from 'app/services/world.service';
 
 @Component({
   selector: 'app-inner-skill-tree',
@@ -19,6 +23,8 @@ export class InnerSkillTreeComponent implements OnInit {
   userSkillTree: { nodes: [], links: [] };
   curve = shape.curveLinear;
   isDataAvailable: boolean;
+  isAdmin = false;
+  isGamemaster = false;
   private id: number;
   nodecolor = '#c0c0c0';
   color = 'primary';
@@ -26,25 +32,46 @@ export class InnerSkillTreeComponent implements OnInit {
   value = 50;
   bufferValue = 75;
 
-  constructor(private skillTreeService: SkillTreeService, private _route: ActivatedRoute, public dialog: MatDialog) {
+
+  constructor(private skillTreeService: SkillTreeService,
+    private _route: ActivatedRoute,
+    public dialog: MatDialog,
+    private permissionService: PermissionService,
+    private userService: UserService,
+    private worldService: WorldService) {
   }
 
   ngOnInit() {
     this.id = +this._route.snapshot.params['id'];
     this.userSkillTree = null;
-    this.skillTreeService.userSkillTree$.subscribe(userSkillTree => {
-      this.userSkillTree = userSkillTree;
-    });
-    this.skillTreeService.getUserSkillTree(this.id);
 
+    this.isAdmin = true && this.permissionService.isUrlVisible(RoutingUrls.admin);
+    this.isGamemaster = true && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
+    if (this.isAdmin) {
+      this.skillTreeService.userSkillTree$.subscribe(userSkillTree => {
+        this.userSkillTree = userSkillTree;
+      });
+      this.skillTreeService.getUserSkillTree(this.id);
+    } else if (this.isGamemaster) {
+      console.log('gamemaster');
+      this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
+        this.userSkillTree = userSkillTreeForTeam;
+      });
+      this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld() );
+    } else {
+      this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
+        this.userSkillTree = userSkillTreeForUser;
+      });
+      this.skillTreeService.getUserSkillTreeFromUser(this.id, this.userService.getUser());
+    }
   }
 
-  openDialog(event): void {
+  openDialog(node): void {
     const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
-      width: '250px',
-      data: event
+      width: '550px',
+      data: node
     });
-    console.log(event);
+    console.log(node);
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

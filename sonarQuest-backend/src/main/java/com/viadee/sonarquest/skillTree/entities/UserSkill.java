@@ -58,7 +58,7 @@ public class UserSkill {
 	
 	
 	@OneToMany(mappedBy = "userSkill", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<SonarRule> sonarRules;
+	private List<SonarRule> sonarRules = new ArrayList<SonarRule>(0);
 
 	@ManyToOne()
 	@JoinColumn(name = "user_skill_group_id")

@@ -239,7 +239,13 @@
     },
     "SKILL_TREE_PAGE": {
         "SKILL_TREE": "Skill-Tree",
-        "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick"
+        "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick"        
+      },
+      "INNER_SKILL_TREE_POPUP":{
+        "CONFIRM":"OK",
+        "TOOLTIP": "Zeige SonarQube Regel",
+        "RULES": "SonarQube Regeln",
+        "DESCRIPTION": "Beschreibung"
       } 
   }
   

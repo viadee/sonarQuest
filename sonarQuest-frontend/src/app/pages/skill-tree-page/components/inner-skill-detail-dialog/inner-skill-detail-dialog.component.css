@@ -1,0 +1,14 @@
+.clickable{
+    cursor: pointer;
+}
+a{
+    font-size: 0.9rem;
+}
+
+.mat-list-item {
+height: 25px;
+}
+
+.mat-subheader{
+    padding: 0px 16px 16px 16px;
+}

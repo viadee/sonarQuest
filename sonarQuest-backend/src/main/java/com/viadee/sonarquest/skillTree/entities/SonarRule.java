@@ -43,11 +43,10 @@ public class SonarRule {
     public SonarRule() {
     }
 
-    public SonarRule(String name, String key, UserSkill userSkill, Timestamp addedAt) {
+    public SonarRule(String name, String key, UserSkill userSkill) {
         this.name = name;
         this.key = key;
         this.userSkill = userSkill;
-        this.addedAT=addedAt;
     }
 
     public Long getId() {

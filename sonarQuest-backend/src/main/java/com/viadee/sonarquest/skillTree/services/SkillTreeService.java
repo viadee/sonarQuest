@@ -111,38 +111,41 @@ public class SkillTreeService {
 		return skillTreeDiagramDTO;
 	}
 
-	public SkillTreeDiagramDTO generateSkillTreeForTeamByGroupID(Long id, String[] mails) {
+	public SkillTreeDiagramDTO generateSkillTreeForTeamByGroupID(Long id, List<String> mails) {
 		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
 		List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
 		List<UserSkill> skillsFromUser = new ArrayList<UserSkill>();
-
+		LOGGER.info("getForTeamIsCalled");
 		for (String mail : mails) {
-			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
-			if (user == null) {
-				LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
-				user = this.createSkillTreeUser(mail);
-			}
+			LOGGER.warn("Mail: "+ mail);
+			if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
+				
+				SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+				if (user == null) {
+					LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
+					user = this.createSkillTreeUser(mail);
+				}
 
-			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
-				if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
-					skillsFromUser.add(userSkillToSkillTreeUser.getUserSkill());
-					if (skillTreeDiagramDTO
-							.getNodes().stream().filter(entry -> String
-									.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()).equals(entry.getId()))
-							.findAny().orElse(null) == null) {
-						skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser.getUserSkill(),
-								userSkillToSkillTreeUser.getRepeats()));
-						for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
-								.getFollowingUserSkills()) {
-							skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
-									String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
-									String.valueOf(followingUserSkill.getId())));
+				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+					if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
+						skillsFromUser.add(userSkillToSkillTreeUser.getUserSkill());
+						if (skillTreeDiagramDTO
+								.getNodes().stream().filter(entry -> String
+										.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()).equals(entry.getId()))
+								.findAny().orElse(null) == null) {
+							skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(
+									userSkillToSkillTreeUser.getUserSkill(), userSkillToSkillTreeUser.getRepeats()));
+							for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
+									.getFollowingUserSkills()) {
+								skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
+										String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
+										String.valueOf(followingUserSkill.getId())));
+							}
 						}
-					}
 
+					}
 				}
 			}
-
 		}
 		userSkills.removeAll(skillsFromUser);
 
@@ -153,6 +156,7 @@ public class SkillTreeService {
 						String.valueOf(followingUserSkill.getId())));
 			}
 		}
+		LOGGER.warn("Return Size:" + String.valueOf(skillTreeDiagramDTO.getNodes().size()));
 		return skillTreeDiagramDTO;
 	}
 
@@ -162,6 +166,9 @@ public class SkillTreeService {
 		skillTreeObjectDTO.setLabel(String.valueOf(userSkill.getName()));
 		skillTreeObjectDTO.setRepeats(repetas);
 		skillTreeObjectDTO.setRequiredRepetitions(userSkill.getRequiredRepetitions());
+		for (SonarRule rule : userSkill.getSonarRules()) {
+			skillTreeObjectDTO.addRuleKey(rule.getKey(), rule.getName());
+		}
 		return skillTreeObjectDTO;
 	}
 
@@ -169,6 +176,10 @@ public class SkillTreeService {
 	public SkillTreeObjectDTO learnSkill(String mail, String key) {
 		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
+		if (user == null) {
+			LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
+			user = this.createSkillTreeUser(mail);
+		}
 		boolean ruleNotFound = true;
 		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
 			if (userSkillToSkillTreeUser.getLearnedOn() == null) {

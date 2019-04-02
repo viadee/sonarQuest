@@ -39,21 +39,15 @@ public class SkillTreeController {
 
 	@GetMapping(value = "/fromgroup/user/")
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
-			@RequestParam(value = "mail", required = false) String mail) {
-		// SkillTreeDiagramDTO skillTreeDiagramDTO =
-		// skillTreeService.generateSkillTreeForUserByGroupID(id, mail);
+			@RequestParam(value = "mail", required = false) final String mail) {
+
 		return skillTreeService.generateSkillTreeForUserByGroupID(id, mail);
-		/*
-		 * if (skillTreeDiagramDTO.getNodes().isEmpty()) { return
-		 * ResponseEntity.status(HttpStatus.NOT_FOUND).body(skillTreeDiagramDTO); }
-		 * 
-		 * return ResponseEntity.status(HttpStatus.OK).body(skillTreeDiagramDTO);
-		 */
+
 	}
-	
-	@GetMapping(value="/fromgroup/team/")
+
+	@GetMapping(value = "/fromgroup/team/")
 	public SkillTreeDiagramDTO getSkillTreeforTeamByGroupID(@RequestParam(value = "id") final Long id,
-			@RequestParam(value = "mails") String[] mails) {
+			@RequestParam(value = "mails") List<String> mails) {
 		return skillTreeService.generateSkillTreeForTeamByGroupID(id, mails);
 	}
 
@@ -65,6 +59,6 @@ public class SkillTreeController {
 	@PostMapping(value = "/learn/")
 	public SkillTreeObjectDTO learnSkill(@RequestParam(value = "mail") final String mail,
 			@RequestParam(value = "key") final String key) {
-		return skillTreeService.learnSkill(mail,key);
+		return skillTreeService.learnSkill(mail, key);
 	}
 }
