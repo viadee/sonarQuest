@@ -19,37 +19,55 @@ public class UserSkillDTO {
 	private String description;
 	private String name;
 	private Long id;
-	
-	
-	
+	private List<String> ruleKey;
+	private Double score;
+
 	public UserSkillDTO() {
 	}
-	public UserSkillDTO(String description, String name, Long id) {
-		this.description = description;
-		this.name = name;
-		this.id = id;
-	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
 
-	
+	public List<String> getRuleKey() {
+		return ruleKey;
+	}
 
+	public void setRuleKey(List<String> ruleKey) {
+		this.ruleKey = ruleKey;
+	}
+
+	public void addRuleKey(String ruleKey) {
+		this.ruleKey.add(ruleKey);
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+	
+	
 }

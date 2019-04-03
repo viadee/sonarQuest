@@ -235,14 +235,14 @@ CREATE TABLE user_skill_group_following (
 	FOREIGN KEY (following_user_skill_group_id) 	REFERENCES User_Skill_Group(id)   
     );
     
-    --TODO
--- CREATE TABLE user_skill_previous (
--- 	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
--- 	user_skill_id				BIGINT NOT NULL,
--- 	previous_user_skill_id		BIGINT NOT NULL,
--- 	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
--- 	FOREIGN KEY (previous_user_skill_id) 	REFERENCES User_Skill(id)
---     );
+ 
+CREATE TABLE user_skill_previous (
+	id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_skill_id				BIGINT NOT NULL,
+	previous_user_skill_id		BIGINT NOT NULL,
+	FOREIGN KEY (user_skill_id) 			REFERENCES User_Skill(id),
+	FOREIGN KEY (previous_user_skill_id) 	REFERENCES User_Skill(id)
+    );
     
 --     Currently needed
 -- CREATE TABLE user_skill_to_sonar_rule (
@@ -262,6 +262,7 @@ CREATE TABLE user_skill_group_following (
     id 							BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     repeats						INT,
     learned_on					TIMESTAMP,
+    score						FLOAT,
 	user_skill_id				BIGINT NOT NULL,
 	skill_tree_user_id			BIGINT NOT NULL,
 	FOREIGN KEY (user_skill_id) REFERENCES User_Skill(id),

@@ -41,6 +41,9 @@ public class SkillTreeService {
 
 	@Autowired
 	private SonarRuleRepository sonarRuleRepository;
+	
+	@Autowired
+	private UserSkillService userSkillService; 
 
 	@Autowired
 	private UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
@@ -115,11 +118,9 @@ public class SkillTreeService {
 		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
 		List<UserSkill> userSkills = userSkillRepository.findUserSkillsByGroup(id);
 		List<UserSkill> skillsFromUser = new ArrayList<UserSkill>();
-		LOGGER.info("getForTeamIsCalled");
 		for (String mail : mails) {
-			LOGGER.warn("Mail: "+ mail);
 			if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
-				
+
 				SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 				if (user == null) {
 					LOGGER.info("User with mail: '" + mail + "' does not exist yet - creating it...");
@@ -156,7 +157,6 @@ public class SkillTreeService {
 						String.valueOf(followingUserSkill.getId())));
 			}
 		}
-		LOGGER.warn("Return Size:" + String.valueOf(skillTreeDiagramDTO.getNodes().size()));
 		return skillTreeDiagramDTO;
 	}
 
@@ -226,6 +226,7 @@ public class SkillTreeService {
 			skillTreeObjectDTO
 					.setRequiredRepetitions(newUserSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
 		}
+		updateSkillTreeScoring(user);
 		skillTreeUserRepository.save(user);
 		return skillTreeObjectDTO;
 	}
@@ -233,4 +234,12 @@ public class SkillTreeService {
 	public SkillTreeUser createSkillTreeUser(String mail) {
 		return skillTreeUserRepository.save(new SkillTreeUser(mail));
 	}
+	
+	private void updateSkillTreeScoring(SkillTreeUser skillTreeUser) {
+		for(UserSkillToSkillTreeUser userSkillToSkillTreeUser :skillTreeUser.getUserSkillToSkillTreeUser()) {
+			userSkillToSkillTreeUser.setScore(userSkillService.calculateUserSkillScore(userSkillToSkillTreeUser.getUserSkill(),skillTreeUser));
+			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
+		}
+	}
+	
 }

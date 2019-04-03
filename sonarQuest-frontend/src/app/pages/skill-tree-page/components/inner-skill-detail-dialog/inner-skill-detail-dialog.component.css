@@ -1,6 +1,11 @@
 .clickable{
     cursor: pointer;
 }
+
+.clickable:hover{
+color:#C75959;
+}
+
 a{
     font-size: 0.9rem;
 }

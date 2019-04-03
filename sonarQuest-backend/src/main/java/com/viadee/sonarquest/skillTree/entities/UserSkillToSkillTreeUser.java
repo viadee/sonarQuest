@@ -27,18 +27,21 @@ public class UserSkillToSkillTreeUser {
 	@Column(name = "repeats")
 	private int repeats;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "score")
+	private Double score;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_skill_id")
 	private UserSkill userSkill;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "skill_tree_user_id")
 	private SkillTreeUser skillTreeUser;
 
 	public UserSkillToSkillTreeUser() {
 	}
 
-	public UserSkillToSkillTreeUser( Timestamp learnedOn, int repeats, UserSkill userSkill,
+	public UserSkillToSkillTreeUser(Timestamp learnedOn, int repeats, UserSkill userSkill,
 			SkillTreeUser skillTreeUser) {
 		this.learnedOn = learnedOn;
 		this.repeats = repeats;
@@ -55,7 +58,8 @@ public class UserSkillToSkillTreeUser {
 		UserSkillToSkillTreeUser that = (UserSkillToSkillTreeUser) o;
 		return Objects.equals(userSkill.getId(), that.userSkill.getId())
 				&& Objects.equals(skillTreeUser.getId(), that.skillTreeUser.getId())
-				&& Objects.equals(learnedOn, that.learnedOn) && Objects.equals(repeats, that.repeats);
+				&& Objects.equals(learnedOn, that.learnedOn) && Objects.equals(repeats, that.repeats)
+				&& Objects.equals(score, that.score);
 	}
 
 	@Override
@@ -101,6 +105,14 @@ public class UserSkillToSkillTreeUser {
 
 	public void setSkillTreeUser(SkillTreeUser skillTreeUser) {
 		this.skillTreeUser = skillTreeUser;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 }

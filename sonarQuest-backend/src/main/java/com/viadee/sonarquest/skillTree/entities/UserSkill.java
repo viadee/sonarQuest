@@ -39,10 +39,12 @@ public class UserSkill {
 	@Column(name = "required_repetitions")
 	private int requiredRepetitions;
 
-//    @ManyToMany(cascade = CascadeType.MERGE)
-//    @JoinTable(name = "User_Skill_Previous", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "previous_user_skill_id", referencedColumnName = "id"))
-//    private List<UserSkill> previousUserSkills = new ArrayList<UserSkill>(0);
+	@JsonIgnore
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "User_Skill_Previous", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "previous_user_skill_id", referencedColumnName = "id"))
+    private List<UserSkill> previousUserSkills = new ArrayList<UserSkill>(0);
 
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "User_Skill_Following", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "following_user_skill_id", referencedColumnName = "id"))
 	private List<UserSkill> followingUserSkills = new ArrayList<UserSkill>(0);
@@ -89,21 +91,21 @@ public class UserSkill {
 		this.id = id;
 	}
 
-//    public List<UserSkill> getPreviousUserSkills() {
-//        return previousUserSkills;
-//    }
-//
-//    public void setPreviousUserSkills(List<UserSkill> previousUserSkills) {
-//        this.previousUserSkills = previousUserSkills;
-//    }
-//
-//    public void addPreviousUserSkill(UserSkill userSkill) {
-//        this.previousUserSkills.add(userSkill);
-//    }
-//
-//    public void removePreviousUserSkill(UserSkill userSkill) {
-//        this.previousUserSkills.remove(userSkill);
-//    }
+    public List<UserSkill> getPreviousUserSkills() {
+        return previousUserSkills;
+    }
+
+    public void setPreviousUserSkills(List<UserSkill> previousUserSkills) {
+        this.previousUserSkills = previousUserSkills;
+    }
+
+    public void addPreviousUserSkill(UserSkill userSkill) {
+        this.previousUserSkills.add(userSkill);
+    }
+
+    public void removePreviousUserSkill(UserSkill userSkill) {
+        this.previousUserSkills.remove(userSkill);
+    }
 
 	public List<UserSkill> getFollowingUserSkills() {
 		return followingUserSkills;

@@ -212,7 +212,9 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
 
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES 
 ('Servlets should not have mutable instance fields','squid:S2226',1),
-('Sections of code should not be commented out','xml:S125',1);
+('Sections of code should not be commented out','xml:S125',1),
+('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',7);
+
 
 
 
@@ -263,6 +265,19 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (9,10),
 (10,11),
 (6,11);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(6,1),
+(7,2),
+(8,2),
+(9,2),
+(10,9),
+(11,10),
+(11,6);
 
 
 INSERT INTO skill_tree_user (mail) VALUES ('test1@test.de');
