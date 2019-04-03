@@ -86,7 +86,7 @@ public class StandardTaskService {
                 standardTask.getGold(),
                 standardTask.getXp(),
                 standardTask.getQuest(),
-                world, null, null, null, null, null, null);
+                world, null, null, null, null, null, null,null);
         standardTaskRepository.save(st);
     }
 
