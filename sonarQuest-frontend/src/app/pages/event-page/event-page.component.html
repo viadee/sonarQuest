@@ -1,0 +1,61 @@
+<mat-card class="outer-events">
+  <mat-card-content class="events" >
+    <div *ngFor="let e of events">
+        <div *ngIf="checkNewDay(e)">
+            
+          <div layout="row" class="day">
+            <div flex></div>
+              <div flex-end>
+                <span class="day">
+                  {{ e?.timestamp| date : 'dd.MM.' }}
+                </span>
+              </div>
+          </div>
+        </div>
+        <div class="event {{e.type}}" >
+          <div layout="row">
+            <div class="timestamp">
+              <span class="time">
+                {{ e?.timestamp| date : 'HH:mm' }}<br>
+                <div *ngIf='e.image && e.type!="ARTEFACT" ' class="event-image-div">
+                    <img class="event-image" [src]="e.image" >
+                </div>
+                <div *ngIf='e.image && e.type=="ARTEFACT" ' class="event-image-div">
+                    <i class="ra ra-3x event-image" [ngClass]="e.image"></i>
+                </div>
+              </span>
+            </div>
+
+            <div class="content">
+              <div layout="row" class="state">
+                <span *ngIf="e.state==null" class="author">{{ e.user?.username }}</span> 
+                <span *ngIf=e.state class="state">{{ e.user?.username }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
+              </div>
+              <div flex>
+                <div layout="row">
+                  <div flex-end>
+                      <div *ngIf=e.title>
+                          <span class="title">{{ e?.title }}</span>
+                        </div>
+                        <div *ngIf=e.story>
+                          <span class="text">{{ e?.story }}</span>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>    
+  </mat-card-content>
+  <mat-card-content class="chat">
+    <div>
+      <div>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+
+</mat-card>

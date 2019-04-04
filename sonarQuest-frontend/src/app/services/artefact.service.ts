@@ -41,7 +41,7 @@ export class ArtefactService {
   }
 
   createArtefact(artefact: any): Promise<Artefact> {
-    return this.http.post<Artefact>(`${environment.endpoint}/artefact/`, artefact)
+    return this.http.post<Artefact>(`${environment.endpoint}/artefact`, artefact)
       .toPromise()
       .catch(this.handleError);
   }

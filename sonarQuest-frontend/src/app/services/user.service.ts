@@ -1,9 +1,11 @@
+import { ReplaySubject } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable, Subscriber} from 'rxjs';
 import {AuthenticationService} from '../login/authentication.service';
+import { Subject } from 'rxjs';
 import {tap} from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -12,16 +14,13 @@ export class UserService {
 
   private user: User;
 
+  private userSubject: Subject<User> = new ReplaySubject(1);
+  user$ = this.userSubject.asObservable();
+
   private listener: Subscriber<boolean>[] = [];
 
-  constructor(private httpClient: HttpClient,
-              private authenticationService: AuthenticationService) {
-    authenticationService.onLoginLogout().subscribe(() => {
-      if (authenticationService.isLoggedIn()) {
-        this.loadUser();
-      }
-    });
-  }
+  constructor(private httpClient: HttpClient
+    ) {}
 
   public onUserChange(): Observable<boolean> {
     return new Observable<boolean>(
@@ -38,6 +37,7 @@ export class UserService {
   public loadUser(): void {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
+      this.userSubject.next(user);
       this.user = user;
       this.userLoaded();
     }, error1 => {

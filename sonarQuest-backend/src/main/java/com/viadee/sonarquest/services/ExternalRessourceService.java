@@ -131,7 +131,7 @@ public class ExternalRessourceService {
 			// new issue from SonarQube: Create new task
 			savedTask = new StandardTask(sonarQubeIssue.getMessage(), newStatus, gold, xp, null, world,
 					sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
-					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey());
+					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey(),sonarQubeIssue.getRule());
 		} else {
 			final SonarQuestStatus lastStatus = savedTask.getStatus();
 			if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {

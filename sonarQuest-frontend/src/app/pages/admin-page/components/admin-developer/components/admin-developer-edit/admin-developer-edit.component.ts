@@ -56,7 +56,6 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
-      console.log(userToWorlds)
     });
     
     this.roleService.getRoles().then(roles => this.roles = roles);

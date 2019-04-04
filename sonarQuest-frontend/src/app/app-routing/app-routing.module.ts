@@ -1,3 +1,4 @@
+import {EventPageComponent} from './../pages/event-page/event-page.component';
 import {AdminPageComponent} from './../pages/admin-page/admin-page.component';
 import {MarketplacePageComponent} from '../pages/marketplace-page/marketplace-page.component';
 import {QuestPageComponent} from './../pages/quest-page/quest-page.component';
@@ -25,11 +26,11 @@ const appRoutes: Routes = [
   {path: RoutingUrls.gamemaster, component: GamemasterPageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.admin, component: AdminPageComponent, canActivate: [AuthenticationGuard]},
   {path: RoutingUrls.skilltree, component: SkillTreePageComponent, canActivate: [AuthenticationGuard]},
-  {path: RoutingUrls.innerskilltree + '/:id', component: InnerSkillTreeComponent, }
-
+  {path: RoutingUrls.innerskilltree + '/:id', component: InnerSkillTreeComponent, },
+  {path: RoutingUrls.events, component: EventPageComponent, canActivate: [AuthenticationGuard]}
 ];
 
-@NgModule({
+@NgModule({ 
   imports: [
     RouterModule.forRoot(appRoutes)
   ],

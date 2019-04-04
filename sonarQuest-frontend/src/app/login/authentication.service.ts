@@ -1,3 +1,4 @@
+import { WebSocketService } from 'app/services/websocket.service';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -8,6 +9,7 @@ import {LocalStorageService} from './local-storage.service';
 import {Token} from './Token';
 
 import { Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +18,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private storageService: LocalStorageService) {
+              private storageService: LocalStorageService,
+              private webSocketService: WebSocketService,
+              private userService: UserService) {
   }
 
   public login(username, password): void {
@@ -35,6 +39,7 @@ export class AuthenticationService {
           this.onLogin();
           observer.next();
           observer.complete();
+
         }
       }, err => {
         observer.error(err);
@@ -68,10 +73,13 @@ export class AuthenticationService {
   private onLogin(): void {
     this.listener.forEach(l => l.next(true));
     this.router.navigate(['/myAvatar'], {skipLocationChange: false});
+    this.webSocketService.initializeWebSocketConnection();
+    this.userService.loadUser();
   }
 
   private onLogout(): void {
     this.listener.forEach(l => l.next(false));
+    this.webSocketService.closeWebSocket();
   }
 
 }

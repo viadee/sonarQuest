@@ -1,6 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
@@ -33,11 +32,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   }
 
   handleResponse(req: HttpRequest<any>, event) {
-    console.log('Handling response for ', req.url, event);
+    //console.log('Handling response for ', req.url, event);
     if (event instanceof HttpResponse) {
-      console.log('Request for ', req.url,
-        ' Response Status ', event.status,
-        ' With body ', event.body);
+      //console.log('Request for ', req.url,
+      //  ' Response Status ', event.status,
+      //  ' With body ', event.body);
     }
   }
 

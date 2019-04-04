@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ import com.viadee.sonarquest.repositories.WorldRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    protected static final Log LOGGER = LogFactory.getLog(UserService.class);
 
 	@Autowired
 	private RoleService roleService;
@@ -218,5 +219,10 @@ public class UserService implements UserDetailsService {
 
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
+	}
+
+	public User getUser(Principal principal) {
+		final String username = principal.getName();
+		return findByUsername(username);
 	}
 }

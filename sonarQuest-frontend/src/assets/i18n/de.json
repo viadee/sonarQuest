@@ -56,6 +56,24 @@
       "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
       "PLEASE_LOG_IN": "Bitte loggen Sie sich ein"
     },
+    "EVENT_PAGE": {
+    "QUEST": {
+      "NEW_MEMBER": "ist der Quest beigetreten",
+      "CREATED" : "Neue Quest hinzugefügt",
+      "SOLVED" : "hat die Quest gelöst"
+    },
+    "ADVENTURE": {
+      "NEW_MEMBER": "ist dem Adventure beigetreten",
+      "CREATED" : "Neues Abenteuer hinzugefügt",
+      "SOLVED" : "hat das Abenteuer gelöst"
+    },
+    "ARTEFACT": {
+      "CREATED": "Neues Item am Marktplatz verfügbar"
+    },
+    "MESSAGE": {
+
+    }
+  },
     "GAMEMASTER_PAGE": {
       "ADVENTURE": {
         "CREATE_ADVENTURE": "Abenteuer anlegen",

@@ -85,6 +85,10 @@ export class ParticipatedQuestsComponent implements OnInit {
       });
     }
   }
+  
+  solveDummy(q: Quest){
+    this.questService.solveQuestDummy(q)
+  }
 
   viewQuest(quest: Quest) {
     this.questService.getQuest(quest.id).then(loadedQuest => {

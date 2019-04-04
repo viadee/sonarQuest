@@ -24,6 +24,9 @@ public class StandardTask extends Task {
 
     @Column(name = "issue_key")
     protected String issueKey;
+    
+    @Column(name = "issue_rule")
+    private String issueRule;
 
     public StandardTask() {
     }
@@ -31,7 +34,7 @@ public class StandardTask extends Task {
     public StandardTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp, final Quest quest,
             final World world, final String key,
             final String component, final String severity, final String type, final Integer debt,
-            final String issueKey) {
+            final String issueKey, String issueRule) {
         this.setTitle(title);
         this.setStatus(status);
         this.setGold(gold);
@@ -44,6 +47,7 @@ public class StandardTask extends Task {
         this.type = type;
         this.debt = debt;
         this.issueKey = issueKey;
+        this.issueRule = issueRule;
     }
 
     public String getComponent() {
@@ -85,5 +89,13 @@ public class StandardTask extends Task {
     public void setIssueKey(final String issueKey) {
         this.issueKey = issueKey;
     }
+
+	public String getIssueRule() {
+		return issueRule;
+	}
+
+	public void setIssueRule(String issueRule) {
+		this.issueRule = issueRule;
+	}
 
 }

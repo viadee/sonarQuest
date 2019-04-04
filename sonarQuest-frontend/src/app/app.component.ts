@@ -36,6 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public adminUrl = RoutingUrls.admin;
   public skillTreeUrl = RoutingUrls.skilltree;
   public innerSkillTreeUrl = RoutingUrls.innerskilltree;
+  public eventUrl = RoutingUrls.events;
 
   public isWorldSelectVisible: boolean;
   public isMyAvatarVisible: boolean;
@@ -44,8 +45,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   public isMarketplaceVisible: boolean;
   public isGamemasterVisible: boolean;
   public isAdminVisible: boolean;
+  public isEventVisible: boolean;
 
   public isSkillTreeVisible: boolean;
+
+  readonly body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -75,6 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.worlds = null;
     this.user = null;
     this.updateMenu(false);
+    this.changebackground("");
   }
 
   ngOnInit() {
@@ -83,8 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.user = this.userService.getUser();
         this.updateMenu();
         this.setDesign();
-        this.loadWorlds();
-        this.loadWorld();
+        this.susbcribeWorlds();
       }
     });
     this.userService.loadUser();
@@ -109,44 +114,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
     this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
     this.isSkillTreeVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.skilltree);
+    this.isEventVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.events);
   }
 
-  private loadWorlds() {
-    this.worldService.getWorlds().subscribe(worlds => {
-      this.worlds = worlds;
-      this.setSelected();
-    });
-  }
 
-  private loadWorld() {
-    this.worldService.onWorldChange().subscribe(() => {
-      this.currentWorld = this.worldService.getCurrentWorld();
-      this.initWorld();
-    });
-  }
-
-  private initWorld() {
-    if (this.user) {
-      if (this.currentWorld !== null) {
-        this.setSelected();
-      }
-    }
-  }
-
-  setSelected() {
-    if (this.worlds && this.worlds.length !== 0) {
-      if (this.currentWorld && this.currentWorld !== null) {
-        this.selected = this.worlds.filter(world => {
-          return (world.name === this.currentWorld.name);
-        })[0];
-      } else {
-        this.selected = this.worlds[0];
-        this.currentWorld = this.selected;
-        this.updateWorld(this.worlds[0]);
-      }
-      const image = this.currentWorld.image || 'bg01';
-      this.changebackground(image);
-    }
+  private susbcribeWorlds(){
+    this.worldService.currentWorld$.subscribe(world =>{ 
+      this.currentWorld = world;  
+      if (world)this.changebackground( world.image);
+      else this.changebackground("");
+    })
+    this.worldService.worlds$      .subscribe(worlds=>{ 
+      this.worlds       = worlds; 
+    })
   }
 
   ngAfterViewInit() {
@@ -177,6 +157,8 @@ export class AppComponent implements OnInit, AfterViewInit {
             return this.pageNames.SKILLTREE;
         case '/innerskilltree':
             return this.pageNames.SKILLTREE;
+        case '/events':
+          return this.pageNames.EVENT;
         default:
           return '';
       }
@@ -186,21 +168,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   updateWorld(world: World) {
-    this.worldService.setCurrentWorld(world).then(() => this.worldService.loadWorld());
+    this.worldService.setCurrentWorld(world);
   }
 
   changebackground(image: string) {
-    const x = (<HTMLScriptElement><any>document.getElementsByClassName('background-image')[0]);
-    x.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    if (image != ""){
+      document.getElementsByTagName('body')[0].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    } else {
+      document.getElementsByTagName('body')[0].style.backgroundImage = '';
+    }
   }
 
   setDesign() {
     this.uiDesignService.getUiDesign().subscribe(ui => {
-      this.ui = ui;
-      const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-      this.uiDesignService.updateUiDesign('light');
-    }, error => {
-      this.ui = null;
+      this.ui = ui;      
+      this.body.className = this.ui.name;
     });
   }
 
@@ -208,21 +190,24 @@ export class AppComponent implements OnInit, AfterViewInit {
     const dark = 'dark';
     const light = 'light';
 
-    const body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
-    const body_light = <HTMLScriptElement><any>document.getElementsByClassName(light)[0];
-
-    if (body_light) {
-      body.className = this.removeSubString(body.className, light) + ' ' + dark;
+    if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
+      this.body.className = this.removeSubString(this.body.className, light) + dark;
       this.uiDesignService.updateUiDesign(dark);
-    } else {
-      body.className = this.removeSubString(body.className, dark) + ' ' + light;
+    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, toggle to light
+      this.body.className = this.removeSubString(this.body.className, dark) + light;
       this.uiDesignService.updateUiDesign(light);
+    } else { // If no design is choosen
+      this.body.className = dark;
+      this.uiDesignService.updateUiDesign(dark);
     }
+  }
+
+  hasClass(element: HTMLScriptElement, cssClass: string): Boolean{
+    return element.classList.contains(cssClass);
   }
 
   removeSubString(fullString: string, removeString: string): string {
     const newString = fullString.replace(removeString, '');
     return newString.replace('  ', ' ');
   }
-
 }

@@ -47,8 +47,12 @@ public class UserController {
 
     @GetMapping
     public User getUser(final Principal principal) {
-        final String username = principal.getName();
-        return userService.findByUsername(username);
+    	User user = null;
+    	if(principal != null) {
+	        final String username = principal.getName();
+	        user =  userService.findByUsername(username);
+    	} 
+    	return user;
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
@@ -77,9 +81,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}/avatar")
-    public @ResponseBody byte[] avatarForUser(final Principal principal,
-            @PathVariable(value = "id") final Long id,
-            final HttpServletResponse response){
+    public @ResponseBody byte[] avatarForUser(final Principal principal, @PathVariable(value = "id") final Long id, final HttpServletResponse response) 
+    		throws IOException {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
         return loadAvatar(avatarDirectoryPath, user.getPicture());
@@ -97,4 +100,8 @@ public class UserController {
         }
         return null;
     }
+
+	public String getAvatarDirectoryPath() {
+		return avatarDirectoryPath;
+	}
 }

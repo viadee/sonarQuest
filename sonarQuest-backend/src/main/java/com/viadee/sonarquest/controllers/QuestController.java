@@ -31,6 +31,7 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.services.AdventureService;
+import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.QuestService;
 import com.viadee.sonarquest.services.UserService;
@@ -61,6 +62,9 @@ public class QuestController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private EventService eventService;
 
     @GetMapping
     public List<Quest> getAllQuests() {
@@ -85,6 +89,7 @@ public class QuestController {
         final User user = userService.findByUsername(username);
         questDto.setStartdate(new Date(System.currentTimeMillis()));
         questDto.setStatus(QuestState.OPEN);
+        eventService.createEventForCreateQuest(questDto);
         questDto.setCreatorName(user.getUsername());
         return questRepository.save(questDto);
     }
@@ -126,6 +131,20 @@ public class QuestController {
             quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
         }
+    }
+    
+    @PutMapping(value = "/{questId}/solveQuestDummy")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Quest solveQuestDummy(final Principal principal, @PathVariable(value = "questId") final Long questId) {
+        Quest quest = questRepository.findOne(questId);
+        if (quest != null) {
+            quest.setEnddate(new Date(System.currentTimeMillis()));
+            quest.setStatus(QuestState.SOLVED);
+
+            eventService.createEventForSolveQuest(quest, principal);
+            
+        }
+        return quest;
     }
 
     @PostMapping(value = "/{questId}/addWorld/{worldId}")

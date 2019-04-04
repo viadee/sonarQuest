@@ -13,11 +13,11 @@ import {User} from '../../Interfaces/User';
 export class MyAvatarPageComponent implements OnInit {
 
   public XPpercent = 0;
-  public level: number;
-  public maxXp: number;
+  public level: number = 0;
+  public maxXp: number = 0;
   public minXpForLevel2 = 10;
+  public imageToShow: any = "";
   public user: User;
-  imageToShow: any;
 
   constructor(private userService: UserService,
               private dialog: MatDialog,
@@ -30,13 +30,13 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   private init() {
-    if (this.userService.getUser()) {
-      this.user = this.userService.getUser();
+    this.userService.user$.subscribe(user =>{
+      this.user = user;
       this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);
       this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
       this.xpPercent();      
       this.getAvatar();
-    }
+    })
   }
 
   private getAvatar() {

@@ -87,6 +87,9 @@ import {PermissionService} from './services/permission.service';
 import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import { SkillTreePageComponent } from './pages/skill-tree-page/skill-tree-page.component';
+import {EventService} from './services/event.service'
+import { EventPageComponent } from './pages/event-page/event-page.component'; 
+import {WebSocketService} from './services/websocket.service'
 
 import {NgxGraphModule } from '@swimlane/ngx-graph';
 
@@ -150,6 +153,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SkillTreePageComponent,
     InnerSkillTreeComponent,
     InnerSkillDetailDialogComponent
+    EventPageComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -243,6 +247,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserToWorldService,
     PermissionService,
     WizardService,
+    EventService,
+    WebSocketService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

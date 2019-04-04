@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class ArtefactService {
 		SUCCESS
 	}
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
+    protected static final Log LOGGER = LogFactory.getLog(ArtefactService.class);
 
 	@Autowired
 	private ArtefactRepository artefactRepository;
@@ -82,7 +82,7 @@ public class ArtefactService {
 	@Transactional
 	public synchronized Artefact buyArtefact(Artefact artefactToBuy, final User user) {
 		Artefact artefact = artefactToBuy;
-        LOGGER.info("UserId {} tries to buy artefactId {}", user.getId(), artefactToBuy.getId());
+        LOGGER.info("UserId "+user.getId()+" tries to buy artefactId "+artefactToBuy.getId());
 
 		final Level minLevel = artefact.getMinLevel();
 		final Level devLevel = user.getLevel();
@@ -120,7 +120,7 @@ public class ArtefactService {
 
 			artefact.setQuantity(artefact.getQuantity() - 1);
 			artefact = artefactRepository.save(artefact);
-            LOGGER.info("UserId {} successfully bought artefactId {}", user.getId(), artefactToBuy.getId());
+            LOGGER.info("UserId "+user.getId()+" successfully bought artefactId "+ artefactToBuy.getId());
 		} else {
 			artefact = null;
 			LOGGER.info(String.format("UserId %s could not buy artefactId %s, Reason %s", user.getId(),
