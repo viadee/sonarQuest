@@ -1,7 +1,6 @@
 package com.viadee.sonarquest.entities;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +65,7 @@ public class Event {
 		this.state = state;
 		this.image = image;
 		this.world = world;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
 		this.headline = headline;
 	}
 
@@ -77,7 +76,7 @@ public class Event {
 		this.state = state;
 		this.image = image;
 		this.world = world;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
 		this.headline = headline;
 		this.user = user;
 	}
@@ -88,7 +87,7 @@ public class Event {
 		this.story = story;
 		this.state = state;
 		this.world = world;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
 		this.headline = headline;
 	}
 
@@ -97,8 +96,8 @@ public class Event {
 		this.story = story;
 		this.world = world;
 		this.user = user;
-		this.image = user.getPicture();
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		image = user.getPicture();
+		timestamp = new Timestamp(System.currentTimeMillis());
 	}
 
 	public Event(EventType type, String title, String story, EventState state, String image) {
@@ -107,7 +106,7 @@ public class Event {
 		this.title = title;
 		this.image = image;
 		this.state = state;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
 	}
 
 	public Long getId() {
@@ -190,15 +189,35 @@ public class Event {
 		this.headline = headline;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		Event e1 = this;
-		Event e2 = (Event)o;
-		
-		if(Objects.equals(e1.getTitle(), e2.getTitle()))
-			return true;
-		return false;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Event other = (Event) obj;
+        if (title == null) {
+            if (other.title != null) {
+                return false;
+            }
+        } else if (!title.equals(other.title)) {
+            return false;
+        }
+        return true;
+    }
 	
 	
 	
