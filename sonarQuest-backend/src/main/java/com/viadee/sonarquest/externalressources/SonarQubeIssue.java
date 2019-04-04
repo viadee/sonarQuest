@@ -6,99 +6,112 @@ import com.viadee.sonarquest.rules.IssueWithStatus;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SonarQubeIssue implements IssueWithStatus {
 
-    private String key;
+	private String key;
 
-    private String message;
+	private String message;
 
-    private String component;
+	private String component;
 
-    private String severity;
+	private String severity;
 
-    private String type;
+	private String type;
 
-    private String debt;
+	private String debt;
 
-    private String status;
+	private String status;
 
-    //needs default value, because it is only contained in JSON response when the issue is actually resolved
-    private String resolution = "";
+	// needs default value, because it is only contained in JSON response when the
+	// issue is actually resolved
+	private String resolution = "";
 
-    public SonarQubeIssue() {
-    }
+	private String rule;
 
-    public SonarQubeIssue(final String key, final String message, final String component, final String severity,
-            final String type, final String debt, final String status, final String resolution) {
-        this.key = key;
-        this.message = message;
-        this.component = component;
-        this.severity = severity;
-        this.type = type;
-        this.debt = debt;
-        this.status = status;
-        this.resolution = resolution;
-    }
+	public SonarQubeIssue() {
+	}
 
-    public String getKey() {
-        return key;
-    }
+	public SonarQubeIssue(final String key, final String message, final String component, final String severity,
+			final String type, final String debt, final String status, final String resolution, final String rule) {
+		this.key = key;
+		this.message = message;
+		this.component = component;
+		this.severity = severity;
+		this.type = type;
+		this.debt = debt;
+		this.status = status;
+		this.resolution = resolution;
+		this.rule = rule;
+	}
 
-    public void setKey(final String key) {
-        this.key = key;
-    }
+	public String getKey() {
+		return key;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public void setKey(final String key) {
+		this.key = key;
+	}
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getComponent() {
-        return component;
-    }
+	public void setMessage(final String message) {
+		this.message = message;
+	}
 
-    public void setComponent(final String component) {
-        this.component = component;
-    }
+	public String getComponent() {
+		return component;
+	}
 
-    public String getSeverity() {
-        return severity;
-    }
+	public void setComponent(final String component) {
+		this.component = component;
+	}
 
-    public void setSeverity(final String severity) {
-        this.severity = severity;
-    }
+	public String getSeverity() {
+		return severity;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setSeverity(final String severity) {
+		this.severity = severity;
+	}
 
-    public void setType(final String type) {
-        this.type = type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getDebt() {
-        return debt;
-    }
+	public void setType(final String type) {
+		this.type = type;
+	}
 
-    public void setDebt(final String debt) {
-        this.debt = debt;
-    }
+	public String getDebt() {
+		return debt;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setDebt(final String debt) {
+		this.debt = debt;
+	}
 
-    public void setStatus(final String status) {
-        this.status = status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getResolution() {
-        return resolution;
-    }
+	public void setStatus(final String status) {
+		this.status = status;
+	}
 
-    public void setResolution(final String resolution) {
-        this.resolution = resolution;
-    }
+	public String getResolution() {
+		return resolution;
+	}
+
+	public void setResolution(final String resolution) {
+		this.resolution = resolution;
+	}
+
+	public String getRule() {
+		return rule;
+	}
+
+	public void setRule(String rule) {
+		this.rule = rule;
+	}
+
 }
