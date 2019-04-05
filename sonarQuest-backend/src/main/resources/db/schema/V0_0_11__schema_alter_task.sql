@@ -1,2 +1,2 @@
--- SQUser extended by mail attribute
-ALTER TABLE Task ADD COLUMN issue_rule VARCHAR(255) NOT NULL;
+-- Task extended by issue_rule which specifies the rule this task was created upon. May be NULL
+ALTER TABLE Task ADD COLUMN issue_rule VARCHAR(256);
