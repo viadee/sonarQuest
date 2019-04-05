@@ -61,4 +61,10 @@ public class SkillTreeController {
 			@RequestParam(value = "key") final String key) {
 		return skillTreeService.learnSkill(mail, key);
 	}
+	
+	//TODO löschen
+	@GetMapping("/score")
+	public void updateScore(@RequestParam(value = "mail") final String mail) {
+		skillTreeService.calculateSkillTreeByMail(mail);
+	}
 }

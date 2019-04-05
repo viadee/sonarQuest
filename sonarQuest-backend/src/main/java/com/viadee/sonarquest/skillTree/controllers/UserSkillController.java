@@ -53,6 +53,18 @@ public class UserSkillController {
 		}
 		return userSkillService.findUserSkillsFromTeam(mails);
 	}
+	
+	@GetMapping(value = "/team/score")
+	public Double getTeamScoreByTeamAndRule(@RequestParam(value = "ruleKey") final String ruleKey, @RequestParam(value = "mails") final String mailString) {
+		List<String> mails;
+		if (mailString.indexOf(',') != -1) {
+			mails = new ArrayList<String>(Arrays.asList(mailString.split(",")));
+		} else {
+			mails = new ArrayList<String>();
+			mails.add(mailString);
+		}
+		return userSkillService.getScoringForRuleFromTeam(ruleKey, mails);
+	}
 
 	@GetMapping(value = "/roots/")
 	public List<UserSkill> getAllRootUserSkills() {

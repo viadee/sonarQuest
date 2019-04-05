@@ -20,6 +20,7 @@ export class ViewAvailableQuestComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.quest);
   }
 
   participateInQuest() {

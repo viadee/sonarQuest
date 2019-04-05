@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 
 
@@ -17,5 +18,8 @@ public interface UserSkillRepositroy extends JpaRepository<UserSkill, Long> {
     
     @Query("SELECT u FROM UserSkill u WHERE userSkillGroup.id = :id")
 	public List<UserSkill> findUserSkillsByGroup(@Param("id") Long id);
+    
+    @Query("SELECT u FROM UserSkill u WHERE :sonarRule member u.sonarRules")
+	public UserSkill findUserSkillBySonarRule(@Param("sonarRule") SonarRule sonarRule);
 
 }

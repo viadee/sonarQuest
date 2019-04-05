@@ -11,6 +11,8 @@ import { SonarRule } from 'app/Interfaces/SonarRule';
 import { PermissionService } from 'app/services/permission.service';
 import { UserService } from 'app/services/user.service';
 import { WorldService } from 'app/services/world.service';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+
 
 @Component({
   selector: 'app-inner-skill-tree',

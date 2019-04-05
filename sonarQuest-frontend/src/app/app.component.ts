@@ -1,18 +1,18 @@
-import {UiDesignService} from './services/ui-design.service';
-import {MatDialog} from '@angular/material';
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {TdMediaService} from '@covalent/core';
-import {Router} from '@angular/router';
-import {WorldService} from './services/world.service';
-import {World} from './Interfaces/World';
-import {TranslateService} from '@ngx-translate/core';
-import {UiDesign} from './Interfaces/UiDesign';
-import {AuthenticationService} from './login/authentication.service';
-import {LoginComponent} from './login/login.component';
-import {UserService} from './services/user.service';
-import {User} from './Interfaces/User';
-import {PermissionService} from './services/permission.service';
-import {RoutingUrls} from './app-routing/routing-urls';
+import { UiDesignService } from './services/ui-design.service';
+import { MatDialog } from '@angular/material';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { TdMediaService } from '@covalent/core';
+import { Router } from '@angular/router';
+import { WorldService } from './services/world.service';
+import { World } from './Interfaces/World';
+import { TranslateService } from '@ngx-translate/core';
+import { UiDesign } from './Interfaces/UiDesign';
+import { AuthenticationService } from './login/authentication.service';
+import { LoginComponent } from './login/login.component';
+import { UserService } from './services/user.service';
+import { User } from './Interfaces/User';
+import { PermissionService } from './services/permission.service';
+import { RoutingUrls } from './app-routing/routing-urls';
 
 @Component({
   selector: 'app-root',
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   protected login(): void {
-    this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'});
+    this.dialog.open(LoginComponent, { panelClass: 'dialog-sexy', width: '500px' });
   }
 
   protected logout(): void {
@@ -118,14 +118,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
-  private susbcribeWorlds(){
-    this.worldService.currentWorld$.subscribe(world =>{ 
-      this.currentWorld = world;  
-      if (world)this.changebackground( world.image);
+  private susbcribeWorlds() {
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world;
+      if (world) this.changebackground(world.image);
       else this.changebackground("");
     })
-    this.worldService.worlds$      .subscribe(worlds=>{ 
-      this.worlds       = worlds; 
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds;
     })
   }
 
@@ -154,9 +154,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/skilltree':
-            return this.pageNames.SKILLTREE;
+          return this.pageNames.SKILLTREE;
         case '/innerskilltree':
-            return this.pageNames.SKILLTREE;
+          return this.pageNames.SKILLTREE;
         case '/events':
           return this.pageNames.EVENT;
         default:
@@ -172,7 +172,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changebackground(image: string) {
-    if (image != ""){
+    if (image != "") {
       document.getElementsByTagName('body')[0].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
     } else {
       document.getElementsByTagName('body')[0].style.backgroundImage = '';
@@ -181,7 +181,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   setDesign() {
     this.uiDesignService.getUiDesign().subscribe(ui => {
-      this.ui = ui;      
+      this.ui = ui;
       this.body.className = this.ui.name;
     });
   }
@@ -202,7 +202,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  hasClass(element: HTMLScriptElement, cssClass: string): Boolean{
+  hasClass(element: HTMLScriptElement, cssClass: string): Boolean {
     return element.classList.contains(cssClass);
   }
 

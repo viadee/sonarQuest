@@ -88,12 +88,12 @@ import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import { SkillTreePageComponent } from './pages/skill-tree-page/skill-tree-page.component';
 import {EventService} from './services/event.service'
-import { EventPageComponent } from './pages/event-page/event-page.component'; 
+import { EventPageComponent } from './pages/event-page/event-page.component';
 import {WebSocketService} from './services/websocket.service'
 
 import {NgxGraphModule } from '@swimlane/ngx-graph';
+import {NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { InnerSkillTreeComponent } from './pages/skill-tree-page/components/inner-skill-tree/inner-skill-tree.component';
 import { InnerSkillDetailDialogComponent } from './pages/skill-tree-page/components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
 
@@ -152,7 +152,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingComponent,
     SkillTreePageComponent,
     InnerSkillTreeComponent,
-    InnerSkillDetailDialogComponent
+    InnerSkillDetailDialogComponent,
     EventPageComponent,
   ],
   entryComponents: [
@@ -222,7 +222,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     NgxGraphModule,
     NgxChartsModule
-  ],
+    ],
   providers: [TdMediaService,
     WorldService,
     AdventureService,

@@ -1,10 +1,12 @@
-import {Task} from './Task';
+import { Task } from './Task';
 
 export interface StandardTask extends Task {
   component: string,
   severity: string,
   type: string,
   debt: number,
-  issueKey: string
+  issueKey: string,
+  issueRule: string,
+  scoring?: number
 
 }

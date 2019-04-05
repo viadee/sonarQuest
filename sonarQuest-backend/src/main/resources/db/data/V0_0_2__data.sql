@@ -162,9 +162,7 @@ INSERT INTO Permission (id, type, permission) VALUES
  (8, 'ACCESS', 'FULL_USER_ACCESS'),
  (9, 'ACCESS', 'FULL_WORLD_ACCESS'),
  (10, 'ACCESS', 'USER_WORLD_ASSIGNMENT'),
- (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS'),
- (12,'URL', 'skilltree'),
- (13,'URL','innerskilltree');
+ (11, 'ACCESS', 'ACTIVE_WORLD_ACCESS');
  
 INSERT INTO Role_To_Permission (role_id, permission_id) VALUES 
  (1,1),
@@ -172,24 +170,18 @@ INSERT INTO Role_To_Permission (role_id, permission_id) VALUES
  (1,5),
  (1,6),
  (1,11),
- (1,12),
- (1,13),
  (2,1),
  (2,2),
  (2,3),
  (2,4),
  (2,5),
- (2,12),
- (2,13),
  (3,1),
  (3,2),
  (3,7),
  (3,8),
  (3,9),
  (3,10),
- (3,11),
- (3,12),
- (3,13);
+ (3,11);
 
 INSERT INTO SQUser (username, password, role_id, gold, xp, level_id, picture, about_me, avatar_class_id, avatar_race_id)
  VALUES ('admin', '$2a$10$LoXVU5ODwytMz3Mh/Nft4.WaasCtwEuN6NEeJCER5X8o1ayCJHVxO', 3,   0,   0, 1, 'ava_hobbit1.jpg', 'Quick with the keys as well as the daggers, Eddie knows hidden paths to chambers of wisdom unknown!', 4, 2);
@@ -213,7 +205,8 @@ INSERT INTO User_Artefact (user_id, artefact_id) VALUES
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES 
 ('Servlets should not have mutable instance fields','squid:S2226',1),
 ('Sections of code should not be commented out','xml:S125',1),
-('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',7);
+('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',7),
+('Tests should include assertions','squid:S2699',11);
 
 
 
@@ -280,9 +273,9 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (11,6);
 
 
-INSERT INTO skill_tree_user (mail) VALUES ('test1@test.de');
+--INSERT INTO skill_tree_user (mail) VALUES ('test1@test.de');
 
-INSERT INTO user_skill_to_skill_tree_user (learned_on, repeats, user_skill_id, skill_tree_user_id) VALUES (NULL,1,1,1);
+--INSERT INTO user_skill_to_skill_tree_user (learned_on, repeats, user_skill_id, skill_tree_user_id) VALUES (NULL,1,1,1);
 
 
 

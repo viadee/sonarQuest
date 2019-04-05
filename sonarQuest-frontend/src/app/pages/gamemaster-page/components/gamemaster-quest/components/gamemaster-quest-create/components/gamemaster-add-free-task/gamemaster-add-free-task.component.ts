@@ -1,14 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Task} from 'app/Interfaces/Task';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
-import {SonarCubeService} from '../../../../../../../../services/sonar-cube.service';
-import {StandardTask} from '../../../../../../../../Interfaces/StandardTask';
-import {SpecialTask} from '../../../../../../../../Interfaces/SpecialTask';
-import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
-import {SpecialTaskService} from '../../../../../../../../services/special-task.service';
-import {IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder} from '@covalent/core';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Task } from 'app/Interfaces/Task';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GamemasterQuestCreateComponent } from '../../gamemaster-quest-create.component';
+import { SonarCubeService } from '../../../../../../../../services/sonar-cube.service';
+import { StandardTask } from '../../../../../../../../Interfaces/StandardTask';
+import { SpecialTask } from '../../../../../../../../Interfaces/SpecialTask';
+import { StandardTaskService } from '../../../../../../../../services/standard-task.service';
+import { SpecialTaskService } from '../../../../../../../../services/special-task.service';
+import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder } from '@covalent/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',
@@ -18,23 +18,25 @@ import {TranslateService} from '@ngx-translate/core';
 export class GamemasterAddFreeTaskComponent implements OnInit {
 
   freeStandardTasksColumns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: 600},
-    {name: 'severity', label: 'Severity'},
-    {name: 'gold', label: 'Gold'},
-    {name: 'xp', label: 'XP'},
-    {name: 'open_issue', label: ''},
-    {name: 'add_task', label: ''}
+    { name: 'title', label: 'Title', width: 600 },
+    { name: 'severity', label: 'Severity' },
+    { name: 'gold', label: 'Gold' },
+    { name: 'xp', label: 'XP' },
+    { name: 'scoring', label: 'Scoring', width: 25 },
+    { name: 'open_issue', label: '' },
+    { name: 'add_task', label: '' },
+
   ];
   fromRowStandardTasks = 1;
   currentPageStandardTasks = 1;
   filteredStandardTasks: StandardTask[];
 
   freeSpecialTasksColumns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title'},
-    {name: 'gold', label: 'Gold'},
-    {name: 'xp', label: 'XP'},
-    {name: 'message', label: 'Message', width: 500},
-    {name: 'add_task', label: ''}
+    { name: 'title', label: 'Title' },
+    { name: 'gold', label: 'Gold' },
+    { name: 'xp', label: 'XP' },
+    { name: 'message', label: 'Message', width: 500 },
+    { name: 'add_task', label: '' }
   ];
   fromRowSpecialTasks = 1;
   currentPageSpecialTasks = 1;
@@ -71,24 +73,26 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   private translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeStandardTasksColumns = [
-        {name: 'title', label: col_names.TITLE, width: 600},
-        {name: 'severity', label: col_names.SEVERITY},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'xp', label: col_names.XP},
-        {name: 'open_issue', label: ''},
-        {name: 'add_task', label: ''}
+        { name: 'title', label: col_names.TITLE, width: 600 },
+        { name: 'severity', label: col_names.SEVERITY },
+        { name: 'gold', label: col_names.GOLD },
+        { name: 'xp', label: col_names.XP },
+        { name: 'scoring', label: col_names.SCORING, width: 25 },
+        { name: 'open_issue', label: '' },
+        { name: 'add_task', label: '' },
+
       ]
     });
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeSpecialTasksColumns = [
-        {name: 'title', label: col_names.TITLE},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'xp', label: col_names.XP},
-        {name: 'message', label: col_names.MISSION, width: 500},
-        {name: 'add_task', label: ''}
+        { name: 'title', label: col_names.TITLE },
+        { name: 'gold', label: col_names.GOLD },
+        { name: 'xp', label: col_names.XP },
+        { name: 'message', label: col_names.MISSION, width: 500 },
+        { name: 'add_task', label: '' }
       ]
-    });    
-  }  
+    });
+  }
 
   protected addTask(task: Task) {
     this.dialogRef.close(task);
@@ -124,5 +128,4 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRowSpecialTasks, this.currentPageSpecialTasks * this.pageSize);
     this.filteredSpecialTasks = newData;
   }
-
 }
