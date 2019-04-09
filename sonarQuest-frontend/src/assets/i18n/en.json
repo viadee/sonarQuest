@@ -33,7 +33,9 @@
     "COMBATED_BY": "combated by",
     "SHOW_ISSUE_TOOLTIP":"Show SonarQube issue",
     "JOIN_ISSUE_TOOLTIP":"Fight",
-    "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
+    "CANCEL_ISSUE_TOOLTIP":"Stop fighting",
+    "SKILL_SCORE":"Your Skill Score for this Task",
+    "SKILL_SCORE_WARNING":"This Task is probably too heavy"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marketplace",

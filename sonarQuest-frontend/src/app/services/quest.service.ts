@@ -43,7 +43,7 @@ export class QuestService {
         return this.participationService.getParticipations(quest)
       }).then(participations => {
         quest.participations = participations;
-        return this.taskService.getTasksForQuest(quest)
+        return this.taskService.getTasksForQuestAndUser(quest, this.user)
       }).then(tasks => {
         quest.tasks = tasks;
         return quest;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.services.WorldService;
@@ -31,7 +32,7 @@ public class SQSkillTreeController {
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
 			@RequestParam(value = "worldID") final Long worldID) {
 		World world = worldService.findById(worldID);
-		List<String> mails = world.getUsers().stream().filter(user-> Objects.nonNull(user.getMail())).map(user-> user.getMail()).collect(Collectors.toList());		
+		List<String> mails = world.getUsers().stream().filter(user-> user.getMail()!= null && user.getRole().getName().equals(RoleName.DEVELOPER)).map(user-> user.getMail()).collect(Collectors.toList());		
 		return skillTreeService.generateSkillTreeForTeamByGroupID(id, mails);
 
 	}

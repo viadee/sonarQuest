@@ -33,7 +33,9 @@
       "COMBATED_BY": "angenommen von ",
       "SHOW_ISSUE_TOOLTIP":"Zeige SonarQube Issue",
       "JOIN_ISSUE_TOOLTIP":"Kämpfe",
-      "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
+      "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen",
+      "SKILL_SCORE":"Dein Skill Score für diesen Task",
+      "SKILL_SCORE_WARNING":"Dieser Task ist wohlmöglich zu schwer"
     },
     "MARKETPLACE_PAGE": {
       "MARKETPLACE": "Marktplatz",

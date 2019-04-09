@@ -1,35 +1,46 @@
-import {Quest} from './../Interfaces/Quest';
-import {Task} from './../Interfaces/Task';
-import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
+import { Quest } from './../Interfaces/Quest';
+import { Task } from './../Interfaces/Task';
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 
-import {environment} from '../../environments/environment';
-import {World} from '../Interfaces/World';
+import { environment } from '../../environments/environment';
+import { World } from '../Interfaces/World';
 
 
-import {StandardTaskService} from './standard-task.service';
-import {SpecialTaskService} from './special-task.service';
-import {HttpClient} from '@angular/common/http';
+import { StandardTaskService } from './standard-task.service';
+import { SpecialTaskService } from './special-task.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { User } from 'app/Interfaces/User';
 
 @Injectable()
 export class TaskService {
 
   constructor(public http: HttpClient,
-              private standardTaskService: StandardTaskService,
-              private specialTaskService: SpecialTaskService) {
+    private standardTaskService: StandardTaskService,
+    private specialTaskService: SpecialTaskService) {
   }
 
+ /*
+  *TODO evtl. ueberflüssig
+  */
   public getTasksForQuest(quest: Quest): Promise<Task[]> {
     return this.http.get<Task[]>(`${environment.endpoint}/task/quest/${quest.id}`)
       .toPromise()
       .catch(this.handleError);
   }
 
+  public getTasksForQuestAndUser(quest: Quest, user: User): Promise<Task[]> {
+    const params = new HttpParams().set('mail', user.mail)
+    return this.http.get<Task[]>(`${environment.endpoint}/task/quest/${quest.id}`, { params: params })
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   public getFreeForWorld(world: World): Promise<Task[]> {
     return this.http.get<Task[]>(`${environment.endpoint}/task/getFreeForWorld/${world.id}`)
-      .toPromise() 
+      .toPromise()
       .catch(this.handleError);
-  }  
+  }
 
   addToQuest(task: any, quest: any): Promise<Task> {
     return this.http.post<Task>(`${environment.endpoint}/task/${task.id}/addToQuest/${quest.id}`, null)

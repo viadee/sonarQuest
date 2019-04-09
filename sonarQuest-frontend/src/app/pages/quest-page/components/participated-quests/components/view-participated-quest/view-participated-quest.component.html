@@ -30,27 +30,28 @@
       <p mat-line>
         <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
         <i mat-list-icon class="ra ra-perspective-dice-random ra-lg"></i><span>{{task?.xp}}</span>
+        <i mat-list-icon class="ra ra-sword  ra-lg"></i><span [matTooltip]="'QUEST_PAGE.SKILL_SCORE' | translate"
+          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">{{task.scoring}}</span>
         <span *ngIf="participatingDeveloper(task)">, </span>
-        <span *ngIf="participatingDeveloper(task)">{{"QUEST_PAGE.COMBATED_BY"| translate}}: {{participatingDeveloper(task)?.username}} </span>
+        <span *ngIf="participatingDeveloper(task)">{{"QUEST_PAGE.COMBATED_BY"| translate}}:
+          {{participatingDeveloper(task)?.username}} </span>
+          <span *ngIf="task.scoring >= 3" style="color:red"> {{"QUEST_PAGE.SKILL_SCORE_WARNING"| translate}} </span>
+
       </p>
-      <button mat-icon-button (click)="openIssue(task)"
-              [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="after">
+      <button mat-icon-button (click)="openIssue(task)" [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
         <i class="ra ra-chain ra-2x"></i>
       </button>
-      <button mat-icon-button (click)="addParticipation(task)" 
-              *ngIf="!participatingDeveloper(task) && task.status !== 'SOLVED'"
-              [matTooltip]="'QUEST_PAGE.JOIN_ISSUE_TOOLTIP' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="after">
+      <button mat-icon-button (click)="addParticipation(task)"
+        *ngIf="!participatingDeveloper(task) && task.status !== 'SOLVED'"
+        [matTooltip]="'QUEST_PAGE.JOIN_ISSUE_TOOLTIP' | translate" [matTooltipClass]="'tooltipMultiline'"
+        matTooltipPosition="after">
         <i class="ra ra-sword ra-2x"></i>
       </button>
       <button mat-icon-button (click)="removeParticipation(task)"
-              *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status !== 'SOLVED'"
-              [matTooltip]="'QUEST_PAGE.CANCEL_ISSUE_TOOLTIP' | translate"
-              [matTooltipClass]="'tooltipMultiline'"
-              matTooltipPosition="after">
+        *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status !== 'SOLVED'"
+        [matTooltip]="'QUEST_PAGE.CANCEL_ISSUE_TOOLTIP' | translate" [matTooltipClass]="'tooltipMultiline'"
+        matTooltipPosition="after">
         <mat-icon mat-list-icon>clear</mat-icon>
       </button>
     </mat-list-item>

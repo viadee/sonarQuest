@@ -1,7 +1,10 @@
 package com.viadee.sonarquest.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
+import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
 public class TaskService {
@@ -32,6 +38,10 @@ public class TaskService {
 
 	@Autowired
 	private AdventureService adventureService;
+	
+	@Autowired
+	private UserSkillService userSkillService;
+
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
@@ -79,5 +89,18 @@ public class TaskService {
 			questService.updateQuest(quest);
 			adventureService.updateAdventure(quest.getAdventure());
 		}
+	}
+	
+	public List<Task> getTasksForQuest(Long questId, Optional<String> mail){
+		final Quest quest = questService.findById(questId);
+		if(mail.isPresent()) {
+			for (Task task : quest.getTasks()) {
+				if (task instanceof StandardTask) {					
+					((StandardTask) task).setScoring(userSkillService.getScoringForRuleFromTeam(
+							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(mail.get()))));
+				}
+			}
+		}
+		return quest.getTasks();
 	}
 }

@@ -59,7 +59,9 @@ export class InnerSkillTreeComponent implements OnInit {
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
+      console.log(this.worldService.getCurrentWorld());
       this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld() );
+      console.log(this.userSkillTree);
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
         this.userSkillTree = userSkillTreeForUser;

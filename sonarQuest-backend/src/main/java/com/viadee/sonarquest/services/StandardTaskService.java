@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viadee.sonarquest.dto.StandardTaskWithScoring;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;

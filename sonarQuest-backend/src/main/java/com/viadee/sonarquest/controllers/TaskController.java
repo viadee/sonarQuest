@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,9 +82,11 @@ public class TaskController {
     }
 
     @GetMapping(value = "/quest/{id}")
-    public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId) {
-        final Quest quest = questService.findById(questId);
-        return quest.getTasks();
+    public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId, @RequestParam(value = "mail", required = false) final Optional<String> mail) {
+//        final Quest quest = questService.findById(questId);
+        //return quest.getTasks();
+    
+    	return taskService.getTasksForQuest(questId,mail);
     }
 
     @GetMapping(value = "/special/world/{id}")
