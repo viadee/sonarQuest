@@ -97,13 +97,18 @@ public class StandardTaskService {
 
 	public List<StandardTask> findByWorld(final World w) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
-		List<String> teamMails= new ArrayList<String>();
-		for(User user :w.getUsers()) {
-			teamMails.add(user.getMail());
+		List<String> teamMails = new ArrayList<String>();
+		if (w.getUsers() != null) {
+			for (User user : w.getUsers()) {
+				teamMails.add(user.getMail());
+			}
+			if (tasks != null) {
+				for (StandardTask task : tasks) {
+					task.setScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(), teamMails));
+				}
+			}
 		}
-		for(StandardTask task :tasks) {
-			task.setScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(),teamMails ));
-		}
+
 		Collections.sort(tasks, new Comparator<StandardTask>() {
 
 			@Override
@@ -113,8 +118,8 @@ public class StandardTaskService {
 				return severity2.getRank().compareTo(severity1.getRank());
 			}
 		});
-		
+
 		return tasks;
-    }
+	}
 
 }
