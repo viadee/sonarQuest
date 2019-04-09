@@ -73,13 +73,13 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   editDeveloper() {
     this.userService.updateUser(this.data.user).then(() => {
-      this.userToWorldService.saveUserToWorlds(this.userToWorlds);
-      this.dialogRef.close(true);
+      this.userToWorldService.updateUserToWorld(this.userToWorlds);
+      this.dialogRef.close(this.data.user);
     })
   }
 
   cancel() {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 
   loadImages() {
@@ -97,7 +97,6 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.nameTaken = false;
       }
-      console.log(this.nameTaken);
       return this.nameTaken ? {'currentName': {nameVal}} : null;
     }
   }
@@ -109,7 +108,6 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.mailTaken = false;
       }
-      console.log(this.mailTaken);
       return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
     }
   }

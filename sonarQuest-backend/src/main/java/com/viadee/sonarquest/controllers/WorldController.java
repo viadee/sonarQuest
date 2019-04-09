@@ -40,13 +40,6 @@ public class WorldController {
         return userService.updateUsersCurrentWorld(user, world.getId());
     }
 
-    @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
-    @GetMapping(value = "/user/{id}")
-    public List<World> getWorldsForUser(@PathVariable(value = "id") final Long id) {
-        final User user = userService.findById(id);
-        return user.getWorlds();
-    }
-
     @GetMapping(value = "/worlds")
     public List<World> getWorlds(final Principal principal) {
         final User user = userService.findByUsername(principal.getName());

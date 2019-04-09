@@ -20,32 +20,22 @@ export class UserToWorldService {
     return this.http.delete<User>(`${environment.endpoint}/user_to_world/${userId}/${worldId}`).toPromise();
   }
 
-  public saveUserToWorlds(userToWorlds: UserToWorld[]) {
+  /*public saveUserToWorlds(userToWorlds: UserToWorld[]) {
     this.updateUserToWorld(userToWorlds)
-    /*
-    console.log(userToWorlds)
-    userToWorlds.forEach(userToWorld => {
-      if (userToWorld.joined) {
-        console.log(userToWorld)
-        this.addUserToWorld(userToWorld.userId, userToWorld.worldId);
-      } else {
-        this.removeUserToWorld(userToWorld.userId, userToWorld.worldId);
-      }
-    });
+  }*/
 
-    */
-  }
-
-  private updateUserToWorld(userToWorlds: UserToWorld[]): Promise<Boolean> {
+  public updateUserToWorld(userToWorlds: UserToWorld[]): Promise<Boolean> {
     return this.http.put<Boolean>(`${environment.endpoint}/user_to_world/update`, userToWorlds).toPromise();
   }
 
   public getUserToWorlds(user: User): Promise<UserToWorld[]> {
     let activeWorlds: World[];
+    let userWorlds: World[];
 
     return this.worldService.getActiveWorlds().then(worlds => {
       activeWorlds = worlds;
-      return this.worldService.getWorldsForUser(user);
+      this.worldService.worlds$.subscribe(worlds => userWorlds = worlds)
+      return userWorlds;
     }).then(userWorlds => {
       const userWorldIds: number[] = userWorlds.map(userWorld => userWorld.id);
       return activeWorlds.map(world => <UserToWorld>{

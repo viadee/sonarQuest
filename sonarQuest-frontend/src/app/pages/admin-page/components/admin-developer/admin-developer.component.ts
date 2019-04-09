@@ -1,3 +1,4 @@
+import { WorldService } from './../../../../services/world.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AdminDeveloperDeleteComponent } from './components/admin-developer-delete/admin-developer-delete.component';
 import { AdminDeveloperEditComponent } from './components/admin-developer-edit/admin-developer-edit.component';
@@ -44,7 +45,8 @@ export class AdminDeveloperComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private translateService: TranslateService,
-    private _dataTableService: TdDataTableService) {
+    private _dataTableService: TdDataTableService,
+    private worldService: WorldService) {
   }
 
   ngOnInit() {
@@ -84,7 +86,12 @@ export class AdminDeveloperComponent implements OnInit {
 
   editUser(user: User) {
     this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
-      .subscribe(() => this.ngOnInit());
+      .subscribe(user => {
+        this.ngOnInit()
+        if ( this.userService.getUser().password == user.password ){ // Only the Admin can be user == user
+          this.worldService.getWorlds()
+        } 
+      });
   }
 
   deleteUser(user: User) {

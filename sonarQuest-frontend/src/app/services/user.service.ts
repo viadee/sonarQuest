@@ -72,8 +72,6 @@ export class UserService {
   public updateUser(user: User): Promise<User> {
     const url = `${environment.endpoint}/user`;
     user.lastLogin = null;
-
-    console.log(user);
     return this.httpClient.post<User>(url, user).toPromise();
   }
 
