@@ -1,31 +1,26 @@
 <mat-toolbar color="primary">
   <h2 mat-dialog-title>{{"LOGIN.LOGIN"| translate}}</h2>
+  <span class="toolbar-spacer"></span>  
+  <button mat-button mat-raised-button color="" mat-dialog-close>
+    <i class="ra ra-2x ra-crossed-bones"></i>
+  </button>
 </mat-toolbar>
 <mat-dialog-content>
-  <div>
-    <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <input matInput placeholder='{{"LOGIN.USERNAME"| translate}}'
-               formControlName="username"
-               required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput [type]="'password'"
-               placeholder='{{"LOGIN.PASSWORD"| translate}}'
-               formControlName="password"
-               required>
-      </mat-form-field>
-      <div class="buttons">
-        <button mat-button mat-raised-button color="primary" mat-dialog-close>
-          Cancel
-        </button>
-        <button 
-          mat-button mat-raised-button color="primary" 
-          [disabled]="loginFormGroup.invalid"
-          type="submit">
-          Ok
-        </button>
-      </div>
-    </form>
+  <div layout="column" layout-padding>
+    <mat-form-field>
+      <input matInput placeholder='{{"LOGIN.USERNAME"| translate}}' [(ngModel)]="username"  (keydown)="onKeyDown($event)"  required >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder='{{"LOGIN.PASSWORD"| translate}}' [(ngModel)]="password"  (keydown)="onKeyDown($event)"  required [type]="'password'">
+    </mat-form-field>
   </div>
 </mat-dialog-content>
+      
+<mat-dialog-actions>
+    <span class="toolbar-spacer"></span>
+     
+    <button mat-button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+      <i class="ra ra-4x ra-key"></i>
+    </button>
+</mat-dialog-actions>

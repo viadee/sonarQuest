@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { MatDialog } from '@angular/material';
 
@@ -10,22 +9,23 @@ import { MatDialog } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  loginFormGroup: FormGroup;
+  username = '';
+  password = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService, private dialog: MatDialog) {
+  constructor(private authService: AuthenticationService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.loginFormGroup = this.formBuilder.group(
-      {
-        username: '',
-        password: ''
-      }
-    );
   }
 
   onSubmit() {
-    this.authService.login(this.loginFormGroup.value.username, this.loginFormGroup.value.password);
+    this.authService.login(this.username, this.password);
     this.dialog.closeAll();
+  }
+
+  onKeyDown(event) {
+    if (event.key === "Enter" && this.username != '' && this.password != '') {
+      this.onSubmit();
+    }
   }
 }
