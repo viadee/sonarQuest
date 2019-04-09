@@ -86,11 +86,13 @@ export class AdminDeveloperComponent implements OnInit {
 
   editUser(user: User) {
     this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
-      .subscribe(user => {
+      .subscribe(bool => {
         this.ngOnInit()
-        if ( this.userService.getUser().password == user.password ){ // Only the Admin can be user == user
+
+        if ( bool && this.userService.getUser().id == user.id){
           this.worldService.getWorlds()
         } 
+        
       });
   }
 

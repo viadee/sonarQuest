@@ -43,6 +43,9 @@ export class WorldService {
     this.wordChangeListener.forEach(l => l.next(true));
   }
 
+  /**
+   * Get all assigned worlds for logged in user
+   */
   public getWorlds(): Observable<World[]> {
     this.http.get<World[]>(`${environment.endpoint}/world/worlds`).subscribe(
       result => this.worldsSubject.next(result),
@@ -51,11 +54,15 @@ export class WorldService {
     return this.worldsSubject;
   }
 
-  /*
+  /**
+   * Get all assigned worlds for user
+   * The function is needed when editing the worlds assigned to a user
+   * @param user  
+   */
   public getWorldsForUser(user: User): Promise<World[]> {
     return this.http.get<World[]>(`${environment.endpoint}/world/user/${user.id}`).toPromise();
   }
-  */
+  
 
   public getAllWorlds(): Observable<World[]> {
     return this.http.get<World[]>(`${environment.endpoint}/world/all`);

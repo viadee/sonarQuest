@@ -74,12 +74,12 @@ export class AdminDeveloperEditComponent implements OnInit {
   editDeveloper() {
     this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.updateUserToWorld(this.userToWorlds);
-      this.dialogRef.close(this.data.user);
+      this.dialogRef.close(true);
     })
   }
 
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   loadImages() {
@@ -89,7 +89,6 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   matchNameValidator() {
-    console.log(this.data);
     return (control: FormControl) => {
       const nameVal = control.value;
       if (this.data.users.filter(user => (user.username === nameVal && user.username !== this.data.user.username)).length !== 0) {
