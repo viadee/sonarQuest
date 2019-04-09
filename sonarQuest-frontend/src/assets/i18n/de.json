@@ -235,7 +235,8 @@
     "LOGIN": "Login",
     "USERNAME": "Benutzername",
     "MAIL": "E-Mail",
-    "PASSWORD": "Passwort"
+    "PASSWORD": "Passwort",
+    "CANCEL": "Abbruch"
   },
   "WIZARD": {
     "WIZARD_SAYS": "Der Wizard meint...",
