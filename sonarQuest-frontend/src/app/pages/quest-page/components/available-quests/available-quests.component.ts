@@ -78,6 +78,9 @@ export class AvailableQuestsComponent implements OnInit {
   loadQuests() {
     if (this.currentWorld) {
       return this.questService.getAllAvailableQuestsForWorldAndUser(this.currentWorld).then(quests => {
+       quests.forEach(element => {
+         console.log(element);
+       });
         this.availableQuests = quests;
       }).then(() => {
         this.filter()

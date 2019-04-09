@@ -112,7 +112,9 @@ export class QuestService {
   }
 
   getAllAvailableQuestsForWorldAndUser(world: World) {
-    return this.getAllQuestsForWorldAndUser(world).then(quests => quests[1])
+    console.log('World return');
+    console.log(this.getAllQuestsForWorldAndUser(world).then(quests => quests[1]));
+        return this.getAllQuestsForWorldAndUser(world).then(quests => quests[1])
   }
 
   refreshQuests(world: World) {

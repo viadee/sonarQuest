@@ -7,6 +7,6 @@ export interface StandardTask extends Task {
   debt: number,
   issueKey: string,
   issueRule: string,
-  scoring?: number
+  
 
 }

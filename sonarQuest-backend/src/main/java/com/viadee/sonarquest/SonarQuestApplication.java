@@ -1,5 +1,6 @@
 package com.viadee.sonarquest;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
@@ -76,6 +78,6 @@ public class SonarQuestApplication implements CommandLineRunner {
             }
         };
     }
-
+    
 
 }

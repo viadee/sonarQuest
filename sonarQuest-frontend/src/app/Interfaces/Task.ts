@@ -15,5 +15,6 @@ export interface Task {
   issueKey: string,
   key: string,
   startdate: Date,
-  enddate: Date
+  enddate: Date,
+  scoring?: number
 }
