@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.skillTree.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,8 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarquest.entities.Participation;
+import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
+import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
@@ -31,7 +36,7 @@ public class UserSkillService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserSkillService.class);
 
 	@Autowired
-	private UserSkillRepositroy userSkillRepositroy;
+	private UserSkillRepositroy userSkillRepository;
 
 	@Autowired
 	private SonarRuleRepository sonarRuleRepository;
@@ -46,7 +51,7 @@ public class UserSkillService {
 	private UserSkillDtoEntityMapper mapper;
 
 	private UserSkill findById(final Long id) {
-		return userSkillRepositroy.findOne(id);
+		return userSkillRepository.findOne(id);
 	}
 
 	private int recursionCount = 0;
@@ -87,10 +92,10 @@ public class UserSkillService {
 	public Double getScoringForRuleFromTeam(String ruleKey, List<String> mails) {
 		SonarRule rule = sonarRuleRepository.findSonarRuleByKey(ruleKey);
 		if (rule != null) {
-			UserSkill userSkill = userSkillRepositroy.findUserSkillBySonarRule(rule);
+			UserSkill userSkill = userSkillRepository.findUserSkillBySonarRule(rule);
 			if (userSkill != null) {
 				double teamScore = 0;
-				int memeberWithSkill = 0;
+				// int memeberWithSkill = 0;
 				for (String mail : mails) {
 					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
 						SkillTreeUser skillTreeUser = skillTreeUserRepository.findByMail(mail);
@@ -100,14 +105,15 @@ public class UserSkillService {
 							if (userSkillToSkillTreeUser != null) {
 								if (userSkillToSkillTreeUser.getScore() != null) {
 									teamScore = teamScore + userSkillToSkillTreeUser.getScore();
-									memeberWithSkill++;
+									// memeberWithSkill++;
 								}
 
 							}
 						}
 					}
 				}
-				return teamScore / memeberWithSkill;
+				// return teamScore / memeberWithSkill;
+				return teamScore / mails.size();
 			}
 
 		}
@@ -121,13 +127,13 @@ public class UserSkillService {
 		// sonarRuleRepository.save(rule);
 		// userSkill.addSonarRule(rule);
 
-		return userSkillRepositroy.save(userSkill);
+		return userSkillRepository.save(userSkill);
 	}
 
 	public boolean delete(final Long userId) {
 		final UserSkill skill = findById(userId);
 		if (skill != null) {
-			userSkillRepositroy.delete(skill);
+			userSkillRepository.delete(skill);
 			return true;
 		}
 
@@ -283,6 +289,125 @@ public class UserSkillService {
 		result.put("recursionCount", 0);
 		recursionCount = 0;
 		resultPreviousCalculateScore.add(result);
+	}
+
+	@Transactional
+	public UserSkill updateUserSkill(UserSkill userSkill) {
+		UserSkill oldUserSkill = userSkillRepository.findOne(userSkill.getId());
+		if (oldUserSkill.getRequiredRepetitions() != userSkill.getRequiredRepetitions()) {
+			List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = userSkillToSkillTreeUserRepository
+					.findUserSkillToSkillTreeUsersByUserSkill(userSkill);
+			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToSkillTreeUsers) {
+				if (userSkillToSkillTreeUser.getRepeats() >= userSkill.getRequiredRepetitions()) {
+					userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
+					userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
+				} else if (userSkillToSkillTreeUser.getLearnedOn() != null
+						&& userSkillToSkillTreeUser.getRepeats() < userSkill.getRequiredRepetitions()) {
+					userSkillToSkillTreeUser.setLearnedOn(null);
+					userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
+				}
+			}
+			oldUserSkill.setRequiredRepetitions(userSkill.getRequiredRepetitions());
+			userSkill = oldUserSkill;
+
+		}
+		UserSkill newUserSkill = userSkillRepository.save(userSkill);
+		recalculateWholeUserSkillScore();
+		LOGGER.info("UserSkill with ID: {} has been updated", userSkill.getId());
+		return newUserSkill;
+	}
+
+	public void recalculateWholeUserSkillScore() {
+		List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = userSkillToSkillTreeUserRepository.findAll();
+		for (UserSkillToSkillTreeUser skillToSkillTreeUser : userSkillToSkillTreeUsers) {
+			skillToSkillTreeUser.setScore(calculateUserSkillScore(skillToSkillTreeUser.getUserSkill(),
+					skillToSkillTreeUser.getSkillTreeUser()));
+			userSkillToSkillTreeUserRepository.save(skillToSkillTreeUser);
+		}
+	}
+
+	@Transactional
+	public SkillTreeObjectDTO learnSkill(String mail, String key) {
+		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
+		if (user == null) {
+			LOGGER.info("User with mail: {}  does not exist yet - creating it...", mail);
+			user = this.createSkillTreeUser(mail);
+		}
+		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+			if (userSkillToSkillTreeUser.getLearnedOn() == null) {
+
+				for (SonarRule sonarRule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
+					if (sonarRule.getKey().equals(key)) {
+						userSkillToSkillTreeUser.setRepeats(userSkillToSkillTreeUser.getRepeats() + 1);
+						if (userSkillToSkillTreeUser.getRepeats() == userSkillToSkillTreeUser.getUserSkill()
+								.getRequiredRepetitions()) {
+							userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
+							LOGGER.info("User with mail: {} has learned UserSkill '{}'", mail,
+									userSkillToSkillTreeUser.getUserSkill().getName());
+						}
+						skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
+						skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
+						skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
+						skillTreeObjectDTO.setRequiredRepetitions(
+								userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+						break outter;
+					}
+				}
+			}
+			if (userSkillToSkillTreeUser.getUserSkill().getSonarRules().stream()
+					.filter(sonarRule -> key.equals(sonarRule.getKey())).findAny().orElse(null) != null) {
+				skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
+				skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
+				skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
+				skillTreeObjectDTO
+						.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+				break outter;
+			}
+		}
+		updateSkillTreeScoring(user);
+		skillTreeUserRepository.save(user);
+		return skillTreeObjectDTO;
+	}
+
+	@Transactional
+	public SkillTreeUser createSkillTreeUser(String mail) {
+		SkillTreeUser user = skillTreeUserRepository.save(new SkillTreeUser(mail));
+		List<UserSkill> userSkills = userSkillRepository.findAll();
+		for (UserSkill userSkill : userSkills) {
+			UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
+					.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));
+			user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
+		}
+		skillTreeUserRepository.save(user);
+		return user;
+	}
+
+	@Transactional
+	private void updateSkillTreeScoring(SkillTreeUser skillTreeUser) {
+		for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : skillTreeUser.getUserSkillToSkillTreeUser()) {
+			userSkillToSkillTreeUser
+					.setScore(calculateUserSkillScore(userSkillToSkillTreeUser.getUserSkill(), skillTreeUser));
+			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
+		}
+	}
+
+	public void learnUserSkillFromTask(StandardTask task) {
+		final Participation participation = task.getParticipation();
+		if (participation != null) {
+			String mail = participation.getUser().getMail();
+			if (mail != null) {
+				learnSkill(mail, task.getIssueRule());
+			}
+		} else {
+			LOGGER.info("No SQUser participations found for task {}, so no skills are learned", task.getKey());
+		}
+	}
+
+	// TODO löschen
+	public void calculateSkillTreeByMail(String mail) {
+		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+		updateSkillTreeScoring(user);
 	}
 
 }

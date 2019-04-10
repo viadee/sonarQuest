@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,8 @@ import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
+
+import springfox.documentation.spring.web.json.Json;
 
 @RestController
 @RequestMapping("/userskill")
@@ -70,6 +73,23 @@ public class UserSkillController {
 	public List<UserSkill> getAllRootUserSkills() {
 		return userSkillRepository.findAllRootUserSkills(true);
 	}
+	
+	@PutMapping(value = "/update")
+	public UserSkill updateUserSkill(@RequestBody UserSkill userSkill) {
+		return userSkillService.updateUserSkill(userSkill);
+	}
+	
+	@PostMapping(value = "/learn/")
+	public SkillTreeObjectDTO learnSkill(@RequestParam(value = "mail") final String mail,
+			@RequestParam(value = "key") final String key) {
+		return userSkillService.learnSkill(mail, key);
+	}
+	
+	//TODO löschen
+		@GetMapping("/score")
+		public void updateScore(@RequestParam(value = "mail") final String mail) {
+			userSkillService.calculateSkillTreeByMail(mail);
+		}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

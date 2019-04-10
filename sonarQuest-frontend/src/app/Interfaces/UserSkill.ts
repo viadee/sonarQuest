@@ -10,4 +10,5 @@ export interface UserSkill {
     sonarRules?: SonarRule[],
     userSkillGroup?: UserSkillGroup,
     root?: boolean;
+    requiredRepetitions: number
 }

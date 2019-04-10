@@ -248,6 +248,10 @@
     "CONFIRM":"OK",
     "TOOLTIP": "Show SonarQube rule",
     "RULES": "SonarQube Rules",    
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "OVERVIEW": "Overview",
+    "EDIT": "Edit",
+    "REQUIRED_REPETITIONS": "Required Repetitions"
+
   }  
 }

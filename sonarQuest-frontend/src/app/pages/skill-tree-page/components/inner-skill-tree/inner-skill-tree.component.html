@@ -14,55 +14,39 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <ngx-graph
-            [orientation]="TopToBottom"
-            class="chart-container"
-            [links]="userSkillTree.links"
-            [nodes]="userSkillTree.nodes"
-            [legend]="false"
-            [curve]="curve"
-            [draggingEnabled]="false"            
-            scheme = "fire"
-           >
-          
-            <ng-template #defsTemplate>
-              <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-                <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-              </svg:marker>
-            </ng-template>
-          
-            <ng-template #nodeTemplate let-node >
-            <svg:g class="node"
-              ngx-tooltip
-              [tooltipPlacement]="'top'"
-              [tooltipType]="'tooltip'"
-              [tooltipTitle]="node.label"
-              (click)="openDialog(node)">
-              
-                <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="nodecolor" />
-                <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2" text-anchor="middle">{{node.label}}</svg:text>
-                <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle" *ngIf="!isAdmin">{{ node.repeats}} | {{node.requiredRepetitions}}</svg:text>
-              </svg:g>        
+      <ngx-graph [orientation]="TopToBottom" class="chart-container" [links]="userSkillTree.links"
+        [nodes]="userSkillTree.nodes" [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire">
+
+        <ng-template #defsTemplate>
+          <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+            <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+          </svg:marker>
+        </ng-template>
+
+        <ng-template #nodeTemplate let-node>
+          <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
+            [tooltipTitle]="node.label" (click)="openDialog(node)">
+            <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="nodecolor" />
+            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
+              text-anchor="middle">{{node.label}}</svg:text>
+            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle"
+              *ngIf="!isAdmin">{{ node.repeats}} | {{node.requiredRepetitions}}</svg:text>
+          </svg:g>
 
 
-                
-            </ng-template>
-    
-            <ng-template #linkTemplate let-link>
-              <svg:g class="edge">
-                <svg:path
-                  class="line"
-                  stroke-width="2"
-                  marker-end="url(#arrow)" >
-                </svg:path>
-                <svg:text
-                  class="edge-label"
-                  text-anchor="none">
-              </svg:text>
-              </svg:g>
-            </ng-template>
-          
-          </ngx-graph>
+
+        </ng-template>
+
+        <ng-template #linkTemplate let-link>
+          <svg:g class="edge">
+            <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+            </svg:path>
+            <svg:text class="edge-label" text-anchor="none">
+            </svg:text>
+          </svg:g>
+        </ng-template>
+
+      </ngx-graph>
     </mat-card-content>
   </mat-card>
 </div>

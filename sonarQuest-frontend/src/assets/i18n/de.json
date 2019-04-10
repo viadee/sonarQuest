@@ -266,7 +266,10 @@
         "CONFIRM":"OK",
         "TOOLTIP": "Zeige SonarQube Regel",
         "RULES": "SonarQube Regeln",
-        "DESCRIPTION": "Beschreibung"
+        "DESCRIPTION": "Beschreibung",
+        "OVERVIEW": "Überblick",
+        "EDIT": "Bearbeiten",
+        "REQUIRED_REPETITIONS": "Erforderliche Wiederholungen"
       } 
   }
   

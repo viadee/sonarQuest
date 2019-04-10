@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -99,9 +100,8 @@ public class StandardTaskService {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
 		List<String> teamMails = new ArrayList<String>();
 		if (w.getUsers() != null) {
-			for (User user : w.getUsers()) {
-				teamMails.add(user.getMail());
-			}
+			teamMails = w.getUsers().stream().filter(user -> user.getMail() != null).map(user->user.getMail()).collect(Collectors.toList());
+			
 			if (tasks != null) {
 				for (StandardTask task : tasks) {
 					task.setScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(), teamMails));

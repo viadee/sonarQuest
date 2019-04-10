@@ -17,7 +17,9 @@ public interface UserSkillToSkillTreeUserRepository extends JpaRepository<UserSk
 	 @Query("SELECT uststu FROM UserSkillToSkillTreeUser uststu WHERE userSkill = :userSkill AND skillTreeUser = :skilLTreeUser")
 	public UserSkillToSkillTreeUser findUserSkillToSkillTreeUserByUserSkillAndUser(@Param("userSkill") final UserSkill userSkill, @Param("skilLTreeUser") final SkillTreeUser skilLTreeUser);
 	 
-    
+	 @Query("SELECT uststu FROM UserSkillToSkillTreeUser uststu WHERE userSkill = :userSkill ")
+		public List<UserSkillToSkillTreeUser> findUserSkillToSkillTreeUsersByUserSkill(@Param("userSkill") final UserSkill userSkill);
+		 
     
 
 }

@@ -55,16 +55,6 @@ public class SkillTreeController {
 	public SkillTreeDiagramDTO getGroupSkillTree() {
 		return skillTreeService.generateGroupSkillTree();
 	}
-
-	@PostMapping(value = "/learn/")
-	public SkillTreeObjectDTO learnSkill(@RequestParam(value = "mail") final String mail,
-			@RequestParam(value = "key") final String key) {
-		return skillTreeService.learnSkill(mail, key);
-	}
 	
-	//TODO löschen
-	@GetMapping("/score")
-	public void updateScore(@RequestParam(value = "mail") final String mail) {
-		skillTreeService.calculateSkillTreeByMail(mail);
-	}
+	
 }

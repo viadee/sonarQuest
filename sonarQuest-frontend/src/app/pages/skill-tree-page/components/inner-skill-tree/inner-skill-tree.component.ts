@@ -55,13 +55,10 @@ export class InnerSkillTreeComponent implements OnInit {
       });
       this.skillTreeService.getUserSkillTree(this.id);
     } else if (this.isGamemaster) {
-      console.log('gamemaster');
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
-      console.log(this.worldService.getCurrentWorld());
-      this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld() );
-      console.log(this.userSkillTree);
+      this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
         this.userSkillTree = userSkillTreeForUser;
@@ -76,8 +73,17 @@ export class InnerSkillTreeComponent implements OnInit {
       data: node
     });
     console.log(node);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (typeof data !== 'undefined' && data.updateRepetitions) {
+          this.userSkillTree = null;
+          this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
+            this.userSkillTree = userSkillTreeForTeam;
+          });
+          this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
+        }
+        console.log(data);
+      }
+    );
   }
 }
