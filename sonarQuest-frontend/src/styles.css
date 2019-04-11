@@ -68,6 +68,9 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 .full-width {
   width: 100%;
 }
+.half-width {
+  width: 50%;
+}
 
 .tooltipMultiline {
   white-space: pre-line;
