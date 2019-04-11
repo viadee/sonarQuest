@@ -73,7 +73,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   editDeveloper() {
     this.userService.updateUser(this.data.user).then(() => {
-      this.userToWorldService.saveUserToWorlds(this.userToWorlds);
+      this.userToWorldService.updateUserToWorld(this.userToWorlds);
       this.dialogRef.close(true);
     })
   }
@@ -89,7 +89,6 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   matchNameValidator() {
-    console.log(this.data);
     return (control: FormControl) => {
       const nameVal = control.value;
       if (this.data.users.filter(user => (user.username === nameVal && user.username !== this.data.user.username)).length !== 0) {
@@ -97,7 +96,6 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.nameTaken = false;
       }
-      console.log(this.nameTaken);
       return this.nameTaken ? {'currentName': {nameVal}} : null;
     }
   }
@@ -109,7 +107,6 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.mailTaken = false;
       }
-      console.log(this.mailTaken);
       return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
     }
   }

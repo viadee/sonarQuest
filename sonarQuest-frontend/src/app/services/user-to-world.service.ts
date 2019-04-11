@@ -8,52 +8,44 @@ import {WorldService} from './world.service';
 
 @Injectable()
 export class UserToWorldService {
-  constructor(private http: HttpClient,
-              private worldService: WorldService) {
+  
+  userWorlds: World[];
+
+  constructor(
+    private http: HttpClient,
+    private worldService: WorldService) 
+  {
+    this.worldService.worlds$.subscribe(worlds => {
+      this.userWorlds = worlds;
+    })
   }
 
-  private addUserToWorld(userId: number, worldId: number): Promise<User> {
-    return this.http.post<User>(`${environment.endpoint}/user_to_world/${userId}/${worldId}`, null).toPromise();
-  }
-
-  private removeUserToWorld(userId: number, worldId: number): Promise<User> {
-    return this.http.delete<User>(`${environment.endpoint}/user_to_world/${userId}/${worldId}`).toPromise();
-  }
-
-  public saveUserToWorlds(userToWorlds: UserToWorld[]) {
-    this.updateUserToWorld(userToWorlds)
-    /*
-    console.log(userToWorlds)
-    userToWorlds.forEach(userToWorld => {
-      if (userToWorld.joined) {
-        console.log(userToWorld)
-        this.addUserToWorld(userToWorld.userId, userToWorld.worldId);
-      } else {
-        this.removeUserToWorld(userToWorld.userId, userToWorld.worldId);
-      }
-    });
-
-    */
-  }
-
-  private updateUserToWorld(userToWorlds: UserToWorld[]): Promise<Boolean> {
+  public updateUserToWorld(userToWorlds: UserToWorld[]): Promise<Boolean> {
     return this.http.put<Boolean>(`${environment.endpoint}/user_to_world/update`, userToWorlds).toPromise();
   }
 
   public getUserToWorlds(user: User): Promise<UserToWorld[]> {
-    let activeWorlds: World[];
 
-    return this.worldService.getActiveWorlds().then(worlds => {
-      activeWorlds = worlds;
-      return this.worldService.getWorldsForUser(user);
-    }).then(userWorlds => {
-      const userWorldIds: number[] = userWorlds.map(userWorld => userWorld.id);
-      return activeWorlds.map(world => <UserToWorld>{
-        userId: user.id,
-        worldId: world.id,
-        joined: userWorldIds.includes(world.id),
-        worldName: world.name
+    let activeWorlds: World[];
+    let userWorlds:   World[];
+    let userWorldIds: number[];
+
+    return this.worldService.getWorldsForUser(user).then(worlds => {
+      userWorlds = worlds
+
+      return this.worldService.getActiveWorlds().then(worlds => {
+        activeWorlds = worlds;
+        userWorldIds = userWorlds.map(userWorld => userWorld.id);
+
+        return activeWorlds.map(world => <UserToWorld>{
+          userId: user.id,
+          worldId: world.id,
+          joined: userWorldIds.includes(world.id),
+          worldName: world.name
+        });
       });
-    });
+    })
+
+    
   }
 }

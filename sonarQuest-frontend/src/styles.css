@@ -59,6 +59,11 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
   color: rgba(200, 200, 200, 0.87) !important;
 }
 
+.wizard{
+  color: black !important;
+  background-color: #ffe500 !important;
+}
+
 /*------------------DESIGN-END------------------*/
 
 
