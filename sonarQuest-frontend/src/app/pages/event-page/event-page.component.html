@@ -1,6 +1,7 @@
 <mat-card class="outer-events">
   <mat-card-content class="events" >
-    <div *ngFor="let e of events">
+
+    <div #commentDiv *ngFor="let e of events">
         <div *ngIf="checkNewDay(e)">
             
           <div layout="row" class="day">
@@ -46,6 +47,7 @@
             </div>
           </div>
         </div>
+        <div class="e" tabindex="1"><hr></div>
       </div>    
   </mat-card-content>
   <mat-card-content class="chat">
