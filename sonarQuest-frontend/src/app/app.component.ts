@@ -48,8 +48,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public isEventVisible: boolean;
 
   public isSkillTreeVisible: boolean;
-
-  readonly body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+  private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
 
   constructor(
@@ -62,13 +61,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthenticationService,
     private permissionService: PermissionService,
     private userService: UserService) {
+  
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
     translate.use(translate.getBrowserLang()); // The lang to use. If the lang isn't available, it will use the current loader to get them.
   }
 
   protected login(): void {
-    this.dialog.open(LoginComponent, { panelClass: 'dialog-sexy', width: '500px' });
+    this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
+    .subscribe(() => this.setDesign());
   }
 
   protected logout(): void {
@@ -79,8 +80,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.selected = null;
     this.worlds = null;
     this.user = null;
+    this.ui = null;
     this.updateMenu(false);
-    this.changebackground("");
+    this.setBackground();
   }
 
   ngOnInit() {
@@ -88,10 +90,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
         this.updateMenu();
-        this.setDesign();
         this.susbcribeWorlds();
+        this.setDesign()
       }
     });
+    this.setPreDesign();
+    this.setBackground();
     this.userService.loadUser();
   }
 
@@ -118,15 +122,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
-  private susbcribeWorlds() {
-    this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world;
-      if (world) this.changebackground(world.image);
-      else this.changebackground("");
+  private susbcribeWorlds(){
+    this.worldService.currentWorld$.subscribe(world =>{
+      this.currentWorld = world;  
+      this.setBackground();
     })
     this.worldService.worlds$.subscribe(worlds => {
       this.worlds = worlds;
     })
+  }
+
+  private setBackground(){
+    if (this.currentWorld && this.user ) { 
+      this.changebackground( this.currentWorld.image);
+    } else if (!this.currentWorld && this.user) {
+      this.changebackground(""); 
+    } else if (!this.currentWorld && !this.user) {
+      this.changebackground("bg13");
+    }
   }
 
   ngAfterViewInit() {
@@ -172,34 +185,46 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changebackground(image: string) {
-    if (image != "") {
-      document.getElementsByTagName('body')[0].style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
+    if (image != ""){
+      this.body.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
     } else {
-      document.getElementsByTagName('body')[0].style.backgroundImage = '';
+      this.body.style.backgroundImage = 'url("")';
     }
+    this.addClass(this.body, "background-image");
   }
 
   setDesign() {
-    this.uiDesignService.getUiDesign().subscribe(ui => {
-      this.ui = ui;
-      this.body.className = this.ui.name;
-    });
+    if (this.user){
+      this.uiDesignService.getUiDesign().subscribe(ui => {
+        this.ui = ui;   
+        console.log(ui)  
+        this.body.className = ''; 
+        this.addClass(this.body, this.ui.name);
+        this.addClass(this.body, "background-image");
+      }); 
+    }
+  }
+
+  setPreDesign(){
+    this.toggleDesign();
   }
 
   toggleDesign() {
-    const dark = 'dark';
+    const dark  = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
-      this.body.className = this.removeSubString(this.body.className, light) + dark;
+      this.body.className = this.removeSubString(this.body.className, light);
+      this.addClass(this.body, dark);
       this.uiDesignService.updateUiDesign(dark);
     } else if (this.hasClass(this.body, dark)) { // If dark is choosen, toggle to light
-      this.body.className = this.removeSubString(this.body.className, dark) + light;
+      this.body.className = this.removeSubString(this.body.className, dark);
+      this.addClass(this.body, light);
       this.uiDesignService.updateUiDesign(light);
     } else { // If no design is choosen
-      this.body.className = dark;
-      this.uiDesignService.updateUiDesign(dark);
+      this.addClass(this.body, light);
     }
+    this.addClass(this.body, "background-image");
   }
 
   hasClass(element: HTMLScriptElement, cssClass: string): Boolean {
@@ -209,5 +234,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   removeSubString(fullString: string, removeString: string): string {
     const newString = fullString.replace(removeString, '');
     return newString.replace('  ', ' ');
+  }
+
+  addClass(element, cssClass){
+    if (!this.hasClass(element, cssClass)){
+      element.className += ' ' + cssClass + ' ';
+    }
+    element.className.replace('  ', ' ');
+
+    return element;
   }
 }

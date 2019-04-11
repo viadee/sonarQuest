@@ -241,22 +241,131 @@
       "MAIL": "E-Mail",
       "PASSWORD": "Passwort"
     },
-    "WIZARD": {
-      "WIZARD_SAYS": "Der Wizard meint...",
-      "MSG_NO_WORLDS_FOUND": "Keine Spielwelt vorhanden",
-      "HINT_NO_WORLDS_FOUND": "Um die SonarQube-Projekte abzurufen, muss der Admin im Reiter 'Welten' auf 'Aktualisiere Welten' klicken",
-      "MSG_NO_ACTIVE_WORLD": "Keine Spielwelt ist aktiv",
-      "HINT_NO_ACTIVE_WORLD": "Zum Aktivieren einer Welt muss der Admin im Reiter 'Welten' bei einer Welt den 'Aktiv'-Haken setzen!",
-      "MSG_NO_PLAYERS_ASSIGNED": "Der aktiven Welt sind keine Spieler zugeordnet",
-      "HINT_NO_PLAYERS_ASSIGNED": "Zum Freischalten eines Spielers muss der Admin im Reiter 'Entwickler' bei einem Spieler den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
-      "MSG_NO_GAMEMASTER_ASSIGNED": "Der aktiven Welt fehlt ein Spielleiter, der die Quests erstellen kann",
-      "HINT_NO_GAMEMASTER_ASSIGNED": "Im Reiter 'Entwickler' muss der Admin bei einem Spieler mit der Rolle 'Spielleiter' den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
-      "MSG_NO_TASKS_FOUND": "Es sind noch keine Aufgaben/Issues von SonarQube abgerufen worden",
-      "HINT_NO_TASKS_FOUND": "Der Spielleiter muss im Reiter 'Aufträge' auf 'Aktualisiere Status' klicken, um die Issues abzurufen!",
-      "MSG_NO_QUESTS_FOUND": "Es sind noch keine Quests erstellt worden",
-      "HINT_NO_QUESTS_FOUND": "Der Spielleiter muss im Reiter 'Quests' eine neue Quest anlegen und Aufträge zuordnen, die die Spieler lösen sollen!",
-      "MSG_NO_WORLD_SELECTED": "Keine aktive Spielwelt ist ausgewählt",
-      "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
+    "INFO": {
+      "NO_ENTRIES": "keine Einträge",
+      "OF": "von",
+      "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
+    }
+  },
+  "GLOBAL": {
+    "CANCEL": "Abbrechen",
+    "CREATE": "Anlegen",
+    "EDIT": "Bearbeiten",
+    "DELETE": "Löschen",
+    "NO_ENTRIES": "keine Einträge",
+    "SEARCH": "Suche",
+    "SAVE": "Speichern",
+    "SOLVEALLTASKS" : "Alle Aufgaben lösen",
+    "IMAGE": "Bild",
+    "FILENAME_IMAGE": "Dateiname Bild",
+    "CLICK_TO_SELECT": "Klick zum Wählen",
+    "GOLD": "Gold",
+    "XP": "XP",
+    "CLOSE": "Schließen",
+    "CONFIRMATION_MESSAGE": "Wirklich löschen?"
+  },
+  "DEVELOPER": {
+    "DEVELOPER": "Entwickler",
+    "GOLD": "Gold",
+    "XP": "XP",
+    "LEVEL": "Stufe",
+    "ABOUTME": "Über mich",
+    "AVATARRACE": "Rasse",
+    "AVATARCLASS": "Klasse",
+    "TROPHIES": "Trophäen",
+    "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten"
+  },
+  "QUEST": {
+    "QUEST": "Quest",
+    "QUESTS": "Quests",
+    "NEW_QUEST": "Neue Quest",
+    "ADD_FREE_QUEST": "Freie Quest anlegen",
+    "NO_FREE_QUESTS_AVAILABLE": "Keine freien Quests gefunden",
+    "VISIBLE": "Sichtbar",
+    "TOOLTIP_VISIBLE": "Diese Quest bei den Spielern sichtbar machen?"
+  },
+  "ADVENTURE": {
+    "ADVENTURE": "Abenteuer",
+    "ADVENTURES": "Abenteuer",
+    "NEW_ADVENTURE": "Neues Abenteuer",
+    "SOLVEADVENTURE": "Abenteuer abschließen"
+  },
+  "WORLD": {
+    "WORLD": "Welt",
+    "WORLDS": "Welten",
+    "ACTIVE": "Aktiv",
+    "CHOOSE_WORLD": "Wähle deine Welt",
+    "UPDATE_WORLDS": "Aktualisiere Welten",
+    "USE_QUEST_CARDS": "Questcard-Layout",
+    "TOOLTIP_USE_QUEST_CARDS": "Wenn angehakt wird bei den Spielern bei der Questdarstellung ein Karten-Layout verwendet statt einer Tabelle",
+    "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
+  },
+  "TASK": {
+    "TASK": "Auftrag",
+    "TASKS": "Aufträge",
+    "SPECIALTASK": "Spezialauftrag",
+    "STANDARDTASK": "Standardauftrag",
+    "NEW_SPECIALTASK": "Neuer Spezialauftrag",
+    "NEW_STANDARDTASK": "Neuer Standardauftrag",
+    "ADD_FREE_TASK": "Freien Auftrag anlegen",
+    "NO_FREE_TASKS_AVAILABLE": "Keine freien Aufträge gefunden",
+    "SPECIALTASK_FOR_WORLD": "Alle Spezialaufträge für ",
+    "STANDARDTASK_FOR_WORLD": "Alle Standardaufträge für ",
+    "AVAILABLE_TASKS": "Verfügbare Aufträge",
+    "MISSION": "Mission",
+    "UPDATE_STANDARD_TASKS_STATUS": "Update Issues vom SonarQube Server",
+    "UPDATE_STANDARD_TASKS_DISABLED_TOOLTIP": "Abrufen der SonarQube Issues nicht möglich, da keine Welt festgelegt wurde!",
+    "FREE_STANDARDTASKS": "Standardaufträge",
+    "FREE_SPECIALTASKS": "Spezialaufträge"
+  },
+  "ARTEFACT": {
+    "ARTEFACTS": "Artefakte",
+    "NEW_ARTEFACT": "Neues Artefakt",
+    "CREATE_ARTEFACT": "Artefakt anlegen",
+    "EDIT_ARTEFACT": "Artefakt bearbeiten",
+    "SELECT_ICON": "Icon wählen",
+    "CLICK_TO_SELECT": "Klicken zum Auswählen",
+    "PRICE": "Preis",
+    "MIN_LEVEL": "Min. Level",
+    "QUANTITY": "Anzahl vorhanden",
+    "NAME": "Name",
+    "DESCRIPTION": "Beschreibung",
+    "SKILLS": "Kräfte"
+  },
+  "SKILL": {
+    "MORE_GOLD": "Mehr Gold",
+    "MORE_XP": "Mehr XP",
+    "CREATE_SKILL": "Kraft anlegen",
+    "ADD_SKILL": "Kraft hinzufügen",
+    "SKILLS": "Kräfte",
+    "NEW_SKILL": "Neue Kraft",
+    "TYPE": "Typ",
+    "VALUE": "Betrag",
+    "NAME": "Name"
+  },
+  "LOGIN": {
+    "LOGIN": "Login",
+    "USERNAME": "Benutzername",
+    "MAIL": "E-Mail",
+    "PASSWORD": "Passwort",
+    "CANCEL": "Abbruch"
+  },
+  "WIZARD": {
+    "WIZARD_SAYS": "Der Wizard meint...",
+    "MSG_NO_WORLDS_FOUND": "Keine Spielwelt vorhanden",
+    "HINT_NO_WORLDS_FOUND": "Um die SonarQube-Projekte abzurufen, muss der Admin im Reiter 'Welten' auf 'Aktualisiere Welten' klicken",
+    "MSG_NO_ACTIVE_WORLD": "Keine Spielwelt ist aktiv",
+    "HINT_NO_ACTIVE_WORLD": "Zum Aktivieren einer Welt muss der Admin im Reiter 'Welten' bei einer Welt den 'Aktiv'-Haken setzen!",
+    "MSG_NO_PLAYERS_ASSIGNED": "Der aktiven Welt sind keine Spieler zugeordnet",
+    "HINT_NO_PLAYERS_ASSIGNED": "Zum Freischalten eines Spielers muss der Admin im Reiter 'Entwickler' bei einem Spieler den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+    "MSG_NO_GAMEMASTER_ASSIGNED": "Der aktiven Welt fehlt ein Spielleiter, der die Quests erstellen kann",
+    "HINT_NO_GAMEMASTER_ASSIGNED": "Im Reiter 'Entwickler' muss der Admin bei einem Spieler mit der Rolle 'Spielleiter' den Haken 'Freigeschaltet' bei der gewählten Welt setzen!",
+    "MSG_NO_TASKS_FOUND": "Es sind noch keine Aufgaben/Issues von SonarQube abgerufen worden",
+    "HINT_NO_TASKS_FOUND": "Der Spielleiter muss im Reiter 'Aufträge' auf 'Aktualisiere Status' klicken, um die Issues abzurufen!",
+    "MSG_NO_QUESTS_FOUND": "Es sind noch keine Quests erstellt worden",
+    "HINT_NO_QUESTS_FOUND": "Der Spielleiter muss im Reiter 'Quests' eine neue Quest anlegen und Aufträge zuordnen, die die Spieler lösen sollen!",
+    "MSG_NO_WORLD_SELECTED": "Keine aktive Spielwelt ist ausgewählt",
+    "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
     },
     "SKILL_TREE_PAGE": {
         "SKILL_TREE": "Skill-Tree",
@@ -271,5 +380,6 @@
         "EDIT": "Bearbeiten",
         "REQUIRED_REPETITIONS": "Erforderliche Wiederholungen"
       } 
-  }
+  
+  
   
