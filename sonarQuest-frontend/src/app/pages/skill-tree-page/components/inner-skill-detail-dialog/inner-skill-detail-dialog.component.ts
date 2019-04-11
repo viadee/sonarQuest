@@ -20,7 +20,7 @@ export class InnerSkillDetailDialogComponent implements OnInit {
   public isDeveloper: boolean;
 
   editForm = new FormGroup({
-    requiredRepetitions: new FormControl(null, [Validators.required])
+    requiredRepetitions: new FormControl(null, [Validators.required,  Validators.pattern('^[0-9]*$')])
   });
 
 

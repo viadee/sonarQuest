@@ -94,7 +94,7 @@ public class UserSkillService {
 		if (rule != null) {
 			UserSkill userSkill = userSkillRepository.findUserSkillBySonarRule(rule);
 			if (userSkill != null) {
-				double teamScore = 0;
+				Double teamScore = null;
 				// int memeberWithSkill = 0;
 				for (String mail : mails) {
 					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
@@ -104,6 +104,9 @@ public class UserSkillService {
 									.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
 							if (userSkillToSkillTreeUser != null) {
 								if (userSkillToSkillTreeUser.getScore() != null) {
+									if (teamScore == null) {
+										teamScore = 0.0;
+									}
 									teamScore = teamScore + userSkillToSkillTreeUser.getScore();
 									// memeberWithSkill++;
 								}
@@ -113,7 +116,9 @@ public class UserSkillService {
 					}
 				}
 				// return teamScore / memeberWithSkill;
-				return teamScore / mails.size();
+				if (teamScore != null) {
+					return teamScore / mails.size();
+				}
 			}
 
 		}
@@ -334,35 +339,24 @@ public class UserSkillService {
 			LOGGER.info("User with mail: {}  does not exist yet - creating it...", mail);
 			user = this.createSkillTreeUser(mail);
 		}
-		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
-			if (userSkillToSkillTreeUser.getLearnedOn() == null) {
 
-				for (SonarRule sonarRule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
-					if (sonarRule.getKey().equals(key)) {
-						userSkillToSkillTreeUser.setRepeats(userSkillToSkillTreeUser.getRepeats() + 1);
-						if (userSkillToSkillTreeUser.getRepeats() == userSkillToSkillTreeUser.getUserSkill()
-								.getRequiredRepetitions()) {
-							userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
-							LOGGER.info("User with mail: {} has learned UserSkill '{}'", mail,
-									userSkillToSkillTreeUser.getUserSkill().getName());
-						}
-						skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
-						skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
-						skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
-						skillTreeObjectDTO.setRequiredRepetitions(
-								userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
-						break outter;
+		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
+			for (SonarRule rule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
+				if (rule.getKey().equals(key)) {
+					userSkillToSkillTreeUser.setRepeats(userSkillToSkillTreeUser.getRepeats() + 1);
+					if (userSkillToSkillTreeUser.getRepeats() >= userSkillToSkillTreeUser.getUserSkill()
+							.getRequiredRepetitions() && userSkillToSkillTreeUser.getLearnedOn() == null) {
+						userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
+						LOGGER.info("User with mail: {} has learned UserSkill '{}'", mail,
+								userSkillToSkillTreeUser.getUserSkill().getName());
 					}
+					skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
+					skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
+					skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
+					skillTreeObjectDTO.setRequiredRepetitions(
+							userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+					break outter;
 				}
-			}
-			if (userSkillToSkillTreeUser.getUserSkill().getSonarRules().stream()
-					.filter(sonarRule -> key.equals(sonarRule.getKey())).findAny().orElse(null) != null) {
-				skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
-				skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
-				skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
-				skillTreeObjectDTO
-						.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
-				break outter;
 			}
 		}
 		updateSkillTreeScoring(user);

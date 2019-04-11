@@ -96,7 +96,7 @@ public class TaskService {
 		if(mail.isPresent()) {
 			for (Task task : quest.getTasks()) {
 				if (task instanceof StandardTask) {					
-					((StandardTask) task).setScoring(userSkillService.getScoringForRuleFromTeam(
+					((StandardTask) task).setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(
 							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(mail.get()))));
 				}
 			}

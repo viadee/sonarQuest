@@ -36,7 +36,7 @@ public class StandardTask extends Task {
 	private String issueRule;
 
 	@Transient
-	private Double scoring;
+	private Double userSkillScoring;
 
 	public StandardTask() {
 	}
@@ -107,12 +107,12 @@ public class StandardTask extends Task {
 		this.issueRule = issueRule;
 	}
 
-	public Double getScoring() {
-		return scoring;
+	public Double getUserSkillScoring() {
+		return userSkillScoring;
 	}
 
-	public void setScoring(Double scoring) {
-		this.scoring = scoring;
+	public void setUserSkillScoring(Double userSkillScoring) {
+		this.userSkillScoring = userSkillScoring;
 	}
 
 }

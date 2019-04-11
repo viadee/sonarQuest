@@ -104,7 +104,7 @@ public class StandardTaskService {
 			
 			if (tasks != null) {
 				for (StandardTask task : tasks) {
-					task.setScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(), teamMails));
+					task.setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(), teamMails));
 				}
 			}
 		}

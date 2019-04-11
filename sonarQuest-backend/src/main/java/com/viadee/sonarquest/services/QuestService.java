@@ -23,7 +23,6 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
-import com.viadee.sonarquest.utils.mapper.StandardTaskDTOEntityMapper;
 
 @Service
 public class QuestService implements QuestSuggestion {
@@ -110,15 +109,6 @@ public class QuestService implements QuestSuggestion {
 		final List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
 				.filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
 		final List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
-		
-//		for (Quest quest : allQuestsForWorld) {
-//			for (Task task : quest.getTasks()) {
-//				if (task instanceof StandardTask) {
-//					((StandardTask) task).setScoring(userSkillService.getScoringForRuleFromTeam(
-//							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(developer.getMail()))));
-//				}
-//			}
-//		}
 		final List<List<Quest>> result = new ArrayList<>();
 		final List<Quest> freeQuests = allQuestsForWorld;
 		freeQuests.removeAll(participatedQuests);
