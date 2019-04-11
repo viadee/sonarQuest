@@ -15,8 +15,8 @@
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
-	"JOIN_ADVENTURE": "Join this adventure!",
-	"LEAVE_ADVENTURE": "Leave this adventure...",
+    "JOIN_ADVENTURE": "Join this adventure!",
+    "LEAVE_ADVENTURE": "Leave this adventure...",
     "MY_ADVENTURES_FOR_WORLD": "My Adventures for ",
     "ADVENTURES_FOR_WORLD": "All Adventures for ",
     "AVAILABLE_ADVENTURES": "Available Adventures",
@@ -24,18 +24,18 @@
   },
   "QUEST_PAGE": {
     "MY_QUESTS": "My Quests",
-	"SHOW_QUEST": "Show Quest",
+    "SHOW_QUEST": "Show Quest",
     "MY_QUESTS_FOR_WORLD": "My Quests for ",
     "QUESTS_FOR_WORLD": "All Quests for ",
     "JOIN_QUEST": "Join Quest",
     "AVAILABLE_QUESTS": "Available Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
     "COMBATED_BY": "combated by",
-    "SHOW_ISSUE_TOOLTIP":"Show SonarQube issue",
-    "JOIN_ISSUE_TOOLTIP":"Fight",
-    "CANCEL_ISSUE_TOOLTIP":"Stop fighting",
-    "SKILL_SCORE":"Your Skill Score for this Task",
-    "SKILL_SCORE_WARNING":"This Task is probably too heavy"
+    "SHOW_ISSUE_TOOLTIP": "Show SonarQube issue",
+    "JOIN_ISSUE_TOOLTIP": "Fight",
+    "CANCEL_ISSUE_TOOLTIP": "Stop fighting",
+    "SKILL_SCORE": "Your Skill Score for this Task",
+    "SKILL_SCORE_WARNING": "This Task is probably too heavy"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marketplace",
@@ -44,8 +44,8 @@
     "SHOW_ITEM": "Show artefact details"
   },
   "ARTEFACT_VIEW_PAGE": {
-  	"TITLE": "Artefact description"
-  },  
+    "TITLE": "Artefact description"
+  },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "All Developer",
     "CREATE_DEVELOPER": "Create Developer",
@@ -129,7 +129,7 @@
     "NO_ENTRIES": "no entries",
     "SEARCH": "Search",
     "SAVE": "Save",
-    "SOLVEALLTASKS" : "Solve all tasks",
+    "SOLVEALLTASKS": "Solve all tasks",
     "IMAGE": "Image",
     "FILENAME_IMAGE": "Filename image",
     "CLICK_TO_SELECT": "clickt to select",
@@ -204,7 +204,7 @@
     "QUANTITY": "Available",
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "SKILLS": "Powers"    
+    "SKILLS": "Powers"
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",
@@ -215,7 +215,7 @@
     "NEW_SKILL": "New Power",
     "TYPE": "Type",
     "VALUE": "Amount",
-    "NAME": "Name"    
+    "NAME": "Name"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -239,20 +239,19 @@
     "MSG_NO_QUESTS_FOUND": "No quests found",
     "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
     "MSG_NO_WORLD_SELECTED": "No active world selected",
-    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."    
+    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
   },
   "SKILL_TREE_PAGE": {
     "SKILL_TREE": "Skill-Tree",
     "INNER_SKILL_TREE_BACK": "Skill-Tree Overview"
   },
-  "INNER_SKILL_TREE_POPUP":{
-    "CONFIRM":"OK",
+  "INNER_SKILL_TREE_POPUP": {
+    "CONFIRM": "OK",
     "TOOLTIP": "Show SonarQube rule",
-    "RULES": "SonarQube Rules",    
+    "RULES": "SonarQube Rules",
     "DESCRIPTION": "Description",
     "OVERVIEW": "Overview",
     "EDIT": "Edit",
     "REQUIRED_REPETITIONS": "Required Repetitions"
-
-  }  
+  }
 }
