@@ -41,8 +41,13 @@ public class UserSkillToSkillTreeUser {
 	public UserSkillToSkillTreeUser() {
 	}
 
-	public UserSkillToSkillTreeUser(Timestamp learnedOn, int repeats, UserSkill userSkill,
-			SkillTreeUser skillTreeUser, Double score) {
+	public UserSkillToSkillTreeUser(UserSkill userSkill, int repeats) {
+		this.userSkill = userSkill;
+		this.repeats = repeats;
+	}
+
+	public UserSkillToSkillTreeUser(Timestamp learnedOn, int repeats, UserSkill userSkill, SkillTreeUser skillTreeUser,
+			Double score) {
 		this.learnedOn = learnedOn;
 		this.repeats = repeats;
 		this.userSkill = userSkill;

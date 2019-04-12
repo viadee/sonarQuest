@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
-import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 
 public class SkillTreeObjectDTO {
 
@@ -15,6 +13,10 @@ public class SkillTreeObjectDTO {
 	private int repeats;
 	private int requiredRepetitions;
 	private List<SonarRuleDTO> sonarRuleDTOs;
+	private String backgroundColor;
+	private String textColor;
+	private String groupIcon;
+	private int learnCoverage;
 
 	public SkillTreeObjectDTO() {
 		this.sonarRuleDTOs = new ArrayList<SonarRuleDTO>();
@@ -73,7 +75,39 @@ public class SkillTreeObjectDTO {
 	}
 
 	public void addRuleKey(String key, String name) {
-		this.sonarRuleDTOs.add(new SonarRuleDTO(name,key));
+		this.sonarRuleDTOs.add(new SonarRuleDTO(name, key));
+	}
+
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+
+	public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+	}
+
+	public int getLearnCoverage() {
+		return learnCoverage;
+	}
+
+	public void setLearnCoverage(int learnCoverage) {
+		this.learnCoverage = learnCoverage;
+	}
+
+	public String getGroupIcon() {
+		return groupIcon;
+	}
+
+	public void setGroupIcon(String groupIcon) {
+		this.groupIcon = groupIcon;
 	}
 
 	@Override

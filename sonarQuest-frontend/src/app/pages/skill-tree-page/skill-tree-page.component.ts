@@ -8,6 +8,7 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { UserSkillGroup } from 'app/Interfaces/UserSkillGroup';
 import {Router, RouterModule} from '@angular/router';
 import { RoutingUrls } from 'app/app-routing/routing-urls';
+import { PermissionService } from 'app/services/permission.service';
 
 
 @Component({
@@ -20,12 +21,20 @@ export class SkillTreePageComponent implements OnInit {
   userSkillGroupTree: { nodes: [], links: [] };
   curve = shape.curveLinear
   nodecolor =  "#c0c0c0";
+  isAdmin = false;
+  isGamemaster = false;
  // curve = shape.curveLinear;
 
 
-  constructor(private skillTreeService: SkillTreeService, private router: Router) { }
+  constructor(private skillTreeService: SkillTreeService, 
+    private router: Router,
+    private permissionService: PermissionService) { }
 
   ngOnInit() {
+
+    this.isAdmin = true && this.permissionService.isUrlVisible(RoutingUrls.admin);
+    this.isGamemaster = true && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
+
     this.skillTreeService.userSkillGroupTree$.subscribe(userSkillGroupTree => {
       this.userSkillGroupTree = userSkillGroupTree;
     });

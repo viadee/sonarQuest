@@ -258,8 +258,12 @@
     "HINT_NO_WORLD_SELECTED": "Oben links bei 'Welt' die aktive Spielwelt einstellen, um weitere Hinweise zu bekommen! Wenn das nicht geht, muss der Admin zuerst 'Entwickler' freischalten!"
   },
   "SKILL_TREE_PAGE": {
-    "SKILL_TREE": "Skill-Tree",
-    "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick"
+    "SKILL_TREE_ADM": "Skill-Tree",
+    "SKILL_TREE_DEV": "Dein Skill-Tree",
+    "SKILL_TREE_GM": "Skill-Tree des Teams",
+    "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick",
+    "STEP_INTO": "Klicke auf die Skill Gruppen um sie zu öffnen",
+    "TOOLTIP_DETAILS": "Klicken für mehr Informationen"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",
@@ -269,5 +273,6 @@
     "OVERVIEW": "Überblick",
     "EDIT": "Bearbeiten",
     "REQUIRED_REPETITIONS": "Erforderliche Wiederholungen"
+  
   }
 }

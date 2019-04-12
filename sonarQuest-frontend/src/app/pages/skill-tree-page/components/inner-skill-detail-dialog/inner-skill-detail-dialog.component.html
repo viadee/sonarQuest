@@ -15,7 +15,7 @@
         </mat-list-item>
       </mat-list>
     </mat-tab>
-    <mat-tab [disabled]="!isGamemaster" label="{{'INNER_SKILL_TREE_POPUP.EDIT' | translate}}">
+    <mat-tab [disabled]="!isAdmin" label="{{'INNER_SKILL_TREE_POPUP.EDIT' | translate}}">
       <form [formGroup]="editForm">
         <div layout="column" layout-padding>
           <div flex>

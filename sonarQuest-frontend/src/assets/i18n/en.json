@@ -242,8 +242,12 @@
     "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
   },
   "SKILL_TREE_PAGE": {
-    "SKILL_TREE": "Skill-Tree",
-    "INNER_SKILL_TREE_BACK": "Skill-Tree Overview"
+    "SKILL_TREE_ADM": "Skill-Tree",
+    "SKILL_TREE_DEV": "Your Skill-Tree",
+    "SKILL_TREE_GM": "Skill-Tree of the team",
+    "INNER_SKILL_TREE_BACK": "Skill-Tree Overview",
+    "STEP_INTO": "Click onto the Skill Groups to step into",
+    "TOOLTIP_DETAILS": "Clikc for details"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",

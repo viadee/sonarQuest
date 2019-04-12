@@ -1,61 +1,64 @@
 <div class="background">
-    <mat-card>
-        <mat-card-content>
-            <div layout-padding>
-                <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-                    <span class="mat-card-title" style="margin:0">
-                        {{"SKILL_TREE_PAGE.SKILL_TREE"| translate}}
-                    </span>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <ngx-graph
-            class="chart-container"
-            [links]="userSkillGroupTree.links"
-            [nodes]="userSkillGroupTree.nodes"
-            [legend]="false"
-            [curve]="curve"
-            [draggingEnabled]="false"
-            [orientation]="TopToBottom"
-            scheme = "fire"
-            >
-          
-            <ng-template #defsTemplate>
-              <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-                <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-              </svg:marker>
-            </ng-template>
-          
-            <ng-template #nodeTemplate let-node>
-              <svg:g class="node"
-              ngx-tooltip
-              [tooltipPlacement]="'top'"
-              [tooltipType]="'tooltip'"
-              [tooltipTitle]="node.label"
-              >
-                <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="nodecolor" />
-                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2" (click)="navigatToInnerSkilLTree(node.id)" >{{node.label}}</svg:text>
-              </svg:g>
-            </ng-template>
-          
-            <ng-template #linkTemplate let-link>
-              <svg:g class="edge">
-                <svg:path
-                  class="line"
-                  stroke-width="2"
-                  marker-end="url(#arrow)" >
-                </svg:path>
-                <svg:text
-                  class="edge-label"
-                  text-anchor="none">
-              </svg:text>
-              </svg:g>
-            </ng-template>
-          
-          </ngx-graph>
+  <mat-card>
+    <mat-card-content>
+      <div layout-padding>
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+          <span class="mat-card-title" style="margin:0">
+              <span class="mat-card-title" style="margin:0" *ngIf="!isAdmin && !isGamemaster">
+                  {{"SKILL_TREE_PAGE.SKILL_TREE_DEV"| translate}}
+                </span>
+                <span class="mat-card-title" style="margin:0" *ngIf="isGamemaster">
+                  {{"SKILL_TREE_PAGE.SKILL_TREE_GM"| translate}}
+                </span>
+                <span class="mat-card-title" style="margin:0" *ngIf="isAdmin">
+                  {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
+                </span>
+          </span>
+
+        </div>
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+          <span class="mat-card-subtitle">
+            {{"SKILL_TREE_PAGE.STEP_INTO"| translate}}
+          </span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <ngx-graph class="chart-container" [links]="userSkillGroupTree.links" [nodes]="userSkillGroupTree.nodes"
+        [legend]="false" [curve]="curve" [draggingEnabled]="false" [orientation]="TopToBottom" scheme="fire">
+
+        <ng-template #defsTemplate>
+          <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+            <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+          </svg:marker>
+        </ng-template>
+
+        <ng-template #nodeTemplate let-node>
+          <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
+            [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="navigatToInnerSkilLTree(node.id)">
+
+            <svg:rect [attr.width]="node.width+40" [attr.height]="node.height+10" [attr.fill]="nodecolor" />
+            <svg:path fill="black" transform="scale(0.04,-0.04) translate(100,-1110)"
+              d="M507.648 910.733c-254.555 0-460.915-206.357-460.915-460.915 0-137.867 60.55-261.576 156.485-346.040v278.080l-27.985 45.482h15.158l88.625 228.561 87.461-228.561h16.326l-29.151-45.482v-36.152h74.632v246.056l-27.987 45.482h15.158l88.624 228.559 88.624-228.554h15.158l-29.151-45.482v-176.088h73.467v67.636l-29.151 45.482h16.326l87.463 228.561 88.625-228.561h15.158l-27.987-45.482v-387.657c101.406 84.548 165.951 211.809 165.951 354.162 0.003 254.557-206.354 460.914-460.91 460.914z">
+            </svg:path>
+            <svg:text alignment-baseline="central" [attr.x]="50" [attr.y]="(node.height+10) / 2">{{node.label}}
+            </svg:text>
+
+          </svg:g>
+        </ng-template>
+
+        <ng-template #linkTemplate let-link>
+          <svg:g class="edge">
+            <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+            </svg:path>
+            <svg:text class="edge-label" text-anchor="none">
+            </svg:text>
+          </svg:g>
+        </ng-template>
+
+      </ngx-graph>
 
 
-            <!--<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+      <!--<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                 <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                     <li class="mat-tree-node">
                         <button mat-icon-button disabled></button>
@@ -79,6 +82,6 @@
                 </mat-nested-tree-node>
             </mat-tree>-->
 
-        </mat-card-content>
-    </mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>

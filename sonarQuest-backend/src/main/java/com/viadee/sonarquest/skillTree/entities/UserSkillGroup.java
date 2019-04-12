@@ -31,6 +31,9 @@ public class UserSkillGroup {
     
     @Column(name = "is_root")
     private boolean isRoot;
+    
+    @Column(name="group_icon")
+    private String icon;
 
 //    @OneToMany(mappedBy = "userSkillGroup", cascade = CascadeType.ALL)
 //    private List<UserSkill> userskills = new ArrayList<UserSkill>(0);
@@ -83,6 +86,14 @@ public class UserSkillGroup {
 
 	public void setRoot(boolean isRoot) {
 		this.isRoot = isRoot;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 //    public List<UserSkill> getUserskills() {

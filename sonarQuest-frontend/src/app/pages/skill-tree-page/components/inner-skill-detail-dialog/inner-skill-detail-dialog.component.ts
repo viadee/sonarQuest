@@ -38,7 +38,7 @@ export class InnerSkillDetailDialogComponent implements OnInit {
 
   }
   onNoClick(): void {
-    this.dialogRef.close({ updateRepetitions: false });
+    this.dialogRef.close();
   }
 
   openRule(key: string) {
@@ -55,7 +55,7 @@ export class InnerSkillDetailDialogComponent implements OnInit {
 
   updateRepetitions() {
     this.userSkillService.updateUserSkill(this.skillTreeObjectToUserSkill(this.data));
-    this.dialogRef.close({ updateRepetitions: true });
+    this.dialogRef.close();
   }
 
   skillTreeObjectToUserSkill(data): UserSkill {

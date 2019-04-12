@@ -28,7 +28,6 @@ export class InnerSkillTreeComponent implements OnInit {
   isAdmin = false;
   isGamemaster = false;
   private id: number;
-  nodecolor = '#c0c0c0';
   color = 'primary';
   mode = 'determinate';
   value = 50;
@@ -72,18 +71,14 @@ export class InnerSkillTreeComponent implements OnInit {
       width: '550px',
       data: node
     });
-    console.log(node);
-    dialogRef.afterClosed().subscribe(
-      data => {
-        if (typeof data !== 'undefined' && data.updateRepetitions) {
-          this.userSkillTree = null;
-          this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
-            this.userSkillTree = userSkillTreeForTeam;
-          });
-          this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
-        }
-        console.log(data);
-      }
-    );
+    dialogRef.afterClosed().subscribe( );
+  }
+
+  calculateProcentage(repeats: number, requiredRepetitions: number): number {
+    const procentage = Math.round((repeats / requiredRepetitions) * 100);
+    if (procentage > 100) {
+      return 100;
+    }
+    return procentage;
   }
 }

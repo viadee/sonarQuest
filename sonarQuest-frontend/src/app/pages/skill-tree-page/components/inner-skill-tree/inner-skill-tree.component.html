@@ -8,8 +8,14 @@
       </div>
       <div layout-padding>
         <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-          <span class="mat-card-title" style="margin:0">
-            {{"SKILL_TREE_PAGE.SKILL_TREE"| translate}}
+          <span class="mat-card-title" style="margin:0" *ngIf="!isAdmin && !isGamemaster">
+            {{"SKILL_TREE_PAGE.SKILL_TREE_DEV"| translate}}
+          </span>
+          <span class="mat-card-title" style="margin:0" *ngIf="isGamemaster">
+            {{"SKILL_TREE_PAGE.SKILL_TREE_GM"| translate}}
+          </span>
+          <span class="mat-card-title" style="margin:0" *ngIf="isAdmin">
+            {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
           </span>
         </div>
       </div>
@@ -25,12 +31,14 @@
 
         <ng-template #nodeTemplate let-node>
           <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
-            [tooltipTitle]="node.label" (click)="openDialog(node)">
-            <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="nodecolor" />
+            [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="openDialog(node)">
+            <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="node.backgroundColor" />
             <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
-              text-anchor="middle">{{node.label}}</svg:text>
+              text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
             <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle"
-              *ngIf="!isAdmin">{{ node.repeats}} | {{node.requiredRepetitions}}</svg:text>
+              [attr.fill]="node.textColor" *ngIf="!isAdmin">{{node.learnCoverage}} %</svg:text>
+            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle"
+              [attr.fill]="node.textColor" *ngIf="isAdmin">{{node.requiredRepetitions}} </svg:text>
           </svg:g>
 
 
