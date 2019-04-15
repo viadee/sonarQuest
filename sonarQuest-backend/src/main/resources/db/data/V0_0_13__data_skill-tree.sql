@@ -8,15 +8,15 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id) VALUES
 
 
 INSERT INTO User_Skill_Group(group_name,is_root, group_icon) VALUES 
-('Java-Basics I',1,null),
-('Build and Debugging',1,null),
-('Style & Structure',1,null),
-('Java Basics II',0,null),
-('Network Programming',0, null),
+('Java-Basics I',1,'ra-tower'),
+('Build and Debugging',1,'ra-hammer'),
+('Style & Structure',1,'ra-diamond'),
+('Java Basics II',0,'ra-tower'),
+('Network Programming',0, 'ra-x-mark'),
 ('Threading',0,'ra-fairy-wand'),
-('Security',0,' ra-shield'),
-('Spring Framework',0,null),
-('File Handling',0,null);
+('Security',0,'ra-shield'),
+('Spring Framework',0,'ra-leaf'),
+('File Handling',0,'ra-book');
 
 INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill_group_id) VALUES
 (1,4),

@@ -51,7 +51,7 @@ public class SkillTreeService {
 
 		for (UserSkillGroup userSkillGroup : userSkillGroups) {
 			skillTreeDiagramDTO.addNode(new SkillTreeObjectDTO(String.valueOf(userSkillGroup.getId()),
-					String.valueOf(userSkillGroup.getName())));
+					String.valueOf(userSkillGroup.getName()),userSkillGroup.getIcon()));
 			for (UserSkillGroup followingUserSkillGroup : userSkillGroup.getFollowingUserSkillGroups()) {
 				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSkillGroup.getId()),
 						String.valueOf(followingUserSkillGroup.getId())));
@@ -166,6 +166,7 @@ public class SkillTreeService {
 		skillTreeObjectDTO.setLabel(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getName()));
 		skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
 		skillTreeObjectDTO.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+		skillTreeObjectDTO.setGroupIcon(userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getIcon());
 		for (SonarRule rule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
 			skillTreeObjectDTO.addRuleKey(rule.getKey(), rule.getName());
 		}

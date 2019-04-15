@@ -17,3 +17,8 @@ height: 25px;
 .mat-subheader{
     padding: 0px 16px 16px 16px;
 }
+
+.dialog-title{
+    display: inline-block;
+    margin-left: 10px;
+}

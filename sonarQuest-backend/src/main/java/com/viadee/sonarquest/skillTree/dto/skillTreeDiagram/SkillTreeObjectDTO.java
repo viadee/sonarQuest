@@ -22,9 +22,10 @@ public class SkillTreeObjectDTO {
 		this.sonarRuleDTOs = new ArrayList<SonarRuleDTO>();
 	}
 
-	public SkillTreeObjectDTO(String id, String label) {
+	public SkillTreeObjectDTO(String id, String label, String groupIcon) {
 		this.id = id;
 		this.label = label;
+		this.groupIcon = groupIcon;
 	}
 
 	public SkillTreeObjectDTO(String id, String label, int repeats, int requiredRepetitions) {

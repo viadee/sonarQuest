@@ -19,20 +19,23 @@ public class UserSkillGroupController {
 	@Autowired
 	public UserSkillGroupRepository userSkillGroupRepository;
 
-	@GetMapping(value = "/tree/")
-	public SkillTreeDiagramDTO getGroupSkillTree() {
-		List<UserSkillGroup> userSkillGroups = userSkillGroupRepository.findAll();
-		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
-
-		for (UserSkillGroup userSkillGroup : userSkillGroups) {
-			skillTreeDiagramDTO.addNode(new SkillTreeObjectDTO(String.valueOf(userSkillGroup.getId()), String.valueOf(userSkillGroup.getName())));
-			for (UserSkillGroup followingUserSkillGroup : userSkillGroup.getFollowingUserSkillGroups()) {
-				skillTreeDiagramDTO
-						.addLine(new SkillTreeLinksDTO(String.valueOf(userSkillGroup.getId()), String.valueOf(followingUserSkillGroup.getId())));
-			}
-		}
-		return skillTreeDiagramDTO;
-
-	}
+	//TODO Ueberfluessig
+	/*
+	 * @GetMapping(value = "/tree/") public SkillTreeDiagramDTO getGroupSkillTree()
+	 * { List<UserSkillGroup> userSkillGroups = userSkillGroupRepository.findAll();
+	 * SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
+	 * 
+	 * for (UserSkillGroup userSkillGroup : userSkillGroups) {
+	 * skillTreeDiagramDTO.addNode(new
+	 * SkillTreeObjectDTO(String.valueOf(userSkillGroup.getId()),
+	 * String.valueOf(userSkillGroup.getName()))); for (UserSkillGroup
+	 * followingUserSkillGroup : userSkillGroup.getFollowingUserSkillGroups()) {
+	 * skillTreeDiagramDTO .addLine(new
+	 * SkillTreeLinksDTO(String.valueOf(userSkillGroup.getId()),
+	 * String.valueOf(followingUserSkillGroup.getId()))); } } return
+	 * skillTreeDiagramDTO;
+	 * 
+	 * }
+	 */
 
 }
