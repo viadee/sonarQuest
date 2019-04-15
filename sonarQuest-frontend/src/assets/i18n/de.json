@@ -34,7 +34,7 @@
     "SHOW_ISSUE_TOOLTIP": "Zeige SonarQube Issue",
     "JOIN_ISSUE_TOOLTIP": "Kämpfe",
     "CANCEL_ISSUE_TOOLTIP": "Höre auf zu kämpfen",
-    "SKILL_SCORE": "Dein Skill Score für diesen Task",
+    "SKILL_SCORE": "Je mehr Äxte, desto weniger Erfahrung hast du für diese Aufgabe",
     "SKILL_SCORE_WARNING": "Dieser Task ist wohlmöglich zu schwer"
   },
   "MARKETPLACE_PAGE": {
@@ -135,6 +135,9 @@
       "NO_ENTRIES": "keine Einträge",
       "OF": "von",
       "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
+    },
+    "TOOLTIP":{
+      "TEAM_SCORING": "Das Team Scoring gibt an, wie gut das Team zum Lösen dieses Tasks geeignet ist"
     }
   },
   "GLOBAL": {

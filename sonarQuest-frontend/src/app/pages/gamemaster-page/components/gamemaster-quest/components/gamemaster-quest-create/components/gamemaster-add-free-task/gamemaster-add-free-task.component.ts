@@ -7,8 +7,9 @@ import { StandardTask } from '../../../../../../../../Interfaces/StandardTask';
 import { SpecialTask } from '../../../../../../../../Interfaces/SpecialTask';
 import { StandardTaskService } from '../../../../../../../../services/standard-task.service';
 import { SpecialTaskService } from '../../../../../../../../services/special-task.service';
-import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder } from '@covalent/core';
+import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent } from '@covalent/core';
 import { TranslateService } from '@ngx-translate/core';
+import { UserSkillService } from 'app/services/user-skill.service';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',
@@ -17,16 +18,26 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class GamemasterAddFreeTaskComponent implements OnInit {
 
+
+
   freeStandardTasksColumns: ITdDataTableColumn[] = [
     { name: 'title', label: 'Title', width: 600 },
     { name: 'severity', label: 'Severity' },
     { name: 'gold', label: 'Gold' },
     { name: 'xp', label: 'XP' },
-    { name: 'scoring', label: 'Scoring', width: 25 },
+    { name: 'userSkillScoring', label: 'Scoring', width: 25, tooltip: '' },
     { name: 'open_issue', label: '' },
     { name: 'add_task', label: '' },
 
   ];
+  filteredData: any[];
+  filteredTotal: number;
+  searchTerm = '';
+  fromRow = 1;
+  currentPage = 1;
+  sortBy = 'title';
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
+  selectedRows: any[] = [];
   fromRowStandardTasks = 1;
   currentPageStandardTasks = 1;
   filteredStandardTasks: StandardTask[];
@@ -54,6 +65,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     private specialTaskService: SpecialTaskService,
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
+    private userSkillService: UserSkillService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
   }
@@ -67,17 +79,18 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     this.standardTaskService.getFreeStandardTasksForWorldExcept(this.data[0], this.data[1]).then(freeTasks => {
       this.freeStandardTasks = freeTasks;
       this.pageStandardTaskData();
+      console.log(this.freeStandardTasks);
     });
   }
 
   private translateTable() {
-    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+    this.translateService.get('TABLE').subscribe((table) => {
       this.freeStandardTasksColumns = [
-        { name: 'title', label: col_names.TITLE, width: 600 },
-        { name: 'severity', label: col_names.SEVERITY },
-        { name: 'gold', label: col_names.GOLD },
-        { name: 'xp', label: col_names.XP },
-        { name: 'scoring', label: col_names.SCORING, width: 25 },
+        { name: 'title', label: table.COLUMNS.TITLE, width: 570 },
+        { name: 'severity', label: table.COLUMNS.SEVERITY },
+        { name: 'gold', label: table.COLUMNS.GOLD },
+        { name: 'xp', label: table.COLUMNS.XP },
+        { name: 'userSkillScoring', label: table.COLUMNS.SCORING, width: 100, tooltip: table.TOOLTIP.TEAM_SCORING },
         { name: 'open_issue', label: '' },
         { name: 'add_task', label: '' },
 
@@ -93,7 +106,27 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
       ]
     });
   }
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    this.sortBy = sortEvent.name;
+    this.sortOrder = sortEvent.order;
+    this.filterStandardTask();
+  }
 
+  filterStandardTask(): void {
+    let newData: StandardTask[] = this.freeStandardTasks;
+    const excludedColumns: string[] = this.freeStandardTasksColumns
+      .filter((column: ITdDataTableColumn) => {
+        return ((column.filter === undefined && column.hidden === true) ||
+          (column.filter !== undefined && column.filter === false));
+      }).map((column: ITdDataTableColumn) => {
+        return column.name;
+      });
+    newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+    this.filteredTotal = newData.length;
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.filteredStandardTasks = newData;
+  }
   protected addTask(task: Task) {
     this.dialogRef.close(task);
   }
@@ -127,5 +160,9 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     let newData: any[] = this.freeSpecialTasks;
     newData = this._dataTableService.pageData(newData, this.fromRowSpecialTasks, this.currentPageSpecialTasks * this.pageSize);
     this.filteredSpecialTasks = newData;
+  }
+
+  createRange(value: number): number[] {
+  return this.userSkillService.getNumberOfIcons(value);
   }
 }

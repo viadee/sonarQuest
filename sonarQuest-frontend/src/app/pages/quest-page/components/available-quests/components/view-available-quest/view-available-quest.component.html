@@ -8,10 +8,10 @@
   <div layout-padding>
     <div layout="row">
       <div flex style="font-size: 2em">
-          <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{quest.gold}}
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{quest.gold}}
       </div>
       <div flex style="font-size: 2em">
-          <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i>{{quest.xp}}
+        <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i>{{quest.xp}}
       </div>
     </div>
 
@@ -27,13 +27,16 @@
   <mat-list>
     <mat-list-item *ngFor="let task of quest.tasks">
       <h3 mat-line> {{task?.title}} </h3>
-      <p mat-line>
-          <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
-          <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i><span>{{task?.xp}}</span>
-          <i mat-list-icon class="ra ra-sword  ra-lg"></i><span [matTooltip]="'QUEST_PAGE.SKILL_SCORE' | translate"
-          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">{{task.scoring}}</span>
-          <span *ngIf="task.scoring >= 3" style="color:red"> {{"QUEST_PAGE.SKILL_SCORE_WARNING"| translate}} </span>
-      </p>
+      <div mat-line>
+        <div>
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
+        <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i><span>{{task?.xp}}</span>
+        </div>
+        <div [matTooltip]="'QUEST_PAGE.SKILL_SCORE' | translate " [matTooltipClass]="'tooltipMultiline'"
+          matTooltipPosition="after" class="scoring-bar">
+          <i class="ra ra-lg ra-axe score-icon" *ngFor="let item of createRange(task?.userSkillScoring)"></i>
+      </div>
+    </div>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>
@@ -42,5 +45,6 @@
 
 <mat-dialog-actions>
   <span class="toolbar-spacer"></span>
-  <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
+  <button mat-raised-button color="primary"
+    (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
 </mat-dialog-actions>

@@ -34,7 +34,7 @@
     "SHOW_ISSUE_TOOLTIP": "Show SonarQube issue",
     "JOIN_ISSUE_TOOLTIP": "Fight",
     "CANCEL_ISSUE_TOOLTIP": "Stop fighting",
-    "SKILL_SCORE": "Your Skill Score for this Task",
+    "SKILL_SCORE": "The more axes, the less experience you have for this Task",
     "SKILL_SCORE_WARNING": "This Task is probably too heavy"
   },
   "MARKETPLACE_PAGE": {
@@ -119,6 +119,9 @@
       "NO_ENTRIES": "no entries",
       "OF": "of",
       "ENTRIES_OF_THIS_PAGE": "Entries of this page:"
+    },
+    "TOOLTIP":{
+      "TEAM_SCORING": "The Team Scoring indicates how well the team is capable of solving this task"
     }
   },
   "GLOBAL": {

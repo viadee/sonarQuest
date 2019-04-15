@@ -5,7 +5,14 @@
   <mat-tab-group>
     <mat-tab [label]="'TASK.FREE_STANDARDTASKS' | translate">
       <div *ngIf="freeStandardTasks">
-        <td-data-table #dataTable [data]="filteredStandardTasks" [columns]="freeStandardTasksColumns">
+        <td-data-table #dataTable [data]="filteredStandardTasks" [sortable]="true" [sortBy]="sortBy"
+          [columns]="freeStandardTasksColumns" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
+          (sortChange)="sort($event)">
+          <ng-template tdDataTableTemplate="userSkillScoring" let-value="value">
+            <div layout="row">
+              <i class="ra ra-lg ra-axe team-score-icon" *ngFor="let item of createRange(value)"></i>
+            </div>
+          </ng-template>
           <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
             <div layout="row">
               <button mat-icon-button (click)="addTask(row)">
@@ -13,9 +20,8 @@
               </button>
             </div>
             <div layout="row">
-              <button mat-icon-button (click)="openIssue(row)" 
-                [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
-                [matTooltipClass]="'tooltipMultiline'"
+              <button mat-icon-button (click)="openIssue(row)"
+                [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate" [matTooltipClass]="'tooltipMultiline'"
                 matTooltipPosition="after">
                 <i class="ra ra-chain"></i>
               </button>
@@ -25,8 +31,8 @@
         <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
           <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
         </div>
-        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar
-                       [pageSize]="pageSize" [total]="freeStandardTasks.length" (change)="pageStandardTask($event)">
+        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="pageSize" [total]="freeStandardTasks.length"
+          (change)="pageStandardTask($event)">
           <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}
           <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
         </td-paging-bar>
@@ -50,8 +56,8 @@
         <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
           <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
         </div>
-        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar
-                       [pageSize]="pageSize" [total]="freeSpecialTasks.length" (change)="pageSpecialTask($event)">
+        <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="pageSize" [total]="freeSpecialTasks.length"
+          (change)="pageSpecialTask($event)">
           <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}
           <span hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
         </td-paging-bar>

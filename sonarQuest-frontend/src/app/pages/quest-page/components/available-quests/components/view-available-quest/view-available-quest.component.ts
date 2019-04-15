@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {Component, OnInit, Inject} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {AvailableQuestsComponent} from '../../available-quests.component';
+import { UserSkillService } from 'app/services/user-skill.service';
 
 @Component({
   selector: 'app-view-available-quest',
@@ -16,7 +17,8 @@ export class ViewAvailableQuestComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AvailableQuestsComponent>,
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
-    public participationService: ParticipationService) {
+    public participationService: ParticipationService,
+    private userSkillService: UserSkillService) {
   }
 
   ngOnInit() {
@@ -29,5 +31,7 @@ export class ViewAvailableQuestComponent implements OnInit {
         this.dialogRef.close();
       })
   }
-
+  createRange(value: number): number[] {
+    return this.userSkillService.getNumberOfIcons(value);
+    }
 }

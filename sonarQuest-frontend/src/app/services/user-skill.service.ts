@@ -28,4 +28,42 @@ export class UserSkillService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
+
+  getNumberOfIcons(value: number): number[] {
+    const items: number[] = [];
+    let forCount = 0;
+    console.log(value)
+    switch (true) {
+      case (value == null): {
+        forCount = 0;
+        break;
+      }
+      case (value <= 3): {
+        forCount = 1;
+        break;
+      }
+      case (value <= 5): {
+        forCount = 2;
+        break;
+      }
+      case (value <= 7): {
+        forCount = 3;
+        break;
+      }
+      case (value <= 9): {
+        forCount = 4;
+        break;
+      }
+
+      default: {
+        forCount = 5;
+        break;
+      }
+    }
+
+    for (let i = 1; i <= forCount; i++) {
+      items.push(i);
+    }
+    return items;
+  }
 }
