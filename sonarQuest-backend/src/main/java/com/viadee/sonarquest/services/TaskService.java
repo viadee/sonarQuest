@@ -70,6 +70,9 @@ public class TaskService {
 			task.setEnddate(new Date(System.currentTimeMillis()));
 			save(task);
 			gratificationService.rewardUserForSolvingTask(task);
+			if(task instanceof StandardTask) {
+				userSkillService.learnUserSkillFromTask((StandardTask)task);
+			}
 			questService.updateQuest(task.getQuest());
 			adventureService.updateAdventure(task.getQuest().getAdventure());
 		}
@@ -82,6 +85,9 @@ public class TaskService {
 			List<Task> tasks = quest.getTasks();
 			for (Task task : tasks) {
 				gratificationService.rewardUserForSolvingTask(task);
+				if(task instanceof StandardTask) {
+					userSkillService.learnUserSkillFromTask((StandardTask)task);
+				}
 				task.setStatus(SonarQuestStatus.SOLVED);
 				task.setEnddate(new Date(System.currentTimeMillis()));
 				save(task);

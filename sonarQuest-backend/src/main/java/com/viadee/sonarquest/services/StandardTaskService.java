@@ -66,6 +66,7 @@ public class StandardTaskService {
 		final SonarQuestStatus newStatus = task.getStatus();
 		if (newStatus == SonarQuestStatus.SOLVED && oldStatus == SonarQuestStatus.OPEN) {
 			gratificationService.rewardUserForSolvingTask(task);
+			userSkillService.learnUserSkillFromTask(task);
 		}
 		task.setStatus(newStatus);
 		return standardTaskRepository.saveAndFlush(task);

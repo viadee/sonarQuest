@@ -39,6 +39,7 @@ import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.services.SonarRuleService;
+import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 /**
  * Service to access SonarQube server.
@@ -66,6 +67,9 @@ public class ExternalRessourceService {
 
 	@Autowired
 	private SonarRuleService sonarRuleService;
+	
+	@Autowired 
+	private UserSkillService userSkillService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
@@ -136,6 +140,7 @@ public class ExternalRessourceService {
 			final SonarQuestStatus lastStatus = savedTask.getStatus();
 			if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {
 				gratificationService.rewardUserForSolvingTask(savedTask);
+				userSkillService.learnUserSkillFromTask(savedTask);
 			}
 			savedTask.setStatus(newStatus);
 		}
