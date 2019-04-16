@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.Participation;
+import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
@@ -46,6 +48,9 @@ public class UserSkillService {
 
 	@Autowired
 	private UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private UserSkillDtoEntityMapper mapper;
@@ -95,29 +100,33 @@ public class UserSkillService {
 			UserSkill userSkill = userSkillRepository.findUserSkillBySonarRule(rule);
 			if (userSkill != null) {
 				Double teamScore = null;
-				// int memeberWithSkill = 0;
+				int amountDevelopersInTeam = 0;
 				for (String mail : mails) {
 					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
 						SkillTreeUser skillTreeUser = skillTreeUserRepository.findByMail(mail);
 						if (skillTreeUser != null) {
-							UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-									.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
-							if (userSkillToSkillTreeUser != null) {
-								if (userSkillToSkillTreeUser.getScore() != null) {
-									if (teamScore == null) {
-										teamScore = 0.0;
+							if(userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)){
+								amountDevelopersInTeam++;
+								UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
+										.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
+								if (userSkillToSkillTreeUser != null) {
+									if (userSkillToSkillTreeUser.getScore() != null) {
+										if (teamScore == null) {
+											teamScore = 0.0;
+										}
+										teamScore = teamScore + userSkillToSkillTreeUser.getScore();
+										// memeberWithSkill++;
 									}
-									teamScore = teamScore + userSkillToSkillTreeUser.getScore();
-									// memeberWithSkill++;
-								}
 
+								}	
 							}
+							
 						}
 					}
 				}
 				// return teamScore / memeberWithSkill;
 				if (teamScore != null) {
-					return teamScore / mails.size();
+					return teamScore / amountDevelopersInTeam;
 				}
 			}
 
@@ -353,8 +362,8 @@ public class UserSkillService {
 					skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
 					skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());
 					skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
-					skillTreeObjectDTO.setRequiredRepetitions(
-							userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
+					skillTreeObjectDTO
+							.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
 					break outter;
 				}
 			}

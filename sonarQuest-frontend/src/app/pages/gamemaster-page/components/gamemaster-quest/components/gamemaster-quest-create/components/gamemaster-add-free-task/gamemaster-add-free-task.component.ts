@@ -137,9 +137,11 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   protected pageStandardTask(pagingEvent: IPageChangeEvent): void {
+    const newData: any[] = this.freeStandardTasks;
     this.fromRowStandardTasks = pagingEvent.fromRow;
     this.currentPageStandardTasks = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
+    this.freeStandardTasks = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     this.pageStandardTaskData();
   }
 
