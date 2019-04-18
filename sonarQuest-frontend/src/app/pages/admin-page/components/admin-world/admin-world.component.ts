@@ -1,17 +1,19 @@
-import {TranslateService} from '@ngx-translate/core';
-import {Component, OnInit} from '@angular/core';
-import {WorldService} from '../../../../services/world.service';
-import {World} from '../../../../Interfaces/World';
+import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit } from '@angular/core';
+import { WorldService } from '../../../../services/world.service';
+import { World } from '../../../../Interfaces/World';
 import {
   IPageChangeEvent, ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
-import {MatDialog} from '@angular/material';
-import {EditWorldComponent} from './components/edit-world/edit-world.component';
-import {TaskService} from '../../../../services/task.service';
-import {QuestService} from '../../../../services/quest.service';
-import {AdventureService} from '../../../../services/adventure.service';
-import {LoadingService} from '../../../../services/loading.service';
+import { MatDialog } from '@angular/material';
+import { EditWorldComponent } from './components/edit-world/edit-world.component';
+import { TaskService } from '../../../../services/task.service';
+import { QuestService } from '../../../../services/quest.service';
+import { AdventureService } from '../../../../services/adventure.service';
+import { LoadingService } from '../../../../services/loading.service';
+import { UserService } from 'app/services/user.service';
+import { RoleService } from 'app/services/role.service';
 
 @Component({
   selector: 'app-admin-world',
@@ -23,12 +25,12 @@ export class AdminWorldComponent implements OnInit {
   currentWorld: World;
   worlds: World[];
   columns: ITdDataTableColumn[] = [
-    {name: 'id', label: 'Id'},
-    {name: 'name', label: 'Name'},
-    {name: 'project', label: 'Project', width: { min: 400 } },
-    {name: 'active', label: 'Active'},
-    {name: 'usequestcards', label: 'Questcards'},
-    {name: 'edit', label: ''}
+    { name: 'id', label: 'Id' },
+    { name: 'name', label: 'Name' },
+    { name: 'project', label: 'Project', width: { min: 400 } },
+    { name: 'active', label: 'Active' },
+    { name: 'usequestcards', label: 'Questcards' },
+    { name: 'edit', label: '' }
   ];
 
   // Sort / Filter / Paginate variables
@@ -43,13 +45,14 @@ export class AdminWorldComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   constructor(private worldService: WorldService,
-              private questService: QuestService,
-              private adventureService: AdventureService,
-              private taskService: TaskService,
-              private _dataTableService: TdDataTableService,
-              private translateService: TranslateService,
-              private dialog: MatDialog,
-              private loadingService: LoadingService) {
+    private questService: QuestService,
+    private adventureService: AdventureService,
+    private taskService: TaskService,
+    private _dataTableService: TdDataTableService,
+    private translateService: TranslateService,
+    private dialog: MatDialog,
+    private loadingService: LoadingService,
+    private userService: UserService) {
   }
 
   ngOnInit() {
@@ -62,18 +65,21 @@ export class AdminWorldComponent implements OnInit {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
     }
-    this.loadWorlds();
+    if (this.userService.getUser().role.name.toLocaleUpperCase() === 'ADMIN') {
+      this.loadWorlds();
+    }
+
   }
 
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'id', label: col_names.ID, width: 35},
-        {name: 'name', label: col_names.NAME},
-        {name: 'project', label: col_names.PROJECT, width: { min: 400 }},
-        {name: 'active', label: col_names.ACTIVE},
-        {name: 'usequestcards', label: col_names.USE_QUEST_CARDS},
-        {name: 'edit', label: ''}]
+        { name: 'id', label: col_names.ID, width: 35 },
+        { name: 'name', label: col_names.NAME },
+        { name: 'project', label: col_names.PROJECT, width: { min: 400 } },
+        { name: 'active', label: col_names.ACTIVE },
+        { name: 'usequestcards', label: col_names.USE_QUEST_CARDS },
+        { name: 'edit', label: '' }]
     });
   }
 
@@ -85,7 +91,7 @@ export class AdminWorldComponent implements OnInit {
   }
 
   protected editWorld(world: World) {
-    this.dialog.open(EditWorldComponent, {data: world}).afterClosed().subscribe(() => {
+    this.dialog.open(EditWorldComponent, { data: world }).afterClosed().subscribe(() => {
       this.loadWorlds();
       this.worldService.loadWorld();
     })

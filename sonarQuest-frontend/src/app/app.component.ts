@@ -1,18 +1,18 @@
-import {UiDesignService} from './services/ui-design.service';
-import {MatDialog} from '@angular/material';
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {TdMediaService} from '@covalent/core';
-import {Router} from '@angular/router';
-import {WorldService} from './services/world.service';
-import {World} from './Interfaces/World';
-import {TranslateService} from '@ngx-translate/core';
-import {UiDesign} from './Interfaces/UiDesign';
-import {AuthenticationService} from './login/authentication.service';
-import {LoginComponent} from './login/login.component';
-import {UserService} from './services/user.service';
-import {User} from './Interfaces/User';
-import {PermissionService} from './services/permission.service';
-import {RoutingUrls} from './app-routing/routing-urls';
+import { UiDesignService } from './services/ui-design.service';
+import { MatDialog } from '@angular/material';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { TdMediaService } from '@covalent/core';
+import { Router } from '@angular/router';
+import { WorldService } from './services/world.service';
+import { World } from './Interfaces/World';
+import { TranslateService } from '@ngx-translate/core';
+import { UiDesign } from './Interfaces/UiDesign';
+import { AuthenticationService } from './login/authentication.service';
+import { LoginComponent } from './login/login.component';
+import { UserService } from './services/user.service';
+import { User } from './Interfaces/User';
+import { PermissionService } from './services/permission.service';
+import { RoutingUrls } from './app-routing/routing-urls';
 
 @Component({
   selector: 'app-root',
@@ -58,15 +58,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthenticationService,
     private permissionService: PermissionService,
     private userService: UserService) {
-  
+
 
     translate.setDefaultLang('en'); // Fallback language when a translation isn't found in the current language.
     translate.use(translate.getBrowserLang()); // The lang to use. If the lang isn't available, it will use the current loader to get them.
   }
 
   protected login(): void {
-    this.dialog.open(LoginComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
-    .subscribe(() => this.setDesign());
+    this.dialog.open(LoginComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
+      .subscribe(() => this.setDesign());
   }
 
   protected logout(): void {
@@ -88,7 +88,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.user = this.userService.getUser();
         this.updateMenu();
         this.susbcribeWorlds();
-        this.setDesign()
+        this.setDesign();
+        this.updateWorldsFromCurrentUser();
       }
     });
     this.setPreDesign();
@@ -118,21 +119,25 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
-  private susbcribeWorlds(){
-    this.worldService.currentWorld$.subscribe(world =>{
-      this.currentWorld = world;  
+  private susbcribeWorlds() {
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world;
       this.setBackground();
     })
-    this.worldService.worlds$      .subscribe(worlds=>{ 
-      this.worlds       = worlds; 
+    this.worldService.worlds$.subscribe(worlds => {
+      this.worlds = worlds;
     })
   }
 
-  private setBackground(){
-    if (this.currentWorld && this.user ) { 
-      this.changebackground( this.currentWorld.image);
+  protected updateWorldsFromCurrentUser(): void {
+    this.worldService.getWorlds();
+  }
+
+  private setBackground() {
+    if (this.currentWorld && this.user) {
+      this.changebackground(this.currentWorld.image);
     } else if (!this.currentWorld && this.user) {
-      this.changebackground(""); 
+      this.changebackground("");
     } else if (!this.currentWorld && !this.user) {
       this.changebackground("bg13");
     }
@@ -177,7 +182,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changebackground(image: string) {
-    if (image != ""){
+    if (image != "") {
       this.body.style.backgroundImage = 'url("/assets/images/background/' + image + '.jpg")';
     } else {
       this.body.style.backgroundImage = 'url("")';
@@ -186,23 +191,23 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user){
+    if (this.user) {
       this.uiDesignService.getUiDesign().subscribe(ui => {
-        this.ui = ui;   
-        console.log(ui)  
-        this.body.className = ''; 
+        this.ui = ui;
+        console.log(ui)
+        this.body.className = '';
         this.addClass(this.body, this.ui.name);
         this.addClass(this.body, "background-image");
-      }); 
+      });
     }
   }
 
-  setPreDesign(){
+  setPreDesign() {
     this.toggleDesign();
   }
 
   toggleDesign() {
-    const dark  = 'dark';
+    const dark = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
@@ -219,7 +224,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.addClass(this.body, "background-image");
   }
 
-  hasClass(element: HTMLScriptElement, cssClass: string): Boolean{
+  hasClass(element: HTMLScriptElement, cssClass: string): Boolean {
     return element.classList.contains(cssClass);
   }
 
@@ -228,8 +233,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     return newString.replace('  ', ' ');
   }
 
-  addClass(element, cssClass){
-    if (!this.hasClass(element, cssClass)){
+  addClass(element, cssClass) {
+    if (!this.hasClass(element, cssClass)) {
       element.className += ' ' + cssClass + ' ';
     }
     element.className.replace('  ', ' ');

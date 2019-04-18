@@ -198,12 +198,14 @@ public class UserService implements UserDetailsService {
 	}
 
 	public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) {
-
 		userToWorlds.forEach(userToWorld -> {
 			User user = userRepository.findOne(userToWorld.getUserId());
 			if (userToWorld.getJoined()) {
 				user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
 			} else {
+				if(user.getCurrentWorld() != null && user.getCurrentWorld().getId().equals(userToWorld.getWorldId())) {
+					user.setCurrentWorld(null);
+				}
 				user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
 			}
 

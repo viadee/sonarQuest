@@ -12,6 +12,7 @@ import { UserToWorldService } from '../../../../../../services/user-to-world.ser
 import { Role } from 'app/Interfaces/Role';
 import { RoleService } from 'app/services/role.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { WorldService } from 'app/services/world.service';
 
 @Component({
   selector: 'app-admin-developer-edit',
@@ -46,18 +47,17 @@ export class AdminDeveloperEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {user: User, users: User[]},
     private imageService: ImageService,
     private roleService: RoleService,
-    private userToWorldService: UserToWorldService
+    private userToWorldService: UserToWorldService,
+    private worldService: WorldService
   ) {
   }
 
   ngOnInit() {
-
     this.translateTable();
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
-    });
-    
+    });    
     this.roleService.getRoles().then(roles => this.roles = roles);
     this.nameTaken = false;
     this.mailTaken = false;
@@ -75,6 +75,9 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.updateUserToWorld(this.userToWorlds);
       this.dialogRef.close(true);
+      if(this.data.user.id === this.userService.getUser().id){
+        this.worldService.getWorlds()
+      }
     })
   }
 
