@@ -203,7 +203,7 @@ public class UserService implements UserDetailsService {
 			if (userToWorld.getJoined()) {
 				user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
 			} else {
-				if(user.getCurrentWorld().getId() == userToWorld.getWorldId()) {
+				if(user.getCurrentWorld() != null && user.getCurrentWorld().getId() == userToWorld.getWorldId()) {
 					user.setCurrentWorld(null);
 				}
 				user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
