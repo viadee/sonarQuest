@@ -6,7 +6,7 @@
 
 	<groupId>com.viadee</groupId>
 	<artifactId>sonarQuest</artifactId>
-	<version>0.6.3-SNAPSHOT</version>
+	<version>0.7.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SonarQuest</name>
 	<inceptionYear>2017</inceptionYear>
@@ -42,25 +42,25 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-core</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-web</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -166,10 +166,30 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.11</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
 
@@ -192,22 +212,22 @@
 					<argLine>-Dspring.profiles.active=dev</argLine>
 				</configuration>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.owasp</groupId> -->
-<!-- 				<artifactId>dependency-check-maven</artifactId> -->
-<!-- 				<version>3.2.1</version> -->
-<!-- 				<configuration> -->
-<!-- 					fail on CVSS v3 critical ratings -->
-<!-- 					<failBuildOnCVSS>9</failBuildOnCVSS> -->
-<!-- 				</configuration> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<goals> -->
-<!-- 							<goal>check</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.owasp</groupId> -->
+			<!-- <artifactId>dependency-check-maven</artifactId> -->
+			<!-- <version>3.2.1</version> -->
+			<!-- <configuration> -->
+			<!-- fail on CVSS v3 critical ratings -->
+			<!-- <failBuildOnCVSS>9</failBuildOnCVSS> -->
+			<!-- </configuration> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>check</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 		</plugins>
 	</build>
 
