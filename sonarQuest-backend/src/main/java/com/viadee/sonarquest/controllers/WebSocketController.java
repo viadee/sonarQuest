@@ -22,14 +22,14 @@ public class WebSocketController {
     private EventService eventService;
 
     @Autowired
-    WebSocketController(final SimpMessagingTemplate template) {
+    public WebSocketController(final SimpMessagingTemplate template) {
         this.template = template;
     }
 
     @MessageMapping("/send/message")
     public void onReceivedMessage(final MessageDto messageDto) {
         Event event = eventService.createEventForNewMessage(messageDto);
-        this.template.convertAndSend("/chat", event);
+        template.convertAndSend("/chat", event);
     }
 
 }
