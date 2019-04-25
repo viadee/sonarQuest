@@ -1,6 +1,5 @@
 package com.viadee.sonarquest.controllers;
 
-
 import java.security.Principal;
 import java.util.List;
 
@@ -22,34 +21,29 @@ import com.viadee.sonarquest.services.EventService;
 @RestController
 @RequestMapping("/event")
 public class EventController {
-	protected static final Log LOGGER = LogFactory.getLog(EventController.class);
-	
-	@Autowired
-	private EventService eventService;
-	
+    protected static final Log LOGGER = LogFactory.getLog(EventController.class);
+
+    @Autowired
+    private EventService eventService;
+
     @GetMapping
-    public List<Event> getAllEvents(){
+    public List<Event> getAllEvents() {
         return eventService.getAllEvents();
     }
 
-	
-	@CrossOrigin
+    @CrossOrigin
     @GetMapping(value = "/currentWorld")
     public List<Event> getEventsForCurrentWorld(final Principal principal) {
         return eventService.getEventsForWorld(principal);
     }
-	
-	
-	
+
     @CrossOrigin
     @PostMapping(value = "/sendChat")
     @ResponseStatus(HttpStatus.CREATED)
     public Event sendChat(final Principal principal, @RequestBody String message) {
-    	return eventService.createEventForNewMessage(message, principal);
+        return eventService.createEventForNewMessage(message, principal);
     }
-	
-	
-	
+
     @CrossOrigin
     @PostMapping(value = "/something")
     @ResponseStatus(HttpStatus.CREATED)
@@ -57,6 +51,5 @@ public class EventController {
         LOGGER.info("Something()");
         return "Server";
     }
-    
-    
+
 }
