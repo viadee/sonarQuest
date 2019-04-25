@@ -29,7 +29,7 @@ import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.utils.mapper.UserSkillDtoEntityMapper;
 
@@ -38,7 +38,7 @@ public class UserSkillService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserSkillService.class);
 
 	@Autowired
-	private UserSkillRepositroy userSkillRepository;
+	private UserSkillRepository userSkillRepository;
 
 	@Autowired
 	private SonarRuleRepository sonarRuleRepository;
@@ -376,7 +376,7 @@ public class UserSkillService {
 	@Transactional
 	public SkillTreeUser createSkillTreeUser(String mail) {
 		SkillTreeUser user = skillTreeUserRepository.save(new SkillTreeUser(mail));
-		List<UserSkill> userSkills = userSkillRepository.findAll();
+		List<UserSkill> userSkills = userSkillRepository.findAllRootUserSkills(false);
 		for (UserSkill userSkill : userSkills) {
 			UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
 					.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));

@@ -23,7 +23,7 @@ export class InnerSkillTreeComponent implements OnInit {
 
   public skillTreeUrl = RoutingUrls.skilltree;
   userSkillTree: { nodes: [], links: [] };
-  curve = shape.curveLinear;
+  curve = shape.curveMonotoneY
   isDataAvailable: boolean;
   isAdmin = false;
   isGamemaster = false;
@@ -67,11 +67,15 @@ export class InnerSkillTreeComponent implements OnInit {
   }
 
   openDialog(node): void {
-    const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
-      width: '550px',
-      data: node
-    });
-    dialogRef.afterClosed().subscribe( );
+    if (!node.root) {
+      const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
+        width: '550px',
+        data: node
+      });
+      dialogRef.afterClosed().subscribe();
+    }
+
+
   }
 
   calculateProcentage(repeats: number, requiredRepetitions: number): number {

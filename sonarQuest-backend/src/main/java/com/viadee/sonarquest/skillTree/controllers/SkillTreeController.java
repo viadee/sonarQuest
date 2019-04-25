@@ -27,7 +27,7 @@ import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.services.SkillTreeService;
 
 @RestController

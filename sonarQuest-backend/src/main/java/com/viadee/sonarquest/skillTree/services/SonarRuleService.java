@@ -53,9 +53,9 @@ public class SonarRuleService {
 
 	public String getLastAddedDate() {
 		SonarRule sonarRule = findAll().stream().max(Comparator.comparing(SonarRule::getAddedAT))
-				.orElseThrow(NoSuchElementException::new);
+				.orElse(null);
 		Date date = new Date();
-		if (sonarRule.getAddedAT() == null) {
+		if (sonarRule == null || sonarRule.getAddedAT() == null) {
 			return lastRuleUpdateFromProperty;
 		} else {
 			date.setTime(sonarRule.getAddedAT().getTime());

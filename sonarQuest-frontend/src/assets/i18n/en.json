@@ -250,7 +250,8 @@
     "SKILL_TREE_GM": "Skill-Tree of the team",
     "INNER_SKILL_TREE_BACK": "Skill-Tree Overview",
     "STEP_INTO": "Click onto the Skill Groups to step into",
-    "TOOLTIP_DETAILS": "Clikc for details"
+    "TOOLTIP_DETAILS": "Clikc for details",
+    "TOOLTIP_ROOT_NODE": "The root node isn't clickable"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",

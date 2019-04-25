@@ -16,8 +16,9 @@ import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
+import com.viadee.sonarquest.skillTree.utils.export.ExportService;
 
 @SpringBootApplication
 public class SonarQuestApplication implements CommandLineRunner {
@@ -29,6 +30,9 @@ public class SonarQuestApplication implements CommandLineRunner {
 	 * @Autowired UserSkillToSkillTreeUserRepository
 	 * userSkillToSkillTreeUserRepository;
 	 */
+	
+	@Autowired
+	private ExportService exportService;
 
     public static void main(String[] args) {
         SpringApplication.run(SonarQuestApplication.class, args);
@@ -66,6 +70,10 @@ public class SonarQuestApplication implements CommandLineRunner {
 		 * rule:entry.getUserSkill().getSonarRules()) {
 		 * System.out.println(rule.getName()); } }
 		 */
+    	exportService.exportUserSkills();
+    	//exportService.exportSonarRules();
+    	//exportService.createSonarRuleSQLScript();
+    	
     }
 
     @Bean

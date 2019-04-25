@@ -17,6 +17,7 @@ public class SkillTreeObjectDTO {
 	private String textColor;
 	private String groupIcon;
 	private int learnCoverage;
+	private boolean isRoot;
 
 	public SkillTreeObjectDTO() {
 		this.sonarRuleDTOs = new ArrayList<SonarRuleDTO>();
@@ -109,6 +110,14 @@ public class SkillTreeObjectDTO {
 
 	public void setGroupIcon(String groupIcon) {
 		this.groupIcon = groupIcon;
+	}
+
+	public boolean isRoot() {
+		return isRoot;
+	}
+
+	public void setRoot(boolean isRoot) {
+		this.isRoot = isRoot;
 	}
 
 	@Override

@@ -25,7 +25,7 @@ import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeLinksDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 import springfox.documentation.spring.web.json.Json;
@@ -35,7 +35,7 @@ import springfox.documentation.spring.web.json.Json;
 public class UserSkillController {
 
 	@Autowired
-	private UserSkillRepositroy userSkillRepository;
+	private UserSkillRepository userSkillRepository;
 
 	@Autowired
 	private UserSkillService userSkillService;

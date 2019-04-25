@@ -25,7 +25,7 @@ import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillRepositroy;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
 
 @Service
@@ -38,7 +38,7 @@ public class SkillTreeService {
 	public UserSkillGroupRepository userSkillGroupRepository;
 
 	@Autowired
-	private UserSkillRepositroy userSkillRepository;
+	private UserSkillRepository userSkillRepository;
 
 	@Autowired
 	private UserSkillService userSkillService;
@@ -167,6 +167,7 @@ public class SkillTreeService {
 		skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
 		skillTreeObjectDTO.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
 		skillTreeObjectDTO.setGroupIcon(userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getIcon());
+		skillTreeObjectDTO.setRoot(userSkillToSkillTreeUser.getUserSkill().isRoot());
 		for (SonarRule rule : userSkillToSkillTreeUser.getUserSkill().getSonarRules()) {
 			skillTreeObjectDTO.addRuleKey(rule.getKey(), rule.getName());
 		}

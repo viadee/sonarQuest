@@ -259,7 +259,8 @@ public class ExternalRessourceService {
 			final SonarConfig sonarConfig = sonarConfigService.getConfig();
 			final List<SonarQubeRule> sonarQubeRules = new ArrayList<>();
 			SonarQubeRuleRessource sonarQubeRuleRessource;
-			if (sonarRuleService.findAll() == null) {
+			List<SonarRule> currentRules = sonarRuleService.findAll();
+			if (currentRules.isEmpty() || currentRules == null) {
 				LOGGER.info("Trying to get SonarQube rules with language {} ", language);
 				sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
 			} else {

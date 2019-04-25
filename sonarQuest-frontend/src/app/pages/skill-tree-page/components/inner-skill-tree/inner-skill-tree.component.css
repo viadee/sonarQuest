@@ -9,3 +9,8 @@ height: 90%;
 .ngx-charts{
 	height: 100%;
 }
+
+.graph-viewbox{
+	height: 85%;
+	width: 100%;
+}

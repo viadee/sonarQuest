@@ -20,41 +20,53 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <ngx-graph [orientation]="TopToBottom" class="chart-container" [links]="userSkillTree.links"
-        [nodes]="userSkillTree.nodes" [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire">
+      <div class="graph-viewbox">
+        <ngx-graph [orientation]="TopToBottom" [links]="userSkillTree.links" [nodes]="userSkillTree.nodes"
+          [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire" [autoZoom]="true">
 
-        <ng-template #defsTemplate>
-          <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-            <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-          </svg:marker>
-        </ng-template>
+          <ng-template #defsTemplate>
+            <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4"
+              orient="auto">
+              <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+            </svg:marker>
+          </ng-template>
 
-        <ng-template #nodeTemplate let-node>
-          <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
-            [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="openDialog(node)">
-            <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2" [attr.fill]="node.backgroundColor" />
-            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
-              text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
-            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle"
-              [attr.fill]="node.textColor" *ngIf="!isAdmin">{{node.learnCoverage}} %</svg:text>
-            <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height" text-anchor="middle"
-              [attr.fill]="node.textColor" *ngIf="isAdmin">{{node.requiredRepetitions}} </svg:text>
-          </svg:g>
+          <ng-template #nodeTemplate let-node>
+            <svg:g class="node" *ngIf="node.root" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
+              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_ROOT_NODE'| translate" (click)="openDialog(node)">
+              <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
+                [attr.fill]="node.backgroundColor" />
+              <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
+              <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %</svg:text>
+              <svg:text alignment-baseline="central" *ngIf="isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.requiredRepetitions}} </svg:text>
+            </svg:g>
+            <svg:g class="node" *ngIf="!node.root" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
+              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="openDialog(node)">
+              <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
+                [attr.fill]="node.backgroundColor" />
+              <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
+              <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %</svg:text>
+              <svg:text alignment-baseline="central" *ngIf="isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.requiredRepetitions}} </svg:text>
+            </svg:g>
+          </ng-template>
 
+          <ng-template #linkTemplate let-link>
+            <svg:g class="edge">
+              <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+              </svg:path>
+              <svg:text class="edge-label" text-anchor="none">
+              </svg:text>
+            </svg:g>
+          </ng-template>
 
-
-        </ng-template>
-
-        <ng-template #linkTemplate let-link>
-          <svg:g class="edge">
-            <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
-            </svg:path>
-            <svg:text class="edge-label" text-anchor="none">
-            </svg:text>
-          </svg:g>
-        </ng-template>
-
-      </ngx-graph>
+        </ngx-graph>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

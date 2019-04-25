@@ -10,7 +10,7 @@ import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 
 
-public interface UserSkillRepositroy extends JpaRepository<UserSkill, Long> {
+public interface UserSkillRepository extends JpaRepository<UserSkill, Long> {
     
     //UserSkill findById(Long id);
     @Query("SELECT u FROM UserSkill u WHERE isRoot = :isRoot")

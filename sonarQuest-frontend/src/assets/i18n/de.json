@@ -266,7 +266,8 @@
     "SKILL_TREE_GM": "Skill-Tree des Teams",
     "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick",
     "STEP_INTO": "Klicke auf die Skill Gruppen um sie zu öffnen",
-    "TOOLTIP_DETAILS": "Klicken für mehr Informationen"
+    "TOOLTIP_DETAILS": "Klicken für mehr Informationen",
+    "TOOLTIP_ROOT_NODE": "Das Wurzelelement kann nicht ausgewählt werden"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",
