@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.security.Principal;
+
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.viadee.sonarquest.constants.AdventureState;
-import com.viadee.sonarquest.controllers.AdventureController;
 import com.viadee.sonarquest.entities.Adventure;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class AdventureControllerIT {
 
     @Autowired
@@ -30,7 +34,7 @@ public class AdventureControllerIT {
         long xp = 10L;
         Adventure adventure = new Adventure(title, story, AdventureState.OPEN, gold, xp);
         // when
-        Adventure newAdventure = adventureController.createAdventure(adventure);
+        Adventure newAdventure = adventureController.createAdventure(createPrincipal(), adventure);
         // then
         assertNotNull(newAdventure.getId());
         assertTrue(newAdventure.getId() > 0);
@@ -40,6 +44,16 @@ public class AdventureControllerIT {
         assertEquals(gold, newAdventure.getGold().longValue());
         assertEquals(xp, newAdventure.getXp().longValue());
 
+    }
+
+    private Principal createPrincipal() {
+        return new Principal() {
+
+            @Override
+            public String getName() {
+                return "admin";
+            }
+        };
     }
 
 }
