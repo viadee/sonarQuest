@@ -23,7 +23,7 @@ An example: a team defines the solvation of issues with priority levels "blocker
 The quickest way to get a running SonarQuest and to start playing is to do the following:
 
 ### Backend
-* download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/download/0.7.1/
+* download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/tag/0.7.1/
 * start it with "java -jar [name of the jar]"
 
 ### Frontend
