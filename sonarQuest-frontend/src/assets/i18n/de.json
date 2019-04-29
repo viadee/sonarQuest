@@ -150,7 +150,8 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Schließen",
-    "CONFIRMATION_MESSAGE": "Wirklich löschen?"
+    "CONFIRMATION_MESSAGE": "Wirklich löschen?",
+    "USERS_STILL_ASSOCIATED":"Es ist noch ein Benutzer zugeordnet"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",

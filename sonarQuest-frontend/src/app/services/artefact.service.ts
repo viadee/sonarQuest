@@ -61,7 +61,7 @@ export class ArtefactService {
 
   deleteArtefact(artefact: Artefact): Promise<any> {
     return this.http.delete(`${environment.endpoint}/artefact/${artefact.id}`)
-      .toPromise()
+      .toPromise().catch(this.handleError);
   }
 
   private handleError(error: Response | any) {

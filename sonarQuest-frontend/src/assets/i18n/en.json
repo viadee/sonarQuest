@@ -132,7 +132,8 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Close",
-    "CONFIRMATION_MESSAGE": "Really delete this?"
+    "CONFIRMATION_MESSAGE": "Really delete this?",
+    "USERS_STILL_ASSOCIATED":"There is still one more user associated"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",
