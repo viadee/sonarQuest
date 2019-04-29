@@ -20,7 +20,7 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 ## Jump-start for users
 
-The quickest way to get a running SonarQuest is to do the following:
+The quickest way to get a running SonarQuest and to start playing is to do the following:
 
 ### Backend
 * download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/download/0.7.1/
@@ -35,8 +35,20 @@ After that you can start the SonarQuest client:
 1. switch to the directory: `cd sonarQuest-frontend`
 2. install the node modules: `npm install`
 3. start the test server with the SonarQuest client: `ng serve`
-
 You can access the SonarQuest client in a browser at `http://localhost:4200`
+
+### 10 steps into your SonarQuest game
+
+1. Log in as admin with password test
+2. Check the connection to the SonarQube server
+3. Get all the projects on SonarQube into SonarQuest and make a single project playable as a "world"
+4. Assign a gm and players to this world
+5. Log in as gm with password test
+6. Get all issues aka tasks for the current world
+7. Create quests by writing a short story and add tasks to make them solvable
+8. (Optionally) create an adventure and add quests to it to support a story arc
+9. Get your players to log in (all pre-made avatars have the password test and their username as login) and take on your quests by selecting to "fight" in a quest and to "fight" issues in the quests
+10. Login in as a gm from time to time to synchronize SonarQuest with the SonarQube project to have SonarQuest pay out rewards to your players!
 
 Have fun!
 
