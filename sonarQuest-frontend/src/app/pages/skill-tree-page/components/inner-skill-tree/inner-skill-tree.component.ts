@@ -67,13 +67,13 @@ export class InnerSkillTreeComponent implements OnInit {
   }
 
   openDialog(node): void {
-    if (!node.root) {
+   
       const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
         width: '550px',
         data: node
       });
       dialogRef.afterClosed().subscribe();
-    }
+    
 
 
   }

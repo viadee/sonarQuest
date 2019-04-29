@@ -70,7 +70,7 @@ public class SonarQuestApplication implements CommandLineRunner {
 		 * rule:entry.getUserSkill().getSonarRules()) {
 		 * System.out.println(rule.getName()); } }
 		 */
-    	exportService.exportUserSkills();
+    	//exportService.exportUserSkills();
     	//exportService.exportSonarRules();
     	//exportService.createSonarRuleSQLScript();
     	

@@ -14,3 +14,11 @@ height: 90%;
 	height: 85%;
 	width: 100%;
 }
+
+.pointer{
+	cursor: pointer;
+}
+
+.not-allowed{
+	cursor: not-allowed;
+}

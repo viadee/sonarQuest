@@ -7,7 +7,7 @@
 
 INSERT INTO User_Skill_Group(group_name,is_root, group_icon) VALUES 
 ('Java-Basics I',1,'ra-tower'),
-('Build and Debugging',1,'ra-hammer'),
+('Build and Debugging',1,'ra-forging'),
 ('Style & Structure',1,'ra-diamond'),
 ('Java Basics II',0,'ra-tower'),
 ('Network Programming',0, 'ra-x-mark'),
@@ -17,8 +17,7 @@ INSERT INTO User_Skill_Group(group_name,is_root, group_icon) VALUES
 ('File Handling',0,'ra-book'),
 ('GUI/MVC',0,'ra-telescope'),
 ('Mobile Apps',0,'ra-crystal-ball'),
-('Testing',0,'ra-book'),
-;
+('Testing',0,'ra-broken-bone');
 
 INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill_group_id) VALUES
 (1,4),
@@ -35,7 +34,7 @@ INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill
 * Userskills Group 1
 */
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Java-Basics','Fundamental java basic skills',1,3,1),
+('Java-Basics I','Fundamental java basic skills',1,3,1),
 ('Primitive types','Easy data types',0,3,1),
 ('Packages','Structure your code project',0,3,1),
 ('Java Doc','Stay informed! Document your code',0,3,1),
@@ -197,6 +196,553 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (46,42),
 (47,42),
 (48,47);
+
+/*
+* Userskills Group 3
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Style and Structure','',1,3,3),
+('Code Style','',0,3,3),
+('PMD','',0,3,3),
+('Unicode','',0,3,3),
+('Structure','',0,3,3),
+('TODO tags','',0,3,3),
+('FIXME tags','',0,3,3),
+('Naming','',0,3,3),
+('Conventions','',0,3,3),
+('Deprecation','',0,3,3),
+('Liskov Substitution Principle','',0,3,3),
+('Readability','',0,3,3),
+('Comments','',0,3,3),
+('SOLID','',0,3,3);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(49,50),
+(49,51),
+(49,52),
+(49,53),
+(50,54),
+(50,55),
+(50,56),
+(50,57),
+(50,58),
+(54,59),
+(54,60),
+(54,61),
+(60,62);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(50,49),
+(51,49),
+(52,49),
+(53,49),
+(54,50),
+(55,50),
+(56,50),
+(57,50),
+(58,50),
+(59,54),
+(60,54),
+(61,54),
+(62,60);
+
+/*
+* Userskills Group 4
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Java Basics II','',1,3,4),
+('Class','',0,3,4),
+('Methods','',0,3,4),
+('Keywords','',0,3,4),
+('Try/Catch','',0,3,4),
+('Varags parameters','',0,3,4),
+('Recursion','',0,3,4),
+('Method overwriting','',0,3,4),//70
+('hashCode','',0,3,4),
+('Listener','',0,3,4), //10
+('Annotations','',0,3,4),
+('Assertion','',0,3,4),
+('Throwable','',0,3,4), //75
+('Try-with-resources','',0,3,4),
+('Suppress Warnings','',0,3,4),
+('Inheritence','',0,3,4),
+('Static','',0,3,4),
+('Imports','',0,3,4), //80
+('Interfaces','',0,3,4),
+('Class Loader','',0,3,4),
+('Constructor','',0,3,4),
+('Abstract','',0,3,4),
+('Generics','',0,3,4), //85
+('Funcitonal interfaces','',0,3,4),
+('Dynamic Class Loading','',0,3,4),
+('Dates','',0,3,4),
+('Math','',0,3,4),
+('Objects','',0,3,4), //90
+('Logger','',0,3,4),
+('Wrapper','',0,3,4),
+('Bounds','',0,3,4),
+('Wildcard','',0,3,4),
+('Optional','',0,3,4), //95
+('Local','',0,3,4),
+('Value-based class','',0,3,4),
+('Random','',0,3,4),
+('Error','',0,3,4),
+('Garbage Colleciton','',0,3,4), //100
+('Casting','',0,3,4),
+('Diamond operator','',0,3,4),
+('InstanceOf','',0,3,4),
+('Equals','',0,3,4),
+('Cloneables/Clone','',0,3,4), //105
+('Comparator','',0,3,4),
+('Reflection API','',0,3,4),
+('Boxing and unboxing','',0,3,4),
+('LocalDate / LocalTime','',0,3,4),
+('Secure random','',0,3,4), //110
+('Lambda','',0,3,4),
+('Inner classes','',0,3,4),
+('compareTo','',0,3,4),
+('Finalize','',0,3,4),
+('Parsing','',0,3,4); //115
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(63,64),
+(63,65),
+(63,66),
+(65,67),
+(65,68),
+(65,69),
+(65,70),
+(65,71),
+(65,72),
+(65,73),
+(67,74),
+(67,75),
+(67,76),
+(73,77),
+(64,78),
+(64,79),
+(64,80),
+(64,81),
+(64,82),
+(64,83),
+(78,84),
+(81,85),
+(81,86),
+(82,87),
+(83,88),
+(83,89),
+(83,90),
+(83,91),
+(83,92),
+(85,93),
+(85,94),
+(83,95),
+(88,96),
+(95,97),
+(89,98),
+(83,99),
+(90,100),
+(90,101),
+(90,102),
+(90,103),
+(90,104),
+(90,105),
+(104,106),
+(91,107),
+(92,108),
+(96,109),
+(98,110),
+(107,111),
+(108,112),
+(104,113),
+(100,114),
+(92,115);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(64,63),
+(65,63),
+(66,63),
+(67,65),
+(68,65),
+(69,65),
+(70,65),
+(71,65),
+(72,65),
+(73,65),
+(74,67),
+(75,67),
+(76,67),
+(77,73),
+(78,64),
+(79,64),
+(80,64),
+(81,64),
+(82,64),
+(83,64),
+(84,78),
+(85,81),
+(86,81),
+(87,82),
+(88,83),
+(89,83),
+(90,83),
+(91,83),
+(92,83),
+(93,85),
+(94,85),
+(95,83),
+(96,88),
+(97,95),
+(98,89),
+(99,83),
+(100,90),
+(101,90),
+(102,90),
+(103,90),
+(104,90),
+(105,90),
+(106,104),
+(107,91),
+(108,92),
+(109,96),
+(110,98),
+(111,107),
+(112,108),
+(113,104),
+(114,110),
+(115,92);
+/*
+* Userskills Group 5
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Network Programming','',1,3,5), //116
+('URI/URl','',0,3,5),
+('SQL','',0,3,5),
+('JNDI','',0,3,5),
+('PAM','',0,3,5), //120
+('IP Address','',0,3,5),
+('JDBC','',0,3,5),
+('SMTP','',0,3,5),
+('XML','',0,3,5),
+('JSON','',0,3,5), //125
+('SOAP','',0,3,5),
+('LDAP','',0,3,5),
+('Beans','',0,3,5),
+('HTTP','',0,3,5),
+('ResultSet','',0,3,5), //130
+('Sockets','',0,3,5),
+('JAAS','',0,3,5),
+('Hibernate','',0,3,5),
+('JPA','',0,3,5),
+('Security-constraints','',0,3,5), //135
+('Filter Mapping','',0,3,5),
+('REST','',0,3,5),
+('Dependency Injection','',0,3,5),
+('Cookies','',0,3,5),
+('Session','',0,3,5), //140
+('Servlet','',0,3,5),
+('CORS','',0,3,5),
+('SSL','',0,3,5),
+('WebSockets','',0,3,5),
+('Eager Loading / Lazy Loading','',0,3,5), //145
+('EJB','',0,3,5),
+('Interceptor','',0,3,5),
+('Transactional','',0,3,5);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(116,117),
+(116,118),
+(116,119),
+(116,120),
+(116,121),
+(116,122),
+(116,123),
+(116,124),
+(116,125),
+(116,126),
+(116,127),
+(116,128),
+(117,129),
+(118,130),
+(119,131),
+(120,132),
+(122,133),
+(122,134),
+(124,135),
+(124,136),
+(125,137),
+(128,138),
+(129,139),
+(129,140),
+(129,141),
+(129,142),
+(129,143),
+(129,144),
+(131,144),
+(133,145),
+(134,145),
+(138,146),
+(146,147),
+(146,148);
+
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(117,116),
+(118,116),
+(119,116),
+(120,116),
+(121,116),
+(122,116),
+(123,116),
+(124,116),
+(125,116),
+(126,116),
+(127,116),
+(128,116),
+(129,117),
+(130,118),
+(131,119),
+(132,120),
+(133,122),
+(134,122),
+(135,124),
+(136,124),
+(137,125),
+(138,128),
+(139,129),
+(140,129),
+(141,129),
+(142,129),
+(143,129),
+(144,129),
+(144,131),
+(145,133),
+(145,134),
+(146,138),
+(147,146),
+(148,146);
+
+/*
+* Userskills Group 6
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Threading','',1,3,6), //149
+('Volatile','',0,3,6), //150
+('Threads','',0,3,6),
+('Runnables','',0,3,6),
+('Wait','',0,3,6),
+('Lock','',0,3,6),
+('Multithreading','',0,3,6), //155
+('Condition','',0,3,6),
+('Notify','',0,3,6),
+('Synchronized','',0,3,6);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(149,150),
+(149,151),
+(149,152),
+(149,153),
+(149,154),
+(150,155),
+(151,155),
+(151,156),
+(151,157),
+(151,158);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(150,149),
+(151,149),
+(152,149),
+(153,149),
+(154,149),
+(155,150),
+(155,151),
+(156,151),
+(157,151),
+(158,151);
+
+/*
+* Userskills Group 7
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Security','',1,3,7), //159
+('Chiper Block Chaining','',0,3,7), //160
+('Cryptography','',0,3,7),
+('Basic Authentication','',0,3,7),
+('Hashing','',0,3,7),
+('Null Chiper','',0,3,7),
+('X509 Trust Manager','',0,3,7), //165
+('Encryption','',0,3,7),
+('RSA Encryption','',0,3,7),
+('Injection Attacks','',0,3,7),
+('Data Encryption Standard','',0,3,7),
+('AES Encryption','',0,3,7), //170
+('XSRF','',0,3,7);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(159,160),
+(159,161),
+(159,162),
+(159,163),
+(160,164),
+(162,165),
+(163,166),
+(166,167),
+(166,168),
+(166,169),
+(166,170),
+(168,171);
+
+
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(160,159),
+(161,159),
+(162,159),
+(163,159),
+(164,160),
+(165,162),
+(166,163),
+(167,166),
+(168,166),
+(170,166),
+(171,168);
+
+/*
+* Userskills Group 8
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Spring Framework','',1,3,8), //172
+('Spring Boot','',0,3,8),
+('Spring Data','',0,3,8), 
+('Spring Security','',0,3,8), //175
+('Spring MVC','',0,3,8),
+('EnableAutoConfiguration','',0,3,8),  
+('Component Scan','',0,3,8),
+('Import','',0,3,8),  
+('Scopes','',0,3,8); // 180
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(172,173),
+(172,174),
+(172,175),
+(172,176),
+(173,177),
+(173,178),
+(173,179),
+(173,180);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(173,172),
+(174,172),
+(175,172),
+(176,172),
+(177,173),
+(178,173),
+(179,173),
+(180,173);
+
+/*
+* Userskills Group 9
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('File Handling','',1,3,9), //181
+('Streams','',0,3,9),
+('Serialization','',0,3,9),
+('Xpath Expression','',0,3,9),
+('System.in','',0,3,9), //185
+('Archive Files','',0,3,9),
+('Stream operations an pipelines','',0,3,9),
+('Input','',0,3,9),
+('Output','',0,3,9),
+('Collect','Stream',0,3,9), //190
+('Transient','',0,3,9),
+('Externalizable','',0,3,9);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(181,182),
+(181,183),
+(181,184),
+(181,185),
+(181,186),
+(181,187),
+(182,188),
+(182,189),
+(182,190),
+(183,191),
+(183,192);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(182,181),
+(183,181),
+(184,181),
+(185,181),
+(186,181),
+(187,181),
+(188,182),
+(189,182),
+(190,182),
+(191,183),
+(192,183);
+
+/*
+* Userskills Group 10
+*/
+
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('GUI/MVC','',1,3,10), //193
+('MVC Pattern','',0,3,10),
+('Struts','',0,3,10), //195
+('ActionForm','',0,3,10),
+('ActionSupport','',0,3,10);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(193,194),
+(193,195),
+(195,196),
+(195,197);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(194,193),
+(195,193),
+(196,195),
+(197,195);
+
+/*
+* Userskills Group 11
+*/
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Mobile Apps','',1,3,11), //198
+('Android','',0,3,11);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(198,199);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(199,198);
+
+/*
+* Userskills Group 12
+*/
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('Testing','',1,3,12), //200
+('Testing','',0,3,12),
+('JUnit','',0,3,12);
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(200,201),
+(201,202);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(201,200),
+(202,201);
 
 
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 

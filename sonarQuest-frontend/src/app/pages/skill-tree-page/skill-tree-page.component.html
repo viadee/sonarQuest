@@ -35,7 +35,7 @@
           </ng-template>
 
           <ng-template #nodeTemplate let-node>
-            <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
+            <svg:g class="node pointer" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
               [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="navigatToInnerSkilLTree(node.id)">
 
               <svg:rect [attr.width]="node.width+40" [attr.height]="node.height+10" [attr.fill]="nodecolor" />
