@@ -18,7 +18,27 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 ![Example](docs/images/screenshot.jpg)
 
+## Jump-start for users
 
+The quickest way to get a running SonarQuest is to do the following:
+
+~~Backend~~
+* download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/download/0.7.1/
+* start it with "java -jar [name of the jar]"
+
+~~Frontend~~
+* check out the *sonarquest-frontend* folder from github
+* Install *Node.js*. Please follow the instructions on the [Node.js](https://nodejs.org) website.
+* Install *Angular-Cli* globally with `npm install -g @angular/cli`
+
+After that you can start the SonarQuest client:
+1. switch to the directory: `cd sonarQuest-frontend`
+2. install the node modules: `npm install`
+3. start the test server with the SonarQuest client: `ng serve`
+
+You can access the SonarQuest client in a browser at `http://localhost:4200`
+
+Have fun!
 
 ## Getting Started
 
