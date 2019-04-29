@@ -25,6 +25,8 @@ public class EventService {
 
     private static final Log LOGGER = LogFactory.getLog(EventService.class);
 
+    private static final int EVENT_STORY_MAX_LENGTH = 255;
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -49,8 +51,8 @@ public class EventService {
         String image = quest.getImage();
         World world = quest.getWorld();
         String head = StringUtils.EMPTY;
-        LOGGER.info("New event because of a solved quest");
-        eventRepository.save(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+        LOGGER.info(String.format("New event because of a solved quest '%s'", title));
+        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
     }
 
     public void createEventForSolvedAdventure(Adventure adventure, Principal principal) {
@@ -61,8 +63,8 @@ public class EventService {
         String image = StringUtils.EMPTY;
         World world = adventure.getWorld();
         String head = StringUtils.EMPTY;
-        LOGGER.info("New event because of a solved adventure");
-        eventRepository.save(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+        LOGGER.info(String.format("New event because of a solved adventure '%s'", title));
+        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
     }
 
     public void createEventForCreatedAdventure(Adventure adventure, Principal principal) {
@@ -74,7 +76,7 @@ public class EventService {
         World world = adventure.getWorld();
         String head = StringUtils.EMPTY;
         LOGGER.info(String.format("New event because of a newly created adventure '%s'", title));
-        eventRepository.save(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
     }
 
     public void createEventForCreatedQuest(Quest quest, Principal principal) {
@@ -85,25 +87,8 @@ public class EventService {
         String image = quest.getImage();
         World world = quest.getWorld();
         String head = StringUtils.EMPTY;
-        LOGGER.info("New event because of a newly created Quest");
-        eventRepository.save(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
-    }
-
-    public Event createEventForNewMessage(String message, Principal principal) {
-        User user = userService.getUser(principal);
-        EventType type = EventType.MESSAGE;
-        String story = message;
-        World world = user.getCurrentWorld();
-        return eventRepository.save(new Event(type, story, world, user));
-    }
-
-    public Event createEventForNewMessage(MessageDto messageDto) {
-        User user = userService.findById(messageDto.getUserId());
-        EventType type = EventType.MESSAGE;
-        String story = messageDto.getMessage();
-        World world = user.getCurrentWorld();
-
-        return eventRepository.save(new Event(type, story, world, user));
+        LOGGER.info(String.format("New event because of a newly created quest '%s'", title));
+        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
     }
 
     public void createEventForUserJoinQuest(Quest quest, User user) {
@@ -115,7 +100,7 @@ public class EventService {
         World world = quest.getWorld();
         String head = StringUtils.EMPTY;
         LOGGER.info("New Event because UserId " + user.getId() + " joined Quest " + quest.getId());
-        eventRepository.save(new Event(type, title, story, state, image, world, head, user));
+        checkStoryAndSave(new Event(type, title, story, state, image, world, head, user));
     }
 
     public void createEventForCreatedArtefact(Artefact artefact) {
@@ -124,8 +109,36 @@ public class EventService {
         String story = artefact.getDescription();
         EventState state = EventState.CREATED;
         String image = artefact.getIcon();
-        LOGGER.info("New Event because of a created artefact");
-        eventRepository.save(new Event(type, title, story, state, image));
+        LOGGER.info(String.format("New Event because of a created artefact '%s'", title));
+        checkStoryAndSave(new Event(type, title, story, state, image));
+    }
+
+    public Event createEventForNewMessage(String message, Principal principal) {
+        User user = userService.getUser(principal);
+        EventType type = EventType.MESSAGE;
+        String story = message;
+        World world = user.getCurrentWorld();
+        return checkStoryAndSave(new Event(type, story, world, user));
+    }
+
+    public Event createEventForNewMessage(MessageDto messageDto) {
+        User user = userService.findById(messageDto.getUserId());
+        EventType type = EventType.MESSAGE;
+        String story = messageDto.getMessage();
+        World world = user.getCurrentWorld();
+
+        return checkStoryAndSave(new Event(type, story, world, user));
+    }
+
+    /**
+     * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in
+     * case it exceeds the max length.
+     */
+    private Event checkStoryAndSave(Event event) {
+        String story = event.getStory();
+        String cutStory = StringUtils.abbreviate(story, EVENT_STORY_MAX_LENGTH);
+        event.setStory(cutStory);
+        return eventRepository.save(event);
     }
 
     public List<Event> getLatestEvent() {
