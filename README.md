@@ -22,11 +22,11 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 The quickest way to get a running SonarQuest is to do the following:
 
-~~Backend~~
+### Backend
 * download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/download/0.7.1/
 * start it with "java -jar [name of the jar]"
 
-~~Frontend~~
+### Frontend
 * check out the *sonarquest-frontend* folder from github
 * Install *Node.js*. Please follow the instructions on the [Node.js](https://nodejs.org) website.
 * Install *Angular-Cli* globally with `npm install -g @angular/cli`
