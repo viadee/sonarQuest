@@ -88,7 +88,8 @@ import { WizardService } from './services/wizard.service';
 import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import {EventService} from './services/event.service'
 import { EventPageComponent } from './pages/event-page/event-page.component'; 
-import {WebSocketService} from './services/websocket.service'
+import {WebSocketService} from './services/websocket.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -207,7 +208,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [TdMediaService,
     WorldService,

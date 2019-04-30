@@ -1,19 +1,20 @@
-import {TranslateService} from '@ngx-translate/core';
-import {WorldService} from './../../../../services/world.service';
-import {GamemasterAdventureEditComponent} from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
-import {Adventure} from './../../../../Interfaces/Adventure';
-import {Component, OnInit, OnChanges, Input, SimpleChanges} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { WorldService } from './../../../../services/world.service';
+import { GamemasterAdventureEditComponent } from './components/gamemaster-adventure-edit/gamemaster-adventure-edit.component';
+import { Adventure } from './../../../../Interfaces/Adventure';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild } from '@angular/core';
 import {
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
   TdDataTableSortingOrder,
   IPageChangeEvent
 } from '@covalent/core';
-import {MatDialog} from '@angular/material';
-import {AdventureService} from '../../../../services/adventure.service';
-import {GamemasterAdventureCreateComponent} from './components/gamemaster-adventure-create/gamemaster-adventure-create.component';
-import {QuestService} from '../../../../services/quest.service';
-import {World} from '../../../../Interfaces/World';
+import { MatDialog } from '@angular/material';
+import { AdventureService } from '../../../../services/adventure.service';
+import { GamemasterAdventureCreateComponent } from './components/gamemaster-adventure-create/gamemaster-adventure-create.component';
+import { QuestService } from '../../../../services/quest.service';
+import { World } from '../../../../Interfaces/World';
 import { TaskService } from 'app/services/task.service';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-gamemaster-adventure',
@@ -22,16 +23,18 @@ import { TaskService } from 'app/services/task.service';
 })
 export class GamemasterAdventureComponent implements OnInit, OnChanges {
   @Input() isSelected: boolean;
+  @ViewChild('deleteSuccessAdventureSwal') private deleteSuccessAdventureSwal: SwalComponent;
+
 
   currentWorld: World;
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: 200},
-    {name: 'gold', label: 'Gold'},
-    {name: 'xp', label: 'XP'},
-    {name: 'story', label: 'Story'},
-    {name: 'status', label: 'Status'},
-    {name: 'edit', label: '', width: 70}
+    { name: 'title', label: 'Title', width: 200 },
+    { name: 'gold', label: 'Gold' },
+    { name: 'xp', label: 'XP' },
+    { name: 'story', label: 'Story' },
+    { name: 'status', label: 'Status' },
+    { name: 'edit', label: '', width: 70 }
   ]
 
   // Sort / Filter / Paginate variables
@@ -46,19 +49,43 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
   freeQuestsAvailable: boolean;
 
+  swalOptionsConfirmDelete: {}
+  swalOptionsDeleteSuccess: {}
+
   constructor(private _dataTableService: TdDataTableService,
-              private questService: QuestService,
-              private worldService: WorldService,
-              private translateService: TranslateService,
-              private dialog: MatDialog,
-              private taskService: TaskService,
-              private adventureService: AdventureService) {
+    private questService: QuestService,
+    private worldService: WorldService,
+    private translateService: TranslateService,
+    private dialog: MatDialog,
+    private taskService: TaskService,
+    private adventureService: AdventureService) {
   }
 
   ngOnInit() {
     this.translateTable();
     this.init();
     this.worldService.onWorldChange().subscribe(() => this.init());
+
+    this.swalOptionsConfirmDelete = {
+      title: this.translate('GLOBAL.DELETE'),
+      text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),
+      backdrop: false,
+      type: 'question',
+      showCancelButton: true,
+      cancelButtonText: this.translate('GLOBAL.CANCEL'),
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      confirmButtonColor: '#C62828',
+      confirmButtonText: this.translate('GLOBAL.DELETE')
+    }
+    this.swalOptionsDeleteSuccess = {
+      title: this.translate('GLOBAL.DELETE_SUCCESS'),
+      toast: true,
+      type: 'success',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    }
   }
 
   private init() {
@@ -79,12 +106,12 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
   translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'title', label: col_names.TITLE, width: 200},
-        {name: 'gold', label: col_names.GOLD, width: 40},
-        {name: 'xp', label: col_names.XP, width: 40},
-        {name: 'story', label: col_names.STORY},
-        {name: 'status', label: col_names.STATUS},
-        {name: 'edit', label: '', width: 100}
+        { name: 'title', label: col_names.TITLE, width: 200 },
+        { name: 'gold', label: col_names.GOLD, width: 40 },
+        { name: 'xp', label: col_names.XP, width: 40 },
+        { name: 'story', label: col_names.STORY },
+        { name: 'status', label: col_names.STATUS },
+        { name: 'edit', label: '', width: 100 }
       ]
     });
   }
@@ -97,7 +124,7 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
   }
 
   newAdventure() {
-    this.dialog.open(GamemasterAdventureCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed().subscribe((bool) => {
+    this.dialog.open(GamemasterAdventureCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed().subscribe((bool) => {
       if (bool) {
         this.loadAdventures();
         this.questService.refreshQuests(this.currentWorld);
@@ -119,17 +146,15 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
   }
 
   deleteAdventure(adventure: Adventure) {
-    var msg = "";
-    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
-    if(confirm(msg)) {
       this.adventureService.deleteAdventure(adventure).then(() => {
         this.update();
+        this.deleteSuccessAdventureSwal.show();
       });
-    }
   }
 
   update() {
     this.taskService.refreshTasks(this.currentWorld);
+    this.adventureService.refreshAdventures(this.currentWorld);
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -166,5 +191,9 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
     this.filteredData = newData;
   }
 
-
+  translate(messageString: string): string {
+    let msg = '';
+    this.translateService.get(messageString).subscribe(translateMsg => msg = translateMsg);
+    return msg;
+  }
 }
