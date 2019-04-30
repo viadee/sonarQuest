@@ -3,8 +3,7 @@
 [![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest) 
 [![](https://img.shields.io/github/release-pre/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/releases) 
 [![](https://img.shields.io/github/license/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/blob/master/LICENSE)
-[![](https://img.shields.io/github/stars/viadee/sonarQuest.svg)]
-(https://github.com/viadee/sonarQuest/stargazers) 
+[![](https://img.shields.io/github/stars/viadee/sonarQuest.svg)](https://github.com/viadee/sonarQuest/stargazers) 
 [![](https://img.shields.io/github/forks/viadee/sonarQuest.svg)](https://github.com/viadee/sonarQuest/network/members)
 [![](https://img.shields.io/github/contributors/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/graphs/contributors) 
 [![](https://img.shields.io/github/last-commit/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/commits/master) 
