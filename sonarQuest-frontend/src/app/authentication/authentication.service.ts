@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable, Subscriber} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import {environment} from './../../environments/environment';
+import {environment} from '../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Token} from './Token';
 

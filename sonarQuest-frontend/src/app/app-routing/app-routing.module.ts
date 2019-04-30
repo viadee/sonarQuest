@@ -8,7 +8,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MyAvatarPageComponent} from '../pages/my-avatar-page/my-avatar-page.component';
 import {GamemasterPageComponent} from '../pages/gamemaster-page/gamemaster-page.component';
-import {AuthenticationGuard} from '../login/authentication.guard';
+import {AuthenticationGuard} from '../authentication/authentication.guard';
 import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
 import {LoginPageComponent} from "../pages/login-page/login-page.component";

@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import {WorldService} from "../../services/world.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MatDialog} from "@angular/material";
-import {AuthenticationService} from "../../login/authentication.service";
+import {AuthenticationService} from "../../authentication/authentication.service";
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
 
@@ -214,11 +214,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.addClass(this.body, "background-image");
   }
 
-   static hasClass(element: HTMLScriptElement, cssClass: string): Boolean {
+  hasClass(element: HTMLScriptElement, cssClass: string): Boolean {
     return element.classList.contains(cssClass);
   }
 
-  static removeSubString(fullString: string, removeString: string): string {
+  removeSubString(fullString: string, removeString: string): string {
     const newString = fullString.replace(removeString, '');
     return newString.replace('  ', ' ');
   }
