@@ -49,7 +49,9 @@
     "EDIT_DEVELOPER": "Entwickler bearbeiten",
     "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
     "SONAR_CUBE_HEADER": "SonarQube",
-    "SELECT_BACKGROUND": "Hintergrund wählen"
+    "SELECT_BACKGROUND": "Hintergrund wählen",
+    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Verbindungstest erfolgreich",
+    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server konnte nicht erreicht werden"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Bearbeitungsfortschritt",

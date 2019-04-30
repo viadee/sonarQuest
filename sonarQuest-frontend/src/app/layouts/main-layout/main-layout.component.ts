@@ -8,7 +8,6 @@ import {TdMediaService} from "@covalent/core";
 import {Router} from "@angular/router";
 import {WorldService} from "../../services/world.service";
 import {TranslateService} from "@ngx-translate/core";
-import {MatDialog} from "@angular/material";
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
@@ -53,7 +52,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     public router: Router,
     public worldService: WorldService,
     public translate: TranslateService,
-    private dialog: MatDialog,
     private authService: AuthenticationService,
     private permissionService: PermissionService,
     private userService: UserService) {

@@ -27,6 +27,16 @@ export class TranslateServiceStub {
   public get<T>(key: T): Observable<T> {
     return of(key);
   }
+
+  public setDefaultLang(lang: string): void {}
+
+  public getBrowserLang(): string {
+    return "de";
+  }
+
+  public use(lang: string): Observable<any> {
+    return of("de");
+  }
 }
 
 @NgModule({
