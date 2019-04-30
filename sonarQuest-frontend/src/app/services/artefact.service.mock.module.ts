@@ -6,6 +6,8 @@ import {Artefact} from "../Interfaces/Artefact";
 @Injectable()
 export class ArtefactServiceMock {
 
+  artefactsforMarkteplace$ = new Observable<Artefact[]>();
+
   artefacts$ = new Observable<Artefact>();
 
   getData(): void {}

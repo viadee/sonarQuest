@@ -12,7 +12,8 @@ export class UserServiceMock {
     role: {
       name: "someRole"
     },
-    aboutMe: "I'm Mister Example."
+    aboutMe: "I'm Mister Example.",
+    artefacts: []
   };
 
   user$ = of(this.user);
