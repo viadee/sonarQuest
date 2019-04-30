@@ -103,7 +103,7 @@ import {WizardService} from './services/wizard.service';
 import {ArtefactViewDetailsComponent} from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import {EventService} from './services/event.service'
 import {EventPageComponent} from './pages/event-page/event-page.component';
-import {WebSocketService} from './services/websocket.service';
+import {WebsocketService} from './services/websocket.service';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -253,7 +253,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PermissionService,
     WizardService,
     EventService,
-    WebSocketService,
+    WebsocketService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

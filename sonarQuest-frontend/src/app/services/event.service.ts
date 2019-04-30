@@ -1,15 +1,15 @@
-import { ImageService } from 'app/services/image.service';
-import { UserService } from './user.service';
-import { User } from './../Interfaces/User';
-import { WorldService } from './world.service';
-import { World } from './../Interfaces/World';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
-import { Injectable } from '@angular/core';
-import { RequestOptions, Response, Headers } from '@angular/http';
-import { environment } from "../../environments/environment";
-import { Event } from './../Interfaces/Event';
+import {ImageService} from 'app/services/image.service';
+import {UserService} from './user.service';
+import {User} from '../Interfaces/User';
+import {WorldService} from './world.service';
+import {World} from '../Interfaces/World';
+import {Observable} from 'rxjs/Observable';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Subject} from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {environment} from "../../environments/environment";
+import {Event} from '../Interfaces/Event';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -37,11 +37,11 @@ export class EventService {
     public imageService: ImageService
     ) {
       worldService.currentWorld$.subscribe(world=> {  
-        this.currentWorld = world
+        this.currentWorld = world;
         this.getEventsOfCurrentWorld()
       });
 
-      userService.user$.subscribe(user =>{ this.user = user })
+      userService.user$.subscribe(user =>{ this.user = user });
 
 
       this.events$.subscribe(events => {
@@ -53,13 +53,13 @@ export class EventService {
     this.http.get<Event[]>(`${environment.endpoint}/event/currentWorld`).subscribe(
         result => this.eventsSubject.next(result),
         err    => this.eventsSubject.error(err)
-      ) 
+      );
     return this.eventsSubject;
   }
 
   public addEvent(event){
-    event = this.getImageForMessage(event)  
-    this.events.push(event)
+    event = this.getImageForMessage(event)  ;
+    this.events.push(event);
 
     this.eventsSubject.next(this.events)
   }
@@ -73,17 +73,11 @@ export class EventService {
   }
 
   something() {
-    console.log("something()")
-    var message = "Sender"
+    var message = "Sender";
     this.http.post<string>(`${environment.endpoint}/event/something`, message).subscribe(s => {
       console.log(s)
     })
   }
-  /*
-  getEvents(){
-    return this.events
-  }
-  */
 
   getImageForMessages(events: Event[]): Event[]{
     events.forEach(event => {

@@ -1,4 +1,4 @@
-import { WebSocketService } from 'app/services/websocket.service';
+import { WebsocketService } from 'app/services/websocket.service';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -19,7 +19,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
               private router: Router,
               private storageService: LocalStorageService,
-              private webSocketService: WebSocketService,
+              private webSocketService: WebsocketService,
               private userService: UserService) {
   }
 
