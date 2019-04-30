@@ -8,5 +8,6 @@ export const RoutingUrls = {
   marketplace: 'marketplace',
   gamemaster: 'gamemaster',
   admin: 'admin',
-  events: 'events'
-}
+  events: 'events',
+  login: 'login'
+};

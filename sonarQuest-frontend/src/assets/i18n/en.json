@@ -215,6 +215,7 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
+    "HEADER": "Give your credentials and enter the mighty world of Sonar Quest",
     "USERNAME": "Username",
     "MAIL": "E-Mail",
     "PASSWORD": "Password",

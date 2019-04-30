@@ -233,6 +233,7 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
+    "HEADER": "Gib deine Losung ein und betritt die mächtige Welt von Sonar Quest",
     "USERNAME": "Benutzername",
     "MAIL": "E-Mail",
     "PASSWORD": "Passwort",

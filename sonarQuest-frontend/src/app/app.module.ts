@@ -9,18 +9,34 @@ import {MarketplacePageComponent} from './pages/marketplace-page/marketplace-pag
 
 import {StartPageComponent} from './pages/start-page/start-page.component';
 import {
-  CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule, TdMediaService,
+  CovalentDataTableModule,
+  CovalentLayoutModule,
+  CovalentPagingModule,
+  CovalentSearchModule,
+  TdMediaService,
 } from '@covalent/core';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
-import {CovalentLayoutModule} from '@covalent/core';
 import {AppComponent} from './app.component';
 import {
-  MatListModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatCardModule, MatProgressBarModule,
-  MatGridListModule, MatTooltipModule, MatButtonModule, MatProgressSpinnerModule, MatSelectModule, MatTabsModule,
-  MatDialogModule, MatInputModule, MatCheckboxModule, MatSnackBarModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {MyAvatarPageComponent} from './pages/my-avatar-page/my-avatar-page.component';
 import {AdventurePageComponent} from './pages/adventure-page/adventure-page.component';
@@ -53,9 +69,9 @@ import {ParticipatedQuestsComponent} from './pages/quest-page/components/partici
 import {AvailableQuestsComponent} from './pages/quest-page/components/available-quests/available-quests.component';
 import {ViewAvailableQuestComponent} from './pages/quest-page/components/available-quests/components/view-available-quest/view-available-quest.component';
 import {ParticipationService} from './services/participation.service';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {AdminDeveloperComponent} from './pages/admin-page/components/admin-developer/admin-developer.component';
 import {AdminDeveloperCreateComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-create/admin-developer-create.component';
 import {AdminDeveloperEditComponent} from './pages/admin-page/components/admin-developer/components/admin-developer-edit/admin-developer-edit.component';
@@ -76,19 +92,21 @@ import {AuthenticationGuard} from './login/authentication.guard';
 import {UserService} from './services/user.service';
 import {AuthenticationInterceptor} from './login/authentication.interceptor';
 import {ImageService} from './services/image.service';
-import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
+import {EmptyPageComponent} from './pages/empty-page/empty-page.component';
 import {AvatarClassService} from './services/avatar-class.service';
 import {AvatarRaceService} from './services/avatar-race.service';
 import {RoleService} from './services/role.service';
-import { LoadingComponent } from './components/loading/loading.component';
+import {LoadingComponent} from './components/loading/loading.component';
 import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
-import { WizardService } from './services/wizard.service';
-import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
+import {WizardService} from './services/wizard.service';
+import {ArtefactViewDetailsComponent} from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
 import {EventService} from './services/event.service'
-import { EventPageComponent } from './pages/event-page/event-page.component'; 
-import {WebSocketService} from './services/websocket.service'
+import {EventPageComponent} from './pages/event-page/event-page.component';
+import {WebSocketService} from './services/websocket.service';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -144,6 +162,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EmptyPageComponent,
     LoadingComponent,
     EventPageComponent,
+    LoginPageComponent,
+    MainLayoutComponent,
   ],
   entryComponents: [
     EditWorldComponent,
