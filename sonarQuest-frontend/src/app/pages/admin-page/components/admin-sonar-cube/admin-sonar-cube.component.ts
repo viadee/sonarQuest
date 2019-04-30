@@ -100,9 +100,10 @@ export class AdminSonarCubeComponent implements OnInit {
       this.worldService.worldChanged();
       loading.close();
     }).catch(() => {
-      loading.close();
-      const message = this.translate.get("SONAR_CUBE_SERVER_CHECK_ERROR");
-      this.snackBar.open(message, null, {duration: 2500});
+      this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+        loading.close();
+        this.snackBar.open(translatedMessage, null, {duration: 2500});
+      });
     })
   }
 
