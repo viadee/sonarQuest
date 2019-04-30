@@ -18,8 +18,7 @@ import {
 import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
 import {WizardServiceTestingModule} from "../../../../services/wizard.service.mock.module";
 import {UserServiceTestingModule} from "../../../../services/user.service.mock.module";
-import {WorldService} from "../../../../services/world.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {WorldServiceTestingModule} from "../../../../services/world.service.mock.module";
 
 describe('AdminDeveloperComponent', () => {
   let component: AdminDeveloperComponent;
@@ -46,10 +45,10 @@ describe('AdminDeveloperComponent', () => {
         CovalentPagingModule,
         WizardServiceTestingModule,
         UserServiceTestingModule,
-        HttpClientTestingModule
+        WorldServiceTestingModule
       ],
       providers : [
-        WorldService
+
       ]
     })
     .compileComponents();

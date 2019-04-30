@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdminWorldComponent } from './admin-world.component';
+import {AdminWorldComponent} from './admin-world.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -9,7 +9,8 @@ import {TranslateTestingModule} from "../../../../services/translate.service.moc
 import {
   MatCardModule,
   MatDialogModule,
-  MatDividerModule, MatFormFieldModule,
+  MatDividerModule,
+  MatFormFieldModule,
   MatIconModule,
   MatListModule,
   MatTooltipModule
@@ -17,12 +18,11 @@ import {
 import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
 import {WizardServiceTestingModule} from "../../../../services/wizard.service.mock.module";
 import {UserServiceTestingModule} from "../../../../services/user.service.mock.module";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {WorldService} from "../../../../services/world.service";
 import {QuestServiceTestingModule} from "../../../../services/quest.service.mock.module";
 import {AdventureServiceTestingModule} from "../../../../services/adventure.service.mock.module";
 import {TaskServiceTestingModule} from "../../../../services/task.service.mock.module";
 import {LoadingService} from "../../../../services/loading.service";
+import {WorldServiceTestingModule} from "../../../../services/world.service.mock.module";
 
 describe('AdminWorldComponent', () => {
   let component: AdminWorldComponent;
@@ -49,13 +49,12 @@ describe('AdminWorldComponent', () => {
         CovalentPagingModule,
         WizardServiceTestingModule,
         UserServiceTestingModule,
-        HttpClientTestingModule,
         QuestServiceTestingModule,
         AdventureServiceTestingModule,
-        TaskServiceTestingModule
+        TaskServiceTestingModule,
+        WorldServiceTestingModule
       ],
       providers : [
-        WorldService,
         LoadingService
       ]
     })

@@ -8,12 +8,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TranslateTestingModule} from "../../services/translate.service.mock.module";
 import {FormsModule} from "@angular/forms";
-import {UiDesignService} from "../../services/ui-design.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {WorldService} from "../../services/world.service";
-import {PermissionService} from "../../services/permission.service";
 import {AuthenticationTestingModule} from "../../authentication/authentication.service.mock.module";
 import {UserServiceTestingModule} from "../../services/user.service.mock.module";
+import {WorldServiceTestingModule} from "../../services/world.service.mock.module";
+import {PermissionServiceTestingModule} from "../../services/permission.service.mock.module";
+import {UiDesignServiceTestingModule} from "../../services/ui-design.service.mock.module";
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -34,15 +33,14 @@ describe('MainLayoutComponent', () => {
         RouterTestingModule,
         FormsModule,
         TranslateTestingModule,
-        HttpClientTestingModule,
         AuthenticationTestingModule,
-        UserServiceTestingModule
+        UserServiceTestingModule,
+        WorldServiceTestingModule,
+        PermissionServiceTestingModule,
+        UiDesignServiceTestingModule
       ],
       providers: [
-        UiDesignService,
-        TdMediaService,
-        WorldService,
-        PermissionService
+        TdMediaService
       ]
     })
     .compileComponents();

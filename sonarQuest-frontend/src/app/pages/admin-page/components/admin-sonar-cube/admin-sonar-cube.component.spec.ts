@@ -18,10 +18,9 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import {UserServiceTestingModule} from "../../../../services/user.service.mock.module";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {WorldService} from "../../../../services/world.service";
 import {LoadingService} from "../../../../services/loading.service";
 import {SonarCubeServiceTestingModule} from "../../../../services/sonar-cube.service.mock.module";
+import {WorldServiceTestingModule} from "../../../../services/world.service.mock.module";
 
 describe('AdminSonarCubeComponent', () => {
   let component: AdminSonarCubeComponent;
@@ -45,12 +44,11 @@ describe('AdminSonarCubeComponent', () => {
         MatDividerModule,
         MatSnackBarModule,
         MatFormFieldModule,
-        HttpClientTestingModule,
         SonarCubeServiceTestingModule,
-        UserServiceTestingModule
+        UserServiceTestingModule,
+        WorldServiceTestingModule
       ],
       providers : [
-        WorldService,
         LoadingService
       ]
     })

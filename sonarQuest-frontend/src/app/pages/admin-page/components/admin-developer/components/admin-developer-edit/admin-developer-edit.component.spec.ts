@@ -7,8 +7,12 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateTestingModule} from "../../../../../../services/translate.service.mock.module";
 import {
-  MAT_DIALOG_DATA, MatCheckboxModule,
-  MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
+  MAT_DIALOG_DATA,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDialogRef,
+  MatDividerModule,
+  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -18,13 +22,12 @@ import {
 import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
 import {WizardServiceTestingModule} from "../../../../../../services/wizard.service.mock.module";
 import {UserServiceTestingModule} from "../../../../../../services/user.service.mock.module";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {AvatarClassServiceTestingModule} from "../../../../../../services/avatar-class.service.mock.module";
 import {AvatarRaceServiceTestingModule} from "../../../../../../services/avatar-race.service.mock.module";
 import {RoleServiceTestingModule} from "../../../../../../services/role.service.mock.module";
 import {ImageService} from "../../../../../../services/image.service";
 import {UserToWorldServiceTestingModule} from "../../../../../../services/user-to-world.service.mock.module";
-import {WorldService} from "../../../../../../services/world.service";
+import {WorldServiceTestingModule} from "../../../../../../services/world.service.mock.module";
 
 describe('AdminDeveloperEditComponent', () => {
   let component: AdminDeveloperEditComponent;
@@ -75,17 +78,16 @@ describe('AdminDeveloperEditComponent', () => {
         CovalentPagingModule,
         WizardServiceTestingModule,
         UserServiceTestingModule,
-        HttpClientTestingModule,
         AvatarClassServiceTestingModule,
         AvatarRaceServiceTestingModule,
         RoleServiceTestingModule,
-        UserToWorldServiceTestingModule
+        UserToWorldServiceTestingModule,
+        WorldServiceTestingModule
       ],
       providers: [
         {provide: MAT_DIALOG_DATA, useValue: data},
         {provide: MatDialogRef, useValue: {}},
-        ImageService,
-        WorldService
+        ImageService
       ]
     })
       .compileComponents();
