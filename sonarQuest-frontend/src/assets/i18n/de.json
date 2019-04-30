@@ -152,7 +152,10 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Schließen",
-    "CONFIRMATION_MESSAGE": "Wirklich löschen?"
+    "CONFIRMATION_MESSAGE": "Wirklich löschen?",
+    "CANNOT_DELETE":"Fehler beim Löschen",
+    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",

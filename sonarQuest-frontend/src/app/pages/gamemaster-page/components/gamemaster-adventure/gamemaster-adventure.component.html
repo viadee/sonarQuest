@@ -24,10 +24,12 @@
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
           </button>
-          <button mat-icon-button (click)="deleteAdventure(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+          <button mat-icon-button [swal]="deleteAdventureSwal"  [matTooltip]="'GLOBAL.DELETE' | translate"
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-broken-skull ra-2x"></i>
           </button>
+          <swal #deleteAdventureSwal [options]=swalOptionsConfirmDelete  (confirm)="deleteAdventure(row)"> </swal>
+          <swal #deleteSuccessAdventureSwal [options]=swalOptionsDeleteSuccess> </swal>
         </div>
       </ng-template>
     </td-data-table>

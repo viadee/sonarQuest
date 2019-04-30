@@ -47,7 +47,7 @@ public class Artefact {
     private List<Skill> skills;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "artefacts", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "artefacts", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<User> users;
 
     public Artefact() {

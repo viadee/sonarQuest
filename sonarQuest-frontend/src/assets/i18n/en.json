@@ -134,7 +134,9 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Close",
-    "CONFIRMATION_MESSAGE": "Really delete this?"
+    "CONFIRMATION_MESSAGE": "Really delete this?",
+    "CANNOT_DELETE":"Error deleting",
+    "CANNOT_DELETE_Artefact":"The artifact could not be deleted. It is still assigned to a user"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",

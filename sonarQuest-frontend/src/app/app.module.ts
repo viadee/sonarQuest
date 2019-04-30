@@ -106,6 +106,7 @@ import {EventPageComponent} from './pages/event-page/event-page.component';
 import {WebSocketService} from './services/websocket.service';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -224,7 +225,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [TdMediaService,
     WorldService,

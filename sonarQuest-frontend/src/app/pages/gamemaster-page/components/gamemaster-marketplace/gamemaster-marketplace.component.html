@@ -10,13 +10,13 @@
           {{"ARTEFACT.ARTEFACTS"| translate}}
         </span>
       </span>
-      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" [placeholder]="'GLOBAL.SEARCH' | translate" (searchDebounce)="search($event)"
-        flex>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" [placeholder]="'GLOBAL.SEARCH' | translate"
+        (searchDebounce)="search($event)" flex>
       </td-search-box>
     </div>
     <mat-divider></mat-divider>
-    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
-      [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
+      [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="icon" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <i class="ra ra-3x" [ngClass]="value"></i>
@@ -24,7 +24,7 @@
       </ng-template>
       <ng-template tdDataTableTemplate="skills" let-value="value" let-row="row" let-column="column">
         <div *ngFor="let skill of value">
-            <div>{{skill.name}}&nbsp;</div>
+          <div>{{skill.name}}&nbsp;</div>
         </div>
       </ng-template>
 
@@ -34,10 +34,13 @@
             [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
           </button>
-          <button mat-icon-button (click)="deleteArtefact(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+          <button mat-icon-button [swal]="deleteArtefactSwal" [matTooltip]="'GLOBAL.DELETE' | translate"
             [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-broken-skull ra-2x"></i>
           </button>
+          <swal #deleteArtefactSwal [options]=swalOptionsConfirmDelete  (confirm)="deleteArtefact(row)"> </swal>
+          <swal #cannotDeleteArtefactSwal [options]=swalOptionsCannotDelete> </swal>
+          <swal #deleteSuccessArtefactSwal [options]=swalOptionsDeleteSuccess> </swal>
         </div>
       </ng-template>
     </td-data-table>

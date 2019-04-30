@@ -30,10 +30,12 @@
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-quill-ink ra-2x"></i>
           </button>
-          <button mat-icon-button (click)="deleteQuest(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+          <button mat-icon-button [swal]="deleteQuestSwal" [matTooltip]="'GLOBAL.DELETE' | translate"
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
             <i class="ra ra-broken-skull ra-2x"></i>
           </button>
+          <swal #deleteQuestSwal [options]=swalOptionsConfirmDelete  (confirm)="deleteQuest(row)"> </swal>
+          <swal #deleteSuccessQuestSwal [options]=swalOptionsDeleteSuccess> </swal>
         </div>
       </ng-template>
     </td-data-table>
