@@ -3,10 +3,13 @@
 [![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest) 
 [![](https://img.shields.io/github/release-pre/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/releases) 
 [![](https://img.shields.io/github/license/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/blob/master/LICENSE)
-[![](https://img.shields.io/github/stars/viadee/sonarquest.svg?style=social)](https://github.com/viadee/sonarQuest/stargazers) 
+[![](https://img.shields.io/github/stars/viadee/sonarQuest.svg)]
+(https://github.com/viadee/sonarQuest/stargazers) 
 [![](https://img.shields.io/github/forks/viadee/sonarQuest.svg)](https://github.com/viadee/sonarQuest/network/members)
 [![](https://img.shields.io/github/contributors/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/graphs/contributors) 
 [![](https://img.shields.io/github/last-commit/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/commits/master) 
+[![](https://img.shields.io/github/commits-since/viadee/SonarQuest/0.7.1.svg)](https://github.com/viadee/sonarQuest/compare/0.7.1...master) 
+
 
 A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification system. Handle your code quality issues in a playful way by solving quests and adventures, earning rewards for refactoring code smells and optimization.
 
