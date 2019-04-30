@@ -34,7 +34,7 @@ public class Skill {
     private Long value;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "skills", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<AvatarClass> avatarClasses;
 
     public Skill() {

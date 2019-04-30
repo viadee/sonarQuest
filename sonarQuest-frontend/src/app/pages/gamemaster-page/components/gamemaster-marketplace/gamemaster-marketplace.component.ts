@@ -1,6 +1,6 @@
-import {GamemasterArtefactEditComponent} from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
-import {MatDialog} from '@angular/material';
-import {GamemasterArtefactCreateComponent} from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
+import { GamemasterArtefactEditComponent } from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
+import { MatDialog } from '@angular/material';
+import { GamemasterArtefactCreateComponent } from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
 import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent,
@@ -8,9 +8,9 @@ import {
   TdDataTableSortingOrder,
   TdDataTableService
 } from '@covalent/core';
-import {ArtefactService} from './../../../../services/artefact.service';
-import {Component, OnInit} from '@angular/core';
-import {Artefact} from '../../../../Interfaces/Artefact';
+import { ArtefactService } from './../../../../services/artefact.service';
+import { Component, OnInit } from '@angular/core';
+import { Artefact } from '../../../../Interfaces/Artefact';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -24,13 +24,13 @@ export class GamemasterMarketplaceComponent implements OnInit {
   artefacts: Artefact[];
 
   columns: ITdDataTableColumn[] = [
-    {name: 'icon', label: ''},
-    {name: 'name', label: 'name'},
-    {name: 'price', label: 'Price (in Gold)'},
-    {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.levelNumber', label: 'min. Level'},
-    {name: 'skills', label: 'Skills'},
-    {name: 'edit', label: ''}
+    { name: 'icon', label: '' },
+    { name: 'name', label: 'name' },
+    { name: 'price', label: 'Price (in Gold)' },
+    { name: 'quantity', label: 'Quantity' },
+    { name: 'minLevel.levelNumber', label: 'min. Level' },
+    { name: 'skills', label: 'Skills' },
+    { name: 'edit', label: '' }
   ];
 
   // Sort / Filter / Paginate variables
@@ -54,19 +54,19 @@ export class GamemasterMarketplaceComponent implements OnInit {
   ngOnInit() {
     this.translateService.get('ARTEFACT').subscribe((col_names) => {
       this.columns = [
-        {name: 'icon', label: ''},
-        {name: 'name', label: col_names.NAME},
-        {name: 'price', label: col_names.PRICE},
-        {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL},
-        {name: 'skills', label: col_names.SKILLS},
-        {name: 'edit', label: ''}]
-    });      
+        { name: 'icon', label: '' },
+        { name: 'name', label: col_names.NAME },
+        { name: 'price', label: col_names.PRICE },
+        { name: 'quantity', label: col_names.QUANTITY },
+        { name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL },
+        { name: 'skills', label: col_names.SKILLS },
+        { name: 'edit', label: '' }]
+    });
     this.update();
   }
 
   newArtefact() {
-    this.dialog.open(GamemasterArtefactCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
+    this.dialog.open(GamemasterArtefactCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
       .subscribe(() => {
       });
   }
@@ -83,9 +83,14 @@ export class GamemasterMarketplaceComponent implements OnInit {
   deleteArtefact(artefact: Artefact) {
     var msg = "";
     this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
-    if(confirm(msg)) {
-      this.artefactService.deleteArtefact(artefact).then(() => {
-        this.update();
+    if (confirm(msg)) {
+      this.artefactService.deleteArtefact(artefact).then(response => {
+        if (!response) {
+          this.translateService.get('GLOBAL.USERS_STILL_ASSOCIATED').subscribe(translateMsg => msg = translateMsg)
+          confirm(msg);
+        } else {
+          this.update();
+        }
       });
     }
   }

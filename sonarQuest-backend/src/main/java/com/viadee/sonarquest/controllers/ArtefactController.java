@@ -25,66 +25,73 @@ import com.viadee.sonarquest.services.UserService;
 @RequestMapping("/artefact")
 public class ArtefactController {
 
-    @Autowired
-    private ArtefactRepository artefactRepository;
+	@Autowired
+	private ArtefactRepository artefactRepository;
 
-    @Autowired
-    private ArtefactService artefactService;
+	@Autowired
+	private ArtefactService artefactService;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping
-    public List<Artefact> getAllArtefacts() {
-        return artefactService.getArtefacts();
-    }
+	@GetMapping
+	public List<Artefact> getAllArtefacts() {
+		return artefactService.getArtefacts();
+	}
 
-    @GetMapping(value = "/forMarketplace/")
-    public List<Artefact> getArtefactsforMarketplace() {
-        return artefactService.getArtefactsForMarketplace();
-    }
+	@GetMapping(value = "/forMarketplace/")
+	public List<Artefact> getArtefactsforMarketplace() {
+		return artefactService.getArtefactsForMarketplace();
+	}
 
-    @GetMapping(value = "/{id}")
-    public Artefact getArtefactById(@PathVariable(value = "id") final Long id) {
-        return artefactService.getArtefact(id);
-    }
+	@GetMapping(value = "/{id}")
+	public Artefact getArtefactById(@PathVariable(value = "id") final Long id) {
+		return artefactService.getArtefact(id);
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Artefact createArtefact(@RequestBody final Artefact artefact) {
-        return artefactService.createArtefact(artefact);
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Artefact createArtefact(@RequestBody final Artefact artefact) {
+		return artefactService.createArtefact(artefact);
+	}
 
-    @PutMapping(value = "/{id}")
-    public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
-        Artefact artefact = artefactRepository.findOne(data.getId());
-        if (artefact != null) {
-            artefact.setDescription(data.getDescription());
-            artefact.setIcon(data.getIcon());
-            artefact.setMinLevel(data.getMinLevel());
-            artefact.setName(data.getName());
-            artefact.setPrice(data.getPrice());
-            artefact.setQuantity(data.getQuantity());
-            artefact.setSkills(data.getSkills());
-            artefact.setUsers(data.getUsers());
-            artefactService.updateArtefact(id, artefact);
-        }
-        return artefact;
-    }
+	@PutMapping(value = "/{id}")
+	public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
+		Artefact artefact = artefactRepository.findOne(data.getId());
+		if (artefact != null) {
+			artefact.setDescription(data.getDescription());
+			artefact.setIcon(data.getIcon());
+			artefact.setMinLevel(data.getMinLevel());
+			artefact.setName(data.getName());
+			artefact.setPrice(data.getPrice());
+			artefact.setQuantity(data.getQuantity());
+			artefact.setSkills(data.getSkills());
+			artefact.setUsers(data.getUsers());
+			artefactService.updateArtefact(id, artefact);
+		}
+		return artefact;
+	}
 
-    @PutMapping(value = "/{artefact_id}/buy")
-    public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
-        final User user = userService.findByUsername(principal.getName());
-        final Artefact artefact = artefactRepository.findOne(artefact_id);
+	@PutMapping(value = "/{artefact_id}/buy")
+	public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
+		final User user = userService.findByUsername(principal.getName());
+		final Artefact artefact = artefactRepository.findOne(artefact_id);
 
-        return artefactService.buyArtefact(artefact, user) != null;
-    }
+		return artefactService.buyArtefact(artefact, user) != null;
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteArtefact(@PathVariable(value = "id") final Long id) {
-        if (artefactRepository.findOne(id) != null) {
-            artefactRepository.delete(id);
-        }
-    }
+	@DeleteMapping(value = "/{id}")
+	public boolean deleteArtefact(@PathVariable(value = "id") final Long id) {
+		Artefact artefact = artefactRepository.findOne(id);
+		if (artefact != null) {
+			if (artefact.getUsers().size() != 0) {
+				return false;
+			} else {
+				artefactRepository.delete(id);
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
