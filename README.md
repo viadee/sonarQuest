@@ -20,7 +20,7 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 ## Jump-start for users
 
-The quickest way to get a running SonarQuest and to start playing is to do the following:
+The quickest way to get a running SonarQuest and to start playing is use Docker, see [INSTALLATION.md](installation.md) or if you do not use Docker, just do the following:
 
 ### Backend
 * download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/tag/0.7.1/
