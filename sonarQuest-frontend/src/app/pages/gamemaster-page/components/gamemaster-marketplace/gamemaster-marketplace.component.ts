@@ -9,9 +9,10 @@ import {
   TdDataTableService
 } from '@covalent/core';
 import { ArtefactService } from './../../../../services/artefact.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Artefact } from '../../../../Interfaces/Artefact';
 import { TranslateService } from '@ngx-translate/core';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -20,6 +21,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class GamemasterMarketplaceComponent implements OnInit {
+  @ViewChild('cannotDeleteArtefactSwal') private cannotDeleteArtefactSwal: SwalComponent;
+  @ViewChild('deleteSuccessArtefactSwal') private deleteSuccessArtefactSwal: SwalComponent;
 
   artefacts: Artefact[];
 
@@ -33,6 +36,8 @@ export class GamemasterMarketplaceComponent implements OnInit {
     { name: 'edit', label: '' }
   ];
 
+
+
   // Sort / Filter / Paginate variables
   filteredData: any[];
   filteredTotal: number;
@@ -43,6 +48,10 @@ export class GamemasterMarketplaceComponent implements OnInit {
   sortBy = 'name';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
+
+  swalOptionsConfirmDelete: {}
+  swalOptionsCannotDelete: {}
+  swalOptionsDeleteSuccess: {}
 
   constructor(
     private _dataTableService: TdDataTableService,
@@ -63,6 +72,35 @@ export class GamemasterMarketplaceComponent implements OnInit {
         { name: 'edit', label: '' }]
     });
     this.update();
+    this.swalOptionsConfirmDelete = {
+      title: this.translate('GLOBAL.DELETE'),
+      text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),
+      backdrop: false,
+      type: 'question',
+      showCancelButton: true,
+      cancelButtonText: this.translate('GLOBAL.CANCEL'),
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      confirmButtonColor: '#C62828',
+      confirmButtonText: this.translate('GLOBAL.DELETE')
+    }
+
+    this.swalOptionsCannotDelete = {
+      title: this.translate('GLOBAL.CANNOT_DELETE'),
+      text: this.translate('GLOBAL.CANNOT_DELETE_ARTEFACT'),
+      backdrop: false,
+      type: 'error',
+      confirmButtonColor: '#C62828'
+    }
+    this.swalOptionsDeleteSuccess = {
+      title: this.translate('GLOBAL.DELETE_SUCCESS'),
+      toast: true,
+      type: 'success',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    }
+
   }
 
   newArtefact() {
@@ -81,18 +119,21 @@ export class GamemasterMarketplaceComponent implements OnInit {
   }
 
   deleteArtefact(artefact: Artefact) {
-    var msg = "";
-    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
-    if (confirm(msg)) {
-      this.artefactService.deleteArtefact(artefact).then(response => {
-        if (!response) {
-          this.translateService.get('GLOBAL.USERS_STILL_ASSOCIATED').subscribe(translateMsg => msg = translateMsg)
-          confirm(msg);
-        } else {
-          this.update();
-        }
-      });
-    }
+    this.artefactService.deleteArtefact(artefact).then(response => {
+      if (!response) {
+        this.cannotDeleteArtefactSwal.show();
+      } else {
+        this.deleteSuccessArtefactSwal.show();
+        this.update();
+      }
+    });
+
+  }
+
+  translate(messageString: string): string {
+    let msg = '';
+    this.translateService.get(messageString).subscribe(translateMsg => msg = translateMsg);
+    return msg;
   }
 
   update() {

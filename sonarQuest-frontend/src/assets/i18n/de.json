@@ -151,7 +151,9 @@
     "XP": "XP",
     "CLOSE": "Schließen",
     "CONFIRMATION_MESSAGE": "Wirklich löschen?",
-    "USERS_STILL_ASSOCIATED":"Es ist noch ein Benutzer zugeordnet"
+    "CANNOT_DELETE":"Fehler beim Löschen",
+    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",
