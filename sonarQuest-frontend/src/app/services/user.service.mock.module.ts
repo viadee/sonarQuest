@@ -13,7 +13,24 @@ export class UserServiceMock {
       name: "someRole"
     },
     aboutMe: "I'm Mister Example.",
-    artefacts: []
+    artefacts: [
+      {
+        id: 1,
+        name: "some Artefact",
+        icon: "PATH/TO/ICON",
+        price: 100,
+        quantity: 2,
+        description: "Artefact description",
+        minLevel: null,
+        skills: [{
+          id: 1,
+          name: "Cool skill",
+          type: "magic",
+          value: 123,
+          avatarClasses: []
+        }]
+      }
+    ]
   };
 
   user$ = of(this.user);
@@ -22,7 +39,8 @@ export class UserServiceMock {
     return new Observable<boolean>();
   }
 
-  public loadUser(): void {}
+  public loadUser(): void {
+  }
 
   public getUser(): User {
     return this.user;
@@ -42,28 +60,24 @@ export class UserServiceMock {
   }
 
   public updateUser(user: User): Promise<User> {
-    return new Promise(() => {});
+    return new Promise(() => {
+    });
   }
 
   public deleteUser(user: User): Promise<any> {
-    return new Promise(() => {});
+    return new Promise(() => {
+    });
   }
 
 }
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   providers: [
-    { provide: UserService, useClass: UserServiceMock }
+    {provide: UserService, useClass: UserServiceMock}
   ],
-  imports: [
-
-  ],
-  exports: [
-
-  ]
+  imports: [],
+  exports: []
 })
 export class UserServiceTestingModule {
 

@@ -5,13 +5,13 @@
         <div flex>
           <div layout="row">
             <div class="avatar-image">
-              <img [src]="imageToShow">
+              <img [src]="imageToShow" alt="The image of your avatar.">
             </div>
             <div flex>
               <div layout="column">
                 <mat-card-title>{{user?.username}}</mat-card-title>
-                <mat-card-subtitle>{{"DEVELOPER.AVATARCLASS"| translate}}: {{user?.avatarClass.name}}</mat-card-subtitle>
-                <mat-card-subtitle>{{"DEVELOPER.AVATARRACE"| translate}}: {{user?.avatarRace.name}}</mat-card-subtitle>
+                <mat-card-subtitle>{{"DEVELOPER.AVATARCLASS"| translate}}: {{user?.avatarClass?.name}}</mat-card-subtitle>
+                <mat-card-subtitle>{{"DEVELOPER.AVATARRACE"| translate}}: {{user?.avatarRace?.name}}</mat-card-subtitle>
               </div>
             </div>
           </div>
