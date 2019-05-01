@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { QuestService } from "../../../../../../../../services/quest.service";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { GamemasterAdventureCreateComponent } from "../../gamemaster-adventure-create.component";
-import { World } from "../../../../../../../../Interfaces/World";
-import { Quest } from "../../../../../../../../Interfaces/Quest";
+import {Component, Inject, OnInit} from '@angular/core';
+import {QuestService} from "../../../../../../../../services/quest.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {GamemasterAdventureCreateComponent} from "../../gamemaster-adventure-create.component";
+import {Quest} from "../../../../../../../../Interfaces/Quest";
 
 @Component({
   selector: 'app-gamemaster-add-free-quest',
@@ -12,7 +11,7 @@ import { Quest } from "../../../../../../../../Interfaces/Quest";
 })
 export class GamemasterAddFreeQuestComponent implements OnInit {
 
-  freeQuests: Quest[]
+  freeQuests: Quest[];
 
   constructor(
     private questService: QuestService,

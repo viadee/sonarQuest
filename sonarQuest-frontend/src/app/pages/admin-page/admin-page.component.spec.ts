@@ -1,6 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminPageComponent } from './admin-page.component';
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {RouterTestingModule} from "@angular/router/testing";
+import {FormsModule} from "@angular/forms";
+import {TranslateTestingModule} from "../../services/translate.service.mock.module";
+import {
+  MatCardModule, MatDividerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatListModule,
+  MatTabsModule,
+  MatTooltipModule
+} from "@angular/material";
+import {AdminWorldComponent} from "./components/admin-world/admin-world.component";
+import {AdminDeveloperComponent} from "./components/admin-developer/admin-developer.component";
+import {AdminSonarCubeComponent} from "./components/admin-sonar-cube/admin-sonar-cube.component";
+import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
+import {WizardServiceTestingModule} from "../../services/wizard.service.mock.module";
+import {UserServiceTestingModule} from "../../services/user.service.mock.module";
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -8,7 +27,34 @@ describe('AdminPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminPageComponent ]
+      declarations: [
+        AdminPageComponent,
+        AdminWorldComponent,
+        AdminDeveloperComponent,
+        AdminSonarCubeComponent
+      ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+        FormsModule,
+        TranslateTestingModule,
+        MatTooltipModule,
+        MatCardModule,
+        MatListModule,
+        MatTabsModule,
+        MatIconModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        CovalentDataTableModule,
+        CovalentSearchModule,
+        CovalentPagingModule,
+        WizardServiceTestingModule,
+        UserServiceTestingModule
+      ],
+      providers: [
+
+      ]
     })
     .compileComponents();
   }));
@@ -19,7 +65,5 @@ describe('AdminPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
 });

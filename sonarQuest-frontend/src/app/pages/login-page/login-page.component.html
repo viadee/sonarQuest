@@ -1,0 +1,23 @@
+<div class="loading">
+
+  <div class="centered login-form">
+    <h1>{{"LOGIN.HEADER" | translate}}</h1>
+    <div layout="column" layout-padding>
+      <mat-form-field >
+        <input matInput placeholder='{{"LOGIN.USERNAME"| translate}}' [(ngModel)]="username"  (keydown)="onKeyDown($event)"  required >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder='{{"LOGIN.PASSWORD"| translate}}' [(ngModel)]="password"  (keydown)="onKeyDown($event)"  required [type]="'password'" class="color-white">
+      </mat-form-field>
+    </div>
+
+    <button  mat-raised-button color="primary" type="submit" (click)="onSubmit()"
+            [matTooltip]='"LOGIN.LOGIN" | translate'
+            [matTooltipClass]="'tooltipMultiline'"
+            matTooltipPosition="below"
+    class="login-button">
+      <i class="ra ra-4x ra-key"></i>
+    </button>
+  </div>
+</div>

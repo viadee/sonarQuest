@@ -1,10 +1,10 @@
-import { WebSocketService } from 'app/services/websocket.service';
+import { WebsocketService } from 'app/services/websocket.service';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable, Subscriber} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import {environment} from './../../environments/environment';
+import {environment} from '../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Token} from './Token';
 
@@ -19,7 +19,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
               private router: Router,
               private storageService: LocalStorageService,
-              private webSocketService: WebSocketService,
+              private webSocketService: WebsocketService,
               private userService: UserService) {
   }
 

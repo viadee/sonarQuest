@@ -1,6 +1,6 @@
-import {GamemasterSuggestTasksComponent} from './../gamemaster-quest-create/components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component';
-import {GamemasterAddFreeTaskComponent} from './../gamemaster-quest-create/components/gamemaster-add-free-task/gamemaster-add-free-task.component';
-import {QuestService} from './../../../../../../services/quest.service';
+import {GamemasterSuggestTasksComponent} from '../gamemaster-quest-create/components/gamemaster-suggest-tasks/gamemaster-suggest-tasks.component';
+import {GamemasterAddFreeTaskComponent} from '../gamemaster-quest-create/components/gamemaster-add-free-task/gamemaster-add-free-task.component';
+import {QuestService} from '../../../../../../services/quest.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {MatDialogRef} from '@angular/material';
 import {Component, OnInit, Inject} from '@angular/core';
@@ -32,11 +32,7 @@ export class GamemasterQuestEditComponent implements OnInit {
 
   ngOnInit() {
     // TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
-    if (this.quest.status === QuestState.SOLVED) {
-      this.isSolved = true;
-    } else {
-      this.isSolved = false;
-    }
+    this.isSolved = this.quest.status === QuestState.SOLVED;
     this.loadImages();
   }
 

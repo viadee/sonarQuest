@@ -1,9 +1,9 @@
-import { World } from './../Interfaces/World';
+import { World } from '../Interfaces/World';
 import { WorldService } from './world.service';
 import { EventService } from 'app/services/event.service';
 import { UserService } from 'app/services/user.service';
-import { Message } from './../Interfaces/Message';
-import { Event } from './../Interfaces/Event';
+import { Message } from '../Interfaces/Message';
+import { Event } from '../Interfaces/Event';
 import * as SockJS from 'sockjs-client';
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
@@ -11,9 +11,9 @@ import { User } from 'app/Interfaces/User';
 
 
 @Injectable()
-export class WebSocketService {
+export class WebsocketService {
 
-  private serverUrl = 'http://localhost:8080/socket'
+  private serverUrl = 'http://localhost:8080/socket';
   private stompClient;
   private user: User;
   private currentWorld: World;
@@ -24,8 +24,8 @@ export class WebSocketService {
     public eventService: EventService,
     public worldService: WorldService
   ) {
-      userService.user$.subscribe(user => { this.user = user })
-      worldService.currentWorld$.subscribe(currentWorld => { this.currentWorld = currentWorld })
+      userService.user$.subscribe(user => { this.user = user });
+      worldService.currentWorld$.subscribe(currentWorld => { this.currentWorld = currentWorld });
       this.initializeWebSocketConnection();
   }
 

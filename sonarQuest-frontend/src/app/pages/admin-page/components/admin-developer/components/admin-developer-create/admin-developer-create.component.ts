@@ -1,5 +1,5 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AdminDeveloperComponent} from './../../admin-developer.component';
+import {AdminDeveloperComponent} from '../../admin-developer.component';
 import {Component, OnInit, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../../../../Interfaces/User';
@@ -12,7 +12,6 @@ import {Role} from '../../../../../../Interfaces/Role';
 import {RoleService} from '../../../../../../services/role.service';
 
 @Component({
-  selector: 'app-admin-developer-create',
   templateUrl: './admin-developer-create.component.html',
   styleUrls: ['./admin-developer-create.component.css']
 })
@@ -59,11 +58,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
   matchNameValidator() {
     return (control: FormControl) => {
       const nameVal = control.value;
-      if (this.users.filter(user => (user.username === nameVal)).length !== 0) {
-        this.nameTaken = true;
-      } else {
-        this.nameTaken = false;
-      }
+      this.nameTaken = this.users.filter(user => (user.username === nameVal)).length !== 0;
       console.log(this.nameTaken);
       return this.nameTaken ? {'currentName': {nameVal}} : null;
     }
@@ -71,11 +66,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
   matchMailValidator() {
     return (control: FormControl) => {
       const mailVal = control.value;
-      if (this.users.filter(user => (user.mail === mailVal)).length !== 0) {
-        this.mailTaken = true;
-      } else {
-        this.mailTaken = false;
-      }
+      this.mailTaken = this.users.filter(user => (user.mail === mailVal)).length !== 0;
       console.log(this.mailTaken);
       return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
     }

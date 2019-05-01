@@ -1,0 +1,16 @@
+.centered {
+  max-width:500px;
+  min-height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-button {
+  padding: 20px;
+  border-radius: 0;
+  background-color: #c62828;
+}
+
+
