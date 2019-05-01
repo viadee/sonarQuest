@@ -12,6 +12,12 @@ export class UserServiceMock {
     role: {
       name: "someRole"
     },
+    level: {
+      id: 1,
+      minXp: 5,
+      maxXp: 10,
+      levelNumber: 2
+    },
     aboutMe: "I'm Mister Example.",
     artefacts: [
       {
