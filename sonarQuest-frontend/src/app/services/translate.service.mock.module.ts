@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 
 const translations: any = {};
 
-class FakeLoader implements TranslateLoader {
+export class FakeLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     return of(translations);
   }
