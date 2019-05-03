@@ -8,7 +8,7 @@
   <button *ngIf="icon!=''" mat-button (click)="selectIcon(icon)">
     <i class="ra ra-4x" [ngClass]="icon"></i>
   </button>
-  
+
 </mat-toolbar>
 
 <mat-dialog-content>
@@ -16,31 +16,36 @@
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Name" [(ngModel)]="name">
+        <input matInput placeholder="{{'ARTEFACT.NAME' | translate}}" [(ngModel)]="name">
       </mat-form-field>
     </div>
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="min. Level" type="number" min="1" [(ngModel)]="min">
+        <input matInput placeholder="{{'ARTEFACT.MIN_LEVEL' | translate}}" type="number" min="1" [(ngModel)]="min">
       </mat-form-field>
     </div>
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Price" type="number" min="0" [(ngModel)]="price">
+        <input matInput placeholder="{{'ARTEFACT.PRICE' | translate}}" type="number" min="0" [(ngModel)]="price">
       </mat-form-field>
     </div>
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="available quantity" type="number" min="0" [(ngModel)]="quantity">
+        <input matInput placeholder="{{'ARTEFACT.QUANTITY' | translate}}" type="number" min="0" [(ngModel)]="quantity">
       </mat-form-field>
     </div>
 
     <div flex>
+      <mat-checkbox [(ngModel)]="onMarketplace">{{'ARTEFACT.ON_MARKETPLACE' | translate}}</mat-checkbox>
+    </div>
+
+    <div flex>
       <mat-form-field class="full-width">
-        <textarea matInput placeholder="Description" maxlength="255" [(ngModel)]="description"></textarea>
+        <textarea matInput placeholder="{{'ARTEFACT.DESCRIPTION' | translate}}" maxlength="255"
+          [(ngModel)]="description"></textarea>
       </mat-form-field>
     </div>
 
@@ -50,8 +55,16 @@
 <mat-toolbar>
   <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
 </mat-toolbar>
-<td-data-table #dataTable [data]="filteredSkills" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
-  [sortOrder]="sortOrder" (sortChange)="sort($event)">
+<td-data-table #dataTable [data]="filteredSkills" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
+  [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+  <ng-template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <button mat-icon-button (click)="editSkill(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
+          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+          <i class="ra ra-quill-ink ra-2x"></i>
+        </button>
+      </div> 
+    </ng-template>
 </td-data-table>
 
 <mat-divider></mat-divider>

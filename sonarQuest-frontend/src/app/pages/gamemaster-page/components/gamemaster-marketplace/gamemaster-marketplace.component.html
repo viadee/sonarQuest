@@ -27,6 +27,10 @@
           <div>{{skill.name}}&nbsp;</div>
         </div>
       </ng-template>
+      <ng-template tdDataTableTemplate="onMarketplace" let-value="value" let-row="row" let-column="column">
+        <mat-icon *ngIf="value" style="color:#29c429">check_circle</mat-icon>
+        <mat-icon *ngIf="!value" style="color:#C62828">cancel</mat-icon>
+      </ng-template>
 
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
         <div layout="row">

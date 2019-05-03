@@ -1,6 +1,6 @@
-import {MatDialog} from '@angular/material';
-import {GamemasterIconSelectComponent} from './../gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
-import {SkillService} from './../../../../../../services/skill.service';
+import { MatDialog } from '@angular/material';
+import { GamemasterIconSelectComponent } from './../gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
+import { SkillService } from './../../../../../../services/skill.service';
 import {
   ITdDataTableColumn,
   TdDataTableSortingOrder,
@@ -8,13 +8,14 @@ import {
   ITdDataTableSortChangeEvent,
   TdDataTableService
 } from '@covalent/core';
-import {Artefact} from './../../../../../../Interfaces/Artefact';
-import {ArtefactService} from './../../../../../../services/artefact.service';
-import {GamemasterMarketplaceComponent} from './../../gamemaster-marketplace.component';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Component, OnInit, Inject} from '@angular/core';
-import {Skill} from '../../../../../../Interfaces/Skill';
-import {Level} from '../../../../../../Interfaces/Level';
+import { Artefact } from './../../../../../../Interfaces/Artefact';
+import { ArtefactService } from './../../../../../../services/artefact.service';
+import { GamemasterMarketplaceComponent } from './../../gamemaster-marketplace.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Skill } from '../../../../../../Interfaces/Skill';
+import { Level } from '../../../../../../Interfaces/Level';
+import { GamemasterSkillEditComponent } from './components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 
 @Component({
   selector: 'app-gamemaster-artefact-edit',
@@ -31,12 +32,13 @@ export class GamemasterArtefactEditComponent implements OnInit {
   description: string;
   skills: Skill[];
   icon = '';
+  onMarketplace: boolean;
 
   columns: ITdDataTableColumn[] = [
-    {name: 'name', label: 'Name', width: {min: 80}},
-    {name: 'type', label: 'Type', width: {min: 40}},
-    {name: 'value', label: 'Value', width: {min: 40}},
-    {name: 'action', label: ''}
+    { name: 'name', label: 'Name', width: { min: 80 } },
+    { name: 'type', label: 'Type', width: { min: 40 } },
+    { name: 'value', label: 'Value', width: { min: 40 } },
+    { name: 'action', label: '' }
   ];
 
   // Sort / Filter / Paginate variables
@@ -56,7 +58,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
     private artefactService: ArtefactService,
     private skillService: SkillService,
     @Inject(MAT_DIALOG_DATA) public artefact: Artefact,
-    private _dataTableService: TdDataTableService  ) {
+    private _dataTableService: TdDataTableService) {
   }
 
   ngOnInit() {
@@ -70,6 +72,7 @@ export class GamemasterArtefactEditComponent implements OnInit {
     this.description = this.artefact.description;
     this.quantity = this.artefact.quantity;
     this.icon = this.artefact.icon || '';
+    this.onMarketplace = this.artefact.onMarketplace;
   }
 
   selectIcon() {
@@ -93,14 +96,29 @@ export class GamemasterArtefactEditComponent implements OnInit {
       this.artefact.description = this.description;
       this.artefact.icon = this.icon;
       this.artefact.minLevel.levelNumber = this.min;
-
+      this.artefact.onMarketplace = this.onMarketplace;
+      this.artefact.skills = this.skills;
       this.artefactService.updateArtefact(this.artefact).then(() => {
         this.artefactService.getData();
         this.dialogRef.close();
       });
     } else {
-      console.error('Error updating artefact: '  + this.name);
+      console.error('Error updating artefact: ' + this.name);
     }
+  }
+
+  editSkill(skill: Skill) {
+    this.dialog.open(GamemasterSkillEditComponent, { panelClass: 'dialog-sexy', width: '500px', data: skill }).afterClosed()
+      .subscribe(newSkill => {
+        if (newSkill !== undefined) {
+           const index: number = this.skills.indexOf(skill);
+          if (index !== -1) {
+            this.skills.splice(index, 1);
+          }
+          this.skills.push(newSkill);
+          this.filter();
+        }
+      });
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

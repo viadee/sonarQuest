@@ -34,8 +34,8 @@ public class ArtefactService {
 	private UserService userService;
 
 	public List<Artefact> getArtefacts() {
-		List<Artefact> artefacts =  artefactRepository.findAll();
-		return artefacts.stream().filter(artefact -> artefact.isOnMarketplace()).collect(Collectors.toList());
+		return  artefactRepository.findAll();
+		
 	}
 
 	public List<Artefact> getArtefactsForMarketplace() {
@@ -73,8 +73,8 @@ public class ArtefactService {
 		artefact.setQuantity(artefactDto.getQuantity());
 		artefact.setSkills(artefactDto.getSkills());
 		int minLevel = artefactDto.getMinLevel().getLevelNumber();
-		Level newLevel = levelService.findByLevel(minLevel);
-		artefact.setMinLevel(newLevel);
+		//Level newLevel = levelService.findByLevel(minLevel);
+		artefact.setMinLevel(artefactDto.getMinLevel());
 		return artefactRepository.save(artefact);
 	}
 

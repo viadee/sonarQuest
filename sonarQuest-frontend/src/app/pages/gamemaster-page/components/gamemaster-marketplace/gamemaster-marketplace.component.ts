@@ -20,7 +20,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   styleUrls: ['./gamemaster-marketplace.component.css']
 })
 
-export class GamemasterMarketplaceComponent implements OnInit, AfterViewInit {
+export class GamemasterMarketplaceComponent implements OnInit {
 
   @ViewChild('cannotDeleteArtefactSwal') private cannotDeleteArtefactSwal: SwalComponent;
   @ViewChild('deleteSuccessArtefactSwal') private deleteSuccessArtefactSwal: SwalComponent;
@@ -34,6 +34,7 @@ export class GamemasterMarketplaceComponent implements OnInit, AfterViewInit {
     { name: 'quantity', label: 'Quantity' },
     { name: 'minLevel.levelNumber', label: 'min. Level' },
     { name: 'skills', label: 'Skills' },
+    { name: 'onMarketplace', label: 'Visible on the Marketplace' },
     { name: 'edit', label: '' }
   ];
 
@@ -59,6 +60,7 @@ export class GamemasterMarketplaceComponent implements OnInit, AfterViewInit {
     private artefactService: ArtefactService,
     private translateService: TranslateService,
     private dialog: MatDialog) {
+    this.initSweetAlert();
   }
 
   ngOnInit() {
@@ -70,11 +72,13 @@ export class GamemasterMarketplaceComponent implements OnInit, AfterViewInit {
         { name: 'quantity', label: col_names.QUANTITY },
         { name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL },
         { name: 'skills', label: col_names.SKILLS },
+        { name: 'onMarketplace', label: col_names.ON_MARKETPLACE },
         { name: 'edit', label: '' }]
     });
     this.update();
+    this.initSweetAlert();
   }
-  ngAfterViewInit(): void {
+  initSweetAlert(): void {
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
       text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),

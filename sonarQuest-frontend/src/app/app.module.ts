@@ -107,6 +107,7 @@ import {WebsocketService} from './services/websocket.service';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -163,6 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventPageComponent,
     LoginPageComponent,
     MainLayoutComponent,
+    GamemasterSkillEditComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -189,7 +191,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterIconSelectComponent,
     SelectBackgroundComponent,
     EmptyPageComponent,
-    LoadingComponent
+    LoadingComponent,
+    GamemasterSkillEditComponent
   ],
   imports: [
     BrowserModule,

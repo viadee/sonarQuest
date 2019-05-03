@@ -67,6 +67,7 @@ public class ArtefactController {
 			artefact.setQuantity(data.getQuantity());
 			artefact.setSkills(data.getSkills());
 			artefact.setUsers(data.getUsers());
+			artefact.setOnMarketplace(data.isOnMarketplace());
 			artefactService.updateArtefact(id, artefact);
 		}
 		return artefact;

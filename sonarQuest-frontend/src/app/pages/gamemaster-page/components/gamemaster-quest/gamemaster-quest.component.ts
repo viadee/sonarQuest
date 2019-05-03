@@ -21,7 +21,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   templateUrl: './gamemaster-quest.component.html',
   styleUrls: ['./gamemaster-quest.component.css'],
 })
-export class GamemasterQuestComponent implements OnInit, AfterViewInit {
+export class GamemasterQuestComponent implements OnInit {
 
   @ViewChild('deleteSuccessQuestSwal') private deleteSuccessQuestSwal: SwalComponent;
 
@@ -60,14 +60,16 @@ export class GamemasterQuestComponent implements OnInit, AfterViewInit {
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
     private dialog: MatDialog) {
+      this.initSweetAlert();
   }
 
   ngOnInit() {
     this.translateTable();
     this.init();
     this.worldService.onWorldChange().subscribe(() => this.init());
+    this.initSweetAlert();
   }
-  ngAfterViewInit(): void {
+  initSweetAlert(): void {
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
       text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),

@@ -9,5 +9,6 @@ export interface Artefact {
   quantity: number,
   description: string,
   minLevel: Level,
-  skills: Skill[]
+  skills: Skill[],
+  onMarketplace?: boolean
 }
