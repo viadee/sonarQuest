@@ -40,7 +40,7 @@ public class ArtefactService {
 
 	public List<Artefact> getArtefactsForMarketplace() {
 		List<Artefact> artefacts =  artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
-		return artefacts.stream().filter(artefact -> artefact.isOnMarketplace()).collect(Collectors.toList());
+		return artefacts.stream().filter(Artefact::isOnMarketplace).collect(Collectors.toList());
 	}
 
 	public Artefact getArtefact(final long id) {
@@ -73,7 +73,6 @@ public class ArtefactService {
 		artefact.setDescription(artefactDto.getDescription());
 		artefact.setQuantity(artefactDto.getQuantity());
 		artefact.setSkills(artefactDto.getSkills());
-		int minLevel = artefactDto.getMinLevel().getLevelNumber();
 		artefact.setMinLevel(artefactDto.getMinLevel());
 		artefact.setOnMarketplace(artefactDto.isOnMarketplace());
 		return artefactRepository.save(artefact);
