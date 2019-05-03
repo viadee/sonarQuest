@@ -5,7 +5,11 @@ import { Observable, of } from 'rxjs';
 
 const translations: any = {};
 
+<<<<<<< HEAD
 class FakeLoader implements TranslateLoader {
+=======
+export class FakeLoader implements TranslateLoader {
+>>>>>>> refs/remotes/origin/issue-124-AddLoginPage
   getTranslation(lang: string): Observable<any> {
     return of(translations);
   }
