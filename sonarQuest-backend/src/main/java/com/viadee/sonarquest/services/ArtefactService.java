@@ -75,6 +75,7 @@ public class ArtefactService {
 		artefact.setSkills(artefactDto.getSkills());
 		int minLevel = artefactDto.getMinLevel().getLevelNumber();
 		artefact.setMinLevel(artefactDto.getMinLevel());
+		artefact.setOnMarketplace(artefactDto.isOnMarketplace());
 		return artefactRepository.save(artefact);
 	}
 

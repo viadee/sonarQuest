@@ -1,1 +1,2 @@
-ALTER TABLE Artefact ADD COLUMN on_marketplace BIT;
+ALTER TABLE Artefact 
+ADD COLUMN on_marketplace BIT;

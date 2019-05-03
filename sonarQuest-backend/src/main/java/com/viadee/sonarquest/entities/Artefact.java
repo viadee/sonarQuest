@@ -54,6 +54,7 @@ public class Artefact {
     private boolean onMarketplace;
 
     public Artefact() {
+    	this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Level minLevel,
@@ -63,6 +64,7 @@ public class Artefact {
         this.price = price;
         this.minLevel = minLevel;
         this.skills = skills;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final Long price, final Long quantity, final String description) {
@@ -70,6 +72,7 @@ public class Artefact {
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Long quantity,
@@ -79,6 +82,7 @@ public class Artefact {
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Level minLevel,
@@ -90,6 +94,7 @@ public class Artefact {
         this.minLevel = minLevel;
         this.skills = skills;
         this.users = users;
+        this.onMarketplace = true;
     }
 
     public Artefact(final Long id, final String name, final String icon, final Long price, final Long quantity,
@@ -104,6 +109,7 @@ public class Artefact {
         this.minLevel = minLevel;
         this.skills = skills;
         this.users = users;
+        this.onMarketplace = true;
     }
 
     public Long getId() {
