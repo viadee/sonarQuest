@@ -135,8 +135,7 @@
     "XP": "XP",
     "CLOSE": "Close",
     "CONFIRMATION_MESSAGE": "Really delete this?",
-    "CANNOT_DELETE":"Error deleting",
-    "CANNOT_DELETE_Artefact":"The artifact could not be deleted. It is still assigned to a user"
+    "CANNOT_DELETE":"Error deleting"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",
@@ -204,7 +203,10 @@
     "QUANTITY": "Available",
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "SKILLS": "Powers"    
+    "SKILLS": "Powers",
+    "CANNOT_DELETE_ARTEFACT":"The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
+    "PAYOUT":"Pay out purchase price",
+    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"    
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",

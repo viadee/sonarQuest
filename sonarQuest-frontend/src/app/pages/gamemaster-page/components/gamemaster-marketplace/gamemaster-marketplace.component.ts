@@ -20,7 +20,8 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   styleUrls: ['./gamemaster-marketplace.component.css']
 })
 
-export class GamemasterMarketplaceComponent implements OnInit {
+export class GamemasterMarketplaceComponent implements OnInit, AfterViewInit {
+
   @ViewChild('cannotDeleteArtefactSwal') private cannotDeleteArtefactSwal: SwalComponent;
   @ViewChild('deleteSuccessArtefactSwal') private deleteSuccessArtefactSwal: SwalComponent;
 
@@ -72,6 +73,8 @@ export class GamemasterMarketplaceComponent implements OnInit {
         { name: 'edit', label: '' }]
     });
     this.update();
+  }
+  ngAfterViewInit(): void {
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
       text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),
@@ -87,10 +90,15 @@ export class GamemasterMarketplaceComponent implements OnInit {
 
     this.swalOptionsCannotDelete = {
       title: this.translate('GLOBAL.CANNOT_DELETE'),
-      text: this.translate('GLOBAL.CANNOT_DELETE_ARTEFACT'),
+      text: this.translate('ARTEFACT.CANNOT_DELETE_ARTEFACT'),
       backdrop: false,
       type: 'error',
-      confirmButtonColor: '#C62828'
+      confirmButtonColor: '#C62828',
+      showCancelButton: true,
+      cancelButtonColor: '#C62828',
+      allowEscapeKey: true,
+      cancelButtonText: this.translate('ARTEFACT.PAYOUT'),
+      confirmButtonText: this.translate('ARTEFACT.REMOVE_FROM_MARKETPLACE')
     }
     this.swalOptionsDeleteSuccess = {
       title: this.translate('GLOBAL.DELETE_SUCCESS'),
@@ -100,9 +108,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000
     }
-
   }
-
   newArtefact() {
     this.dialog.open(GamemasterArtefactCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
       .subscribe(() => {
@@ -128,6 +134,21 @@ export class GamemasterMarketplaceComponent implements OnInit {
       }
     });
 
+  }
+
+  removeArtefactFromMarketplace(artefact: Artefact) {
+    this.artefactService.removeArtefactFromMarketplace(artefact).then(() => {
+      this.deleteSuccessArtefactSwal.show();
+      this.update();
+    }
+    )
+  }
+
+  payoutArtefact(artefact: Artefact) {
+    this.artefactService.payoutArtefact(artefact).then(() => {
+      this.deleteSuccessArtefactSwal.show();
+      this.update();
+    })
   }
 
   translate(messageString: string): string {

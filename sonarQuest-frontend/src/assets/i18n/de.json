@@ -154,7 +154,6 @@
     "CLOSE": "Schließen",
     "CONFIRMATION_MESSAGE": "Wirklich löschen?",
     "CANNOT_DELETE":"Fehler beim Löschen",
-    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet",
     "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "DEVELOPER": {
@@ -223,7 +222,10 @@
     "QUANTITY": "Anzahl vorhanden",
     "NAME": "Name",
     "DESCRIPTION": "Beschreibung",
-    "SKILLS": "Kräfte"
+    "SKILLS": "Kräfte",
+    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet. Du kannst den Kaufpreis den Usern erstatten und das Artefakt löschen oder du löscht das Artefakt vom Marktplatz. Um Abzubrechen drücke ESC.",
+    "PAYOUT":"Kaufpreis auszahlen",
+    "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen"
   },
   "SKILL": {
     "MORE_GOLD": "Mehr Gold",

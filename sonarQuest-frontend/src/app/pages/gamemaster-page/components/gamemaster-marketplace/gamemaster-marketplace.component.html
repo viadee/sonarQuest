@@ -39,7 +39,7 @@
             <i class="ra ra-broken-skull ra-2x"></i>
           </button>
           <swal #deleteArtefactSwal [options]=swalOptionsConfirmDelete  (confirm)="deleteArtefact(row)"> </swal>
-          <swal #cannotDeleteArtefactSwal [options]=swalOptionsCannotDelete> </swal>
+          <swal #cannotDeleteArtefactSwal [options]=swalOptionsCannotDelete (confim)="removeArtefactFromMarketplace(row)" (cancel)=payoutArtefact(row)> </swal>
           <swal #deleteSuccessArtefactSwal [options]=swalOptionsDeleteSuccess> </swal>
         </div>
       </ng-template>

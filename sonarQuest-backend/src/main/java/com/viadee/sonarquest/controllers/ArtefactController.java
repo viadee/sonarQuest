@@ -94,4 +94,16 @@ public class ArtefactController {
 		return false;
 	}
 
+	@DeleteMapping(value = "/{id}/payout")
+	public void payoutArtefact(@PathVariable(value = "id") final Long id) {
+		Artefact artefact = artefactRepository.findOne(id);
+		artefactService.payoutArtefact(artefact);
+	}
+	
+	@PutMapping(value = "/{id}/removeFromMarketplace")
+	public void removeArtefactFromMarketplace(@PathVariable(value = "id") final Long id) {
+		Artefact artefact = artefactRepository.findOne(id);
+		artefactService.removeArtefactFromMarketplace(artefact);
+	}
+
 }

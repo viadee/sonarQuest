@@ -49,6 +49,9 @@ public class Artefact {
     @JsonIgnore
     @ManyToMany(mappedBy = "artefacts", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<User> users;
+    
+    @Column(name="on_marketplace")
+    private boolean onMarketplace;
 
     public Artefact() {
     }
@@ -175,7 +178,15 @@ public class Artefact {
         this.description = description;
     }
 
-    @Override
+    public boolean isOnMarketplace() {
+		return onMarketplace;
+	}
+
+	public void setOnMarketplace(boolean onMarketplace) {
+		this.onMarketplace = onMarketplace;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
