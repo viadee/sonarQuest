@@ -42,6 +42,12 @@ export class SkillService {
       .catch(this.handleError);
   }
 
+  updateSkill(skill: any): Promise<Skill> {
+    return this.http.put<Skill>(`${environment.endpoint}/skill/${skill.id}`, skill)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {

@@ -67,6 +67,7 @@ public class ArtefactController {
 			artefact.setQuantity(data.getQuantity());
 			artefact.setSkills(data.getSkills());
 			artefact.setUsers(data.getUsers());
+			artefact.setOnMarketplace(data.isOnMarketplace());
 			artefactService.updateArtefact(id, artefact);
 		}
 		return artefact;
@@ -74,7 +75,8 @@ public class ArtefactController {
 
 	@PutMapping(value = "/{artefact_id}/buy")
 	public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
-		final User user = userService.findByUsername(principal.getName());
+		User user = userService.findByUsername(principal.getName());
+		user = userService.findById(user.getId());
 		final Artefact artefact = artefactRepository.findOne(artefact_id);
 
 		return artefactService.buyArtefact(artefact, user) != null;
@@ -92,6 +94,18 @@ public class ArtefactController {
 			}
 		}
 		return false;
+	}
+
+	@DeleteMapping(value = "/{id}/payout")
+	public void payoutArtefact(@PathVariable(value = "id") final Long id) {
+		Artefact artefact = artefactRepository.findOne(id);
+		artefactService.payoutArtefact(artefact);
+	}
+	
+	@PutMapping(value = "/{id}/removeFromMarketplace")
+	public void removeArtefactFromMarketplace(@PathVariable(value = "id") final Long id) {
+		Artefact artefact = artefactRepository.findOne(id);
+		artefactService.removeArtefactFromMarketplace(artefact);
 	}
 
 }

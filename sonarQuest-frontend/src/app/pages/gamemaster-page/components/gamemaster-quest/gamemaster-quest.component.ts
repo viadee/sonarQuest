@@ -4,7 +4,7 @@ import { World } from '../../../../Interfaces/World';
 import { GamemasterQuestEditComponent } from './components/gamemaster-quest-edit/gamemaster-quest-edit.component';
 
 import { Quest } from './../../../../Interfaces/Quest';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {
   IPageChangeEvent,
   ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
@@ -22,6 +22,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   styleUrls: ['./gamemaster-quest.component.css'],
 })
 export class GamemasterQuestComponent implements OnInit {
+
   @ViewChild('deleteSuccessQuestSwal') private deleteSuccessQuestSwal: SwalComponent;
 
   currentWorld: World;
@@ -59,13 +60,16 @@ export class GamemasterQuestComponent implements OnInit {
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
     private dialog: MatDialog) {
+      this.initSweetAlert();
   }
 
   ngOnInit() {
     this.translateTable();
     this.init();
     this.worldService.onWorldChange().subscribe(() => this.init());
-
+    this.initSweetAlert();
+  }
+  initSweetAlert(): void {
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
       text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),
@@ -87,7 +91,6 @@ export class GamemasterQuestComponent implements OnInit {
       timer: 3000
     }
   }
-
   private init() {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
