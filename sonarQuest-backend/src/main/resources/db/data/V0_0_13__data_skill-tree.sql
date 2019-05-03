@@ -1,10 +1,3 @@
--- INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
--- ('Servlets should not have mutable instance fields','squid:S2226',1,'2000-01-01'),
--- ('Sections of code should not be commented out','xml:S125',1,'2000-01-01'),
--- ('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',7,'2000-01-01'),
--- ('Tests should include assertions','squid:S2699',11,'2000-01-01');
-
-
 INSERT INTO User_Skill_Group(group_name,is_root, group_icon) VALUES 
 ('Java-Basics I',1,'ra-tower'),
 ('Build and Debugging',1,'ra-forging'),
@@ -746,12 +739,12 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 
 
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
-('Public types, methods and fields (API) should be documented with Javadoc','squid:UndocumentedApi',1,'2019-04-25 14:12:05.048'),
-('Branches should have sufficient coverage by tests','common-java:InsufficientBranchCoverage',1,'2019-04-25 14:12:05.048'),
-('Lines should have sufficient coverage by tests','common-java:InsufficientLineCoverage',1,'2019-04-25 14:12:05.048'),
-('Methods should not be too complex','squid:MethodCyclomaticComplexity',1,'2019-04-25 14:12:05.048'),
-('"@Deprecated" code should not be used','squid:CallToDeprecatedMethod',1,'2019-04-25 14:12:05.048'),
-('Source files should have a sufficient density of comment lines','common-java:InsufficientCommentDensity',1,'2019-04-25 14:12:05.049'),
+('Public types, methods and fields (API) should be documented with Javadoc','squid:UndocumentedApi',4,'2019-04-25 14:12:05.048'),
+('Branches should have sufficient coverage by tests','common-java:InsufficientBranchCoverage',201,'2019-04-25 14:12:05.048'),
+('Lines should have sufficient coverage by tests','common-java:InsufficientLineCoverage',2011,'2019-04-25 14:12:05.048'),
+('Methods should not be too complex','squid:MethodCyclomaticComplexity',50,'2019-04-25 14:12:05.048'),
+('"@Deprecated" code should not be used','squid:CallToDeprecatedMethod',58,'2019-04-25 14:12:05.048'),
+('Source files should have a sufficient density of comment lines','common-java:InsufficientCommentDensity',61,'2019-04-25 14:12:05.049'),
 ('Failed unit tests should be fixed','common-java:FailedUnitTests',1,'2019-04-25 14:12:05.049'),
 ('"deleteOnExit" should not be used','squid:CallToFileDeleteOnExitMethod',1,'2019-04-25 14:12:05.049'),
 ('Sections of code should not be commented out','squid:CommentedOutCodeLine',1,'2019-04-25 14:12:05.049'),
