@@ -38,7 +38,7 @@ public class Artefact {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "level_id")
     private Level minLevel;
 

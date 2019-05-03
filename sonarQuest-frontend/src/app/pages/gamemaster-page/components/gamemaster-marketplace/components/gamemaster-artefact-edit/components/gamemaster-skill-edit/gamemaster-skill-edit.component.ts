@@ -35,8 +35,13 @@ export class GamemasterSkillEditComponent implements OnInit {
       type: this.type.toUpperCase(),
       value: this.value
     };
-    this.skillServie.updateSkill(skill)
-      .then(() => this.dialogRef.close(skill));
+    if (typeof skill.id !== 'undefined') {
+      this.skillServie.updateSkill(skill)
+        .then(() => this.dialogRef.close(skill));
+    } else {
+
+      this.dialogRef.close(skill)
+    }
   }
 
 }

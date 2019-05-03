@@ -16,6 +16,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Skill } from '../../../../../../Interfaces/Skill';
 import { Level } from '../../../../../../Interfaces/Level';
 import { GamemasterSkillEditComponent } from './components/gamemaster-skill-edit/gamemaster-skill-edit.component';
+import { GamemasterSkillCreateComponent } from '../gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
 
 @Component({
   selector: 'app-gamemaster-artefact-edit',
@@ -107,11 +108,21 @@ export class GamemasterArtefactEditComponent implements OnInit {
     }
   }
 
+  createSkill() {
+    this.dialog.open(GamemasterSkillCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
+      .subscribe(skill => {
+        if (skill !== undefined) {
+          this.skills.push(skill);
+          this.filter();
+        }
+      });
+  }
+
   editSkill(skill: Skill) {
     this.dialog.open(GamemasterSkillEditComponent, { panelClass: 'dialog-sexy', width: '500px', data: skill }).afterClosed()
       .subscribe(newSkill => {
         if (newSkill !== undefined) {
-           const index: number = this.skills.indexOf(skill);
+          const index: number = this.skills.indexOf(skill);
           if (index !== -1) {
             this.skills.splice(index, 1);
           }
@@ -119,6 +130,18 @@ export class GamemasterArtefactEditComponent implements OnInit {
           this.filter();
         }
       });
+  }
+
+  removeSkill(skill: Skill) {
+    console.log(skill);
+    if (typeof skill.id !== 'undefined') {
+      this.skillService.deleteSkill(skill).then();
+    }
+    const index: number = this.skills.indexOf(skill);
+    if (index !== -1) {
+      this.skills.splice(index, 1);
+    }
+    this.filter();
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

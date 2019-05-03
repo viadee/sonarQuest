@@ -54,6 +54,8 @@
 
 <mat-toolbar>
   <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button (click)="createSkill()">{{"SKILL.ADD_SKILL" | translate}}</button>
 </mat-toolbar>
 <td-data-table #dataTable [data]="filteredSkills" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
   [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
@@ -63,6 +65,10 @@
           [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
           <i class="ra ra-quill-ink ra-2x"></i>
         </button>
+        <button mat-icon-button (click)="removeSkill(row)" [matTooltip]="'GLOBAL.DELETE' | translate"
+        [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+        <i class="ra ra-broken-skull ra-2x"></i>
+      </button>
       </div> 
     </ng-template>
 </td-data-table>

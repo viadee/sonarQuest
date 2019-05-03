@@ -59,6 +59,7 @@ public class ArtefactService {
 			levelService.createLevel(minLevel);
 			artefact.setMinLevel(minLevel);
 		}
+		artefact.setOnMarketplace(true);
 		return artefactRepository.save(artefact);
 	}
 
@@ -73,7 +74,6 @@ public class ArtefactService {
 		artefact.setQuantity(artefactDto.getQuantity());
 		artefact.setSkills(artefactDto.getSkills());
 		int minLevel = artefactDto.getMinLevel().getLevelNumber();
-		//Level newLevel = levelService.findByLevel(minLevel);
 		artefact.setMinLevel(artefactDto.getMinLevel());
 		return artefactRepository.save(artefact);
 	}

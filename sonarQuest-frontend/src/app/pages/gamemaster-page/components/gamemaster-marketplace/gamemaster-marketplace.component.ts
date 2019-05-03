@@ -110,7 +110,7 @@ export class GamemasterMarketplaceComponent implements OnInit {
       type: 'success',
       position: 'top-end',
       showConfirmButton: false,
-      timer: 3000
+      timer: 5000
     }
   }
   newArtefact() {
@@ -135,11 +135,12 @@ export class GamemasterMarketplaceComponent implements OnInit {
       } else {
         this.deleteSuccessArtefactSwal.show();
         this.update();
+       
       }
     });
 
   }
-
+  
   removeArtefactFromMarketplace(artefact: Artefact) {
     this.artefactService.removeArtefactFromMarketplace(artefact).then(() => {
       this.deleteSuccessArtefactSwal.show();
