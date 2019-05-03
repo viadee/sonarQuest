@@ -65,6 +65,7 @@ export class ArtefactService {
   }
 
   removeArtefactFromMarketplace(artefact: Artefact): Promise<any> {
+    console.log('is called');
     return this.http.put(`${environment.endpoint}/artefact/${artefact.id}/removeFromMarketplace`, null)
       .toPromise().catch(this.handleError);
   }

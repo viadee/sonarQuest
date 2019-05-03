@@ -1,6 +1,7 @@
 package com.viadee.sonarquest.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -33,11 +34,13 @@ public class ArtefactService {
 	private UserService userService;
 
 	public List<Artefact> getArtefacts() {
-		return artefactRepository.findAll();
+		List<Artefact> artefacts =  artefactRepository.findAll();
+		return artefacts.stream().filter(artefact -> artefact.isOnMarketplace()).collect(Collectors.toList());
 	}
 
 	public List<Artefact> getArtefactsForMarketplace() {
-		return artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
+		List<Artefact> artefacts =  artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
+		return artefacts.stream().filter(artefact -> artefact.isOnMarketplace()).collect(Collectors.toList());
 	}
 
 	public Artefact getArtefact(final long id) {

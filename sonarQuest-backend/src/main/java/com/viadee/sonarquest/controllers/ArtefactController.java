@@ -74,7 +74,8 @@ public class ArtefactController {
 
 	@PutMapping(value = "/{artefact_id}/buy")
 	public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
-		final User user = userService.findByUsername(principal.getName());
+		User user = userService.findByUsername(principal.getName());
+		user = userService.findById(user.getId());
 		final Artefact artefact = artefactRepository.findOne(artefact_id);
 
 		return artefactService.buyArtefact(artefact, user) != null;
