@@ -22,7 +22,7 @@
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title">
+        <input matInput [placeholder]="'TABLE.COLUMNS.TITLE' | translate" [(ngModel)]="title" [maxLength]=64>
       </mat-form-field>
     </div>
 

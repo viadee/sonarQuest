@@ -121,10 +121,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private susbcribeWorlds() {
     this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world;
+      if (world) this.currentWorld = world;
       this.setBackground();
     })
     this.worldService.worlds$.subscribe(worlds => {
+      if(this.currentWorld == null){
+        this.currentWorld = worlds[0]
+        this.setBackground();
+      }
       this.worlds = worlds;
     })
   }
@@ -194,7 +198,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.user) {
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
-        console.log(ui)
         this.body.className = '';
         this.addClass(this.body, this.ui.name);
         this.addClass(this.body, "background-image");

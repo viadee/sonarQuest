@@ -45,8 +45,8 @@ public class EventService {
 
     public void createEventForSolveQuest(Quest quest, Principal principal) {
     	EventType type  = EventType.QUEST;
-		String title = quest.getTitle();
-		String story = quest.getStory();
+		String title = this.shortTitle(quest.getTitle());
+		String story = this.shortStory(quest.getStory());
 		EventState state = EventState.SOLVED;
 		String image = quest.getImage();
 		World world = quest.getWorld();
@@ -58,8 +58,8 @@ public class EventService {
     
     public void createEventForSolveAdventure(Adventure adventure, Principal principal) {
     	EventType type  = EventType.QUEST;
-		String title = adventure.getTitle();
-		String story = adventure.getStory();
+		String title = this.shortTitle(adventure.getTitle());
+		String story = this.shortStory(adventure.getStory());
 		EventState state = EventState.SOLVED;
 		String image = "";
 		World world = adventure.getWorld();
@@ -71,8 +71,8 @@ public class EventService {
     
     public void createEventForCreateAdventure(Adventure adventure, User user) {
     	EventType type  = EventType.ADVENTURE;
-		String title = adventure.getTitle();
-		String story = adventure.getStory();
+		String title = this.shortTitle(adventure.getTitle());
+		String story = this.shortStory(adventure.getStory());
 		EventState state = EventState.CREATED;
 		String image = "";
 		World world = adventure.getWorld();
@@ -84,8 +84,8 @@ public class EventService {
     
     public void createEventForCreateQuest(Quest questDto) {
 		EventType type  = EventType.QUEST;
-		String title = questDto.getTitle();
-		String story = questDto.getStory();
+		String title = this.shortTitle(questDto.getTitle());
+		String story = this.shortStory(questDto.getStory());
 		EventState state = EventState.CREATED;
 		String image = questDto.getImage();
 		World world = questDto.getWorld();
@@ -120,8 +120,8 @@ public class EventService {
 	
 	public void createEventForUserJoinQuest(Quest quest, User user) {
 		EventType type  = EventType.QUEST;
-		String title = quest.getTitle();
-		String story = quest.getStory();
+		String title = this.shortTitle(quest.getTitle());
+		String story = this.shortStory(quest.getStory());
 		EventState state = EventState.NEW_MEMBER;
 		String image = quest.getImage();
 		World world = quest.getWorld();
@@ -136,8 +136,8 @@ public class EventService {
 	
 	public void createEventForCreateArtefact(Artefact artefact) {
 		EventType type  = EventType.ARTEFACT;
-		String title = artefact.getName();
-		String story = artefact.getDescription();
+		String title = this.shortTitle(artefact.getName());
+		String story = this.shortStory(artefact.getDescription());
 		EventState state = EventState.CREATED;
 		String image = artefact.getIcon();
 
@@ -146,6 +146,30 @@ public class EventService {
 		// create event
 		eventRepository.save(new Event(type, title, story, state, image));
 		
+	}
+	
+	
+	public String shortStory(String s) {
+		int varchar = 255;
+		
+		if(s.length() > varchar) {
+			s = s.substring(0, varchar - 5) + "(...)";
+		}
+		
+
+		return s;
+	}
+	
+	
+	public String shortTitle(String s) {
+		int varchar = 64;
+		
+		if(s.length() > varchar) {
+			s = s.substring(0, varchar - 5) + "(...)";
+		}
+		
+
+		return s;
 	}
 
 

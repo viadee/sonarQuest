@@ -15,7 +15,7 @@
         </div>
         <div class="event {{e.type}}" >
           <div layout="row">
-            <div class="timestamp">
+            <div layout="column" class="timestamp">
               <span class="time">
                 {{ e?.timestamp| date : 'HH:mm' }}<br>
                 <div *ngIf='e.image && e.type!="ARTEFACT" ' class="event-image-div">
@@ -27,7 +27,7 @@
               </span>
             </div>
 
-            <div class="content">
+            <div  layout="column"  class="content">
               <div layout="row" class="state">
                 <span *ngIf="e.state==null" class="author">{{ e.user?.username }}</span> 
                 <span *ngIf=e.state class="state">{{ e.user?.username }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
