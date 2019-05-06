@@ -16,15 +16,15 @@
         <div class="event {{e.type}}" >
           <div layout="row">
             <div layout="column" class="timestamp">
-              <span class="time">
-                {{ e?.timestamp| date : 'HH:mm' }}<br>
+              <div class="time">
+                <span>{{ e?.timestamp| date : 'HH:mm' }}</span><br>
                 <div *ngIf='e.image && e.type!="ARTEFACT" ' class="event-image-div">
                     <img class="event-image" [src]="e.image" >
                 </div>
                 <div *ngIf='e.image && e.type=="ARTEFACT" ' class="event-image-div">
                     <i class="ra ra-3x event-image" [ngClass]="e.image"></i>
                 </div>
-              </span>
+              </div>
             </div>
 
             <div  layout="column"  class="content">
@@ -34,11 +34,11 @@
               </div>
               <div flex>
                 <div layout="row">
-                  <div flex-end>
-                      <div *ngIf=e.title>
+                  <div flex class="innercontent">
+                      <div layout="row" *ngIf=e.title>
                           <span class="title">{{ e?.title }}</span>
                         </div>
-                        <div *ngIf=e.story>
+                        <div layout="row" *ngIf=e.story>
                           <span class="text">{{ e?.story }}</span>
                         </div>
                   </div>
@@ -52,12 +52,13 @@
   </mat-card-content>
   <mat-card-content class="chat">
     <div>
-      <div>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Chat" [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off">
+      <div class="full-width">
+          <mat-form-field class="full-width" hintLabel='{{ "EVENT_PAGE.MESSAGE.HINT_CHARACTERS" | translate }}'>
+              <input matInput placeholder='{{ "EVENT_PAGE.MESSAGE.MESSAGE" | translate }}' [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off" maxlength="255">
+              <mat-icon matSuffix (click)="sendChat()" ><i class="ra ra-2x ra-seagull" ></i></mat-icon>
+              <mat-hint align="end">{{message.length || 0}}/255</mat-hint>
         </mat-form-field>
       </div>
     </div>
   </mat-card-content>
-
 </mat-card>

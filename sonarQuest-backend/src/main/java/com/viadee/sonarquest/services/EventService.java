@@ -38,7 +38,7 @@ public class EventService {
 	public List<Event> getEventsForWorld(Principal principal) {
 		User user = userService.getUser(principal);
 		World currentWorld = user.getCurrentWorld();
-        List<Event> events =  eventRepository.findByWorld(currentWorld);
+        List<Event> events =  eventRepository.findByWorldOrWorldIsNull(currentWorld);
                 
         return events;
 	}
@@ -102,16 +102,17 @@ public class EventService {
 	public Event createEventForNewMessage(String message, Principal principal) {
 		User user = userService.getUser(principal);
 		EventType type  = EventType.MESSAGE;
-		String story 	= message;
+		String story 	= this.shortStory(message);
 		World world  	= user.getCurrentWorld();
 		
 		return eventRepository.save(new Event(type, story, world, user));
 	}
 
+	/* WebSocketController */
 	public Event createEventForNewMessage(MessageDto messageDto) {
 		User user = userService.findById(messageDto.getUserId());
 		EventType type  = EventType.MESSAGE;
-		String story 	= messageDto.getMessage();
+		String story 	= this.shortStory(messageDto.getMessage());
 		World world  	= user.getCurrentWorld();
 		
 		return eventRepository.save(new Event(type, story, world, user));

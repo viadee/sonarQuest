@@ -14,7 +14,7 @@
   <div layout="column" layout-padding>
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="name">
+        <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="name" maxLength="64" >
       </mat-form-field>
     </div>
     <div flex>

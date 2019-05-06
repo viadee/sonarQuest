@@ -210,7 +210,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   toggleDesign() {
-    const dark = 'dark';
+    const dark  = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
@@ -240,7 +240,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (!this.hasClass(element, cssClass)) {
       element.className += ' ' + cssClass + ' ';
     }
-    element.className.replace('  ', ' ');
 
     return element;
   }
