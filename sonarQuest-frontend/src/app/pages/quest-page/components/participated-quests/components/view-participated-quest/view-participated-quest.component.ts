@@ -1,12 +1,12 @@
-import {Participation} from './../../../../../../Interfaces/Participation';
-import {QuestService} from './../../../../../../services/quest.service';
-import {TaskService} from './../../../../../../services/task.service';
+import {Participation} from '../../../../../../Interfaces/Participation';
+import {QuestService} from '../../../../../../services/quest.service';
+import {TaskService} from '../../../../../../services/task.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Quest} from '../../../../../../Interfaces/Quest';
 import {World} from '../../../../../../Interfaces/World';
 import {WorldService} from '../../../../../../services/world.service';
-import {SonarCubeService} from '../../../../../../services/sonar-cube.service';
+import {SonarQubeService} from '../../../../../../services/sonar-qube.service';
 import {User} from '../../../../../../Interfaces/User';
 import {UserService} from '../../../../../../services/user.service';
 import {Task} from '../../../../../../Interfaces/Task';
@@ -22,7 +22,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
   tasks: Task[];
 
   constructor(
-    private sonarCubeService: SonarCubeService,
+    private sonarQubeService: SonarQubeService,
     private worldService: WorldService,
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
     public userService: UserService,
@@ -87,7 +87,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
   }
 
   openIssue(task: Task) {
-    this.sonarCubeService.getIssueLink(task.key, this.currentWorld)
+    this.sonarQubeService.getIssueLink(task.key, this.currentWorld)
       .then(link => window.open(link, '_blank'));
   }
 

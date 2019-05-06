@@ -10,7 +10,8 @@
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "BACKGROUND": "Switch transparency of background",
-    "USER_PROFILE": "Open user profile"
+    "USER_PROFILE": "Open user profile",
+    "EVENTS": "Events"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
@@ -48,10 +49,14 @@
     "CREATE_DEVELOPER": "Create Developer",
     "EDIT_DEVELOPER": "Edit Developer",
     "DELETE_DEVELOPER": "Are you sure to delete?",
-    "SONAR_CUBE_HEADER": "SonarQube",
+    "SONAR_QUBE_HEADER": "SonarQube",
     "SELECT_BACKGROUND": "Select Background",
-    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Sonar Server is reachable :)",
-    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server is not reachable"
+    "SONARQUBE_CONNECTION_TEST": {
+      "START": "Start connection test",
+      "SUCCESS": "Sonar Server is reachable :)",
+      "ERROR": "Sonar Qube Server is not reachable"
+    },
+    "CONNECTION_SAVED": "The data was saved and the connection established"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Current Progress",

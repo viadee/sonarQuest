@@ -82,8 +82,8 @@ import {GamemasterArtefactEditComponent} from './pages/gamemaster-page/component
 import {GamemasterSkillCreateComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-skill-create/gamemaster-skill-create.component';
 import {AvatarEditComponent} from './pages/my-avatar-page/components/my-avatar-edit/my-avatar-edit.component';
 import {GamemasterIconSelectComponent} from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-create/components/gamemaster-icon-select/gamemaster-icon-select.component';
-import {AdminSonarCubeComponent} from './pages/admin-page/components/admin-sonar-cube/admin-sonar-cube.component';
-import {SonarCubeService} from './services/sonar-cube.service';
+import {AdminSonarQubeComponent} from './pages/admin-page/components/admin-sonar-qube/admin-sonar-qube.component';
+import {SonarQubeService} from './services/sonar-qube.service';
 import {SelectBackgroundComponent} from './pages/admin-page/components/admin-world/components/edit-world/select-background/select-background.component';
 import {AuthenticationService} from './authentication/authentication.service';
 import {LocalStorageService} from './authentication/local-storage.service';
@@ -156,7 +156,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AvatarEditComponent,
     ArtefactViewDetailsComponent,
     GamemasterIconSelectComponent,
-    AdminSonarCubeComponent,
+    AdminSonarQubeComponent,
     SelectBackgroundComponent,
     EmptyPageComponent,
     LoadingComponent,
@@ -238,7 +238,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ParticipationService,
     ArtefactService,
     SkillService,
-    SonarCubeService,
+    SonarQubeService,
     UiDesignService,
     AuthenticationService,
     LocalStorageService,
