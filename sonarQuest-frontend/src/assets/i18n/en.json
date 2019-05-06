@@ -15,8 +15,8 @@
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
-	"JOIN_ADVENTURE": "Join this adventure!",
-	"LEAVE_ADVENTURE": "Leave this adventure...",
+    "JOIN_ADVENTURE": "Join this adventure!",
+    "LEAVE_ADVENTURE": "Leave this adventure...",
     "MY_ADVENTURES_FOR_WORLD": "My Adventures for ",
     "ADVENTURES_FOR_WORLD": "All Adventures for ",
     "AVAILABLE_ADVENTURES": "Available Adventures",
@@ -24,16 +24,16 @@
   },
   "QUEST_PAGE": {
     "MY_QUESTS": "My Quests",
-	"SHOW_QUEST": "Show Quest",
+    "SHOW_QUEST": "Show Quest",
     "MY_QUESTS_FOR_WORLD": "My Quests for ",
     "QUESTS_FOR_WORLD": "All Quests for ",
     "JOIN_QUEST": "Join Quest",
     "AVAILABLE_QUESTS": "Available Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Available Quests for ",
     "COMBATED_BY": "combated by",
-    "SHOW_ISSUE_TOOLTIP":"Show SonarQube issue",
-    "JOIN_ISSUE_TOOLTIP":"Fight",
-    "CANCEL_ISSUE_TOOLTIP":"Stop fighting"
+    "SHOW_ISSUE_TOOLTIP": "Show SonarQube issue",
+    "JOIN_ISSUE_TOOLTIP": "Fight",
+    "CANCEL_ISSUE_TOOLTIP": "Stop fighting"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marketplace",
@@ -42,8 +42,8 @@
     "SHOW_ITEM": "Show artefact details"
   },
   "ARTEFACT_VIEW_PAGE": {
-  	"TITLE": "Artefact description"
-  },  
+    "TITLE": "Artefact description"
+  },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "All Developer",
     "CREATE_DEVELOPER": "Create Developer",
@@ -65,20 +65,20 @@
   "EVENT_PAGE": {
     "QUEST": {
       "NEW_MEMBER": "joined the quest",
-      "CREATED" : "New quest added",
-      "SOLVED" : "has solved the quest"
+      "CREATED": "New quest added",
+      "SOLVED": "has solved the quest"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "joined the adventure",
-      "CREATED" : "Added new adventure",
-      "SOLVED" : "has solved the adventure"
+      "CREATED": "Added new adventure",
+      "SOLVED": "has solved the adventure"
     },
     "ARTEFACT": {
       "CREATED": "New item available at the marketplace"
     },
     "MESSAGE": {
-      "MESSAGE" : "Message",
-      "HINT_CHARACTERS" : "Max 255 characters"
+      "MESSAGE": "Message",
+      "HINT_CHARACTERS": "Max 255 characters"
     }
   },
   "GAMEMASTER_PAGE": {
@@ -151,7 +151,7 @@
     "NO_ENTRIES": "no entries",
     "SEARCH": "Search",
     "SAVE": "Save",
-    "SOLVEALLTASKS" : "Solve all tasks",
+    "SOLVEALLTASKS": "Solve all tasks",
     "IMAGE": "Image",
     "FILENAME_IMAGE": "Filename image",
     "CLICK_TO_SELECT": "clickt to select",
@@ -159,7 +159,8 @@
     "XP": "XP",
     "CLOSE": "Close",
     "CONFIRMATION_MESSAGE": "Really delete this?",
-    "CANNOT_DELETE":"Error deleting"
+    "CANNOT_DELETE": "Error deleting",
+    "DELETE_SUCCESS": "Deletion successful"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",
@@ -229,9 +230,9 @@
     "DESCRIPTION": "Description",
     "SKILLS": "Powers",
     "ON_MARKETPLACE": "Visible on the marketplace",
-    "CANNOT_DELETE_ARTEFACT":"The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
-    "PAYOUT":"Pay out purchase price",
-    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"    
+    "CANNOT_DELETE_ARTEFACT": "The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
+    "PAYOUT": "Pay out purchase price",
+    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",
@@ -244,7 +245,7 @@
     "NEW_SKILL": "New Power",
     "TYPE": "Type",
     "VALUE": "Amount",
-    "NAME": "Name"    
+    "NAME": "Name"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -269,6 +270,6 @@
     "MSG_NO_QUESTS_FOUND": "No quests found",
     "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
     "MSG_NO_WORLD_SELECTED": "No active world selected",
-    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."    
-  }  
+    "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
+  }
 }
