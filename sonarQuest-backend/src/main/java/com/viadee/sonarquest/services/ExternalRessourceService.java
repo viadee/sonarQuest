@@ -288,7 +288,7 @@ public class ExternalRessourceService {
 		SonarRule sonarRule = new SonarRule();
 		sonarRule.setKey(sonarQubeRule.getKey());
 		sonarRule.setName(sonarQubeRule.getName());
-		sonarRule.setAddedAT(Timestamp.valueOf(LocalDateTime.now()));
+		sonarRule.setAddedAt(Timestamp.valueOf(LocalDateTime.now()));
 		return sonarRule;
 	}
 

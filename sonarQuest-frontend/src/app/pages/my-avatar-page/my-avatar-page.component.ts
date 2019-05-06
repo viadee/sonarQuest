@@ -1,16 +1,19 @@
 import {ImageService} from './../../services/image.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterContentInit, AfterViewInit, AfterViewChecked} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {AvatarEditComponent} from './components/my-avatar-edit/my-avatar-edit.component';
 import {UserService} from '../../services/user.service';
 import {User} from '../../Interfaces/User';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-avatar-page',
   templateUrl: './my-avatar-page.component.html',
   styleUrls: ['./my-avatar-page.component.css']
 })
-export class MyAvatarPageComponent implements OnInit {
+export class MyAvatarPageComponent implements OnInit {  
+
 
   public XPpercent = 0;
   public level: number = 0;
@@ -19,9 +22,12 @@ export class MyAvatarPageComponent implements OnInit {
   public imageToShow: any = "";
   public user: User;
 
+ 
+
   constructor(private userService: UserService,
               private dialog: MatDialog,
-              private imageService: ImageService) {
+              private imageService: ImageService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -37,8 +43,8 @@ export class MyAvatarPageComponent implements OnInit {
       this.xpPercent();      
       this.getAvatar();
     })
+   
   }
-
   private getAvatar() {
     if (this.user) {
       this.userService.getImage().subscribe((blob) => {
@@ -70,4 +76,6 @@ export class MyAvatarPageComponent implements OnInit {
       }
     );
   }
+
+ 
 }

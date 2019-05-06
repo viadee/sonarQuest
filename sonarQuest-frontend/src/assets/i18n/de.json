@@ -11,7 +11,8 @@
     "LOGOUT": "Abmelden",
     "BACKGROUND": "Schalte Hintergrund-Transparenz um",
     "USER_PROFILE": "Öffne Benutzerprofil",
-    "SKILL_TREE": "Skill-Tree"
+    "SKILL_TREE": "Skill-Tree",
+    "NEW_RULE_SWAL_TITLE": "Es sind neue SonarRules vorhanden"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",

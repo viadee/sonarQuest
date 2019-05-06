@@ -37,7 +37,7 @@ public class SonarRule {
     private UserSkill userSkill;
     
     @Column(name="added_at")
-    private Timestamp addedAT;
+    private Timestamp addedAt;
     
 
     public SonarRule() {
@@ -83,12 +83,12 @@ public class SonarRule {
 		this.userSkill = userSkill;
 	}
 
-	public Timestamp getAddedAT() {
-		return addedAT;
+	public Timestamp getAddedAt() {
+		return addedAt;
 	}
 
-	public void setAddedAT(Timestamp addedAT) {
-		this.addedAT = addedAT;
+	public void setAddedAt(Timestamp addedAT) {
+		this.addedAt = addedAT;
 	}
 
 }

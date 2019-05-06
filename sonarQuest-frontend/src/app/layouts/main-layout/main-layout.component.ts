@@ -1,16 +1,19 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {World} from "../../Interfaces/World";
-import {User} from "../../Interfaces/User";
-import {UiDesign} from "../../Interfaces/UiDesign";
-import {RoutingUrls} from "../../app-routing/routing-urls";
-import {UiDesignService} from "../../services/ui-design.service";
-import {TdMediaService} from "@covalent/core";
-import {Router} from "@angular/router";
-import {WorldService} from "../../services/world.service";
-import {TranslateService} from "@ngx-translate/core";
-import {AuthenticationService} from "../../authentication/authentication.service";
-import {PermissionService} from "../../services/permission.service";
-import {UserService} from "../../services/user.service";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { World } from "../../Interfaces/World";
+import { User } from "../../Interfaces/User";
+import { UiDesign } from "../../Interfaces/UiDesign";
+import { RoutingUrls } from "../../app-routing/routing-urls";
+import { UiDesignService } from "../../services/ui-design.service";
+import { TdMediaService } from "@covalent/core";
+import { Router } from "@angular/router";
+import { WorldService } from "../../services/world.service";
+import { TranslateService } from "@ngx-translate/core";
+import { AuthenticationService } from "../../authentication/authentication.service";
+import { PermissionService } from "../../services/permission.service";
+import { UserService } from "../../services/user.service";
+import { SwalComponent, SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
+import { SonarRuleService } from 'app/services/sonar-rule.service';
+import { SonarRule } from 'app/Interfaces/SonarRule';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,6 +21,8 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit, AfterViewInit {
+  @ViewChild('newRulesReleasedSwal') private newRulesReleasedSwal: SwalComponent
+
 
   public currentWorld: World = null;
   public worlds: World[];
@@ -25,6 +30,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public selected: World;
   public user: User = null;
   private ui: UiDesign = null;
+  private lastAddedSonarRule: SonarRule;
+
 
   public myAvatarUrl = RoutingUrls.myAvatar;
   public adventuresUrl = RoutingUrls.adventures;
@@ -45,8 +52,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public isEventVisible: boolean;
   public isSkillTreeVisbile: boolean;
 
-  private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+  public swalOptionsnewRules: {};
+  public swalTitle: string;
 
+  private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -56,7 +65,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     public translate: TranslateService,
     private authService: AuthenticationService,
     private permissionService: PermissionService,
-    private userService: UserService) {
+    private userService: UserService,
+    private sonarRuleService: SonarRuleService) {
   }
 
   protected logout(): void {
@@ -82,12 +92,25 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.updateWorldsFromCurrentUser();
       }
     });
+    this.susbcribeLastAddedRSonarRule();
+    this.getLastAddedSonarRule();
     this.setPreDesign();
     this.setBackground();
     this.userService.loadUser();
+    this.initSwal();
+  }
+
+  private initSwal() {
+    this.swalOptionsnewRules = {
+      type: 'info',
+      toast: true,
+      showConfirmButton: true,
+      position: 'top-end'
+    }
   }
 
   private updateMenu(enable: boolean = true) {
+
     if (enable) {
       this.permissionService.loadPermissions().then(() => {
         this.updateMenuDirectly();
@@ -120,6 +143,16 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     })
   }
 
+  private susbcribeLastAddedRSonarRule() {
+    this.sonarRuleService.lastAddedSonarRule$.subscribe(lastAddedSonarRule => {
+      this.lastAddedSonarRule = lastAddedSonarRule;
+    });
+  }
+
+  private getLastAddedSonarRule() {
+    this.sonarRuleService.loadLastAddedSonarRule();
+  }
+
   protected updateWorldsFromCurrentUser(): void {
     this.worldService.getWorlds();
   }
@@ -138,7 +171,25 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.media.broadcast();
     this.translate.get('APP_COMPONENT').subscribe((page_names) => {
       this.pageNames = page_names;
-    })
+    });
+    this.checkIfSwalIsNessesary();
+  }
+
+  checkIfSwalIsNessesary() {
+    if (typeof this.user !== 'undefined' && this.user !== null &&
+     typeof this.lastAddedSonarRule !== 'undefined' && this.lastAddedSonarRule !== null) {
+       console.log(new Date(this.user.lastLogin));
+       console.log(new Date(this.lastAddedSonarRule.addedAt));
+      if(new Date(this.user.lastLogin) < new Date(this.lastAddedSonarRule.addedAt)){
+        console.log('new rule');
+        this.newRulesReleasedSwal.show();
+      }
+    } else {
+      setTimeout(() => {
+        this.checkIfSwalIsNessesary();
+      }, 3000);
+
+    }
   }
 
   determinePageTitle(url: string): string {
@@ -231,5 +282,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     element.className.replace('  ', ' ');
 
     return element;
+  }
+  translateMsg(messageString: string): string {
+    let msg = '';
+    this.translate.get(messageString).subscribe(translateMsg => msg = translateMsg);
+    return msg;
   }
 }

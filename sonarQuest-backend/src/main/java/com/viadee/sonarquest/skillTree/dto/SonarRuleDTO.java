@@ -1,9 +1,12 @@
 package com.viadee.sonarquest.skillTree.dto;
 
+import java.sql.Timestamp;
+
 public class SonarRuleDTO {
 
 	private String name;
 	private String key;
+	private Timestamp addedAt;
 
 	public SonarRuleDTO() {
 		super();
@@ -29,6 +32,14 @@ public class SonarRuleDTO {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public Timestamp getAddedAt() {
+		return addedAt;
+	}
+
+	public void setAddedAt(Timestamp addedAt) {
+		this.addedAt = addedAt;
 	}
 
 }

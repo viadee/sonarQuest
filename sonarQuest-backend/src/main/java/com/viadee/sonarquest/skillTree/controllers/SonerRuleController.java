@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -11,12 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.services.SonarRuleService;
 
@@ -36,12 +41,15 @@ public class SonerRuleController {
 	public List<SonarRule> getAll() {
 		return sonarRuleService.findAll();
 	}
-
-	//hier gehts weiter
-	@GetMapping(value = "/export/")
-	public void createFile() throws IOException {
-		Path newFilePath = Paths.get("src/main/resources/export.txt");
-		Files.createFile(newFilePath);
+	@GetMapping(value="/lastAdded")
+	public SonarRuleDTO getNewestSonarRule() {
+		
+		return sonarRuleService.getNewestSonarRule();
+	}
+	
+	@PostMapping
+	public void createSonarRule() {
+		this.sonarRuleService.createSonarRule("test", "test");
 	}
 
 }

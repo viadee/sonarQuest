@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.viadee.sonarquest.services.ExternalRessourceService;
+import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
@@ -52,13 +53,13 @@ public class SonarRuleService {
 	}
 
 	public String getLastAddedDate() {
-		SonarRule sonarRule = findAll().stream().max(Comparator.comparing(SonarRule::getAddedAT))
+		SonarRule sonarRule = findAll().stream().max(Comparator.comparing(SonarRule::getAddedAt))
 				.orElse(null);
 		Date date = new Date();
-		if (sonarRule == null || sonarRule.getAddedAT() == null) {
+		if (sonarRule == null || sonarRule.getAddedAt() == null) {
 			return lastRuleUpdateFromProperty;
 		} else {
-			date.setTime(sonarRule.getAddedAT().getTime());
+			date.setTime(sonarRule.getAddedAt().getTime());
 			return new SimpleDateFormat("yyyy-MM-dd").format(date);
 		}
 
@@ -68,5 +69,12 @@ public class SonarRuleService {
 	public List<SonarRule> findAll() {
 
 		return sonarRuleRepository.findAll();
+	}
+
+	public SonarRuleDTO getNewestSonarRule() {
+		SonarRuleDTO rule = new SonarRuleDTO();
+		rule.setAddedAt(sonarRuleRepository.findLastAddedSonarRule());
+		return rule;
+
 	}
 }

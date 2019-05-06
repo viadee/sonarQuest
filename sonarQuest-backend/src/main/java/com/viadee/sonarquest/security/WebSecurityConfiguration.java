@@ -91,6 +91,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/skilltree/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/sonarrule/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/sonarrule/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/userskillgroup/**").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/userskill/**").permitAll()
                 .anyRequest().authenticated();
