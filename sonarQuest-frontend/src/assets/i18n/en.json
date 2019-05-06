@@ -57,6 +57,25 @@
     "CURRENT_PROGRESS": "Current Progress",
     "PLEASE_LOG_IN": "Feel free to log in"
   },
+  "EVENT_PAGE": {
+    "QUEST": {
+      "NEW_MEMBER": "joined the quest",
+      "CREATED" : "New quest added",
+      "SOLVED" : "has solved the quest"
+    },
+    "ADVENTURE": {
+      "NEW_MEMBER": "joined the adventure",
+      "CREATED" : "Added new adventure",
+      "SOLVED" : "has solved the adventure"
+    },
+    "ARTEFACT": {
+      "CREATED": "New item available at the marketplace"
+    },
+    "MESSAGE": {
+      "MESSAGE" : "Message",
+      "HINT_CHARACTERS" : "Max 255 characters"
+    }
+  },
   "GAMEMASTER_PAGE": {
     "ADVENTURE": {
       "CREATE_ADVENTURE": "Create adventure",

@@ -23,6 +23,7 @@ import com.viadee.sonarquest.repositories.EventRepository;
 @Service
 public class EventService {
 
+
     private static final Log LOGGER = LogFactory.getLog(EventService.class);
 
     private static final int EVENT_STORY_MAX_LENGTH = 255;
@@ -129,6 +130,17 @@ public class EventService {
 
         return checkStoryAndSave(new Event(type, story, world, user));
     }
+    
+    public void createEventForCreateArtefact(Artefact artefact) {
+		EventType type  = EventType.ARTEFACT;
+		String title = artefact.getName();
+		String story = artefact.getDescription();
+		EventState state = EventState.CREATED;
+		String image = artefact.getIcon();
+		
+		checkStoryAndSave(new Event(type, title, story, state, image));
+		
+	}
 
     /**
      * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in

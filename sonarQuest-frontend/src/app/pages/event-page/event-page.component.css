@@ -1,14 +1,9 @@
-.event{
-    margin-bottom: 10px;
-}
-
-
 .outer-events{
     height: calc(100% - 16px);
 }
 
 .events{
-    height: calc(100% - 113px);
+    height: calc(100% - 122px);
     overflow-y: scroll;
     overflow-x: hidden;
     margin-bottom: 0px;
@@ -16,11 +11,6 @@
 
 .this{
     height: 0px;
-}
-
-
-.event{
-    background-color: rgba(250,250,250,0.35);
 }
 
 .QUEST .timestamp{
@@ -50,6 +40,7 @@
 }
 
 .timestamp{
+    width: 60px;
     padding: 0 5px;
     align-items: center;
     display: inline-flex;
@@ -75,6 +66,16 @@ span.author{
 
 .content{
     padding: 0 5px;
+    width: calc(100% - 60px);
+    word-wrap: break-word;
+}
+
+.content span{
+    width: 100%;
+}
+
+.innercontent{
+    width:100%;
 }
 
 .event-image{
@@ -96,4 +97,8 @@ div.day{
 
 .e hr {
     visibility: hidden;
+}
+
+mat-icon{
+    width:100% !important;
 }

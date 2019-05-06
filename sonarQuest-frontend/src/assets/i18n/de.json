@@ -72,7 +72,8 @@
       "CREATED": "Neues Item am Marktplatz verfügbar"
     },
     "MESSAGE": {
-
+      "MESSAGE" : "Nachricht",
+      "HINT_CHARACTERS" : "maximal 255 Zeichen"
     }
   },
   "GAMEMASTER_PAGE": {
