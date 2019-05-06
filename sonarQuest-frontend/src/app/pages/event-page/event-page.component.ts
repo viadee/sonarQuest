@@ -47,7 +47,6 @@ export class EventPageComponent implements OnInit {
       this.previousEvent = event;
       return true;
     } else if (this.events[0].id === event.id) {
-<<<<<<< HEAD
       // When this is the first Event in the List show Date
       this.previousEvent = event
       return true;
@@ -55,12 +54,6 @@ export class EventPageComponent implements OnInit {
               (new Date(this.previousEvent.timestamp).getMonth() < new Date(event.timestamp).getMonth()) ||
               (new Date(this.previousEvent.timestamp).getFullYear() < new Date(event.timestamp).getFullYear())) {
       this.previousEvent = event
-=======
-      this.previousEvent = event;
-      return true;
-    } else if (new Date(this.previousEvent.timestamp).getDate() < new Date(event.timestamp).getDate()) {
-      this.previousEvent = event;
->>>>>>> master
       return true;
     } else {
       this.previousEvent = event;
@@ -69,9 +62,8 @@ export class EventPageComponent implements OnInit {
   }
 
   sendChat() {
-<<<<<<< HEAD
     if (this.message != ""){
-      this.wsSerive.sendMessage(this.message)
+      this.websocketService.sendMessage(this.message)
       /*
       this.eventService.sendChat(this.message).then(event => {
         this.getImageForMessage(event)
@@ -82,18 +74,6 @@ export class EventPageComponent implements OnInit {
       })
       */
     }
-=======
-    this.websocketService.sendMessage(this.message)
-    /*
-    this.eventService.sendChat(this.message).then(event => {
-      this.getImageForMessage(event)
-      this.events.push(event)
-    }).then(()=>{
-      //var i = document.getElementsByClassName('event').length;
-      //document.getElementsByClassName('event')[i-1].scrollIntoView(false)
-    })
-    */
->>>>>>> master
     this.message = '';
 
   }
