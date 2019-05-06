@@ -18,7 +18,7 @@ import {
 import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
 import {AdventureServiceTestingModule} from "../../../../../../../../services/adventure.service.mock.module";
 import {WorldServiceTestingModule} from "../../../../../../../../services/world.service.mock.module";
-import {SonarCubeServiceTestingModule} from "../../../../../../../../services/sonar-cube.service.mock.module";
+import {SonarQubeServiceTestingModule} from "../../../../../../../../services/sonar-qube.service.mock.module";
 import {StandardTaskServiceTestingModule} from "../../../../../../../../services/standard-task.service.mock.module";
 import {SpecialTaskServiceTestingModule} from "../../../../../../../../services/special-task.service.mock.module";
 
@@ -51,7 +51,7 @@ describe('GamemasterAddFreeTaskComponent', () => {
         CovalentPagingModule,
         AdventureServiceTestingModule,
         WorldServiceTestingModule,
-        SonarCubeServiceTestingModule,
+        SonarQubeServiceTestingModule,
         StandardTaskServiceTestingModule,
         SpecialTaskServiceTestingModule
       ],

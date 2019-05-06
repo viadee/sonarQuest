@@ -1,12 +1,12 @@
 import {WorldService} from '../../../../../../../services/world.service';
-import {AdminSonarCubeComponent} from '../../../../admin-sonar-cube/admin-sonar-cube.component';
+import {AdminSonarQubeComponent} from '../../../../admin-sonar-qube/admin-sonar-qube.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject, OnInit} from '@angular/core';
 import {World} from '../../../../../../../Interfaces/World';
 import {User} from '../../../../../../../Interfaces/User';
 
 @Component({
-  selector: 'app-admin-sonar-cube-select-background',
+  selector: 'app-admin-sonar-qube-select-background',
   templateUrl: './select-background.component.html',
   styleUrls: ['./select-background.component.css']
 })
@@ -16,7 +16,7 @@ export class SelectBackgroundComponent implements OnInit {
   user: User;
 
   constructor(
-    private dialogRef: MatDialogRef<AdminSonarCubeComponent>,
+    private dialogRef: MatDialogRef<AdminSonarQubeComponent>,
     private worldService: WorldService,
     @Inject(MAT_DIALOG_DATA) public world: World) {
   }

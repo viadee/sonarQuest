@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AdminSonarCubeComponent} from './admin-sonar-cube.component';
+import {AdminSonarQubeComponent} from './admin-sonar-qube.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -19,16 +19,16 @@ import {
 } from "@angular/material";
 import {UserServiceTestingModule} from "../../../../services/user.service.mock.module";
 import {LoadingService} from "../../../../services/loading.service";
-import {SonarCubeServiceTestingModule} from "../../../../services/sonar-cube.service.mock.module";
 import {WorldServiceTestingModule} from "../../../../services/world.service.mock.module";
+import {SonarQubeServiceTestingModule} from "../../../../services/sonar-qube.service.mock.module";
 
-describe('AdminSonarCubeComponent', () => {
-  let component: AdminSonarCubeComponent;
-  let fixture: ComponentFixture<AdminSonarCubeComponent>;
+describe('AdminSonarQubeComponent', () => {
+  let component: AdminSonarQubeComponent;
+  let fixture: ComponentFixture<AdminSonarQubeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminSonarCubeComponent ],
+      declarations: [ AdminSonarQubeComponent ],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -44,7 +44,7 @@ describe('AdminSonarCubeComponent', () => {
         MatDividerModule,
         MatSnackBarModule,
         MatFormFieldModule,
-        SonarCubeServiceTestingModule,
+        SonarQubeServiceTestingModule,
         UserServiceTestingModule,
         WorldServiceTestingModule
       ],
@@ -56,7 +56,7 @@ describe('AdminSonarCubeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminSonarCubeComponent);
+    fixture = TestBed.createComponent(AdminSonarQubeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

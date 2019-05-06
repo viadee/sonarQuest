@@ -66,7 +66,8 @@
 
 .login-form .mat-focused .mat-form-field-label,
 .login-form .mat-form-field-label,
-.login-form .mat-form-field-label .mat-form-field-required-marker {
+.login-form .mat-form-field-label .mat-form-field-required-marker,
+button.mat-raised-button mat-icon{
   color: white !important;
 }
 

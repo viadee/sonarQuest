@@ -160,7 +160,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/events':
-          return this.pageNames.EVENT;
+          return this.pageNames.EVENTS;
         default:
           return '';
       }
