@@ -19,6 +19,7 @@ import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ArtefactRepository;
 import com.viadee.sonarquest.services.ArtefactService;
+import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.UserService;
 
 @RestController
@@ -33,6 +34,9 @@ public class ArtefactController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EventService eventService;
 
 	@GetMapping
 	public List<Artefact> getAllArtefacts() {
@@ -52,6 +56,7 @@ public class ArtefactController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Artefact createArtefact(@RequestBody final Artefact artefact) {
+		eventService.createEventForCreateArtefact(artefact);
 		return artefactService.createArtefact(artefact);
 	}
 

@@ -131,14 +131,14 @@ public class EventService {
         return checkStoryAndSave(new Event(type, story, world, user));
     }
     
-    public Event createEventForCreateArtefact(Artefact artefact) {
+    public void createEventForCreateArtefact(Artefact artefact) {
 		EventType type  = EventType.ARTEFACT;
 		String title = artefact.getName();
 		String story = artefact.getDescription();
 		EventState state = EventState.CREATED;
 		String image = artefact.getIcon();
 		
-		return checkStoryAndSave(new Event(type, title, story, state, image));
+		checkStoryAndSave(new Event(type, title, story, state, image));
 		
 	}
 

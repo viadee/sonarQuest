@@ -62,7 +62,6 @@ public class ArtefactService {
 			levelService.createLevel(minLevel);
 			artefact.setMinLevel(minLevel);
 		}
-		eventService.createEventForCreateArtefact(artefact);
 		artefact.setOnMarketplace(true);
 		return artefactRepository.save(artefact);
 	}
