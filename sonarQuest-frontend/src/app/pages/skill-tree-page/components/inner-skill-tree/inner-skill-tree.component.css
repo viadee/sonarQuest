@@ -22,3 +22,9 @@ height: 90%;
 .not-allowed{
 	cursor: not-allowed;
 }
+
+.no-world-selected{
+	color:rgba(0, 0, 0, 0.54);
+	text-align: center;
+	margin-top: 25px;
+}

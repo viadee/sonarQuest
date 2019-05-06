@@ -68,6 +68,13 @@
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
+    <div *ngIf="isSkillTreeVisbile">
+      <a mat-list-item routerLink="/{{skilltreeUrl}}">
+        <i mat-list-icon class="ra ra-dead-tree ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.SKILL_TREE"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
 
   </mat-nav-list>
   <div td-toolbar-content layout="row" flex>

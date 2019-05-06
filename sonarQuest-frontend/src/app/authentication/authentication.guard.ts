@@ -1,28 +1,32 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthenticationService} from './authentication.service';
-import {PermissionService} from '../services/permission.service';
-import {RoutingUrls} from "../app-routing/routing-urls";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthenticationService } from './authentication.service';
+import { PermissionService } from '../services/permission.service';
+import { RoutingUrls } from "../app-routing/routing-urls";
 
 @Injectable()
 export class AuthenticationGuard implements CanActivateChild {
 
   constructor(private router: Router,
-              private authService: AuthenticationService,
-              private permissionService: PermissionService) {
+    private authService: AuthenticationService,
+    private permissionService: PermissionService) {
   }
 
   canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-        return this.authenticate(next.url.toString());
+    return this.authenticate(next.url.toString());
   }
 
   authenticate(nextUrl: string): boolean | Promise<boolean> {
     const isLoggedIn = this.authService.isLoggedIn();
+    console.log(nextUrl);
     if (!isLoggedIn) {
-      this.router.navigate([RoutingUrls.login], { skipLocationChange: true});
+      this.router.navigate([RoutingUrls.login], { skipLocationChange: true });
       return false;
     }
-
+    if (nextUrl.indexOf(RoutingUrls.innerskilltree) >= 0) {
+      nextUrl = nextUrl.substring(0, nextUrl.indexOf(','));
+    }
+    console.log(nextUrl);
     return this.permissionService.isUrlPermitted(nextUrl);
   }
 }

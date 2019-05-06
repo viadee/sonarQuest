@@ -10,6 +10,6 @@ export const RoutingUrls = {
   skilltree: 'skilltree',
   admin: 'admin',
   events: 'events',
-  login: 'login'
+  login: 'login',
   innerskilltree: 'innerskilltree',
 };

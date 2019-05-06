@@ -20,7 +20,7 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <div class="graph-viewbox">
+      <div class="graph-viewbox" *ngIf="userSkillTree.nodes?.length > 0">
         <ngx-graph [orientation]="TopToBottom" [links]="userSkillTree.links" [nodes]="userSkillTree.nodes"
           [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire" [autoZoom]="true" [autoCenter]="true">
 
@@ -39,7 +39,7 @@
               <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
-                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %</svg:text>
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} % {{"SKILL_TREE_PAGE.LEARN_PROGRESS"| translate}}</svg:text>
             </svg:g>
             <svg:g class="node pointer" *ngIf="!node.root" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
               [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" [tooltipCloseOnMouseLeave]="true" (click)="openDialog(node)">
@@ -64,6 +64,9 @@
           </ng-template>
 
         </ngx-graph>
+      </div>
+      <div class="graph-viewbox" *ngIf="userSkillTree.nodes?.length == 0">
+        <h1 class="no-world-selected">{{"WORLD.NO_WORLD_SELECTED"| translate}}</h1>
       </div>
     </mat-card-content>
   </mat-card>

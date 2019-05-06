@@ -195,7 +195,8 @@
     "UPDATE_WORLDS": "Aktualisiere Welten",
     "USE_QUEST_CARDS": "Questcard-Layout",
     "TOOLTIP_USE_QUEST_CARDS": "Wenn angehakt wird bei den Spielern bei der Questdarstellung ein Karten-Layout verwendet statt einer Tabelle",
-    "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt"
+    "TOOLTIP_ACTIVE": "Wenn angehakt, ist diese Welt auswählbar als Spielwelt",
+    "NO_WORLD_SELECTED":"Es ist keine Welt ausgewählt."
   },
   "TASK": {
     "TASK": "Auftrag",
@@ -278,7 +279,8 @@
     "INNER_SKILL_TREE_BACK": "Skill-Tree Überblick",
     "STEP_INTO": "Klicke auf die Skill Gruppen um sie zu öffnen",
     "TOOLTIP_DETAILS": "Klicken für mehr Informationen",
-    "TOOLTIP_ROOT_NODE": "Das Wurzelelement kann nicht ausgewählt werden"
+    "TOOLTIP_ROOT_NODE": "Das Wurzelelement kann nicht ausgewählt werden",
+    "LEARN_PROGRESS":"der Gruppe gelernt"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",

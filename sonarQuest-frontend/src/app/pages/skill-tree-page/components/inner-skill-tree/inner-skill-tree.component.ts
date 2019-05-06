@@ -54,10 +54,16 @@ export class InnerSkillTreeComponent implements OnInit {
       });
       this.skillTreeService.getUserSkillTree(this.id);
     } else if (this.isGamemaster) {
+      console.log('isGM');
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
-      this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
+      if(this.worldService.getCurrentWorld() !== null){
+        this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
+      }else{
+        this.userSkillTree = { nodes: [], links: [] };
+        console.log(this.userSkillTree.nodes.length);
+      }
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
         this.userSkillTree = userSkillTreeForUser;

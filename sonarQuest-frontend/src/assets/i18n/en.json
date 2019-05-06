@@ -178,7 +178,8 @@
     "UPDATE_WORLDS": "Update Worlds",
     "USE_QUEST_CARDS": "Use Questcard UI?",
     "TOOLTIP_USE_QUEST_CARDS": "When checked, the players will see their quests in a matrix with cards instead of a table",
-    "TOOLTIP_ACTIVE": "When checked this world is selectable for playing"
+    "TOOLTIP_ACTIVE": "When checked this world is selectable for playing",
+    "NO_WORLD_SELECTED":"There is no world selected."
   },
   "TASK": {
     "TASK": "Task",
@@ -261,7 +262,8 @@
     "INNER_SKILL_TREE_BACK": "Skill-Tree Overview",
     "STEP_INTO": "Click onto the Skill Groups to step into",
     "TOOLTIP_DETAILS": "Clikc for details",
-    "TOOLTIP_ROOT_NODE": "The root node isn't clickable"
+    "TOOLTIP_ROOT_NODE": "The root node isn't clickable",
+    "LEARN_PROGRESS":"of the group learned"
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",

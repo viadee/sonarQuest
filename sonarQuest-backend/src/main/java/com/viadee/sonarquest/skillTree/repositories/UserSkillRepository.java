@@ -21,5 +21,8 @@ public interface UserSkillRepository extends JpaRepository<UserSkill, Long> {
     
     @Query("SELECT u FROM UserSkill u WHERE :sonarRule member u.sonarRules")
 	public UserSkill findUserSkillBySonarRule(@Param("sonarRule") SonarRule sonarRule);
+    
+    @Query("SELECT u FROM UserSkill u WHERE userSkillGroup.id = :id AND isRoot = :isRoot")
+	public List<UserSkill> findRootUserSkillByGroupID(@Param("id")Long id, @Param("isRoot")boolean isRoot);
 
 }

@@ -87,7 +87,7 @@ import {LoadingService} from './services/loading.service';
 import {UserToWorldService} from './services/user-to-world.service';
 import {PermissionService} from './services/permission.service';
 import { WizardService } from './services/wizard.service';
-import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/marketplace-artefact-view/marketplace-artefact-view.component';
+import { ArtefactViewDetailsComponent } from './pages/marketplace-page/components/artefact-view-details/artefact-view-details.component';
 import { SkillTreePageComponent } from './pages/skill-tree-page/skill-tree-page.component';
 import {EventService} from './services/event.service'
 import {EventPageComponent} from './pages/event-page/event-page.component';
@@ -189,7 +189,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBackgroundComponent,
     EmptyPageComponent,
     LoadingComponent,
-    InnerSkillDetailDialogComponent
+    InnerSkillDetailDialogComponent,
     GamemasterSkillEditComponent
   ],
   imports: [
@@ -229,7 +229,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCheckboxModule,
     MatSnackBarModule,
     NgxGraphModule,
-    NgxChartsModule
+    NgxChartsModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [TdMediaService,
