@@ -207,10 +207,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     const dark  = 'dark';
     const light = 'light';
 
-    console.log(this.clickToggleDesignButton)
-
     if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
-      console.log('1')
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
       if (this.clickToggleDesignButton) {
@@ -218,7 +215,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
-      console.log('2')
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
       if (this.clickToggleDesignButton) {
@@ -226,7 +222,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
-      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");

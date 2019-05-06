@@ -73,7 +73,8 @@
     },
     "MESSAGE": {
       "MESSAGE" : "Message",
-      "HINT_CHARACTERS" : "Max 255 characters"
+      "HINT_CHARACTERS" : "Max 255 characters",
+      "SEND" : "Send"
     }
   },
   "GAMEMASTER_PAGE": {

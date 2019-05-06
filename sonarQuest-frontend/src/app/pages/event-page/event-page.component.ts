@@ -2,6 +2,7 @@ import { Event } from '../../Interfaces/Event';
 import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-event-page',
@@ -15,7 +16,6 @@ export class EventPageComponent implements OnInit {
   message = '';
 
   @ViewChildren('commentDiv') commentDivs: QueryList<ElementRef>;
-  @ViewChildren('test') testDivs: QueryList<ElementRef>;
 
   constructor(
     private eventService: EventService,
@@ -31,14 +31,10 @@ export class EventPageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.commentDivs.changes.subscribe(() => {
-      if (this.commentDivs && this.commentDivs.last) {
-        //this.commentDivs.last.nativeElement.focus();
-        if (this.commentDivs.last.nativeElement.children) {
-          console.log(this.commentDivs.last.nativeElement);
-          console.log(this.commentDivs.last.nativeElement.lastChild);
-          this.commentDivs.last.nativeElement.lastChild.focus();
-        }
-      }
+          $(".event").last().css("padding-bottom", "50px")
+          $(".event").last().focus()
+          $(".event").last().css("padding-bottom", "0")
+
     });
   }
 
