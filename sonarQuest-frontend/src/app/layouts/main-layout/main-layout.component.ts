@@ -161,7 +161,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/events':
-          return this.pageNames.EVENT;
+          return this.pageNames.EVENTS;
         default:
           return '';
       }
@@ -222,6 +222,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
+      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");

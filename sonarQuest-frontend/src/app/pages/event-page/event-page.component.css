@@ -110,11 +110,3 @@ mat-icon{
     width:100% !important;
 }
 
-body.dark * label{
-    color: rgba(255, 255, 255, 0.87) !important;
-}
-
-body.dark * mat-hint{
-    color: rgba(255, 255, 255, 0.87) !important;
-
-}

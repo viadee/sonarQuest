@@ -10,12 +10,13 @@
     "LOGIN": "Anmelden",
     "LOGOUT": "Abmelden",
     "BACKGROUND": "Schalte Hintergrund-Transparenz um",
-    "USER_PROFILE": "Öffne Benutzerprofil"
+    "USER_PROFILE": "Öffne Benutzerprofil",
+    "EVENTS": "Events"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",
-	"JOIN_ADVENTURE": "Dieses Abenteuer beginnen!",
-	"LEAVE_ADVENTURE": "Dieses Abenteuer verlassen...",
+    "JOIN_ADVENTURE": "Dieses Abenteuer beginnen!",
+    "LEAVE_ADVENTURE": "Dieses Abenteuer verlassen...",
     "MY_ADVENTURES_FOR_WORLD": "Meine Abenteuer für ",
     "ADVENTURES_FOR_WORLD": "Alle Abenteuer für ",
     "AVAILABLE_ADVENTURES": "Verfügbare Abenteuer",
@@ -23,16 +24,16 @@
   },
   "QUEST_PAGE": {
     "MY_QUESTS": "Meine Quests",
-	"SHOW_QUEST": "Quest anzeigen",
+    "SHOW_QUEST": "Quest anzeigen",
     "MY_QUESTS_FOR_WORLD": "Meine Quests für ",
     "QUESTS_FOR_WORLD": "Alle Quests für ",
     "JOIN_QUEST": "Quest annehmen",
     "AVAILABLE_QUESTS": "Verfügbare Quests",
     "AVAILABLE_QUESTS_FOR_WORLD": "Verfügbare Quests für ",
     "COMBATED_BY": "angenommen von ",
-    "SHOW_ISSUE_TOOLTIP":"Zeige SonarQube Issue",
-    "JOIN_ISSUE_TOOLTIP":"Kämpfe",
-    "CANCEL_ISSUE_TOOLTIP":"Höre auf zu kämpfen"
+    "SHOW_ISSUE_TOOLTIP": "Zeige SonarQube Issue",
+    "JOIN_ISSUE_TOOLTIP": "Kämpfe",
+    "CANCEL_ISSUE_TOOLTIP": "Höre auf zu kämpfen"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marktplatz",
@@ -41,17 +42,21 @@
     "SHOW_ITEM": "Artefakt anzeigen"
   },
   "ARTEFACT_VIEW_PAGE": {
-  	"TITLE": "Artefaktsteckbrief"
+    "TITLE": "Artefaktsteckbrief"
   },
   "ADMIN_PAGE": {
     "ALL_DEVELOPER": "Alle Entwickler",
     "CREATE_DEVELOPER": "Entwickler anlegen",
     "EDIT_DEVELOPER": "Entwickler bearbeiten",
     "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
-    "SONAR_CUBE_HEADER": "SonarQube",
+    "SONAR_QUBE_HEADER": "SonarQube",
     "SELECT_BACKGROUND": "Hintergrund wählen",
-    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Verbindungstest erfolgreich",
-    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server konnte nicht erreicht werden"
+    "SONARQUBE_CONNECTION_TEST": {
+      "START": "Verbindungstest starten",
+      "SUCCESS": "Verbindungstest erfolgreich",
+      "ERROR": "Sonar Qube Server konnte nicht erreicht werden"
+    },
+    "CONNECTION_SAVED": "Die Daten wurde gespeichert und die Verbindung hergestellt"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
@@ -60,13 +65,13 @@
   "EVENT_PAGE": {
     "QUEST": {
       "NEW_MEMBER": "ist der Quest beigetreten",
-      "CREATED" : "Neue Quest hinzugefügt",
-      "SOLVED" : "hat die Quest gelöst"
+      "CREATED": "Neue Quest hinzugefügt",
+      "SOLVED": "hat die Quest gelöst"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "ist dem Adventure beigetreten",
-      "CREATED" : "Neues Abenteuer hinzugefügt",
-      "SOLVED" : "hat das Abenteuer gelöst"
+      "CREATED": "Neues Abenteuer hinzugefügt",
+      "SOLVED": "hat das Abenteuer gelöst"
     },
     "ARTEFACT": {
       "CREATED": "Neues Item am Marktplatz verfügbar"
@@ -147,7 +152,7 @@
     "NO_ENTRIES": "keine Einträge",
     "SEARCH": "Suche",
     "SAVE": "Speichern",
-    "SOLVEALLTASKS" : "Alle Aufgaben lösen",
+    "SOLVEALLTASKS": "Alle Aufgaben lösen",
     "IMAGE": "Bild",
     "FILENAME_IMAGE": "Dateiname Bild",
     "CLICK_TO_SELECT": "Klick zum Wählen",
@@ -155,7 +160,7 @@
     "XP": "XP",
     "CLOSE": "Schließen",
     "CONFIRMATION_MESSAGE": "Wirklich löschen?",
-    "CANNOT_DELETE":"Fehler beim Löschen",
+    "CANNOT_DELETE": "Fehler beim Löschen",
     "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "DEVELOPER": {
@@ -226,8 +231,8 @@
     "DESCRIPTION": "Beschreibung",
     "SKILLS": "Kräfte",
     "ON_MARKETPLACE": "Sichtbar auf dem Marktplatz",
-    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet. Du kannst den Kaufpreis den Usern erstatten und das Artefakt löschen oder du löscht das Artefakt vom Marktplatz. Um Abzubrechen drücke ESC.",
-    "PAYOUT":"Kaufpreis auszahlen",
+    "CANNOT_DELETE_ARTEFACT": "Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet. Du kannst den Kaufpreis den Usern erstatten und das Artefakt löschen oder du löscht das Artefakt vom Marktplatz. Um Abzubrechen drücke ESC.",
+    "PAYOUT": "Kaufpreis auszahlen",
     "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen"
   },
   "SKILL": {

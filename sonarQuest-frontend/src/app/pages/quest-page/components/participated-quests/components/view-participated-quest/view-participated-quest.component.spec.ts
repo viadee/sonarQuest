@@ -16,7 +16,7 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import {ParticipationServiceTestingModule} from "../../../../../../services/participation.service.mock.module";
-import {SonarCubeServiceTestingModule} from "../../../../../../services/sonar-cube.service.mock.module";
+import {SonarQubeServiceTestingModule} from "../../../../../../services/sonar-qube.service.mock.module";
 import {WorldServiceTestingModule} from "../../../../../../services/world.service.mock.module";
 import {UserServiceTestingModule} from "../../../../../../services/user.service.mock.module";
 import {TaskServiceTestingModule} from "../../../../../../services/task.service.mock.module";
@@ -45,7 +45,7 @@ describe('ViewParticipatedQuestComponent', () => {
         MatToolbarModule,
         MatListModule,
         ParticipationServiceTestingModule,
-        SonarCubeServiceTestingModule,
+        SonarQubeServiceTestingModule,
         WorldServiceTestingModule,
         UserServiceTestingModule,
         TaskServiceTestingModule,
