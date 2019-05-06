@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {World} from "../../Interfaces/World";
 import {User} from "../../Interfaces/User";
-import {UiDesign} from "../../Interfaces/UiDesign";
 import {RoutingUrls} from "../../app-routing/routing-urls";
 import {UiDesignService} from "../../services/ui-design.service";
 import {TdMediaService} from "@covalent/core";
@@ -11,6 +10,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
+import { UiDesign } from 'app/Interfaces/UiDesign';
 
 @Component({
   selector: 'app-main-layout',
@@ -109,10 +109,14 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   private susbcribeWorlds() {
     this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world;
+      if (world) this.currentWorld = world;
       this.setBackground();
-    });
+    })
     this.worldService.worlds$.subscribe(worlds => {
+      if(this.currentWorld == null){
+        this.currentWorld = worlds[0]
+        this.setBackground();
+      }
       this.worlds = worlds;
     })
   }
@@ -179,14 +183,13 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
+    console.log(this.user)
     if (this.user) {
-      this.uiDesignService.getUiDesign().subscribe(ui => {
-        this.ui = ui;
-        console.log(ui);
-        this.body.className = '';
-        this.addClass(this.body, this.ui.name);
-        this.addClass(this.body, "background-image");
-      });
+      this.ui = this.user.uiDesign
+      console.log(this.ui)
+      this.body.className = '';
+      this.addClass(this.body, this.ui.name);
+      this.addClass(this.body, "background-image");
     }
   }
 
@@ -195,7 +198,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   toggleDesign() {
-    const dark = 'dark';
+    const dark  = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark

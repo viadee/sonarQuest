@@ -1,9 +1,9 @@
-import {Response} from '@angular/http';
-import {ReplaySubject, Subject, Observable} from 'rxjs';
-import {Artefact} from './../Interfaces/Artefact';
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import { Response } from '@angular/http';
+import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { Artefact } from './../Interfaces/Artefact';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ArtefactService {
@@ -63,6 +63,19 @@ export class ArtefactService {
     return this.http.delete(`${environment.endpoint}/artefact/${artefact.id}`)
       .toPromise().catch(this.handleError);
   }
+
+  removeArtefactFromMarketplace(artefact: Artefact): Promise<any> {
+    console.log('is called');
+    return this.http.put(`${environment.endpoint}/artefact/${artefact.id}/removeFromMarketplace`, null)
+      .toPromise().catch(this.handleError);
+  }
+
+  payoutArtefact(artefact: Artefact): Promise<any> {
+    return this.http.delete(`${environment.endpoint}/artefact/${artefact.id}/payout`)
+      .toPromise().catch(this.handleError);
+  }
+
+
 
   private handleError(error: Response | any) {
     let errMsg: string;

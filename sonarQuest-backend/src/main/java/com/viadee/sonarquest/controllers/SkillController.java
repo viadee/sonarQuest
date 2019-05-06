@@ -58,6 +58,8 @@ public class SkillController {
         Skill skill = this.skillRepository.findOne(id);
         if (skill != null) {
             skill.setName(data.getName());
+            skill.setType(data.getType());
+            skill.setValue(data.getValue());
             skill = this.skillRepository.save(skill);
         }
         return skill;

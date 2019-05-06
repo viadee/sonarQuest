@@ -13,6 +13,7 @@ import {ArtefactService} from './../../../../../../services/artefact.service';
 import {GamemasterMarketplaceComponent} from './../../gamemaster-marketplace.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
 import {Component, OnInit} from '@angular/core';
+import { GamemasterSkillEditComponent } from '../gamemaster-artefact-edit/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 
 @Component({
   selector: 'app-gamemaster-artefact-create',
@@ -52,7 +53,7 @@ export class GamemasterArtefactCreateComponent implements OnInit {
     private dialogRef: MatDialogRef<GamemasterMarketplaceComponent>,
     private artefactService: ArtefactService,
     private dialog: MatDialog,
-    private skillServive: SkillService,
+    private skillService: SkillService,
     private _dataTableService: TdDataTableService) {
   }
 
@@ -61,7 +62,9 @@ export class GamemasterArtefactCreateComponent implements OnInit {
   }
 
   removeSkill(skill: Skill) {
-    this.skillServive.deleteSkill(skill).then();
+    if (typeof skill.id !== 'undefined') {
+      this.skillService.deleteSkill(skill).then();
+    }
     this.skills.splice(this.skills.indexOf(skill));
     this.filter();
   }
@@ -71,6 +74,19 @@ export class GamemasterArtefactCreateComponent implements OnInit {
       .subscribe(skill => {
         if (skill !== undefined) {
           this.skills.push(skill);
+          this.filter();
+        }
+      });
+  }
+  editSkill(skill: Skill) {
+    this.dialog.open(GamemasterSkillEditComponent, { panelClass: 'dialog-sexy', width: '500px', data: skill }).afterClosed()
+      .subscribe(newSkill => {
+        if (newSkill !== undefined) {
+          const index: number = this.skills.indexOf(skill);
+          if (index !== -1) {
+            this.skills.splice(index, 1);
+          }
+          this.skills.push(newSkill);
           this.filter();
         }
       });

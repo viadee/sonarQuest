@@ -236,7 +236,7 @@ public class User {
     public void setArtefacts(final List<Artefact> artefacts) {
         this.artefacts = artefacts;
     }
-
+    
     public List<Adventure> getAdventures() {
         return adventures;
     }
