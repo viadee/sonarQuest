@@ -1,22 +1,24 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit } from '@angular/core';
-import { WorldService } from '../../../../services/world.service';
-import { World } from '../../../../Interfaces/World';
+import {TranslateService} from '@ngx-translate/core';
+import {Component, OnInit} from '@angular/core';
+import {WorldService} from '../../../../services/world.service';
+import {World} from '../../../../Interfaces/World';
 import {
-  IPageChangeEvent, ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableService,
+  IPageChangeEvent,
+  ITdDataTableColumn,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
   TdDataTableSortingOrder
 } from '@covalent/core';
-import { MatDialog } from '@angular/material';
-import { EditWorldComponent } from './components/edit-world/edit-world.component';
-import { TaskService } from '../../../../services/task.service';
-import { QuestService } from '../../../../services/quest.service';
-import { AdventureService } from '../../../../services/adventure.service';
-import { LoadingService } from '../../../../services/loading.service';
-import { UserService } from 'app/services/user.service';
-import { RoleService } from 'app/services/role.service';
+import {MatDialog} from '@angular/material';
+import {EditWorldComponent} from './components/edit-world/edit-world.component';
+import {TaskService} from '../../../../services/task.service';
+import {QuestService} from '../../../../services/quest.service';
+import {AdventureService} from '../../../../services/adventure.service';
+import {LoadingService} from '../../../../services/loading.service';
+import {UserService} from 'app/services/user.service';
 
 @Component({
-  selector: 'app-admin-world',
+  selector: 'sq-admin-world',
   templateUrl: './admin-world.component.html',
   styleUrls: ['./admin-world.component.css']
 })

@@ -1,7 +1,7 @@
-import { Event } from './../../Interfaces/Event';
+import { Event } from '../../Interfaces/Event';
 import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { WebSocketService } from 'app/services/websocket.service';
+import { WebsocketService } from 'app/services/websocket.service';
 
 @Component({
   selector: 'app-event-page',
@@ -10,7 +10,7 @@ import { WebSocketService } from 'app/services/websocket.service';
 })
 export class EventPageComponent implements OnInit {
 
-  events: Event[]
+  events: Event[];
   previousEvent: Event = null;
   message = '';
 
@@ -19,7 +19,7 @@ export class EventPageComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private wsSerive: WebSocketService
+    private websocketService: WebsocketService
   ) {
     this.eventService.events$.subscribe(events => {
       this.events = this.eventService.getImageForMessages(events)
@@ -36,10 +36,6 @@ export class EventPageComponent implements OnInit {
         if (this.commentDivs.last.nativeElement.children) {
           console.log(this.commentDivs.last.nativeElement);
           console.log(this.commentDivs.last.nativeElement.lastChild);
-          console.log()
-          console.log()
-          console.log()
-          console.log()
           this.commentDivs.last.nativeElement.lastChild.focus();
         }
       }
@@ -51,6 +47,7 @@ export class EventPageComponent implements OnInit {
       this.previousEvent = event;
       return true;
     } else if (this.events[0].id === event.id) {
+<<<<<<< HEAD
       // When this is the first Event in the List show Date
       this.previousEvent = event
       return true;
@@ -58,14 +55,21 @@ export class EventPageComponent implements OnInit {
               (new Date(this.previousEvent.timestamp).getMonth() < new Date(event.timestamp).getMonth()) ||
               (new Date(this.previousEvent.timestamp).getFullYear() < new Date(event.timestamp).getFullYear())) {
       this.previousEvent = event
+=======
+      this.previousEvent = event;
+      return true;
+    } else if (new Date(this.previousEvent.timestamp).getDate() < new Date(event.timestamp).getDate()) {
+      this.previousEvent = event;
+>>>>>>> master
       return true;
     } else {
-      this.previousEvent = event
+      this.previousEvent = event;
       return false;
     }
   }
 
   sendChat() {
+<<<<<<< HEAD
     if (this.message != ""){
       this.wsSerive.sendMessage(this.message)
       /*
@@ -78,6 +82,18 @@ export class EventPageComponent implements OnInit {
       })
       */
     }
+=======
+    this.websocketService.sendMessage(this.message)
+    /*
+    this.eventService.sendChat(this.message).then(event => {
+      this.getImageForMessage(event)
+      this.events.push(event)
+    }).then(()=>{
+      //var i = document.getElementsByClassName('event').length;
+      //document.getElementsByClassName('event')[i-1].scrollIntoView(false)
+    })
+    */
+>>>>>>> master
     this.message = '';
 
   }
@@ -89,12 +105,12 @@ export class EventPageComponent implements OnInit {
   }
 
   click() {
-    console.log('CLICK')
-    this.wsSerive.initializeWebSocketConnection()
+    console.log('CLICK');
+    this.websocketService.initializeWebSocketConnection();
   }
 
   something() {
-    this.eventService.something()
+    this.eventService.something();
   }
 
 }

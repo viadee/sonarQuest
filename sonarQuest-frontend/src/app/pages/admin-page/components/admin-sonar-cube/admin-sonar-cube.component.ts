@@ -1,13 +1,14 @@
-import {WorldService} from './../../../../services/world.service';
+import {WorldService} from '../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
 import {SonarCubeService} from '../../../../services/sonar-cube.service';
 import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
 import {MatSnackBar} from '@angular/material';
 import {LoadingService} from '../../../../services/loading.service';
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
-  selector: 'app-admin-sonar-cube',
+  selector: 'sq-admin-sonar-cube',
   templateUrl: './admin-sonar-cube.component.html',
   styleUrls: ['./admin-sonar-cube.component.css']
 })
@@ -26,7 +27,8 @@ export class AdminSonarCubeComponent implements OnInit {
   constructor(private sonarCubeService: SonarCubeService,
               private worldService: WorldService,
               private snackBar: MatSnackBar,
-              private loadingService: LoadingService) {
+              private loadingService: LoadingService,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -57,16 +59,26 @@ export class AdminSonarCubeComponent implements OnInit {
     })
       .then(available => {
         if (available) {
-          message = 'Sonar Server is reachable :)';
+
+          this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_SUCCESS").subscribe((translatedMessage) => {
+            message = translatedMessage;
+            loading.close();
+            this.snackBar.open(message, null, {duration: 2500});
+          });
         } else {
-          message = 'Warning! Sonar Server is not reachable!';
+          this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+            message = translatedMessage;
+            loading.close();
+            this.snackBar.open(message, null, {duration: 2500});
+          });
         }
-        loading.close();
-        this.snackBar.open(message, null, {duration: 2500});
       }).catch(() => {
       loading.close();
-      message = 'Sonar Server is not reachable';
-      this.snackBar.open(message, null, {duration: 2500});
+      this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+        message = translatedMessage;
+        loading.close();
+        this.snackBar.open(message, null, {duration: 2500});
+      });
     });
   }
 
@@ -87,10 +99,11 @@ export class AdminSonarCubeComponent implements OnInit {
     }).then(() => {
       this.worldService.worldChanged();
       loading.close();
-    }).catch((error) => {
-      loading.close();
-      const message = 'Sonar Server is not reachable';
-      this.snackBar.open(message, null, {duration: 2500});
+    }).catch(() => {
+      this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+        loading.close();
+        this.snackBar.open(translatedMessage, null, {duration: 2500});
+      });
     })
   }
 

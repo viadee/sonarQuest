@@ -27,6 +27,7 @@ import com.viadee.sonarquest.repositories.AdventureRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.services.AdventureService;
+import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.UserService;
 
@@ -53,6 +54,9 @@ public class AdventureController {
 
     @Autowired
     private GratificationService gratificationService;
+
+    @Autowired
+    private EventService eventService;
 
     @GetMapping
     public List<Adventure> getAllAdventures() {
@@ -88,9 +92,10 @@ public class AdventureController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Adventure createAdventure(@RequestBody final Adventure adventure) {
+    public Adventure createAdventure(final Principal principal, @RequestBody final Adventure adventure) {
         adventure.setStatus(AdventureState.OPEN);
         adventure.setStartdate(new Date(System.currentTimeMillis()));
+        eventService.createEventForCreatedAdventure(adventure, principal);
         return adventureRepository.save(adventure);
     }
 
@@ -113,18 +118,20 @@ public class AdventureController {
         final Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventureRepository.delete(adventure);
-            LOGGER.info("Deleted adventure with id " + id);
+            LOGGER.info("Deleted adventure with id {}", id);
         }
     }
 
     @PutMapping(value = "/{adventureId}/solveAdventure")
-    public Adventure solveAdventure(@PathVariable(value = "adventureId") final Long adventureId) {
+    public Adventure solveAdventure(final Principal principal,
+            @PathVariable(value = "adventureId") final Long adventureId) {
         final Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
             adventure.setStatus(AdventureState.SOLVED);
             adventure.setEnddate(new Date(System.currentTimeMillis()));
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
+            eventService.createEventForSolvedAdventure(adventure, principal);
         }
         return adventure;
     }

@@ -1,6 +1,7 @@
 package com.viadee.sonarquest.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -18,14 +19,10 @@ import com.viadee.sonarquest.repositories.ArtefactRepository;
 public class ArtefactService {
 
 	private enum PurchaseResult {
-		NOT_ENOUGH_GOLD, 
-		MIN_LEVEL_NOT_HIGH_ENOUGH, 
-		ITEM_SOLD_OUT,
-		ITEM_ALREADY_BOUGHT,
-		SUCCESS
+		NOT_ENOUGH_GOLD, MIN_LEVEL_NOT_HIGH_ENOUGH, ITEM_SOLD_OUT, ITEM_ALREADY_BOUGHT, SUCCESS
 	}
 
-    protected static final Log LOGGER = LogFactory.getLog(ArtefactService.class);
+	protected static final Log LOGGER = LogFactory.getLog(ArtefactService.class);
 
 	@Autowired
 	private ArtefactRepository artefactRepository;
@@ -40,11 +37,13 @@ public class ArtefactService {
 	private EventService eventService;
 
 	public List<Artefact> getArtefacts() {
-		return artefactRepository.findAll();
+		return  artefactRepository.findAll();
+		
 	}
 
 	public List<Artefact> getArtefactsForMarketplace() {
-		return artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
+		List<Artefact> artefacts =  artefactRepository.findByQuantityIsGreaterThanEqual((long) 1);
+		return artefacts.stream().filter(Artefact::isOnMarketplace).collect(Collectors.toList());
 	}
 
 	public Artefact getArtefact(final long id) {
@@ -64,7 +63,7 @@ public class ArtefactService {
 			artefact.setMinLevel(minLevel);
 		}
 		eventService.createEventForCreateArtefact(artefact);
-		
+		artefact.setOnMarketplace(true);
 		return artefactRepository.save(artefact);
 	}
 
@@ -78,16 +77,15 @@ public class ArtefactService {
 		artefact.setDescription(artefactDto.getDescription());
 		artefact.setQuantity(artefactDto.getQuantity());
 		artefact.setSkills(artefactDto.getSkills());
-		int minLevel = artefactDto.getMinLevel().getLevelNumber();
-		Level newLevel = levelService.findByLevel(minLevel);
-		artefact.setMinLevel(newLevel);
+		artefact.setMinLevel(artefactDto.getMinLevel());
+		artefact.setOnMarketplace(artefactDto.isOnMarketplace());
 		return artefactRepository.save(artefact);
 	}
 
 	@Transactional
 	public synchronized Artefact buyArtefact(Artefact artefactToBuy, final User user) {
 		Artefact artefact = artefactToBuy;
-        LOGGER.info("UserId "+user.getId()+" tries to buy artefactId "+artefactToBuy.getId());
+		LOGGER.info("UserId " + user.getId() + " tries to buy artefactId " + artefactToBuy.getId());
 
 		final Level minLevel = artefact.getMinLevel();
 		final Level devLevel = user.getLevel();
@@ -125,13 +123,29 @@ public class ArtefactService {
 
 			artefact.setQuantity(artefact.getQuantity() - 1);
 			artefact = artefactRepository.save(artefact);
-            LOGGER.info("UserId "+user.getId()+" successfully bought artefactId "+ artefactToBuy.getId());
+			LOGGER.info("UserId " + user.getId() + " successfully bought artefactId " + artefactToBuy.getId());
 		} else {
 			artefact = null;
 			LOGGER.info(String.format("UserId %s could not buy artefactId %s, Reason %s", user.getId(),
 					artefactToBuy.getId(), reason));
 		}
 		return artefact;
+	}
+
+	public void payoutArtefact(Artefact artefact) {
+		for (User user : artefact.getUsers()) {
+			user.getArtefacts().remove(artefact);
+			user.addGold(artefact.getPrice());
+			userService.save(user);
+		}
+		artefactRepository.delete(artefact);
+		LOGGER.info("Artefact '"+artefact.getName()+"' has been deleted by the Gamemaster.The purchase price was paid to the useres.");
+	}
+	
+	public void removeArtefactFromMarketplace(Artefact artefact) {
+		artefact.setOnMarketplace(false);
+		artefactRepository.save(artefact);
+		LOGGER.info("Artefact '"+artefact.getName()+"' has been removed form the marketplace by the Gamemaster.");
 	}
 
 }

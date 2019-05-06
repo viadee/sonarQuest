@@ -1,6 +1,6 @@
-import {GamemasterArtefactEditComponent} from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
-import {MatDialog} from '@angular/material';
-import {GamemasterArtefactCreateComponent} from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
+import { GamemasterArtefactEditComponent } from './components/gamemaster-artefact-edit/gamemaster-artefact-edit.component';
+import { MatDialog } from '@angular/material';
+import { GamemasterArtefactCreateComponent } from './components/gamemaster-artefact-create/gamemaster-artefact-create.component';
 import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent,
@@ -8,10 +8,11 @@ import {
   TdDataTableSortingOrder,
   TdDataTableService
 } from '@covalent/core';
-import {ArtefactService} from './../../../../services/artefact.service';
-import {Component, OnInit} from '@angular/core';
-import {Artefact} from '../../../../Interfaces/Artefact';
+import { ArtefactService } from './../../../../services/artefact.service';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Artefact } from '../../../../Interfaces/Artefact';
 import { TranslateService } from '@ngx-translate/core';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-gamemaster-marketplace',
@@ -21,17 +22,23 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class GamemasterMarketplaceComponent implements OnInit {
 
+  @ViewChild('cannotDeleteArtefactSwal') private cannotDeleteArtefactSwal: SwalComponent;
+  @ViewChild('deleteSuccessArtefactSwal') private deleteSuccessArtefactSwal: SwalComponent;
+
   artefacts: Artefact[];
 
   columns: ITdDataTableColumn[] = [
-    {name: 'icon', label: ''},
-    {name: 'name', label: 'name'},
-    {name: 'price', label: 'Price (in Gold)'},
-    {name: 'quantity', label: 'Quantity'},
-    {name: 'minLevel.levelNumber', label: 'min. Level'},
-    {name: 'skills', label: 'Skills'},
-    {name: 'edit', label: ''}
+    { name: 'icon', label: '' },
+    { name: 'name', label: 'name' },
+    { name: 'price', label: 'Price (in Gold)' },
+    { name: 'quantity', label: 'Quantity' },
+    { name: 'minLevel.levelNumber', label: 'min. Level' },
+    { name: 'skills', label: 'Skills' },
+    { name: 'onMarketplace', label: 'Visible on the Marketplace' },
+    { name: 'edit', label: '' }
   ];
+
+
 
   // Sort / Filter / Paginate variables
   filteredData: any[];
@@ -44,29 +51,70 @@ export class GamemasterMarketplaceComponent implements OnInit {
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
+  swalOptionsConfirmDelete: {}
+  swalOptionsCannotDelete: {}
+  swalOptionsDeleteSuccess: {}
+
   constructor(
     private _dataTableService: TdDataTableService,
     private artefactService: ArtefactService,
     private translateService: TranslateService,
     private dialog: MatDialog) {
+    this.initSweetAlert();
   }
 
   ngOnInit() {
     this.translateService.get('ARTEFACT').subscribe((col_names) => {
       this.columns = [
-        {name: 'icon', label: ''},
-        {name: 'name', label: col_names.NAME},
-        {name: 'price', label: col_names.PRICE},
-        {name: 'quantity', label: col_names.QUANTITY},
-        {name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL},
-        {name: 'skills', label: col_names.SKILLS},
-        {name: 'edit', label: ''}]
-    });      
+        { name: 'icon', label: '' },
+        { name: 'name', label: col_names.NAME },
+        { name: 'price', label: col_names.PRICE },
+        { name: 'quantity', label: col_names.QUANTITY },
+        { name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL },
+        { name: 'skills', label: col_names.SKILLS },
+        { name: 'onMarketplace', label: col_names.ON_MARKETPLACE },
+        { name: 'edit', label: '' }]
+    });
     this.update();
+    this.initSweetAlert();
   }
+  initSweetAlert(): void {
+    this.swalOptionsConfirmDelete = {
+      title: this.translate('GLOBAL.DELETE'),
+      text: this.translate('GLOBAL.CONFIRMATION_MESSAGE'),
+      backdrop: false,
+      type: 'question',
+      showCancelButton: true,
+      cancelButtonText: this.translate('GLOBAL.CANCEL'),
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      confirmButtonColor: '#C62828',
+      confirmButtonText: this.translate('GLOBAL.DELETE')
+    }
 
+    this.swalOptionsCannotDelete = {
+      title: this.translate('GLOBAL.CANNOT_DELETE'),
+      text: this.translate('ARTEFACT.CANNOT_DELETE_ARTEFACT'),
+      backdrop: false,
+      type: 'error',
+      confirmButtonColor: '#C62828',
+      showCancelButton: true,
+      cancelButtonColor: '#C62828',
+      allowEscapeKey: true,
+      cancelButtonText: this.translate('ARTEFACT.PAYOUT'),
+      confirmButtonText: this.translate('ARTEFACT.REMOVE_FROM_MARKETPLACE')
+    }
+    this.swalOptionsDeleteSuccess = {
+      title: this.translate('GLOBAL.DELETE_SUCCESS'),
+      toast: true,
+      type: 'success',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    }
+  }
   newArtefact() {
-    this.dialog.open(GamemasterArtefactCreateComponent, {panelClass: 'dialog-sexy', width: '500px'}).afterClosed()
+    this.dialog.open(GamemasterArtefactCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
       .subscribe(() => {
       });
   }
@@ -81,13 +129,37 @@ export class GamemasterMarketplaceComponent implements OnInit {
   }
 
   deleteArtefact(artefact: Artefact) {
-    var msg = "";
-    this.translateService.get('GLOBAL.CONFIRMATION_MESSAGE').subscribe(translateMsg => msg = translateMsg);
-    if(confirm(msg)) {
-      this.artefactService.deleteArtefact(artefact).then(() => {
+    this.artefactService.deleteArtefact(artefact).then(response => {
+      if (!response) {
+        this.cannotDeleteArtefactSwal.show();
+      } else {
+        this.deleteSuccessArtefactSwal.show();
         this.update();
-      });
+       
+      }
+    });
+
+  }
+  
+  removeArtefactFromMarketplace(artefact: Artefact) {
+    this.artefactService.removeArtefactFromMarketplace(artefact).then(() => {
+      this.deleteSuccessArtefactSwal.show();
+      this.update();
     }
+    )
+  }
+
+  payoutArtefact(artefact: Artefact) {
+    this.artefactService.payoutArtefact(artefact).then(() => {
+      this.deleteSuccessArtefactSwal.show();
+      this.update();
+    })
+  }
+
+  translate(messageString: string): string {
+    let msg = '';
+    this.translateService.get(messageString).subscribe(translateMsg => msg = translateMsg);
+    return msg;
   }
 
   update() {

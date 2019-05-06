@@ -3,7 +3,12 @@
 [![Build Status](https://travis-ci.org/viadee/sonarQuest.svg?branch=master)](https://travis-ci.org/viadee/sonarQuest) 
 [![](https://img.shields.io/github/release-pre/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/releases) 
 [![](https://img.shields.io/github/license/viadee/sonarquest.svg)](https://github.com/viadee/sonarQuest/blob/master/LICENSE)
-[![](https://img.shields.io/github/stars/viadee/sonarquest.svg?style=social)](https://github.com/viadee/sonarQuest/stargazers)
+[![](https://img.shields.io/github/stars/viadee/sonarQuest.svg)](https://github.com/viadee/sonarQuest/stargazers) 
+[![](https://img.shields.io/github/forks/viadee/sonarQuest.svg)](https://github.com/viadee/sonarQuest/network/members)
+[![](https://img.shields.io/github/contributors/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/graphs/contributors) 
+[![](https://img.shields.io/github/last-commit/viadee/SonarQuest.svg)](https://github.com/viadee/sonarQuest/commits/master) 
+[![](https://img.shields.io/github/commits-since/viadee/SonarQuest/0.7.1.svg)](https://github.com/viadee/sonarQuest/compare/0.7.1...master) 
+
 
 A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification system. Handle your code quality issues in a playful way by solving quests and adventures, earning rewards for refactoring code smells and optimization.
 
@@ -18,7 +23,39 @@ An example: a team defines the solvation of issues with priority levels "blocker
 
 ![Example](docs/images/screenshot.jpg)
 
+## Jump-start for users
 
+The quickest way to get a running SonarQuest and to start playing is to use Docker, see [INSTALLATION.md](installation.md) or if you do not have Docker, just do the following:
+
+### Backend
+* download the runnable backend jar from the latest release, e.g. https://github.com/viadee/sonarQuest/releases/tag/0.7.1/
+* start it with "java -jar [name of the jar]"
+
+### Frontend
+* check out the *sonarquest-frontend* folder from github
+* Install *Node.js*. Please follow the instructions on the [Node.js](https://nodejs.org) website.
+* Install *Angular-Cli* globally with `npm install -g @angular/cli`
+
+After that you can start the SonarQuest client:
+1. switch to the directory: `cd sonarQuest-frontend`
+2. install the node modules: `npm install`
+3. start the test server with the SonarQuest client: `ng serve`
+You can access the SonarQuest client in a browser at `http://localhost:4200`
+
+### 10 steps into your SonarQuest game
+
+1. Log in as admin with password test
+2. Check the connection to the SonarQube server
+3. Get all the projects on SonarQube into SonarQuest and make a single project playable as a "world"
+4. Assign a gm and players to this world
+5. Log in as gm with password test
+6. Get all issues aka tasks for the current world
+7. Create quests by writing a short story and add tasks to make them solvable
+8. (Optionally) create an adventure and add quests to it to support a story arc
+9. Get your players to log in (all pre-made avatars have the password test and their username as login) and take on your quests by selecting to "fight" in a quest and to "fight" issues in the quests
+10. Login in as a gm from time to time to synchronize SonarQuest with the SonarQube project to have SonarQuest pay out rewards to your players!
+
+Have fun!
 
 ## Getting Started
 

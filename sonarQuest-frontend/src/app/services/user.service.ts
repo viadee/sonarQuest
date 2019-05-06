@@ -1,11 +1,8 @@
-import { ReplaySubject } from 'rxjs';
+import {Observable, ReplaySubject, Subject, Subscriber} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {User} from '../Interfaces/User';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable, Subscriber} from 'rxjs';
-import {AuthenticationService} from '../login/authentication.service';
-import { Subject } from 'rxjs';
 import {tap} from 'rxjs/operators';
 import * as moment from 'moment';
 
