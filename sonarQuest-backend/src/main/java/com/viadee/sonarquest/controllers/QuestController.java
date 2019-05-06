@@ -89,8 +89,8 @@ public class QuestController {
         final User user = userService.findByUsername(username);
         questDto.setStartdate(new Date(System.currentTimeMillis()));
         questDto.setStatus(QuestState.OPEN);
-        eventService.createEventForCreateQuest(questDto);
         questDto.setCreatorName(user.getUsername());
+        eventService.createEventForCreatedQuest(questDto, principal);
         return questRepository.save(questDto);
     }
 
@@ -117,12 +117,12 @@ public class QuestController {
             final List<Task> tasks = quest.getTasks();
             tasks.forEach(task -> task.setStatus(SonarQuestStatus.OPEN));
             questRepository.delete(quest);
-	    LOGGER.info("Deleted quest with id " + id);
+            LOGGER.info("Deleted quest with id {}", id);
         }
     }
 
     @PutMapping(value = "/{questId}/solveQuest/")
-    public void solveQuest(@PathVariable(value = "questId") final Long questId) {
+    public void solveQuest(final Principal principal, @PathVariable(value = "questId") final Long questId) {
         final Quest quest = questRepository.findOne(questId);
         if (quest != null) {
             gratificationService.rewardUsersForSolvingQuest(quest);
@@ -130,6 +130,7 @@ public class QuestController {
             quest.setEnddate(new Date(System.currentTimeMillis()));
             quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
+            eventService.createEventForSolvedQuest(quest, principal);
         }
     }
     
@@ -140,9 +141,7 @@ public class QuestController {
         if (quest != null) {
             quest.setEnddate(new Date(System.currentTimeMillis()));
             quest.setStatus(QuestState.SOLVED);
-
-            eventService.createEventForSolveQuest(quest, principal);
-            
+            eventService.createEventForSolvedQuest(quest, principal);
         }
         return quest;
     }

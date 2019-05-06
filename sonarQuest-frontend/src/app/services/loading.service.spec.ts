@@ -1,10 +1,14 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { LoadingService } from './loading.service';
+import {LoadingService} from './loading.service';
+import {MatDialogModule} from "@angular/material";
 
 describe('LoadingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule
+      ],
       providers: [LoadingService]
     });
   });

@@ -5,13 +5,13 @@ import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent
 } from '@covalent/core';
-import {Artefact} from './../../Interfaces/Artefact';
-import {ArtefactService} from './../../services/artefact.service';
+import {Artefact} from '../../Interfaces/Artefact';
+import {ArtefactService} from '../../services/artefact.service';
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../Interfaces/User';
 import {UserService} from '../../services/user.service';
 import { MatDialog } from '@angular/material';
-import { ArtefactViewDetailsComponent } from './components/marketplace-artefact-view/marketplace-artefact-view.component';
+import { ArtefactViewDetailsComponent } from './components/artefact-view-details/artefact-view-details.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

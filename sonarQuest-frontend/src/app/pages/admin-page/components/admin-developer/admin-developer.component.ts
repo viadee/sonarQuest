@@ -1,4 +1,4 @@
-import { WorldService } from './../../../../services/world.service';
+import { WorldService } from '../../../../services/world.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AdminDeveloperDeleteComponent } from './components/admin-developer-delete/admin-developer-delete.component';
 import { AdminDeveloperEditComponent } from './components/admin-developer-edit/admin-developer-edit.component';
@@ -10,7 +10,7 @@ import { User } from '../../../../Interfaces/User';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
-  selector: 'app-admin-developer',
+  selector: 'sq-admin-developer',
   templateUrl: './admin-developer.component.html',
   styleUrls: ['./admin-developer.component.css']
 })
@@ -87,7 +87,7 @@ export class AdminDeveloperComponent implements OnInit {
   editUser(user: User) {
     this.dialog.open(AdminDeveloperEditComponent, { data: {user: user, users: this.users}, width: '500px' }).afterClosed()
       .subscribe(bool => {
-        this.ngOnInit()
+        this.ngOnInit();
 
         if ( bool && this.userService.getUser().id == user.id){
           this.worldService.getWorlds()

@@ -22,18 +22,6 @@ public interface EventRepository extends CrudRepository<Event,Long>  {
 	
 	List<Event> findFirst3ByOrderByTimestampDesc();
 	
-	//List<Event> findFirst4ByOrderByTimestampDesc();
-
-	//List<Event> findFirst5ByOrderByTimestampDesc();
-	
-	//List<Event> findFirst6ByOrderByTimestampDesc();
-	
-	//List<Event> findFirst7ByOrderByTimestampDesc();
-	
-	//List<Event> findFirst8ByOrderByTimestampDesc();
-	
-	//List<Event> findFirst9ByOrderByTimestampDesc();
-	
 	List<Event> findFirst10ByOrderByTimestampDesc();
 }
 

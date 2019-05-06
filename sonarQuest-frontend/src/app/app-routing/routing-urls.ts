@@ -9,6 +9,7 @@ export const RoutingUrls = {
   gamemaster: 'gamemaster',
   skilltree: 'skilltree',
   admin: 'admin',
+  events: 'events',
+  login: 'login'
   innerskilltree: 'innerskilltree',
-  events: 'events'
-}
+};

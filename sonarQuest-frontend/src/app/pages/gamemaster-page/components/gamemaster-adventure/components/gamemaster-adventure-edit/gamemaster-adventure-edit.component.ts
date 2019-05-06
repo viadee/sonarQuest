@@ -1,9 +1,9 @@
-import {World} from './../../../../../../Interfaces/World';
-import {WorldService} from './../../../../../../services/world.service';
-import {AdventureService} from './../../../../../../services/adventure.service';
-import {Adventure} from './../../../../../../Interfaces/Adventure';
-import {GamemasterAddFreeQuestComponent} from './../gamemaster-adventure-create/components/gamemaster-add-free-quest/gamemaster-add-free-quest.component';
-import {QuestService} from './../../../../../../services/quest.service';
+import {World} from '../../../../../../Interfaces/World';
+import {WorldService} from '../../../../../../services/world.service';
+import {AdventureService} from '../../../../../../services/adventure.service';
+import {Adventure} from '../../../../../../Interfaces/Adventure';
+import {GamemasterAddFreeQuestComponent} from '../gamemaster-adventure-create/components/gamemaster-add-free-quest/gamemaster-add-free-quest.component';
+import {QuestService} from '../../../../../../services/quest.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {MatDialogRef} from '@angular/material';
 import {Component, OnInit, Inject} from '@angular/core';
@@ -34,11 +34,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
 
   ngOnInit() {
     // TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
-    if (this.adventure.status === AdventureState.SOLVED) {
-      this.isSolved = true;
-    } else {
-      this.isSolved = false;
-    }    
+    this.isSolved = this.adventure.status === AdventureState.SOLVED;
     this.currentWorld = this.worldService.getCurrentWorld();
     this.calculateGoldAmountOfQuests();
     this.calculateXpAmountOfQuests();

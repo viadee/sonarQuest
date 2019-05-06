@@ -38,19 +38,23 @@ public class Artefact {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "level_id")
     private Level minLevel;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "Artefact_Skill", joinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
     private List<Skill> skills;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "artefacts", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "artefacts", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<User> users;
+    
+    @Column(name="on_marketplace")
+    private boolean onMarketplace;
 
     public Artefact() {
+    	this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Level minLevel,
@@ -60,6 +64,7 @@ public class Artefact {
         this.price = price;
         this.minLevel = minLevel;
         this.skills = skills;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final Long price, final Long quantity, final String description) {
@@ -67,6 +72,7 @@ public class Artefact {
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Long quantity,
@@ -76,6 +82,7 @@ public class Artefact {
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Level minLevel,
@@ -87,6 +94,7 @@ public class Artefact {
         this.minLevel = minLevel;
         this.skills = skills;
         this.users = users;
+        this.onMarketplace = true;
     }
 
     public Artefact(final Long id, final String name, final String icon, final Long price, final Long quantity,
@@ -101,6 +109,7 @@ public class Artefact {
         this.minLevel = minLevel;
         this.skills = skills;
         this.users = users;
+        this.onMarketplace = true;
     }
 
     public Long getId() {
@@ -175,7 +184,15 @@ public class Artefact {
         this.description = description;
     }
 
-    @Override
+    public boolean isOnMarketplace() {
+		return onMarketplace;
+	}
+
+	public void setOnMarketplace(boolean onMarketplace) {
+		this.onMarketplace = onMarketplace;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

@@ -52,7 +52,9 @@
     "EDIT_DEVELOPER": "Edit Developer",
     "DELETE_DEVELOPER": "Are you sure to delete?",
     "SONAR_CUBE_HEADER": "SonarQube",
-    "SELECT_BACKGROUND": "Select Background"
+    "SELECT_BACKGROUND": "Select Background",
+    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Sonar Server is reachable :)",
+    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server is not reachable"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Current Progress",
@@ -139,7 +141,8 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Close",
-    "CONFIRMATION_MESSAGE": "Really delete this?"
+    "CONFIRMATION_MESSAGE": "Really delete this?",
+    "CANNOT_DELETE":"Error deleting"
   },
   "DEVELOPER": {
     "DEVELOPER": "Developer",
@@ -207,13 +210,19 @@
     "QUANTITY": "Available",
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "SKILLS": "Powers"
+    "SKILLS": "Powers",
+    "ON_MARKETPLACE": "Visible on the marketplace",
+    "CANNOT_DELETE_ARTEFACT":"The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
+    "PAYOUT":"Pay out purchase price",
+    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"    
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",
     "MORE_XP": "More XP",
     "CREATE_SKILL": "Create Power",
+    "EDIT_SKILL": "Edit Power",
     "ADD_SKILL": "Add Power",
+    "UPDATE_SKILL": "Update Power",
     "SKILLS": "Powers",
     "NEW_SKILL": "New Power",
     "TYPE": "Type",
@@ -222,6 +231,7 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
+    "HEADER": "Give your credentials and enter the mighty world of Sonar Quest",
     "USERNAME": "Username",
     "MAIL": "E-Mail",
     "PASSWORD": "Password",

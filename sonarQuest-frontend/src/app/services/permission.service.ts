@@ -4,7 +4,7 @@ import {environment} from '../../environments/environment';
 import {Permission} from '../Interfaces/Permission';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AuthenticationService} from '../login/authentication.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Injectable()
 export class PermissionService {

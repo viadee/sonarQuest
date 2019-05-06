@@ -52,7 +52,9 @@
     "EDIT_DEVELOPER": "Entwickler bearbeiten",
     "DELETE_DEVELOPER": "Soll wirklich gelöscht werden?",
     "SONAR_CUBE_HEADER": "SonarQube",
-    "SELECT_BACKGROUND": "Hintergrund wählen"
+    "SELECT_BACKGROUND": "Hintergrund wählen",
+    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Verbindungstest erfolgreich",
+    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server konnte nicht erreicht werden"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
@@ -155,7 +157,9 @@
     "GOLD": "Gold",
     "XP": "XP",
     "CLOSE": "Schließen",
-    "CONFIRMATION_MESSAGE": "Wirklich löschen?"
+    "CONFIRMATION_MESSAGE": "Wirklich löschen?",
+    "CANNOT_DELETE":"Fehler beim Löschen",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",
@@ -223,13 +227,19 @@
     "QUANTITY": "Anzahl vorhanden",
     "NAME": "Name",
     "DESCRIPTION": "Beschreibung",
-    "SKILLS": "Kräfte"
+    "SKILLS": "Kräfte",
+    "ON_MARKETPLACE": "Sichtbar auf dem Marktplatz",
+    "CANNOT_DELETE_ARTEFACT":"Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet. Du kannst den Kaufpreis den Usern erstatten und das Artefakt löschen oder du löscht das Artefakt vom Marktplatz. Um Abzubrechen drücke ESC.",
+    "PAYOUT":"Kaufpreis auszahlen",
+    "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen"
   },
   "SKILL": {
     "MORE_GOLD": "Mehr Gold",
     "MORE_XP": "Mehr XP",
     "CREATE_SKILL": "Kraft anlegen",
+    "EDIT_SKILL": "Kraft editieren",
     "ADD_SKILL": "Kraft hinzufügen",
+    "UPDATE_SKILL": "Kraft aktualisieren",
     "SKILLS": "Kräfte",
     "NEW_SKILL": "Neue Kraft",
     "TYPE": "Typ",
@@ -238,6 +248,7 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
+    "HEADER": "Gib deine Losung ein und betritt die mächtige Welt von Sonar Quest",
     "USERNAME": "Benutzername",
     "MAIL": "E-Mail",
     "PASSWORD": "Passwort",

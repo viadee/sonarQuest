@@ -1,7 +1,7 @@
 /*------------------DESIGN-START------------------*/
 
 .background-image{
-  /* background-image: LOOK AT -> app.component.ts -> changebackground() */
+  /* background-image: LOOK AT -> app.component.ts -> changeBackground() */
   background-repeat: no-repeat;
   background-position: left top;
   background-attachment: fixed;
@@ -93,8 +93,8 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 } 
 
 .dialog-sexy :last-child.mat-dialog-actions {
-  padding: 12px 15px 12px 0px !important;
-  margin-bottom: 0px  !important;
+  padding: 12px 15px 12px 0 !important;
+  margin-bottom: 0  !important;
 }
 
 .vertical-spacer-10{
@@ -104,7 +104,7 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 mat-option img {
   height: 48px;
   width: 48px;
-  margin: 0px 0px -19px 0px;
+  margin: 0 0 -19px 0;
 }
 
 .toolbar-spacer {
@@ -114,7 +114,7 @@ mat-option img {
 .background{
   width: 100%;
   height: 100%;
-  background-size: 0%; /*20%*/
+  background-size: 0; /*20%*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: right bottom;
@@ -158,7 +158,7 @@ i.navlist{
 .avatar-image img{
   max-height:100%; 
   width:auto;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
  }
 
 .selectBackground button{

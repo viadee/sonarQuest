@@ -1,12 +1,10 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
-import { Token } from './Token';
-import { Router } from '@angular/router';
-
-
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {LocalStorageService} from './local-storage.service';
+import {Token} from './Token';
+import {Router} from '@angular/router';
 
 
 @Injectable()
