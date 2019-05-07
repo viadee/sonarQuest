@@ -7,6 +7,7 @@ public class SonarRuleDTO {
 	private String name;
 	private String key;
 	private Timestamp addedAt;
+	private UserSkillDTO userSkilLDto;
 
 	public SonarRuleDTO() {
 		super();
@@ -40,6 +41,14 @@ public class SonarRuleDTO {
 
 	public void setAddedAt(Timestamp addedAt) {
 		this.addedAt = addedAt;
+	}
+
+	public UserSkillDTO getUserSkilLDto() {
+		return userSkilLDto;
+	}
+
+	public void setUserSkilLDto(UserSkillDTO userSkilLDto) {
+		this.userSkilLDto = userSkilLDto;
 	}
 
 }

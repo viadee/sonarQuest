@@ -30,7 +30,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public selected: World;
   public user: User = null;
   private ui: UiDesign = null;
-  private lastAddedSonarRule: SonarRule;
+  private unassignedSonarRules: SonarRule[];
 
 
   public myAvatarUrl = RoutingUrls.myAvatar;
@@ -92,8 +92,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.updateWorldsFromCurrentUser();
       }
     });
-    this.susbcribeLastAddedRSonarRule();
-    this.getLastAddedSonarRule();
+    this.susbcribeUnassignedSonarRules();
+    this.loadUnassignedSonarRules();
     this.setPreDesign();
     this.setBackground();
     this.userService.loadUser();
@@ -143,14 +143,14 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     })
   }
 
-  private susbcribeLastAddedRSonarRule() {
-    this.sonarRuleService.lastAddedSonarRule$.subscribe(lastAddedSonarRule => {
-      this.lastAddedSonarRule = lastAddedSonarRule;
+  private susbcribeUnassignedSonarRules() {
+    this.sonarRuleService.unassignedSonarRules$.subscribe(unassignedSonarRules => {
+      this.unassignedSonarRules = unassignedSonarRules;
     });
   }
 
-  private getLastAddedSonarRule() {
-    this.sonarRuleService.loadLastAddedSonarRule();
+  private loadUnassignedSonarRules() {
+    this.sonarRuleService.loadUnassignedSonarRules();
   }
 
   protected updateWorldsFromCurrentUser(): void {
@@ -172,21 +172,20 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.translate.get('APP_COMPONENT').subscribe((page_names) => {
       this.pageNames = page_names;
     });
-    this.checkIfSwalIsNessesary();
+    this.checkIfNewRuleSwalIsNessesary();
   }
 
-  checkIfSwalIsNessesary() {
+  checkIfNewRuleSwalIsNessesary() {
     if (typeof this.user !== 'undefined' && this.user !== null &&
-     typeof this.lastAddedSonarRule !== 'undefined' && this.lastAddedSonarRule !== null) {
-       console.log(new Date(this.user.lastLogin));
-       console.log(new Date(this.lastAddedSonarRule.addedAt));
-      if(new Date(this.user.lastLogin) < new Date(this.lastAddedSonarRule.addedAt)){
-        console.log('new rule');
-        this.newRulesReleasedSwal.show();
+      typeof this.unassignedSonarRules !== 'undefined' && this.unassignedSonarRules !== null) {
+      if (this.user.role.id === 3) {
+        if (this.unassignedSonarRules.length > 0) {
+          this.newRulesReleasedSwal.show();
+        }
       }
     } else {
       setTimeout(() => {
-        this.checkIfSwalIsNessesary();
+        this.checkIfNewRuleSwalIsNessesary();
       }, 3000);
 
     }

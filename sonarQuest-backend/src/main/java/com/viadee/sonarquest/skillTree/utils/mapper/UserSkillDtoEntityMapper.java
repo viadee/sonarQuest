@@ -12,13 +12,18 @@ import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepo
 public class UserSkillDtoEntityMapper {
 
 	public UserSkillDTO entityToDto(UserSkill userSkill) {
-		UserSkillDTO userSkillDTO = new UserSkillDTO();
-		userSkillDTO.setId(userSkill.getId());
-		userSkillDTO.setDescription(userSkill.getDescription());
-		userSkillDTO.setName(userSkill.getName());
-		userSkillDTO.setRuleKey(userSkill.getSonarRules().stream().map(rule -> rule.getKey()).collect(Collectors.toList()));
-		
-		return userSkillDTO;
+		UserSkillDTO userSkillDto = new UserSkillDTO();
+		if (userSkill != null) {
+			userSkillDto.setId(userSkill.getId());
+			userSkillDto.setDescription(userSkill.getDescription());
+			userSkillDto.setName(userSkill.getName());
+			userSkillDto.setRuleKey(
+					userSkill.getSonarRules().stream().map(rule -> rule.getKey()).collect(Collectors.toList()));
+		} else {
+			userSkillDto = null;
+		}
+
+		return userSkillDto;
 	}
 
 }

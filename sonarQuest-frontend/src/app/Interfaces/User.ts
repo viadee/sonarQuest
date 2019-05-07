@@ -1,9 +1,9 @@
-import {Role} from './Role';
 import {Level} from './Level';
 import {Artefact} from './Artefact';
 import {AvatarClass} from './AvatarClass';
 import {AvatarRace} from './AvatarRace';
 import {World} from './World';
+import { Role } from './Role';
 
 export interface User {
   id?: number,

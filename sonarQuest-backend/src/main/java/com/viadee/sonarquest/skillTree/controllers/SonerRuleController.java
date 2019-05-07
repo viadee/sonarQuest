@@ -11,6 +11,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,15 +42,22 @@ public class SonerRuleController {
 	public List<SonarRule> getAll() {
 		return sonarRuleService.findAll();
 	}
-	@GetMapping(value="/lastAdded")
-	public SonarRuleDTO getNewestSonarRule() {
-		
-		return sonarRuleService.getNewestSonarRule();
+	
+	@GetMapping(value="/unassignedRules")
+	public List<SonarRuleDTO> getUnassignedRules() {
+		return this.sonarRuleService.getUnassignedRules();
 	}
 	
+	//TODO Remove
 	@PostMapping
 	public void createSonarRule() {
 		this.sonarRuleService.createSonarRule("test", "test");
 	}
+	
+	//TODO Remove
+		@DeleteMapping
+		public void deleteSonarRule(@RequestParam(value = "id") final Long id) {
+			this.sonarRuleService.deleteSonarRule(id);
+		}
 
 }

@@ -10,6 +10,7 @@ export class UserServiceMock {
     username: "Exmaple",
     mail: "mister.example@provider.com",
     role: {
+      id: 1,
       name: "someRole"
     },
     level: {

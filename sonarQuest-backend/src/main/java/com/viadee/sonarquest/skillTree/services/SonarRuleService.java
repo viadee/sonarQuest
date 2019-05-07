@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,7 @@ import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
+import com.viadee.sonarquest.skillTree.utils.mapper.SonarRuleSDtoEntityMapper;
 
 @Service
 public class SonarRuleService {
@@ -27,6 +29,9 @@ public class SonarRuleService {
 
 	@Autowired
 	private SonarRuleRepository sonarRuleRepository;
+	
+	@Autowired
+	private SonarRuleSDtoEntityMapper sonarRuleMapper;
 	
 	@Value("${last.rule.update:2000-01-01}")
 	private String lastRuleUpdateFromProperty;
@@ -38,6 +43,7 @@ public class SonarRuleService {
 		return sonarRules;
 	}
 
+	//TODO evtl. ueberfluessig
 	public void createSonarRule(String key, String name) {
 		SonarRule sonarRule = new SonarRule();
 		sonarRule.setKey(key);
@@ -67,14 +73,15 @@ public class SonarRuleService {
 	
 
 	public List<SonarRule> findAll() {
-
 		return sonarRuleRepository.findAll();
 	}
 
-	public SonarRuleDTO getNewestSonarRule() {
-		SonarRuleDTO rule = new SonarRuleDTO();
-		rule.setAddedAt(sonarRuleRepository.findLastAddedSonarRule());
-		return rule;
+	public List<SonarRuleDTO> getUnassignedRules() {
+		return this.sonarRuleRepository.findByUserSkillIsNull().stream().map(sonarRuleMapper::entityToDto).collect(Collectors.toList());
+	}
 
+	public void deleteSonarRule(Long id) {
+		this.sonarRuleRepository.delete(id);
+		
 	}
 }
