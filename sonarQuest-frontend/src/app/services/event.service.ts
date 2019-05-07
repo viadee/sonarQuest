@@ -1,3 +1,4 @@
+import { EventUserDto } from './../Interfaces/EventUserDto';
 import {ImageService} from 'app/services/image.service';
 import {UserService} from './user.service';
 import {User} from '../Interfaces/User';
@@ -18,6 +19,8 @@ export class EventService {
 
   private eventsSubject: Subject<Event[]> = new ReplaySubject(1); 
   public  events$ = this.eventsSubject.asObservable();
+  private eventUserDtoSubject: Subject<EventUserDto> = new ReplaySubject(1); 
+  public  eventUserDto$ = this.eventUserDtoSubject.asObservable();
 
   /*
   private eventSubject: Subject<Event> = new Subject; 
@@ -28,6 +31,7 @@ export class EventService {
   user: User;
   messages: Subject<any>;
   events: Event[];
+  loadPicturesforEvents: Event[] = [];
 
 
   constructor(
@@ -39,6 +43,7 @@ export class EventService {
       worldService.currentWorld$.subscribe(world=> {  
         this.currentWorld = world;
         this.getEventsOfCurrentWorld()
+        this.getEventsForCurrentWorldEfficient()
       });
 
       userService.user$.subscribe(user =>{ this.user = user });
@@ -55,6 +60,17 @@ export class EventService {
         err    => this.eventsSubject.error(err)
       );
     return this.eventsSubject;
+  }
+
+  getEventsForCurrentWorldEfficient(): Observable<EventUserDto>{
+    this.http.get<EventUserDto>(`${environment.endpoint}/event/getEventsForCurrentWorldEfficient`).subscribe(
+        result => {
+          this.eventUserDtoSubject.next(result)
+          console.log(result)
+        },
+        err    => this.eventUserDtoSubject.error(err)
+      );
+    return this.eventUserDtoSubject;
   }
 
   public addEvent(event){
@@ -80,21 +96,34 @@ export class EventService {
   }
 
   getImageForMessages(events: Event[]): Event[]{
-    events.forEach(event => {
-        this.getImageForMessage(event)                                                        
+    events.forEach((event: Event) => {
+      if(!this.loadPicturesforEvents.includes(event)){
+        this.loadPicturesforEvents.push(event)
+      }                                                    
+    });
+
+    this.loadPicturesforEvents.forEach(event => {
+        event.image = this.getImageForMessage(event)                                                        
     });
     return events;
   }
 
   getImageForMessage(event: Event): Event{
+    /* 
+    Wird nur bei Message ausgeführt
+    wird nur bei Typ String ausgeführt
+    */
+   /*
     if (event.type == "MESSAGE" && (typeof event.image === "string")){
       this.userService.getImageForUser(event.user).subscribe(blob => {
+        console.log(blob)
         this.imageService.createImageFromBlob2(blob).subscribe(image => {
           event.image = image
         });
       });
-    } 
-    return event;
+    }
+    */ 
+          return event;
   }
 
   

@@ -1,7 +1,7 @@
 <mat-card class="outer-events">
   <mat-card-content class="events" >
 
-    <div #commentDiv *ngFor="let e of events">
+    <div #commentDiv *ngFor="let e of eventDtos">
         <div *ngIf="checkNewDay(e)">
             
           <div layout="row" class="day">

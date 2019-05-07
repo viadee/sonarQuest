@@ -65,6 +65,10 @@ export class UserService {
     const url = `${environment.endpoint}/user/${user.id}/avatar`;
     return this.httpClient.get(url, {responseType: 'blob'});
   }
+  public getImageForUserId(userId: Number): Observable<Blob> {
+    const url = `${environment.endpoint}/user/${userId}/avatar`;
+    return this.httpClient.get(url, {responseType: 'blob'});
+  }
 
   public updateUser(user: User): Promise<User> {
     const url = `${environment.endpoint}/user`;

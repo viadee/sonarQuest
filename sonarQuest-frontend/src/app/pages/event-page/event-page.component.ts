@@ -1,7 +1,14 @@
+import { UserService } from 'app/services/user.service';
+import { ImageService } from 'app/services/image.service';
+import { EventDto } from './../../Interfaces/EventDto';
+import { UserDto } from './../../Interfaces/UserDto';
+import { EventUserDto } from './../../Interfaces/EventUserDto';
 import { Event } from '../../Interfaces/Event';
 import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
+import { Subject, ReplaySubject } from 'rxjs';
+import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/renderer';
 
 @Component({
   selector: 'app-event-page',
@@ -10,7 +17,13 @@ import { WebsocketService } from 'app/services/websocket.service';
 })
 export class EventPageComponent implements OnInit {
 
+  private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
+  public  eventDtos$ = this.eventDtosSubject.asObservable();
+  private userDtosSubject:  Subject<UserDto[]>  = new ReplaySubject(1); 
+  public  userDtos$  = this.userDtosSubject.asObservable(); 
+
   events: Event[];
+  eventDtos: EventDto[];
   previousEvent: Event = null;
   message = '';
 
@@ -19,8 +32,39 @@ export class EventPageComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private imageService: ImageService,
+    private userService: UserService
   ) {
+    this.eventService.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
+      console.log('new EventUserDto')
+      console.log(eventUserDto)
+
+      eventUserDto.userDtos.forEach((userDto: UserDto) => {
+          var byteArray = new Uint8Array(userDto.picture);
+          var blob = new Blob([byteArray], { type: 'application/json' });
+          console.log(blob)
+
+          this.imageService.createImageFromBlob2(blob).subscribe(picture => userDto.picture = picture);
+
+          eventUserDto.eventDtos.forEach((eventDto: EventDto) => {
+            if (eventDto.userId == userDto.id){
+              eventDto.image = userDto.picture
+            }
+          }) 
+      });
+
+
+
+      this.eventDtos = eventUserDto.eventDtos;
+
+      console.log(this.eventDtos)
+
+      this.eventDtosSubject.next(eventUserDto.eventDtos)
+      this.userDtosSubject.next(eventUserDto.userDtos)
+      
+    })
+
     this.eventService.events$.subscribe(events => {
       this.events = this.eventService.getImageForMessages(events)
     });

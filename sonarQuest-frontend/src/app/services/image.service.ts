@@ -33,6 +33,8 @@ export class ImageService {
    */
   createImageFromBlob2(image: Blob): Observable<any> {
 
+    console.log('createImageFromBlob2')
+
     var imageSubject: Subject<any> = new Subject;
     const reader = new FileReader();
     reader.addEventListener('load', () => {
