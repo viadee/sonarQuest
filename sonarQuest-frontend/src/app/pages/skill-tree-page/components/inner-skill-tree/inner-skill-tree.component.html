@@ -7,22 +7,27 @@
           {{"SKILL_TREE_PAGE.INNER_SKILL_TREE_BACK"| translate}}</small>
       </div>
       <div layout-padding>
-        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-          <span class="mat-card-title" style="margin:0" *ngIf="!isAdmin && !isGamemaster">
-            {{"SKILL_TREE_PAGE.SKILL_TREE_DEV"| translate}}
-          </span>
-          <span class="mat-card-title" style="margin:0" *ngIf="isGamemaster">
-            {{"SKILL_TREE_PAGE.SKILL_TREE_GM"| translate}}
-          </span>
-          <span class="mat-card-title" style="margin:0" *ngIf="isAdmin">
-            {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
-          </span>
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">         
+          <mat-toolbar-row style="height: 100%;">
+            <span class="mat-card-title" style="margin:0" *ngIf="!isAdmin && !isGamemaster">
+              {{"SKILL_TREE_PAGE.SKILL_TREE_DEV"| translate}}
+            </span>
+            <span class="mat-card-title" style="margin:0" *ngIf="isGamemaster">
+              {{"SKILL_TREE_PAGE.SKILL_TREE_GM"| translate}}
+            </span>
+            <span class="mat-card-title" style="margin:0" *ngIf="isAdmin">
+              {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
+            </span>
+            <span class="toolbar-spacer"></span>
+            <button mat-raised-button *ngIf="isAdmin" color="primary" (click)="addSkill()"><mat-icon>add</mat-icon>{{"SKILL_TREE_PAGE.ADD_SKILL"| translate}}</button>
+          </mat-toolbar-row>
         </div>
       </div>
       <mat-divider></mat-divider>
       <div class="graph-viewbox" *ngIf="userSkillTree.nodes?.length > 0">
         <ngx-graph [orientation]="TopToBottom" [links]="userSkillTree.links" [nodes]="userSkillTree.nodes"
-          [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire" [autoZoom]="true" [autoCenter]="true">
+          [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire" [autoZoom]="true"
+          [autoCenter]="true">
 
           <ng-template #defsTemplate>
             <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4"
@@ -32,19 +37,22 @@
           </ng-template>
 
           <ng-template #nodeTemplate let-node>
-            <svg:g class="node not-allowed" *ngIf="node.root" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
-              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_ROOT_NODE'| translate" [tooltipCloseOnMouseLeave]="true">
+            <svg:g class="node not-allowed" *ngIf="node.root" ngx-tooltip [tooltipPlacement]="'top'"
+              [tooltipType]="'tooltip'" [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_ROOT_NODE'| translate"
+              [tooltipCloseOnMouseLeave]="true">
               <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
                 [attr.fill]="node.backgroundColor" />
               <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
-                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} % {{"SKILL_TREE_PAGE.LEARN_PROGRESS"| translate}}</svg:text>
+                text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %
+                {{"SKILL_TREE_PAGE.LEARN_PROGRESS"| translate}}</svg:text>
             </svg:g>
-            <svg:g class="node pointer" *ngIf="!node.root" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
-              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" [tooltipCloseOnMouseLeave]="true" (click)="openDialog(node)">
+            <svg:g class="node pointer" *ngIf="!node.root" ngx-tooltip [tooltipPlacement]="'top'"
+              [tooltipType]="'tooltip'" [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate"
+              [tooltipCloseOnMouseLeave]="true" (click)="openDialog(node)">
               <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
-                [attr.fill]="node.backgroundColor"/>
+                [attr.fill]="node.backgroundColor" />
               <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"

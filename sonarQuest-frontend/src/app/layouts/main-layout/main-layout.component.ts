@@ -53,7 +53,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public isSkillTreeVisbile: boolean;
 
   public swalOptionsnewRules: {};
-  public swalTitle: string;
 
   private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
@@ -105,7 +104,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       type: 'info',
       toast: true,
       showConfirmButton: true,
-      position: 'top-end'
+      position: 'top-end',
+      backdrop: false
     }
   }
 

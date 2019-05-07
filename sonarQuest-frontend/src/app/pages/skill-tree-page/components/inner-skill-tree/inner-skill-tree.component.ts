@@ -12,6 +12,7 @@ import { PermissionService } from 'app/services/permission.service';
 import { UserService } from 'app/services/user.service';
 import { WorldService } from 'app/services/world.service';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { InnerSkillTreeAddSkillDialogComponent } from './components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
 
 
 @Component({
@@ -58,9 +59,9 @@ export class InnerSkillTreeComponent implements OnInit {
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
-      if(this.worldService.getCurrentWorld() !== null){
+      if (this.worldService.getCurrentWorld() !== null) {
         this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
-      }else{
+      } else {
         this.userSkillTree = { nodes: [], links: [] };
         console.log(this.userSkillTree.nodes.length);
       }
@@ -73,17 +74,19 @@ export class InnerSkillTreeComponent implements OnInit {
   }
 
   openDialog(node): void {
-   
-      const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
-        width: '550px',
-        data: node
-      });
-      dialogRef.afterClosed().subscribe();
-    
-
-
+    const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {panelClass: 'dialog-sexy',
+      width: '550px',
+      data: node
+    });
+    dialogRef.afterClosed().subscribe();
   }
-
+  addSkill(): void {
+    const dialogRef = this.dialog.open(InnerSkillTreeAddSkillDialogComponent, {panelClass: 'dialog-sexy',
+      data: this.id,
+      width: '550px'
+    });
+    dialogRef.afterClosed().subscribe();
+  }
   calculateProcentage(repeats: number, requiredRepetitions: number): number {
     const procentage = Math.round((repeats / requiredRepetitions) * 100);
     if (procentage > 100) {

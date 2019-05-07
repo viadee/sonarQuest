@@ -28,3 +28,9 @@ height: 90%;
 	text-align: center;
 	margin-top: 25px;
 }
+
+.toolbar-spacer {
+	flex: 1 1 auto;
+  }
+
+  

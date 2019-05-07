@@ -2,13 +2,32 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { UserSkill } from 'app/Interfaces/UserSkill';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSkillService {
+  private userSkillsSubject: Subject<UserSkill[]> = new ReplaySubject(1);
+  userSkills$ = this.userSkillsSubject.asObservable();
+  private userSkillsFromGroup: UserSkill[];
 
   constructor(private httpClient: HttpClient) { }
+
+  loadUserSkillsFromGroup(id): Observable<UserSkill[]> {
+    const params = new HttpParams().set('id', id);
+    this.httpClient.get<UserSkill[]>(`${environment.endpoint}/userskill/bygroup`, { params: params })
+      .subscribe(
+        result => { this.userSkillsSubject.next(result), this.userSkillsFromGroup = result },
+        err => this.userSkillsSubject.error(err)
+      );
+    return this.userSkillsSubject.asObservable();
+  }
+
+  public getUserSkillFromGroup(): UserSkill[] {
+    return this.userSkillsFromGroup;
+  }
+
 
   updateUserSkill(userSkill: UserSkill): Promise<any> {
     return this.httpClient.put<UserSkill>(`${environment.endpoint}/userskill/update`, userSkill)
@@ -21,7 +40,7 @@ export class UserSkillService {
     if (error instanceof Response) {
       const body = error.json() || '';
       //const err = body.error || JSON.stringify(body);
-     // errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      // errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

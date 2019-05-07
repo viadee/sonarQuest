@@ -3,10 +3,10 @@ package com.viadee.sonarquest.skillTree.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,17 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
-import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
-import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeLinksDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
-import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
-
-import springfox.documentation.spring.web.json.Json;
+import com.viadee.sonarquest.skillTree.utils.mapper.UserSkillDtoEntityMapper;
 
 @RestController
 @RequestMapping("/userskill")
@@ -39,10 +34,18 @@ public class UserSkillController {
 
 	@Autowired
 	private UserSkillService userSkillService;
+	
+	@Autowired
+	private UserSkillDtoEntityMapper userSkillMapper;
 
 	@GetMapping
 	public List<UserSkill> getAllUserSkills() {
 		return userSkillRepository.findAll();
+	}
+	
+	@GetMapping(value="/bygroup")
+	public List<UserSkillDTO> getAllUserSkillsFromGroup(@RequestParam(value = "id") final Long id) {
+		return userSkillRepository.findUserSkillsByGroup(id).stream().map(userSkillMapper::entityToDto).collect(Collectors.toList());
 	}
 
 	@GetMapping(value = "/team")
@@ -97,6 +100,7 @@ public class UserSkillController {
 		return userSkillService.createUserSkill(new UserSkill("testbeschreibug", "testname", false, null, 0));
 	}
 
+	//TODO evtl. nicht notwendig
 	@DeleteMapping(value = "/{id}")
 	public HttpStatus deleteUser(@PathVariable(value = "id") final Long id) {
 		if (userSkillService.delete(id)) {

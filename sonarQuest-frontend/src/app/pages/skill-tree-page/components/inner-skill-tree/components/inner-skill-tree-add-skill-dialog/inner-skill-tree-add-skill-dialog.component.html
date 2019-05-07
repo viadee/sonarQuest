@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.TITLE" | translate}}</h2>
+</mat-toolbar>
+<form [formGroup]="createUserSkillForm">
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+    
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput class="form-control" [placeholder]="'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.NAME' | translate" formControlName="name">
+        <mat-error>{{getErrorMessage('name')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <mat-label>{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.SONAR_RULE' | translate}}</mat-label>
+        <mat-select multiple formControlName="sonarRules">
+          <mat-option *ngFor="let sonarRule of unassignedSonarRules" [value]="sonarRule">{{sonarRule.name}}</mat-option>
+        </mat-select>
+        <mat-error >{{getErrorMessage('sonarRules')}}</mat-error>
+      </mat-form-field>
+    </div> 
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <mat-label>{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.PREVIOUS_SKILLS' | translate}}</mat-label>
+        <mat-select  formControlName="previousUserSkills"  multiple (selectionChange)="isSomethingSelected($event)">
+          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}</mat-option>
+        </mat-select>
+        <mat-error >{{getErrorMessage('previousUserSkills')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <mat-label>{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.FOLLOWING_SKILLS' | translate}}</mat-label>
+        <mat-select  #followingUserSkillSelect formControlName="followingUserSkills"  multiple (selectionChange)="isSomethingSelected($event)">
+          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}</mat-option>  
+               
+        </mat-select>
+        <mat-error >{{getErrorMessage('followingUserSkills')}}</mat-error>
+            </mat-form-field>
+    </div>
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput class="form-control" formControlName="requiredRepetitions" placeholder="{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.REPETITIONS' | translate}}" type="number" min="1">
+        <mat-error >{{getErrorMessage('requiredRepetitions')}}</mat-error>
+
+      </mat-form-field>
+    </div>
+    <div flex>
+    <mat-form-field class="full-width">
+      <textarea matInput class="form-control" formControlName="description"  #descriptionTextarea placeholder="{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.DESCRIPTION' | translate}}"></textarea>
+      <mat-hint [align]="end">{{descriptionTextarea.value.length}} / 256</mat-hint>
+    </mat-form-field>
+    
+    </div>
+    
+
+   <!--  <div flex>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'SKILL.VALUE' | translate" type="number" min="0" [(ngModel)]="value">
+      </mat-form-field>
+    </div> -->
+
+  </div>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
+  <button mat-button  (click)="close()">{{"GLOBAL.CANCEL" | translate}}</button>
+  <button mat-raised-button color="primary" (click)="addSkill()">{{"SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.ADD_SKILL" | translate}}</button>
+</mat-dialog-actions>
+</form>
