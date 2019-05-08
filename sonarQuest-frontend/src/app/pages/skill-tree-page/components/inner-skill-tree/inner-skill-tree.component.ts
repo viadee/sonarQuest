@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, ViewChild } from '@angular/core';
 import { RoutingUrls } from 'app/app-routing/routing-urls';
 import { ActivatedRoute } from '@angular/router';
 import { SkillTreeService } from 'app/services/skill-tree.service';
@@ -13,6 +13,8 @@ import { UserService } from 'app/services/user.service';
 import { WorldService } from 'app/services/world.service';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { InnerSkillTreeAddSkillDialogComponent } from './components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { SonarRuleService } from 'app/services/sonar-rule.service';
 
 
 @Component({
@@ -21,6 +23,7 @@ import { InnerSkillTreeAddSkillDialogComponent } from './components/inner-skill-
   styleUrls: ['./inner-skill-tree.component.css']
 })
 export class InnerSkillTreeComponent implements OnInit {
+  @ViewChild('newRulesAdded') private newRulesAdded: SwalComponent
 
   public skillTreeUrl = RoutingUrls.skilltree;
   userSkillTree: { nodes: [], links: [] };
@@ -33,14 +36,17 @@ export class InnerSkillTreeComponent implements OnInit {
   mode = 'determinate';
   value = 50;
   bufferValue = 75;
+  public unassignedSonarRules;
 
+  public swalOptionsAddedRuleSuccess: {};
 
   constructor(private skillTreeService: SkillTreeService,
     private _route: ActivatedRoute,
     public dialog: MatDialog,
     private permissionService: PermissionService,
     private userService: UserService,
-    private worldService: WorldService) {
+    private worldService: WorldService,
+    private sonarRuleService: SonarRuleService) {
   }
 
   ngOnInit() {
@@ -71,21 +77,56 @@ export class InnerSkillTreeComponent implements OnInit {
       });
       this.skillTreeService.getUserSkillTreeFromUser(this.id, this.userService.getUser());
     }
+    this.initSwal();
+    this.subscribeUnassignedSonarRules();
+    this.getUnassingendSonarRules();
   }
 
+  private initSwal() {
+    this.swalOptionsAddedRuleSuccess = {
+      type: 'success',
+      toast: true,
+      showConfirmButton: false,
+      position: 'top-end',
+      backdrop: false,
+      timer: 5000
+    }
+  }
+
+  private subscribeUnassignedSonarRules(): void {
+    this.sonarRuleService.unassignedSonarRules$.subscribe(unassignedSonarRules => {
+      this.unassignedSonarRules = unassignedSonarRules;
+    });
+  }
+  private getUnassingendSonarRules(): void {
+    this.sonarRuleService.loadUnassignedSonarRules();
+  }
   openDialog(node): void {
-    const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {panelClass: 'dialog-sexy',
+    console.log(this.userSkillTree);
+    const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
+      panelClass: 'dialog-sexy',
       width: '550px',
       data: node
     });
     dialogRef.afterClosed().subscribe();
   }
   addSkill(): void {
-    const dialogRef = this.dialog.open(InnerSkillTreeAddSkillDialogComponent, {panelClass: 'dialog-sexy',
-      data: this.id,
+    const dialogRef = this.dialog.open(InnerSkillTreeAddSkillDialogComponent, {
+      panelClass: 'dialog-sexy',
+      data: {
+        groupid: this.id,
+        unassignedSonarRules: this.unassignedSonarRules
+      },
       width: '550px'
     });
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(success => {
+      if (success) {
+        this.getUnassingendSonarRules();
+        this.skillTreeService.getUserSkillTree(this.id);
+        this.newRulesAdded.show();
+      }
+
+    });
   }
   calculateProcentage(repeats: number, requiredRepetitions: number): number {
     const procentage = Math.round((repeats / requiredRepetitions) * 100);

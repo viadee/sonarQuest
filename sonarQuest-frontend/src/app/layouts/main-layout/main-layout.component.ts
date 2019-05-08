@@ -132,7 +132,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.isSkillTreeVisbile = enable && this.permissionService.isUrlVisible(RoutingUrls.skilltree);
   }
 
-
   private susbcribeWorlds() {
     this.worldService.currentWorld$.subscribe(world => {
       this.currentWorld = world;

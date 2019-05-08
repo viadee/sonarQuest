@@ -29,6 +29,7 @@ import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
+import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.utils.mapper.UserSkillDtoEntityMapper;
@@ -54,6 +55,9 @@ public class UserSkillService {
 
 	@Autowired
 	private UserSkillDtoEntityMapper mapper;
+
+	@Autowired
+	private UserSkillGroupRepository userSkillGroupRepository;
 
 	private UserSkill findById(final Long id) {
 		return userSkillRepository.findOne(id);
@@ -105,7 +109,7 @@ public class UserSkillService {
 					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
 						SkillTreeUser skillTreeUser = skillTreeUserRepository.findByMail(mail);
 						if (skillTreeUser != null) {
-							if(userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)){
+							if (userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
 								amountDevelopersInTeam++;
 								UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
 										.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
@@ -118,9 +122,9 @@ public class UserSkillService {
 										// memeberWithSkill++;
 									}
 
-								}	
+								}
 							}
-							
+
 						}
 					}
 				}
@@ -134,14 +138,57 @@ public class UserSkillService {
 		return null;
 	}
 
-	@Transactional
-	public UserSkill createUserSkill(final UserSkill userSkill) {
-		LOGGER.info("Creating new userskill " + userSkill.getName());
-		// SonarRule rule = new SonarRule("testname","testkey",1);
-		// sonarRuleRepository.save(rule);
-		// userSkill.addSonarRule(rule);
+	public UserSkill createUserSkill(final UserSkill newUserSkill, final Long groupID) {
+		UserSkill userSkill = newUserSkill;
+		List<UserSkill> newFollowingUserSkills = new ArrayList<UserSkill>();
+		List<UserSkill> newPreviousUserSkills = new ArrayList<UserSkill>();
+		List<SonarRule> newSonarRules = new ArrayList<SonarRule>();
 
-		return userSkillRepository.save(userSkill);
+		for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+			newFollowingUserSkills.add(userSkillRepository.findOne(followingUserSkill.getId()));
+		}
+		for (UserSkill previousUserSkill : userSkill.getPreviousUserSkills()) {
+			newPreviousUserSkills.add(userSkillRepository.findOne(previousUserSkill.getId()));
+		}
+		for (SonarRule sonarRule : userSkill.getSonarRules()) {
+			newSonarRules.add(sonarRuleRepository.findOne(sonarRule.getId()));
+		}
+		userSkill.setFollowingUserSkills(newFollowingUserSkills);
+		userSkill.setPreviousUserSkills(newPreviousUserSkills);
+		userSkill.setSonarRules(newSonarRules);
+		userSkill.setUserSkillGroup(userSkillGroupRepository.findOne(groupID));
+		
+
+		for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+			followingUserSkill.addPreviousUserSkill(userSkill);
+			//userSkillRepository.save(followingUserSkill);
+		}
+		for (UserSkill previousUserSkill : userSkill.getPreviousUserSkills()) {
+			previousUserSkill.addFollowingUserSkill(userSkill);
+			//userSkillRepository.save(previousUserSkill);
+		}
+		for(SonarRule sonarRule: userSkill.getSonarRules()) {
+			sonarRule.setUserSkill(userSkill);
+			//sonarRuleRepository.save(sonarRule);
+		}
+		userSkill = userSkillRepository.save(userSkill);
+		LOGGER.info("Creating new userskill '{}'", userSkill.getName());
+
+		List<SkillTreeUser> users = skillTreeUserRepository.findAll();
+		for (SkillTreeUser user : users) {
+			UserSkillToSkillTreeUser userSkillToSkillTreeUser = new UserSkillToSkillTreeUser();
+			userSkillToSkillTreeUser.setLearnedOn(null);
+			userSkillToSkillTreeUser.setRepeats(0);
+			userSkillToSkillTreeUser.setScore(null);
+			userSkillToSkillTreeUser.setSkillTreeUser(user);
+			userSkillToSkillTreeUser.setUserSkill(userSkill);
+			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
+			user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
+			skillTreeUserRepository.save(user);
+		}
+
+		this.recalculateWholeUserSkillScore();
+		return userSkill;
 	}
 
 	public boolean delete(final Long userId) {

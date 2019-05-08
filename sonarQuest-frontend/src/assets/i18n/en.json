@@ -267,6 +267,7 @@
     "TOOLTIP_ROOT_NODE": "The root node isn't clickable",
     "LEARN_PROGRESS":"of the group learned",
     "ADD_SKILL": "Add Skill",
+    "ADDED_RULE_SUCCESS_SWAL_TITLE": "Rule assigned successfully",
     "ADD_INNER_SKILL_TREE":{
       "TITLE":"Create Skill",
       "NAME":"Name",

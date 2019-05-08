@@ -14,6 +14,7 @@ public class SonarRuleSDtoEntityMapper {
 
 	public SonarRuleDTO entityToDto(SonarRule entity) {
 		SonarRuleDTO dto = new SonarRuleDTO();
+		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setKey(entity.getKey());
 		dto.setAddedAt(entity.getAddedAt());

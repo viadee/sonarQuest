@@ -14,4 +14,5 @@ public interface SkillTreeUserRepository extends JpaRepository<SkillTreeUser, Lo
     
 	@Query("SELECT u FROM SkillTreeUser u WHERE LOWER(u.mail) = LOWER(:mail)")
     public SkillTreeUser findByMail(@Param("mail") String mail);
+	
 }

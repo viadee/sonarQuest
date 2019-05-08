@@ -15,17 +15,9 @@ import { InnerSkillTreeComponent } from '../../inner-skill-tree.component';
 })
 export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
 
-  /*  public name: string;
-   public followingUserSkills: UserSkill[];
-   public prviousUserSkills: UserSkill[];
-   public description: string;
-   public requierdRepetitions: number;
-   public sonarRules: SonarRule[]; */
   public unassignedSonarRules;
+  private userSkillGroupID: number;
   public userSkills;
-  public toRemoveUserSkill: UserSkill[];
-  // public filteredUserSkillsFollowing: UserSkill[];
-  //public filteredUserSkillsPrevious: UserSkill[];
 
   private followingUserSkillError: boolean;
   private previousUserSkillError: boolean;
@@ -34,32 +26,25 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
   createUserSkillForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     followingUserSkills: new FormControl([], [this.matchFollowingUserSkillValidator(), this.matchIsRootValidator()]),
-    previousUserSkills: new FormControl([], [this.matchPreviousUserSkillValidator()]),
+    previousUserSkills: new FormControl([], [Validators.required, this.matchPreviousUserSkillValidator()]),
     description: new FormControl(),
     requiredRepetitions: new FormControl(null, [Validators.required]),
     sonarRules: new FormControl([], [Validators.required])
   });
 
   constructor(/*public isRoot: boolean = false,*/
-    @Inject(MAT_DIALOG_DATA) public userSkillGroup: number,
-    private sonarRuleService: SonarRuleService,
+    @Inject(MAT_DIALOG_DATA) private transferedData,
     private userSkillService: UserSkillService,
     private translateService: TranslateService,
     private dialogRef: MatDialogRef<InnerSkillTreeAddSkillDialogComponent>
   ) { }
 
   ngOnInit() {
-    this.subscribeUnassignedSonarRules();
+    this.unassignedSonarRules = this.transferedData.unassignedSonarRules;
+    this.userSkillGroupID = this.transferedData.groupid;
     this.subscribeUserSkills();
-    this.getUnassingendSonarRules();
     this.getUserSkills();
     console.log(this.unassignedSonarRules);
-  }
-
-  private subscribeUnassignedSonarRules(): void {
-    this.sonarRuleService.unassignedSonarRules$.subscribe(unassignedSonarRules => {
-      this.unassignedSonarRules = unassignedSonarRules;
-    });
   }
 
   private subscribeUserSkills(): void {
@@ -68,12 +53,8 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
     });
   }
 
-  private getUnassingendSonarRules(): void {
-    this.sonarRuleService.loadUnassignedSonarRules();
-  }
-
   private getUserSkills(): void {
-    this.userSkillService.loadUserSkillsFromGroup(this.userSkillGroup);
+    this.userSkillService.loadUserSkillsFromGroup(this.userSkillGroupID);
   }
 
   public isSomethingSelected(event) {
@@ -83,8 +64,8 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
     if (event.value.length === 0) {
       this.followingUserSkillError = false;
       this.previousUserSkillError = false;
-      if(event.source.ngControl.control === this.createUserSkillForm.get('followingUserSkills')){
-      this.isRootError = false;
+      if (event.source.ngControl.control === this.createUserSkillForm.get('followingUserSkills')) {
+        this.isRootError = false;
       }
     }
   }
@@ -93,17 +74,27 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
     if (!this.followingUserSkillError && !this.previousUserSkillError && !this.isRootError && this.createUserSkillForm.valid) {
       const newUserSkill: UserSkill = {
         name: this.createUserSkillForm.get('name').value,
-        description : this.createUserSkillForm.get('description').value,
+        description: this.createUserSkillForm.get('description').value,
         root: false,
         followingUserSkills: this.createUserSkillForm.get('followingUserSkills').value,
+        previousUserSkills: this.createUserSkillForm.get('previousUserSkills').value,
         sonarRules: this.createUserSkillForm.get('sonarRules').value,
-        requiredRepetitions: this.createUserSkillForm.get('requiredRepetitions')
+        requiredRepetitions: this.createUserSkillForm.get('requiredRepetitions').value
       }
+      this.userSkillService.createUserSkill(newUserSkill, this.userSkillGroupID)
+        .then(userSkill => {
+          if (userSkill.id !== null) {
+            this.dialogRef.close(true);
+          } else {
+            this.dialogRef.close(false);
+          }
+
+        });
     }
   }
 
-  public close():void{
-    this.dialogRef.close();
+  public close(): void {
+    this.dialogRef.close(false);
   }
 
   matchFollowingUserSkillValidator() {
@@ -116,7 +107,7 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
           if (index > -1) {
             this.followingUserSkillError = true;
             break;
-          }else {
+          } else {
             this.followingUserSkillError = false;
           }
         }
@@ -131,7 +122,7 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
       if (typeof followingVal !== 'undefined') {
         for (const following of followingVal) {
           console.log(following);
-          if(following.root){
+          if (following.root) {
             this.isRootError = true;
             break;
           } else {
@@ -172,7 +163,7 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
       this.createUserSkillForm.controls['followingUserSkills'].setErrors({ 'matchFollowingUserSkillValidator': true });
       return this.translate('SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.FOLLOWING_ERROR');
     }
-    if (control === 'followingUserSkills' && this.isRootError){
+    if (control === 'followingUserSkills' && this.isRootError) {
       this.createUserSkillForm.controls['followingUserSkills'].setErrors({ 'matchIsRootValidator': true });
       return this.translate('SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.IS_ROOT_ERROR');
     }

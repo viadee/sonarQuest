@@ -7,6 +7,7 @@ export interface UserSkill {
     description?: string,
     isRoot?: boolean,
     followingUserSkills: UserSkill[],
+    previousUserSkills?: UserSkill[]
     sonarRules?: SonarRule[],
     userSkillGroup?: UserSkillGroup,
     root?: boolean;

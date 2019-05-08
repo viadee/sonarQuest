@@ -19,7 +19,7 @@
               {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
             </span>
             <span class="toolbar-spacer"></span>
-            <button mat-raised-button *ngIf="isAdmin" color="primary" (click)="addSkill()"><mat-icon>add</mat-icon>{{"SKILL_TREE_PAGE.ADD_SKILL"| translate}}</button>
+            <button mat-raised-button *ngIf="isAdmin" [disabled]="unassignedSonarRules.length === 0" color="primary" (click)="addSkill()"><mat-icon>add</mat-icon>{{"SKILL_TREE_PAGE.ADD_SKILL"| translate}}</button>
           </mat-toolbar-row>
         </div>
       </div>
@@ -78,4 +78,9 @@
       </div>
     </mat-card-content>
   </mat-card>
+  <swal
+  #newRulesAdded
+  title = "{{'SKILL_TREE_PAGE.ADDED_RULE_SUCCESS_SWAL_TITLE' | translate}}"
+ [options]=swalOptionsAddedRuleSuccess>
+</swal>
 </div>

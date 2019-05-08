@@ -284,6 +284,7 @@
     "TOOLTIP_ROOT_NODE": "Das Wurzelelement kann nicht ausgewählt werden",
     "LEARN_PROGRESS":"der Gruppe gelernt",
     "ADD_SKILL": "Skill hinzufügen",
+    "ADDED_RULE_SUCCESS_SWAL_TITLE": "Regel erfolgreich zugeordnet",
     "ADD_INNER_SKILL_TREE":{
       "TITLE":"Skill erstellen",
       "NAME":"Name",

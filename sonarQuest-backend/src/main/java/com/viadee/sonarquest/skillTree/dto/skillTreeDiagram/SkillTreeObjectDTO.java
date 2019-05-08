@@ -10,6 +10,7 @@ public class SkillTreeObjectDTO {
 
 	private String id;
 	private String label;
+	private String description;
 	private int repeats;
 	private int requiredRepetitions;
 	private List<SonarRuleDTO> sonarRuleDTOs;
@@ -118,6 +119,14 @@ public class SkillTreeObjectDTO {
 
 	public void setRoot(boolean isRoot) {
 		this.isRoot = isRoot;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

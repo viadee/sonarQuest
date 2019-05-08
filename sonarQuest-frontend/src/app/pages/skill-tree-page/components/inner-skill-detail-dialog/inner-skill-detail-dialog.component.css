@@ -22,3 +22,11 @@ height: 25px;
     display: inline-block;
     margin-left: 10px;
 }
+.description-header{
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+}
+
+.description-box{
+    padding: 0px 0px 25px 16px;
+}

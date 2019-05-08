@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 
 @Entity
@@ -39,13 +41,13 @@ public class UserSkill {
 	@Column(name = "required_repetitions")
 	private int requiredRepetitions;
 
-	@JsonIgnore
-    @ManyToMany(cascade = CascadeType.MERGE)
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "User_Skill_Previous", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "previous_user_skill_id", referencedColumnName = "id"))
     private List<UserSkill> previousUserSkills = new ArrayList<UserSkill>(0);
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "User_Skill_Following", joinColumns = @JoinColumn(name = "user_skill_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "following_user_skill_id", referencedColumnName = "id"))
 	private List<UserSkill> followingUserSkills = new ArrayList<UserSkill>(0);
 
@@ -59,7 +61,7 @@ public class UserSkill {
 	 */
 	
 	
-	@OneToMany(mappedBy = "userSkill", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "userSkill", cascade={CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
 	private List<SonarRule> sonarRules = new ArrayList<SonarRule>(0);
 
 	@ManyToOne()
@@ -67,7 +69,7 @@ public class UserSkill {
 	private UserSkillGroup userSkillGroup;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userSkill", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "userSkill", cascade={CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
 	private List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers;
 
 	public UserSkill() {
@@ -90,7 +92,7 @@ public class UserSkill {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
     public List<UserSkill> getPreviousUserSkills() {
         return previousUserSkills;
     }
@@ -106,7 +108,8 @@ public class UserSkill {
     public void removePreviousUserSkill(UserSkill userSkill) {
         this.previousUserSkills.remove(userSkill);
     }
-
+    
+   
 	public List<UserSkill> getFollowingUserSkills() {
 		return followingUserSkills;
 	}

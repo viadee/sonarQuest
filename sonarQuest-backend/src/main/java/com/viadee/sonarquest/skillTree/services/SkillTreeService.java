@@ -300,6 +300,7 @@ public class SkillTreeService {
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
 		skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
 		skillTreeObjectDTO.setLabel(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getName()));
+		skillTreeObjectDTO.setDescription(userSkillToSkillTreeUser.getUserSkill().getDescription());
 		skillTreeObjectDTO.setRepeats(userSkillToSkillTreeUser.getRepeats());
 		skillTreeObjectDTO.setRequiredRepetitions(userSkillToSkillTreeUser.getUserSkill().getRequiredRepetitions());
 		skillTreeObjectDTO.setGroupIcon(userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getIcon());

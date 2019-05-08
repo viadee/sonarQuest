@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class SonarRuleDTO {
 
+	private Long id;
 	private String name;
 	private String key;
 	private Timestamp addedAt;
@@ -49,6 +50,14 @@ public class SonarRuleDTO {
 
 	public void setUserSkilLDto(UserSkillDTO userSkilLDto) {
 		this.userSkilLDto = userSkilLDto;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -44,10 +44,11 @@ public class UserSkillController {
 	}
 	
 	@GetMapping(value="/bygroup")
-	public List<UserSkillDTO> getAllUserSkillsFromGroup(@RequestParam(value = "id") final Long id) {
-		return userSkillRepository.findUserSkillsByGroup(id).stream().map(userSkillMapper::entityToDto).collect(Collectors.toList());
+	public List<UserSkill> getAllUserSkillsFromGroup(@RequestParam(value = "id") final Long id) {
+		return userSkillRepository.findUserSkillsByGroup(id);
 	}
-
+	
+	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@GetMapping(value = "/team")
 	public List<UserSkillDTO> getUserSkillsFromTeam(@RequestParam(value = "mails") final String mailString) {
 		List<String> mails;
@@ -72,16 +73,19 @@ public class UserSkillController {
 		return userSkillService.getScoringForRuleFromTeam(ruleKey, mails);
 	}
 
+	//TODO evtl. 	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@GetMapping(value = "/roots/")
-	public List<UserSkill> getAllRootUserSkills() {
-		return userSkillRepository.findAllRootUserSkills(true);
+	public List<UserSkillDTO> getAllRootUserSkills() {
+		return userSkillRepository.findAllRootUserSkills(true).stream().map(userSkillMapper::entityToDto).collect(Collectors.toList());
 	}
 	
 	@PutMapping(value = "/update")
+	@ResponseStatus(HttpStatus.OK)
 	public UserSkill updateUserSkill(@RequestBody UserSkill userSkill) {
 		return userSkillService.updateUserSkill(userSkill);
 	}
 	
+	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@PostMapping(value = "/learn/")
 	public SkillTreeObjectDTO learnSkill(@RequestParam(value = "mail") final String mail,
 			@RequestParam(value = "key") final String key) {
@@ -94,13 +98,13 @@ public class UserSkillController {
 			userSkillService.calculateSkillTreeByMail(mail);
 		}
 
-	@PostMapping
+	@PostMapping(value="/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserSkill createUserSkill() {
-		return userSkillService.createUserSkill(new UserSkill("testbeschreibug", "testname", false, null, 0));
+	public UserSkill createUserSkill(@RequestParam(value = "groupid") final Long groupid, @RequestBody UserSkill userSkill) {
+		return userSkillService.createUserSkill(userSkill,groupid);
 	}
 
-	//TODO evtl. nicht notwendig
+	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@DeleteMapping(value = "/{id}")
 	public HttpStatus deleteUser(@PathVariable(value = "id") final Long id) {
 		if (userSkillService.delete(id)) {

@@ -3,7 +3,7 @@ import { environment } from 'environments/environment';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { UserSkill } from 'app/Interfaces/UserSkill';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-
+import { Response } from '@angular/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +28,13 @@ export class UserSkillService {
     return this.userSkillsFromGroup;
   }
 
+  createUserSkill(userSkill: UserSkill, groupId){
+    const params = new HttpParams().set('groupid', groupId);
+    console.log(userSkill);
+    return this.httpClient.post<UserSkill>(`${environment.endpoint}/userskill/create`, userSkill, {params: params})
+      .toPromise()
+      .catch(this.handleError);
+  }
 
   updateUserSkill(userSkill: UserSkill): Promise<any> {
     return this.httpClient.put<UserSkill>(`${environment.endpoint}/userskill/update`, userSkill)
@@ -39,8 +46,8 @@ export class UserSkillService {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
-      //const err = body.error || JSON.stringify(body);
-      // errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      const err = body.error || JSON.stringify(body);
+       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

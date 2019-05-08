@@ -3,7 +3,10 @@
 <div mat-dialog-content>
   <mat-tab-group>
     <mat-tab label="{{'INNER_SKILL_TREE_POPUP.OVERVIEW' | translate}}">
-      <h4 mat-subheader>{{"INNER_SKILL_TREE_POPUP.DESCRIPTION" | translate}}</h4>
+      <h4 mat-subheader class="description-header">{{"INNER_SKILL_TREE_POPUP.DESCRIPTION" | translate}}</h4>
+      <div class="description-box">
+        {{data.description}}
+      </div>      
       <mat-list>
         <h2 mat-subheader>{{"INNER_SKILL_TREE_POPUP.RULES" | translate}}</h2>
 
