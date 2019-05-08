@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { SonarCubeConfig } from '../Interfaces/SonarCubeConfig';
 import { World } from '../Interfaces/World';
 import { SonarRule } from 'app/Interfaces/SonarRule';
+import { SonarQubeConfig } from 'app/Interfaces/SonarQubeConfig';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SonarQubeService {
 
   constructor(private http: HttpClient) {
@@ -25,7 +27,7 @@ export class SonarQubeService {
     return this.getConfig().then(config => this.createIssueLink(key, world, config));
   }
 
-  private createRuleLink(key: String, config: SonarCubeConfig): string {
+  private createRuleLink(key: String, config: SonarQubeConfig): string {
     if (config.sonarServerUrl.indexOf('sonarcloud.io') !== -1) {
       return config.sonarServerUrl + '/organizations/default/rules?open=' + key + '&rule_key=' + key;
     }
@@ -36,7 +38,7 @@ export class SonarQubeService {
     return this.getConfig().then(config => this.createRuleLink(key, config));
   }
 
-  private createIssueLink(key: string, world: World, config: SonarCubeConfig): string {
+  private createIssueLink(key: string, world: World, config: SonarQubeConfig): string {
     console.log(config.sonarServerUrl);
     return config.sonarServerUrl + '/project/issues?id=' + world.project + '&issues=' + key + '&open=' + key
   }

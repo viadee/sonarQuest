@@ -10,7 +10,6 @@ import {SpecialTaskService} from '../../../../../../../../services/special-task.
 import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent } from '@covalent/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserSkillService } from 'app/services/user-skill.service';
-import {IPageChangeEvent, ITdDataTableColumn, TdDataTableService} from '@covalent/core';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',

@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { SonarCubeConfig } from 'app/Interfaces/SonarCubeConfig';
-import { SonarCubeService } from 'app/services/sonar-cube.service';
 import { PermissionService } from 'app/services/permission.service';
 import { RoutingUrls } from 'app/app-routing/routing-urls';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSkillService } from 'app/services/user-skill.service';
 import { UserSkill } from 'app/Interfaces/UserSkill';
+import {SonarQubeService} from 'app/services/sonar-qube.service';
 
 @Component({
   selector: 'app-inner-skill-detail-dialog',
@@ -27,7 +26,7 @@ export class InnerSkillDetailDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InnerSkillDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private sonarCubeService: SonarCubeService,
+    private sonarCubeService: SonarQubeService,
     private permissionService: PermissionService,
     private userSkillService: UserSkillService) { }
 
