@@ -59,11 +59,9 @@ public class ParticipationService {
         if ((foundQuest != null) && (user != null) && (foundParticipation == null)) {
             participation = new Participation(foundQuest, user);
             participation = participationRepository.save(participation);
+            // Create Event for User join Quest
+            eventService.createEventForUserJoinQuest(foundQuest, user);
         }
-        
-        // Create Event for User join Quest
-        this.eventService.createEventForUserJoinQuest(foundQuest,user);
-        
 		return participation;
 	}
 }
