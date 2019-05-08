@@ -1,18 +1,18 @@
 import {WorldService} from '../../../../services/world.service';
 import {Component, OnInit} from '@angular/core';
-import {SonarCubeService} from '../../../../services/sonar-cube.service';
-import {SonarCubeConfig} from '../../../../Interfaces/SonarCubeConfig';
+import {SonarQubeService} from '../../../../services/sonar-qube.service';
+import {SonarQubeConfig} from '../../../../Interfaces/SonarQubeConfig';
 import {MatSnackBar} from '@angular/material';
 import {LoadingService} from '../../../../services/loading.service';
 import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
-  selector: 'sq-admin-sonar-cube',
-  templateUrl: './admin-sonar-cube.component.html',
-  styleUrls: ['./admin-sonar-cube.component.css']
+  selector: 'sq-admin-sonar-qube',
+  templateUrl: './admin-sonar-qube.component.html',
+  styleUrls: ['./admin-sonar-qube.component.css']
 })
-export class AdminSonarCubeComponent implements OnInit {
+export class AdminSonarQubeComponent implements OnInit {
 
   configName: string;
 
@@ -22,9 +22,9 @@ export class AdminSonarCubeComponent implements OnInit {
 
   httpBasicAuthPassword: string;
 
-  sonarConfig: SonarCubeConfig;
+  sonarConfig: SonarQubeConfig;
 
-  constructor(private sonarCubeService: SonarCubeService,
+  constructor(private sonarQubeService: SonarQubeService,
               private worldService: WorldService,
               private snackBar: MatSnackBar,
               private loadingService: LoadingService,
@@ -32,7 +32,7 @@ export class AdminSonarCubeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sonarCubeService.getConfig().then(config => {
+    this.sonarQubeService.getConfig().then(config => {
         this.sonarConfig = config;
         if (this.sonarConfig) {
           this.aktualisiereFormGroup();
@@ -48,10 +48,10 @@ export class AdminSonarCubeComponent implements OnInit {
     this.httpBasicAuthPassword = this.sonarConfig.httpBasicAuthPassword;
   }
 
-  checkSonarCubeUrl() {
+  checkSonarQubeUrl() {
     const loading = this.loadingService.getLoadingSpinner();
     let message: string;
-    this.sonarCubeService.checkSonarQubeURL({
+    this.sonarQubeService.checkSonarQubeURL({
       name: this.configName,
       sonarServerUrl: this.sonarQubeUrl,
       httpBasicAuthPassword: this.httpBasicAuthPassword,
@@ -60,13 +60,13 @@ export class AdminSonarCubeComponent implements OnInit {
       .then(available => {
         if (available) {
 
-          this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_SUCCESS").subscribe((translatedMessage) => {
+          this.translate.get("ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.SUCCESS").subscribe((translatedMessage) => {
             message = translatedMessage;
             loading.close();
             this.snackBar.open(message, null, {duration: 2500});
           });
         } else {
-          this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+          this.translate.get("ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.ERROR").subscribe((translatedMessage) => {
             message = translatedMessage;
             loading.close();
             this.snackBar.open(message, null, {duration: 2500});
@@ -74,7 +74,7 @@ export class AdminSonarCubeComponent implements OnInit {
         }
       }).catch(() => {
       loading.close();
-      this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+      this.translate.get("ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.ERROR").subscribe((translatedMessage) => {
         message = translatedMessage;
         loading.close();
         this.snackBar.open(message, null, {duration: 2500});
@@ -84,23 +84,27 @@ export class AdminSonarCubeComponent implements OnInit {
 
   save() {
     const loading = this.loadingService.getLoadingSpinner();
-    const config: SonarCubeConfig = {
+    const config: SonarQubeConfig = {
       name: this.configName,
       sonarServerUrl: this.sonarQubeUrl,
       httpBasicAuthUsername: this.httpBasicAuthUsername,
       httpBasicAuthPassword: this.httpBasicAuthPassword
     };
-    this.sonarCubeService.checkSonarQubeURL(config).then((available) => {
+    this.sonarQubeService.checkSonarQubeURL(config).then((available) => {
       if (!available) {
         return Promise.reject(new Error('Url not available'));
       } else {
-        return this.sonarCubeService.saveConfig(config);
+        this.translate.get("ADMIN_PAGE.CONNECTION_SAVED").subscribe((translatedMessage) => {
+          loading.close();
+          this.snackBar.open(translatedMessage, null, {duration: 2500});
+        });
+        return this.sonarQubeService.saveConfig(config);
       }
     }).then(() => {
       this.worldService.worldChanged();
       loading.close();
     }).catch(() => {
-      this.translate.get("ADMIN_PAGE.SONAR_CUBE_SERVER_CHECK_ERROR").subscribe((translatedMessage) => {
+      this.translate.get("ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.ERROR").subscribe((translatedMessage) => {
         loading.close();
         this.snackBar.open(translatedMessage, null, {duration: 2500});
       });

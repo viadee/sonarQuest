@@ -16,7 +16,7 @@ import {
 } from "@angular/material";
 import {AdminWorldComponent} from "./components/admin-world/admin-world.component";
 import {AdminDeveloperComponent} from "./components/admin-developer/admin-developer.component";
-import {AdminSonarCubeComponent} from "./components/admin-sonar-cube/admin-sonar-cube.component";
+import {AdminSonarQubeComponent} from "./components/admin-sonar-qube/admin-sonar-qube.component";
 import {CovalentDataTableModule, CovalentPagingModule, CovalentSearchModule} from "@covalent/core";
 import {WizardServiceTestingModule} from "../../services/wizard.service.mock.module";
 import {UserServiceTestingModule} from "../../services/user.service.mock.module";
@@ -31,7 +31,7 @@ describe('AdminPageComponent', () => {
         AdminPageComponent,
         AdminWorldComponent,
         AdminDeveloperComponent,
-        AdminSonarCubeComponent
+        AdminSonarQubeComponent
       ],
       imports: [
         BrowserModule,

@@ -1,15 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Task } from 'app/Interfaces/Task';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { GamemasterQuestCreateComponent } from '../../gamemaster-quest-create.component';
-import { SonarCubeService } from '../../../../../../../../services/sonar-cube.service';
-import { StandardTask } from '../../../../../../../../Interfaces/StandardTask';
-import { SpecialTask } from '../../../../../../../../Interfaces/SpecialTask';
-import { StandardTaskService } from '../../../../../../../../services/standard-task.service';
-import { SpecialTaskService } from '../../../../../../../../services/special-task.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {Task} from 'app/Interfaces/Task';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
+import {SonarQubeService} from '../../../../../../../../services/sonar-qube.service';
+import {StandardTask} from '../../../../../../../../Interfaces/StandardTask';
+import {SpecialTask} from '../../../../../../../../Interfaces/SpecialTask';
+import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
+import {SpecialTaskService} from '../../../../../../../../services/special-task.service';
 import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent } from '@covalent/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserSkillService } from 'app/services/user-skill.service';
+import {IPageChangeEvent, ITdDataTableColumn, TdDataTableService} from '@covalent/core';
 
 @Component({
   selector: 'app-gamemaster-add-free-task',
@@ -59,7 +60,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   public freeSpecialTasks: SpecialTask[];
 
   constructor(
-    private sonarCubeService: SonarCubeService,
+    private sonarQubeService: SonarQubeService,
     private dialogRef: MatDialogRef<GamemasterQuestCreateComponent>,
     private standardTaskService: StandardTaskService,
     private specialTaskService: SpecialTaskService,
@@ -132,7 +133,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   protected openIssue(task: Task) {
-    this.sonarCubeService.getIssueLink(task.key, task.world)
+    this.sonarQubeService.getIssueLink(task.key, task.world)
       .then(link => window.open(link, '_blank'));
   }
 

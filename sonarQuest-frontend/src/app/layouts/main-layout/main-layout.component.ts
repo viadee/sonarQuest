@@ -31,6 +31,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public user: User = null;
   private ui: UiDesign = null;
   private unassignedSonarRules: SonarRule[];
+  private clickToggleDesignButton = false;
 
 
   public myAvatarUrl = RoutingUrls.myAvatar;
@@ -53,8 +54,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public isSkillTreeVisbile: boolean;
 
   public swalOptionsnewRules: {};
-
-  private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+  public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -134,10 +134,14 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   private susbcribeWorlds() {
     this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world;
+      if (world) this.currentWorld = world;
       this.setBackground();
-    });
+    })
     this.worldService.worlds$.subscribe(worlds => {
+      if(this.currentWorld == null){
+        this.currentWorld = worlds[0]
+        this.setBackground();
+      }
       this.worlds = worlds;
     })
   }
@@ -208,7 +212,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/events':
-          return this.pageNames.EVENT;
+          return this.pageNames.EVENTS;
         default:
           return '';
       }
@@ -234,7 +238,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     if (this.user) {
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
-        console.log(ui);
         this.body.className = '';
         this.addClass(this.body, this.ui.name);
         this.addClass(this.body, "background-image");
@@ -246,19 +249,35 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.toggleDesign();
   }
 
+  clickToggleDesign(){
+    this.clickToggleDesignButton = true;
+    this.toggleDesign()
+  }
+
   toggleDesign() {
-    const dark = 'dark';
+    const dark  = 'dark';
     const light = 'light';
 
-    if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
+    console.log(this.clickToggleDesignButton)
+
+    if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
+      console.log('1')
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
-      this.uiDesignService.updateUiDesign(dark);
-    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, toggle to light
+      if (this.clickToggleDesignButton) {
+        this.uiDesignService.updateUiDesign(dark); 
+        this.clickToggleDesignButton = false;
+      }
+    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
+      console.log('2')
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
-      this.uiDesignService.updateUiDesign(light);
+      if (this.clickToggleDesignButton) {
+        this.uiDesignService.updateUiDesign(light); 
+        this.clickToggleDesignButton = false;
+      }
     } else { // If no design is choosen
+      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");

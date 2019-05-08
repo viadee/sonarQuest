@@ -12,7 +12,8 @@
     "BACKGROUND": "Switch transparency of background",
     "USER_PROFILE": "Open user profile",
     "SKILL_TREE": "Skill-Tree",
-    "NEW_RULE_SWAL_TITLE": "There are new SonarRules"
+    "NEW_RULE_SWAL_TITLE": "There are new SonarRules",
+    "EVENTS": "Events"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
@@ -52,14 +53,37 @@
     "CREATE_DEVELOPER": "Create Developer",
     "EDIT_DEVELOPER": "Edit Developer",
     "DELETE_DEVELOPER": "Are you sure to delete?",
-    "SONAR_CUBE_HEADER": "SonarQube",
+    "SONAR_QUBE_HEADER": "SonarQube",
     "SELECT_BACKGROUND": "Select Background",
-    "SONAR_CUBE_SERVER_CHECK_SUCCESS": "Sonar Server is reachable :)",
-    "SONAR_CUBE_SERVER_CHECK_ERROR": "Sonar Cube Server is not reachable"
+    "SONARQUBE_CONNECTION_TEST": {
+      "START": "Start connection test",
+      "SUCCESS": "Sonar Server is reachable :)",
+      "ERROR": "Sonar Qube Server is not reachable"
+    },
+    "CONNECTION_SAVED": "The data was saved and the connection established"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Current Progress",
     "PLEASE_LOG_IN": "Feel free to log in"
+  },
+  "EVENT_PAGE": {
+    "QUEST": {
+      "NEW_MEMBER": "joined the quest",
+      "CREATED": "New quest added",
+      "SOLVED": "has solved the quest"
+    },
+    "ADVENTURE": {
+      "NEW_MEMBER": "joined the adventure",
+      "CREATED": "Added new adventure",
+      "SOLVED": "has solved the adventure"
+    },
+    "ARTEFACT": {
+      "CREATED": "New item available at the marketplace"
+    },
+    "MESSAGE": {
+      "MESSAGE": "Message",
+      "HINT_CHARACTERS": "Max 255 characters"
+    }
   },
   "GAMEMASTER_PAGE": {
     "ADVENTURE": {
@@ -144,6 +168,7 @@
     "CLOSE": "Close",
     "CONFIRMATION_MESSAGE": "Really delete this?",
     "CANNOT_DELETE":"Error deleting",
+    "DELETE_SUCCESS": "Deletion successful"
     "REQUIRED_VALUE":"This is a mandatory field"
   },
   "DEVELOPER": {
@@ -215,9 +240,9 @@
     "DESCRIPTION": "Description",
     "SKILLS": "Powers",
     "ON_MARKETPLACE": "Visible on the marketplace",
-    "CANNOT_DELETE_ARTEFACT":"The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
-    "PAYOUT":"Pay out purchase price",
-    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"    
+    "CANNOT_DELETE_ARTEFACT": "The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
+    "PAYOUT": "Pay out purchase price",
+    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",

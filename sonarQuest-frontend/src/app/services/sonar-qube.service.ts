@@ -6,19 +6,19 @@ import { World } from '../Interfaces/World';
 import { SonarRule } from 'app/Interfaces/SonarRule';
 
 @Injectable()
-export class SonarCubeService {
+export class SonarQubeService {
 
   constructor(private http: HttpClient) {
   }
 
-  public getConfig(): Promise<SonarCubeConfig> {
+  public getConfig(): Promise<SonarQubeConfig> {
     const url = `${environment.endpoint}/sonarconfig`;
-    return this.http.get<SonarCubeConfig>(url).toPromise();
+    return this.http.get<SonarQubeConfig>(url).toPromise();
   }
 
-  public saveConfig(config: SonarCubeConfig): Promise<SonarCubeConfig> {
+  public saveConfig(config: SonarQubeConfig): Promise<SonarQubeConfig> {
     const url = `${environment.endpoint}/sonarconfig`;
-    return this.http.post<SonarCubeConfig>(url, config).toPromise();
+    return this.http.post<SonarQubeConfig>(url, config).toPromise();
   }
 
   public getIssueLink(key: string, world: World): Promise<string> {
@@ -41,7 +41,7 @@ export class SonarCubeService {
     return config.sonarServerUrl + '/project/issues?id=' + world.project + '&issues=' + key + '&open=' + key
   }
 
-  public checkSonarQubeURL(sonarQubeConfig: SonarCubeConfig): Promise<boolean> {
+  public checkSonarQubeURL(sonarQubeConfig: SonarQubeConfig): Promise<boolean>{
     const url = `${environment.endpoint}/sonarconfig/checkSonarQubeUrl`;
     return this.http.post<boolean>(url, sonarQubeConfig).toPromise();
   }
