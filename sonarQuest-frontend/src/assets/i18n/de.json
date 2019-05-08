@@ -294,6 +294,7 @@
       "REPETITIONS": "Benöigte Wiederholungen",
       "FOLLOWING_ERROR": "Ein nachfolgender Skill kann kein Vorheriger sein",
       "PREVIOUS_ERROR": "Ein vorheriger Skill kann kein Nachfolgender sein",
+      "IS_ROOT_ERROR": "Ein nachfolgender Skill kann kein Root Skill sein",
       "ADD_SKILL": "Skill hinzufügen"
     }
   },

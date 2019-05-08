@@ -277,6 +277,7 @@
       "REPETITIONS": "Required repetitions",
       "FOLLOWING_ERROR": "A following skill can not be a previous one",
       "PREVIOUS_ERROR": "A previous skill can not be a previous one",
+      "IS_ROOT_ERROR": "A folowing skill can not be a root skill",
       "ADD_SKILL": "Add skill"
     }
   },

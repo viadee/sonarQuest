@@ -21,6 +21,7 @@ public class UserSkillDTO {
 	private Long id;
 	private List<String> ruleKey;
 	private Double score;
+	private boolean isRoot;
 
 	public UserSkillDTO() {
 	}
@@ -67,6 +68,14 @@ public class UserSkillDTO {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public boolean isRoot() {
+		return isRoot;
+	}
+
+	public void setRoot(boolean isRoot) {
+		this.isRoot = isRoot;
 	}
 	
 	

@@ -26,7 +26,7 @@
       <mat-form-field class="full-width">
         <mat-label>{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.PREVIOUS_SKILLS' | translate}}</mat-label>
         <mat-select  formControlName="previousUserSkills"  multiple (selectionChange)="isSomethingSelected($event)">
-          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}</mat-option>
+          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}<small *ngIf="userSkill.root"> (Root)</small></mat-option>
         </mat-select>
         <mat-error >{{getErrorMessage('previousUserSkills')}}</mat-error>
       </mat-form-field>
@@ -36,7 +36,7 @@
       <mat-form-field class="full-width">
         <mat-label>{{'SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.FOLLOWING_SKILLS' | translate}}</mat-label>
         <mat-select  #followingUserSkillSelect formControlName="followingUserSkills"  multiple (selectionChange)="isSomethingSelected($event)">
-          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}</mat-option>  
+          <mat-option *ngFor="let userSkill of userSkills" [value]="userSkill">{{userSkill.name}}<small *ngIf="userSkill.root"> (Root)</small></mat-option>  
                
         </mat-select>
         <mat-error >{{getErrorMessage('followingUserSkills')}}</mat-error>
@@ -56,14 +56,6 @@
     </mat-form-field>
     
     </div>
-    
-
-   <!--  <div flex>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="'SKILL.VALUE' | translate" type="number" min="0" [(ngModel)]="value">
-      </mat-form-field>
-    </div> -->
-
   </div>
 </mat-dialog-content>
 

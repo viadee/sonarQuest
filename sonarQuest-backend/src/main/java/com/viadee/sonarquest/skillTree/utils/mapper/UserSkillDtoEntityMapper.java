@@ -19,6 +19,7 @@ public class UserSkillDtoEntityMapper {
 			userSkillDto.setName(userSkill.getName());
 			userSkillDto.setRuleKey(
 					userSkill.getSonarRules().stream().map(rule -> rule.getKey()).collect(Collectors.toList()));
+			userSkillDto.setRoot(userSkill.isRoot());
 		} else {
 			userSkillDto = null;
 		}

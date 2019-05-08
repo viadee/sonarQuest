@@ -29,10 +29,11 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
 
   private followingUserSkillError: boolean;
   private previousUserSkillError: boolean;
+  private isRootError: boolean;
 
   createUserSkillForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
-    followingUserSkills: new FormControl([], [this.matchFollowingUserSkillValidator()]),
+    followingUserSkills: new FormControl([], [this.matchFollowingUserSkillValidator(), this.matchIsRootValidator()]),
     previousUserSkills: new FormControl([], [this.matchPreviousUserSkillValidator()]),
     description: new FormControl(),
     requiredRepetitions: new FormControl(null, [Validators.required]),
@@ -76,14 +77,29 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
   }
 
   public isSomethingSelected(event) {
+    console.log(event.source.ngControl.name);
+    console.log(this.createUserSkillForm.get('followingUserSkills'));
+
     if (event.value.length === 0) {
-      this.previousUserSkillError = false;
       this.followingUserSkillError = false;
+      this.previousUserSkillError = false;
+      if(event.source.ngControl.control === this.createUserSkillForm.get('followingUserSkills')){
+      this.isRootError = false;
+      }
     }
   }
 
   public addSkill(): void {
-
+    if (!this.followingUserSkillError && !this.previousUserSkillError && !this.isRootError && this.createUserSkillForm.valid) {
+      const newUserSkill: UserSkill = {
+        name: this.createUserSkillForm.get('name').value,
+        description : this.createUserSkillForm.get('description').value,
+        root: false,
+        followingUserSkills: this.createUserSkillForm.get('followingUserSkills').value,
+        sonarRules: this.createUserSkillForm.get('sonarRules').value,
+        requiredRepetitions: this.createUserSkillForm.get('requiredRepetitions')
+      }
+    }
   }
 
   public close():void{
@@ -100,11 +116,29 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
           if (index > -1) {
             this.followingUserSkillError = true;
             break;
-          } else {
+          }else {
             this.followingUserSkillError = false;
           }
         }
         return this.followingUserSkillError ? { 'currentFollowingUserSkill': { followingVal } } : null;
+      }
+
+    }
+  }
+  matchIsRootValidator() {
+    return (control: FormControl) => {
+      const followingVal = control.value;
+      if (typeof followingVal !== 'undefined') {
+        for (const following of followingVal) {
+          console.log(following);
+          if(following.root){
+            this.isRootError = true;
+            break;
+          } else {
+            this.isRootError = false;
+          }
+        }
+        return this.isRootError ? { 'currentFollowingUserSkill': { followingVal } } : null;
       }
 
     }
@@ -137,6 +171,10 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
     if (control === 'followingUserSkills' && this.followingUserSkillError) {
       this.createUserSkillForm.controls['followingUserSkills'].setErrors({ 'matchFollowingUserSkillValidator': true });
       return this.translate('SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.FOLLOWING_ERROR');
+    }
+    if (control === 'followingUserSkills' && this.isRootError){
+      this.createUserSkillForm.controls['followingUserSkills'].setErrors({ 'matchIsRootValidator': true });
+      return this.translate('SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.IS_ROOT_ERROR');
     }
     if (control === 'previousUserSkills' && this.previousUserSkillError) {
       this.createUserSkillForm.controls['previousUserSkills'].setErrors({ 'matchPreviousUserSkillValidator': true });
