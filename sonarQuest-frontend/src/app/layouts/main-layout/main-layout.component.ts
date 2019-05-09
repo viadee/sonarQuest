@@ -186,7 +186,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user) {
+    if (this.user) { 
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
         this.body.className = '';

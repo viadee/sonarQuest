@@ -59,15 +59,11 @@ export class EventService {
 
   subscribeEventUserDto(){
   this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
-
-    this.eventUserDtoToData(eventUserDto) 
-
-    
+    this.eventUserDtoToData(eventUserDto)
   })
 }
 
 eventUserDtoToData(eventUserDto: EventUserDto){
-
     var localEventDtos: EventDto[] = eventUserDto.eventDtos;
     var localuserDtos: UserDto[]   = eventUserDto.userDtos;
 
@@ -88,7 +84,6 @@ eventUserDtoToData(eventUserDto: EventUserDto){
 
         localEventDtos.forEach(eDto => this.eventDtos.push(eDto))
         localuserDtos.forEach(uDto => this.userDtos.push(uDto))
-
 
     this.eventDtosSubject.next(this.eventDtos)
     this.userDtosSubject.next(this.userDtos)

@@ -92,10 +92,14 @@ public class EventDto {
 	public String getStory() {
 		return story;
 	}
+	
+	public Long getUserId() {
+		return userId;
+	}
 
 
-	public void setStory(String story) {
-		this.story = story;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 
@@ -104,23 +108,13 @@ public class EventDto {
 	}
 
 
+	public void setStory(String story) {
+		this.story = story;
+	}
+
+
 	public void setState(EventState state) {
 		this.state = state;
-	}
-
-
-	public String getImage() {
-		return image;
-	}
-
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-
-	public String getHeadline() {
-		return headline;
 	}
 
 
@@ -129,8 +123,8 @@ public class EventDto {
 	}
 
 
-	public Long getWorldId() {
-		return worldId;
+	public String getHeadline() {
+		return headline;
 	}
 
 
@@ -139,13 +133,18 @@ public class EventDto {
 	}
 
 
-	public Long getUserId() {
-		return userId;
+	public Long getWorldId() {
+		return worldId;
+	}
+	
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public String getImage() {
+		return image;
 	}
 
 
