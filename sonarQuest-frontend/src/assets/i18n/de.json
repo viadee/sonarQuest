@@ -291,10 +291,9 @@
     "TOOLTIP_DETAILS": "Klicken für mehr Informationen",
     "TOOLTIP_ROOT_NODE": "Das Wurzelelement kann nicht ausgewählt werden",
     "LEARN_PROGRESS":"der Gruppe gelernt",
-    "ADD_SKILL": "Skill hinzufügen",
     "ADDED_RULE_SUCCESS_SWAL_TITLE": "Regel erfolgreich zugeordnet",
     "ADD_INNER_SKILL_TREE":{
-      "TITLE":"Skill erstellen",
+      "TITLE":"Neue SonarRule zu Skill zuordnen",
       "NAME":"Name",
       "FOLLOWING_SKILLS":"Nachfolgende Skills",
       "PREVIOUS_SKILLS":"Vorherige Skills",
@@ -304,7 +303,7 @@
       "FOLLOWING_ERROR": "Ein nachfolgender Skill kann kein Vorheriger sein",
       "PREVIOUS_ERROR": "Ein vorheriger Skill kann kein Nachfolgender sein",
       "IS_ROOT_ERROR": "Ein nachfolgender Skill kann kein Root Skill sein",
-      "ADD_SKILL": "Skill hinzufügen"
+      "ADD_SKILL": "Neue SonarRule zuordnen"
     }
   },
   "INNER_SKILL_TREE_POPUP": {

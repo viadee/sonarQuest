@@ -36,7 +36,7 @@ export class SkillTreeService {
 
   getUserSkillTreeFromTeam(id, world: World): Observable<{ nodes: [], links: [] }> {
     const params = new HttpParams().set('id', id).set('worldID', String( world.id));
-    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/sqskilltree/fromgroup/user/`, {params: params})
+    this.http.get<{ nodes: [], links: [] }>(`${environment.endpoint}/sqskilltree/fromgroup/team/`, {params: params})
       .subscribe(
         result => this.userSkillTreeForTeamSubject.next(result),
         err => this.userSkillTreeForTeamSubject.error(err)

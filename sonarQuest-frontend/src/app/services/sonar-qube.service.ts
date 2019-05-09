@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { World } from '../Interfaces/World';
-import { SonarRule } from 'app/Interfaces/SonarRule';
 import { SonarQubeConfig } from 'app/Interfaces/SonarQubeConfig';
 
 @Injectable({

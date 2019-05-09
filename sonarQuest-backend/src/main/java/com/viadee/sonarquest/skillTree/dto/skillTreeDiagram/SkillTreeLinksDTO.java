@@ -14,6 +14,12 @@ public class SkillTreeLinksDTO {
 		this.source = source;
 		this.target = target;
 	}
+	
+	public SkillTreeLinksDTO(Long source, Long target) {
+		super();
+		this.source = String.valueOf(source);
+		this.target = String.valueOf(target);
+	}
 
 	public String getSource() {
 		return source;

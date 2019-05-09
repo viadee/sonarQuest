@@ -28,7 +28,7 @@ public class SQSkillTreeController {
 	@Autowired
 	private WorldService worldService;
 
-	@GetMapping(value = "/fromgroup/user/")
+	@GetMapping(value = "/fromgroup/team/")
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
 			@RequestParam(value = "worldID") final Long worldID) {
 		World world = worldService.findById(worldID);

@@ -291,10 +291,9 @@
     "TOOLTIP_DETAILS": "Clikc for details",
     "TOOLTIP_ROOT_NODE": "The root node isn't clickable",
     "LEARN_PROGRESS":"of the group learned",
-    "ADD_SKILL": "Add Skill",
     "ADDED_RULE_SUCCESS_SWAL_TITLE": "Rule assigned successfully",
     "ADD_INNER_SKILL_TREE":{
-      "TITLE":"Create Skill",
+      "TITLE":"Assing new SonarRule to Skill",
       "NAME":"Name",
       "FOLLOWING_SKILLS":"Following skills",
       "PREVIOUS_SKILLS":"Previous skills",
@@ -304,7 +303,7 @@
       "FOLLOWING_ERROR": "A following skill can not be a previous one",
       "PREVIOUS_ERROR": "A previous skill can not be a previous one",
       "IS_ROOT_ERROR": "A folowing skill can not be a root skill",
-      "ADD_SKILL": "Add skill"
+      "ADD_SKILL": "Assign new SonarRule"
     }
   },
   "INNER_SKILL_TREE_POPUP": {

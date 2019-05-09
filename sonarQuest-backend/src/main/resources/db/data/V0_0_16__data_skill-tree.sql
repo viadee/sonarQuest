@@ -30,7 +30,7 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 ('Java-Basics I','Fundamental java basic skills',1,3,1),
 ('Primitive types','Easy data types',0,3,1),
 ('Packages','Structure your code project',0,3,1),
-('Java Doc','Stay informed! Document your code',0,3,1),
+('Java Doc','Stay informed! Document your code',0,3,3), //Insert into Group 3
 ('Scopes','Where is the code reachable',0,3,1),
 ('Floating point numbers','More flexible numbers',0,3,1),
 ('Switch','asd',0,3,1),
@@ -73,7 +73,6 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (1,2),
-(1,4),
 (1,5),
 (5,3),
 (2,11),
@@ -117,7 +116,6 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 
 INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (2,1),
-(4,1),
 (5,1),
 (3,5),
 (11,2),
@@ -215,6 +213,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (49,51),
 (49,52),
 (49,53),
+(49,4),
 (50,54),
 (50,55),
 (50,56),
@@ -230,6 +229,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (51,49),
 (52,49),
 (53,49),
+(4,49),
 (54,50),
 (55,50),
 (56,50),
@@ -829,7 +829,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Exception types should not be tested using "instanceof" in catch blocks','squid:S1193',1,'2019-04-25 14:12:05.051'),
 ('Array designators "[]" should be located after the type in method signatures','squid:S1195',1,'2019-04-25 14:12:05.051'),
 ('Nested code blocks should not be used','squid:S1199',1,'2019-04-25 14:12:05.051'),
-('Deprecated elements should have both the annotation and the Javadoc tag','squid:MissingDeprecatedCheck',1,'2019-04-25 14:12:05.051'),
+('Deprecated elements should have both the annotation and the Javadoc tag','squid:MissingDeprecatedCheck',58,'2019-04-25 14:12:05.051'),
 ('Control flow statements "if", "for", "while", "switch" and "try" should not be nested too deeply','squid:S134',1,'2019-04-25 14:12:05.051'),
 ('A close curly brace should be located at the beginning of a line','squid:RightCurlyBraceStartLineCheck',1,'2019-04-25 14:12:05.051'),
 ('"equals" method overrides should accept "Object" parameters','squid:S1201',1,'2019-04-25 14:12:05.051'),
@@ -908,7 +908,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('"instanceof" operators that always return "true" or "false" should be removed','squid:S1850',1,'2019-04-25 14:12:05.053'),
 ('Redundant casts should not be used','squid:S1905',1,'2019-04-25 14:12:05.053'),
 ('Collections should not be passed as arguments to their own methods','squid:S2114',1,'2019-04-25 14:12:05.053'),
-('Servlets should not have mutable instance fields','squid:S2226',1,'2019-04-25 14:12:05.053'),
+('Servlets should not have mutable instance fields','squid:S2226',50,'2019-04-25 14:12:05.053'),
 ('Methods "wait(...)", "notify()" and "notifyAll()" should not be called on Thread instances','squid:S2236',1,'2019-04-25 14:12:05.053'),
 ('"main" should not "throw" anything','squid:S2096',1,'2019-04-25 14:12:05.053'),
 ('"toString()" and "clone()" methods should not return null','squid:S2225',1,'2019-04-25 14:12:05.053'),

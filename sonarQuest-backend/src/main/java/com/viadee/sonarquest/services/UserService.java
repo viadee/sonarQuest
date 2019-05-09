@@ -28,6 +28,7 @@ import com.viadee.sonarquest.entities.UserToWorldDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
+import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -51,6 +52,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private WorldRepository worldRepository;
+	
+	@Autowired
+	private UserSkillService userSkilLService;
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
@@ -101,6 +105,9 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setGold(0l);
 				toBeSaved.setXp(0l);
 				toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+				if(toBeSaved.getMail() != null) {
+					userSkilLService.createSkillTreeUser(toBeSaved.getMail());
+				}
 			}
 		} else {
 			toBeSaved = findById(user.getId());

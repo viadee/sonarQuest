@@ -51,7 +51,7 @@ export class InnerSkillTreeComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this._route.snapshot.params['id'];
-    this.userSkillTree = null;
+    //this.userSkillTree = null;
 
     this.isAdmin = true && this.permissionService.isUrlVisible(RoutingUrls.admin);
     this.isGamemaster = true && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
@@ -69,7 +69,6 @@ export class InnerSkillTreeComponent implements OnInit {
         this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
       } else {
         this.userSkillTree = { nodes: [], links: [] };
-        console.log(this.userSkillTree.nodes.length);
       }
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {

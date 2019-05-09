@@ -87,7 +87,8 @@ public class SkillTreeService {
 			List<UserSkill> userSkills = userSkillRepository.findRootUserSkillByGroupID(id, true);
 			for (UserSkill userSKill : userSkills) {
 				SkillTreeObjectDTO object = this.buildSkillTreeObject(
-						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromUserByGroupID(user, id), isGroupLearnedCompletlyFromUserByGroupID(user, id)));
+						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromUserByGroupID(user, id),
+								isGroupLearnedCompletlyFromUserByGroupID(user, id)));
 				object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromUserByGroupID(user, id),
 						this.getAmountOfUserSkillsFromUserByGroupID(user, id)));
 				skillTreeDiagramDTO.addNode(object);
@@ -126,11 +127,12 @@ public class SkillTreeService {
 				counter++;
 			}
 		}
-		if(userSkillToUserByGroupID.size() == counter) {
+		if (userSkillToUserByGroupID.size() == counter) {
 			return new Timestamp(System.currentTimeMillis());
 		}
 		return null;
 	}
+
 	private Timestamp isGroupLearnedCompletlyFromTeamByGroupID(List<String> mails, Long id) {
 		List<UserSkillToSkillTreeUser> userSkillToUserByGroupID = null;
 		int counter = 0;
@@ -144,12 +146,12 @@ public class SkillTreeService {
 					counter++;
 				}
 			}
-			
+
 		}
-		if(userSkillToUserByGroupID.size()*mails.size() == counter) {
+		if (userSkillToUserByGroupID.size() * mails.size() == counter) {
 			return new Timestamp(System.currentTimeMillis());
 		}
-				
+
 		return null;
 	}
 
@@ -169,12 +171,14 @@ public class SkillTreeService {
 		List<UserSkillToSkillTreeUser> userSkillToUserByGroupID = null;
 		for (String mail : mails) {
 			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
-			userSkillToUserByGroupID = user.getUserSkillToSkillTreeUser().stream()
-					.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
-					.collect(Collectors.toList());
-			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToUserByGroupID) {
-				if (userSkillToSkillTreeUser.getLearnedOn() != null) {
-					return 1;
+			if (user.getUserSkillToSkillTreeUser() != null) {
+				userSkillToUserByGroupID = user.getUserSkillToSkillTreeUser().stream()
+						.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
+						.collect(Collectors.toList());
+				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToUserByGroupID) {
+					if (userSkillToSkillTreeUser.getLearnedOn() != null) {
+						return 1;
+					}
 				}
 			}
 		}
@@ -193,6 +197,7 @@ public class SkillTreeService {
 		}
 		return counter;
 	}
+
 	private Double getAmountOfLearndSkillsFromTeamByGroupID(List<String> mails, Long id) {
 		List<UserSkillToSkillTreeUser> userSkillToUserByGroupID = null;
 		Double counter = 0.0;
@@ -201,7 +206,7 @@ public class SkillTreeService {
 			userSkillToUserByGroupID = user.getUserSkillToSkillTreeUser().stream()
 					.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
 					.collect(Collectors.toList());
-			
+
 			for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToUserByGroupID) {
 				if (userSkillToSkillTreeUser.getLearnedOn() != null) {
 					counter++;
@@ -216,27 +221,33 @@ public class SkillTreeService {
 				.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
 				.collect(Collectors.toList()).size());
 	}
-	
+
 	private Double getAmountOfUserSkillsFromTeamByGroupID(List<String> mails, Long id) {
 		SkillTreeUser user = skillTreeUserRepository.findByMail(mails.get(0));
 		return Double.valueOf(user.getUserSkillToSkillTreeUser().stream()
 				.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
 				.collect(Collectors.toList()).size());
 	}
+
 	@Transactional
 	public SkillTreeDiagramDTO generateSkillTreeForTeamByGroupID(Long id, List<String> mails) {
 		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
 		List<Long> learnedUserSkillIDs = new ArrayList<Long>();
 		List<UserSkill> userSkills = userSkillRepository.findRootUserSkillByGroupID(id, true);
 		for (UserSkill userSKill : userSkills) {
+
 			SkillTreeObjectDTO object = this.buildSkillTreeObject(
-					new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromTeamByGroupID(mails, id),isGroupLearnedCompletlyFromTeamByGroupID(mails,id)));
+					new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromTeamByGroupID(mails, id),
+							isGroupLearnedCompletlyFromTeamByGroupID(mails, id)));
+			/*
+			 * SkillTreeObjectDTO object = this.buildSkillTreeObject( new
+			 * UserSkillToSkillTreeUser(userSKill, 0, null));
+			 */
 			object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromTeamByGroupID(mails, id),
 					this.getAmountOfUserSkillsFromTeamByGroupID(mails, id)));
 			skillTreeDiagramDTO.addNode(object);
 			for (UserSkill followingUserSkill : userSKill.getFollowingUserSkills()) {
-				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSKill.getId()),
-						String.valueOf(followingUserSkill.getId())));
+				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(userSKill.getId(), followingUserSkill.getId()));
 			}
 		}
 		for (String mail : mails) {
@@ -247,27 +258,35 @@ public class SkillTreeService {
 					LOGGER.info("User with mail: {}  does not exist yet - creating it...", mail);
 					user = userSkillService.createSkillTreeUser(mail);
 				}
-				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
-					if (userSkillToSkillTreeUser.getUserSkill().getUserSkillGroup().getId().equals(id)) {
-						if (userSkillToSkillTreeUser.getLearnedOn() != null) {
-							learnedUserSkillIDs.add(userSkillToSkillTreeUser.getUserSkill().getId());
-						}
-						if (skillTreeDiagramDTO
-								.getNodes().stream().filter(entry -> String
-										.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()).equals(entry.getId()))
-								.findAny().orElse(null) == null) {
-							skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser));
-							for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
-									.getFollowingUserSkills()) {
-								skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
-										String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
-										String.valueOf(followingUserSkill.getId())));
-							}
-						}
-
+				List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = user.getUserSkillToSkillTreeUser().stream()
+						.filter(skillToUser -> skillToUser.getUserSkill().getUserSkillGroup().getId().equals(id))
+						.collect(Collectors.toList());
+				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToSkillTreeUsers) {
+					if (userSkillToSkillTreeUser.getLearnedOn() != null) {
+						learnedUserSkillIDs.add(userSkillToSkillTreeUser.getUserSkill().getId());
 					}
+					/*
+					 * if (skillTreeDiagramDTO .getNodes().stream().filter(entry -> String
+					 * .valueOf(userSkillToSkillTreeUser.getUserSkill().getId()).equals(entry.getId(
+					 * ))) .findAny().orElse(null) == null) {
+					 * skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(
+					 * userSkillToSkillTreeUser)); for (UserSkill followingUserSkill :
+					 * userSkillToSkillTreeUser.getUserSkill() .getFollowingUserSkills()) {
+					 * skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(
+					 * String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()),
+					 * String.valueOf(followingUserSkill.getId()))); } }
+					 */
 				}
 			}
+		}
+		for (UserSkill userSkill : userSkillRepository.findRootUserSkillByGroupID(id, false)) {
+			SkillTreeObjectDTO object = buildSkillTreeObject(new UserSkillToSkillTreeUser(userSkill, 0));
+			skillTreeDiagramDTO.addNode(object);
+			for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
+
+				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(userSkill.getId(), followingUserSkill.getId()));
+			}
+
 		}
 		for (SkillTreeObjectDTO entry : skillTreeDiagramDTO.getNodes()) {
 			int learnedUserSKillFrequency = Collections.frequency(learnedUserSkillIDs, Long.getLong(entry.getId()));
