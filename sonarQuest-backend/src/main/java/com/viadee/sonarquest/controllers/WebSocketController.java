@@ -8,6 +8,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.services.EventService;
 
@@ -29,7 +30,8 @@ public class WebSocketController {
     @MessageMapping("/send/message")
     public void onReceivedMessage(final MessageDto messageDto) {
         Event event = eventService.createEventForNewMessage(messageDto);
-        template.convertAndSend("/chat", event);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend("/chat", eventUserDto);
     }
 
 }

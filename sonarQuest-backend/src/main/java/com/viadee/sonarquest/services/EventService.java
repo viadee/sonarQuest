@@ -1,6 +1,8 @@
 package com.viadee.sonarquest.services;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,9 +17,12 @@ import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventDto;
+import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
 
@@ -167,6 +172,44 @@ public class EventService {
 		checkStoryAndSave(new Event(type, title, story, state, image));
 		
 	}
+    
+    
+    public EventUserDto getEventsForCurrentWorldEfficient(Principal principal) {
+    	EventUserDto  	eventUserDto 	= null;
+    	List<EventDto>  eventDtos 		= new ArrayList<EventDto>();
+    	List<UserDto>	userDtos		= new ArrayList<UserDto>();
+    	List<Event> 	events 			= getEventsForWorld(principal);
+    	
+    	
+    	events.forEach(event -> {
+    		eventDtos.add(new EventDto(event));
+    		
+    		if (event.getUser() != null) {
+    			UserDto userDto = new UserDto(event.getUser());
+	    		if (!hasUserDto(userDtos, userDto)) {
+	    			userDtos.add(userDto);
+	    		}
+    		}
+    	});
+    	eventUserDto = new EventUserDto(userDtos, eventDtos);
+    	
+    	return eventUserDto;
+    }
+    
+    
+    private Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {
+    	Iterator<UserDto> i = userDtos.iterator();
+    	
+    	while(i.hasNext()) {
+    		UserDto dto = i.next();
+    		if (dto.getId() == userDto.getId()) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
 
     /**
      * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in
@@ -194,5 +237,21 @@ public class EventService {
     public List<Event> get10LatestEvents() {
         return eventRepository.findFirst10ByOrderByTimestampDesc();
     }
+
+	public EventUserDto eventToEventUserDto(Event event) {
+    	List<EventDto>  eventDtos 		= new ArrayList<EventDto>();
+    	List<UserDto>	userDtos		= new ArrayList<UserDto>();
+
+		eventDtos.add(new EventDto(event));
+		
+		if (event.getUser() != null) {
+			UserDto userDto = new UserDto(event.getUser());
+    		if (!hasUserDto(userDtos, userDto)) {
+    			userDtos.add(userDto);
+    		}
+		}
+		
+		return new EventUserDto(userDtos, eventDtos);
+	}
 
 }

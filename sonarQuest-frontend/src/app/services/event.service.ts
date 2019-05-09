@@ -19,8 +19,6 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class EventService {
 
-  //private eventsSubject: Subject<Event[]> = new ReplaySubject(1); 
-  //public  events$ = this.eventsSubject.asObservable();
   private eventUserDtoSubject: Subject<EventUserDto> = new ReplaySubject(1); 
   public  eventUserDto$ = this.eventUserDtoSubject.asObservable();
   
@@ -30,13 +28,9 @@ export class EventService {
   public  userDtos$  = this.userDtosSubject.asObservable(); 
 
   
-  eventDtos: EventDto[];
-  userDtos: UserDto[];
+  eventDtos: EventDto[] = [];
+  userDtos:  UserDto[]  = [];
 
-  /*
-  private eventSubject: Subject<Event> = new Subject; 
-  public  event$ = this.eventSubject.asObservable();
-  */
 
   currentWorld: World;
   user: User;
@@ -61,28 +55,29 @@ export class EventService {
 
       userService.user$.subscribe(user =>{ this.user = user });
 
-
-      /*
-      this.events$.subscribe(events => {
-        this.events = events;
-      })
-      */
-
   }
 
   subscribeEventUserDto(){
   this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
-    console.log('new Data')
-    this.eventDtos = eventUserDto.eventDtos;
-    this.userDtos  = eventUserDto.userDtos;
 
-        this.userDtos.forEach((userDto: UserDto) => {
+    this.eventUserDtoToData(eventUserDto) 
+
+    
+  })
+}
+
+eventUserDtoToData(eventUserDto: EventUserDto){
+
+    var localEventDtos: EventDto[] = eventUserDto.eventDtos;
+    var localuserDtos: UserDto[]   = eventUserDto.userDtos;
+
+          localuserDtos.forEach((userDto: UserDto) => {
               
           this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
             this.imageService.createImageFromBlob2(blob).subscribe(image => {
               userDto.picture = image
               
-              this.eventDtos.forEach((eventDto: EventDto) => {
+              localEventDtos.forEach((eventDto: EventDto) => {
                 if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE'){
                   eventDto.image = userDto.picture
                 }
@@ -91,9 +86,14 @@ export class EventService {
           });  
         });
 
+        localEventDtos.forEach(eDto => this.eventDtos.push(eDto))
+        localuserDtos.forEach(uDto => this.userDtos.push(uDto))
+
+
     this.eventDtosSubject.next(this.eventDtos)
     this.userDtosSubject.next(this.userDtos)
-  })
+
+  
 }
 
 /*
@@ -105,6 +105,7 @@ export class EventService {
     return this.eventsSubject;
   }
 */
+
   getEventsForCurrentWorldEfficient(): Observable<EventUserDto>{
     this.http.get<EventUserDto>(`${environment.endpoint}/event/getEventsForCurrentWorldEfficient`).subscribe(
         result => {
@@ -116,14 +117,9 @@ export class EventService {
     return this.eventUserDtoSubject;
   }
 
-  /*
-  public addEvent(event){
-    event = this.getImageForMessage(event)  ;
-    this.events.push(event);
-
-    this.eventsSubject.next(this.events)
+  public addEvent(eventUserDto: EventUserDto){
+    this.eventUserDtoToData(eventUserDto);
   }
-  */
 
 
   

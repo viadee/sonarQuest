@@ -4,7 +4,7 @@ import { EventDto } from './../../Interfaces/EventDto';
 import { UserDto } from './../../Interfaces/UserDto';
 import { EventUserDto } from './../../Interfaces/EventUserDto';
 import { Event } from '../../Interfaces/Event';
-import { ViewChildren, QueryList, ElementRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
 import { Subject, ReplaySubject, Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/render
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.css']
 })
-export class EventPageComponent implements OnInit, OnDestroy {
+export class EventPageComponent implements OnInit {
   private subscribtion: Subscription = new Subscription();
 
   private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
