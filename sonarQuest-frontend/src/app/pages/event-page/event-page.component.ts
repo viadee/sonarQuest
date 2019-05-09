@@ -4,10 +4,10 @@ import { EventDto } from './../../Interfaces/EventDto';
 import { UserDto } from './../../Interfaces/UserDto';
 import { EventUserDto } from './../../Interfaces/EventUserDto';
 import { Event } from '../../Interfaces/Event';
-import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
+import { ViewChildren, QueryList, ElementRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
-import { Subject, ReplaySubject } from 'rxjs';
+import { Subject, ReplaySubject, Subscription } from 'rxjs';
 import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/renderer';
 
 @Component({
@@ -15,7 +15,8 @@ import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/render
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.css']
 })
-export class EventPageComponent implements OnInit {
+export class EventPageComponent implements OnInit, OnDestroy {
+  private subscribtion: Subscription = new Subscription();
 
   private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
   public  eventDtos$ = this.eventDtosSubject.asObservable();
@@ -24,6 +25,7 @@ export class EventPageComponent implements OnInit {
 
   events: Event[];
   eventDtos: EventDto[];
+  userDtos: UserDto[];
   previousEvent: Event = null;
   message = '';
 
@@ -31,49 +33,27 @@ export class EventPageComponent implements OnInit {
   @ViewChildren('test') testDivs: QueryList<ElementRef>;
 
   constructor(
+
     private eventService: EventService,
     private websocketService: WebsocketService,
     private imageService: ImageService,
     private userService: UserService
+
   ) {
-    this.eventService.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
-      console.log('new EventUserDto')
-      console.log(eventUserDto)
-
-      eventUserDto.userDtos.forEach((userDto: UserDto) => {
-          var byteArray = new Uint8Array(userDto.picture);
-          var blob = new Blob([byteArray], { type: 'application/json' });
-          console.log(blob)
-
-          this.imageService.createImageFromBlob2(blob).subscribe(picture => userDto.picture = picture);
-
-          eventUserDto.eventDtos.forEach((eventDto: EventDto) => {
-            if (eventDto.userId == userDto.id){
-              eventDto.image = userDto.picture
-            }
-          }) 
-      });
-
-
-
-      this.eventDtos = eventUserDto.eventDtos;
-
-      console.log(this.eventDtos)
-
-      this.eventDtosSubject.next(eventUserDto.eventDtos)
-      this.userDtosSubject.next(eventUserDto.userDtos)
-      
-    })
-
-    this.eventService.events$.subscribe(events => {
-      this.events = this.eventService.getImageForMessages(events)
-    });
+      this.eventService.eventDtos$.subscribe(eventDtos => { 
+        this.eventDtos = eventDtos
+      })
+      this.eventService.userDtos$.subscribe(userDtos => { 
+        this.userDtos = userDtos
+      })
   }
 
   ngOnInit() {
+
   };
 
   ngAfterViewInit() {
+    
     this.commentDivs.changes.subscribe(() => {
       if (this.commentDivs && this.commentDivs.last) {
         //this.commentDivs.last.nativeElement.focus();
@@ -83,14 +63,15 @@ export class EventPageComponent implements OnInit {
           this.commentDivs.last.nativeElement.lastChild.focus();
         }
       }
-    });
+    })
   }
+
 
   checkNewDay(event: Event): Boolean {
     if (this.previousEvent == null) {
       this.previousEvent = event;
       return true;
-    } else if (this.events[0].id === event.id) {
+    } else if (this.eventDtos[0].id === event.id) {
       // When this is the first Event in the List show Date
       this.previousEvent = event
       return true;
@@ -129,12 +110,22 @@ export class EventPageComponent implements OnInit {
   }
 
   click() {
-    console.log('CLICK');
     this.websocketService.initializeWebSocketConnection();
   }
 
   something() {
     this.eventService.something();
+  }
+
+  getUserName(e: EventDto): String{
+    var name: String = "null";
+
+    this.userDtos.forEach((userDto: UserDto) => {
+      if ( e.userId == userDto.id) {
+        name = userDto.username;
+      }
+    })
+    return name
   }
 
 }

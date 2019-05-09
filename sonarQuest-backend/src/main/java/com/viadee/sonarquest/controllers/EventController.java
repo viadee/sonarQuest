@@ -1,7 +1,6 @@
 package com.viadee.sonarquest.controllers;
 
 import java.security.Principal;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,7 +48,7 @@ public class EventController {
     
     @CrossOrigin
     @GetMapping(value = "/getEventsForCurrentWorldEfficient")
-    public Blob getEventsForCurrentWorldEfficient(final Principal principal, final HttpServletResponse response) {
+    public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal, final HttpServletResponse response) {
     	EventUserDto  	eventUserDto 	= null;
     	List<EventDto>  eventDtos 		= new ArrayList<EventDto>();
     	List<UserDto>	userDtos		= new ArrayList<UserDto>();
@@ -70,7 +69,7 @@ public class EventController {
     	eventUserDto = new EventUserDto(userDtos, eventDtos);
     	
     	
-    	return eventUserDto.getUserDtos().get(1).getPicture();
+    	return eventUserDto;
     }
     
     private Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {

@@ -1,17 +1,11 @@
 package com.viadee.sonarquest.entities;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 
 import com.viadee.sonarquest.controllers.UserController;
 
@@ -27,7 +21,7 @@ public class UserDto {
     private String username;
     private String mail;
     private Role role;
-    private Blob picture;
+    private String picture;
     private String aboutMe;
     private AvatarClass avatarClass;
     private AvatarRace avatarRace;
@@ -43,17 +37,19 @@ public class UserDto {
     public UserDto() {}
     
 	public UserDto(User user) {
+		/*
 		String path = "/avatar/";
 		
 		if (user.getPicture() != null) {
             String avatarFileName = path + user.getPicture();
             InputStream inputStream = SpringApplication.class.getResourceAsStream(avatarFileName);
             try {
-                 this.picture = new javax.sql.rowset.serial.SerialBlob(IOUtils.toByteArray(inputStream));
-            } catch (IOException | SQLException ex) {
+                 this.picture = IOUtils.toByteArray(inputStream);
+            } catch (IOException ex) {
                 LOGGER.error("Avatar file not found: " + avatarFileName, ex);
             }
         }
+        */
 		
 		
 		this.id = user.getId();
@@ -68,6 +64,7 @@ public class UserDto {
 		this.level = user.getLevel();
 		this.currentWorldId = user.getCurrentWorld().getId();
 		this.lastLogin = user.getLastLogin();
+		this.picture = user.getPicture();
 	}
 
 	public UserController getUserController() {
@@ -110,11 +107,11 @@ public class UserDto {
 		this.role = role;
 	}
 
-	public Blob getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 
-	public void setPicture(Blob picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 

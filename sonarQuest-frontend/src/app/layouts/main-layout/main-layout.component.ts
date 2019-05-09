@@ -253,6 +253,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   button(I){
-    this.eventService.getEventsForCurrentWorldEfficient()
+    //this.eventService.getEventsForCurrentWorldEfficient()
   }
 }
