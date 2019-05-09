@@ -53,8 +53,9 @@ public class WorldService {
     }
 
     public World updateWorld(final World world) {
-        World currentWorld = worldRepository.findOne(world.getId());
+        World currentWorld = null;
         if (world != null) {
+            currentWorld = worldRepository.findOne(world.getId());
             currentWorld.setName(world.getName());
             currentWorld.setActive(world.getActive());
             currentWorld.setUsequestcards(world.getUsequestcards());
