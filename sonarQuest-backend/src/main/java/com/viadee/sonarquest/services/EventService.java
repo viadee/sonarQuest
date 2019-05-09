@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.constants.EventState;
@@ -41,9 +40,6 @@ public class EventService {
     @Autowired
     private UserService userService;
 
-    @Value("${avatar.directory}")
-    private String avatarDirectoryPath;
-
     
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
@@ -54,26 +50,6 @@ public class EventService {
         World currentWorld = user.getCurrentWorld();
         return eventRepository.findByWorld(currentWorld);
     }
-
-    /*
-    public List<Event> getEventsForWorld(Principal principal) {
-        User user = userService.getUser(principal);
-        World currentWorld = user.getCurrentWorld();
-        List<Event> events = eventRepository.findByWorld(currentWorld);
-        List<Event> eventsOut = new ArrayList<Event>();
-        
-        Iterator<Event> ievents = events.iterator();
-        
-        while (ievents.hasNext()) {
-        	Event ievent = ievents.next();
-        	//ievent.setImage(userController.loadAvatar(avatarDirectoryPath, user.getPicture()));
-        	eventsOut.add(ievent);
-        }
-        
-        
-        return eventsOut;
-    }
-    */
 
     public void createEventForSolvedQuest(Quest quest, Principal principal) {
         EventType type = EventType.QUEST;

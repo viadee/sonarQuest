@@ -2,20 +2,8 @@ package com.viadee.sonarquest.entities;
 
 import java.sql.Timestamp;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-
-import com.viadee.sonarquest.controllers.UserController;
-
 
 public class UserDto {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDto.class);
-
-	@Autowired
-	private UserController userController;
 	
 	private Long id;
     private String username;
@@ -31,26 +19,9 @@ public class UserDto {
     private Long currentWorldId;
     private Timestamp lastLogin;
     
-    @Value("${avatar.directory}")
-    private String avatarDirectoryPath;
-    
     public UserDto() {}
     
-	public UserDto(User user) {
-		/*
-		String path = "/avatar/";
-		
-		if (user.getPicture() != null) {
-            String avatarFileName = path + user.getPicture();
-            InputStream inputStream = SpringApplication.class.getResourceAsStream(avatarFileName);
-            try {
-                 this.picture = IOUtils.toByteArray(inputStream);
-            } catch (IOException ex) {
-                LOGGER.error("Avatar file not found: " + avatarFileName, ex);
-            }
-        }
-        */
-		
+	public UserDto(User user) {		
 		
 		this.id = user.getId();
 		this.username = user.getUsername();
@@ -65,14 +36,6 @@ public class UserDto {
 		this.currentWorldId = user.getCurrentWorld().getId();
 		this.lastLogin = user.getLastLogin();
 		this.picture = user.getPicture();
-	}
-
-	public UserController getUserController() {
-		return userController;
-	}
-
-	public void setUserController(UserController userController) {
-		this.userController = userController;
 	}
 
 	public Long getId() {
@@ -177,14 +140,6 @@ public class UserDto {
 
 	public void setLastLogin(Timestamp lastLogin) {
 		this.lastLogin = lastLogin;
-	}
-
-	public String getAvatarDirectoryPath() {
-		return avatarDirectoryPath;
-	}
-
-	public void setAvatarDirectoryPath(String avatarDirectoryPath) {
-		this.avatarDirectoryPath = avatarDirectoryPath;
 	}
 	
 	

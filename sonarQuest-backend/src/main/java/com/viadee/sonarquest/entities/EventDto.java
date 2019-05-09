@@ -2,11 +2,8 @@ package com.viadee.sonarquest.entities;
 
 import java.sql.Timestamp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.viadee.sonarquest.constants.EventState;
 import com.viadee.sonarquest.constants.EventType;
-import com.viadee.sonarquest.controllers.UserController;
 
 public class EventDto {
 
@@ -21,17 +18,15 @@ public class EventDto {
 	private Long userId;
 	private Timestamp timestamp;
 
-    @Autowired
-    private UserController userController;
     
 	public EventDto() {}
 	
 	
 	public EventDto(Event event) {
-		Long userId = new Long(0);
+		Long uId = null;
 		
 		if (event.getUser() != null) {
-			userId = event.getUser().getId();
+			uId = event.getUser().getId();
 		}		
 		
 		
@@ -43,7 +38,7 @@ public class EventDto {
 		this.headline = event.getHeadline();
 		this.image = event.getImage();
 		this.worldId = event.getWorld().getId();
-		this.userId = userId;
+		this.userId = uId;
 		this.timestamp = event.getTimestamp();
 	}
 
@@ -145,19 +140,7 @@ public class EventDto {
 
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
-	}
-
-
-	public UserController getUserController() {
-		return userController;
-	}
-
-
-	public void setUserController(UserController userController) {
-		this.userController = userController;
-	}
-	
-	
+	}	
 	
 	
 }
