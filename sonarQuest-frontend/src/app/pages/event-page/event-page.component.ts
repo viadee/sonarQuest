@@ -2,7 +2,6 @@ import { Event } from '../../Interfaces/Event';
 import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
-import * as $ from "jquery";
 
 @Component({
   selector: 'app-event-page',
@@ -31,11 +30,17 @@ export class EventPageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.commentDivs.changes.subscribe(() => {
-          $(".event").last().css("padding-bottom", "50px")
-          $(".event").last().focus()
-          $(".event").last().css("padding-bottom", "0")
-
-    });
+    if (this.commentDivs && this.commentDivs.last) {
+      //this.commentDivs.last.nativeElement.focus();
+      if (this.commentDivs.last.nativeElement.children) {
+        console.log(this.commentDivs.last.nativeElement);
+        console.log(this.commentDivs.last.nativeElement.lastChild);
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px")
+        this.commentDivs.last.nativeElement.lastChild.focus();
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
+      }
+    }
+  });
   }
 
   checkNewDay(event: Event): Boolean {
