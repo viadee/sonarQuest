@@ -21,7 +21,23 @@ public class EventDto {
     
 	public EventDto() {}
 	
-	
+
+	public EventDto(Long id, EventType type, String title, String story, EventState state, String image,
+			String headline, Long worldId, Long userId, Timestamp timestamp) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.title = title;
+		this.story = story;
+		this.state = state;
+		this.image = image;
+		this.headline = headline;
+		this.worldId = worldId;
+		this.userId = userId;
+		this.timestamp = timestamp;
+	}
+
+
 	public EventDto(Event event) {
 		Long uId = null;
 		
