@@ -11,6 +11,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
+import { EventService } from 'app/services/event.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -55,7 +56,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     public translate: TranslateService,
     private authService: AuthenticationService,
     private permissionService: PermissionService,
-    private userService: UserService) {
+    private userService: UserService,
+    private eventService: EventService) {
   }
 
   protected logout(): void {
@@ -184,7 +186,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user) {
+    if (this.user) { 
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
         this.body.className = '';
@@ -244,5 +246,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     element.className.replace('  ', ' ');
 
     return element;
+  }
+
+  button(I){
+    //this.eventService.getEventsForCurrentWorldEfficient()
   }
 }

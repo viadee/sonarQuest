@@ -23,12 +23,8 @@ export class WorldService {
     this.getWorlds();
 
     userService.user$.subscribe(user => {
-      this.loadWorld()
-
-      if (this.world == null && user){
         this.world = user.currentWorld
         this.currentWorldSubject.next(user.currentWorld)
-      }
     })
 
   }

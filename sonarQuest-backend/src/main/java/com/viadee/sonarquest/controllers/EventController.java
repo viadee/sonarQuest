@@ -3,6 +3,8 @@ package com.viadee.sonarquest.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +18,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.services.EventService;
 
 @RestController
 @RequestMapping("/event")
 public class EventController {
-    protected static final Log LOGGER = LogFactory.getLog(EventController.class);
-
+	
     @Autowired
     private EventService eventService;
+    
+    protected static final Log LOGGER = LogFactory.getLog(EventController.class);
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -36,6 +40,14 @@ public class EventController {
     public List<Event> getEventsForCurrentWorld(final Principal principal) {
         return eventService.getEventsForWorld(principal);
     }
+
+    
+    @CrossOrigin
+    @GetMapping(value = "/getEventsForCurrentWorldEfficient")
+    public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal, final HttpServletResponse response) {
+    	return this.eventService.principalToEvents(principal);	
+    }
+    
 
     @CrossOrigin
     @PostMapping(value = "/sendChat")

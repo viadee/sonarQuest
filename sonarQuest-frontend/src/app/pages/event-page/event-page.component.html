@@ -1,7 +1,7 @@
 <mat-card class="outer-events">
   <mat-card-content class="events" >
 
-    <div #commentDiv *ngFor="let e of events">
+    <div #commentDiv *ngFor="let e of eventDtos">
         <div *ngIf="checkNewDay(e)">
             
           <div layout="row" class="day">
@@ -29,18 +29,18 @@
 
             <div  layout="column"  class="content">
               <div layout="row" class="state">
-                <span *ngIf="e.state==null" class="author">{{ e.user?.username }}</span> 
-                <span *ngIf=e.state class="state">{{ e.user?.username }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
+                <span *ngIf="e.state==null" class="author">{{ getUserName(e) }}</span> 
+                <span *ngIf=e.state class="state">{{ getUserName(e) }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
               </div>
               <div flex>
                 <div layout="row">
                   <div flex class="innercontent">
                       <div layout="row" *ngIf=e.title>
-                          <span class="title">{{ e?.title }}</span>
-                        </div>
-                        <div layout="row" *ngIf=e.story>
-                          <span class="text">{{ e?.story }}</span>
-                        </div>
+                        <span class="title">{{ e?.title }}</span>
+                      </div>
+                      <div layout="row" *ngIf=e.story>
+                        <span class="text">{{ e?.story }}</span>
+                      </div>
                   </div>
                 </div>
               </div>
