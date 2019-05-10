@@ -131,25 +131,36 @@ public class EventServiceIT {
     	// Given
     	List<Event> events = new ArrayList<>();
     	World world	= new World();
-    	User user   = new User();
-    	user.setId(1L);
-    	user.setPicture("pic");
-    	user.setCurrentWorld(world);
-    	String message1 	   = "Test Message1";
-    	String message2 	   = "Test Message2";
-    	MessageDto messageDto1 = new MessageDto(message1,user.getId());
-    	MessageDto messageDto2 = new MessageDto(message2,user.getId());
-    	Event event1 			  = eventService.createEventForNewMessage(messageDto1);
-    	Event event2 			  = eventService.createEventForNewMessage(messageDto2);
+    	User user1   = createUser(1L,world);
+    	User user2   = createUser(2L,world);
+    	User user3   = createUser(3L,world);
+    	
+    	Event event1 			  = eventService.createEventForNewMessage(new MessageDto("Test Message1",user1.getId()));
+    	Event event2 			  = eventService.createEventForNewMessage(new MessageDto("Test Message2",user2.getId()));
+    	Event event3 			  = eventService.createEventForNewMessage(new MessageDto("Test Message3",user3.getId()));
+    	Event event4 			  = eventService.createEventForNewMessage(new MessageDto("Test Message4",user1.getId()));
+    	Event event5 			  = eventService.createEventForNewMessage(new MessageDto("Test Message5",user2.getId()));
+    	
     	events.add(event1);
     	events.add(event2);
+    	events.add(event3);
+    	events.add(event4);
+    	events.add(event5);
 
     	// When
     	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
     	
     	// Then
-        assertEquals(eventUserDto.getEventDtos().size(), events.size());
-        assertEquals(eventService.eventsToEventUserDto(events).getEventDtos().size(), events.size());
+        assertEquals(eventUserDto.getEventDtos().size(), 5);
+        assertEquals(eventUserDto.getUserDtos().size(), 3);
+    }
+    
+    private User createUser(Long id, World world) {
+    	User user = new User();
+    	user.setId(id);
+    	user.setPicture("pic");
+    	user.setCurrentWorld(world);
+    	return user;
     }
     
     @Test
