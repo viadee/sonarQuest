@@ -17,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.EventRepository;
 
 @SpringBootTest
@@ -99,6 +102,24 @@ public class EventServiceIT {
         List<Event> events = eventService.getLatestEvent();
         Event latestEvent = events.get(0);
         assertEquals("A new quest in the land of Testiara!", latestEvent.getTitle());
+    }
+    
+    @Test
+    public void testEventToEventUserDto() throws Exception {
+    	EventType type = EventType.MESSAGE;
+    	Event event = eventRepository.findLast1ByType(type);
+    	User user = event.getUser();
+
+        assertEquals(EventType.MESSAGE, event.getType());
+        assertTrue(event.getUser().getId() > 0);
+        
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        
+
+        assertEquals(eventUserDto.getEventDtos().get(0).getId(), event.getId());
+        assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user.getId());
+        assertEquals(eventUserDto.getUserDtos().get(0).getId(), user.getId());
+        
     }
 
     private String createStoryWithLength(int storyLength) {
