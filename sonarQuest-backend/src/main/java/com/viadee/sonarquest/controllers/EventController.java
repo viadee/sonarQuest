@@ -45,7 +45,7 @@ public class EventController {
     @CrossOrigin
     @GetMapping(value = "/getEventsForCurrentWorldEfficient")
     public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal, final HttpServletResponse response) {
-    	return this.eventService.getEventsForCurrentWorldEfficient(principal);	
+    	return this.eventService.principalToEvents(principal);	
     }
     
 

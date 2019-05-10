@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,8 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
-import com.viadee.sonarquest.entities.EventDto;
 import com.viadee.sonarquest.entities.EventUserDto;
+import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
@@ -107,38 +108,6 @@ public class EventServiceIT {
     }
     
     @Test
-    public void testConstructEventDto() throws Exception {
-    	EventType type = EventType.MESSAGE;
-    	Event event = eventRepository.findLast1ByType(type);
-
-        assertEquals(EventType.MESSAGE, event.getType());
-        
-        EventDto eventDto = new EventDto(event);
-        
-
-        assertEquals(eventDto.getId(), event.getId());
-        assertEquals(eventDto.getTimestamp(), event.getTimestamp());
-        assertEquals(eventDto.getUserId(), event.getUser().getId());
-        assertEquals(eventDto.getWorldId(), event.getWorld().getId());
-    }
-    
-    @Test
-    public void testConstructUserDto() throws Exception {
-    	EventType type = EventType.MESSAGE;
-    	Event event = eventRepository.findLast1ByType(type);
-    	User user = event.getUser();
-    	
-        assertEquals(EventType.MESSAGE, event.getType());
-        assertTrue(event.getUser().getId() > 0);
-        
-        UserDto userDto = new UserDto(user);
-
-        assertEquals(userDto.getId(), user.getId());
-        assertEquals(userDto.getCurrentWorldId(), user.getCurrentWorld().getId());
-        
-    }
-    
-    @Test
     public void testEventToEventUserDto() throws Exception {
     	EventType type = EventType.MESSAGE;
     	Event event = eventRepository.findLast1ByType(type);
@@ -153,7 +122,45 @@ public class EventServiceIT {
         assertEquals(eventUserDto.getEventDtos().get(0).getId(), event.getId());
         assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user.getId());
         assertEquals(eventUserDto.getUserDtos().get(0).getId(), user.getId());
-        
+    }
+    
+    @Test
+    public void eventsToEventUserDto() {
+    	// Given
+    	List<Event> events = new ArrayList<>();
+    	User user   = new User();
+    	user.setId(1L);
+    	Long userId = user.getId();
+    	String message1 	   = "Test Message1";
+    	String message2 	   = "Test Message2";
+    	MessageDto messageDto1 = new MessageDto(message1,userId);
+    	MessageDto messageDto2 = new MessageDto(message2,userId);
+    	// When
+    	Event event1 			  = eventService.createEventForNewMessage(messageDto1);
+    	Event event2 			  = eventService.createEventForNewMessage(messageDto2);
+    	events.add(event1);
+    	events.add(event2);
+    	
+    	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
+    	// Then
+        assertEquals(eventUserDto.getEventDtos().size(), events.size());
+    }
+    
+    @Test
+    public void hasUserDto() {
+    	// Given
+    	List<Event> events = eventRepository.findFirst2ByOrderByTimestampDesc();
+    	
+    	UserDto userDto1 = new UserDto(events.get(0).getUser());
+    	UserDto userDto2 = new UserDto(events.get(1).getUser());
+    	
+    	// When
+    	List<UserDto> userDtos = new ArrayList<>();
+    	userDtos.add(userDto1);
+    	userDtos.add(userDto2);
+    	
+    	// Then
+        assertTrue(eventService.hasUserDto(userDtos, userDto1));
     }
 
     private String createStoryWithLength(int storyLength) {

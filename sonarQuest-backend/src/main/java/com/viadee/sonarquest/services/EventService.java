@@ -149,31 +149,44 @@ public class EventService {
 		
 	}
     
-    
-    public EventUserDto getEventsForCurrentWorldEfficient(Principal principal) {
-    	EventUserDto  	eventUserDto 	= null;
+    public EventUserDto eventToEventUserDto(Event event) {
     	List<EventDto>  eventDtos 		= new ArrayList<>();
     	List<UserDto>	userDtos		= new ArrayList<>();
-    	List<Event> 	events 			= getEventsForWorld(principal);
-    	
+
+		eventDtos.add(new EventDto(event));
+		
+		if (event.getUser() != null) {
+			UserDto userDto = new UserDto(event.getUser());
+    		if (!hasUserDto(userDtos, userDto)) {
+    			userDtos.add(userDto);
+    		}
+		}
+		
+		return new EventUserDto(userDtos, eventDtos);
+	}
+    
+    public EventUserDto eventsToEventUserDto(List<Event> events) {
+    	List<EventDto>  eventDtos 		= new ArrayList<>();
+    	List<UserDto>	userDtos		= new ArrayList<>();
     	
     	events.forEach(event -> {
-    		eventDtos.add(new EventDto(event));
     		
-    		if (event.getUser() != null) {
-    			UserDto userDto = new UserDto(event.getUser());
-	    		if (!hasUserDto(userDtos, userDto)) {
-	    			userDtos.add(userDto);
-	    		}
-    		}
+    		EventUserDto eventUserDto = eventToEventUserDto(event);
+    		eventDtos.add(eventUserDto.getEventDtos().get(0));
+    		userDtos.add(eventUserDto.getUserDtos().get(0));
+    		
     	});
-    	eventUserDto = new EventUserDto(userDtos, eventDtos);
-    	
-    	return eventUserDto;
+    	return new EventUserDto(userDtos, eventDtos);
     }
     
     
-    private Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {
+    public EventUserDto principalToEvents(Principal principal) {
+    	List<Event> events = getEventsForWorld(principal);
+    	return eventsToEventUserDto(events);
+    }
+    
+    
+    public Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {
     	Iterator<UserDto> i = userDtos.iterator();
     	
     	while(i.hasNext()) {
@@ -213,21 +226,5 @@ public class EventService {
     public List<Event> get10LatestEvents() {
         return eventRepository.findFirst10ByOrderByTimestampDesc();
     }
-
-	public EventUserDto eventToEventUserDto(Event event) {
-    	List<EventDto>  eventDtos 		= new ArrayList<>();
-    	List<UserDto>	userDtos		= new ArrayList<>();
-
-		eventDtos.add(new EventDto(event));
-		
-		if (event.getUser() != null) {
-			UserDto userDto = new UserDto(event.getUser());
-    		if (!hasUserDto(userDtos, userDto)) {
-    			userDtos.add(userDto);
-    		}
-		}
-		
-		return new EventUserDto(userDtos, eventDtos);
-	}
 
 }
