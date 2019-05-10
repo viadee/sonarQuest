@@ -11,15 +11,15 @@
 </ng-container>
 <mat-card>
   <mat-tab-group>
-    <mat-tab [label]="'DEVELOPER.DEVELOPER' | translate" class="tab">
-      <sq-admin-developer></sq-admin-developer>
-    </mat-tab>
     <mat-tab [label]="'ADMIN_PAGE.SONAR_QUBE_HEADER' | translate" class="tab">
       <sq-admin-sonar-qube></sq-admin-sonar-qube>
     </mat-tab>
     <mat-tab [label]="'WORLD.WORLDS' | translate" class="tab">
       <sq-admin-world></sq-admin-world>
     </mat-tab>
+    <mat-tab [label]="'DEVELOPER.DEVELOPER' | translate" class="tab">
+        <sq-admin-developer></sq-admin-developer>
+      </mat-tab>  
   </mat-tab-group>
 </mat-card>
 
