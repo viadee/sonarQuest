@@ -38,10 +38,9 @@ public class TaskService {
 
 	@Autowired
 	private AdventureService adventureService;
-	
+
 	@Autowired
 	private UserSkillService userSkillService;
-
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
@@ -70,8 +69,8 @@ public class TaskService {
 			task.setEnddate(new Date(System.currentTimeMillis()));
 			save(task);
 			gratificationService.rewardUserForSolvingTask(task);
-			if(task instanceof StandardTask) {
-				userSkillService.learnUserSkillFromTask((StandardTask)task);
+			if (task instanceof StandardTask) {
+				userSkillService.learnUserSkillFromTask((StandardTask) task);
 			}
 			questService.updateQuest(task.getQuest());
 			adventureService.updateAdventure(task.getQuest().getAdventure());
@@ -85,8 +84,8 @@ public class TaskService {
 			List<Task> tasks = quest.getTasks();
 			for (Task task : tasks) {
 				gratificationService.rewardUserForSolvingTask(task);
-				if(task instanceof StandardTask) {
-					userSkillService.learnUserSkillFromTask((StandardTask)task);
+				if (task instanceof StandardTask) {
+					userSkillService.learnUserSkillFromTask((StandardTask) task);
 				}
 				task.setStatus(SonarQuestStatus.SOLVED);
 				task.setEnddate(new Date(System.currentTimeMillis()));
@@ -96,17 +95,19 @@ public class TaskService {
 			adventureService.updateAdventure(quest.getAdventure());
 		}
 	}
-	
-	public List<Task> getTasksForQuest(Long questId, Optional<String> mail){
+
+	public List<Task> getTasksForQuest(Long questId, Optional<String> mail) {
 		final Quest quest = questService.findById(questId);
-		if(mail.isPresent()) {
+
+		if (mail.isPresent()) {
 			for (Task task : quest.getTasks()) {
-				if (task instanceof StandardTask) {					
+				if (task instanceof StandardTask) {
 					((StandardTask) task).setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(
 							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(mail.get()))));
 				}
 			}
 		}
+
 		return quest.getTasks();
 	}
 }

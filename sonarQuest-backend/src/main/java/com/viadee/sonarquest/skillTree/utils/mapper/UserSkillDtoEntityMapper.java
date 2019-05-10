@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
-import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
 
 @Component
 public class UserSkillDtoEntityMapper {

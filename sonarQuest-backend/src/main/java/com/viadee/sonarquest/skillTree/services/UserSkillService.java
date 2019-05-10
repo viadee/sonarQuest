@@ -2,24 +2,20 @@ package com.viadee.sonarquest.skillTree.services;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.StandardTask;
-import com.viadee.sonarquest.entities.Task;
-import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;

@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,10 +18,8 @@ import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
-import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.services.SonarRuleService;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
 public class ExportService {
@@ -33,13 +30,8 @@ public class ExportService {
 	@Autowired
 	private SonarRuleService sonarRuleService;
 
-	@Autowired
-	private SonarRuleRepository sonarRuleRepository;
-
 	private XSSFWorkbook workbookUserSkill = new XSSFWorkbook();
 	private XSSFWorkbook workbookSonarRule = new XSSFWorkbook();
-
-	private XSSFSheet sheet;
 
 	public void exportUserSkills() {
 		XSSFSheet sheet = workbookUserSkill.createSheet("UserSkills");// creating a blank sheet
@@ -63,7 +55,7 @@ public class ExportService {
 		FileOutputStream out = null;
 		try {
 			File file = new File("src/main/resources/export/UserSkills.xlsx");
-			boolean result = Files.deleteIfExists(file.toPath());
+			Files.deleteIfExists(file.toPath());
 			out = new FileOutputStream(file);
 			workbookUserSkill.write(out);
 			out.close();
@@ -97,7 +89,7 @@ public class ExportService {
 		FileOutputStream out = null;
 		try {
 			File file = new File("src/main/resources/export/SonarRules.xlsx");
-			boolean result = Files.deleteIfExists(file.toPath());
+			Files.deleteIfExists(file.toPath());
 			out = new FileOutputStream(file);
 			workbookSonarRule.write(out);
 			out.close();

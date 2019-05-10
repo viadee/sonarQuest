@@ -30,7 +30,6 @@ export class UserSkillService {
 
   createUserSkill(userSkill: UserSkill, groupId){
     const params = new HttpParams().set('groupid', groupId);
-    console.log(userSkill);
     return this.httpClient.post<UserSkill>(`${environment.endpoint}/userskill/create`, userSkill, {params: params})
       .toPromise()
       .catch(this.handleError);
@@ -58,7 +57,6 @@ export class UserSkillService {
   getNumberOfIcons(value: number): number[] {
     const items: number[] = [];
     let forCount = 0;
-    console.log(value)
     switch (true) {
       case (value == null): {
         forCount = 0;

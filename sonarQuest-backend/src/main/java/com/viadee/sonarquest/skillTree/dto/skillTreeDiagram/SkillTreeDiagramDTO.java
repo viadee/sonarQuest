@@ -3,8 +3,6 @@ package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viadee.sonarquest.interfaces.UserGratification;
-
 public class SkillTreeDiagramDTO {
 
 	private List<SkillTreeObjectDTO> nodes;

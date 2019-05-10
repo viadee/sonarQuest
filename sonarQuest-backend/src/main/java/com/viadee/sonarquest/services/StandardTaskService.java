@@ -3,10 +3,19 @@ package com.viadee.sonarquest.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -97,15 +106,17 @@ public class StandardTaskService {
 		return standardTaskRepository.findAll();
 	}
 
+	@Cacheable(value="${cachename.task.scoring.cache}", key="#w.id")
 	public List<StandardTask> findByWorld(final World w) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
 		List<String> teamMails = new ArrayList<String>();
 		if (w.getUsers() != null) {
-			teamMails = w.getUsers().stream().filter(user -> user.getMail() != null).map(user->user.getMail()).collect(Collectors.toList());
-			
+			teamMails = w.getUsers().stream().filter(user -> user.getMail() != null).map(user -> user.getMail())
+					.collect(Collectors.toList());
 			if (tasks != null) {
+				Map<String, Double> scores = calculateScoringForTasksFromTeam(tasks, teamMails);
 				for (StandardTask task : tasks) {
-					task.setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(task.getIssueRule(), teamMails));
+					task.setUserSkillScoring(scores.get(task.getIssueRule()));
 				}
 			}
 		}
@@ -122,5 +133,25 @@ public class StandardTaskService {
 
 		return tasks;
 	}
+	
+	
+	private Map<String,Double> calculateScoringForTasksFromTeam(List<StandardTask> tasks, List<String>teamMails) {
+		List<String> ruleKeys = tasks.stream().filter(distinctByKey(StandardTask::getIssueRule))
+				.map(StandardTask::getIssueRule).collect(Collectors.toList());
+		Map<String, Double> scores = new HashMap<String, Double>();
+		for (String key : ruleKeys) {
+			scores.put(key, userSkillService.getScoringForRuleFromTeam(key, teamMails));
+		}
+		return scores;
+	}	
+	
+	@CachePut(cacheNames = {"scoringFromTask"})
+	public void recalculateScoringForTasksFromTeam() {
+		
+	}
 
+	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
+	}
 }

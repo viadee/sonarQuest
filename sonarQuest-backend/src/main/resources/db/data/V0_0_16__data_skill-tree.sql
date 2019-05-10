@@ -762,7 +762,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Local variable and method parameter names should comply with a naming convention','squid:S00117',1,'2019-04-25 14:12:05.049'),
 ('Statements should be on separate lines','squid:S00122',1,'2019-04-25 14:12:05.049'),
 ('Field names should comply with a naming convention','squid:S00116',1,'2019-04-25 14:12:05.049'),
-('Methods should not have too many parameters','squid:S00107',1,'2019-04-25 14:12:05.049'),
+('Methods should not have too many parameters','squid:S00107',53,'2019-04-25 14:12:05.049'),
 ('Abstract class names should comply with a naming convention','squid:S00118',1,'2019-04-25 14:12:05.049'),
 ('Method names should comply with a naming convention','squid:S00100',1,'2019-04-25 14:12:05.049'),
 ('Files should not have too many lines of code','squid:S00104',1,'2019-04-25 14:12:05.049'),
@@ -1014,7 +1014,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('JUnit assertions should not be used in "run" methods','squid:S2186',1,'2019-04-25 14:12:05.056'),
 ('"read" and "readLine" return values should be used','squid:S2677',1,'2019-04-25 14:12:05.056'),
 ('Neither "Math.abs" nor negation should be used on numbers that could be "MIN_VALUE"','squid:S2676',1,'2019-04-25 14:12:05.056'),
-('Child class fields should not shadow parent class fields','squid:S2387',1,'2019-04-25 14:12:05.056'),
+('Child class fields should not shadow parent class fields','squid:S2387',56,'2019-04-25 14:12:05.056'),
 ('JUnit test cases should call super methods','squid:S2188',1,'2019-04-25 14:12:05.056'),
 ('Silly equality checks should not be made','squid:S2159',1,'2019-04-25 14:12:05.056'),
 ('Tests should not be ignored','squid:S1607',1,'2019-04-25 14:12:05.056'),
@@ -1033,8 +1033,8 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Multiline blocks should be enclosed in curly braces','squid:S2681',1,'2019-04-25 14:12:05.056'),
 ('Assertions should be complete','squid:S2970',1,'2019-04-25 14:12:05.056'),
 ('"private" methods that don''t access instance data should be "static"','squid:S2325',1,'2019-04-25 14:12:05.056'),
-('Tests should include assertions','squid:S2699',1,'2019-04-25 14:12:05.056'),
-('Maps with keys that are enum values should be replaced with EnumMap','squid:S1640',1,'2019-04-25 14:12:05.056'),
+('Tests should include assertions','squid:S2699',61,'2019-04-25 14:12:05.056'), //Testzuordnung
+('Maps with keys that are enum values should be replaced with EnumMap','squid:S1640',54,'2019-04-25 14:12:05.056'), // Testzuordnung
 ('"indexOf" checks should use a start position','squid:S2912',1,'2019-04-25 14:12:05.056'),
 ('Boolean checks should not be inverted','squid:S1940',1,'2019-04-25 14:12:05.056'),
 ('JUnit framework methods should be declared properly','squid:S2391',1,'2019-04-25 14:12:05.056'),

@@ -1,23 +1,17 @@
 package com.viadee.sonarquest.skillTree.services;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import com.viadee.sonarquest.services.ExternalRessourceService;
 import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.utils.mapper.SonarRuleSDtoEntityMapper;
 
