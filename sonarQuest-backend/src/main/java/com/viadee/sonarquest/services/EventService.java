@@ -152,8 +152,8 @@ public class EventService {
     
     public EventUserDto getEventsForCurrentWorldEfficient(Principal principal) {
     	EventUserDto  	eventUserDto 	= null;
-    	List<EventDto>  eventDtos 		= new ArrayList<EventDto>();
-    	List<UserDto>	userDtos		= new ArrayList<UserDto>();
+    	List<EventDto>  eventDtos 		= new ArrayList<>();
+    	List<UserDto>	userDtos		= new ArrayList<>();
     	List<Event> 	events 			= getEventsForWorld(principal);
     	
     	
@@ -215,8 +215,8 @@ public class EventService {
     }
 
 	public EventUserDto eventToEventUserDto(Event event) {
-    	List<EventDto>  eventDtos 		= new ArrayList<EventDto>();
-    	List<UserDto>	userDtos		= new ArrayList<UserDto>();
+    	List<EventDto>  eventDtos 		= new ArrayList<>();
+    	List<UserDto>	userDtos		= new ArrayList<>();
 
 		eventDtos.add(new EventDto(event));
 		
