@@ -77,8 +77,9 @@
       "CREATED": "New item available at the marketplace"
     },
     "MESSAGE": {
-      "MESSAGE": "Message",
-      "HINT_CHARACTERS": "Max 255 characters"
+      "MESSAGE" : "Message",
+      "HINT_CHARACTERS" : "Max 255 characters",
+      "SEND" : "Send"
     }
   },
   "GAMEMASTER_PAGE": {

@@ -30,7 +30,6 @@ export class EventPageComponent implements OnInit {
   message = '';
 
   @ViewChildren('commentDiv') commentDivs: QueryList<ElementRef>;
-  @ViewChildren('test') testDivs: QueryList<ElementRef>;
 
   constructor(
 
@@ -60,10 +59,12 @@ export class EventPageComponent implements OnInit {
         if (this.commentDivs.last.nativeElement.children) {
           console.log(this.commentDivs.last.nativeElement);
           console.log(this.commentDivs.last.nativeElement.lastChild);
+          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px")
           this.commentDivs.last.nativeElement.lastChild.focus();
+          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
         }
       }
-    })
+    });
   }
 
 
