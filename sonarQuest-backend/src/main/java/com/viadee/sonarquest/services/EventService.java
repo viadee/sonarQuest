@@ -178,7 +178,7 @@ public class EventService {
     	
     	while(i.hasNext()) {
     		UserDto dto = i.next();
-    		if (dto.getId() == userDto.getId()) {
+    		if (dto.getId().equals(userDto.getId())) {
     			return true;
     		}
     	}
