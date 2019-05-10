@@ -1,4 +1,4 @@
-export interface SonarCubeConfig {
+export interface SonarQubeConfig {
   name: string;
   sonarServerUrl: string;
   httpBasicAuthUsername?: string;

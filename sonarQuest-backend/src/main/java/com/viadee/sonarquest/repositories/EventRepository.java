@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
+import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.World;
 
@@ -23,5 +24,7 @@ public interface EventRepository extends CrudRepository<Event,Long>  {
 	List<Event> findFirst3ByOrderByTimestampDesc();
 	
 	List<Event> findFirst10ByOrderByTimestampDesc();
+
+	Event findFirstByType(EventType type);
 }
 

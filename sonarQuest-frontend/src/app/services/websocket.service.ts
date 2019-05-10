@@ -1,3 +1,5 @@
+import { EventUserDto } from './../Interfaces/EventUserDto';
+import { EventDto } from './../Interfaces/EventDto';
 import { World } from '../Interfaces/World';
 import { WorldService } from './world.service';
 import { EventService } from 'app/services/event.service';
@@ -37,8 +39,8 @@ export class WebsocketService {
     const that = this;
     this.stompClient.connect({}, function(frame) {
       this.chatStomp = that.stompClient.subscribe('/chat', message => {
-        const event: Event = JSON.parse(message.body);
-        that.eventService.addEvent(event);
+        const eventUserDto: EventUserDto = JSON.parse(message.body);
+        that.eventService.addEvent(eventUserDto);
       });
     });
   }

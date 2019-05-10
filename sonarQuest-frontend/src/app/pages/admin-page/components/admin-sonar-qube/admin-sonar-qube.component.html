@@ -9,7 +9,6 @@
     <mat-form-field>
       <input matInput placeholder="SonarQube URL" [(ngModel)]="sonarQubeUrl">
     </mat-form-field>
-    <button mat-mini-fab color="primary" (click)="checkSonarCubeUrl()">Check</button>
   </div>
 
   <div flex>
@@ -25,6 +24,7 @@
   </div>
 
   <div>
-    <button mat-button color="primary" (click)="save()">Save</button>
+    <button mat-raised-button color="primary" (click)="save()">{{"GLOBAL.SAVE" | translate}}</button>
+    <button mat-button color="primary" (click)="checkSonarQubeUrl()">{{"ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.START" | translate}}</button>
   </div>
 </mat-card-content>

@@ -1,4 +1,4 @@
-<mat-card *ngIf="!currentWorld?.usequestcards">
+ <mat-card *ngIf="!currentWorld?.usequestcards">
   <mat-card-content>
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
@@ -45,7 +45,7 @@
     <div *ngFor="let quest of availableQuests" class="quest-container">
       <mat-card id="questcard">
           <mat-card-header>
-            <img mat-card-avatar [src]="quest.image">
+            <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
             <mat-card-title>
               <h3>{{quest.title}}</h3>
             </mat-card-title>

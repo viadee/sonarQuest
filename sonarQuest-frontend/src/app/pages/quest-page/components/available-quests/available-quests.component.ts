@@ -1,8 +1,8 @@
 import {TranslateService} from '@ngx-translate/core';
-import {ParticipationService} from './../../../../services/participation.service';
-import {WorldService} from './../../../../services/world.service';
+import {ParticipationService} from '../../../../services/participation.service';
+import {WorldService} from '../../../../services/world.service';
 import {MatDialog} from '@angular/material';
-import {QuestService} from './../../../../services/quest.service';
+import {QuestService} from '../../../../services/quest.service';
 import {
   ITdDataTableColumn,
   TdDataTableSortingOrder,

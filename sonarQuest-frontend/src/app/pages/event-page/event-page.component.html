@@ -1,7 +1,7 @@
 <mat-card class="outer-events">
   <mat-card-content class="events" >
 
-    <div #commentDiv *ngFor="let e of events">
+    <div #commentDiv *ngFor="let e of eventDtos">
         <div *ngIf="checkNewDay(e)">
             
           <div layout="row" class="day">
@@ -13,7 +13,7 @@
               </div>
           </div>
         </div>
-        <div class="event {{e.type}}" >
+        <div class="event {{e.type}}" tabindex="1">
           <div layout="row">
             <div layout="column" class="timestamp">
               <div class="time">
@@ -29,33 +29,33 @@
 
             <div  layout="column"  class="content">
               <div layout="row" class="state">
-                <span *ngIf="e.state==null" class="author">{{ e.user?.username }}</span> 
-                <span *ngIf=e.state class="state">{{ e.user?.username }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
+                <span *ngIf="e.state==null" class="author">{{ getUserName(e) }}</span> 
+                <span *ngIf=e.state class="state">{{ getUserName(e) }} {{ 'EVENT_PAGE.'+e.type+'.'+e.state | translate }}</span>
               </div>
               <div flex>
                 <div layout="row">
                   <div flex class="innercontent">
                       <div layout="row" *ngIf=e.title>
-                          <span class="title">{{ e?.title }}</span>
-                        </div>
-                        <div layout="row" *ngIf=e.story>
-                          <span class="text">{{ e?.story }}</span>
-                        </div>
+                        <span class="title">{{ e?.title }}</span>
+                      </div>
+                      <div layout="row" *ngIf=e.story>
+                        <span class="text">{{ e?.story }}</span>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="e" tabindex="1"><hr></div>
       </div>    
   </mat-card-content>
   <mat-card-content class="chat">
     <div>
       <div class="full-width">
-          <mat-form-field class="full-width" hintLabel='{{ "EVENT_PAGE.MESSAGE.HINT_CHARACTERS" | translate }}'>
+          <mat-form-field class="full-width" >
               <input matInput placeholder='{{ "EVENT_PAGE.MESSAGE.MESSAGE" | translate }}' [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off" maxlength="255">
-              <mat-icon matSuffix (click)="sendChat()" ><i class="ra ra-2x ra-seagull" ></i></mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PAGE.MESSAGE.SEND' | translate" matSuffix (click)="sendChat()" ><i class="ra ra-2x ra-seagull" ></i></mat-icon>
+              <mat-hint>{{ "EVENT_PAGE.MESSAGE.HINT_CHARACTERS" | translate }}</mat-hint>
               <mat-hint align="end">{{message.length || 0}}/255</mat-hint>
         </mat-form-field>
       </div>

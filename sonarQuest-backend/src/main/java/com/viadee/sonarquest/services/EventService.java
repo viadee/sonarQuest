@@ -1,6 +1,8 @@
 package com.viadee.sonarquest.services;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,11 +16,15 @@ import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventDto;
+import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
+
 
 @Service
 public class EventService {
@@ -37,7 +43,7 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
-
+    
     public List<Event> getEventsForWorld(Principal principal) {
         User user = userService.getUser(principal);
         World currentWorld = user.getCurrentWorld();
@@ -141,6 +147,65 @@ public class EventService {
 		checkStoryAndSave(new Event(type, title, story, state, image));
 		
 	}
+    
+    public EventUserDto eventToEventUserDto(Event event) {
+    	List<EventDto>  eventDtos 		= new ArrayList<>();
+    	List<UserDto>	userDtos		= new ArrayList<>();
+
+		eventDtos.add(new EventDto(event));
+		
+		if (event.getUser() != null) {
+			UserDto userDto = new UserDto(event.getUser());
+    		if (!hasUserDto(userDtos, userDto)) {
+    			userDtos.add(userDto);
+    		}
+		}
+		
+		return new EventUserDto(userDtos, eventDtos);
+	}
+    
+    public EventUserDto eventsToEventUserDto(List<Event> events) {
+    	List<EventDto>  eventDtos 		= new ArrayList<>();
+    	List<UserDto>	userDtos		= new ArrayList<>();
+    	
+    	events.forEach(event -> {
+    		
+    		EventUserDto eventUserDto = eventToEventUserDto(event);
+    		if (!eventUserDto.getEventDtos().isEmpty()  
+    				&& eventDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getEventDtos().get(0).getId()))) {
+        		eventDtos.add(eventUserDto.getEventDtos().get(0));
+    	    }
+    		
+    		
+    		if (!eventUserDto.getUserDtos().isEmpty()  
+    				&& userDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getUserDtos().get(0).getId()))) {
+        		userDtos.add(eventUserDto.getUserDtos().get(0));
+    	    }
+    		
+    		
+    	});
+    	return new EventUserDto(userDtos, eventDtos);
+    }
+    
+    
+    public EventUserDto principalToEvents(Principal principal) {
+    	List<Event> events = getEventsForWorld(principal);
+    	return eventsToEventUserDto(events);
+    }
+    
+    
+    public Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {
+    	Iterator<UserDto> i = userDtos.iterator();
+    	
+    	while(i.hasNext()) {
+    		UserDto dto = i.next();
+    		if (dto.getId().equals(userDto.getId())) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
 
     /**
      * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in

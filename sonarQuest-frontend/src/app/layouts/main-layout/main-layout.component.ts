@@ -11,6 +11,7 @@ import {AuthenticationService} from "../../authentication/authentication.service
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
 import { UiDesign } from 'app/Interfaces/UiDesign';
+import { EventService } from 'app/services/event.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -25,6 +26,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public selected: World;
   public user: User = null;
   private ui: UiDesign = null;
+  private clickToggleDesignButton = false;
 
   public myAvatarUrl = RoutingUrls.myAvatar;
   public adventuresUrl = RoutingUrls.adventures;
@@ -43,7 +45,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public isAdminVisible: boolean;
   public isEventVisible: boolean;
 
-  private body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
+  public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
 
   constructor(
@@ -54,7 +56,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     public translate: TranslateService,
     private authService: AuthenticationService,
     private permissionService: PermissionService,
-    private userService: UserService) {
+    private userService: UserService,
+    private eventService: EventService) {
   }
 
   protected logout(): void {
@@ -160,7 +163,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         case '/admin':
           return this.pageNames.ADMIN;
         case '/events':
-          return this.pageNames.EVENT;
+          return this.pageNames.EVENTS;
         default:
           return '';
       }
@@ -183,13 +186,13 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    console.log(this.user)
-    if (this.user) {
-      this.ui = this.user.uiDesign
-      console.log(this.ui)
-      this.body.className = '';
-      this.addClass(this.body, this.ui.name);
-      this.addClass(this.body, "background-image");
+    if (this.user) { 
+      this.uiDesignService.getUiDesign().subscribe(ui => {
+        this.ui = ui;
+        this.body.className = '';
+        this.addClass(this.body, this.ui.name);
+        this.addClass(this.body, "background-image");
+      });
     }
   }
 
@@ -197,19 +200,31 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.toggleDesign();
   }
 
+  clickToggleDesign(){
+    this.clickToggleDesignButton = true;
+    this.toggleDesign()
+  }
+
   toggleDesign() {
     const dark  = 'dark';
     const light = 'light';
 
-    if (this.hasClass(this.body, light)) { // If light is choosen, toggle to dark
+    if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
-      this.uiDesignService.updateUiDesign(dark);
-    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, toggle to light
+      if (this.clickToggleDesignButton) {
+        this.uiDesignService.updateUiDesign(dark); 
+        this.clickToggleDesignButton = false;
+      }
+    } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
-      this.uiDesignService.updateUiDesign(light);
+      if (this.clickToggleDesignButton) {
+        this.uiDesignService.updateUiDesign(light); 
+        this.clickToggleDesignButton = false;
+      }
     } else { // If no design is choosen
+      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");
@@ -231,5 +246,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     element.className.replace('  ', ' ');
 
     return element;
+  }
+
+  button(I){
+    //this.eventService.getEventsForCurrentWorldEfficient()
   }
 }
