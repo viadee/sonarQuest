@@ -163,22 +163,27 @@ public class EventServiceIT {
     	return user;
     }
     
-    @Test
-    public void hasUserDto() {
-    	// Given
-    	List<Event> events = eventRepository.findFirst2ByOrderByTimestampDesc();
-    	
-    	UserDto userDto1 = new UserDto(events.get(0).getUser());
-    	UserDto userDto2 = new UserDto(events.get(1).getUser());
-    	
-    	// When
-    	List<UserDto> userDtos = new ArrayList<>();
-    	userDtos.add(userDto1);
-    	userDtos.add(userDto2);
-    	
-    	// Then
-        assertTrue(eventService.hasUserDto(userDtos, userDto1));
-    }
+
+	@Test
+	public void hasUserDto() {
+		// Given
+		World world = new World();
+		User user1 = createUser(1L, world);
+		eventService.createEventForNewMessage(new MessageDto("Test Message1", user1.getId()));
+		eventService.createEventForNewMessage(new MessageDto("Test Message2", user1.getId()));
+		List<Event> events = eventRepository.findFirst2ByOrderByTimestampDesc();
+
+		UserDto userDto1 = new UserDto(events.get(0).getUser());
+		UserDto userDto2 = new UserDto(events.get(1).getUser());
+
+		// When
+		List<UserDto> userDtos = new ArrayList<>();
+		userDtos.add(userDto1);
+		userDtos.add(userDto2);
+
+		// Then
+		assertTrue(eventService.hasUserDto(userDtos, userDto1));
+	}
 
     private String createStoryWithLength(int storyLength) {
         return RandomStringUtils.randomAlphabetic(storyLength);
