@@ -40,7 +40,6 @@ public class EventService {
     @Autowired
     private UserService userService;
 
-    
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }

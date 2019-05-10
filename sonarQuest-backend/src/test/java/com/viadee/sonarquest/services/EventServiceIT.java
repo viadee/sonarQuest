@@ -115,17 +115,17 @@ public class EventServiceIT {
     	
         assertEquals(EventType.MESSAGE, event.getType());
         assertTrue(event.getUser().getId() > 0);
-        
+        // When
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         
-
+        // Then
         assertEquals(eventUserDto.getEventDtos().get(0).getId(), event.getId());
         assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user.getId());
         assertEquals(eventUserDto.getUserDtos().get(0).getId(), user.getId());
     }
     
     @Test
-    public void eventsToEventUserDto() {
+    public void testEventsToEventUserDto() {
     	// Given
     	List<Event> events = new ArrayList<>();
     	User user   = new User();
@@ -135,15 +135,17 @@ public class EventServiceIT {
     	String message2 	   = "Test Message2";
     	MessageDto messageDto1 = new MessageDto(message1,userId);
     	MessageDto messageDto2 = new MessageDto(message2,userId);
-    	// When
     	Event event1 			  = eventService.createEventForNewMessage(messageDto1);
     	Event event2 			  = eventService.createEventForNewMessage(messageDto2);
     	events.add(event1);
     	events.add(event2);
-    	
+
+    	// When
     	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
+    	
     	// Then
         assertEquals(eventUserDto.getEventDtos().size(), events.size());
+        assertEquals(eventService.eventsToEventUserDto(events).getEventDtos().size(), events.size());
     }
     
     @Test
