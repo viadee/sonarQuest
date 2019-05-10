@@ -23,11 +23,17 @@ public class EventDto {
 	
 
 	public EventDto(Event event) {
-		Long uId = null;
-		
 		if (event.getUser() != null) {
-			uId = event.getUser().getId();
-		}		
+			this.userId = event.getUser().getId();
+		} else {
+			this.userId = null;
+		}
+		
+		if (event.getWorld() != null) {
+			this.worldId = event.getWorld().getId();
+		} else {
+			this.worldId = null;
+		}
 		
 		
 		this.id = event.getId();
@@ -37,8 +43,6 @@ public class EventDto {
 		this.state = event.getState();
 		this.headline = event.getHeadline();
 		this.image = event.getImage();
-		this.worldId = event.getWorld().getId();
-		this.userId = uId;
 		this.timestamp = event.getTimestamp();
 	}
 

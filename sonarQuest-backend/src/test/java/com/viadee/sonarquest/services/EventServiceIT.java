@@ -110,7 +110,7 @@ public class EventServiceIT {
     @Test
     public void testEventToEventUserDto() throws Exception {
     	EventType type = EventType.MESSAGE;
-    	Event event = eventRepository.findLast1ByType(type);
+    	Event event = eventRepository.find1ByType(type);
     	User user = event.getUser();
     	
         assertEquals(EventType.MESSAGE, event.getType());
