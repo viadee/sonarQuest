@@ -151,8 +151,8 @@ public class EventServiceIT {
     	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
     	
     	// Then
-        assertEquals(eventUserDto.getEventDtos().size(), 5);
-        assertEquals(eventUserDto.getUserDtos().size(), 3);
+        assertEquals(5, eventUserDto.getEventDtos().size());
+        assertEquals(3, eventUserDto.getUserDtos().size());
     }
     
     private User createUser(Long id, World world) {
