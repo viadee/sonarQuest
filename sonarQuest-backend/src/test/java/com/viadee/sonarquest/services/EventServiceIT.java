@@ -20,9 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
+import com.viadee.sonarquest.entities.EventDto;
 import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.repositories.EventRepository;
 
 @SpringBootTest
@@ -105,11 +107,43 @@ public class EventServiceIT {
     }
     
     @Test
+    public void testConstructEventDto() throws Exception {
+    	EventType type = EventType.MESSAGE;
+    	Event event = eventRepository.findLast1ByType(type);
+
+        assertEquals(EventType.MESSAGE, event.getType());
+        
+        EventDto eventDto = new EventDto(event);
+        
+
+        assertEquals(eventDto.getId(), event.getId());
+        assertEquals(eventDto.getTimestamp(), event.getTimestamp());
+        assertEquals(eventDto.getUserId(), event.getUser().getId());
+        assertEquals(eventDto.getWorldId(), event.getWorld().getId());
+    }
+    
+    @Test
+    public void testConstructUserDto() throws Exception {
+    	EventType type = EventType.MESSAGE;
+    	Event event = eventRepository.findLast1ByType(type);
+    	User user = event.getUser();
+    	
+        assertEquals(EventType.MESSAGE, event.getType());
+        assertTrue(event.getUser().getId() > 0);
+        
+        UserDto userDto = new UserDto(user);
+
+        assertEquals(userDto.getId(), user.getId());
+        assertEquals(userDto.getCurrentWorldId(), user.getCurrentWorld().getId());
+        
+    }
+    
+    @Test
     public void testEventToEventUserDto() throws Exception {
     	EventType type = EventType.MESSAGE;
     	Event event = eventRepository.findLast1ByType(type);
     	User user = event.getUser();
-
+    	
         assertEquals(EventType.MESSAGE, event.getType());
         assertTrue(event.getUser().getId() > 0);
         
