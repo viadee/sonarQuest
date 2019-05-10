@@ -172,13 +172,13 @@ public class EventService {
     		
     		EventUserDto eventUserDto = eventToEventUserDto(event);
     		if (!eventUserDto.getEventDtos().isEmpty()  
-    				&& !eventDtos.stream().anyMatch(dto -> dto.getId().equals(eventUserDto.getEventDtos().get(0).getId()))) {
+    				&& eventDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getEventDtos().get(0).getId()))) {
         		eventDtos.add(eventUserDto.getEventDtos().get(0));
     	    }
     		
     		
     		if (!eventUserDto.getUserDtos().isEmpty()  
-    				&& !userDtos.stream().anyMatch(dto -> dto.getId().equals(eventUserDto.getUserDtos().get(0).getId()))) {
+    				&& userDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getUserDtos().get(0).getId()))) {
         		userDtos.add(eventUserDto.getUserDtos().get(0));
     	    }
     		
