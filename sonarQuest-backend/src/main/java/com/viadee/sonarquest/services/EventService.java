@@ -171,8 +171,12 @@ public class EventService {
     	events.forEach(event -> {
     		
     		EventUserDto eventUserDto = eventToEventUserDto(event);
-    		eventDtos.add(eventUserDto.getEventDtos().get(0));
-    		userDtos.add(eventUserDto.getUserDtos().get(0));
+    		if (!eventUserDto.getEventDtos().isEmpty() && eventUserDto.getEventDtos().size() > 0) {
+        		eventDtos.add(eventUserDto.getEventDtos().get(0));
+    	    }
+    		if (!eventUserDto.getUserDtos().isEmpty() && eventUserDto.getUserDtos().size() > 0) {
+        		userDtos.add(eventUserDto.getUserDtos().get(0));
+    	    }
     		
     	});
     	return new EventUserDto(userDtos, eventDtos);

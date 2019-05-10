@@ -3,8 +3,6 @@ package com.viadee.sonarquest.controllers;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +42,7 @@ public class EventController {
     
     @CrossOrigin
     @GetMapping(value = "/getEventsForCurrentWorldEfficient")
-    public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal, final HttpServletResponse response) {
+    public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal) {
     	return this.eventService.principalToEvents(principal);	
     }
     
