@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.EventUserDto;
@@ -26,12 +25,17 @@ import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
+import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
+import com.viadee.sonarquest.repositories.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
 public class EventServiceIT {
+	
+	@Autowired
+	private UserRepository userRepository;
 
     @Autowired
     private EventService eventService;
@@ -109,43 +113,54 @@ public class EventServiceIT {
     
     @Test
     public void testEventToEventUserDto() throws Exception {
-    	EventType type = EventType.MESSAGE;
-    	Event event = eventRepository.findLast1ByType(type);
-    	User user = event.getUser();
-    	
-        assertEquals(EventType.MESSAGE, event.getType());
-        assertTrue(event.getUser().getId() > 0);
+    	User user1 		= new User();
+    	Event event1 	= new Event();
+    	event1.setUser(user1);
+        
         // When
-        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event1);
         
         // Then
-        assertEquals(eventUserDto.getEventDtos().get(0).getId(), event.getId());
-        assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user.getId());
-        assertEquals(eventUserDto.getUserDtos().get(0).getId(), user.getId());
+        assertEquals(eventUserDto.getEventDtos().get(0).getId(), event1.getId());
+        assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user1.getId());
+        assertEquals(eventUserDto.getUserDtos().get(0).getId(), user1.getId());
     }
     
     @Test
     public void testEventsToEventUserDto() {
     	// Given
     	List<Event> events = new ArrayList<>();
-    	User user   = new User();
-    	user.setId(1L);
-    	Long userId = user.getId();
-    	String message1 	   = "Test Message1";
-    	String message2 	   = "Test Message2";
-    	MessageDto messageDto1 = new MessageDto(message1,userId);
-    	MessageDto messageDto2 = new MessageDto(message2,userId);
-    	Event event1 			  = eventService.createEventForNewMessage(messageDto1);
-    	Event event2 			  = eventService.createEventForNewMessage(messageDto2);
+    	World world	= new World();
+    	User user1   = createUser(1L,world);
+    	User user2   = createUser(2L,world);
+    	User user3   = createUser(3L,world);
+    	
+    	Event event1 			  = eventService.createEventForNewMessage(new MessageDto("Test Message1",user1.getId()));
+    	Event event2 			  = eventService.createEventForNewMessage(new MessageDto("Test Message2",user2.getId()));
+    	Event event3 			  = eventService.createEventForNewMessage(new MessageDto("Test Message3",user3.getId()));
+    	Event event4 			  = eventService.createEventForNewMessage(new MessageDto("Test Message4",user1.getId()));
+    	Event event5 			  = eventService.createEventForNewMessage(new MessageDto("Test Message5",user2.getId()));
+    	
     	events.add(event1);
     	events.add(event2);
+    	events.add(event3);
+    	events.add(event4);
+    	events.add(event5);
 
     	// When
     	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
     	
     	// Then
-        assertEquals(eventUserDto.getEventDtos().size(), events.size());
-        assertEquals(eventService.eventsToEventUserDto(events).getEventDtos().size(), events.size());
+        assertEquals(eventUserDto.getEventDtos().size(), 5);
+        assertEquals(eventUserDto.getUserDtos().size(), 3);
+    }
+    
+    private User createUser(Long id, World world) {
+    	User user = new User();
+    	user.setId(id);
+    	user.setPicture("pic");
+    	user.setCurrentWorld(world);
+    	return user;
     }
     
     @Test

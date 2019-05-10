@@ -46,7 +46,6 @@ export class EventService {
     public imageService: ImageService
     ) {
       worldService.currentWorld$.subscribe(world=> {  
-        console.log('worldService.currentWorld$.subscribe')
         this.currentWorld = world;
         this.getEventsForCurrentWorldEfficient();
       });
@@ -58,40 +57,40 @@ export class EventService {
   }
 
   subscribeEventUserDto(){
-  this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
-    this.eventUserDtoToData(eventUserDto)
-  })
-}
+    this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
+      this.eventUserDtoToData(eventUserDto)
+    })
+  }
 
-eventUserDtoToData(eventUserDto: EventUserDto){
-    var localEventDtos: EventDto[] = eventUserDto.eventDtos;
-    var localuserDtos: UserDto[]   = eventUserDto.userDtos;
+  eventUserDtoToData(eventUserDto: EventUserDto){
 
-          localuserDtos.forEach((userDto: UserDto) => {
-              
-          this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
-            this.imageService.createImageFromBlob2(blob).subscribe(image => {
-              userDto.picture = image
-              
-              localEventDtos.forEach((eventDto: EventDto) => {
-                if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE'){
-                  eventDto.image = userDto.picture
-                }
-              });
+      var localEventDtos: EventDto[] = eventUserDto.eventDtos;
+      var localUserDtos: UserDto[]   = eventUserDto.userDtos;
+            localUserDtos.forEach((userDto: UserDto) => {
+                
+              this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
+                this.imageService.createImageFromBlob2(blob).subscribe(image => {
+                  userDto.picture = image
+                  
+                  localEventDtos.forEach((eventDto: EventDto) => {
+                    if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE'){
+                      eventDto.image = userDto.picture
+                    }
+                  });
+                });
+              });  
             });
-          });  
-        });
 
-        localEventDtos.forEach(eDto => this.eventDtos.push(eDto))
-        localuserDtos.forEach(uDto => this.userDtos.push(uDto))
+            localEventDtos.forEach(eDto => this.eventDtos.push(eDto))
+            localUserDtos.forEach(uDto => this.userDtos.push(uDto))
 
-    this.eventDtosSubject.next(this.eventDtos)
-    this.userDtosSubject.next(this.userDtos)
+      this.eventDtosSubject.next(this.eventDtos)
+      this.userDtosSubject.next(this.userDtos)
 
-  
-}
+    
+  }
 
-/*
+  /*
   getEventsOfCurrentWorld(): Observable<Event[]>{
     this.http.get<Event[]>(`${environment.endpoint}/event/currentWorld`).subscribe(
         result => this.eventsSubject.next(result),
@@ -99,7 +98,7 @@ eventUserDtoToData(eventUserDto: EventUserDto){
       );
     return this.eventsSubject;
   }
-*/
+  */
 
   getEventsForCurrentWorldEfficient(): Observable<EventUserDto>{
     this.http.get<EventUserDto>(`${environment.endpoint}/event/getEventsForCurrentWorldEfficient`).subscribe(
