@@ -13,7 +13,7 @@
               </div>
           </div>
         </div>
-        <div class="event {{e.type}}" >
+        <div class="event {{e.type}}" tabindex="1">
           <div layout="row">
             <div layout="column" class="timestamp">
               <div class="time">
@@ -47,15 +47,15 @@
             </div>
           </div>
         </div>
-        <div class="e" tabindex="1"><hr></div>
       </div>    
   </mat-card-content>
   <mat-card-content class="chat">
     <div>
       <div class="full-width">
-          <mat-form-field class="full-width" hintLabel='{{ "EVENT_PAGE.MESSAGE.HINT_CHARACTERS" | translate }}'>
+          <mat-form-field class="full-width" >
               <input matInput placeholder='{{ "EVENT_PAGE.MESSAGE.MESSAGE" | translate }}' [(ngModel)]="message" (keydown)="onKeyDown($event)" autocomplete="off" maxlength="255">
-              <mat-icon matSuffix (click)="sendChat()" ><i class="ra ra-2x ra-seagull" ></i></mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PAGE.MESSAGE.SEND' | translate" matSuffix (click)="sendChat()" ><i class="ra ra-2x ra-seagull" ></i></mat-icon>
+              <mat-hint>{{ "EVENT_PAGE.MESSAGE.HINT_CHARACTERS" | translate }}</mat-hint>
               <mat-hint align="end">{{message.length || 0}}/255</mat-hint>
         </mat-form-field>
       </div>

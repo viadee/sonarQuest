@@ -3,10 +3,15 @@
 }
 
 .events{
-    height: calc(100% - 122px);
+    height: calc(100% - 106px);
     overflow-y: scroll;
     overflow-x: hidden;
     margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.event{
+    margin-bottom: 10px;
 }
 
 .this{
@@ -40,8 +45,8 @@
 }
 
 .timestamp{
-    width: 60px;
-    padding: 0 5px;
+    width: 50px;
+    padding: 0 0px;
     align-items: center;
     display: inline-flex;
     text-align: center;
@@ -81,6 +86,7 @@ span.author{
 
 .event-image{
     width: 50px;
+    float: left;
 }
 
 .event-image-div{
@@ -103,3 +109,4 @@ div.day{
 mat-icon{
     width:100% !important;
 }
+

@@ -15,7 +15,6 @@ export class EventPageComponent implements OnInit {
   message = '';
 
   @ViewChildren('commentDiv') commentDivs: QueryList<ElementRef>;
-  @ViewChildren('test') testDivs: QueryList<ElementRef>;
 
   constructor(
     private eventService: EventService,
@@ -31,15 +30,17 @@ export class EventPageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.commentDivs.changes.subscribe(() => {
-      if (this.commentDivs && this.commentDivs.last) {
-        //this.commentDivs.last.nativeElement.focus();
-        if (this.commentDivs.last.nativeElement.children) {
-          console.log(this.commentDivs.last.nativeElement);
-          console.log(this.commentDivs.last.nativeElement.lastChild);
-          this.commentDivs.last.nativeElement.lastChild.focus();
-        }
+    if (this.commentDivs && this.commentDivs.last) {
+      //this.commentDivs.last.nativeElement.focus();
+      if (this.commentDivs.last.nativeElement.children) {
+        console.log(this.commentDivs.last.nativeElement);
+        console.log(this.commentDivs.last.nativeElement.lastChild);
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px")
+        this.commentDivs.last.nativeElement.lastChild.focus();
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
       }
-    });
+    }
+  });
   }
 
   checkNewDay(event: Event): Boolean {

@@ -51,9 +51,13 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 .dark mat-sidenav span, 
 .dark mat-sidenav-content span, 
 .dark mat-sidenav-content mat-icon, 
-.dark mat-sidenav-content{
+.dark mat-sidenav-content,
+.dark mat-hint,
+.dark label,
+.dark mat-hint{
   color:  rgba(255, 255, 255, 0.87) !important;
 }
+
 
 .dark td-paging-bar,.dark td-paging-bar span, .dark td-paging-bar mat-icon{
   color: rgba(200, 200, 200, 0.87) !important;
