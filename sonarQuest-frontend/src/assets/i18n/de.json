@@ -13,7 +13,7 @@
     "USER_PROFILE": "Öffne Benutzerprofil",
     "SKILL_TREE": "Skill-Tree",
     "NEW_RULE_SWAL_TITLE": "Es sind neue SonarRules vorhanden",
-    "EVENTS": "Events"
+    "EVENTS": "Taverne"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",
@@ -81,8 +81,9 @@
       "CREATED": "Neues Item am Marktplatz verfügbar"
     },
     "MESSAGE": {
-      "MESSAGE": "Nachricht",
-      "HINT_CHARACTERS": "maximal 255 Zeichen"
+      "MESSAGE" : "Nachricht",
+      "HINT_CHARACTERS" : "maximal 255 Zeichen",
+      "SEND" : "Senden"
     }
   },
   "GAMEMASTER_PAGE": {

@@ -14,6 +14,7 @@ import { UserService } from "../../services/user.service";
 import { SwalComponent, SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
 import { SonarRuleService } from 'app/services/sonar-rule.service';
 import { SonarRule } from 'app/Interfaces/SonarRule';
+import { EventService } from 'app/services/event.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -65,6 +66,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     private authService: AuthenticationService,
     private permissionService: PermissionService,
     private userService: UserService,
+    private eventService: EventService,
     private sonarRuleService: SonarRuleService) {
   }
 
@@ -235,7 +237,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user) {
+    if (this.user) { 
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
         this.body.className = '';
@@ -258,10 +260,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     const dark  = 'dark';
     const light = 'light';
 
-    console.log(this.clickToggleDesignButton)
-
     if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
-      console.log('1')
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
       if (this.clickToggleDesignButton) {
@@ -269,7 +268,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
-      console.log('2')
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
       if (this.clickToggleDesignButton) {
@@ -299,6 +297,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     element.className.replace('  ', ' ');
 
     return element;
+  }
+
+  button(I){
+    //this.eventService.getEventsForCurrentWorldEfficient()
   }
   translateMsg(messageString: string): string {
     let msg = '';
