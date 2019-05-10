@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.EventUserDto;
@@ -26,12 +25,17 @@ import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
+import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
+import com.viadee.sonarquest.repositories.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
 public class EventServiceIT {
+	
+	@Autowired
+	private UserRepository userRepository;
 
     @Autowired
     private EventService eventService;
@@ -109,32 +113,32 @@ public class EventServiceIT {
     
     @Test
     public void testEventToEventUserDto() throws Exception {
-    	EventType type = EventType.MESSAGE;
-    	Event event = eventRepository.find1ByType(type);
-    	User user = event.getUser();
-    	
-        assertEquals(EventType.MESSAGE, event.getType());
-        assertTrue(event.getUser().getId() > 0);
+    	User user1 		= new User();
+    	Event event1 	= new Event();
+    	event1.setUser(user1);
+        
         // When
-        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event1);
         
         // Then
-        assertEquals(eventUserDto.getEventDtos().get(0).getId(), event.getId());
-        assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user.getId());
-        assertEquals(eventUserDto.getUserDtos().get(0).getId(), user.getId());
+        assertEquals(eventUserDto.getEventDtos().get(0).getId(), event1.getId());
+        assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user1.getId());
+        assertEquals(eventUserDto.getUserDtos().get(0).getId(), user1.getId());
     }
     
     @Test
     public void testEventsToEventUserDto() {
     	// Given
     	List<Event> events = new ArrayList<>();
+    	World world	= new World();
     	User user   = new User();
     	user.setId(1L);
-    	Long userId = user.getId();
+    	user.setPicture("pic");
+    	user.setCurrentWorld(world);
     	String message1 	   = "Test Message1";
     	String message2 	   = "Test Message2";
-    	MessageDto messageDto1 = new MessageDto(message1,userId);
-    	MessageDto messageDto2 = new MessageDto(message2,userId);
+    	MessageDto messageDto1 = new MessageDto(message1,user.getId());
+    	MessageDto messageDto2 = new MessageDto(message2,user.getId());
     	Event event1 			  = eventService.createEventForNewMessage(messageDto1);
     	Event event2 			  = eventService.createEventForNewMessage(messageDto2);
     	events.add(event1);
