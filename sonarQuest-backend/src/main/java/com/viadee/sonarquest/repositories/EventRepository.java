@@ -25,6 +25,6 @@ public interface EventRepository extends CrudRepository<Event,Long>  {
 	
 	List<Event> findFirst10ByOrderByTimestampDesc();
 
-	Event findLast1ByType(EventType type);
+	Event findFirstByType(EventType type);
 }
 

@@ -23,6 +23,12 @@ public class UserDto {
     
 	public UserDto(User user) {		
 		
+		if (user.getCurrentWorld() != null) {
+			this.currentWorldId = user.getCurrentWorld().getId();
+		} else {
+			this.currentWorldId = null;
+		}
+		
 		this.id = user.getId();
 		this.username = user.getUsername();
 		this.mail = user.getMail();
@@ -33,7 +39,6 @@ public class UserDto {
 		this.gold = user.getGold();
 		this.xp = user.getXp();
 		this.level = user.getLevel();
-		this.currentWorldId = user.getCurrentWorld().getId();
 		this.lastLogin = user.getLastLogin();
 		this.picture = user.getPicture();
 	}

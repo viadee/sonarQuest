@@ -171,8 +171,17 @@ public class EventService {
     	events.forEach(event -> {
     		
     		EventUserDto eventUserDto = eventToEventUserDto(event);
-    		eventDtos.add(eventUserDto.getEventDtos().get(0));
-    		userDtos.add(eventUserDto.getUserDtos().get(0));
+    		if (!eventUserDto.getEventDtos().isEmpty()  
+    				&& eventDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getEventDtos().get(0).getId()))) {
+        		eventDtos.add(eventUserDto.getEventDtos().get(0));
+    	    }
+    		
+    		
+    		if (!eventUserDto.getUserDtos().isEmpty()  
+    				&& userDtos.stream().noneMatch(dto -> dto.getId().equals(eventUserDto.getUserDtos().get(0).getId()))) {
+        		userDtos.add(eventUserDto.getUserDtos().get(0));
+    	    }
+    		
     		
     	});
     	return new EventUserDto(userDtos, eventDtos);
@@ -197,7 +206,6 @@ public class EventService {
     	
     	return false;
     }
-    
 
     /**
      * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in

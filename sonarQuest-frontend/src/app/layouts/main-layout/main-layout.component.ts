@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { World } from "../../Interfaces/World";
 import { User } from "../../Interfaces/User";
-import { UiDesign } from "../../Interfaces/UiDesign";
 import { RoutingUrls } from "../../app-routing/routing-urls";
 import { UiDesignService } from "../../services/ui-design.service";
 import { TdMediaService } from "@covalent/core";
@@ -14,6 +13,7 @@ import { UserService } from "../../services/user.service";
 import { SwalComponent, SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
 import { SonarRuleService } from 'app/services/sonar-rule.service';
 import { SonarRule } from 'app/Interfaces/SonarRule';
+import { UiDesign } from 'app/Interfaces/UiDesign';
 import { EventService } from 'app/services/event.service';
 
 @Component({
