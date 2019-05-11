@@ -169,7 +169,7 @@
     "CLOSE": "Close",
     "CONFIRMATION_MESSAGE": "Really delete this?",
     "CANNOT_DELETE":"Error deleting",
-    "DELETE_SUCCESS": "Deletion successful"
+    "DELETE_SUCCESS": "Deletion successful",
     "REQUIRED_VALUE":"This is a mandatory field"
   },
   "DEVELOPER": {
