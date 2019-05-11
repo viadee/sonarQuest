@@ -1034,7 +1034,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Assertions should be complete','squid:S2970',1,'2019-04-25 14:12:05.056'),
 ('"private" methods that don''t access instance data should be "static"','squid:S2325',1,'2019-04-25 14:12:05.056'),
 ('Tests should include assertions','squid:S2699',61,'2019-04-25 14:12:05.056'), //Testzuordnung
-('Maps with keys that are enum values should be replaced with EnumMap','squid:S1640',54,'2019-04-25 14:12:05.056'), // Testzuordnung
+--('Maps with keys that are enum values should be replaced with EnumMap','squid:S1640',54,'2019-04-25 14:12:05.056'), // Testzuordnung
 ('"indexOf" checks should use a start position','squid:S2912',1,'2019-04-25 14:12:05.056'),
 ('Boolean checks should not be inverted','squid:S1940',1,'2019-04-25 14:12:05.056'),
 ('JUnit framework methods should be declared properly','squid:S2391',1,'2019-04-25 14:12:05.056'),

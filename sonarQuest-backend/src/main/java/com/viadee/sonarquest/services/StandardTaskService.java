@@ -144,11 +144,6 @@ public class StandardTaskService {
 		}
 		return scores;
 	}	
-	
-	@CachePut(cacheNames = {"scoringFromTask"})
-	public void recalculateScoringForTasksFromTeam() {
-		
-	}
 
 	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
 		Set<Object> seen = ConcurrentHashMap.newKeySet();
