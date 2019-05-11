@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {World} from "../../Interfaces/World";
 import {User} from "../../Interfaces/User";
-import {UiDesign} from "../../Interfaces/UiDesign";
 import {RoutingUrls} from "../../app-routing/routing-urls";
 import {UiDesignService} from "../../services/ui-design.service";
 import {TdMediaService} from "@covalent/core";
@@ -11,6 +10,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {PermissionService} from "../../services/permission.service";
 import {UserService} from "../../services/user.service";
+import { UiDesign } from 'app/Interfaces/UiDesign';
 import { EventService } from 'app/services/event.service';
 
 @Component({

@@ -206,7 +206,6 @@ public class EventService {
     	
     	return false;
     }
-    
 
     /**
      * Since the "story" field of events may be shorter then the story of external events, it is cut to "story..." in

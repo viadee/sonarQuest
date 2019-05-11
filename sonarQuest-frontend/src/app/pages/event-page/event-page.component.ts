@@ -2,13 +2,11 @@ import { UserService } from 'app/services/user.service';
 import { ImageService } from 'app/services/image.service';
 import { EventDto } from './../../Interfaces/EventDto';
 import { UserDto } from './../../Interfaces/UserDto';
-import { EventUserDto } from './../../Interfaces/EventUserDto';
 import { Event } from '../../Interfaces/Event';
 import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { WebsocketService } from 'app/services/websocket.service';
-import { Subject, ReplaySubject, Subscription } from 'rxjs';
-import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/renderer';
+import { Subject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-event-page',
@@ -16,7 +14,6 @@ import { domRendererFactory3 } from '@angular/core/src/render3/interfaces/render
   styleUrls: ['./event-page.component.css']
 })
 export class EventPageComponent implements OnInit {
-  private subscribtion: Subscription = new Subscription();
 
   private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
   public  eventDtos$ = this.eventDtosSubject.asObservable();
@@ -34,10 +31,7 @@ export class EventPageComponent implements OnInit {
   constructor(
 
     private eventService: EventService,
-    private websocketService: WebsocketService,
-    private imageService: ImageService,
-    private userService: UserService
-
+    private websocketService: WebsocketService
   ) {
       this.eventService.eventDtos$.subscribe(eventDtos => { 
         this.eventDtos = eventDtos
@@ -85,7 +79,7 @@ export class EventPageComponent implements OnInit {
       this.previousEvent = event;
       return false;
     }
-  }
+  } 
 
   sendChat() {
     if (this.message != ""){
