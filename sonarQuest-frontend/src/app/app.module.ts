@@ -104,6 +104,7 @@ import { InnerSkillTreeComponent } from './pages/skill-tree-page/components/inne
 import { InnerSkillDetailDialogComponent } from './pages/skill-tree-page/components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
 import { InnerSkillTreeAddSkillDialogComponent } from './pages/skill-tree-page/components/inner-skill-tree/components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
 
+import { BarRatingModule } from "ngx-bar-rating";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -233,7 +234,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     NgxGraphModule,
     NgxChartsModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    BarRatingModule
   ],
   providers: [TdMediaService,
     WorldService,

@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {QuestService} from '../../../../../../../../services/quest.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
-import {World} from '../../../../../../../../Interfaces/World';
+import { Component, Inject, OnInit } from '@angular/core';
+import { QuestService } from '../../../../../../../../services/quest.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { GamemasterQuestCreateComponent } from '../../gamemaster-quest-create.component';
+import { World } from '../../../../../../../../Interfaces/World';
 
 @Component({
   selector: 'app-gamemaster-suggest-tasks',
@@ -13,9 +13,10 @@ export class GamemasterSuggestTasksComponent implements OnInit {
 
   condition: string;
   amount: number;
+  scoring: number;
 
   constructor(private questService: QuestService, private dialogRef: MatDialogRef<GamemasterQuestCreateComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+    @Inject(MAT_DIALOG_DATA) public data) {
   }
 
   ngOnInit() {
@@ -29,13 +30,18 @@ export class GamemasterSuggestTasksComponent implements OnInit {
           return addedTasks.indexOf(task.id) < 0
         }));
       })
-    } else {
+    } else if (this.condition === 'gold') {
       this.questService.suggestTasksWithApproxGoldAmountForWorld(this.data[0], this.amount).then((tasks) => {
         this.dialogRef.close(tasks.filter(task => {
           return addedTasks.indexOf(task.id) < 0
         }));
       })
+    } else {
+       this.questService.suggestTasksForWorldByScoring(this.data[0], this.amount, this.scoring).then((tasks) => {
+        this.dialogRef.close(tasks.filter(task => {
+          return addedTasks.indexOf(task.id) < 0
+        }));
+      });
     }
   }
-
 }

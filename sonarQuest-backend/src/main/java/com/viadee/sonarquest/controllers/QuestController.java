@@ -216,10 +216,10 @@ public class QuestController {
     }
     
     @GetMapping(value="/suggestTasksForQuestByScoring/{worldId}/{scoring}/{taskAmount}")
-	public List<StandardTask> suggestTasksForQuestByXpAmount(@PathVariable("worldId") final Long worldId,
-            @PathVariable("scroing") final int scoring, @PathVariable("taskAmount") final int taskAmount){
+	public List<Task> suggestTasksForQuestByXpAmount(@PathVariable("worldId") final Long worldId,
+            @PathVariable("scoring") final int scoring, @PathVariable("taskAmount") final int taskAmount){
     	 final World world = worldRepository.findOne(worldId);
-         List<StandardTask> suggestedTasks = null;
+         List<Task> suggestedTasks = null;
          if (world != null) {
              suggestedTasks = questService.suggestTasksByScoring(world, scoring, taskAmount);
          }

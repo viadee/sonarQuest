@@ -1,3 +1,6 @@
+/* Add application styles & imports to this file! */
+@import '~ngx-bar-rating/themes/br-default-theme.css';
+
 .icon{
   color: grey;
 }
@@ -75,4 +78,27 @@ button.mat-raised-button mat-icon{
   background-color: white !important;
 }
 
+.br-custom {
+  .br-units {
+    align-items: center;
+  }
+
+  .br-unit {
+    font: normal normal normal 20px/1 RPGAwesome;
+    margin-right: 2px;
+
+    &:after {
+      content: '\e917';
+      color: #d2d2d2;
+    }
+  }
+
+  .br-selected:after {
+    color: #e68080;
+  }
+
+  .br-active:after {
+    color: #e68080;
+  }
+}
 

@@ -14,7 +14,6 @@ import { UserService } from './user.service';
 
 @Injectable()
 export class QuestService {
-
   private questSubject;
   user: User;
 
@@ -100,6 +99,13 @@ export class QuestService {
       .toPromise()
       .catch(this.handleError);
   }
+
+  suggestTasksForWorldByScoring(world: World, amount: number, scoring: number): Promise<Task[]> {
+    return this.http.get<Task[]>(`${environment.endpoint}/quest/suggestTasksForQuestByScoring/${world.id}/${scoring}/${amount}`)
+    .toPromise()
+    .catch(this.handleError);
+  }
+
 
   getFreeQuestsForWorld(world: World): Promise<any> {
     return this.http.get(`${environment.endpoint}/quest/getAllFreeForWorld/${world.id}`)

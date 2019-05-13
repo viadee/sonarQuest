@@ -181,7 +181,8 @@
     "AVATARRACE": "Rasse",
     "AVATARCLASS": "Klasse",
     "TROPHIES": "Trophäen",
-    "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten"
+    "TOOLTIP_EDIT": "Eigene Einstellungen bearbeiten",
+    "SCORING":"Team-Scoring"
   },
   "QUEST": {
     "QUEST": "Quest",

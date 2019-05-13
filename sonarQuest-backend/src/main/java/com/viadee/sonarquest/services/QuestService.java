@@ -123,7 +123,7 @@ public class QuestService implements QuestSuggestion {
 		return result;
 	}
 
-	public List<StandardTask> suggestTasksByScoring(World world, int scoring, int taskAmount) {
+	public List<Task> suggestTasksByScoring(World world, int scoring, int taskAmount) {
 		int scoringMin;
 		int scoringMax;
 		switch (scoring) {
@@ -154,12 +154,13 @@ public class QuestService implements QuestSuggestion {
 			break;
 		}
 		}
-		List<StandardTask> tasks = standardTaskService.findByWorld(world).stream()
+		List<StandardTask> standardtasks = standardTaskService.findByWorld(world).stream()
 				.filter(distinctByKey(StandardTask::getIssueRule)).collect(Collectors.toList());
-		return tasks.stream()
-				.filter(task -> task.getUserSkillScoring() > scoringMin && task.getUserSkillScoring() <= scoringMax)
-				.limit(taskAmount).collect(Collectors.toList());
-
+		List<Task>tasks= standardtasks.stream()
+				.filter(task -> task.getUserSkillScoring() != null && task.getUserSkillScoring() > scoringMin
+						&& task.getUserSkillScoring() <= scoringMax).limit(taskAmount)
+				.map(task -> (Task) task).collect(Collectors.toList());
+return tasks;
 	}
 
 	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
