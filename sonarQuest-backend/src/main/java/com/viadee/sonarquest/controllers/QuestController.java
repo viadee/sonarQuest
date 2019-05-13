@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
@@ -212,6 +213,17 @@ public class QuestController {
         }
         return suggestedTasks;
 
+    }
+    
+    @GetMapping(value="/suggestTasksForQuestByScoring/{worldId}/{scoring}/{taskAmount}")
+	public List<StandardTask> suggestTasksForQuestByXpAmount(@PathVariable("worldId") final Long worldId,
+            @PathVariable("scroing") final int scoring, @PathVariable("taskAmount") final int taskAmount){
+    	 final World world = worldRepository.findOne(worldId);
+         List<StandardTask> suggestedTasks = null;
+         if (world != null) {
+             suggestedTasks = questService.suggestTasksByScoring(world, scoring, taskAmount);
+         }
+         return suggestedTasks;
     }
 
     @GetMapping(value = "/getAllFreeForWorld/{worldId}")

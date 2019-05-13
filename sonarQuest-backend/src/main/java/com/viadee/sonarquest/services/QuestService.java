@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,9 @@ public class QuestService implements QuestSuggestion {
 	private TaskRepository taskRepository;
 
 	@Autowired
+	private StandardTaskService standardTaskService;
+
+	@Autowired
 	private GratificationService gratificationService;
 
 	@Autowired
@@ -41,7 +48,6 @@ public class QuestService implements QuestSuggestion {
 
 	@Autowired
 	private EventService eventService;
-
 
 	final Random random = new Random();
 
@@ -115,6 +121,50 @@ public class QuestService implements QuestSuggestion {
 		result.add(participatedQuests);
 		result.add(freeQuests);
 		return result;
+	}
+
+	public List<StandardTask> suggestTasksByScoring(World world, int scoring, int taskAmount) {
+		int scoringMin;
+		int scoringMax;
+		switch (scoring) {
+		case (1): {
+			scoringMin = -1;
+			scoringMax = 3;
+			break;
+		}
+		case (2): {
+			scoringMin = 3;
+			scoringMax = 5;
+			break;
+		}
+		case (3): {
+			scoringMin = 5;
+			scoringMax = 7;
+			break;
+		}
+		case (4): {
+			scoringMin = 7;
+			scoringMax = 9;
+			break;
+		}
+
+		default: {
+			scoringMin = 9;
+			scoringMax = 999;
+			break;
+		}
+		}
+		List<StandardTask> tasks = standardTaskService.findByWorld(world).stream()
+				.filter(distinctByKey(StandardTask::getIssueRule)).collect(Collectors.toList());
+		return tasks.stream()
+				.filter(task -> task.getUserSkillScoring() > scoringMin && task.getUserSkillScoring() <= scoringMax)
+				.limit(taskAmount).collect(Collectors.toList());
+
+	}
+
+	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
 	}
 
 }
