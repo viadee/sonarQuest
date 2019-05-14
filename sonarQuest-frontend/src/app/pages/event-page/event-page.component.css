@@ -31,6 +31,13 @@
     background-color: rgba(114, 177, 255, 0.35);
 }
 
+.LEARNED_USER_SKILL .timestamp{
+    background-color: rgba(119, 255, 114, 0.35);
+}
+.SONAR_RULE .timestamp{
+    background-color: rgba(239, 114, 255, 0.35);
+}
+
 .QUEST span.state{
     color: rebeccapurple !important;
 }
@@ -42,6 +49,14 @@
 }
 .ARTEFACT span.state{
     color: rgb(0, 76, 171) !important;
+}
+
+.LEARNED_USER_SKILL span.state{
+    color: rgb(68, 171, 0) !important;
+}
+
+.SONAR_RULE span.state{
+    color: rgb(157, 0, 171) !important;
 }
 
 .timestamp{

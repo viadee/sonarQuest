@@ -73,8 +73,10 @@ export class EventService {
                   userDto.picture = image
                   
                   localEventDtos.forEach((eventDto: EventDto) => {
-                    if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE'){
-                      eventDto.image = userDto.picture
+                    if (eventDto.userId === userDto.id  ){
+                      if(eventDto.type === 'MESSAGE' || eventDto.type === 'LEARNED_USER_SKILL'){
+                        eventDto.image = userDto.picture;
+                      }
                     }
                   });
                 });

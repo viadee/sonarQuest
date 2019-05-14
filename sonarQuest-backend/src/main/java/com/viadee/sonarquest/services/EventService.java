@@ -24,6 +24,9 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
+import com.viadee.sonarquest.skillTree.entities.SonarRule;
+import com.viadee.sonarquest.skillTree.entities.UserSkill;
 
 
 @Service
@@ -39,6 +42,9 @@ public class EventService {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private WorldRepository worldRepository;
 
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
@@ -70,8 +76,33 @@ public class EventService {
         String image = StringUtils.EMPTY;
         World world = adventure.getWorld();
         String head = StringUtils.EMPTY;
-        LOGGER.info(String.format("New event because of a solved adventure '%s'", title));
+        LOGGER.info(String.format("New event because of a learned adventure '%s'", title));
         checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+    }
+    
+    public void createEventForLearnedUserSkill(UserSkill userSkill, User user) {
+        EventType type = EventType.LEARNED_USER_SKILL;
+        String title = userSkill.getName();
+        String story = String.format("User '%s' has learned Skill '%s'", user.getUsername(),userSkill.getName() );
+        EventState state = EventState.SKILL_LEARNED;
+        World world = user.getCurrentWorld();
+        String head = StringUtils.EMPTY;
+        LOGGER.info(String.format("New event because of a learned UserSkill '%s'", title));
+        checkStoryAndSave(new Event(type, title, story, state, world, head, user));
+    }
+    
+    public void createEventForNewSonarRule(SonarRule sonarRule) {
+    	List<World> worlds = worldRepository.findAll();
+    	for(World world: worlds) {
+    		EventType type = EventType.SONAR_RULE;
+            String title = sonarRule.getName();
+            String story = String.format("There are new SonarQube Rules");
+            EventState state = EventState.NEW_RULE;
+            String head = StringUtils.EMPTY;
+            LOGGER.info(String.format("New event because of a new  SonarQube Rule '%s'", sonarRule.getKey()));
+            checkStoryAndSave(new Event(type, title, story, state, world, head));	
+    	}
+        
     }
 
     public void createEventForCreatedAdventure(Adventure adventure, Principal principal) {

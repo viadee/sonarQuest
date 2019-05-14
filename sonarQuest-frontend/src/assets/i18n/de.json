@@ -84,6 +84,12 @@
       "MESSAGE" : "Nachricht",
       "HINT_CHARACTERS" : "maximal 255 Zeichen",
       "SEND" : "Senden"
+    },
+    "LEARNED_USER_SKILL":{
+      "SKILL_LEARNED": "Skill wurde erlernt"
+    },
+    "SONAR_RULE":{
+      "NEW_RULE": "Neue SonarQube Rule vorhanden"
     }
   },
   "GAMEMASTER_PAGE": {

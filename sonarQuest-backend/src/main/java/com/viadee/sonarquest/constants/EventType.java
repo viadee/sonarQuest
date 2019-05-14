@@ -4,5 +4,7 @@ public enum EventType {
 	QUEST, 
     ADVENTURE,
     MESSAGE,
-    ARTEFACT
+    ARTEFACT,
+    LEARNED_USER_SKILL,
+    SONAR_RULE
 }

@@ -46,7 +46,6 @@ export class EventPageComponent implements OnInit {
   };
 
   ngAfterViewInit() {
-    
     this.commentDivs.changes.subscribe(() => {
       if (this.commentDivs && this.commentDivs.last) {
         //this.commentDivs.last.nativeElement.focus();

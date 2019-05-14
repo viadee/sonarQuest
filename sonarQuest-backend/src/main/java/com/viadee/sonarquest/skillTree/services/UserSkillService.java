@@ -17,6 +17,8 @@ import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.repositories.UserRepository;
+import com.viadee.sonarquest.services.EventService;
+import com.viadee.sonarquest.services.UserService;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
@@ -54,6 +56,9 @@ public class UserSkillService {
 
 	@Autowired
 	private UserSkillGroupRepository userSkillGroupRepository;
+	
+	@Autowired
+	private EventService eventService;
 
 	private UserSkill findById(final Long id) {
 		return userSkillRepository.findOne(id);
@@ -401,6 +406,8 @@ public class UserSkillService {
 						userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
 						LOGGER.info("User with mail: {} has learned UserSkill '{}'", mail,
 								userSkillToSkillTreeUser.getUserSkill().getName());
+						eventService.createEventForLearnedUserSkill(userSkillToSkillTreeUser.getUserSkill(),userRepository.findByMail(mail));
+
 					}
 					skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
 					skillTreeObjectDTO.setLabel(userSkillToSkillTreeUser.getUserSkill().getName());

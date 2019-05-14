@@ -70,7 +70,7 @@ public class ExternalRessourceService {
 	
 	@Autowired 
 	private UserSkillService userSkillService;
-
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
 	private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the SonarQube server";

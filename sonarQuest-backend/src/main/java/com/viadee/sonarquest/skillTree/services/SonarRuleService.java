@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.ExternalRessourceService;
 import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
@@ -26,6 +28,10 @@ public class SonarRuleService {
 	
 	@Autowired
 	private SonarRuleSDtoEntityMapper sonarRuleMapper;
+
+	@Autowired 
+	private EventService eventService;
+
 	
 	@Value("${last.rule.update:2000-01-01}")
 	private String lastRuleUpdateFromProperty;
@@ -49,6 +55,7 @@ public class SonarRuleService {
 		final SonarRule foundSonarRule = sonarRuleRepository.findSonarRuleByKey(sonarRule.getKey());
 		if (foundSonarRule == null) {
 			sonarRuleRepository.save(sonarRule);
+			eventService.createEventForNewSonarRule(sonarRule);
 		}
 	}
 
