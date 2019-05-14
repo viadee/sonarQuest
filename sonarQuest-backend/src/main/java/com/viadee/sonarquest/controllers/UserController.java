@@ -3,6 +3,7 @@ package com.viadee.sonarquest.controllers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -88,6 +89,11 @@ public class UserController {
         return loadAvatar(avatarDirectoryPath, user.getPicture());
     }
 
+    @PostMapping(value="/updateLastTavernVisit")
+    public void updateLastTavernVisit(final Principal principal,  @RequestBody final Timestamp lastVisit) {
+    	userService.updateLastTavernVisit(principal.getName(),lastVisit);
+    }
+    
     public byte[] loadAvatar(String avaDir, final String avatarPic) {
         if (avatarPic != null) {
             String avatarFileName = avaDir + avatarPic;

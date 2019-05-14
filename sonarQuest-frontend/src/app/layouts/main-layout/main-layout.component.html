@@ -62,9 +62,10 @@
     </div>
 
     <div *ngIf="isEventVisible">
-      <a mat-list-item routerLink="/{{eventUrl}}">
+      <a mat-list-item routerLink="/{{eventUrl}}" (click)="updateLastTavernVisit()"> 
         <i mat-list-icon class="ra ra-beer ra-lg navlist"></i>
-        <h3 mat-line>{{"APP_COMPONENT.EVENTS"| translate}}</h3>
+        <h3 mat-line>{{"APP_COMPONENT.EVENTS"| translate}} <i mat-list-icon class="ra ra-ringing-bell notification-icon pulse" *ngIf="unseenEventsAvailable"></i></h3>
+        
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
