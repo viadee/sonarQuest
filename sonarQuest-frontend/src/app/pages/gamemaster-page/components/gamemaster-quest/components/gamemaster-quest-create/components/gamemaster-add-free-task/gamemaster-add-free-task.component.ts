@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Task} from 'app/Interfaces/Task';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {GamemasterQuestCreateComponent} from '../../gamemaster-quest-create.component';
-import {SonarQubeService} from '../../../../../../../../services/sonar-qube.service';
-import {StandardTask} from '../../../../../../../../Interfaces/StandardTask';
-import {SpecialTask} from '../../../../../../../../Interfaces/SpecialTask';
-import {StandardTaskService} from '../../../../../../../../services/standard-task.service';
-import {SpecialTaskService} from '../../../../../../../../services/special-task.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Task } from 'app/Interfaces/Task';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GamemasterQuestCreateComponent } from '../../gamemaster-quest-create.component';
+import { SonarQubeService } from '../../../../../../../../services/sonar-qube.service';
+import { StandardTask } from '../../../../../../../../Interfaces/StandardTask';
+import { SpecialTask } from '../../../../../../../../Interfaces/SpecialTask';
+import { StandardTaskService } from '../../../../../../../../services/standard-task.service';
+import { SpecialTaskService } from '../../../../../../../../services/special-task.service';
 import { IPageChangeEvent, ITdDataTableColumn, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent } from '@covalent/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserSkillService } from 'app/services/user-skill.service';
@@ -26,8 +26,8 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     { name: 'gold', label: 'Gold' },
     { name: 'xp', label: 'XP' },
     { name: 'userSkillScoring', label: 'Scoring', width: 25, tooltip: '' },
-    { name: 'open_issue', label: '' },
-    { name: 'add_task', label: '' },
+    { name: 'open_issue', label: '', sortable:false },
+    { name: 'add_task', label: '', sortable: false },
 
   ];
   filteredData: any[];
@@ -47,7 +47,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     { name: 'gold', label: 'Gold' },
     { name: 'xp', label: 'XP' },
     { name: 'message', label: 'Message', width: 500 },
-    { name: 'add_task', label: '' }
+    { name: 'add_task', label: '', sortable: false }
   ];
   fromRowSpecialTasks = 1;
   currentPageSpecialTasks = 1;
@@ -89,7 +89,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
         { name: 'severity', label: table.COLUMNS.SEVERITY },
         { name: 'gold', label: table.COLUMNS.GOLD },
         { name: 'xp', label: table.COLUMNS.XP },
-        { name: 'userSkillScoring', label: table.COLUMNS.SCORING, width: 100, tooltip: table.TOOLTIP.TEAM_SCORING },
+        { name: 'userSkillScoring', label: table.COLUMNS.SCORING, width: 100 },
         { name: 'open_issue', label: '' },
         { name: 'add_task', label: '' },
 
@@ -164,6 +164,6 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   createRange(value: number): number[] {
-  return this.userSkillService.getNumberOfIcons(value);
+    return this.userSkillService.getNumberOfIcons(value);
   }
 }

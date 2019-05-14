@@ -54,7 +54,6 @@ public class Event {
 	}
 
 	public Event(String title) {
-		super();
 		this.title = title;
 	}
 

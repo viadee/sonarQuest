@@ -745,7 +745,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Methods should not be too complex','squid:MethodCyclomaticComplexity',50,'2019-04-25 14:12:05.048'),
 ('"@Deprecated" code should not be used','squid:CallToDeprecatedMethod',58,'2019-04-25 14:12:05.048'),
 ('Source files should have a sufficient density of comment lines','common-java:InsufficientCommentDensity',61,'2019-04-25 14:12:05.049'),
-('Failed unit tests should be fixed','common-java:FailedUnitTests',1,'2019-04-25 14:12:05.049'),
+('Failed unit tests should be fixed','common-java:FailedUnitTests',202,'2019-04-25 14:12:05.049'),
 ('"deleteOnExit" should not be used','squid:CallToFileDeleteOnExitMethod',1,'2019-04-25 14:12:05.049'),
 ('Sections of code should not be commented out','squid:CommentedOutCodeLine',1,'2019-04-25 14:12:05.049'),
 ('Skipped unit tests should be either removed or fixed','common-java:SkippedUnitTests',1,'2019-04-25 14:12:05.049'),

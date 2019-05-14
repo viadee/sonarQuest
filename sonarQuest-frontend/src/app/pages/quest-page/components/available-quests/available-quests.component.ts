@@ -1,8 +1,8 @@
-import {TranslateService} from '@ngx-translate/core';
-import {ParticipationService} from '../../../../services/participation.service';
-import {WorldService} from '../../../../services/world.service';
-import {MatDialog} from '@angular/material';
-import {QuestService} from '../../../../services/quest.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ParticipationService } from '../../../../services/participation.service';
+import { WorldService } from '../../../../services/world.service';
+import { MatDialog } from '@angular/material';
+import { QuestService } from '../../../../services/quest.service';
 import {
   ITdDataTableColumn,
   TdDataTableSortingOrder,
@@ -10,10 +10,13 @@ import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent
 } from '@covalent/core';
-import {Component, OnInit} from '@angular/core';
-import {Quest} from '../../../../Interfaces/Quest';
-import {ViewAvailableQuestComponent} from './components/view-available-quest/view-available-quest.component';
-import {World} from '../../../../Interfaces/World';
+import { Component, OnInit } from '@angular/core';
+import { Quest } from '../../../../Interfaces/Quest';
+import { ViewAvailableQuestComponent } from './components/view-available-quest/view-available-quest.component';
+import { World } from '../../../../Interfaces/World';
+import { UserSkillService } from 'app/services/user-skill.service';
+import { Task } from 'app/Interfaces/Task';
+import { TaskService } from 'app/services/task.service';
 
 @Component({
   selector: 'app-available-quests',
@@ -24,12 +27,12 @@ export class AvailableQuestsComponent implements OnInit {
 
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title'},
-    {name: 'gold', label: 'Gold'},
-    {name: 'xp', label: 'XP'},
-    {name: 'adventure.title', label: 'Adventure'},
-    {name: 'status', label: 'Status'},
-    {name: 'edit', label: ''}
+    { name: 'title', label: 'Title' },
+    { name: 'gold', label: 'Gold' },
+    { name: 'xp', label: 'XP' },
+    { name: 'adventure.title', label: 'Adventure' },
+    { name: 'status', label: 'Status' },
+    { name: 'edit', label: '' }
   ];
 
   // Sort / Filter / Paginate variables
@@ -51,18 +54,20 @@ export class AvailableQuestsComponent implements OnInit {
     private _dataTableService: TdDataTableService,
     private participationService: ParticipationService,
     private translateService: TranslateService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private userSkillService: UserSkillService,
+    private taskService: TaskService) {
   }
 
   ngOnInit() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        {name: 'title', label: col_names.TITLE},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'xp', label: col_names.XP},
-        {name: 'adventure.title', label: col_names.ADVENTURE},
-        {name: 'status', label: col_names.STATUS},
-        {name: 'edit', label: ''}]
+        { name: 'title', label: col_names.TITLE },
+        { name: 'gold', label: col_names.GOLD },
+        { name: 'xp', label: col_names.XP },
+        { name: 'adventure.title', label: col_names.ADVENTURE },
+        { name: 'status', label: col_names.STATUS },
+        { name: 'edit', label: '' }]
     });
     if (this.worldService.getCurrentWorld()) {
       this.init();
@@ -87,11 +92,11 @@ export class AvailableQuestsComponent implements OnInit {
 
   viewQuest(quest: Quest) {
     this.questService.getQuest(quest.id).then(loadedQuest => {
-      this.dialog.open(ViewAvailableQuestComponent, {panelClass: 'dialog-sexy', data: loadedQuest, width: '500px'})
+      this.dialog.open(ViewAvailableQuestComponent, { panelClass: 'dialog-sexy', data: loadedQuest, width: '500px' })
         .afterClosed().subscribe(() => {
-        this.loadQuests();
-        this.participationService.announceParticipationUpdate()
-      });
+          this.loadQuests();
+          this.participationService.announceParticipationUpdate()
+        });
     });
   }
 
@@ -135,5 +140,10 @@ export class AvailableQuestsComponent implements OnInit {
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
-  }  
+  }
+
+  getHeaviestScore(quest: Quest): number[] {
+    //this.taskService.getTasksForQuestAndUser(quest, this.user)
+    return [];
+  }
 }

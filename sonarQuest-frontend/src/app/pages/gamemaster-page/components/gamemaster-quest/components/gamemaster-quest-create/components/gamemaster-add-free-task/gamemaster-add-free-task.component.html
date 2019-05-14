@@ -9,11 +9,12 @@
           [columns]="freeStandardTasksColumns" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
           (sortChange)="sort($event)">
           <ng-template tdDataTableTemplate="userSkillScoring" let-value="value">
-            <div layout="row">
+            <div layout="row" [matTooltip]="'TABLE.TOOLTIP.TEAM_SCORING' | translate" [matTooltipClass]="'tooltipMultiline'"
+            matTooltipPosition="after">
               <i class="ra ra-lg ra-axe team-score-icon" *ngFor="let item of createRange(value)"></i>
             </div>
           </ng-template>
-          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column">
+          <ng-template tdDataTableTemplate="add_task" let-value="value" let-row="row" let-column="column" >
             <div layout="row">
               <button mat-icon-button (click)="addTask(row)">
                 <mat-icon>add</mat-icon>

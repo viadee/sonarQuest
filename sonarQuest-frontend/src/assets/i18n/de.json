@@ -105,8 +105,8 @@
       "EDIT_STANDARDTASK": "Auftrag bearbeiten",
       "CONDITION": "Bedingung",
       "AMOUNT": "Anzahl",
-      "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu",
-      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor",
+      "ADD_FREE_TOOLTIP": "Füge freien Auftrag hinzu. Dies keine einige Zeit in Anspruch nehmen.",
+      "SUGGEST_TASKS_TOOLTIP": "Schlage zufällige Aufträge vor. Dies keine einige Zeit in Anspruch nehmen.",
       "SOLVE_TASK_TOOLTIP": "Ändere Zustand zu 'Abgeschlossen'",
       "REMOVE_TASK_FROM_QUEST_TOOLTIP": "Entferne Auftrag aus Quest"
     }
@@ -149,7 +149,7 @@
       "ENTRIES_OF_THIS_PAGE": "Einträge auf dieser Seite:"
     },
     "TOOLTIP":{
-      "TEAM_SCORING": "Das Team Scoring gibt an, wie gut das Team zum Lösen dieses Tasks geeignet ist"
+      "TEAM_SCORING": "Das Team Scoring gibt an, wie gut das Team zum Lösen dieses Tasks geeignet ist. (1 Axt = leicht, 5 Äxte = schwer)"
     }
   },
   "GLOBAL": {

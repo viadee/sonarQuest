@@ -59,9 +59,11 @@
               <br />
               {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
               <br />
-              {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}     
+              {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}  
+              <br/>
+              {{"TABLE.COLUMNS.Scoring" | translate}}:   {{ getHeaviestScore(quest) }}
             </div>
-            
+           
           </mat-card-content>
           <mat-card-actions>
             <div align="right">

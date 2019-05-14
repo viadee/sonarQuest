@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Optional;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
@@ -48,6 +49,9 @@ public class QuestService implements QuestSuggestion {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private TaskService taskService;
 
 	final Random random = new Random();
 
@@ -115,6 +119,7 @@ public class QuestService implements QuestSuggestion {
 		final List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
 				.filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
 		final List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
+		//allQuestsForWorld.stream().map(quest -> quest.setTasks(taskService.getTasksForQuest(quest.getId(),Optional.of(developer.getMail()))));
 		final List<List<Quest>> result = new ArrayList<>();
 		final List<Quest> freeQuests = allQuestsForWorld;
 		freeQuests.removeAll(participatedQuests);
