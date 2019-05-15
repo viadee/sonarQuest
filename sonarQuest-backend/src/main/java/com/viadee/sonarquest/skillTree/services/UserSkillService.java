@@ -389,7 +389,7 @@ public class UserSkillService {
 	}
 
 	@Transactional
-	public SkillTreeObjectDTO learnSkill(String mail, String key) {
+	public void learnUserSkill(String mail, String key) {
 		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
 		if (user == null) {
@@ -420,7 +420,6 @@ public class UserSkillService {
 		}
 		updateSkillTreeScoring(user);
 		skillTreeUserRepository.save(user);
-		return skillTreeObjectDTO;
 	}
 
 	@Transactional
@@ -450,7 +449,7 @@ public class UserSkillService {
 		if (participation != null) {
 			String mail = participation.getUser().getMail();
 			if (mail != null) {
-				learnSkill(mail, task.getIssueRule());
+				learnUserSkill(mail, task.getIssueRule());
 			}
 		} else {
 			LOGGER.info("No SQUser participations found for task {}, so no skills are learned", task.getKey());

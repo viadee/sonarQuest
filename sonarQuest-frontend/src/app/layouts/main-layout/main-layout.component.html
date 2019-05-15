@@ -109,7 +109,10 @@
   <swal
   #newRulesReleasedSwal
   title = "{{'APP_COMPONENT.NEW_RULE_SWAL_TITLE' | translate}}"
- [options]=swalOptionsnewRules>
+ [options]=swalOptionsnewRules
+ cancelButtonText = "{{'APP_COMPONENT.OK' | translate}}"
+ confirmButtonText= "{{'APP_COMPONENT.SHOW_SONAR_RULES' | translate}}"
+ (confirm)="showRules()">
 </swal>
 </td-layout-nav-list>
 

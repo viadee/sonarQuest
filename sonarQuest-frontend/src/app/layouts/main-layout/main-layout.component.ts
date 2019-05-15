@@ -15,6 +15,8 @@ import { SonarRuleService } from 'app/services/sonar-rule.service';
 import { SonarRule } from 'app/Interfaces/SonarRule';
 import { UiDesign } from 'app/Interfaces/UiDesign';
 import { EventService } from 'app/services/event.service';
+import { MatDialog } from '@angular/material';
+import { NewSonarRulesDetailViewComponent } from './components/new-sonar-rules-detail-view/new-sonar-rules-detail-view.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -66,8 +68,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     private authService: AuthenticationService,
     private permissionService: PermissionService,
     private userService: UserService,
-    private eventService: EventService,
-    private sonarRuleService: SonarRuleService) {
+    private sonarRuleService: SonarRuleService,
+    private dialog: MatDialog) {
   }
 
   protected logout(): void {
@@ -106,8 +108,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       type: 'info',
       toast: true,
       showConfirmButton: true,
+      confirmButtonColor: '#c62828',
       position: 'top-end',
-      backdrop: false
+      backdrop: false,
+      showCancelButton: true,
+      cancelButtonColor: 'grey'
     }
   }
 
@@ -140,7 +145,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       this.setBackground();
     })
     this.worldService.worlds$.subscribe(worlds => {
-      if(this.currentWorld == null){
+      if (this.currentWorld == null) {
         this.currentWorld = worlds[0]
         this.setBackground();
       }
@@ -237,7 +242,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user) { 
+    if (this.user) {
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
         this.body.className = '';
@@ -251,27 +256,27 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.toggleDesign();
   }
 
-  clickToggleDesign(){
+  clickToggleDesign() {
     this.clickToggleDesignButton = true;
     this.toggleDesign()
   }
 
   toggleDesign() {
-    const dark  = 'dark';
+    const dark = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
       if (this.clickToggleDesignButton) {
-        this.uiDesignService.updateUiDesign(dark); 
+        this.uiDesignService.updateUiDesign(dark);
         this.clickToggleDesignButton = false;
       }
     } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
       if (this.clickToggleDesignButton) {
-        this.uiDesignService.updateUiDesign(light); 
+        this.uiDesignService.updateUiDesign(light);
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
@@ -299,12 +304,20 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     return element;
   }
 
-  button(I){
+  button(I) {
     //this.eventService.getEventsForCurrentWorldEfficient()
   }
   translateMsg(messageString: string): string {
     let msg = '';
     this.translate.get(messageString).subscribe(translateMsg => msg = translateMsg);
     return msg;
+  }
+
+  showRules(): void {
+    this.dialog.open(NewSonarRulesDetailViewComponent, {
+      data: this.unassignedSonarRules,
+      width: '500px',
+      panelClass: 'dialog-sexy'
+    }).afterClosed();
   }
 }

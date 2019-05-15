@@ -101,10 +101,11 @@ import {NgxGraphModule } from '@swimlane/ngx-graph';
 import {NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { InnerSkillTreeComponent } from './pages/skill-tree-page/components/inner-skill-tree/inner-skill-tree.component';
-import { InnerSkillDetailDialogComponent } from './pages/skill-tree-page/components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
+import { InnerSkillDetailDialogComponent } from './pages/skill-tree-page/components/inner-skill-tree/components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
 import { InnerSkillTreeAddSkillDialogComponent } from './pages/skill-tree-page/components/inner-skill-tree/components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
 
 import { BarRatingModule } from "ngx-bar-rating";
+import { NewSonarRulesDetailViewComponent } from './layouts/main-layout/components/new-sonar-rules-detail-view/new-sonar-rules-detail-view.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -165,6 +166,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MainLayoutComponent,
     GamemasterSkillEditComponent,
     InnerSkillTreeAddSkillDialogComponent,
+    NewSonarRulesDetailViewComponent,
   ],
   entryComponents: [
     EditWorldComponent,
@@ -194,7 +196,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingComponent,
     InnerSkillDetailDialogComponent,
     GamemasterSkillEditComponent,
-    InnerSkillTreeAddSkillDialogComponent
+    InnerSkillTreeAddSkillDialogComponent,
+    NewSonarRulesDetailViewComponent
   ],
   imports: [
     BrowserModule,

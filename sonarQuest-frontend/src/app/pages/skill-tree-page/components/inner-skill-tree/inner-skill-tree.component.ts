@@ -6,7 +6,7 @@ import { identifierName } from '@angular/compiler';
 import * as shape from 'd3-shape';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { InnerSkillDetailDialogComponent } from '../inner-skill-detail-dialog/inner-skill-detail-dialog.component';
+import { InnerSkillDetailDialogComponent } from './components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
 import { SonarRule } from 'app/Interfaces/SonarRule';
 import { PermissionService } from 'app/services/permission.service';
 import { UserService } from 'app/services/user.service';

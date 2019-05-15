@@ -13,7 +13,9 @@
     "USER_PROFILE": "Open user profile",
     "SKILL_TREE": "Skill-Tree",
     "NEW_RULE_SWAL_TITLE": "There are new SonarRules",
-    "EVENTS": "Tavern"
+    "EVENTS": "Tavern",
+    "NEW_RULES":"New SonarRules",
+    "OK": "OK"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",

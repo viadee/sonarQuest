@@ -34,7 +34,7 @@ public class UserSkillController {
 
 	@Autowired
 	private UserSkillService userSkillService;
-	
+
 	@Autowired
 	private UserSkillDtoEntityMapper userSkillMapper;
 
@@ -42,13 +42,13 @@ public class UserSkillController {
 	public List<UserSkill> getAllUserSkills() {
 		return userSkillRepository.findAll();
 	}
-	
-	@GetMapping(value="/bygroup")
+
+	@GetMapping(value = "/bygroup")
 	public List<UserSkill> getAllUserSkillsFromGroup(@RequestParam(value = "id") final Long id) {
 		return userSkillRepository.findUserSkillsByGroup(id);
 	}
-	
-	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
+
+	// TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@GetMapping(value = "/team")
 	public List<UserSkillDTO> getUserSkillsFromTeam(@RequestParam(value = "mails") final String mailString) {
 		List<String> mails;
@@ -60,9 +60,10 @@ public class UserSkillController {
 		}
 		return userSkillService.findUserSkillsFromTeam(mails);
 	}
-	
+
 	@GetMapping(value = "/team/score")
-	public Double getTeamScoreByTeamAndRule(@RequestParam(value = "ruleKey") final String ruleKey, @RequestParam(value = "mails") final String mailString) {
+	public Double getTeamScoreByTeamAndRule(@RequestParam(value = "ruleKey") final String ruleKey,
+			@RequestParam(value = "mails") final String mailString) {
 		List<String> mails;
 		if (mailString.indexOf(',') != -1) {
 			mails = new ArrayList<String>(Arrays.asList(mailString.split(",")));
@@ -73,38 +74,39 @@ public class UserSkillController {
 		return userSkillService.getScoringForRuleFromTeam(ruleKey, mails);
 	}
 
-	//TODO evtl. 	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
+	// TODO evtl. //TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@GetMapping(value = "/roots/")
 	public List<UserSkillDTO> getAllRootUserSkills() {
-		return userSkillRepository.findAllRootUserSkills(true).stream().map(userSkillMapper::entityToDto).collect(Collectors.toList());
+		return userSkillRepository.findAllRootUserSkills(true).stream().map(userSkillMapper::entityToDto)
+				.collect(Collectors.toList());
 	}
-	
+
 	@PutMapping(value = "/update")
 	@ResponseStatus(HttpStatus.OK)
 	public UserSkill updateUserSkill(@RequestBody UserSkill userSkill) {
 		return userSkillService.updateUserSkill(userSkill);
 	}
-	
-	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
+
 	@PostMapping(value = "/learn/")
-	public SkillTreeObjectDTO learnSkill(@RequestParam(value = "mail") final String mail,
+	public void learnSkill(@RequestParam(value = "mail") final String mail,
 			@RequestParam(value = "key") final String key) {
-		return userSkillService.learnSkill(mail, key);
+		userSkillService.learnUserSkill(mail, key);
 	}
-	
-	//TODO löschen
-		@GetMapping("/score")
-		public void updateScore(@RequestParam(value = "mail") final String mail) {
-			userSkillService.calculateSkillTreeByMail(mail);
-		}
 
-	@PostMapping(value="/create")
+	// TODO löschen
+	@GetMapping("/score")
+	public void updateScore(@RequestParam(value = "mail") final String mail) {
+		userSkillService.calculateSkillTreeByMail(mail);
+	}
+
+	@PostMapping(value = "/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserSkill createUserSkill(@RequestParam(value = "groupid") final Long groupid, @RequestBody UserSkill userSkill) {
-		return userSkillService.createUserSkill(userSkill,groupid);
+	public UserSkill createUserSkill(@RequestParam(value = "groupid") final Long groupid,
+			@RequestBody UserSkill userSkill) {
+		return userSkillService.createUserSkill(userSkill, groupid);
 	}
 
-	//TODO evtl. ueberfluessig schauen wegen autaker nutzung
+	// TODO evtl. ueberfluessig schauen wegen autaker nutzung
 	@DeleteMapping(value = "/{id}")
 	public HttpStatus deleteUser(@PathVariable(value = "id") final Long id) {
 		if (userSkillService.delete(id)) {
