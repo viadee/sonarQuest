@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateTestingModule} from "../../../../../../services/translate.service.mock.module";
 import {
   MAT_DIALOG_DATA,
+  MatCheckboxModule,
   MatDialogModule,
   MatDialogRef,
   MatDividerModule,
@@ -46,6 +47,7 @@ describe('GamemasterArtefactEditComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatToolbarModule,
+        MatCheckboxModule,
         MatFormFieldModule,
         MatInputModule,
         CovalentDataTableModule,

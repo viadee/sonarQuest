@@ -13,6 +13,7 @@ import {UserServiceTestingModule} from "../../services/user.service.mock.module"
 import {WorldServiceTestingModule} from "../../services/world.service.mock.module";
 import {PermissionServiceTestingModule} from "../../services/permission.service.mock.module";
 import {UiDesignServiceTestingModule} from "../../services/ui-design.service.mock.module";
+import {EventServiceTestingModule} from "../../services/event.service.mock.module";
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -37,7 +38,8 @@ describe('MainLayoutComponent', () => {
         UserServiceTestingModule,
         WorldServiceTestingModule,
         PermissionServiceTestingModule,
-        UiDesignServiceTestingModule
+        UiDesignServiceTestingModule,
+        EventServiceTestingModule
       ],
       providers: [
         TdMediaService
