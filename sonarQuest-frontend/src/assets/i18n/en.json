@@ -56,7 +56,9 @@
       "SUCCESS": "Sonar Server is reachable :)",
       "ERROR": "Sonar Qube Server is not reachable"
     },
-    "CONNECTION_SAVED": "The data was saved and the connection established"
+    "CONNECTION_SAVED": "The data was saved and the connection established",
+    "DEACTIVE": "Deactive",
+    "ACTIVE": "Active"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Current Progress",

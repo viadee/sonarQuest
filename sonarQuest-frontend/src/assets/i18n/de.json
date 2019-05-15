@@ -56,7 +56,9 @@
       "SUCCESS": "Verbindungstest erfolgreich",
       "ERROR": "Sonar Qube Server konnte nicht erreicht werden"
     },
-    "CONNECTION_SAVED": "Die Daten wurde gespeichert und die Verbindung hergestellt"
+    "CONNECTION_SAVED": "Die Daten wurde gespeichert und die Verbindung hergestellt",
+    "DEACTIVE": "Deaktiviert",
+    "ACTIVE": "Aktiviert"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
