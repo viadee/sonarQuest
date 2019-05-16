@@ -67,8 +67,9 @@
   "EVENT_PAGE": {
     "QUEST": {
       "NEW_MEMBER": "ist der Quest beigetreten",
-      "CREATED": "Neue Quest hinzugefügt",
-      "SOLVED": "hat die Quest gelöst"
+      "CREATED": "hat eine neue Quest hinzugefügt",
+      "SOLVED": "hat die Quest gelöst",
+      "DELETED": "hat die Quest gelöscht"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "ist dem Adventure beigetreten",

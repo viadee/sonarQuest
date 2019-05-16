@@ -65,6 +65,9 @@ public class QuestController {
     
     @Autowired
     private EventService eventService;
+    
+    @Autowired
+    private WebSocketController webSocketController;
 
     @GetMapping
     public List<Quest> getAllQuests() {
@@ -90,7 +93,7 @@ public class QuestController {
         questDto.setStartdate(new Date(System.currentTimeMillis()));
         questDto.setStatus(QuestState.OPEN);
         questDto.setCreatorName(user.getUsername());
-        eventService.createEventForCreatedQuest(questDto, principal);
+        webSocketController.onCreateQuest(questDto, principal);
         return questRepository.save(questDto);
     }
 
@@ -111,11 +114,12 @@ public class QuestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteQuest(@PathVariable(value = "id") final Long id) {
+    public void deleteQuest(final Principal principal, @PathVariable(value = "id") final Long id) {
         final Quest quest = questRepository.findOne(id);
         if (quest != null) {
             final List<Task> tasks = quest.getTasks();
             tasks.forEach(task -> task.setStatus(SonarQuestStatus.OPEN));
+            webSocketController.onDeleteQuest(quest, principal);
             questRepository.delete(quest);
             LOGGER.info("Deleted quest with id {}", id);
         }

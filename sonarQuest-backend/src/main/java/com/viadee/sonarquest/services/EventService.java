@@ -86,17 +86,27 @@ public class EventService {
         checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
     }
 
-    public void createEventForCreatedQuest(Quest quest, Principal principal) {
-        EventType type = EventType.QUEST;
+    public Event createEventForCreatedQuest(Quest quest, Principal principal) {
+    	Event event = questToEvent(quest, principal, EventState.CREATED);
+        LOGGER.info(String.format("New event because of a newly created quest '%s'", quest.getTitle()));
+        return checkStoryAndSave(event);
+    }
+
+	public Event createEventForDeleteQuest(Quest quest, Principal principal) {
+    	Event event = questToEvent(quest, principal, EventState.DELETED);
+        LOGGER.info(String.format("New event because of a deleted quest '%s'", quest.getTitle()));
+        return checkStoryAndSave(event);
+	}
+	
+	private Event questToEvent(Quest quest, Principal principal, EventState state) {
+		EventType type = EventType.QUEST;
         String title = quest.getTitle();
         String story = quest.getStory();
-        EventState state = EventState.CREATED;
         String image = quest.getImage();
         World world = quest.getWorld();
         String head = StringUtils.EMPTY;
-        LOGGER.info(String.format("New event because of a newly created quest '%s'", title));
-        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
-    }
+        return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+	}
 
     public void createEventForUserJoinQuest(Quest quest, User user) {
         EventType type = EventType.QUEST;
