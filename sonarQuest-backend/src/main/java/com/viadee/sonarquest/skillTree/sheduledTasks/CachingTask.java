@@ -14,10 +14,6 @@ import com.viadee.sonarquest.skillTree.services.UserSkillService;
 public class CachingTask {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserSkillService.class);
-
-	
-	@Value("${cachename.task.scoring.cache}")
-	private String taskScoringCache; 
 	
 	@Autowired
 	private CacheManager cacheManager; 
@@ -25,8 +21,12 @@ public class CachingTask {
 	//TODO as sonarquest.properties
 		@Scheduled(cron = "${cron.expression.cache.clearing.rate}")
 		public void clearTaskScoringCache() {
-			cacheManager.getCache(taskScoringCache).clear();
-			LOGGER.info("The cache with the name '{}' has been cleared",taskScoringCache);
+			for(String cacheName :cacheManager.getCacheNames()) {
+				LOGGER.info("The cache with the name '{}' and '{}' is avaiable",cacheName);
+			}
+			cacheManager.getCache("taskScoringCache").clear();
+			cacheManager.getCache("allQuestFromWorldCache").clear();
+			LOGGER.info("The cache with the name '{}' and '{}' has been cleared","taskScoringCache", "allQuestFromWorldCache");
 		}
 
 }

@@ -15,7 +15,8 @@
     "NEW_RULE_SWAL_TITLE": "There are new SonarRules",
     "EVENTS": "Tavern",
     "NEW_RULES":"New SonarRules",
-    "OK": "OK"
+    "OK": "OK",
+    "SHOW_SONAR_RULES": "Show avaiable SonarRules"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
@@ -38,7 +39,7 @@
     "SHOW_ISSUE_TOOLTIP": "Show SonarQube issue",
     "JOIN_ISSUE_TOOLTIP": "Fight",
     "CANCEL_ISSUE_TOOLTIP": "Stop fighting",
-    "SKILL_SCORE": "The more axes, the less experience you have for this Task",
+    "SKILL_SCORE": "The more axes, the harder this task is for you (1 ax = easy, 5 axes = heavy)",
     "SKILL_SCORE_WARNING": "This Task is probably too heavy"
   },
   "MARKETPLACE_PAGE": {

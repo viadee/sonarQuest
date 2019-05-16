@@ -18,9 +18,10 @@ export interface Quest {
   enddate: Date,
   world: World,
   adventure: Adventure,
-  tasks: Task[];
-  participations: Participation[];
-  participants: string[];
+  tasks: Task[],
+  participations: Participation[],
+  participants: string[],
+  highestScoring?: number
 }
 
 

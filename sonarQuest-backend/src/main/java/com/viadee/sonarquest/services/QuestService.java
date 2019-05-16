@@ -2,7 +2,9 @@ package com.viadee.sonarquest.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,10 +13,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Optional;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
@@ -49,7 +51,7 @@ public class QuestService implements QuestSuggestion {
 
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private TaskService taskService;
 
@@ -114,18 +116,35 @@ public class QuestService implements QuestSuggestion {
 		}
 	}
 
+	@Cacheable(value="allQuestFromWorldCache", key="#world.id")
 	public List<List<Quest>> getAllQuestsForWorldAndUser(final World world, final User developer) {
 		final List<Participation> participations = participationRepository.findByUser(developer);
 		final List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
 				.filter(quest -> quest.getWorld().equals(world)).collect(Collectors.toList());
-		final List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
-		//allQuestsForWorld.stream().map(quest -> quest.setTasks(taskService.getTasksForQuest(quest.getId(),Optional.of(developer.getMail()))));
+		List<Quest> allQuestsForWorld = questRepository.findByWorld(world);
+		for (Quest quest : allQuestsForWorld) {
+			quest.setHighestScoring(getHighestScoringByQuest(quest, developer.getMail()));
+		}
 		final List<List<Quest>> result = new ArrayList<>();
 		final List<Quest> freeQuests = allQuestsForWorld;
 		freeQuests.removeAll(participatedQuests);
 		result.add(participatedQuests);
 		result.add(freeQuests);
 		return result;
+	}
+	
+	private Double getHighestScoringByQuest(Quest quest, String mail) {
+		Double highestScoring = 0.0;
+		Optional<String>optional = Optional.of(mail);
+		for (Task task : taskService.getTasksForQuest(quest.getId(),optional )) {
+			if (task instanceof StandardTask) {
+				Double score = ((StandardTask) task).getUserSkillScoring();
+				if ( score != null && score> highestScoring) {
+					highestScoring = ((StandardTask) task).getUserSkillScoring();
+				}
+			}
+		}
+		return highestScoring;
 	}
 
 	public List<Task> suggestTasksByScoring(World world, int scoring, int taskAmount) {
@@ -161,11 +180,11 @@ public class QuestService implements QuestSuggestion {
 		}
 		List<StandardTask> standardtasks = standardTaskService.findByWorld(world).stream()
 				.filter(distinctByKey(StandardTask::getIssueRule)).collect(Collectors.toList());
-		List<Task>tasks= standardtasks.stream()
+		List<Task> tasks = standardtasks.stream()
 				.filter(task -> task.getUserSkillScoring() != null && task.getUserSkillScoring() > scoringMin
-						&& task.getUserSkillScoring() <= scoringMax).limit(taskAmount)
-				.map(task -> (Task) task).collect(Collectors.toList());
-return tasks;
+						&& task.getUserSkillScoring() <= scoringMax)
+				.limit(taskAmount).map(task -> (Task) task).collect(Collectors.toList());
+		return tasks;
 	}
 
 	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.QuestState;
@@ -58,6 +59,9 @@ public class Quest {
 
 	@Column(name = "image")
 	private String image;
+	
+	@Transient
+	private Double highestScoring;
 
 	@ManyToOne()
 	@JoinColumn(name = "world_id")
@@ -238,4 +242,12 @@ public class Quest {
     public void setCreatorName(String creatorname) {
         this.creatorname = creatorname;
     }
+
+	public Double getHighestScoring() {
+		return highestScoring;
+	}
+
+	public void setHighestScoring(Double highestScoring) {
+		this.highestScoring = highestScoring;
+	}
 }

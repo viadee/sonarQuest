@@ -39,8 +39,8 @@
     "SHOW_ISSUE_TOOLTIP": "Zeige SonarQube Issue",
     "JOIN_ISSUE_TOOLTIP": "Kämpfe",
     "CANCEL_ISSUE_TOOLTIP": "Höre auf zu kämpfen",
-    "SKILL_SCORE": "Je mehr Äxte, desto weniger Erfahrung hast du für diese Aufgabe",
-    "SKILL_SCORE_WARNING": "Dieser Task ist wohlmöglich zu schwer"
+    "SKILL_SCORE": "Je mehr Äxte, desto schwieriger ist dieser Auftrag für dich (1 Axt = leicht, 5 Äxte = schwer)",
+    "SKILL_SCORE_WARNING": "Dieser Auftrag ist wohlmöglich zu schwer"
   },
   "MARKETPLACE_PAGE": {
     "MARKETPLACE": "Marktplatz",

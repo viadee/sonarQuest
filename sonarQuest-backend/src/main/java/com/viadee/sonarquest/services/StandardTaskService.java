@@ -106,7 +106,7 @@ public class StandardTaskService {
 		return standardTaskRepository.findAll();
 	}
 
-	@Cacheable(value="${cachename.task.scoring.cache}", key="#w.id")
+	@Cacheable(value="taskScoringCache", key="#w.id")
 	public List<StandardTask> findByWorld(final World w) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
 		List<String> teamMails = new ArrayList<String>();
