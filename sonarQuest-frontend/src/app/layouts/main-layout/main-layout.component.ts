@@ -1,15 +1,15 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {World} from "../../Interfaces/World";
-import {User} from "../../Interfaces/User";
-import {RoutingUrls} from "../../app-routing/routing-urls";
-import {UiDesignService} from "../../services/ui-design.service";
-import {TdMediaService} from "@covalent/core";
-import {Router} from "@angular/router";
-import {WorldService} from "../../services/world.service";
-import {TranslateService} from "@ngx-translate/core";
-import {AuthenticationService} from "../../authentication/authentication.service";
-import {PermissionService} from "../../services/permission.service";
-import {UserService} from "../../services/user.service";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { World } from "../../Interfaces/World";
+import { User } from "../../Interfaces/User";
+import { RoutingUrls } from "../../app-routing/routing-urls";
+import { UiDesignService } from "../../services/ui-design.service";
+import { TdMediaService } from "@covalent/core";
+import { Router } from "@angular/router";
+import { WorldService } from "../../services/world.service";
+import { TranslateService } from "@ngx-translate/core";
+import { AuthenticationService } from "../../authentication/authentication.service";
+import { PermissionService } from "../../services/permission.service";
+import { UserService } from "../../services/user.service";
 import { UiDesign } from 'app/Interfaces/UiDesign';
 import { EventService } from 'app/services/event.service';
 
@@ -47,6 +47,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
+  public unseenEventsAvailable: boolean;
 
   constructor(
     private uiDesignService: UiDesignService,
@@ -81,6 +82,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.susbcribeWorlds();
         this.setDesign();
         this.updateWorldsFromCurrentUser();
+        this.checkForUnseenEvents();
+        this.eventService.checkForUnseenEvents();
       }
     });
     this.setPreDesign();
@@ -116,11 +119,16 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       this.setBackground();
     })
     this.worldService.worlds$.subscribe(worlds => {
-      if(this.currentWorld == null){
+      if (this.currentWorld == null) {
         this.currentWorld = worlds[0]
         this.setBackground();
       }
       this.worlds = worlds;
+    })
+  }
+  private checkForUnseenEvents() {
+    this.eventService.unseenEvents$.subscribe(unseenEventsAvailable => {
+      this.unseenEventsAvailable = unseenEventsAvailable;
     })
   }
 
@@ -186,7 +194,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   setDesign() {
-    if (this.user) { 
+    if (this.user) {
       this.uiDesignService.getUiDesign().subscribe(ui => {
         this.ui = ui;
         this.body.className = '';
@@ -200,27 +208,27 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.toggleDesign();
   }
 
-  clickToggleDesign(){
+  clickToggleDesign() {
     this.clickToggleDesignButton = true;
     this.toggleDesign()
   }
 
   toggleDesign() {
-    const dark  = 'dark';
+    const dark = 'dark';
     const light = 'light';
 
     if (this.hasClass(this.body, light)) { // If light is choosen, change to dark
       this.body.className = this.removeSubString(this.body.className, light);
       this.addClass(this.body, dark);
       if (this.clickToggleDesignButton) {
-        this.uiDesignService.updateUiDesign(dark); 
+        this.uiDesignService.updateUiDesign(dark);
         this.clickToggleDesignButton = false;
       }
     } else if (this.hasClass(this.body, dark)) { // If dark is choosen, change to light
       this.body.className = this.removeSubString(this.body.className, dark);
       this.addClass(this.body, light);
       if (this.clickToggleDesignButton) {
-        this.uiDesignService.updateUiDesign(light); 
+        this.uiDesignService.updateUiDesign(light);
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
@@ -248,7 +256,12 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     return element;
   }
 
-  button(I){
+  button(I) {
     //this.eventService.getEventsForCurrentWorldEfficient()
+  }
+
+  updateLastTavernVisit(): void {
+    this.unseenEventsAvailable = false;
+    this.userService.updateLastTavernVisit();
   }
 }
