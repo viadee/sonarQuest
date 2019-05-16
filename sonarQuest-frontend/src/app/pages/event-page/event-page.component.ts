@@ -46,18 +46,18 @@ export class EventPageComponent implements OnInit {
     this.scrollToBottom();
     
     this.commentDivs.changes.subscribe(() => {
-      if (this.commentDivs && this.commentDivs.last) {
-        if (this.commentDivs.last.nativeElement.children) {
-          this.scrollToBottom();
-        }
-      }
+      this.scrollToBottom();
     });
   }
 
   scrollToBottom(){
-    this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px");
-    this.commentDivs.last.nativeElement.lastChild.focus();
-    this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
+    if (this.commentDivs && this.commentDivs.last) {
+      if (this.commentDivs.last.nativeElement.children) {
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px");
+        this.commentDivs.last.nativeElement.lastChild.focus();
+        this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
+      }
+    }
   }
 
   checkNewDay(event: Event): Boolean {
