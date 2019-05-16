@@ -32,7 +32,7 @@ import com.viadee.sonarquest.repositories.WorldRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-    protected static final Log LOGGER = LogFactory.getLog(UserService.class);
+	protected static final Log LOGGER = LogFactory.getLog(UserService.class);
 
 	@Autowired
 	private RoleService roleService;
@@ -75,6 +75,7 @@ public class UserService implements UserDetailsService {
 
 	public World updateUsersCurrentWorld(final User user, final Long worldId) {
 		final World world = worldService.findById(worldId);
+		user.setLastTavernVisit(null);
 		user.setCurrentWorld(world);
 		userRepository.saveAndFlush(user);
 		return user.getCurrentWorld();
@@ -137,14 +138,14 @@ public class UserService implements UserDetailsService {
 	}
 
 	private void setMail(User toBeSaved, final String mail) {
-		if(toBeSaved.getMail() != null) {
+		if (toBeSaved.getMail() != null) {
 			if (!mail.equals(toBeSaved.getMail()) && mailFree(mail)) {
 				toBeSaved.setMail(mail);
-			}	
-		}else if(mailFree(mail)){
+			}
+		} else if (mailFree(mail)) {
 			toBeSaved.setMail(mail);
 		}
-		
+
 	}
 
 	private void setPassword(final User user, User toBeSaved, final BCryptPasswordEncoder encoder) {
@@ -203,7 +204,7 @@ public class UserService implements UserDetailsService {
 			if (userToWorld.getJoined()) {
 				user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
 			} else {
-				if(user.getCurrentWorld() != null && user.getCurrentWorld().getId().equals(userToWorld.getWorldId())) {
+				if (user.getCurrentWorld() != null && user.getCurrentWorld().getId().equals(userToWorld.getWorldId())) {
 					user.setCurrentWorld(null);
 				}
 				user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
@@ -226,5 +227,14 @@ public class UserService implements UserDetailsService {
 	public User getUser(Principal principal) {
 		final String username = principal.getName();
 		return findByUsername(username);
+	}
+
+	public void updateLastTavernVisit(String username, Timestamp lastVisit) {
+		User user = userRepository.findByUsername(username);
+		if (user != null) {
+			user.setLastTavernVisit(lastVisit);
+			userRepository.save(user);
+		}
+
 	}
 }

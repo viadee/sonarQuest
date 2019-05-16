@@ -4,6 +4,7 @@ import {Artefact} from './Artefact';
 import {AvatarClass} from './AvatarClass';
 import {AvatarRace} from './AvatarRace';
 import {World} from './World';
+import { Timestamp } from 'rxjs';
 
 export interface User {
   id?: number,
