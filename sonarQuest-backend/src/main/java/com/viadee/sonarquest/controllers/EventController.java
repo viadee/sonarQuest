@@ -61,5 +61,10 @@ public class EventController {
         LOGGER.info("Something()");
         return "Server";
     }
+    
+    @GetMapping(value="/checkForUnseenEvents")
+    public boolean checkForUnseenEvents(final Principal principal) {
+    	return eventService.checkForUnseenEvents(principal.getName());
+    }
 
 }

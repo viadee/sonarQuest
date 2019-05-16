@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { World } from "../../Interfaces/World";
 import { User } from "../../Interfaces/User";
 import { RoutingUrls } from "../../app-routing/routing-urls";
@@ -59,6 +59,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public swalOptionsnewRules: {};
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
+  public unseenEventsAvailable: boolean;
+
   constructor(
     private uiDesignService: UiDesignService,
     public media: TdMediaService,
@@ -93,6 +95,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.susbcribeWorlds();
         this.setDesign();
         this.updateWorldsFromCurrentUser();
+        this.checkForUnseenEvents();
+        this.eventService.checkForUnseenEvents();
       }
     });
     this.susbcribeUnassignedSonarRules();
@@ -150,6 +154,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.setBackground();
       }
       this.worlds = worlds;
+    })
+  }
+  private checkForUnseenEvents() {
+    this.eventService.unseenEvents$.subscribe(unseenEventsAvailable => {
+      this.unseenEventsAvailable = unseenEventsAvailable;
     })
   }
 
@@ -306,6 +315,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   button(I) {
     //this.eventService.getEventsForCurrentWorldEfficient()
+  }
+
+  updateLastTavernVisit(): void {
+    this.unseenEventsAvailable = false;
+    this.userService.updateLastTavernVisit();
   }
   translateMsg(messageString: string): string {
     let msg = '';

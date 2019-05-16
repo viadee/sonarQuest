@@ -50,3 +50,10 @@ Here are some hints on what helps to get those approved and implemented as quick
 When you are adding features or other enhancements please create a pull request with a clear documentation of what you've done and why you have done it. It helps, if you make make sure all of your commits are atomic (one feature per commit).
 
 Always include a useful log message for your commits. One-line messages are fine for small changes, but bigger changes should be commitetd with more comments, too.
+
+### Pull Request - Admission tests
+
+Pull requests will only be merged when all integration tests and all ui tests are green. To ensure this run
+* the sonarquest-backend in your IDE of choice as Unit-Tests (this includes all integration tests) and
+* npm test in the folder sonarquest-frontend to run Jasmine/Karme ui tests.
+When all this works, submit your PR.
