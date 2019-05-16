@@ -1,7 +1,7 @@
 import {EventDto} from '../../Interfaces/EventDto';
 import {UserDto} from '../../Interfaces/UserDto';
 import {Event} from '../../Interfaces/Event';
-import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {EventService} from '../../services/event.service';
 import {WebsocketService} from 'app/services/websocket.service';
 import {ReplaySubject, Subject} from 'rxjs';
@@ -11,7 +11,7 @@ import {ReplaySubject, Subject} from 'rxjs';
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.css']
 })
-export class EventPageComponent implements OnInit, AfterViewInit {
+export class EventPageComponent implements OnInit {
 
   private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
   public  eventDtos$ = this.eventDtosSubject.asObservable();
@@ -40,22 +40,25 @@ export class EventPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
   };
 
   ngAfterViewInit() {
+    this.scrollToBottom();
     
     this.commentDivs.changes.subscribe(() => {
       if (this.commentDivs && this.commentDivs.last) {
         if (this.commentDivs.last.nativeElement.children) {
-          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px");
-          this.commentDivs.last.nativeElement.lastChild.focus();
-          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
+          this.scrollToBottom();
         }
       }
     });
   }
 
+  scrollToBottom(){
+    this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px");
+    this.commentDivs.last.nativeElement.lastChild.focus();
+    this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
+  }
 
   checkNewDay(event: Event): Boolean {
     if (this.previousEvent == null) {
