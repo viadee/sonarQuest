@@ -40,8 +40,7 @@ public class WebSocketController {
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend(CHAT, eventUserDto);
     }
-    
-    
+ 
     
     
     
@@ -87,7 +86,7 @@ public class WebSocketController {
     public void onDeleteAdventure(final Adventure adventure, Principal principal) {
         Event event = eventService.createEventForDeletedAdventure(adventure, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
-        template.convertAndSend(CHAT, eventUserDto);
+        template.convertAndSend("/chat", eventUserDto);
     }
     
     
@@ -109,7 +108,6 @@ public class WebSocketController {
         Event event = eventService.createEventForUpdatedArtefact(artefact, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend(CHAT, eventUserDto);
-		
 	}
 
 }
