@@ -63,7 +63,9 @@
       "SUCCESS": "Verbindungstest erfolgreich",
       "ERROR": "Sonar Qube Server konnte nicht erreicht werden"
     },
-    "CONNECTION_SAVED": "Die Daten wurde gespeichert und die Verbindung hergestellt"
+    "CONNECTION_SAVED": "Die Daten wurde gespeichert und die Verbindung hergestellt",
+    "DEACTIVE": "Deaktiviert",
+    "ACTIVE": "Aktiviert"
   },
   "START_PAGE": {
     "CURRENT_PROGRESS": "Bearbeitungsfortschritt",
@@ -72,16 +74,19 @@
   "EVENT_PAGE": {
     "QUEST": {
       "NEW_MEMBER": "ist der Quest beigetreten",
-      "CREATED": "Neue Quest hinzugefügt",
-      "SOLVED": "hat die Quest gelöst"
+      "CREATED": "hat eine neue Quest hinzugefügt",
+      "SOLVED": "hat die Quest gelöst",
+      "DELETED": "hat die Quest gelöscht",
+      "UPDATED": "hat die Quest bearbeitet"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "ist dem Adventure beigetreten",
-      "CREATED": "Neues Abenteuer hinzugefügt",
+      "CREATED": "hat ein neues Abenteuer hinzugefügt",
       "SOLVED": "hat das Abenteuer gelöst"
     },
     "ARTEFACT": {
-      "CREATED": "Neues Item am Marktplatz verfügbar"
+      "CREATED": "hat dem Marktplatz ein neues Item hinzugefügt",
+      "DELETED": "hat das Item entfernt"
     },
     "MESSAGE": {
       "MESSAGE" : "Nachricht",

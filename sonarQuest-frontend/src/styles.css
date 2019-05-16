@@ -68,6 +68,11 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
   background-color: #ffe500 !important;
 }
 
+
+.icon-as-button {
+  cursor: pointer !important;
+}
+
 /*------------------DESIGN-END------------------*/
 
 

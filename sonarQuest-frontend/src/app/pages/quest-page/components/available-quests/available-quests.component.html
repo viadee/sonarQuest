@@ -42,8 +42,9 @@
         {{"QUEST_PAGE.AVAILABLE_QUESTS_FOR_WORLD"| translate}} <strong>{{currentWorld?.name}}</strong>
       </h2>
     </div>
-    <div *ngFor="let quest of availableQuests" class="quest-container">
-      <mat-card id="questcard">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+      <div *ngFor="let quest of availableQuests" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)" fxFlex.lt-md="100%">
+        <mat-card id="questcard">
           <mat-card-header>
             <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
             <mat-card-title>
@@ -68,16 +69,18 @@
           <mat-card-actions>
             <div align="right">
               <button mat-icon-button (click)="viewQuest(quest)" [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
-                [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
                 <i class="ra ra-quill-ink ra-2x"></i>
               </button>
               <button mat-icon-button (click)="participateInQuest(quest)" [matTooltip]="'QUEST_PAGE.JOIN_QUEST' | translate"
-                [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
                 <i class="ra ra-sword ra-2x"></i>
               </button>
             </div>
           </mat-card-actions>
         </mat-card>
       </div>
+      </div>
+
   </mat-card-content>
 </mat-card>

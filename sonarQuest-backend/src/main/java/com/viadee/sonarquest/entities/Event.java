@@ -109,13 +109,15 @@ public class Event {
 		timestamp = new Timestamp(System.currentTimeMillis());
 	}
 
-	public Event(EventType type, String title, String story, EventState state, String image) {
+	public Event(EventType type, String title, String story, EventState state, String image, User user) {
 		this.type = type;
 		this.story = story;
 		this.title = title;
 		this.image = image;
 		this.state = state;
 		timestamp = new Timestamp(System.currentTimeMillis());
+		this.user = user;
+		this.world = null;
 	}
 
 	public Long getId() {

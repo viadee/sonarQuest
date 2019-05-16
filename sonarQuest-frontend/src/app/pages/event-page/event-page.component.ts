@@ -1,19 +1,17 @@
-import { UserService } from 'app/services/user.service';
-import { ImageService } from 'app/services/image.service';
-import { EventDto } from './../../Interfaces/EventDto';
-import { UserDto } from './../../Interfaces/UserDto';
-import { Event } from '../../Interfaces/Event';
-import { ViewChildren, QueryList, ElementRef, Component, OnInit } from '@angular/core';
-import { EventService } from '../../services/event.service';
-import { WebsocketService } from 'app/services/websocket.service';
-import { Subject, ReplaySubject } from 'rxjs';
+import {EventDto} from '../../Interfaces/EventDto';
+import {UserDto} from '../../Interfaces/UserDto';
+import {Event} from '../../Interfaces/Event';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {EventService} from '../../services/event.service';
+import {WebsocketService} from 'app/services/websocket.service';
+import {ReplaySubject, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-event-page',
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.css']
 })
-export class EventPageComponent implements OnInit {
+export class EventPageComponent implements OnInit, AfterViewInit {
 
   private eventDtosSubject: Subject<EventDto[]> = new ReplaySubject(1); 
   public  eventDtos$ = this.eventDtosSubject.asObservable();
@@ -34,11 +32,11 @@ export class EventPageComponent implements OnInit {
     private websocketService: WebsocketService
   ) {
       this.eventService.eventDtos$.subscribe(eventDtos => { 
-        this.eventDtos = eventDtos
-      })
+        this.eventDtos = eventDtos;
+      });
       this.eventService.userDtos$.subscribe(userDtos => { 
-        this.userDtos = userDtos
-      })
+        this.userDtos = userDtos;
+      });
   }
 
   ngOnInit() {
@@ -48,11 +46,8 @@ export class EventPageComponent implements OnInit {
   ngAfterViewInit() {
     this.commentDivs.changes.subscribe(() => {
       if (this.commentDivs && this.commentDivs.last) {
-        //this.commentDivs.last.nativeElement.focus();
         if (this.commentDivs.last.nativeElement.children) {
-          console.log(this.commentDivs.last.nativeElement);
-          console.log(this.commentDivs.last.nativeElement.lastChild);
-          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px")
+          this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 50px");
           this.commentDivs.last.nativeElement.lastChild.focus();
           this.commentDivs.last.nativeElement.lastChild.style.cssText = ("padding-bottom: 0px")
         }
@@ -67,12 +62,12 @@ export class EventPageComponent implements OnInit {
       return true;
     } else if (this.eventDtos[0].id === event.id) {
       // When this is the first Event in the List show Date
-      this.previousEvent = event
+      this.previousEvent = event;
       return true;
     } else if ((new Date(this.previousEvent.timestamp).getDate() < new Date(event.timestamp).getDate()) || 
               (new Date(this.previousEvent.timestamp).getMonth() < new Date(event.timestamp).getMonth()) ||
               (new Date(this.previousEvent.timestamp).getFullYear() < new Date(event.timestamp).getFullYear())) {
-      this.previousEvent = event
+      this.previousEvent = event;
       return true;
     } else {
       this.previousEvent = event;
@@ -118,8 +113,8 @@ export class EventPageComponent implements OnInit {
       if ( e.userId == userDto.id) {
         name = userDto.username;
       }
-    })
-    return name
+    });
+    return name;
   }
 
 }
