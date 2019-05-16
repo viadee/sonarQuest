@@ -5,6 +5,7 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {WorldServiceTestingModule} from "./world.service.mock.module";
 import {UserServiceTestingModule} from "./user.service.mock.module";
 import {ImageService} from "./image.service";
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EventService', () => {
   beforeEach(() => {
@@ -12,7 +13,8 @@ describe('EventService', () => {
       imports: [
         HttpClientTestingModule,
         WorldServiceTestingModule,
-        UserServiceTestingModule
+        UserServiceTestingModule,
+        RouterTestingModule
       ],
       providers: [
         EventService,

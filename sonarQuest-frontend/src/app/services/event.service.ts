@@ -9,15 +9,18 @@ import { World } from '../Interfaces/World';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
-import { Injectable } from '@angular/core';
+import { Injectable, OnChanges, SimpleChanges } from '@angular/core';
 import { Response } from '@angular/http';
 import { environment } from "../../environments/environment";
 import { Event } from '../Interfaces/Event';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { RoutingUrls } from 'app/app-routing/routing-urls';
 
 
 @Injectable()
-export class EventService {
+export class EventService implements OnChanges {
+
 
   private eventUserDtoSubject: Subject<EventUserDto> = new ReplaySubject(1);
   public eventUserDto$ = this.eventUserDtoSubject.asObservable();
@@ -26,8 +29,8 @@ export class EventService {
   public eventDtos$ = this.eventDtosSubject.asObservable();
   private userDtosSubject: Subject<UserDto[]> = new ReplaySubject(1);
   public userDtos$ = this.userDtosSubject.asObservable();
-
-
+  private unseenEventsSubject: Subject<boolean> = new ReplaySubject(1);
+  public unseenEvents$ = this.unseenEventsSubject.asObservable();
   eventDtos: EventDto[] = [];
   userDtos: UserDto[] = [];
 
@@ -43,7 +46,8 @@ export class EventService {
     public http: HttpClient,
     public worldService: WorldService,
     public userService: UserService,
-    public imageService: ImageService
+    public imageService: ImageService,
+    public router: Router
   ) {
     worldService.currentWorld$.subscribe(world => {
       this.currentWorld = world;
@@ -55,7 +59,10 @@ export class EventService {
     userService.user$.subscribe(user => { this.user = user });
 
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Change');
+    console.log(changes);
+  }
   subscribeEventUserDto() {
     this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
       this.eventUserDtosToData(eventUserDto)
@@ -96,20 +103,20 @@ export class EventService {
     var localEventDtos: EventDto[] = eventUserDto.eventDtos;
     var localUserDtos: UserDto[] = eventUserDto.userDtos;
 
-    var eventDto: EventDto = this.eventDtos.filter(eDto => ((eDto.type == localEventDtos[0].type) && 
-        ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
+    var eventDto: EventDto = this.eventDtos.filter(eDto => ((eDto.type == localEventDtos[0].type) &&
+      ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
 
-    if (eventDto != null){
+    if (eventDto != null) {
       console.log(eventUserDto.eventDtos[0])
       console.log(eventDto)
       eventUserDto.eventDtos[0].image = eventDto.image
-    } else if(localEventDtos[0].type == "MESSAGE") {
+    } else if (localEventDtos[0].type == "MESSAGE") {
       localUserDtos.forEach((userDto: UserDto) => {
 
         this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
           this.imageService.createImageFromBlob2(blob).subscribe(image => {
             userDto.picture = image
-  
+
             localEventDtos.forEach((eventDto: EventDto) => {
               if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE') {
                 eventDto.image = userDto.picture
@@ -125,6 +132,7 @@ export class EventService {
 
     this.eventDtosSubject.next(this.eventDtos)
     this.userDtosSubject.next(this.userDtos)
+    this.checkForUnseenEvents();
   }
 
   getEventsForCurrentWorldEfficient(): Observable<EventUserDto> {
@@ -159,6 +167,14 @@ export class EventService {
     })
   }
 
+  public checkForUnseenEvents(): Observable<boolean> {
+    const currentUrl = this.router.url.substring(1);
+    if (currentUrl !== RoutingUrls.events) {
+      console.log(this.router.url);
+      this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`).subscribe(result => this.unseenEventsSubject.next(result));
+      return this.unseenEventsSubject.asObservable();
+    }
+  }
 
   private handleError(error: Response | any) {
     let errMsg: string;
