@@ -5,5 +5,6 @@ public enum EventState {
 	CREATED,
 	SOLVED,
 	DELETED,
+	UPDATED,
 	NEW_ITEM
 }

@@ -47,43 +47,41 @@ public class EventService {
     public List<Event> getEventsForWorld(Principal principal) {
         User user = userService.getUser(principal);
         World currentWorld = user.getCurrentWorld();
-        return eventRepository.findByWorld(currentWorld);
+        return eventRepository.findByWorldOrWorldIsNull(currentWorld);
     }
 
-    public void createEventForSolvedQuest(Quest quest, Principal principal) {
-        EventType type = EventType.QUEST;
-        String title = quest.getTitle();
-        String story = quest.getStory();
-        EventState state = EventState.SOLVED;
-        String image = quest.getImage();
-        World world = quest.getWorld();
-        String head = StringUtils.EMPTY;
-        LOGGER.info(String.format("New event because of a solved quest '%s'", title));
-        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+    public Event createEventForSolvedAdventure(Adventure adventure, Principal principal) {
+    	Event event = adventureToEvent(adventure, principal, EventState.SOLVED);
+        LOGGER.info(String.format("New event because of a solved adventure '%s'", adventure.getTitle()));
+        return checkStoryAndSave(event);
     }
 
-    public void createEventForSolvedAdventure(Adventure adventure, Principal principal) {
-        EventType type = EventType.ADVENTURE;
-        String title = adventure.getTitle();
-        String story = adventure.getStory();
-        EventState state = EventState.SOLVED;
-        String image = StringUtils.EMPTY;
-        World world = adventure.getWorld();
-        String head = StringUtils.EMPTY;
-        LOGGER.info(String.format("New event because of a solved adventure '%s'", title));
-        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+    public Event createEventForDeletedAdventure(Adventure adventure, Principal principal) {
+    	Event event = adventureToEvent(adventure, principal, EventState.DELETED);
+        LOGGER.info(String.format("New event because of deleted adventure '%s'", adventure.getTitle()));
+        return checkStoryAndSave(event);
     }
 
-    public void createEventForCreatedAdventure(Adventure adventure, Principal principal) {
-        EventType type = EventType.ADVENTURE;
-        String title = adventure.getTitle();
-        String story = adventure.getStory();
-        EventState state = EventState.CREATED;
-        String image = StringUtils.EMPTY;
-        World world = adventure.getWorld();
-        String head = StringUtils.EMPTY;
-        LOGGER.info(String.format("New event because of a newly created adventure '%s'", title));
-        checkStoryAndSave(new Event(type, title, story, state, image, world, head, userService.getUser(principal)));
+    public Event createEventForCreatedAdventure(Adventure adventure, Principal principal) {
+    	Event event = adventureToEvent(adventure, principal, EventState.CREATED);
+        LOGGER.info(String.format("New event because of a newly created adventure '%s'", adventure.getTitle()));
+        return checkStoryAndSave(event);
+    }
+    
+    private Event adventureToEvent(Adventure adventure, Principal principal, EventState state) {
+    	 EventType type = EventType.ADVENTURE;
+         String title = adventure.getTitle();
+         String story = adventure.getStory();
+         String image = StringUtils.EMPTY;
+         World world = adventure.getWorld();
+         String head = StringUtils.EMPTY;
+         return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+    }
+
+    public Event createEventForSolvedQuest(Quest quest, Principal principal) {
+    	Event event = questToEvent(quest, principal, EventState.SOLVED);
+        LOGGER.info(String.format("New event because of a solved quest '%s'", quest.getTitle()));
+        return checkStoryAndSave(event);
     }
 
     public Event createEventForCreatedQuest(Quest quest, Principal principal) {
@@ -92,11 +90,23 @@ public class EventService {
         return checkStoryAndSave(event);
     }
 
-	public Event createEventForDeleteQuest(Quest quest, Principal principal) {
+	public Event createEventForDeletedQuest(Quest quest, Principal principal) {
     	Event event = questToEvent(quest, principal, EventState.DELETED);
         LOGGER.info(String.format("New event because of a deleted quest '%s'", quest.getTitle()));
         return checkStoryAndSave(event);
 	}
+
+	public Event createEventForUpdatedQuest(Quest quest, Principal principal) {
+    	Event event = questToEvent(quest, principal, EventState.UPDATED);
+        LOGGER.info(String.format("New event because of a updated quest '%s'", quest.getTitle()));
+        return checkStoryAndSave(event);
+	}
+
+    public Event createEventForUserJoinQuest(Quest quest, Principal principal, User user) { 
+    	Event event = questToEvent(quest, principal, EventState.NEW_MEMBER);
+        LOGGER.info("New Event because UserId " + user.getId() + " joined Quest " + quest.getId());
+        return checkStoryAndSave(event);
+    }
 	
 	private Event questToEvent(Quest quest, Principal principal, EventState state) {
 		EventType type = EventType.QUEST;
@@ -108,26 +118,30 @@ public class EventService {
         return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
 	}
 
-    public void createEventForUserJoinQuest(Quest quest, User user) {
-        EventType type = EventType.QUEST;
-        String title = quest.getTitle();
-        String story = quest.getStory();
-        EventState state = EventState.NEW_MEMBER;
-        String image = quest.getImage();
-        World world = quest.getWorld();
-        String head = StringUtils.EMPTY;
-        LOGGER.info("New Event because UserId " + user.getId() + " joined Quest " + quest.getId());
-        checkStoryAndSave(new Event(type, title, story, state, image, world, head, user));
+    public Event createEventForCreatedArtefact(Artefact artefact, Principal principal) {
+    	Event event = artefactToEvent(artefact, principal, EventState.CREATED);
+        LOGGER.info(String.format("New Event because of a created artefact '%s'", artefact.getName()));
+        return checkStoryAndSave(event);
     }
 
-    public void createEventForCreatedArtefact(Artefact artefact) {
-        EventType type = EventType.ARTEFACT;
+    public Event createEventForDeletedArtefact(Artefact artefact, Principal principal) {
+    	Event event = artefactToEvent(artefact, principal, EventState.DELETED);
+        LOGGER.info(String.format("New Event because of a deleted artefact '%s'", artefact.getName()));
+        return checkStoryAndSave(event);
+    }
+
+	public Event createEventForUpdatedArtefact(Artefact artefact, Principal principal) {
+    	Event event = artefactToEvent(artefact, principal, EventState.UPDATED);
+        LOGGER.info(String.format("New Event because of an updated artefact '%s'", artefact.getName()));
+        return checkStoryAndSave(event);
+	}
+    
+    private Event artefactToEvent(Artefact artefact, Principal principal, EventState state) {
+    	EventType type = EventType.ARTEFACT;
         String title = artefact.getName();
         String story = artefact.getDescription();
-        EventState state = EventState.CREATED;
         String image = artefact.getIcon();
-        LOGGER.info(String.format("New Event because of a created artefact '%s'", title));
-        checkStoryAndSave(new Event(type, title, story, state, image));
+        return new Event(type, title, story, state, image, userService.getUser(principal));
     }
 
     public Event createEventForNewMessage(String message, Principal principal) {
@@ -145,17 +159,6 @@ public class EventService {
         World world = user.getCurrentWorld();
 
         return checkStoryAndSave(new Event(type, story, world, user));
-    }
-    
-    public void createEventForCreateArtefact(Artefact artefact) {
-		EventType type  = EventType.ARTEFACT;
-		String title = artefact.getName();
-		String story = artefact.getDescription();
-		EventState state = EventState.CREATED;
-		String image = artefact.getIcon();
-		
-		checkStoryAndSave(new Event(type, title, story, state, image));
-		
 	}
     
     public EventUserDto eventToEventUserDto(Event event) {

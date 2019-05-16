@@ -98,7 +98,7 @@ public class QuestController {
     }
 
     @PutMapping(value = "/{id}")
-    public Quest updateQuest(@PathVariable(value = "id") final Long id, @RequestBody final Quest data) {
+    public Quest updateQuest(final Principal principal, @PathVariable(value = "id") final Long id, @RequestBody final Quest data) {
         Quest quest = questRepository.findOne(id);
         if (quest != null) {
             quest.setTitle(data.getTitle());
@@ -109,6 +109,7 @@ public class QuestController {
             quest.setVisible(data.getVisible());
             quest.setCreatorName(data.getCreatorName());
             quest = questRepository.save(quest);
+            webSocketController.onUpdateQuest(quest, principal);
         }
         return quest;
     }
@@ -119,8 +120,8 @@ public class QuestController {
         if (quest != null) {
             final List<Task> tasks = quest.getTasks();
             tasks.forEach(task -> task.setStatus(SonarQuestStatus.OPEN));
-            webSocketController.onDeleteQuest(quest, principal);
             questRepository.delete(quest);
+            webSocketController.onDeleteQuest(quest, principal);
             LOGGER.info("Deleted quest with id {}", id);
         }
     }
@@ -134,20 +135,8 @@ public class QuestController {
             quest.setEnddate(new Date(System.currentTimeMillis()));
             quest.setStatus(QuestState.SOLVED);
             questRepository.save(quest);
-            eventService.createEventForSolvedQuest(quest, principal);
+            webSocketController.onSolveQuest(quest, principal);
         }
-    }
-    
-    @PutMapping(value = "/{questId}/solveQuestDummy")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Quest solveQuestDummy(final Principal principal, @PathVariable(value = "questId") final Long questId) {
-        Quest quest = questRepository.findOne(questId);
-        if (quest != null) {
-            quest.setEnddate(new Date(System.currentTimeMillis()));
-            quest.setStatus(QuestState.SOLVED);
-            eventService.createEventForSolvedQuest(quest, principal);
-        }
-        return quest;
     }
 
     @PostMapping(value = "/{questId}/addWorld/{worldId}")

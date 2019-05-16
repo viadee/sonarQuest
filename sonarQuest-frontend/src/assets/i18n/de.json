@@ -69,15 +69,17 @@
       "NEW_MEMBER": "ist der Quest beigetreten",
       "CREATED": "hat eine neue Quest hinzugefügt",
       "SOLVED": "hat die Quest gelöst",
-      "DELETED": "hat die Quest gelöscht"
+      "DELETED": "hat die Quest gelöscht",
+      "UPDATED": "hat die Quest bearbeitet"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "ist dem Adventure beigetreten",
-      "CREATED": "Neues Abenteuer hinzugefügt",
+      "CREATED": "hat ein neues Abenteuer hinzugefügt",
       "SOLVED": "hat das Abenteuer gelöst"
     },
     "ARTEFACT": {
-      "CREATED": "Neues Item am Marktplatz verfügbar"
+      "CREATED": "hat dem Marktplatz ein neues Item hinzugefügt",
+      "DELETED": "hat das Item entfernt"
     },
     "MESSAGE": {
       "MESSAGE" : "Nachricht",

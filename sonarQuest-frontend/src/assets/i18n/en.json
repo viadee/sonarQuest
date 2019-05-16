@@ -69,15 +69,17 @@
       "NEW_MEMBER": "joined the quest",
       "CREATED": "has added a new quest",
       "SOLVED": "has solved the quest",
-      "DELETED": "has deleted the quest"
+      "DELETED": "has deleted the quest",
+      "UPDATED": "has edited the quest"
     },
     "ADVENTURE": {
       "NEW_MEMBER": "joined the adventure",
-      "CREATED": "Added new adventure",
+      "CREATED": "has added a new adventure",
       "SOLVED": "has solved the adventure"
     },
     "ARTEFACT": {
-      "CREATED": "New item available at the marketplace"
+      "CREATED": "has added a new item to the marketplace",
+      "DELETED": "has deleted the artefact"
     },
     "MESSAGE": {
       "MESSAGE" : "Message",
