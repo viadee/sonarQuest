@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarquest.controllers.WebSocketController;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
@@ -27,6 +28,9 @@ public class ParticipationService {
     
     @Autowired
     private EventService eventService;
+    
+    @Autowired
+    private WebSocketController webSocketController;
 
     public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
         final Quest quest = questRepository.findOne(questId);
@@ -60,7 +64,7 @@ public class ParticipationService {
             participation = new Participation(foundQuest, user);
             participation = participationRepository.save(participation);
             // Create Event for User join Quest
-            eventService.createEventForUserJoinQuest(foundQuest, user);
+            webSocketController.onUserJoinQuest(foundQuest, principal, user);
         }
 		return participation;
 	}
