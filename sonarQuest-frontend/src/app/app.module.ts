@@ -108,6 +108,8 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { SvgIconsModule } from './components/svg-icons/svg-icons.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -219,6 +221,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatSelectModule,
     FormsModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     MatTabsModule,
     CovalentDataTableModule,
@@ -229,7 +232,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    SvgIconsModule
   ],
   providers: [TdMediaService,
     WorldService,

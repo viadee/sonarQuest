@@ -19,7 +19,6 @@ import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ArtefactRepository;
 import com.viadee.sonarquest.services.ArtefactService;
-import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.UserService;
 
 @RestController
@@ -36,7 +35,7 @@ public class ArtefactController {
 	private UserService userService;
 	
 	@Autowired
-	private EventService eventService;
+	private WebSocketController webSocketController;
 
 	@GetMapping
 	public List<Artefact> getAllArtefacts() {
@@ -55,13 +54,13 @@ public class ArtefactController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Artefact createArtefact(@RequestBody final Artefact artefact) {
-		eventService.createEventForCreateArtefact(artefact);
+	public Artefact createArtefact(final Principal principal, @RequestBody final Artefact artefact) {
+        webSocketController.onCreateArtefact(artefact, principal);
 		return artefactService.createArtefact(artefact);
 	}
 
 	@PutMapping(value = "/{id}")
-	public Artefact updateArtefact(@PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
+	public Artefact updateArtefact(final Principal principal, @PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
 		Artefact artefact = artefactRepository.findOne(data.getId());
 		if (artefact != null) {
 			artefact.setDescription(data.getDescription());
@@ -74,6 +73,7 @@ public class ArtefactController {
 			artefact.setUsers(data.getUsers());
 			artefact.setOnMarketplace(data.isOnMarketplace());
 			artefactService.updateArtefact(id, artefact);
+	        webSocketController.onUpdateArtefact(artefact, principal);
 		}
 		return artefact;
 	}
@@ -88,13 +88,14 @@ public class ArtefactController {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public boolean deleteArtefact(@PathVariable(value = "id") final Long id) {
+	public boolean deleteArtefact(final Principal principal, @PathVariable(value = "id") final Long id) {
 		Artefact artefact = artefactRepository.findOne(id);
 		if (artefact != null) {
 			if (artefact.getUsers().size() != 0) {
 				return false;
 			} else {
 				artefactRepository.delete(id);
+		        webSocketController.onDeleteArtefact(artefact, principal);
 				return true;
 			}
 		}
