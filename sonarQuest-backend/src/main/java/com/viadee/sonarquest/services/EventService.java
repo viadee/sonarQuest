@@ -239,7 +239,9 @@ public class EventService {
 		User user = userService.findByUsername(username);
 		if (user.getLastTavernVisit() != null) {
 			List<Event> unseenEvents = eventRepository.findAllWithTimestampAfter(user.getLastTavernVisit());
-			return (unseenEvents.isEmpty()) ? false : true;
+			if(!unseenEvents.isEmpty()) {
+				return true;
+			}
 		}
 		return false;
 	}
