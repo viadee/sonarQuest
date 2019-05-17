@@ -75,6 +75,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.updateWorldsFromCurrentUser();
+    
     this.userService.onUserChange().subscribe(() => {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
@@ -232,7 +234,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
-      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");
@@ -255,11 +256,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
     return element;
   }
-
-  button(I) {
-    //this.eventService.getEventsForCurrentWorldEfficient()
-  }
-
+  
   updateLastTavernVisit(): void {
     this.unseenEventsAvailable = false;
     this.userService.updateLastTavernVisit();
