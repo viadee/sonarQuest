@@ -75,17 +75,13 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.updateWorldsFromCurrentUser();
-    
     this.userService.onUserChange().subscribe(() => {
       if (this.userService.getUser()) {
         this.user = this.userService.getUser();
         this.updateMenu();
         this.susbcribeWorlds();
         this.setDesign();
-        this.updateWorldsFromCurrentUser();
-        this.checkForUnseenEvents();
-        this.eventService.checkForUnseenEvents();
+        this.subscribeUnseenEvents();
       }
     });
     this.setPreDesign();
@@ -128,14 +124,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       this.worlds = worlds;
     })
   }
-  private checkForUnseenEvents() {
+
+  private subscribeUnseenEvents() {
     this.eventService.unseenEvents$.subscribe(unseenEventsAvailable => {
       this.unseenEventsAvailable = unseenEventsAvailable;
     })
-  }
-
-  protected updateWorldsFromCurrentUser(): void {
-    this.worldService.getWorlds();
   }
 
   private setBackground() {

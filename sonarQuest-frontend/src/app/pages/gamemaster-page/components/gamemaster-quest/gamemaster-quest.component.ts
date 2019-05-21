@@ -92,10 +92,10 @@ export class GamemasterQuestComponent implements OnInit {
     }
   }
   private init() {
-    if (this.worldService.getCurrentWorld()) {
-      this.currentWorld = this.worldService.getCurrentWorld();
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world
       this.subscribeToQuests();
-    }
+    })
   }
 
   private translateTable() {

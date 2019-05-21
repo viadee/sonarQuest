@@ -20,9 +20,10 @@ export class WorldService {
   currentWorld$ = this.currentWorldSubject.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {
-    this.getWorlds();
 
     userService.user$.subscribe(user => {
+      
+        this.getWorlds();
         this.world = user.currentWorld
         this.currentWorldSubject.next(user.currentWorld)
     })
