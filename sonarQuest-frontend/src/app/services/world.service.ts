@@ -4,14 +4,11 @@ import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
-import {User} from '../Interfaces/User';
 import { Subject } from 'rxjs';
 
 @Injectable()
 export class WorldService {
 
-  //world: World = null;
-  wordChangeListener: Subscriber<boolean>[] = [];
 
   private worldsSubject: Subject<World[]> = new ReplaySubject(1);
   worlds$ = this.worldsSubject.asObservable();
@@ -26,42 +23,24 @@ export class WorldService {
 
     userService.user$.subscribe(user => {
       
-        this.getWorlds();
-        //this.world = user.currentWorld
-        this.currentWorldSubject.next(user.currentWorld)
+      this.getWorlds().subscribe(worlds => {
+        if (user.currentWorld == null){
+          this.setCurrentWorld(worlds[0])
+        } else {
+          this.currentWorldSubject.next(user.currentWorld)
+        }
+      });
     })
 
     this.getAllWorlds();
   }
 
-  public onWorldChange(): Observable<boolean> {
-    return new Observable<boolean>(observer => {
-      this.wordChangeListener.push(observer);
-    });
-  }
-
-  public worldChanged(): void {
-    this.wordChangeListener.forEach(l => l.next(true));
-  }
-
-  /**
-   * Get all assigned worlds for logged in user
-   */
   public getWorlds(): Observable<World[]> {
     this.http.get<World[]>(`${environment.endpoint}/world/worlds`).subscribe(
       result => this.worldsSubject.next(result),
       err => this.worldsSubject.error(err)
     );
     return this.worldsSubject;
-  }
-
-  /**
-   * Get all assigned worlds for user
-   * The function is needed when editing the worlds assigned to a user
-   * @param user  
-   */
-  public ggetWorldsForUser(user: User): Promise<World[]> {
-    return this.http.get<World[]>(`${environment.endpoint}/world/user/${user.id}`).toPromise();
   }
 
   public getAllWorlds(): Observable<World[]> {
@@ -76,8 +55,6 @@ export class WorldService {
     this.http.get<World>(`${environment.endpoint}/world/current`).subscribe(
       world => {
         this.currentWorldSubject.next(world);
-        //this.world = world;
-        this.worldChanged();
       });
   }
 
@@ -85,7 +62,6 @@ export class WorldService {
     this.http.post<World>(`${environment.endpoint}/world/current`, world).subscribe(
       result => {
         this.currentWorldSubject.next(result)
-        //this.world = result;
       },
       err => this.currentWorldSubject.error(err)
     );

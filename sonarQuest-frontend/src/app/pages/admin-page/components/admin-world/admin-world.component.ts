@@ -93,7 +93,7 @@ export class AdminWorldComponent implements OnInit {
   updateWorlds() {
     const loading = this.loadingService.getLoadingSpinner();
     this.worldService.generateWorldsFromSonarQubeProjects().then(() => {
-      this.worldService.worldChanged();
+      this.worldService.getAllWorlds()
       loading.close();
     })
   }

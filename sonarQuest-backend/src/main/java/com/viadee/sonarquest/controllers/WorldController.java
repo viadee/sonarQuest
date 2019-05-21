@@ -48,7 +48,7 @@ public class WorldController {
 
     @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @GetMapping(value = "/all")
-    public List<World> getAllWorlds(final Principal principal) {
+    public List<World> getAllWorlds() {
         return worldService.findAll();
     }
 
