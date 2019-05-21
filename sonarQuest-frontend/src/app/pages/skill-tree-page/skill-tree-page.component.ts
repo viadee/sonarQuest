@@ -53,6 +53,13 @@ export class SkillTreePageComponent implements OnInit {
   
   }*/
 
+  isSkillTreeLoaded(): boolean {
+    if (typeof this.userSkillGroupTree !== 'undefined' && this.userSkillGroupTree.nodes != null) {
+      return true;
+    }
+    return false;
+  }
+
   getSkillGroupIcon(icon: String): String {
     switch (icon) {
       case 'ra-shield': {

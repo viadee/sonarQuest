@@ -10,7 +10,7 @@
     </div>
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="data.user.mail" class="form-control" formControlName="mail">
+        <input matInput placeholder="{{'LOGIN.MAIL' | translate}}" [(ngModel)]="mail" class="form-control" formControlName="mail">
         <mat-error>{{getErrorMessage('mail')}}</mat-error>
       </mat-form-field>
     </div>

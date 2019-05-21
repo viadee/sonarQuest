@@ -5,7 +5,9 @@ export enum EventState {
     NEW_MEMBER = 'NEW_MEMBER',
 	CREATED    = 'CREATED',
 	SOLVED     = 'SOLVED',
-	NEW_ITEM   = 'NEW_ITEM'
+    NEW_ITEM   = 'NEW_ITEM',
+    SKILL_LEARNED = 'SKILL_LEARNED',
+	NEW_RULE = 'NEW_RULE'
 }
 
 export interface Event {

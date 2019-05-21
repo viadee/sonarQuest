@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { World } from "../../Interfaces/World";
 import { User } from "../../Interfaces/User";
 import { RoutingUrls } from "../../app-routing/routing-urls";
@@ -71,7 +71,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     private permissionService: PermissionService,
     private userService: UserService,
     private sonarRuleService: SonarRuleService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private eventService: EventService) {
   }
 
   protected logout(): void {
@@ -169,7 +170,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   private loadUnassignedSonarRules() {
-    this.sonarRuleService.loadUnassignedSonarRules();
+    if (this.user != null && this.user.role.id === 3) {
+      this.sonarRuleService.loadUnassignedSonarRules();
+    }
   }
 
   protected updateWorldsFromCurrentUser(): void {
@@ -212,6 +215,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   determinePageTitle(url: string): string {
     if (this.pageNames) {
+      if (url.includes('innerskilltree')) {
+        url = '/' + url.split('/')[1]
+
+      }
       switch (url) {
         case '/start':
           return this.pageNames.STARTPAGE;
@@ -229,6 +236,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
           return this.pageNames.ADMIN;
         case '/events':
           return this.pageNames.EVENTS;
+        case '/skilltree':
+          return this.pageNames.SKILL_TREE;
+        case '/innerskilltree':
+          return this.pageNames.SKILL_TREE;
         default:
           return '';
       }

@@ -31,7 +31,7 @@
     background-color: rgba(114, 177, 255, 0.35);
 }
 
-.LEARNED_USER_SKILL .timestamp{
+.USER_SKILL .timestamp{
     background-color: rgba(119, 255, 114, 0.35);
 }
 .SONAR_RULE .timestamp{
@@ -51,7 +51,7 @@
     color: rgb(0, 76, 171) !important;
 }
 
-.LEARNED_USER_SKILL span.state{
+.USER_SKILL span.state{
     color: rgb(68, 171, 0) !important;
 }
 

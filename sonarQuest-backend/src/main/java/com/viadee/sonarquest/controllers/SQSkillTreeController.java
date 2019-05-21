@@ -32,7 +32,10 @@ public class SQSkillTreeController {
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
 			@RequestParam(value = "worldID") final Long worldID) {
 		World world = worldService.findById(worldID);
-		List<String> mails = world.getUsers().stream().filter(user-> user.getMail()!= null && user.getRole().getName().equals(RoleName.DEVELOPER)).map(user-> user.getMail()).collect(Collectors.toList());		
+		List<String> mails = null;
+		if(world != null) {
+			mails = world.getUsers().stream().filter(user-> user.getMail()!= null && user.getRole().getName().equals(RoleName.DEVELOPER)).map(user-> user.getMail()).collect(Collectors.toList());		
+		}
 		return skillTreeService.generateSkillTreeForTeamByGroupID(id, mails);
 
 	}

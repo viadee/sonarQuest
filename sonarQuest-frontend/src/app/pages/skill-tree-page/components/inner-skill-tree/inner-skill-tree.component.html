@@ -7,7 +7,7 @@
           {{"SKILL_TREE_PAGE.INNER_SKILL_TREE_BACK"| translate}}</small>
       </div>
       <div layout-padding>
-        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">         
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
           <mat-toolbar-row style="height: 100%;">
             <span class="mat-card-title" style="margin:0" *ngIf="!isAdmin && !isGamemaster">
               {{"SKILL_TREE_PAGE.SKILL_TREE_DEV"| translate}}
@@ -19,12 +19,26 @@
               {{"SKILL_TREE_PAGE.SKILL_TREE_ADM"| translate}}
             </span>
             <span class="toolbar-spacer"></span>
-            <button mat-raised-button *ngIf="isAdmin" [disabled]="unassignedSonarRules.length === 0" color="primary" (click)="addSkill()"><mat-icon>add</mat-icon>{{"SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.ADD_SKILL"| translate}}</button>
+            <button mat-raised-button *ngIf="isAdmin" [disabled]="unassignedSonarRules.length === 0" color="primary"
+              (click)="addSkill()">
+              <mat-icon>add</mat-icon>{{"SKILL_TREE_PAGE.ADD_INNER_SKILL_TREE.ADD_SKILL"| translate}}
+            </button>
           </mat-toolbar-row>
+        </div>
+        <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+          <span class="mat-card-subtitle" style="padding-left: 16px">
+            {{"SKILL_TREE_PAGE.INNER_SKILL_TREE_ACTION_NOTE"| translate}}
+          </span>
+          <span class="mat-card-subtitle" *ngIf="isGamemaster" style="margin-top: unset">
+            {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_GM"| translate}}
+          </span>
+          <span class="mat-card-subtitle" *ngIf="!isGamemaster && !isAdmin" style="margin-top: unset">
+            {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_DEV"| translate}}
+          </span>
         </div>
       </div>
       <mat-divider></mat-divider>
-      <div class="graph-viewbox" *ngIf="userSkillTree.nodes?.length > 0">
+      <div class="graph-viewbox" *ngIf="isSkillTreeLoaded()">
         <ngx-graph [orientation]="TopToBottom" [links]="userSkillTree.links" [nodes]="userSkillTree.nodes"
           [legend]="false" [curve]="curve" [draggingEnabled]="false" scheme="fire" [autoZoom]="true"
           [autoCenter]="true">
@@ -40,9 +54,37 @@
             <svg:g class="node not-allowed" *ngIf="node.root" ngx-tooltip [tooltipPlacement]="'top'"
               [tooltipType]="'tooltip'" [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_ROOT_NODE'| translate"
               [tooltipCloseOnMouseLeave]="true">
-              <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
-                [attr.fill]="node.backgroundColor" />
-              <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
+              <svg:rect [attr.width]="node.width+16 " [attr.height]="node.height * 1.3" style="fill:#fff"
+                [attr.stroke]="node.backgroundColor" stroge-width="3" rx="15" ry="15" />
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
+                style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
+                *ngIf="node.learnCoverage==100">
+                <path style="fill:#C8E6C9;"
+                  d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
+                <path style="fill:#4CAF50;"
+                  d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48"
+                [attr.x]="node.width-8" [attr.y]="node.height-10" version="1.1" width="16px" height="16px"
+                *ngIf="node.learnCoverage!== 0 && node.learnCoverage !== 100 ">
+                <g id="surface1">
+                  <path style=" fill:#E65100;"
+                    d="M 25.601563 34.398438 C 25.699219 34 25.699219 33.5 25.699219 33 C 25.699219 32.5 25.699219 32.101563 25.601563 31.601563 L 28.398438 29.601563 C 28.699219 29.398438 28.800781 29 28.601563 28.699219 L 25.898438 24.101563 C 25.699219 23.800781 25.398438 23.699219 25.101563 23.800781 L 22 25.300781 C 21.300781 24.699219 20.5 24.300781 19.601563 23.898438 L 19.300781 20.5 C 19.300781 20.199219 19 19.898438 18.699219 19.898438 L 13.398438 19.898438 C 13.101563 19.898438 12.800781 20.199219 12.800781 20.5 L 12.398438 24 C 11.5 24.300781 10.800781 24.800781 10 25.398438 L 6.898438 24 C 6.601563 23.898438 6.199219 24 6.101563 24.300781 L 3.398438 28.898438 C 3.199219 29.199219 3.300781 29.601563 3.601563 29.800781 L 6.398438 31.800781 C 6.300781 32.199219 6.300781 32.699219 6.300781 33.199219 C 6.300781 33.699219 6.300781 34.101563 6.398438 34.601563 L 3.601563 36.601563 C 3.300781 36.800781 3.199219 37.199219 3.398438 37.5 L 6.101563 42.101563 C 6.300781 42.398438 6.601563 42.5 6.898438 42.398438 L 10 41 C 10.699219 41.601563 11.5 42 12.398438 42.398438 L 12.699219 45.800781 C 12.699219 46.101563 13 46.398438 13.300781 46.398438 L 18.601563 46.398438 C 18.898438 46.398438 19.199219 46.101563 19.199219 45.800781 L 19.5 42.398438 C 20.398438 42.101563 21.101563 41.601563 21.898438 41 L 25 42.398438 C 25.300781 42.5 25.699219 42.398438 25.800781 42.101563 L 28.5 37.5 C 28.699219 37.199219 28.601563 36.800781 28.300781 36.601563 Z M 16 38 C 13.199219 38 11 35.800781 11 33 C 11 30.199219 13.199219 28 16 28 C 18.800781 28 21 30.199219 21 33 C 21 35.800781 18.800781 38 16 38 Z " />
+                  <path style=" fill:#FFA000;"
+                    d="M 41.898438 15.300781 C 42 14.800781 42 14.398438 42 14 C 42 13.601563 42 13.199219 41.898438 12.699219 L 44.398438 10.898438 C 44.699219 10.699219 44.699219 10.398438 44.601563 10.101563 L 42.101563 5.800781 C 41.898438 5.5 41.601563 5.398438 41.300781 5.601563 L 38.398438 6.898438 C 37.699219 6.398438 37 6 36.199219 5.601563 L 35.898438 2.5 C 36 2.199219 35.800781 2 35.5 2 L 30.601563 2 C 30.300781 2 30 2.199219 30 2.5 L 29.699219 5.601563 C 28.898438 5.898438 28.199219 6.300781 27.5 6.898438 L 24.601563 5.601563 C 24.300781 5.5 24 5.601563 23.800781 5.800781 L 21.300781 10.101563 C 21.101563 10.398438 21.199219 10.699219 21.5 10.898438 L 24 12.699219 C 24 13.199219 24 13.601563 24 14 C 24 14.398438 24 14.800781 24.101563 15.300781 L 21.601563 17.101563 C 21.300781 17.300781 21.300781 17.601563 21.398438 17.898438 L 23.898438 22.199219 C 24.101563 22.5 24.398438 22.601563 24.699219 22.398438 L 27.601563 21.101563 C 28.300781 21.601563 29 22 29.800781 22.398438 L 30.101563 25.5 C 30.101563 25.800781 30.398438 26 30.699219 26 L 35.601563 26 C 35.898438 26 36.199219 25.800781 36.199219 25.5 L 36.5 22.398438 C 37.300781 22.101563 38 21.699219 38.699219 21.101563 L 41.601563 22.398438 C 41.898438 22.5 42.199219 22.398438 42.398438 22.199219 L 44.898438 17.898438 C 45.101563 17.601563 45 17.300781 44.699219 17.101563 Z M 33 19 C 30.199219 19 28 16.800781 28 14 C 28 11.199219 30.199219 9 33 9 C 35.800781 9 38 11.199219 38 14 C 38 16.800781 35.800781 19 33 19 Z " />
+                </g>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
+                style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
+                *ngIf="node.learnCoverage==0">
+                <rect x="5.7" y="22" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.9561 24.0361)"
+                  style="fill:#D50000;" width="36.8" height="4" />
+                <path style="fill:#D50000;"
+                  d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z M24,40c-8.8,0-16-7.2-16-16S15.2,8,24,8  s16,7.2,16,16S32.8,40,24,40z" />
+              </svg>
+              <svg:text alignment-baseline="central" [attr.x]="(node.width+16) / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %
@@ -51,9 +93,37 @@
             <svg:g class="node pointer" *ngIf="!node.root" ngx-tooltip [tooltipPlacement]="'top'"
               [tooltipType]="'tooltip'" [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate"
               [tooltipCloseOnMouseLeave]="true" (click)="openDialog(node)">
-              <svg:rect [attr.width]="node.width" [attr.height]="node.height * 1.2"
-                [attr.fill]="node.backgroundColor" />
-              <svg:text alignment-baseline="central" [attr.x]="node.width / 2" [attr.y]="node.height / 2"
+              <svg:rect [attr.width]="node.width+16" [attr.height]="node.height * 1.3" style="fill:#fff"
+                [attr.stroke]="node.backgroundColor" stroge-width="3" rx="15" ry="15" />
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
+                style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
+                *ngIf="node.learnCoverage==100">
+                <path style="fill:#C8E6C9;"
+                  d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
+                <path style="fill:#4CAF50;"
+                  d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48"
+                [attr.x]="node.width-8" [attr.y]="node.height-10" version="1.1" width="16px" height="16px"
+                *ngIf="node.learnCoverage!== 0 && node.learnCoverage !== 100 ">
+                <g id="surface1">
+                  <path style=" fill:#E65100;"
+                    d="M 25.601563 34.398438 C 25.699219 34 25.699219 33.5 25.699219 33 C 25.699219 32.5 25.699219 32.101563 25.601563 31.601563 L 28.398438 29.601563 C 28.699219 29.398438 28.800781 29 28.601563 28.699219 L 25.898438 24.101563 C 25.699219 23.800781 25.398438 23.699219 25.101563 23.800781 L 22 25.300781 C 21.300781 24.699219 20.5 24.300781 19.601563 23.898438 L 19.300781 20.5 C 19.300781 20.199219 19 19.898438 18.699219 19.898438 L 13.398438 19.898438 C 13.101563 19.898438 12.800781 20.199219 12.800781 20.5 L 12.398438 24 C 11.5 24.300781 10.800781 24.800781 10 25.398438 L 6.898438 24 C 6.601563 23.898438 6.199219 24 6.101563 24.300781 L 3.398438 28.898438 C 3.199219 29.199219 3.300781 29.601563 3.601563 29.800781 L 6.398438 31.800781 C 6.300781 32.199219 6.300781 32.699219 6.300781 33.199219 C 6.300781 33.699219 6.300781 34.101563 6.398438 34.601563 L 3.601563 36.601563 C 3.300781 36.800781 3.199219 37.199219 3.398438 37.5 L 6.101563 42.101563 C 6.300781 42.398438 6.601563 42.5 6.898438 42.398438 L 10 41 C 10.699219 41.601563 11.5 42 12.398438 42.398438 L 12.699219 45.800781 C 12.699219 46.101563 13 46.398438 13.300781 46.398438 L 18.601563 46.398438 C 18.898438 46.398438 19.199219 46.101563 19.199219 45.800781 L 19.5 42.398438 C 20.398438 42.101563 21.101563 41.601563 21.898438 41 L 25 42.398438 C 25.300781 42.5 25.699219 42.398438 25.800781 42.101563 L 28.5 37.5 C 28.699219 37.199219 28.601563 36.800781 28.300781 36.601563 Z M 16 38 C 13.199219 38 11 35.800781 11 33 C 11 30.199219 13.199219 28 16 28 C 18.800781 28 21 30.199219 21 33 C 21 35.800781 18.800781 38 16 38 Z " />
+                  <path style=" fill:#FFA000;"
+                    d="M 41.898438 15.300781 C 42 14.800781 42 14.398438 42 14 C 42 13.601563 42 13.199219 41.898438 12.699219 L 44.398438 10.898438 C 44.699219 10.699219 44.699219 10.398438 44.601563 10.101563 L 42.101563 5.800781 C 41.898438 5.5 41.601563 5.398438 41.300781 5.601563 L 38.398438 6.898438 C 37.699219 6.398438 37 6 36.199219 5.601563 L 35.898438 2.5 C 36 2.199219 35.800781 2 35.5 2 L 30.601563 2 C 30.300781 2 30 2.199219 30 2.5 L 29.699219 5.601563 C 28.898438 5.898438 28.199219 6.300781 27.5 6.898438 L 24.601563 5.601563 C 24.300781 5.5 24 5.601563 23.800781 5.800781 L 21.300781 10.101563 C 21.101563 10.398438 21.199219 10.699219 21.5 10.898438 L 24 12.699219 C 24 13.199219 24 13.601563 24 14 C 24 14.398438 24 14.800781 24.101563 15.300781 L 21.601563 17.101563 C 21.300781 17.300781 21.300781 17.601563 21.398438 17.898438 L 23.898438 22.199219 C 24.101563 22.5 24.398438 22.601563 24.699219 22.398438 L 27.601563 21.101563 C 28.300781 21.601563 29 22 29.800781 22.398438 L 30.101563 25.5 C 30.101563 25.800781 30.398438 26 30.699219 26 L 35.601563 26 C 35.898438 26 36.199219 25.800781 36.199219 25.5 L 36.5 22.398438 C 37.300781 22.101563 38 21.699219 38.699219 21.101563 L 41.601563 22.398438 C 41.898438 22.5 42.199219 22.398438 42.398438 22.199219 L 44.898438 17.898438 C 45.101563 17.601563 45 17.300781 44.699219 17.101563 Z M 33 19 C 30.199219 19 28 16.800781 28 14 C 28 11.199219 30.199219 9 33 9 C 35.800781 9 38 11.199219 38 14 C 38 16.800781 35.800781 19 33 19 Z " />
+                </g>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
+                style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
+                *ngIf="node.learnCoverage==0">
+                <rect x="5.7" y="22" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.9561 24.0361)"
+                  style="fill:#D50000;" width="36.8" height="4" />
+                <path style="fill:#D50000;"
+                  d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z M24,40c-8.8,0-16-7.2-16-16S15.2,8,24,8  s16,7.2,16,16S32.8,40,24,40z" />
+              </svg>
+              <svg:text alignment-baseline="central" [attr.x]="(node.width+16) / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.learnCoverage}} %</svg:text>
@@ -73,14 +143,12 @@
 
         </ngx-graph>
       </div>
-      <div class="graph-viewbox" *ngIf="userSkillTree.nodes?.length == 0">
+      <div class="graph-viewbox" *ngIf="isGamemaster && !isThereACurrentWorld()">
         <h1 class="no-world-selected">{{"WORLD.NO_WORLD_SELECTED"| translate}}</h1>
       </div>
     </mat-card-content>
   </mat-card>
-  <swal
-  #newRulesAdded
-  title = "{{'SKILL_TREE_PAGE.ADDED_RULE_SUCCESS_SWAL_TITLE' | translate}}"
- [options]=swalOptionsAddedRuleSuccess>
-</swal>
+  <swal #newRulesAdded title="{{'SKILL_TREE_PAGE.ADDED_RULE_SUCCESS_SWAL_TITLE' | translate}}"
+    [options]=swalOptionsAddedRuleSuccess>
+  </swal>
 </div>

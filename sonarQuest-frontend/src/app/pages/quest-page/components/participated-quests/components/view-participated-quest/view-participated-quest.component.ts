@@ -10,6 +10,7 @@ import {SonarQubeService} from '../../../../../../services/sonar-qube.service';
 import {User} from '../../../../../../Interfaces/User';
 import {UserService} from '../../../../../../services/user.service';
 import {Task} from '../../../../../../Interfaces/Task';
+import { UserSkillService } from 'app/services/user-skill.service';
 
 @Component({
   selector: 'app-view-participated-quest',
@@ -27,7 +28,8 @@ export class ViewParticipatedQuestComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public quest: Quest,
     public userService: UserService,
     public taskService: TaskService,
-    public questService: QuestService
+    public questService: QuestService,
+    private userSkillService: UserSkillService
   ) {
   }
 
@@ -89,6 +91,10 @@ export class ViewParticipatedQuestComponent implements OnInit {
   openIssue(task: Task) {
     this.sonarQubeService.getIssueLink(task.key, this.currentWorld)
       .then(link => window.open(link, '_blank'));
+  }
+
+  createRange(scoring: number): number[] {
+    return this.userSkillService.getNumberOfIcons(scoring);
   }
 
 }

@@ -12,11 +12,14 @@
     "BACKGROUND": "Switch transparency of background",
     "USER_PROFILE": "Open user profile",
     "SKILL_TREE": "Skill-Tree",
-    "NEW_RULE_SWAL_TITLE": "There are new SonarRules",
+    "NEW_RULE_SWAL_TITLE": "There are new SonarRules.",
     "EVENTS": "Tavern",
     "NEW_RULES":"New SonarRules",
     "OK": "OK",
-    "SHOW_SONAR_RULES": "Show avaiable SonarRules"
+    "SHOW_SONAR_RULES": "Show avaiable SonarRules",
+    "NEW_RULES_INSTRUCTION":"The following rules are now available and must be placed in the skill tree. Click on the rules to get more details. You can jump directly into the skill tree from here.",
+    "TO_SKILL_TREE": "To the skill-tree"
+
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",
@@ -93,8 +96,8 @@
       "HINT_CHARACTERS" : "Max 255 characters",
       "SEND" : "Send"
     },
-    "LEARNED_USER_SKILL":{
-      "SKILL_LEARNED": "Skill was learned"
+    "USER_SKILL":{
+      "SKILL_LEARNED": "has learned a skill"
     },
     "SONAR_RULE":{
       "NEW_RULE": "New SonarQube rule available"
@@ -155,7 +158,7 @@
       "USE_QUEST_CARDS": "Questcards",
       "LAST_LOGIN": "Last Login",
       "CREATORNAME": "By",
-      "SCORING": "Team-Scoring"
+      "SCORING": "Difficulty"
     },
     "INFO": {
       "NO_ENTRIES": "no entries",
@@ -196,7 +199,7 @@
     "AVATARCLASS": "Class",
     "TROPHIES": "Trophies",
     "TOOLTIP_EDIT": "Edit personal settings",
-    "SCORING":"Team-Scoring"
+    "SCORING":"Difficulty"
   },
   "QUEST": {
     "QUEST": "Quest",
@@ -320,7 +323,10 @@
       "PREVIOUS_ERROR": "A previous skill can not be a previous one",
       "IS_ROOT_ERROR": "A folowing skill can not be a root skill",
       "ADD_SKILL": "Assign new SonarRule"
-    }
+    },
+    "INNER_SKILL_TREE_ACTION_NOTE": "You can zoom the skill-tree with the scroll wheel. The skill-tree is draggable.",
+    "PERCENTAGE_INFO_DEV":" The percentages indicate how your learning progress is at the respective skill",
+    "PERCENTAGE_INFO_GM":" The percentages indicate the percentage of developers in your team who have already learned the skill."
   },
   "INNER_SKILL_TREE_POPUP": {
     "CONFIRM": "OK",

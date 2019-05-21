@@ -18,11 +18,10 @@ public class CachingTask {
 	@Autowired
 	private CacheManager cacheManager; 
 	
-	//TODO as sonarquest.properties
 		@Scheduled(cron = "${cron.expression.cache.clearing.rate}")
 		public void clearTaskScoringCache() {
 			for(String cacheName :cacheManager.getCacheNames()) {
-				LOGGER.info("The cache with the name '{}' and '{}' is avaiable",cacheName);
+				LOGGER.info("The cache with the name '{}' is avaiable",cacheName);
 			}
 			cacheManager.getCache("taskScoringCache").clear();
 			cacheManager.getCache("allQuestFromWorldCache").clear();

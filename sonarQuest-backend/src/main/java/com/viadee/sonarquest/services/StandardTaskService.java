@@ -12,6 +12,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -35,6 +37,7 @@ import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
 public class StandardTaskService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(StandardTaskService.class);
 
 	@Autowired
 	private ExternalRessourceService externalRessourceService;
@@ -132,6 +135,12 @@ public class StandardTaskService {
 		});
 
 		return tasks;
+	}
+	
+	@CachePut(value="taskScoringCache", key="#w.id")
+	public List<StandardTask> updateFindByWorldCache(final World w) {
+		LOGGER.info("Cache 'taskScoringCache' for world '{}' has been updated",w.getName());
+		return findByWorld(w);
 	}
 	
 	

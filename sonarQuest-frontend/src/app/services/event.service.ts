@@ -80,7 +80,10 @@ export class EventService implements OnChanges {
           userDto.picture = image
 
           localEventDtos.forEach((eventDto: EventDto) => {
-            if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE') {
+            if (eventDto.userId === userDto.id) {
+              if (eventDto.type === 'MESSAGE' || eventDto.type === 'USER_SKILL') {
+
+              }
               eventDto.image = userDto.picture
             }
           });
@@ -110,7 +113,8 @@ export class EventService implements OnChanges {
       console.log(eventUserDto.eventDtos[0])
       console.log(eventDto)
       eventUserDto.eventDtos[0].image = eventDto.image
-    } else if (localEventDtos[0].type == "MESSAGE") {
+      console.log(localEventDtos[0].type)
+    } else if (localEventDtos[0].type === "MESSAGE" || localEventDtos[0].type === "USER_SKILL") {
       localUserDtos.forEach((userDto: UserDto) => {
 
         this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
@@ -118,8 +122,10 @@ export class EventService implements OnChanges {
             userDto.picture = image
 
             localEventDtos.forEach((eventDto: EventDto) => {
-              if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE') {
-                eventDto.image = userDto.picture
+              if (eventDto.userId === userDto.id) {
+                if (eventDto.type === 'USER_SKILL' || eventDto.type === 'MESSAGE') {
+                  eventDto.image = userDto.picture
+                }
               }
             });
           });
@@ -170,7 +176,6 @@ export class EventService implements OnChanges {
   public checkForUnseenEvents(): Observable<boolean> {
     const currentUrl = this.router.url.substring(1);
     if (currentUrl !== RoutingUrls.events) {
-      console.log(this.router.url);
       this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`).subscribe(result => this.unseenEventsSubject.next(result));
       return this.unseenEventsSubject.asObservable();
     }

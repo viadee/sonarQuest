@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.skillTree.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viadee.sonarquest.controllers.WebSocketController;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
@@ -37,6 +39,7 @@ public class UserSkillController {
 
 	@Autowired
 	private UserSkillDtoEntityMapper userSkillMapper;
+	
 
 	@GetMapping
 	public List<UserSkill> getAllUserSkills() {
@@ -101,9 +104,9 @@ public class UserSkillController {
 
 	@PostMapping(value = "/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserSkill createUserSkill(@RequestParam(value = "groupid") final Long groupid,
+	public UserSkill createUserSkill(Principal principal ,@RequestParam(value = "groupid") final Long groupid,
 			@RequestBody UserSkill userSkill) {
-		return userSkillService.createUserSkill(userSkill, groupid);
+		return userSkillService.createUserSkill(userSkill, groupid, principal);
 	}
 
 	// TODO evtl. ueberfluessig schauen wegen autaker nutzung

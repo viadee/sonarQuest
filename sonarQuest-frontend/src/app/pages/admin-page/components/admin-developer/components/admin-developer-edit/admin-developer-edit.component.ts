@@ -26,16 +26,17 @@ export class AdminDeveloperEditComponent implements OnInit {
   roles: Role[];
   nameTaken: boolean;
   mailTaken: boolean;
+  mail: string = null;
 
   columns: ITdDataTableColumn[] = [
     { name: 'userId', label: 'UserId', hidden: true },
     { name: 'worldId', label: 'WorldId', hidden: true },
     { name: 'worldName', label: 'World' },
     { name: 'editJoined', label: 'Joined' },
-  ]; 
+  ];
   editForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
-    mail: new FormControl(null, [Validators.required, this.matchMailValidator()]),
+    mail: new FormControl(null, [this.matchMailValidator()]),
     role: new FormControl(null, [Validators.required]),
     about: new FormControl(),
     picture: new FormControl()
@@ -44,7 +45,7 @@ export class AdminDeveloperEditComponent implements OnInit {
     private dialogRef: MatDialogRef<AdminDeveloperComponent>,
     private userService: UserService,
     private translateService: TranslateService,
-    @Inject(MAT_DIALOG_DATA) public data: {user: User, users: User[]},
+    @Inject(MAT_DIALOG_DATA) public data: { user: User, users: User[] },
     private imageService: ImageService,
     private roleService: RoleService,
     private userToWorldService: UserToWorldService,
@@ -57,7 +58,10 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.loadImages();
     this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
-    });    
+    });
+    if (this.data.user.mail !== null && !this.data.user.mail.includes('.local')) {
+      this.mail = this.data.user.mail;
+    }
     this.roleService.getRoles().then(roles => this.roles = roles);
     this.nameTaken = false;
     this.mailTaken = false;
@@ -72,10 +76,13 @@ export class AdminDeveloperEditComponent implements OnInit {
   }
 
   editDeveloper() {
+    if (this.mail != null) {
+      this.data.user.mail = this.mail;
+    }
     this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.updateUserToWorld(this.userToWorlds);
       this.dialogRef.close(true);
-      if(this.data.user.id === this.userService.getUser().id){
+      if (this.data.user.id === this.userService.getUser().id) {
         this.worldService.getWorlds()
       }
     })
@@ -99,7 +106,7 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.nameTaken = false;
       }
-      return this.nameTaken ? {'currentName': {nameVal}} : null;
+      return this.nameTaken ? { 'currentName': { nameVal } } : null;
     }
   }
   matchMailValidator() {
@@ -110,7 +117,7 @@ export class AdminDeveloperEditComponent implements OnInit {
       } else {
         this.mailTaken = false;
       }
-      return this.mailTaken ? {'currentMail': {mailVal: mailVal}} : null;
+      return this.mailTaken ? { 'currentMail': { mailVal: mailVal } } : null;
     }
   }
 
@@ -119,11 +126,11 @@ export class AdminDeveloperEditComponent implements OnInit {
       return 'This value is mandatory';
     }
     if (this.nameTaken) {
-      this.editForm.controls['name'].setErrors({'matchNameValidator': true});
+      this.editForm.controls['name'].setErrors({ 'matchNameValidator': true });
       return 'Name already taken. Please choose a different name';
     }
-    if (this.mailTaken && this.editForm.get('mail').value != null ) {
-      this.editForm.controls['mail'].setErrors({'matchMailValidator': true});
+    if (this.mailTaken && this.editForm.get('mail').value != null) {
+      this.editForm.controls['mail'].setErrors({ 'matchMailValidator': true });
       return 'E-Mail already taken. Please choose a different E-Mail';
     }
   }

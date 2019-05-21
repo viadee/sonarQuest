@@ -18,7 +18,6 @@ export class AuthenticationGuard implements CanActivateChild {
 
   authenticate(nextUrl: string): boolean | Promise<boolean> {
     const isLoggedIn = this.authService.isLoggedIn();
-    console.log(nextUrl);
     if (!isLoggedIn) {
       this.router.navigate([RoutingUrls.login], { skipLocationChange: true });
       return false;
@@ -26,7 +25,6 @@ export class AuthenticationGuard implements CanActivateChild {
     if (nextUrl.indexOf(RoutingUrls.innerskilltree) >= 0) {
       nextUrl = nextUrl.substring(0, nextUrl.indexOf(','));
     }
-    console.log(nextUrl);
     return this.permissionService.isUrlPermitted(nextUrl);
   }
 }

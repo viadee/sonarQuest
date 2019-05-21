@@ -4,14 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { SkillTreeService } from 'app/services/skill-tree.service';
 import { identifierName } from '@angular/compiler';
 import * as shape from 'd3-shape';
-import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { InnerSkillDetailDialogComponent } from './components/inner-skill-detail-dialog/inner-skill-detail-dialog.component';
-import { SonarRule } from 'app/Interfaces/SonarRule';
 import { PermissionService } from 'app/services/permission.service';
 import { UserService } from 'app/services/user.service';
 import { WorldService } from 'app/services/world.service';
-import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { InnerSkillTreeAddSkillDialogComponent } from './components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { SonarRuleService } from 'app/services/sonar-rule.service';
@@ -51,7 +48,6 @@ export class InnerSkillTreeComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this._route.snapshot.params['id'];
-    //this.userSkillTree = null;
 
     this.isAdmin = true && this.permissionService.isUrlVisible(RoutingUrls.admin);
     this.isGamemaster = true && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
@@ -61,15 +57,10 @@ export class InnerSkillTreeComponent implements OnInit {
       });
       this.skillTreeService.getUserSkillTree(this.id);
     } else if (this.isGamemaster) {
-      console.log('isGM');
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
-      if (this.worldService.getCurrentWorld() !== null) {
         this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
-      } else {
-        this.userSkillTree = { nodes: [], links: [] };
-      }
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
         this.userSkillTree = userSkillTreeForUser;
@@ -101,7 +92,6 @@ export class InnerSkillTreeComponent implements OnInit {
     this.sonarRuleService.loadUnassignedSonarRules();
   }
   openDialog(node): void {
-    console.log(this.userSkillTree);
     const dialogRef = this.dialog.open(InnerSkillDetailDialogComponent, {
       panelClass: 'dialog-sexy',
       width: '550px',
@@ -133,5 +123,19 @@ export class InnerSkillTreeComponent implements OnInit {
       return 100;
     }
     return procentage;
+  }
+
+  isSkillTreeLoaded(): boolean {
+    if (typeof this.userSkillTree !== 'undefined' && this.userSkillTree.nodes != null) {
+      return true;
+    }
+    return false;
+  }
+
+  isThereACurrentWorld(): boolean {
+    if (this.worldService.getCurrentWorld() !== null) {
+      return true;
+    }
+    return false;
   }
 }

@@ -10,6 +10,11 @@
 
   <td-data-table #dataTable [data]="filteredData" [sortable]="true" [columns]="columns" [sortBy]="sortBy" [(ngModel)]="selectedRows"
     [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="mail" let-value="value" let-row="row" let-column="column">
+        <div layout="row" *ngIf="!value.includes('.local')">
+       {{value}}
+        </div>
+      </ng-template>
     <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
       <div layout="row">
         <button mat-icon-button (click)="editUser(row)" [matTooltip]="'GLOBAL.EDIT' | translate"

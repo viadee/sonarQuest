@@ -116,7 +116,7 @@ public class QuestService implements QuestSuggestion {
 		}
 	}
 
-	@Cacheable(value="allQuestFromWorldCache", key="#world.id")
+	@Cacheable(value = "allQuestFromWorldCache", key = "#world.id")
 	public List<List<Quest>> getAllQuestsForWorldAndUser(final World world, final User developer) {
 		final List<Participation> participations = participationRepository.findByUser(developer);
 		final List<Quest> participatedQuests = participations.stream().map(Participation::getQuest)
@@ -132,17 +132,20 @@ public class QuestService implements QuestSuggestion {
 		result.add(freeQuests);
 		return result;
 	}
-	
+
 	private Double getHighestScoringByQuest(Quest quest, String mail) {
-		Double highestScoring = 0.0;
-		Optional<String>optional = Optional.of(mail);
-		for (Task task : taskService.getTasksForQuest(quest.getId(),optional )) {
+		Double highestScoring = -1.0;
+		Optional<String> optional = Optional.of(mail);
+		for (Task task : taskService.getTasksForQuest(quest.getId(), optional)) {
 			if (task instanceof StandardTask) {
 				Double score = ((StandardTask) task).getUserSkillScoring();
-				if ( score != null && score> highestScoring) {
+				if (score != null && score > highestScoring) {
 					highestScoring = ((StandardTask) task).getUserSkillScoring();
 				}
 			}
+		}
+		if(highestScoring == -1.0) {
+			highestScoring = null;
 		}
 		return highestScoring;
 	}

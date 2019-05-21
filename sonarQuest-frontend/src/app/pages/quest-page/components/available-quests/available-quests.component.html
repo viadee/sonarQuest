@@ -1,4 +1,4 @@
- <mat-card *ngIf="!currentWorld?.usequestcards">
+<mat-card *ngIf="!currentWorld?.usequestcards">
   <mat-card-content>
     <div layout-padding>
       <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
@@ -8,8 +8,8 @@
             <strong>{{currentWorld?.name}}</strong>
           </span>
         </span>
-        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche" (searchDebounce)="search($event)"
-          flex>
+        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Suche"
+          (searchDebounce)="search($event)" flex>
         </td-search-box>
       </div>
       <mat-divider></mat-divider>
@@ -43,7 +43,8 @@
       </h2>
     </div>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
-      <div *ngFor="let quest of availableQuests" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)" fxFlex.lt-md="100%">
+      <div *ngFor="let quest of availableQuests" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)"
+        fxFlex.lt-md="100%">
         <mat-card id="questcard">
           <mat-card-header>
             <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
@@ -60,27 +61,32 @@
               <br />
               {{"TABLE.COLUMNS.STATUS" | translate}}: {{quest.status}}
               <br />
-              {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}  
-              <br/>
-              {{"TABLE.COLUMNS.SCORING" | translate}}:   {{ quest.highestScoring }}
+              {{"TABLE.COLUMNS.CREATORNAME" | translate}}: {{quest.creatorName}}
+              <br />
+              <div [matTooltip]="'QUEST_PAGE.SKILL_SCORE' | translate " [matTooltipClass]="'tooltipMultiline'"
+                matTooltipPosition="after" class="scoring-bar">
+                <p>{{"TABLE.COLUMNS.SCORING" | translate}}:</p>
+                <i class="ra ra-lg ra-axe score-icon" *ngFor="let item of createRange(quest?.highestScoring)"></i>
+              </div>
             </div>
-           
+
           </mat-card-content>
           <mat-card-actions>
             <div align="right">
               <button mat-icon-button (click)="viewQuest(quest)" [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
-                      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+                [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
                 <i class="ra ra-quill-ink ra-2x"></i>
               </button>
-              <button mat-icon-button (click)="participateInQuest(quest)" [matTooltip]="'QUEST_PAGE.JOIN_QUEST' | translate"
-                      [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+              <button mat-icon-button (click)="participateInQuest(quest)"
+                [matTooltip]="'QUEST_PAGE.JOIN_QUEST' | translate" [matTooltipClass]="'tooltipMultiline'"
+                matTooltipPosition="below">
                 <i class="ra ra-sword ra-2x"></i>
               </button>
             </div>
           </mat-card-actions>
         </mat-card>
       </div>
-      </div>
+    </div>
 
   </mat-card-content>
 </mat-card>

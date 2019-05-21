@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private WorldRepository worldRepository;
-	
+
 	@Autowired
 	private UserSkillService userSkilLService;
 
@@ -89,7 +89,7 @@ public class UserService implements UserDetailsService {
 	public synchronized User save(final User user) {
 		User toBeSaved = null;
 		final String username = user.getUsername();
-		final String mail = user.getMail();
+		String mail = user.getMail();
 		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		if (user.getId() == null) {
 			// Only the password hash needs to be saved
@@ -99,6 +99,9 @@ public class UserService implements UserDetailsService {
 			final Role userRole = roleService.findByName(roleName);
 			toBeSaved = usernameFree(username) ? user : null;
 			if (toBeSaved != null) {
+				if (mail == null || mail.isEmpty()) {
+					mail = username + "@sonarQuest.local";
+				}
 				setMail(toBeSaved, mail);
 				toBeSaved.setPassword(password);
 				toBeSaved.setRole(userRole);
@@ -106,19 +109,30 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setGold(0l);
 				toBeSaved.setXp(0l);
 				toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
-				if(toBeSaved.getMail() != null) {
-					userSkilLService.createSkillTreeUser(toBeSaved.getMail());
+				if (toBeSaved.getMail() != null) {
+					if(userSkilLService.createSkillTreeUser(toBeSaved.getMail()) == null) {
+						return null;
+					}
 				}
 			}
 		} else {
 			toBeSaved = findById(user.getId());
-			if (toBeSaved != null) {
+			if (toBeSaved != null ) {
+				final String oldMail = toBeSaved.getMail();
 				final Role role = user.getRole();
 				final RoleName roleName = role.getName();
 				final Role userRole = roleService.findByName(roleName);
+				if (mail == null || mail.isEmpty()) {
+					mail = username + "@sonarQuest.local";
+				}
 				setUsername(toBeSaved, username);
 				setMail(toBeSaved, mail);
 				setPassword(user, toBeSaved, encoder);
+				if (toBeSaved.getMail() != null && !oldMail.equalsIgnoreCase(mail)) {
+					if(!userSkilLService.updateSkillTreeUser(oldMail, mail)) {
+						return null;
+					}
+				}
 				toBeSaved.setRole(userRole);
 				toBeSaved.setAboutMe(user.getAboutMe());
 				toBeSaved.setPicture(user.getPicture());

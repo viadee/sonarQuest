@@ -1,6 +1,8 @@
 package com.viadee.sonarquest.controllers;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +19,8 @@ import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.EventService;
+import com.viadee.sonarquest.skillTree.entities.SonarRule;
+import com.viadee.sonarquest.skillTree.entities.UserSkill;
 
 @Controller
 public class WebSocketController {
@@ -109,6 +113,29 @@ public class WebSocketController {
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend("/chat", eventUserDto);
 		
+	}
+	
+	
+	
+	
+	public void onLearnUserSkill(final UserSkill userSkill, User user) {
+		Event event = eventService.createEventForLearnedUserSkill(userSkill, user);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend("/chat", eventUserDto);
+	}
+	
+	public void onCreateUserSkill(final UserSkill userSkill, User user) {
+		Event event = eventService.createEventForCreatedUserSkill(userSkill, user);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend("/chat", eventUserDto);
+	}
+	
+	
+	
+	
+	public void onUpdateSonarRule(SonarRule sonarRule) {
+		List<Event> events = eventService.createEventForNewSonarRule(sonarRule);
+		events.stream().map(eventService::eventToEventUserDto).forEach(event -> template.convertAndSend("/chat", event));
 	}
 
 }

@@ -5,6 +5,6 @@ public enum EventType {
     ADVENTURE,
     MESSAGE,
     ARTEFACT,
-    LEARNED_USER_SKILL,
+    USER_SKILL,
     SONAR_RULE
 }

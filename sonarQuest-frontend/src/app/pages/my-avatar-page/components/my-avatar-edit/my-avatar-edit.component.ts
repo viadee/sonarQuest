@@ -14,6 +14,7 @@ import {User} from '../../../../Interfaces/User';
 export class AvatarEditComponent implements OnInit {
 
   imageToShow: any;
+  public mail: string = null;
 
   constructor(
     private dialogRef: MatDialogRef<AvatarEditComponent>,
@@ -28,9 +29,15 @@ export class AvatarEditComponent implements OnInit {
     this.userService.getImage().subscribe((blob) => {
       this.imageToShow = this.imageService.createImageFromBlob(blob);
     })
+    if (this.user.mail !== null && !this.user.mail.includes('.local')) {
+      this.mail = this.user.mail;
+    }
   }
 
   editDeveloper() {
+    if(this.mail !== null){
+      this.user.mail = this.mail;
+    }
     this.userService.updateUser(this.user).then(() => {
       this.userService.loadUser();
       this.dialogRef.close(this.user);

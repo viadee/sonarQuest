@@ -1,5 +1,6 @@
 package com.viadee.sonarquest.skillTree.services;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarquest.controllers.WebSocketController;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.services.EventService;
+import com.viadee.sonarquest.services.StandardTaskService;
 import com.viadee.sonarquest.services.UserService;
+import com.viadee.sonarquest.services.WorldService;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
@@ -56,13 +62,12 @@ public class UserSkillService {
 
 	@Autowired
 	private UserSkillGroupRepository userSkillGroupRepository;
-	
-	@Autowired
-	private EventService eventService;
 
-	private UserSkill findById(final Long id) {
-		return userSkillRepository.findOne(id);
-	}
+	@Autowired
+	private WebSocketController webSocketController;
+
+	@Autowired
+	private StandardTaskService standardTaskService;
 
 	private int recursionCount = 0;
 	private List<Map<String, Object>> resultFollowingCalculateScore = new ArrayList<Map<String, Object>>();
@@ -139,7 +144,7 @@ public class UserSkillService {
 		return null;
 	}
 
-	public UserSkill createUserSkill(final UserSkill newUserSkill, final Long groupID) {
+	public UserSkill createUserSkill(final UserSkill newUserSkill, final Long groupID, final Principal principal) {
 		UserSkill userSkill = newUserSkill;
 		List<UserSkill> newFollowingUserSkills = new ArrayList<UserSkill>();
 		List<UserSkill> newPreviousUserSkills = new ArrayList<UserSkill>();
@@ -158,19 +163,18 @@ public class UserSkillService {
 		userSkill.setPreviousUserSkills(newPreviousUserSkills);
 		userSkill.setSonarRules(newSonarRules);
 		userSkill.setUserSkillGroup(userSkillGroupRepository.findOne(groupID));
-		
 
 		for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
 			followingUserSkill.addPreviousUserSkill(userSkill);
-			//userSkillRepository.save(followingUserSkill);
+			// userSkillRepository.save(followingUserSkill);
 		}
 		for (UserSkill previousUserSkill : userSkill.getPreviousUserSkills()) {
 			previousUserSkill.addFollowingUserSkill(userSkill);
-			//userSkillRepository.save(previousUserSkill);
+			// userSkillRepository.save(previousUserSkill);
 		}
-		for(SonarRule sonarRule: userSkill.getSonarRules()) {
+		for (SonarRule sonarRule : userSkill.getSonarRules()) {
 			sonarRule.setUserSkill(userSkill);
-			//sonarRuleRepository.save(sonarRule);
+			// sonarRuleRepository.save(sonarRule);
 		}
 		userSkill = userSkillRepository.save(userSkill);
 		LOGGER.info("Creating new userskill '{}'", userSkill.getName());
@@ -187,13 +191,16 @@ public class UserSkillService {
 			user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
 			skillTreeUserRepository.save(user);
 		}
-
+		User user = userRepository.findByUsername(principal.getName());
+		if (user != null) {
+			webSocketController.onCreateUserSkill(newUserSkill, user);
+		}
 		this.recalculateWholeUserSkillScore();
 		return userSkill;
 	}
 
-	public boolean delete(final Long userId) {
-		final UserSkill skill = findById(userId);
+	public boolean delete(final Long id) {
+		final UserSkill skill = userSkillRepository.findOne(id);
 		if (skill != null) {
 			userSkillRepository.delete(skill);
 			return true;
@@ -363,8 +370,7 @@ public class UserSkillService {
 				if (userSkillToSkillTreeUser.getRepeats() >= userSkill.getRequiredRepetitions()) {
 					userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
 					userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
-				} else if (userSkillToSkillTreeUser.getLearnedOn() != null
-						&& userSkillToSkillTreeUser.getRepeats() < userSkill.getRequiredRepetitions()) {
+				} else if (userSkillToSkillTreeUser.getRepeats() < userSkill.getRequiredRepetitions()) {
 					userSkillToSkillTreeUser.setLearnedOn(null);
 					userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
 				}
@@ -389,11 +395,12 @@ public class UserSkillService {
 	}
 
 	@Transactional
-	public void learnUserSkill(String mail, String key) {
+	public UserSkill learnUserSkill(String mail, String key) {
 		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
+		UserSkill learnedUserSkill = null;
 		if (user == null) {
-			LOGGER.info("User with mail: {}  does not exist yet - creating it...", mail);
+			LOGGER.info("SkillTreeUser with mail: {}  does not exist yet - creating it...", mail);
 			user = this.createSkillTreeUser(mail);
 		}
 
@@ -404,9 +411,11 @@ public class UserSkillService {
 					if (userSkillToSkillTreeUser.getRepeats() >= userSkillToSkillTreeUser.getUserSkill()
 							.getRequiredRepetitions() && userSkillToSkillTreeUser.getLearnedOn() == null) {
 						userSkillToSkillTreeUser.setLearnedOn(new Timestamp(System.currentTimeMillis()));
-						LOGGER.info("User with mail: {} has learned UserSkill '{}'", mail,
+						LOGGER.info("SkillTreeUser with mail: {} has learned UserSkill '{}'", mail,
 								userSkillToSkillTreeUser.getUserSkill().getName());
-						eventService.createEventForLearnedUserSkill(userSkillToSkillTreeUser.getUserSkill(),userRepository.findByMail(mail));
+						learnedUserSkill = userSkillToSkillTreeUser.getUserSkill();
+						webSocketController.onLearnUserSkill(learnedUserSkill,
+								userRepository.findByMail(user.getMail()));
 
 					}
 					skillTreeObjectDTO.setId(String.valueOf(userSkillToSkillTreeUser.getUserSkill().getId()));
@@ -419,20 +428,49 @@ public class UserSkillService {
 			}
 		}
 		updateSkillTreeScoring(user);
+		User sqUser = userRepository.findByMail(mail);
+		if (sqUser != null) {
+			for (World world : sqUser.getWorlds()) {
+				standardTaskService.updateFindByWorldCache(world);
+
+			}
+		}
 		skillTreeUserRepository.save(user);
+		return learnedUserSkill;
 	}
 
 	@Transactional
 	public SkillTreeUser createSkillTreeUser(String mail) {
-		SkillTreeUser user = skillTreeUserRepository.save(new SkillTreeUser(mail));
-		List<UserSkill> userSkills = userSkillRepository.findAllRootUserSkills(false);
-		for (UserSkill userSkill : userSkills) {
-			UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-					.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));
-			user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
+		SkillTreeUser user = null;
+		if (skillTreeUserRepository.findByMail(mail) == null) {
+			user = skillTreeUserRepository.save(new SkillTreeUser(mail));
+			List<UserSkill> userSkills = userSkillRepository.findAllRootUserSkills(false);
+			for (UserSkill userSkill : userSkills) {
+				UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
+						.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));
+				user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
+			}
+			skillTreeUserRepository.save(user);
 		}
-		skillTreeUserRepository.save(user);
+
 		return user;
+	}
+
+	@Transactional
+	public boolean updateSkillTreeUser(final String oldMail, final String newMail) {
+		SkillTreeUser user = skillTreeUserRepository.findByMail(oldMail);
+		if (user != null) {
+			if (skillTreeUserRepository.findByMail(newMail) == null) {
+				user.setMail(newMail);
+				skillTreeUserRepository.save(user);
+			} else {
+				LOGGER.info("SkillTreeUser with mail '{}' already exist ", newMail);
+				return false;
+			}
+		} else {
+			createSkillTreeUser(newMail);
+		}
+		return true;
 	}
 
 	@Transactional

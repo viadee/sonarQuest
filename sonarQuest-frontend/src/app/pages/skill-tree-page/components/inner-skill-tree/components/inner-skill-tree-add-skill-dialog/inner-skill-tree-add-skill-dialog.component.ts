@@ -37,7 +37,9 @@ export class InnerSkillTreeAddSkillDialogComponent implements OnInit {
     private userSkillService: UserSkillService,
     private translateService: TranslateService,
     private dialogRef: MatDialogRef<InnerSkillTreeAddSkillDialogComponent>
-  ) { }
+  ) {
+    this.createUserSkillForm.get('requiredRepetitions').setValue(3);
+  }
 
   ngOnInit() {
     this.unassignedSonarRules = this.transferedData.unassignedSonarRules;

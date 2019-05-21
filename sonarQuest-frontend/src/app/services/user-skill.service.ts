@@ -59,7 +59,7 @@ export class UserSkillService {
     let forCount = 0;
     switch (true) {
       case (value == null): {
-        forCount = 0;
+        forCount = 5;
         break;
       }
       case (value <= 3): {

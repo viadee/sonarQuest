@@ -29,7 +29,7 @@ export class AdminDeveloperCreateComponent implements OnInit {
 
   createForm = new FormGroup({
     name: new FormControl(null, [Validators.required, this.matchNameValidator()]),
-    mail: new FormControl(null, [Validators.required, this.matchMailValidator()]),
+    mail: new FormControl(null, [this.matchMailValidator()]),
     role: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     about: new FormControl(),

@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MainLayoutComponent } from '../../main-layout.component';
 import { SonarRule } from 'app/Interfaces/SonarRule';
 import { SonarQubeService } from 'app/services/sonar-qube.service';
+import { RoutingUrls } from 'app/app-routing/routing-urls';
 
 @Component({
   selector: 'app-new-sonar-rules-detail-view',
@@ -10,6 +11,8 @@ import { SonarQubeService } from 'app/services/sonar-qube.service';
   styleUrls: ['./new-sonar-rules-detail-view.component.css']
 })
 export class NewSonarRulesDetailViewComponent implements OnInit {
+
+  public skillTreeURL = RoutingUrls.skilltree;
 
   constructor( private dialogRef: MatDialogRef<MainLayoutComponent>,
     @Inject(MAT_DIALOG_DATA) public unassignedSonarRules: SonarRule[],

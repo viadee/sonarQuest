@@ -5,3 +5,11 @@
   background-blend-mode: difference;
 }
 
+.score-icon{
+  margin: 0px 2.5px;
+}
+
+.scoring-bar{
+    display: inline-block;
+    margin-top: 5px;
+}

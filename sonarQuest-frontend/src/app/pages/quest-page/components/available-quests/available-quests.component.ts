@@ -142,8 +142,7 @@ export class AvailableQuestsComponent implements OnInit {
     this.filteredData = newData;
   }
 
-  getHeaviestScore(quest: Quest): number[] {
-    //this.taskService.getTasksForQuestAndUser(quest, this.user)
-    return [];
+  createRange(scoring: number): number[] {
+    return this.userSkillService.getNumberOfIcons(scoring);
   }
 }

@@ -3,7 +3,11 @@
 </mat-toolbar>
 <mat-dialog-content>
   <div layout="column" layout-padding>
+    <span class="mat-card-subtitle" style="padding-left: 16px">
+      {{"APP_COMPONENT.NEW_RULES_INSTRUCTION"| translate}}
+    </span>
     <mat-list>
+        <h2 mat-subheader>{{"INNER_SKILL_TREE_POPUP.RULES" | translate}}</h2>
       <mat-list-item *ngFor="let rule of unassignedSonarRules">
 
         <a class="clickable" [matTooltip]="'INNER_SKILL_TREE_POPUP.TOOLTIP' | translate"
@@ -17,7 +21,9 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
-    <span class="toolbar-spacer"></span>
-  <button mat-raised-button mat-primary (click)="close()">{{'APP_COMPONENT.OK' | translate}}
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button mat-primary  routerLink="/{{skillTreeURL}}" (click)="close()">{{'APP_COMPONENT.TO_SKILL_TREE' | translate}}
+    </button>
+  <button mat-raised-button mat-primary color="primary" (click)="close()">{{'APP_COMPONENT.OK' | translate}}
   </button>
 </mat-dialog-actions>

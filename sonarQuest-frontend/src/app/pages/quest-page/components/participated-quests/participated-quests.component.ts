@@ -14,6 +14,7 @@ import {
 } from '@covalent/core';
 import {Quest} from './../../../../Interfaces/Quest';
 import {Component, OnInit} from '@angular/core';
+import { UserSkillService } from 'app/services/user-skill.service';
 
 @Component({
   selector: 'app-participated-quests',
@@ -51,8 +52,9 @@ export class ParticipatedQuestsComponent implements OnInit {
     private participationService: ParticipationService,
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
-    private dialog: MatDialog) {
-    this.participationService.participationUpdated$.subscribe(() => this.ngOnInit());
+    private dialog: MatDialog,
+    private userSkillService: UserSkillService) {
+    this.participationService.participationUpdated$.subscribe(() => this.ngOnInit()) 
   }
 
   ngOnInit() {
@@ -133,5 +135,9 @@ export class ParticipatedQuestsComponent implements OnInit {
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
+  }
+
+  createRange(scoring: number): number[] {
+    return this.userSkillService.getNumberOfIcons(scoring);
   }
 }
