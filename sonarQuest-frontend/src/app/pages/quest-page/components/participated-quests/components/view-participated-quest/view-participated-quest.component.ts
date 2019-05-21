@@ -34,8 +34,8 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   ngOnInit() {
     this.tasks = this.quest.tasks;
-    this.currentWorld = this.worldService.getCurrentWorld();
 
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
     this.userService.user$.subscribe(user => this.user = user)
   }
 

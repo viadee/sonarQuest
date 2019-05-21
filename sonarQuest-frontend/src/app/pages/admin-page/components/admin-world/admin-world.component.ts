@@ -22,7 +22,6 @@ import { User } from 'app/Interfaces/User';
 })
 export class AdminWorldComponent implements OnInit {
 
-  currentWorld: World;
   worlds: World[];
   user: User
 
@@ -56,19 +55,13 @@ export class AdminWorldComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.init();
-    this.worldService.onWorldChange().subscribe(() => this.init());
-    this.userService.user$.subscribe(user => this.user = user)
-  }
 
-  private init() {
-    if (this.worldService.getCurrentWorld()) {
-      this.currentWorld = this.worldService.getCurrentWorld();
-    }
-    if (this.user.role.name.toLocaleUpperCase() === 'ADMIN') {
-      this.loadWorlds();
-    }
-
+    this.userService.user$.subscribe(user => {
+      this.user = user
+      if (this.user.role.name.toLocaleUpperCase() === 'ADMIN') {
+        this.loadWorlds();
+      }
+    })
   }
 
   translateTable() {
@@ -84,7 +77,7 @@ export class AdminWorldComponent implements OnInit {
   }
 
   loadWorlds() {
-    this.worldService.getAllWorlds().subscribe(worlds => {
+    this.worldService.allWorlds$.subscribe(worlds => {
       this.worlds = worlds;
       this.filter();
     });
