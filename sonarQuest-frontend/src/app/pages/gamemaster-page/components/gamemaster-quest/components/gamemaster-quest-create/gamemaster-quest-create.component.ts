@@ -10,6 +10,7 @@ import {GamemasterQuestComponent} from 'app/pages/gamemaster-page/components/gam
 import {TaskService} from '../../../../../../services/task.service';
 import { QuestState } from 'app/Interfaces/QuestState';
 import { UserService } from 'app/services/user.service';
+import { User } from 'app/Interfaces/User';
 
 @Component({
   selector: 'app-gamemaster-quest-create',
@@ -29,6 +30,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   tasks: Task[] = [];
   images: any[];
   selectedImage: string;
+  user: User;
 
   constructor(private questService: QuestService,
               private taskService: TaskService,
@@ -46,6 +48,8 @@ export class GamemasterQuestCreateComponent implements OnInit {
       this.loadImages();
       this.selectedImage = 'http://via.placeholder.com/200x200';
     })
+
+    this.userService.user$.subscribe(user => this.user = user)
   }
 
   selectWorld() {
@@ -65,7 +69,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
         story: this.story,
         world: this.selectedWorld,
         image: this.selectedImage,
-        creatorName: this.userService.getUser().username 
+        creatorName: this.user.username 
       };
       this.questService.createQuest(quest).then((createdQuest) => {
         if (createdQuest.id) {

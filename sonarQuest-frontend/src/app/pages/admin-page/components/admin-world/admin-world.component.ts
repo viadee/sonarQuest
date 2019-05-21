@@ -11,11 +11,9 @@ import {
 } from '@covalent/core';
 import {MatDialog} from '@angular/material';
 import {EditWorldComponent} from './components/edit-world/edit-world.component';
-import {TaskService} from '../../../../services/task.service';
-import {QuestService} from '../../../../services/quest.service';
-import {AdventureService} from '../../../../services/adventure.service';
 import {LoadingService} from '../../../../services/loading.service';
 import {UserService} from 'app/services/user.service';
+import { User } from 'app/Interfaces/User';
 
 @Component({
   selector: 'sq-admin-world',
@@ -26,6 +24,8 @@ export class AdminWorldComponent implements OnInit {
 
   currentWorld: World;
   worlds: World[];
+  user: User
+
   columns: ITdDataTableColumn[] = [
     { name: 'id', label: 'Id' },
     { name: 'name', label: 'Name' },
@@ -47,9 +47,6 @@ export class AdminWorldComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
 
   constructor(private worldService: WorldService,
-    private questService: QuestService,
-    private adventureService: AdventureService,
-    private taskService: TaskService,
     private _dataTableService: TdDataTableService,
     private translateService: TranslateService,
     private dialog: MatDialog,
@@ -61,13 +58,14 @@ export class AdminWorldComponent implements OnInit {
     this.translateTable();
     this.init();
     this.worldService.onWorldChange().subscribe(() => this.init());
+    this.userService.user$.subscribe(user => this.user = user)
   }
 
   private init() {
     if (this.worldService.getCurrentWorld()) {
       this.currentWorld = this.worldService.getCurrentWorld();
     }
-    if (this.userService.getUser().role.name.toLocaleUpperCase() === 'ADMIN') {
+    if (this.user.role.name.toLocaleUpperCase() === 'ADMIN') {
       this.loadWorlds();
     }
 

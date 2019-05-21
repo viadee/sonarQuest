@@ -16,7 +16,7 @@ export class StartPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.getUser();
+    this.userService.user$.subscribe(user => this.user = user);
     this.xpPercent();
   }
 

@@ -34,6 +34,9 @@ export class MarketplacePageComponent implements OnInit {
     {name: 'minLevel.levelNumber', label: 'min. Level'},
     {name: 'buy', label: ''}
   ];
+
+  user: User;
+  userArtefacts: Artefact[]
  
   filteredData: any[];
   filteredTotal: number;
@@ -64,32 +67,42 @@ export class MarketplacePageComponent implements OnInit {
         {name: 'minLevel.levelNumber', label: col_names.MIN_LEVEL},
         {name: 'buy', label: ''}]
     });    
+
+    
+
+    this.userService.user$.subscribe(user => {
+      this.user = user
+      this.artefactService.getData();
+
+      this.userArtefacts = this.user.artefacts;
+      this.userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
+      if (user.level) {
+        this.level = user.level.levelNumber;
+      } else {
+        this.level = 1;
+      }
+      if (user.gold) {
+        this.gold = user.gold;
+      } else {
+        this.gold = 0;
+      }
+    })
+    
+  }
+
+  subscribtion(){
+
+
     this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
       this.artefacts = artefacts;
       this.filter();
     });
-    this.artefactService.getData();
-
-    const user: User = this.userService.getUser();
-    const userArtefacts: Artefact[] = user.artefacts;
-    userArtefacts.map(artefact => this.my_artefacts_id.push(artefact.id));
-    if (user.level) {
-      this.level = user.level.levelNumber;
-    } else {
-      this.level = 1;
-    }
-    if (user.gold) {
-      this.gold = user.gold;
-    } else {
-      this.gold = 0;
-    }
   }
 
   buyArtefact(artefact: Artefact) {
-    if (artefact != null && this.userService.getUser() != null) {
+    if (artefact != null && this.user != null) {
       this.artefactService.buyArtefact(artefact).then(() => {
         this.artefactService.getData();
-        this.userService.getUser();
       })
     }
   }

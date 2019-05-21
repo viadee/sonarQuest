@@ -10,37 +10,16 @@ import { Timestamp } from 'rxjs/internal/operators/timestamp';
 @Injectable()
 export class UserService {
 
-  private user: User;
-
   private userSubject: Subject<User> = new ReplaySubject(1);
   user$ = this.userSubject.asObservable();
 
-  private listener: Subscriber<boolean>[] = [];
-
   constructor(private httpClient: HttpClient
   ) { }
-
-  public onUserChange(): Observable<boolean> {
-    return new Observable<boolean>(
-      observer => {
-        this.listener.push(observer);
-      }
-    );
-  }
-
-  private userLoaded(): void {
-    this.listener.forEach(l => l.next(true));
-  }
 
   public loadUser(): void {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
       this.userSubject.next(user);
-      this.user = user;
-      this.userLoaded();
-    }, error1 => {
-      this.user = null;
-      this.userLoaded();
     });
   }
 
@@ -48,10 +27,6 @@ export class UserService {
     const url = `${environment.endpoint}/user/updateLastTavernVisit`;
     const date = new Date();
     return this.httpClient.post(url, date.getTime()).toPromise();
-  }
-
-  public getUser(): User {
-    return this.user;
   }
 
   public getUsers(): Observable<User[]> {
