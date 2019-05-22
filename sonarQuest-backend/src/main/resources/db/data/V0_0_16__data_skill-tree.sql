@@ -194,7 +194,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
 ('Style and Structure','',1,3,3),
-('Code Style','',0,3,3),
+('Code Style','',0,3,3), //50
 ('PMD','',0,3,3),
 ('Unicode','',0,3,3),
 ('Structure','',0,3,3),
@@ -204,7 +204,7 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 ('Conventions','',0,3,3),
 ('Deprecation','',0,3,3),
 ('Liskov Substitution Principle','',0,3,3),
-('Readability','',0,3,3),
+('Readability','',0,3,3), //60
 ('Comments','',0,3,3),
 ('SOLID','',0,3,3);
 
@@ -738,6 +738,19 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (202,201);
 
 
+/*
+* Fixes
+*/
+INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
+('File','',1,3,9); //203
+
+INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
+(185,203);
+
+INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
+(203,185);
+
+
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
 ('Public types, methods and fields (API) should be documented with Javadoc','squid:UndocumentedApi',4,'2019-04-25 14:12:05.048'),
 ('Branches should have sufficient coverage by tests','common-java:InsufficientBranchCoverage',201,'2019-04-25 14:12:05.048'),
@@ -746,15 +759,15 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('"@Deprecated" code should not be used','squid:CallToDeprecatedMethod',58,'2019-04-25 14:12:05.048'),
 ('Source files should have a sufficient density of comment lines','common-java:InsufficientCommentDensity',61,'2019-04-25 14:12:05.049'),
 ('Failed unit tests should be fixed','common-java:FailedUnitTests',202,'2019-04-25 14:12:05.049'),
-('"deleteOnExit" should not be used','squid:CallToFileDeleteOnExitMethod',1,'2019-04-25 14:12:05.049'),
-('Sections of code should not be commented out','squid:CommentedOutCodeLine',1,'2019-04-25 14:12:05.049'),
-('Skipped unit tests should be either removed or fixed','common-java:SkippedUnitTests',1,'2019-04-25 14:12:05.049'),
-('Unused "private" methods should be removed','squid:UnusedPrivateMethod',1,'2019-04-25 14:12:05.049'),
-('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',1,'2019-04-25 14:12:05.049'),
-('Track uses of "NOSONAR" comments','squid:NoSonar',1,'2019-04-25 14:12:05.049'),
-('Files should not be empty','squid:EmptyFile',1,'2019-04-25 14:12:05.049'),
-('Inheritance tree of classes should not be too deep','squid:MaximumInheritanceDepth',1,'2019-04-25 14:12:05.049'),
-('Java parser failure','squid:ParsingError',1,'2019-04-25 14:12:05.049'),
+('"deleteOnExit" should not be used','squid:CallToFileDeleteOnExitMethod',203,'2019-04-25 14:12:05.049'),
+('Sections of code should not be commented out','squid:CommentedOutCodeLine',61,'2019-04-25 14:12:05.049'),
+('Skipped unit tests should be either removed or fixed','common-java:SkippedUnitTests',201,'2019-04-25 14:12:05.049'),
+('Unused "private" methods should be removed','squid:UnusedPrivateMethod',60,'2019-04-25 14:12:05.049'),
+('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',53,'2019-04-25 14:12:05.049'),
+('Track uses of "NOSONAR" comments','squid:NoSonar',61,'2019-04-25 14:12:05.049'),
+('Files should not be empty','squid:EmptyFile',50,'2019-04-25 14:12:05.049'),
+('Inheritance tree of classes should not be too deep','squid:MaximumInheritanceDepth',78,'2019-04-25 14:12:05.049'),
+('Java parser failure','squid:ParsingError',115,'2019-04-25 14:12:05.049'),
 ('Classes should not be too complex','squid:ClassCyclomaticComplexity',1,'2019-04-25 14:12:05.049'),
 ('Lines should not be too long','squid:S00103',1,'2019-04-25 14:12:05.049'),
 ('Generic exceptions should never be thrown','squid:S00112',1,'2019-04-25 14:12:05.049'),

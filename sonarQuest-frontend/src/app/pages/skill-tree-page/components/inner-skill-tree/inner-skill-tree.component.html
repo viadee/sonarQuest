@@ -28,13 +28,14 @@
         <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
           <span class="mat-card-subtitle" style="padding-left: 16px">
             {{"SKILL_TREE_PAGE.INNER_SKILL_TREE_ACTION_NOTE"| translate}}
+            <span class="mat-card-subtitle" *ngIf="isGamemaster" style="margin-top: unset">
+              {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_GM"| translate}}
+            </span>
+            <span class="mat-card-subtitle" *ngIf="!isGamemaster && !isAdmin" style="margin-top: unset">
+              {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_DEV"| translate}}
+            </span>
           </span>
-          <span class="mat-card-subtitle" *ngIf="isGamemaster" style="margin-top: unset">
-            {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_GM"| translate}}
-          </span>
-          <span class="mat-card-subtitle" *ngIf="!isGamemaster && !isAdmin" style="margin-top: unset">
-            {{"SKILL_TREE_PAGE.PERCENTAGE_INFO_DEV"| translate}}
-          </span>
+         
         </div>
       </div>
       <mat-divider></mat-divider>

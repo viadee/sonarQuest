@@ -137,7 +137,7 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setAboutMe(user.getAboutMe());
 				toBeSaved.setPicture(user.getPicture());
 				toBeSaved.setCurrentWorld(user.getCurrentWorld());
-				toBeSaved.setWorlds(user.getWorlds());
+				//toBeSaved.setWorlds(user.getWorlds());
 				toBeSaved.setGold(user.getGold());
 				toBeSaved.setXp(user.getXp());
 				toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
@@ -160,7 +160,7 @@ public class UserService implements UserDetailsService {
 
 	private void setMail(User toBeSaved, final String mail) {
 		if (toBeSaved.getMail() != null) {
-			if (!mail.equals(toBeSaved.getMail()) && mailFree(mail)) {
+			if (!mail.equalsIgnoreCase(toBeSaved.getMail()) && mailFree(mail)) {
 				toBeSaved.setMail(mail);
 			}
 		} else if (mailFree(mail)) {
@@ -223,7 +223,10 @@ public class UserService implements UserDetailsService {
 		userToWorlds.forEach(userToWorld -> {
 			User user = userRepository.findOne(userToWorld.getUserId());
 			if (userToWorld.getJoined()) {
-				user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
+				World toBeAdded = worldRepository.findOne(userToWorld.getWorldId());
+				if(!user.getWorlds().contains(toBeAdded)) {
+					user.addWorld(toBeAdded);	
+				}
 			} else {
 				if (user.getCurrentWorld() != null && user.getCurrentWorld().getId().equals(userToWorld.getWorldId())) {
 					user.setCurrentWorld(null);

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -61,7 +62,7 @@ public class SkillTreeService {
 	@Transactional
 	public SkillTreeDiagramDTO generateSkillTreeForUserByGroupID(Long id, String mail) {
 		SkillTreeDiagramDTO skillTreeDiagramDTO = new SkillTreeDiagramDTO();
-		
+
 		/**
 		 * Generate Skill-Tree for admin => mail == null
 		 */
@@ -76,7 +77,7 @@ public class SkillTreeService {
 			}
 		} else {
 			/**
-			 * Generate Skill-Tree for user 
+			 * Generate Skill-Tree for user
 			 */
 			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
 			if (user == null) {
@@ -90,16 +91,16 @@ public class SkillTreeService {
 			for (UserSkill userSKill : userSkills) {
 				SkillTreeObjectDTO object = this.buildSkillTreeObject(
 						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromUserByGroupID(user, id),
-								isGroupLearnedCompletlyFromUserByGroupID(user, id),user));
+								isGroupLearnedCompletlyFromUserByGroupID(user, id), user));
 				object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromUserByGroupID(user, id),
-						this.getAmountOfUserSkillsFromUserByGroupID(user, id)));
+						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size())));
 				skillTreeDiagramDTO.addNode(object);
 				for (UserSkill followingUserSkill : userSKill.getFollowingUserSkills()) {
 					skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSKill.getId()),
 							String.valueOf(followingUserSkill.getId())));
 				}
 			}
-			
+
 			/**
 			 * Generate Skill-Tree nodes for userskills which are not root
 			 */
@@ -207,6 +208,7 @@ public class SkillTreeService {
 
 	private Double getAmountOfLearndSkillsFromTeamByGroupID(List<String> mails, Long id) {
 		List<UserSkillToSkillTreeUser> userSkillToUserByGroupID = null;
+		Map<Long,Integer> completyLearnedUserSkills = new HashMap<Long,Integer>();
 		Double counter = 0.0;
 		for (String mail : mails) {
 			SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
@@ -217,33 +219,46 @@ public class SkillTreeService {
 
 				for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToUserByGroupID) {
 					if (userSkillToSkillTreeUser.getLearnedOn() != null) {
-						counter++;
+						Long userSkillId = userSkillToSkillTreeUser.getUserSkill().getId();
+						if(completyLearnedUserSkills.containsKey(userSkillId)) {
+							int count = completyLearnedUserSkills.get(userSkillId);
+							count++;
+							completyLearnedUserSkills.put(userSkillId,count);
+						}else {
+							completyLearnedUserSkills.put(userSkillId, 1);
+						}
 					}
 				}
 			}
 
 		}
+		for (Entry<Long, Integer> entry : completyLearnedUserSkills.entrySet()) {
+			if(entry.getValue().equals(mails.size())){
+				counter++;
+			}
+		}
 		return counter;
 	}
 
-	private Double getAmountOfUserSkillsFromUserByGroupID(SkillTreeUser user, Long id) {
-		return Double.valueOf(user.getUserSkillToSkillTreeUser().stream()
-				.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
-				.collect(Collectors.toList()).size());
-	}
+	/*
+	 * private Double getAmountOfUserSkillsFromUserByGroupID(SkillTreeUser user,
+	 * Long id) { return Double.valueOf(user.getUserSkillToSkillTreeUser().stream()
+	 * .filter(userSkillToUser ->
+	 * userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
+	 * .collect(Collectors.toList()).size()); }
+	 */
 
-	private Double getAmountOfUserSkillsFromTeamByGroupID(List<String> mails, Long id) {
-		SkillTreeUser user = null;
-		Double amount = 0.0;
-		if (mails.size() > 0) {
-			user = skillTreeUserRepository.findByMail(mails.get(0));
-			amount = Double.valueOf(user.getUserSkillToSkillTreeUser().stream()
-					.filter(userSkillToUser -> userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
-					.collect(Collectors.toList()).size());
-		}
-
-		return amount;
-	}
+	/*
+	 * private Double getAmountOfUserSkillsFromTeamByGroupID(List<String> mails,
+	 * Long id) { SkillTreeUser user = null; Double amount = 0.0; if (mails.size() >
+	 * 0) { user = skillTreeUserRepository.findByMail(mails.get(0)); amount =
+	 * Double.valueOf(user.getUserSkillToSkillTreeUser().stream()
+	 * .filter(userSkillToUser ->
+	 * userSkillToUser.getUserSkill().getUserSkillGroup().getId() == id)
+	 * .collect(Collectors.toList()).size()); }
+	 * 
+	 * return amount; }
+	 */
 
 	@Transactional
 	public SkillTreeDiagramDTO generateSkillTreeForTeamByGroupID(Long id, List<String> mails) {
@@ -252,12 +267,11 @@ public class SkillTreeService {
 		List<UserSkill> userSkills = userSkillRepository.findRootUserSkillByGroupID(id, true);
 		if (mails != null) {
 			int loopCount = 0;
-			
+
 			/**
 			 * Generate Skill-Tree Nodes from UserSkill which are not root
 			 **/
 			for (String mail : mails) {
-				loopCount++;
 				if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
 
 					SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
@@ -271,7 +285,7 @@ public class SkillTreeService {
 							.filter(skillToUser -> skillToUser.getUserSkill().getUserSkillGroup().getId().equals(id))
 							.collect(Collectors.toList());
 					for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : userSkillToSkillTreeUsers) {
-						if (loopCount == 1) {
+						if (loopCount == 0) {
 							skillTreeDiagramDTO.addNode(this.buildSkillTreeObject(userSkillToSkillTreeUser));
 							for (UserSkill followingUserSkill : userSkillToSkillTreeUser.getUserSkill()
 									.getFollowingUserSkills()) {
@@ -284,7 +298,8 @@ public class SkillTreeService {
 							UserSkill userSkill = userSkillToSkillTreeUser.getUserSkill();
 							if (learnedUserSkills.containsKey(userSkill.getId())) {
 								int count = learnedUserSkills.get(userSkill.getId());
-								learnedUserSkills.put(userSkill.getId(), count++);
+								count++;
+								learnedUserSkills.put(userSkill.getId(), count);
 							} else {
 								learnedUserSkills.put(userSkill.getId(), 1);
 							}
@@ -293,6 +308,7 @@ public class SkillTreeService {
 					}
 
 				}
+				loopCount++;
 			}
 
 			/**
@@ -304,13 +320,13 @@ public class SkillTreeService {
 						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromTeamByGroupID(mails, id),
 								isGroupLearnedCompletlyFromTeamByGroupID(mails, id), new SkillTreeUser()));
 				object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromTeamByGroupID(mails, id),
-						getAmountOfUserSkillsFromTeamByGroupID(mails, id)));
+						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size())));
 				skillTreeDiagramDTO.addNode(object);
 				for (UserSkill followingUserSkill : userSKill.getFollowingUserSkills()) {
 					skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(userSKill.getId(), followingUserSkill.getId()));
 				}
 			}
-			
+
 			/**
 			 * Calculate theming and learnCoverage for root userskills
 			 */
@@ -336,7 +352,8 @@ public class SkillTreeService {
 				}
 			}
 		}
-		return skillTreeDiagramDTO;
+	return skillTreeDiagramDTO;
+
 	}
 
 	private int calculateCoverage(Double numerator, Double denominator) {

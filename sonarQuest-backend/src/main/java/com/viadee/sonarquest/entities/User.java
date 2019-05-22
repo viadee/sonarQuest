@@ -81,7 +81,7 @@ public class User {
 	@Column(name = "last_tavern_visit")
 	private Timestamp lastTavernVisit;
 
-	@JsonIgnore
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "User_To_World", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "world_id", referencedColumnName = "id"))
 	private List<World> worlds = new ArrayList<>(0);
@@ -217,6 +217,7 @@ public class User {
 		this.level = level;
 	}
 
+	@JsonIgnore
 	public List<World> getWorlds() {
 		return worlds;
 	}
