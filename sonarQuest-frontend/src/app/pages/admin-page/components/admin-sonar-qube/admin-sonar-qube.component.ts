@@ -101,7 +101,6 @@ export class AdminSonarQubeComponent implements OnInit {
         return this.sonarQubeService.saveConfig(config);
       }
     }).then(() => {
-      this.worldService.worldChanged();
       loading.close();
     }).catch(() => {
       this.translate.get("ADMIN_PAGE.SONARQUBE_CONNECTION_TEST.ERROR").subscribe((translatedMessage) => {

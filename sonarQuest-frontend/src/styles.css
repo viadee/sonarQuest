@@ -38,7 +38,13 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
   color: rgba(255, 255, 255, 0.7) !important; 
 }
 
-.dark mat-card mat-toolbar {
+.dark mat-card mat-toolbar,
+.dark mat-dialog-container,
+.dark mat-dialog-container mat-dialog-content, 
+.dark mat-dialog-container mat-toolbar.dark, 
+.dark mat-dialog-container td-data-table, 
+.dark mat-dialog-container mat-dialog-actions,
+.dark mat-toolbar.mat-toolbar.mat-toolbar-single-row:not(:first-child){
   background-color:rgba(66, 66, 66, 0.87) !important; 
   color: white !important;
 } 
@@ -54,12 +60,19 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 .dark mat-sidenav-content,
 .dark mat-hint,
 .dark label,
-.dark mat-hint{
+.dark mat-hint 
+{
   color:  rgba(255, 255, 255, 0.87) !important;
 }
 
 
-.dark td-paging-bar,.dark td-paging-bar span, .dark td-paging-bar mat-icon{
+.dark td-paging-bar,
+.dark mat-select span,
+.dark td-paging-bar span, 
+.dark td-paging-bar mat-icon,
+.dark .td-data-table-column-row span
+.dark span.mat-select-placeholder,
+.dark th span{
   color: rgba(200, 200, 200, 0.87) !important;
 }
 

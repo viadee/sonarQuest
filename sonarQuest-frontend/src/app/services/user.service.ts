@@ -11,7 +11,6 @@ import { ImageService } from './image.service';
 @Injectable()
 export class UserService {
 
-  private user: User;
   public imageToShow: any = "";
 
   private userSubject: Subject<User> = new ReplaySubject(1);
@@ -19,35 +18,15 @@ export class UserService {
   private avatarSubject: Subject<any> = new ReplaySubject(1);
   avatar$ = this.avatarSubject.asObservable();
 
-  private listener: Subscriber<boolean>[] = [];
-
   constructor(private httpClient: HttpClient,
     private imageService: ImageService
   ) { }
-
-  public onUserChange(): Observable<boolean> {
-    return new Observable<boolean>(
-      observer => {
-        this.listener.push(observer);
-      }
-    );
-  }
-
-  private userLoaded(): void {
-    this.listener.forEach(l => l.next(true));
-  }
 
   public loadUser(): void {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
       this.userSubject.next(user);
-      this.user = user;
-      this.userLoaded();
-      
       this.loadAvatar();
-    }, error1 => {
-      this.user = null;
-      this.userLoaded();
     });
   }
 
@@ -55,10 +34,6 @@ export class UserService {
     const url = `${environment.endpoint}/user/updateLastTavernVisit`;
     const date = new Date();
     return this.httpClient.post(url, date.getTime()).toPromise();
-  }
-
-  public getUser(): User {
-    return this.user;
   }
 
   public getUsers(): Observable<User[]> {
@@ -72,11 +47,9 @@ export class UserService {
   }
 
   public loadAvatar() {
-    if (this.user) {
       this.getImage().subscribe((blob) => {
         this.imageService.createImageFromBlob(blob).subscribe(image => this.avatarSubject.next(image));
       });
-    }
   }
 
 

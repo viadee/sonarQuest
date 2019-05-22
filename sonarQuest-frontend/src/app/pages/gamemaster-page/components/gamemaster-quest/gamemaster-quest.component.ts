@@ -65,9 +65,12 @@ export class GamemasterQuestComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.init();
-    this.worldService.onWorldChange().subscribe(() => this.init());
     this.initSweetAlert();
+
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world
+      this.subscribeToQuests();
+    })
   }
   initSweetAlert(): void {
     this.swalOptionsConfirmDelete = {
@@ -90,12 +93,6 @@ export class GamemasterQuestComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000
     }
-  }
-  private init() {
-    this.worldService.currentWorld$.subscribe(world => {
-      this.currentWorld = world
-      this.subscribeToQuests();
-    })
   }
 
   private translateTable() {
