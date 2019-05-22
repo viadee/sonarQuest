@@ -12,10 +12,11 @@ export class WizardService {
   private world: World;
 
   constructor(private http: HttpClient, private worldService: WorldService) {
+
+    worldService.currentWorld$.subscribe(world => this.world = world)
   }
 
   public getWizardMessage(): Observable<Wizard> {
-      this.world = this.worldService.getCurrentWorld();
       return this.http.get<Wizard>(`${environment.endpoint}/wizard/world/${this.world ? this.world.id : ''}`);
   }
 

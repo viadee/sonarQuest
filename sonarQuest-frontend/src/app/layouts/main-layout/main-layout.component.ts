@@ -75,14 +75,12 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.userService.onUserChange().subscribe(() => {
-      if (this.userService.getUser()) {
-        this.user = this.userService.getUser();
+    this.userService.user$.subscribe(user => {
+        this.user = user;
         this.updateMenu();
         this.susbcribeWorlds();
         this.setDesign();
         this.subscribeUnseenEvents();
-      }
     });
     this.setPreDesign();
     this.setBackground();

@@ -20,6 +20,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   currentWorld: World;
   tasks: Task[];
+  user: User;
 
   constructor(
     private sonarQubeService: SonarQubeService,
@@ -33,7 +34,9 @@ export class ViewParticipatedQuestComponent implements OnInit {
 
   ngOnInit() {
     this.tasks = this.quest.tasks;
-    this.currentWorld = this.worldService.getCurrentWorld();
+
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
+    this.userService.user$.subscribe(user => this.user = user)
   }
 
   addParticipation(task: Task) {
@@ -77,7 +80,7 @@ export class ViewParticipatedQuestComponent implements OnInit {
     const participations: Participation[] = this.quest.participations;
     participations.forEach((participation) => {
       if (participation.tasks.map(partTask => partTask.id).includes(task.id)) {
-        if (this.userService.getUser().id === participation.user.id) {
+        if (this.user.id === participation.user.id) {
           result = true;
         }
       }

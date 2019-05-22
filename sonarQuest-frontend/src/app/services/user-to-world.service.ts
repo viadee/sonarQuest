@@ -27,11 +27,8 @@ export class UserToWorldService {
   public getUserToWorlds(user: User): Promise<UserToWorld[]> {
 
     let activeWorlds: World[];
-    let userWorlds:   World[];
+    let userWorlds:   World[] = this.userWorlds;
     let userWorldIds: number[];
-
-    return this.worldService.getWorldsForUser(user).then(worlds => {
-      userWorlds = worlds
 
       return this.worldService.getActiveWorlds().then(worlds => {
         activeWorlds = worlds;
@@ -44,7 +41,6 @@ export class UserToWorldService {
           worldName: world.name
         });
       });
-    })
 
     
   }

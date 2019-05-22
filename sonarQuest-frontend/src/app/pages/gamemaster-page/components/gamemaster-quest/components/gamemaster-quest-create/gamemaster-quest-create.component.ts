@@ -10,6 +10,7 @@ import {GamemasterQuestComponent} from 'app/pages/gamemaster-page/components/gam
 import {TaskService} from '../../../../../../services/task.service';
 import { QuestState } from 'app/Interfaces/QuestState';
 import { UserService } from 'app/services/user.service';
+import { User } from 'app/Interfaces/User';
 
 @Component({
   selector: 'app-gamemaster-quest-create',
@@ -24,11 +25,11 @@ export class GamemasterQuestCreateComponent implements OnInit {
   story: string;
   visible: boolean;
   currentWorld: World;
-  selectedWorld: World;
   worlds: World[];
   tasks: Task[] = [];
   images: any[];
   selectedImage: string;
+  user: User;
 
   constructor(private questService: QuestService,
               private taskService: TaskService,
@@ -39,23 +40,18 @@ export class GamemasterQuestCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentWorld = this.worldService.getCurrentWorld();
-    this.worldService.getWorlds().subscribe(worlds => {
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
+    this.worldService.worlds$.subscribe(worlds => {
       this.worlds = worlds;
-      this.selectWorld();
       this.loadImages();
       this.selectedImage = 'http://via.placeholder.com/200x200';
     })
-  }
 
-  selectWorld() {
-    if (this.worlds && this.currentWorld) {
-      this.selectedWorld = this.worlds.filter(world => world.id === this.currentWorld.id)[0];
-    }
+    this.userService.user$.subscribe(user => this.user = user)
   }
 
   createQuest() {
-    if (this.title && this.gold && this.xp && this.story && this.selectedImage && this.selectedWorld && (this.tasks.length !== 0)) {
+    if (this.title && this.gold && this.xp && this.story && this.selectedImage && this.currentWorld && (this.tasks.length !== 0)) {
 
       const quest = {
         title: this.title,
@@ -63,9 +59,9 @@ export class GamemasterQuestCreateComponent implements OnInit {
         xp: this.xp,
         visible: this.visible,
         story: this.story,
-        world: this.selectedWorld,
+        world: this.currentWorld,
         image: this.selectedImage,
-        creatorName: this.userService.getUser().username 
+        creatorName: this.user.username 
       };
       this.questService.createQuest(quest).then((createdQuest) => {
         if (createdQuest.id) {
@@ -74,7 +70,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
             const addTaskToQuest = this.taskService.addToQuest(value, createdQuest);
             promiseArray.push(addTaskToQuest);
           });
-          const addQuestToWorld = this.questService.addToWorld(createdQuest, this.selectedWorld);
+          const addQuestToWorld = this.questService.addToWorld(createdQuest, this.currentWorld);
           promiseArray.push(addQuestToWorld);
           return Promise.all(promiseArray);
         }
@@ -86,7 +82,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.selectedWorld, this.tasks]})
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.currentWorld, this.tasks]})
       .afterClosed().subscribe(result => {
       if (result) {
         this.tasks.push(result)
@@ -97,7 +93,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   suggestTasks() {
     this.dialog.open(GamemasterSuggestTasksComponent, {
       panelClass: 'dialog-sexy',
-      data: [this.selectedWorld, this.tasks]
+      data: [this.currentWorld, this.tasks]
     }).afterClosed().subscribe(result => {
       if (result) {
         this.tasks = this.tasks.concat(result)

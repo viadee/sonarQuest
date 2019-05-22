@@ -21,7 +21,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   templateUrl: './gamemaster-adventure.component.html',
   styleUrls: ['./gamemaster-adventure.component.css']
 })
-export class GamemasterAdventureComponent implements OnInit, OnChanges {
+export class GamemasterAdventureComponent implements OnInit {
   @Input() isSelected: boolean;
   @ViewChild('deleteSuccessAdventureSwal') private deleteSuccessAdventureSwal: SwalComponent;
 
@@ -63,8 +63,12 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.translateTable();
-    this.init();
-    this.worldService.onWorldChange().subscribe(() => this.init());
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world
+      this.loadAdventures();
+      this.questService.getFreeQuestsForWorld(this.currentWorld)
+        .then(quests => quests.length > 0 ? this.freeQuestsAvailable = true : this.freeQuestsAvailable = false);
+    })
 
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
@@ -85,21 +89,6 @@ export class GamemasterAdventureComponent implements OnInit, OnChanges {
       position: 'top-end',
       showConfirmButton: false,
       timer: 3000
-    }
-  }
-
-  private init() {
-    if (this.worldService.getCurrentWorld()) {
-      this.currentWorld = this.worldService.getCurrentWorld();
-      this.loadAdventures();
-      this.questService.getFreeQuestsForWorld(this.currentWorld)
-        .then(quests => quests.length > 0 ? this.freeQuestsAvailable = true : this.freeQuestsAvailable = false);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.isSelected.currentValue === true) {
-      this.init();
     }
   }
 

@@ -63,15 +63,10 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.init();
-    this.worldService.onWorldChange().subscribe(() => this.init());
-  }
-
-  private init() {
-    if (this.worldService.getCurrentWorld()) {
-      this.currentWorld = this.worldService.getCurrentWorld();
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world
       this.loadTasks();
-    }
+    })
   }
 
   private translateTable() {
@@ -111,10 +106,10 @@ export class GamemasterStandardTaskComponent implements OnInit {
 
   updateStandardTasksStatus(){
      const loading = this.loadingService.getLoadingSpinner();
-      this.standardTaskService.updateStandardTasksForWorld(this.worldService.getCurrentWorld()).then(() => {
-        this.taskService.refreshTasks(this.worldService.getCurrentWorld());
-        this.questService.refreshQuests(this.worldService.getCurrentWorld());
-        this.adventureService.refreshAdventures(this.worldService.getCurrentWorld());
+      this.standardTaskService.updateStandardTasksForWorld(this.currentWorld).then(() => {
+        this.taskService.refreshTasks(this.currentWorld);
+        this.questService.refreshQuests(this.currentWorld);
+        this.adventureService.refreshAdventures(this.currentWorld);
         loading.close();
       }).catch(() => loading.close())
   }
