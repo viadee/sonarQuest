@@ -18,7 +18,7 @@ import { EventService } from 'app/services/event.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css']
 })
-export class MainLayoutComponent implements OnInit, AfterViewInit {
+export class MainLayoutComponent implements OnInit {
 
   public currentWorld: World = null;
   public worlds: World[];
@@ -85,6 +85,12 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.setPreDesign();
     this.setBackground();
     this.userService.loadUser();
+
+    
+    this.media.broadcast();
+    this.translate.get('APP_COMPONENT').subscribe((page_names) => {
+      this.pageNames = page_names;
+    })
   }
 
   private updateMenu(enable: boolean = true) {
@@ -139,13 +145,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.media.broadcast();
-    this.translate.get('APP_COMPONENT').subscribe((page_names) => {
-      this.pageNames = page_names;
-    })
-  }
-
   determinePageTitle(url: string): string {
     if (this.pageNames) {
       switch (url) {
@@ -171,6 +170,29 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     } else {
       return ''
     }
+  }
+
+  ddeterminePageTitle() {
+    let url = this.router.url
+      if (url == '/start') {
+          return this.pageNames.STARTPAGE;
+      } else if (url == '/myAvatar') {
+          return this.pageNames.MY_AVATAR;
+      } else if (url == '/adventures') {
+          return this.pageNames.ADVENTURES;
+      } else if (url == '/quests') {
+          return this.pageNames.QUESTS;
+      } else if (url == '/marketplace') {
+          return this.pageNames.MARKETPLACE;
+      } else if (url == '/gamemaster') {
+          return this.pageNames.GAMEMASTER;
+      } else if (url == '/admin') {
+          return this.pageNames.ADMIN;
+      } else if (url == '/events') {
+          return this.pageNames.EVENTS;
+      } else {
+          return '';
+      }
   }
 
   updateWorld(world: World) {
