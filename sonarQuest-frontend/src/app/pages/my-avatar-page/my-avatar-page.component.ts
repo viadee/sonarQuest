@@ -34,18 +34,13 @@ export class MyAvatarPageComponent implements OnInit {
       this.user = user;
       this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);
       this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
-      this.xpPercent();      
-      this.getAvatar();
+      this.xpPercent();     
     })
+
+    this.userService.avatar$.subscribe(avatar => this.imageToShow = avatar)
   }
 
-  private getAvatar() {
-    if (this.user) {
-      this.userService.getImage().subscribe((blob) => {
-        this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
-      });
-    }
-  }
+ 
 
   protected createSkillsList(artefact: any) {
     const skillnames = artefact.skills.map(skill => skill.name);
@@ -65,7 +60,7 @@ export class MyAvatarPageComponent implements OnInit {
     this.dialog.open(AvatarEditComponent, {panelClass: 'dialog-sexy', data: this.user, width: '500px'}).afterClosed().subscribe(
       result => {
         if (result) {
-          this.getAvatar();
+          this.userService.loadAvatar();
         }
       }
     );

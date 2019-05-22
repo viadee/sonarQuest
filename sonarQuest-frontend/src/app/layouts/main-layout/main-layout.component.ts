@@ -25,6 +25,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   public pageNames: any;
   public selected: World;
   public user: User = null;
+  public imageToShow: any = "";
   private ui: UiDesign = null;
   private clickToggleDesignButton = false;
 
@@ -70,6 +71,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.worlds = null;
     this.user = null;
     this.ui = null;
+    this.imageToShow = null;
     this.updateMenu(false);
     this.setBackground();
   }
@@ -84,6 +86,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.subscribeUnseenEvents();
       }
     });
+    this.userService.avatar$.subscribe(avatar => this.imageToShow = avatar)
+
     this.setPreDesign();
     this.setBackground();
     this.userService.loadUser();

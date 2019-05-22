@@ -6,18 +6,23 @@ import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { ImageService } from './image.service';
 
 @Injectable()
 export class UserService {
 
   private user: User;
+  public imageToShow: any = "";
 
   private userSubject: Subject<User> = new ReplaySubject(1);
   user$ = this.userSubject.asObservable();
+  private avatarSubject: Subject<any> = new ReplaySubject(1);
+  avatar$ = this.avatarSubject.asObservable();
 
   private listener: Subscriber<boolean>[] = [];
 
-  constructor(private httpClient: HttpClient
+  constructor(private httpClient: HttpClient,
+    private imageService: ImageService
   ) { }
 
   public onUserChange(): Observable<boolean> {
@@ -38,6 +43,8 @@ export class UserService {
       this.userSubject.next(user);
       this.user = user;
       this.userLoaded();
+      
+      this.loadAvatar();
     }, error1 => {
       this.user = null;
       this.userLoaded();
@@ -63,6 +70,15 @@ export class UserService {
       })
     }));
   }
+
+  public loadAvatar() {
+    if (this.user) {
+      this.getImage().subscribe((blob) => {
+        this.imageService.createImageFromBlob(blob).subscribe(image => this.avatarSubject.next(image));
+      });
+    }
+  }
+
 
   public getImage(): Observable<Blob> {
     const url = `${environment.endpoint}/user/avatar`;
