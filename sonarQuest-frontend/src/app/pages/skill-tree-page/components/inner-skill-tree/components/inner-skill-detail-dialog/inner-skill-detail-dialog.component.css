@@ -1,3 +1,7 @@
+.sonar-rules{
+    margin-bottom: 7px;
+}
+
 .clickable{
     cursor: pointer;
 }

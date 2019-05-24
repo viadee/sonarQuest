@@ -10,7 +10,7 @@
       <mat-list>
         <h2 mat-subheader>{{"INNER_SKILL_TREE_POPUP.RULES" | translate}}</h2>
 
-        <mat-list-item *ngFor="let rule of data.sonarRuleDTOs">
+        <mat-list-item class="sonar-rules" *ngFor="let rule of data.sonarRuleDTOs">
 
           <a class="clickable" [matTooltip]="'INNER_SKILL_TREE_POPUP.TOOLTIP' | translate"
             [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below"
