@@ -16,7 +16,7 @@ INSERT INTO User_Skill_Group_Following (user_skill_group_id,following_user_skill
 (1,4),
 (4,5),
 (4,6),
-(4,7),
+(5,7),
 (4,9),
 (5,8),
 (2,12),
@@ -30,44 +30,44 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 ('Java-Basics I','Fundamental java basic skills',1,3,1),
 ('Primitive types','Easy data types',0,3,1),
 ('Packages','Structure your code project',0,3,1),
-('Java Doc','Stay informed! Document your code',0,3,3), //Insert into Group 3
-('Scopes','Where is the code reachable',0,3,1), //5
+('Java Doc','Stay informed! Document your code',0,3,3), --Insert into Group 3
+('Scopes','Where is the code reachable',0,3,1), --5
 ('Floating point numbers','More flexible numbers',0,3,1),
 ('Switch','asd',0,3,1),
 ('Operators','+ - * / =',0,3,1),
 ('If','If-statement',0,3,1),
-('Loop','',0,3,1), //10
+('Loop','',0,3,1), --10
 ('Literals','',0,3,1),
 ('Underscores','',0,3,1),
 ('Initializer','',0,3,1),
 ('Standard Charsets','',0,3,1),
-('Octal Values','',0,3,1), //15
+('Octal Values','',0,3,1), --15
 ('String','',0,3,1),
 ('String Literals','',0,3,1),
 ('String Builder','',0,3,1),
 ('Reqular Expressions','',0,3,1),
-('IndexOf','',0,3,1), //20
+('IndexOf','',0,3,1), --20
 ('Printf-style format strings','',0,3,1),
 ('Modulo','',0,3,1),
 ('Iterator','',0,3,1),
 ('Labels','',0,3,1),
-('Jump Statements','',0,3,1), //25
+('Jump Statements','',0,3,1), --25
 ('Array','',0,3,1),
 ('Set','',0,3,1),
 ('Map','',0,3,1),
 ('List','',0,3,1),
-('Constants','',0,3,1), //30
+('Constants','',0,3,1), --30
 ('Enums','',0,3,1),
 ('EnumSet','',0,3,1),
 ('EnumMap','',0,3,1),
 ('Tree','',0,3,1),
-('Binary Tree','',0,3,1), //35
+('Binary Tree','',0,3,1), --35
 ('Collection','',0,3,1),
 ('Deque','',0,3,1),
 ('Stack','',0,3,1),
 ('Non-short-circuit Logic','',0,3,1),
-('Subexpressions','',0,3,1), //40 
-('Ternary operators','',0,3,1);
+('Subexpressions','',0,3,1), --40
+('Ternary operator','',0,3,1);
 
 
 
@@ -81,7 +81,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (5,13),
 (13,14),
 (13,15),
-(2,16),
+(8,16),
 (16,17),
 (16,18),
 (16,19),
@@ -90,7 +90,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (2,8),
 (8,22),
 (8,9),
-(9,10),
+(16,10),
 (10,23),
 (10,24),
 (10,25),
@@ -98,7 +98,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (26,27),
 (26,28),
 (26,29),
-(26,30),
+(13,30),
 (30,31),
 (27,32),
 (28,33),
@@ -122,7 +122,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (13,5),
 (14,13),
 (15,13),
-(16,2),
+(16,8),
 (17,16),
 (18,16),
 (19,16),
@@ -131,7 +131,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (8,2),
 (22,8),
 (9,8),
-(10,9),
+(10,16),
 (23,10),
 (24,10),
 (25,10),
@@ -139,9 +139,9 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (27,26),
 (28,26),
 (29,26),
-(30,26),
+(30,13),
 (31,30),
-(32,31),
+(32,27),
 (33,28),
 (34,26),
 (35,34),
@@ -150,7 +150,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (38,26),
 (39,9),
 (40,39),
-(39,41),
+(41,39),
 (7,9);
 
 /*
@@ -190,17 +190,17 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
 ('Style and Structure','',1,3,3),
-('Code Style','',0,3,3), //50
+('Code Style','',0,3,3), --50
 ('PMD','',0,3,3),
 ('Unicode','',0,3,3),
 ('Structure','',0,3,3),
 ('TODO tags','',0,3,3),
-('FIXME tags','',0,3,3), //55
+('FIXME tags','',0,3,3), --55
 ('Naming','',0,3,3),
 ('Conventions','',0,3,3),
 ('Deprecation','',0,3,3),
 ('Liskov Substitution Principle','',0,3,3),
-('Readability','',0,3,3), //60
+('Readability','',0,3,3), --60
 ('Comments','',0,3,3),
 ('SOLID','',0,3,3);
 
@@ -243,69 +243,69 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
 ('Java Basics II','',1,3,4),
 ('Class','',0,3,4),
-('Methods','',0,3,4), //65
+('Methods','',0,3,4), --65
 ('Keywords','',0,3,4),
 ('Try/Catch','',0,3,4),
 ('Varags parameters','',0,3,4),
 ('Recursion','',0,3,4),
-('Method overwriting','',0,3,4),//70
+('Method overwriting','',0,3,4), --70
 ('hashCode','',0,3,4),
 ('Listener','',0,3,4), 
 ('Annotations','',0,3,4),
 ('Assertion','',0,3,4),
-('Throwable','',0,3,4), //75
+('Throwable','',0,3,4), --75
 ('Try-with-resources','',0,3,4),
 ('Suppress Warnings','',0,3,4),
 ('Inheritence','',0,3,4),
 ('Static','',0,3,4),
-('Imports','',0,3,4), //80
+('Imports','',0,3,4), --80
 ('Interfaces','',0,3,4),
 ('Class Loader','',0,3,4),
 ('Constructor','',0,3,4),
 ('Abstract','',0,3,4),
-('Generics','',0,3,4), //85
-('Funcitonal interfaces','',0,3,4),
+('Generics','',0,3,4), --85
+('Functional interfaces','',0,3,4),
 ('Dynamic Class Loading','',0,3,4),
 ('Dates','',0,3,4),
 ('Math','',0,3,4),
-('Objects','',0,3,4), //90
+('Objects','',0,3,4), --90
 ('Logger','',0,3,4),
 ('Wrapper','',0,3,4),
 ('Bounds','',0,3,4),
 ('Wildcard','',0,3,4),
-('Optional','',0,3,4), //95
+('Optional','',0,3,4), --95
 ('Local','',0,3,4),
 ('Value-based class','',0,3,4),
 ('Random','',0,3,4),
 ('Error','',0,3,4),
-('Garbage Colleciton','',0,3,4), //100
+('Garbage Colleciton','',0,3,4), --100
 ('Casting','',0,3,4),
 ('Diamond operator','',0,3,4),
 ('InstanceOf','',0,3,4),
 ('Equals','',0,3,4),
-('Cloneables/Clone','',0,3,4), //105
+('Cloneables/Clone','',0,3,4), --105
 ('Comparator','',0,3,4),
 ('Reflection API','',0,3,4),
 ('Boxing and unboxing','',0,3,4),
 ('LocalDate / LocalTime','',0,3,4),
-('Secure random','',0,3,4), //110
+('Secure random','',0,3,4), --110
 ('Lambda','',0,3,4),
 ('Inner classes','',0,3,4),
 ('compareTo','',0,3,4),
 ('Finalize','',0,3,4),
-('Parsing','',0,3,4); //115
+('Parsing','',0,3,4); --115
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (63,64),
 (64,65),
 (63,66),
-(83,67),
+(65,67),
 (65,68),
 (65,69),
 (65,70),
 (65,71),
 (65,72),
-(65,73),
+(78,73),
 (67,74),
 (67,76),
 (73,77),
@@ -315,12 +315,12 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (64,81),
 (64,82),
 (64,83),
-(78,84),
+(81,84),
 (81,85),
-(81,86),
+(84,86),
 (82,87),
 (83,88),
-(83,89),
+(101,89),
 (83,90),
 (113,92),
 (85,93),
@@ -341,8 +341,8 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (92,108),
 (96,109),
 (98,110),
-(107,111),
-(108,112),
+(107,112),
+(112,111),
 (104,113),
 (100,114),
 (92,115);
@@ -351,13 +351,13 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (64,63),
 (65,64),
 (66,63),
-(67,83),
+(67,65),
 (68,65),
 (69,65),
 (70,65),
 (71,65),
 (72,65),
-(73,65),
+(73,78),
 (74,67),
 (76,67),
 (77,73),
@@ -367,12 +367,12 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (81,64),
 (82,64),
 (83,64),
-(84,78),
+(84,81),
 (85,81),
-(86,81),
+(86,84),
 (87,82),
 (88,83),
-(89,83),
+(89,101),
 (90,83),
 (92,113),
 (93,85),
@@ -393,8 +393,8 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (108,92),
 (109,96),
 (110,98),
-(111,107),
-(112,108),
+(112,107),
+(111,112),
 (113,104),
 (114,110),
 (115,92);
@@ -403,36 +403,36 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Network Programming','',1,3,5), //116
+('Network Programming','',1,3,5), --116
 ('URI/URl','',0,3,5),
 ('SQL','',0,3,5),
 ('JNDI','',0,3,5),
-('PAM','',0,3,5), //120
+('PAM','',0,3,5), --120
 ('IP Address','',0,3,5),
 ('JDBC','',0,3,5),
 ('SMTP','',0,3,5),
 ('XML','',0,3,5),
-('JSON','',0,3,5), //125
+('JSON','',0,3,5), --125
 ('SOAP','',0,3,5),
 ('LDAP','',0,3,5),
 ('Beans','',0,3,5),
 ('HTTP','',0,3,5),
-('ResultSet','',0,3,5), //130
+('ResultSet','',0,3,5), --130
 ('Sockets','',0,3,5),
 ('JAAS','',0,3,5),
 ('Hibernate','',0,3,5),
 ('JPA','',0,3,5),
-('Security-constraints','',0,3,5), //135
+('Security-constraints','',0,3,5), --135
 ('Filter Mapping','',0,3,5),
 ('REST','',0,3,5),
 ('Dependency Injection','',0,3,5),
 ('Cookies','',0,3,5),
-('Session','',0,3,5), //140
+('Session','',0,3,5), --140
 ('Servlet','',0,3,5),
 ('CORS','',0,3,5),
 ('SSL','',0,3,5),
 ('WebSockets','',0,3,5),
-('Eager Loading / Lazy Loading','',0,3,5), //145
+('Eager Loading / Lazy Loading','',0,3,5), --145
 ('EJB','',0,3,5),
 ('Interceptor','',0,3,5),
 ('Transactional','',0,3,5);
@@ -454,7 +454,7 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (118,130),
 (119,131),
 (120,132),
-(122,133),
+(134,133),
 (122,134),
 (124,135),
 (124,136),
@@ -465,10 +465,8 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (129,141),
 (129,142),
 (129,143),
-(129,144),
 (131,144),
 (133,145),
-(134,145),
 (138,146),
 (146,147),
 (146,148);
@@ -491,7 +489,6 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (130,118),
 (131,119),
 (132,120),
-(133,122),
 (134,122),
 (135,124),
 (136,124),
@@ -502,10 +499,8 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (141,129),
 (142,129),
 (143,129),
-(144,129),
 (144,131),
 (145,133),
-(145,134),
 (146,138),
 (147,146),
 (148,146);
@@ -515,13 +510,13 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Threading','',1,3,6), //149
-('Volatile','',0,3,6), //150
+('Threading','',1,3,6), --149
+('Volatile','',0,3,6), --150
 ('Threads','',0,3,6),
 ('Runnables','',0,3,6),
 ('Wait','',0,3,6),
 ('Lock','',0,3,6),
-('Multithreading','',0,3,6), //155
+('Multithreading','',0,3,6), --155
 ('Condition','',0,3,6),
 ('Notify','',0,3,6),
 ('Synchronized','',0,3,6);
@@ -530,22 +525,22 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (158,150),
 (149,151),
 (149,152),
-(149,153),
+(151,153),
 (149,154),
 (158,155),
 (151,156),
-(151,157),
+(153,157),
 (151,158);
 
 INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (150,158),
 (151,149),
 (152,149),
-(153,149),
+(153,151),
 (154,149),
 (155,158),
 (156,151),
-(157,151),
+(157,153),
 (158,151);
 
 /*
@@ -553,18 +548,18 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Security','',1,3,7), //159
-('Chiper Block Chaining','',0,3,7), //160
+('Security','',1,3,7), --159
+('Chiper Block Chaining','',0,3,7), --160
 ('Cryptography','',0,3,7),
 ('Basic Authentication','',0,3,7),
 ('Hashing','',0,3,7),
-('Null Chiper','',0,3,7),
-('X509 Trust Manager','',0,3,7), //165
+('NullCiper','',0,3,7),
+('X509 Trust Manager','',0,3,7), --165
 ('Encryption','',0,3,7),
 ('RSA Encryption','',0,3,7),
 ('Injection Attacks','',0,3,7),
 ('Data Encryption Standard','',0,3,7),
-('AES Encryption','',0,3,7), //170
+('AES Encryption','',0,3,7), --170
 ('XSRF','',0,3,7);
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
@@ -601,15 +596,15 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Spring Framework','',1,3,8), //172
+('Spring Framework','',1,3,8), --172
 ('Spring Boot','',0,3,8),
 ('Spring Data','',0,3,8), 
-('Spring Security','',0,3,8), //175
+('Spring Security','',0,3,8), --175
 ('Spring MVC','',0,3,8),
 ('EnableAutoConfiguration','',0,3,8),  
 ('Component Scan','',0,3,8),
 ('Import','',0,3,8),  
-('Scopes','',0,3,8); // 180
+('Scopes','',0,3,8); --180
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (172,173),
@@ -636,16 +631,16 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('File Handling','',1,3,9), //181
+('File Handling','',1,3,9), --181
 ('Streams','',0,3,9),
 ('Serialization','',0,3,9),
 ('Xpath Expression','',0,3,9),
-('System.in','',0,3,9), //185
+('System.in','',0,3,9), --185
 ('Archive Files','',0,3,9),
 ('Stream operations an pipelines','',0,3,9),
 ('Input','',0,3,9),
 ('Output','',0,3,9),
-('Collect','Stream',0,3,9), //190
+('Collect','Stream',0,3,9), --190
 ('Transient','',0,3,9),
 ('Externalizable','',0,3,9);
 
@@ -680,9 +675,9 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 */
 
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('GUI/MVC','',1,3,10), //193
+('GUI/MVC','',1,3,10), --193
 ('MVC Pattern','',0,3,10),
-('Struts','',0,3,10), //195
+('Struts','',0,3,10), --195
 ('ActionForm','',0,3,10),
 ('ActionSupport','',0,3,10);
 
@@ -702,7 +697,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 * Userskills Group 11
 */
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Mobile Apps','',1,3,11), //198
+('Mobile Apps','',1,3,11), --198
 ('Android','',0,3,11);
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
@@ -715,7 +710,7 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 * Userskills Group 12
 */
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('Testing','',1,3,12), //200
+('Testing','',1,3,12), --200
 ('Testing','',0,3,12),
 ('JUnit','',0,3,12);
 
@@ -732,11 +727,17 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 * Fixes
 */
 INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_skill_group_id) VALUES 
-('File','',0,3,9), //203
+('File','',0,3,9), --203
 ('System.out.print','',0,3,4),
-('Exception','',0,3,4), //205
+('Exception','',0,3,4), --205
 ('Synchronized classes','',0,3,6),
-('ValueOf','',0,3,1);
+('ValueOf','',0,3,1),
+('Collection implementations','',0,3,1),
+('SQL injection','',0,3,7),
+('Checked exception','',0,3,4), --210
+('Credentials','',0,3,7),
+('BigDecimal','',0,3,1),
+('Runtime','',0,3,4);
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (185,203),
@@ -745,7 +746,13 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (205,75),
 (67,205),
 (158,206),
-(16,207);
+(16,207),
+(36,208),
+(159,209),
+(205,210),
+(162,211),
+(6,212),
+(83,213);
 
 INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (203,185),
@@ -754,7 +761,13 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (75,205),
 (205,67),
 (206,158),
-(207,16);
+(207,16),
+(208,36),
+(209,159),
+(210,205),
+(211,162),
+(212,6),
+(213,83);
 
 
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
@@ -768,7 +781,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('"deleteOnExit" should not be used','squid:CallToFileDeleteOnExitMethod',203,'2019-04-25 14:12:05.049'),
 ('Sections of code should not be commented out','squid:CommentedOutCodeLine',61,'2019-04-25 14:12:05.049'),
 ('Skipped unit tests should be either removed or fixed','common-java:SkippedUnitTests',201,'2019-04-25 14:12:05.049'),
-('Unused "private" methods should be removed','squid:UnusedPrivateMethod',60,'2019-04-25 14:12:05.049'),
+('Unused "private" methods should be removed','squid:UnusedPrivateMethod',50,'2019-04-25 14:12:05.049'),
 ('Source files should not have any duplicated blocks','common-java:DuplicatedBlocks',53,'2019-04-25 14:12:05.049'),
 ('Track uses of "NOSONAR" comments','squid:NoSonar',61,'2019-04-25 14:12:05.049'),
 ('Files should not be empty','squid:EmptyFile',50,'2019-04-25 14:12:05.049'),
@@ -814,7 +827,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Array designators "[]" should be on the type, not the variable','squid:S1197',26,'2019-04-25 14:12:05.05'),
 ('String literals should not be duplicated','squid:S1192',17,'2019-04-25 14:12:05.05'),
 ('"java.lang.Error" should not be extended','squid:S1194',99,'2019-04-25 14:12:05.05'),
-('Close curly brace and the next "else", "catch" and "finally" keywords should be located on the same line','squid:RightCurlyBraceSameLineAsNextBlockCheck',67,'2019-04-25 14:12:05.05'),
+('Close curly brace and the next "else", "catch" and "finally" keywords should be located on the same line','squid:RightCurlyBraceSameLineAsNextBlockCheck',53,'2019-04-25 14:12:05.05'),
 ('Source code should be indented consistently','squid:IndentationCheck',53,'2019-04-25 14:12:05.05'),
 ('Exception classes should be immutable','squid:S1165',205,'2019-04-25 14:12:05.05'),
 ('Empty arrays and collections should be returned instead of null','squid:S1168',36,'2019-04-25 14:12:05.05'),
@@ -861,102 +874,102 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Case insensitive string comparisons should be made without intermediate upper or lower casing','squid:S1157',104,'2019-04-25 14:12:05.051'),
 ('Methods should not be empty','squid:S1186',65,'2019-04-25 14:12:05.051'),
 ('Expressions should not be too complex','squid:S1067',9,'2019-04-25 14:12:05.051'),
-('Lambdas and anonymous classes should not have too many lines of code','squid:S1188',1,'2019-04-25 14:12:05.051'),
-('Public constants and fields initialized at declaration should be "static final" rather than merely "final"','squid:S1170',1,'2019-04-25 14:12:05.051'),
-('Utility classes should not have public constructors','squid:S1118',1,'2019-04-25 14:12:05.051'),
-('Try-catch blocks should not be nested','squid:S1141',1,'2019-04-25 14:12:05.051'),
-('"for" loop stop conditions should be invariant','squid:ForLoopCounterChangedCheck',1,'2019-04-25 14:12:05.051'),
-('Assignments should not be made from within sub-expressions','squid:AssignmentInSubExpressionCheck',1,'2019-04-25 14:12:05.051'),
-('"switch" statements should have "default" clauses','squid:SwitchLastCaseIsDefaultCheck',1,'2019-04-25 14:12:05.051'),
-('Empty statements should be removed','squid:EmptyStatementUsageCheck',1,'2019-04-25 14:12:05.051'),
-('"Thread.run()" should not be called directly','squid:S1217',1,'2019-04-25 14:12:05.051'),
-('Track uses of "NOPMD" suppression comments','squid:S1310',1,'2019-04-25 14:12:05.051'),
-('"equals(Object obj)" and "hashCode()" should be overridden in pairs','squid:S1206',1,'2019-04-25 14:12:05.051'),
-('Classes should not be coupled to too many other classes (Single Responsibility Principle)','squid:S1200',1,'2019-04-25 14:12:05.052'),
-('Non-constructor methods should not have the same name as the enclosing class','squid:S1223',1,'2019-04-25 14:12:05.052'),
-('Using hardcoded IP addresses is security-sensitive','squid:S1313',1,'2019-04-25 14:12:05.052'),
-('Loggers should be "private static final" and should share a naming convention','squid:S1312',1,'2019-04-25 14:12:05.052'),
-('Track uses of "CHECKSTYLE:OFF" suppression comments','squid:S1315',1,'2019-04-25 14:12:05.052'),
-('Declarations should use Java collection interfaces such as "List" rather than specific implementation classes such as "LinkedList"','squid:S1319',1,'2019-04-25 14:12:05.052'),
-('"equals(Object obj)" should be overridden along with the "compareTo(T obj)" method','squid:S1210',1,'2019-04-25 14:12:05.052'),
-('Octal values should not be used','squid:S1314',1,'2019-04-25 14:12:05.052'),
-('"switch" statements should not contain non-case labels','squid:S1219',1,'2019-04-25 14:12:05.052'),
-('"switch" statements should have at least 3 "case" clauses','squid:S1301',1,'2019-04-25 14:12:05.052'),
-('Method parameters, caught exceptions and foreach variables'' initial values should not be ignored','squid:S1226',1,'2019-04-25 14:12:05.052'),
+('Lambdas and anonymous classes should not have too many lines of code','squid:S1188',111,'2019-04-25 14:12:05.051'),
+('Public constants and fields initialized at declaration should be "static final" rather than merely "final"','squid:S1170',30,'2019-04-25 14:12:05.051'),
+('Utility classes should not have public constructors','squid:S1118',83,'2019-04-25 14:12:05.051'),
+('Try-catch blocks should not be nested','squid:S1141',67,'2019-04-25 14:12:05.051'),
+('"for" loop stop conditions should be invariant','squid:ForLoopCounterChangedCheck',10,'2019-04-25 14:12:05.051'),
+('Assignments should not be made from within sub-expressions','squid:AssignmentInSubExpressionCheck',9,'2019-04-25 14:12:05.051'),
+('"switch" statements should have "default" clauses','squid:SwitchLastCaseIsDefaultCheck',7,'2019-04-25 14:12:05.051'),
+('Empty statements should be removed','squid:EmptyStatementUsageCheck',50,'2019-04-25 14:12:05.051'),
+('"Thread.run()" should not be called directly','squid:S1217',151,'2019-04-25 14:12:05.051'),
+('Track uses of "NOPMD" suppression comments','squid:S1310',51,'2019-04-25 14:12:05.051'),
+('"equals(Object obj)" and "hashCode()" should be overridden in pairs','squid:S1206',104,'2019-04-25 14:12:05.051'),
+('Classes should not be coupled to too many other classes (Single Responsibility Principle)','squid:S1200',50,'2019-04-25 14:12:05.052'),
+('Non-constructor methods should not have the same name as the enclosing class','squid:S1223',56,'2019-04-25 14:12:05.052'),
+('Using hardcoded IP addresses is security-sensitive','squid:S1313',121,'2019-04-25 14:12:05.052'),
+('Loggers should be "private static final" and should share a naming convention','squid:S1312',91,'2019-04-25 14:12:05.052'),
+('Track uses of "CHECKSTYLE:OFF" suppression comments','squid:S1315',50,'2019-04-25 14:12:05.052'),
+('Declarations should use Java collection interfaces such as "List" rather than specific implementation classes such as "LinkedList"','squid:S1319',208,'2019-04-25 14:12:05.052'),
+('"equals(Object obj)" should be overridden along with the "compareTo(T obj)" method','squid:S1210',113,'2019-04-25 14:12:05.052'),
+('Octal values should not be used','squid:S1314',15,'2019-04-25 14:12:05.052'),
+('"switch" statements should not contain non-case labels','squid:S1219',7,'2019-04-25 14:12:05.052'),
+('"switch" statements should have at least 3 "case" clauses','squid:S1301',7,'2019-04-25 14:12:05.052'),
+('Method parameters, caught exceptions and foreach variables'' initial values should not be ignored','squid:S1226',67,'2019-04-25 14:12:05.052'),
 ('Track lack of copyright and license headers','squid:S1451',1,'2019-04-25 14:12:05.052'),
-('Unused local variables should be removed','squid:S1481',1,'2019-04-25 14:12:05.052'),
-('Increment (++) and decrement (--) operators should not be used in a method call or mixed with other operators in an expression','squid:S881',1,'2019-04-25 14:12:05.052'),
-('"public static" fields should be constant','squid:S1444',1,'2019-04-25 14:12:05.052'),
-('Unused "private" fields should be removed','squid:S1068',1,'2019-04-25 14:12:05.052'),
-('Generic wildcard types should not be used in return parameters','squid:S1452',1,'2019-04-25 14:12:05.052'),
-('"StringBuilder" and "StringBuffer" should not be instantiated with a character','squid:S1317',1,'2019-04-25 14:12:05.052'),
-('Local variables should not be declared and then immediately returned or thrown','squid:S1488',1,'2019-04-25 14:12:05.052'),
-('"Collections.EMPTY_LIST", "EMPTY_MAP", and "EMPTY_SET" should not be used','squid:S1596',1,'2019-04-25 14:12:05.052'),
-('Lamdbas containing only one statement should not nest this statement in a block','squid:S1602',1,'2019-04-25 14:12:05.052'),
-('Parentheses should be removed from a single lambda input parameter when its type is inferred','squid:S1611',1,'2019-04-25 14:12:05.052'),
-('The members of an interface or class declaration should appear in a pre-defined order','squid:S1213',1,'2019-04-25 14:12:05.052'),
-('Anonymous inner classes containing only one method should become lambdas','squid:S1604',1,'2019-04-25 14:12:05.052'),
-('Abstract classes without fields should be converted to interfaces','squid:S1610',1,'2019-04-25 14:12:05.052'),
-('"==" and "!=" should not be used when "equals" is overridden','squid:S1698',1,'2019-04-25 14:12:05.052'),
-('@FunctionalInterface annotation should be used to flag Single Abstract Method interfaces','squid:S1609',1,'2019-04-25 14:12:05.052'),
-('A field should not duplicate the name of its containing class','squid:S1700',1,'2019-04-25 14:12:05.052'),
-('Strings should not be concatenated using ''+'' in a loop','squid:S1643',1,'2019-04-25 14:12:05.052'),
-('Unused method parameters should be removed','squid:S1172',1,'2019-04-25 14:12:05.052'),
-('"NullPointerException" should not be caught','squid:S1696',1,'2019-04-25 14:12:05.052'),
-('Magic numbers should not be used','squid:S109',1,'2019-04-25 14:12:05.052'),
-('An abstract class should have both abstract and concrete methods','squid:S1694',1,'2019-04-25 14:12:05.052'),
-('Package declaration should match source file directory','squid:S1598',1,'2019-04-25 14:12:05.052'),
-('Annotation repetitions should not be wrapped','squid:S1710',1,'2019-04-25 14:12:05.052'),
-('Short-circuit logic should be used to prevent null pointer dereferences in conditionals','squid:S1697',1,'2019-04-25 14:12:05.052'),
-('"NullPointerException" should not be explicitly thrown','squid:S1695',1,'2019-04-25 14:12:05.052'),
-('Related "if/else if" statements should not have the same condition','squid:S1862',1,'2019-04-25 14:12:05.053'),
-('Variables should not be self-assigned','squid:S1656',1,'2019-04-25 14:12:05.053'),
-('Lambdas should be replaced with method references','squid:S1612',1,'2019-04-25 14:12:05.053'),
-('Member variable visibility should be specified','squid:S2039',1,'2019-04-25 14:12:05.053'),
-('Fields in a "Serializable" class should either be transient or serializable','squid:S1948',1,'2019-04-25 14:12:05.053'),
-('"@Override" should be used on overriding and implementing methods','squid:S1161',1,'2019-04-25 14:12:05.053'),
-('Identical expressions should not be used on both sides of a binary operator','squid:S1764',1,'2019-04-25 14:12:05.053'),
-('The ternary operator should not be used','squid:S1774',1,'2019-04-25 14:12:05.053'),
-('"for" loop increment clauses should modify the loops'' counters','squid:S1994',1,'2019-04-25 14:12:05.053'),
-('Executing SQL queries is security-sensitive','squid:S2077',1,'2019-04-25 14:12:05.053'),
-('Classes should not be empty','squid:S2094',1,'2019-04-25 14:12:05.053'),
-('Packages should have a javadoc file ''package-info.java''','squid:S1228',1,'2019-04-25 14:12:05.053'),
-('Two branches in a conditional structure should not have exactly the same implementation','squid:S1871',1,'2019-04-25 14:12:05.053'),
-('"switch" statements should not have too many "case" clauses','squid:S1479',1,'2019-04-25 14:12:05.053'),
-('Floating point numbers should not be tested for equality','squid:S1244',1,'2019-04-25 14:12:05.053'),
-('"instanceof" operators that always return "true" or "false" should be removed','squid:S1850',1,'2019-04-25 14:12:05.053'),
-('Redundant casts should not be used','squid:S1905',1,'2019-04-25 14:12:05.053'),
-('Collections should not be passed as arguments to their own methods','squid:S2114',1,'2019-04-25 14:12:05.053'),
+('Unused local variables should be removed','squid:S1481',50,'2019-04-25 14:12:05.052'),
+('Increment (++) and decrement (--) operators should not be used in a method call or mixed with other operators in an expression','squid:S881',8,'2019-04-25 14:12:05.052'),
+('"public static" fields should be constant','squid:S1444',30,'2019-04-25 14:12:05.052'),
+('Unused "private" fields should be removed','squid:S1068',50,'2019-04-25 14:12:05.052'),
+('Generic wildcard types should not be used in return parameters','squid:S1452',94,'2019-04-25 14:12:05.052'),
+('"StringBuilder" and "StringBuffer" should not be instantiated with a character','squid:S1317',18,'2019-04-25 14:12:05.052'),
+('Local variables should not be declared and then immediately returned or thrown','squid:S1488',50,'2019-04-25 14:12:05.052'),
+('"Collections.EMPTY_LIST", "EMPTY_MAP", and "EMPTY_SET" should not be used','squid:S1596',85,'2019-04-25 14:12:05.052'),
+('Lamdbas containing only one statement should not nest this statement in a block','squid:S1602',111,'2019-04-25 14:12:05.052'),
+('Parentheses should be removed from a single lambda input parameter when its type is inferred','squid:S1611',111,'2019-04-25 14:12:05.052'),
+('The members of an interface or class declaration should appear in a pre-defined order','squid:S1213',53,'2019-04-25 14:12:05.052'),
+('Anonymous inner classes containing only one method should become lambdas','squid:S1604',111,'2019-04-25 14:12:05.052'),
+('Abstract classes without fields should be converted to interfaces','squid:S1610',84,'2019-04-25 14:12:05.052'),
+('"==" and "!=" should not be used when "equals" is overridden','squid:S1698',104,'2019-04-25 14:12:05.052'),
+('@FunctionalInterface annotation should be used to flag Single Abstract Method interfaces','squid:S1609',86,'2019-04-25 14:12:05.052'),
+('A field should not duplicate the name of its containing class','squid:S1700',56,'2019-04-25 14:12:05.052'),
+('Strings should not be concatenated using ''+'' in a loop','squid:S1643',10,'2019-04-25 14:12:05.052'),
+('Unused method parameters should be removed','squid:S1172',50,'2019-04-25 14:12:05.052'),
+('"NullPointerException" should not be caught','squid:S1696',205,'2019-04-25 14:12:05.052'),
+('Magic numbers should not be used','squid:S109',50,'2019-04-25 14:12:05.052'),
+('An abstract class should have both abstract and concrete methods','squid:S1694',84,'2019-04-25 14:12:05.052'),
+('Package declaration should match source file directory','squid:S1598',3,'2019-04-25 14:12:05.052'),
+('Annotation repetitions should not be wrapped','squid:S1710',73,'2019-04-25 14:12:05.052'),
+('Short-circuit logic should be used to prevent null pointer dereferences in conditionals','squid:S1697',39,'2019-04-25 14:12:05.052'),
+('"NullPointerException" should not be explicitly thrown','squid:S1695',205,'2019-04-25 14:12:05.052'),
+('Related "if/else if" statements should not have the same condition','squid:S1862',9,'2019-04-25 14:12:05.053'),
+('Variables should not be self-assigned','squid:S1656',50,'2019-04-25 14:12:05.053'),
+('Lambdas should be replaced with method references','squid:S1612',111,'2019-04-25 14:12:05.053'),
+('Member variable visibility should be specified','squid:S2039',5,'2019-04-25 14:12:05.053'),
+('Fields in a "Serializable" class should either be transient or serializable','squid:S1948',191,'2019-04-25 14:12:05.053'),
+('"@Override" should be used on overriding and implementing methods','squid:S1161',73,'2019-04-25 14:12:05.053'),
+('Identical expressions should not be used on both sides of a binary operator','squid:S1764',8,'2019-04-25 14:12:05.053'),
+('The ternary operator should not be used','squid:S1774',41,'2019-04-25 14:12:05.053'),
+('"for" loop increment clauses should modify the loops'' counters','squid:S1994',10,'2019-04-25 14:12:05.053'),
+('Executing SQL queries is security-sensitive','squid:S2077',209,'2019-04-25 14:12:05.053'),
+('Classes should not be empty','squid:S2094',50,'2019-04-25 14:12:05.053'),
+('Packages should have a javadoc file ''package-info.java''','squid:S1228',4,'2019-04-25 14:12:05.053'),
+('Two branches in a conditional structure should not have exactly the same implementation','squid:S1871',7,'2019-04-25 14:12:05.053'),
+('"switch" statements should not have too many "case" clauses','squid:S1479',60,'2019-04-25 14:12:05.053'),
+('Floating point numbers should not be tested for equality','squid:S1244',6,'2019-04-25 14:12:05.053'),
+('"instanceof" operators that always return "true" or "false" should be removed','squid:S1850',103,'2019-04-25 14:12:05.053'),
+('Redundant casts should not be used','squid:S1905',101,'2019-04-25 14:12:05.053'),
+('Collections should not be passed as arguments to their own methods','squid:S2114',36,'2019-04-25 14:12:05.053'),
 ('Servlets should not have mutable instance fields','squid:S2226',50,'2019-04-25 14:12:05.053'),
-('Methods "wait(...)", "notify()" and "notifyAll()" should not be called on Thread instances','squid:S2236',1,'2019-04-25 14:12:05.053'),
-('"main" should not "throw" anything','squid:S2096',1,'2019-04-25 14:12:05.053'),
-('"toString()" and "clone()" methods should not return null','squid:S2225',1,'2019-04-25 14:12:05.053'),
-('Creating cookies without the "secure" flag is security-sensitive','squid:S2092',1,'2019-04-25 14:12:05.053'),
-('Collection methods with O(n) performance should be used carefully','squid:S2250',1,'2019-04-25 14:12:05.053'),
-('"ResultSet.isLast()" should not be used','squid:S2232',1,'2019-04-25 14:12:05.053'),
-('"Object.wait(...)" should never be called on objects that implement "java.util.concurrent.locks.Condition"','squid:S1844',1,'2019-04-25 14:12:05.053'),
-('A "for" loop update clause should move the counter in the right direction','squid:S2251',1,'2019-04-25 14:12:05.053'),
-('Return values from functions without side effects should not be ignored','squid:S2201',1,'2019-04-25 14:12:05.053'),
-('Equality operators should not be used in "for" loop termination conditions','squid:S888',1,'2019-04-25 14:12:05.053'),
-('Using pseudorandom number generators (PRNGs) is security-sensitive','squid:S2245',1,'2019-04-25 14:12:05.053'),
-('IllegalMonitorStateException should not be caught','squid:S2235',1,'2019-04-25 14:12:05.053'),
-('HTTP referers should not be relied on','squid:S2089',1,'2019-04-25 14:12:05.053'),
-('Checked exceptions should not be thrown','squid:S1162',1,'2019-04-25 14:12:05.053'),
-('Credentials should not be hard-coded','squid:S2068',1,'2019-04-25 14:12:05.053'),
-('"HttpServletRequest.getRequestedSessionId()" should not be used','squid:S2254',1,'2019-04-25 14:12:05.053'),
-('Non-public methods should not be "@Transactional"','squid:S2230',1,'2019-04-25 14:12:05.053'),
-('Loop conditions should be true at least once','squid:S2252',1,'2019-04-25 14:12:05.053'),
-('"Iterator.hasNext()" should not call "Iterator.next()"','squid:S1849',1,'2019-04-25 14:12:05.053'),
-('"compareTo" results should not be checked for specific values','squid:S2200',1,'2019-04-25 14:12:05.054'),
-('SHA-1 and Message-Digest hash algorithms should not be used in secure contexts','squid:S2070',1,'2019-04-25 14:12:05.054'),
-('"javax.crypto.NullCipher" should not be used for anything other than testing','squid:S2258',1,'2019-04-25 14:12:05.054'),
-('Unused labels should be removed','squid:S1065',1,'2019-04-25 14:12:05.054'),
-('Math operands should be cast before assignment','squid:S2184',1,'2019-04-25 14:12:05.054'),
-('Cryptographic RSA algorithms should always incorporate OAEP (Optimal Asymmetric Encryption Padding)','squid:S2277',1,'2019-04-25 14:12:05.054'),
-('Printf-style format strings should not lead to unexpected behavior at runtime','squid:S2275',1,'2019-04-25 14:12:05.054'),
-('"BigDecimal(double)" should not be used','squid:S2111',1,'2019-04-25 14:12:05.054'),
-('Classes and methods that rely on the default system encoding should not be used','squid:S1943',1,'2019-04-25 14:12:05.054'),
-('"runFinalizersOnExit" should not be called','squid:S2151',1,'2019-04-25 14:12:05.054'),
+('Methods "wait(...)", "notify()" and "notifyAll()" should not be called on Thread instances','squid:S2236',157,'2019-04-25 14:12:05.053'),
+('"main" should not "throw" anything','squid:S2096',75,'2019-04-25 14:12:05.053'),
+('"toString()" and "clone()" methods should not return null','squid:S2225',105,'2019-04-25 14:12:05.053'),
+('Creating cookies without the "secure" flag is security-sensitive','squid:S2092',139,'2019-04-25 14:12:05.053'),
+('Collection methods with O(n) performance should be used carefully','squid:S2250',208,'2019-04-25 14:12:05.053'),
+('"ResultSet.isLast()" should not be used','squid:S2232',130,'2019-04-25 14:12:05.053'),
+('"Object.wait(...)" should never be called on objects that implement "java.util.concurrent.locks.Condition"','squid:S1844',154,'2019-04-25 14:12:05.053'),
+('A "for" loop update clause should move the counter in the right direction','squid:S2251',10,'2019-04-25 14:12:05.053'),
+('Return values from functions without side effects should not be ignored','squid:S2201',65,'2019-04-25 14:12:05.053'),
+('Equality operators should not be used in "for" loop termination conditions','squid:S888',10,'2019-04-25 14:12:05.053'),
+('Using pseudorandom number generators (PRNGs) is security-sensitive','squid:S2245',110,'2019-04-25 14:12:05.053'),
+('IllegalMonitorStateException should not be caught','squid:S2235',157,'2019-04-25 14:12:05.053'),
+('HTTP referers should not be relied on','squid:S2089',129,'2019-04-25 14:12:05.053'),
+('Checked exceptions should not be thrown','squid:S1162',210,'2019-04-25 14:12:05.053'),
+('Credentials should not be hard-coded','squid:S2068',211,'2019-04-25 14:12:05.053'),
+('"HttpServletRequest.getRequestedSessionId()" should not be used','squid:S2254',140,'2019-04-25 14:12:05.053'),
+('Non-public methods should not be "@Transactional"','squid:S2230',148,'2019-04-25 14:12:05.053'),
+('Loop conditions should be true at least once','squid:S2252',10,'2019-04-25 14:12:05.053'),
+('"Iterator.hasNext()" should not call "Iterator.next()"','squid:S1849',23,'2019-04-25 14:12:05.053'),
+('"compareTo" results should not be checked for specific values','squid:S2200',113,'2019-04-25 14:12:05.054'),
+('SHA-1 and Message-Digest hash algorithms should not be used in secure contexts','squid:S2070',163,'2019-04-25 14:12:05.054'),
+('"javax.crypto.NullCipher" should not be used for anything other than testing','squid:S2258',164,'2019-04-25 14:12:05.054'),
+('Unused labels should be removed','squid:S1065',50,'2019-04-25 14:12:05.054'),
+('Math operands should be cast before assignment','squid:S2184',89,'2019-04-25 14:12:05.054'),
+('Cryptographic RSA algorithms should always incorporate OAEP (Optimal Asymmetric Encryption Padding)','squid:S2277',167,'2019-04-25 14:12:05.054'),
+('Printf-style format strings should not lead to unexpected behavior at runtime','squid:S2275',21,'2019-04-25 14:12:05.054'),
+('"BigDecimal(double)" should not be used','squid:S2111',212,'2019-04-25 14:12:05.054'),
+('Classes and methods that rely on the default system encoding should not be used','squid:S1943',46,'2019-04-25 14:12:05.054'),
+('"runFinalizersOnExit" should not be called','squid:S2151',213,'2019-04-25 14:12:05.054'),
 ('"Object.wait(...)" and "Condition.await(...)" should be called inside a "while" loop','squid:S2274',1,'2019-04-25 14:12:05.054'),
 ('"wait(...)" should be used instead of "Thread.sleep(...)" when a lock is held','squid:S2276',1,'2019-04-25 14:12:05.054'),
 ('"Cloneables" should implement "clone"','squid:S2157',1,'2019-04-25 14:12:05.054'),
@@ -1052,7 +1065,7 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('Multiline blocks should be enclosed in curly braces','squid:S2681',1,'2019-04-25 14:12:05.056'),
 ('Assertions should be complete','squid:S2970',1,'2019-04-25 14:12:05.056'),
 ('"private" methods that don''t access instance data should be "static"','squid:S2325',1,'2019-04-25 14:12:05.056'),
-('Tests should include assertions','squid:S2699',61,'2019-04-25 14:12:05.056'), //Testzuordnung
+('Tests should include assertions','squid:S2699',61,'2019-04-25 14:12:05.056'), --Testzuordnung
 --('Maps with keys that are enum values should be replaced with EnumMap','squid:S1640',54,'2019-04-25 14:12:05.056'), // Testzuordnung
 ('"indexOf" checks should use a start position','squid:S2912',1,'2019-04-25 14:12:05.056'),
 ('Boolean checks should not be inverted','squid:S1940',1,'2019-04-25 14:12:05.056'),

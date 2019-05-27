@@ -25,7 +25,7 @@ public class CachingTask {
 			}
 			cacheManager.getCache("taskScoringCache").clear();
 			cacheManager.getCache("allQuestFromWorldCache").clear();
-			LOGGER.info("The cache with the name '{}' and '{}' has been cleared","taskScoringCache", "allQuestFromWorldCache");
+			LOGGER.info("The cache with the name '{}' and '{}' have been cleared","taskScoringCache", "allQuestFromWorldCache");
 		}
 
 }

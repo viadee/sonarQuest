@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -294,7 +295,7 @@ public class EventService {
 	public boolean checkForUnseenEvents(String username) {
 		User user = userService.findByUsername(username);
 		if (user.getLastTavernVisit() != null) {
-			List<Event> unseenEvents = eventRepository.findAllWithTimestampAfter(user.getLastTavernVisit());
+			List<Event> unseenEvents = eventRepository.findByWorld(user.getCurrentWorld()).stream().filter(event -> event.getTimestamp().after(user.getLastTavernVisit())).collect(Collectors.toList());
 			if (!unseenEvents.isEmpty()) {
 				return true;
 			}

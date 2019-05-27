@@ -122,7 +122,7 @@ public class UserService implements UserDetailsService {
 				final Role role = user.getRole();
 				final RoleName roleName = role.getName();
 				final Role userRole = roleService.findByName(roleName);
-				if (mail == null || mail.isEmpty()) {
+				if (mail == null || mail.isEmpty() || !toBeSaved.getUsername().equalsIgnoreCase(username)) {
 					mail = username + "@sonarQuest.local";
 				}
 				setUsername(toBeSaved, username);

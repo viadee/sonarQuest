@@ -71,6 +71,7 @@ export class MyAvatarPageComponent implements OnInit {
     this.dialog.open(AvatarEditComponent, {panelClass: 'dialog-sexy', data: this.user, width: '500px'}).afterClosed().subscribe(
       result => {
         if (result) {
+          this.user = result;
           this.getAvatar();
         }
       }

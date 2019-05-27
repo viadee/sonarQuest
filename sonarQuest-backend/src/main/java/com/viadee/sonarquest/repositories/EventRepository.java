@@ -30,6 +30,4 @@ public interface EventRepository extends CrudRepository<Event, Long> {
 
 	Event findFirstByType(EventType type);
 
-	@Query("select e from Event e where e.timestamp > :creationTimestamp")
-	List<Event> findAllWithTimestampAfter(@Param("creationTimestamp") Timestamp creationTimestamp);
 }
