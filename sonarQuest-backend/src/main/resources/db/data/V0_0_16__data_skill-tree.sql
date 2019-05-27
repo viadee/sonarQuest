@@ -737,7 +737,9 @@ INSERT INTO User_Skill(skill_name,description,is_root,required_repetitions,user_
 ('Checked exception','',0,3,4), --210
 ('Credentials','',0,3,7),
 ('BigDecimal','',0,3,1),
-('Runtime','',0,3,4);
+('Runtime','',0,3,4),
+('ToString','',0,3,1),
+('Double','',0,3,1);--215
 
 INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (185,203),
@@ -752,7 +754,9 @@ INSERT INTO User_Skill_Following (user_skill_id,following_user_skill_id) VALUES
 (205,210),
 (162,211),
 (6,212),
-(83,213);
+(83,213),
+(16,214),
+(6,215);
 
 INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (203,185),
@@ -767,7 +771,9 @@ INSERT INTO User_Skill_Previous (user_skill_id,previous_user_skill_id) VALUES
 (210,205),
 (211,162),
 (212,6),
-(213,83);
+(213,83),
+(214,16),
+(215,6);
 
 
 INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
@@ -970,14 +976,14 @@ INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES
 ('"BigDecimal(double)" should not be used','squid:S2111',212,'2019-04-25 14:12:05.054'),
 ('Classes and methods that rely on the default system encoding should not be used','squid:S1943',46,'2019-04-25 14:12:05.054'),
 ('"runFinalizersOnExit" should not be called','squid:S2151',213,'2019-04-25 14:12:05.054'),
-('"Object.wait(...)" and "Condition.await(...)" should be called inside a "while" loop','squid:S2274',1,'2019-04-25 14:12:05.054'),
-('"wait(...)" should be used instead of "Thread.sleep(...)" when a lock is held','squid:S2276',1,'2019-04-25 14:12:05.054'),
-('"Cloneables" should implement "clone"','squid:S2157',1,'2019-04-25 14:12:05.054'),
-('"hashCode" and "toString" should not be called on array instances','squid:S2116',1,'2019-04-25 14:12:05.054'),
-('"Iterator.next()" methods should throw "NoSuchElementException"','squid:S2272',1,'2019-04-25 14:12:05.054'),
-('Neither DES (Data Encryption Standard) nor DESede (3DES) should be used','squid:S2278',1,'2019-04-25 14:12:05.054'),
-('".equals()" should not be used to test the values of "Atomic" classes','squid:S2204',1,'2019-04-25 14:12:05.054'),
-('"Double.longBitsToDouble" should not be used for "int"','squid:S2127',1,'2019-04-25 14:12:05.054'),
+('"Object.wait(...)" and "Condition.await(...)" should be called inside a "while" loop','squid:S2274',153,'2019-04-25 14:12:05.054'),
+('"wait(...)" should be used instead of "Thread.sleep(...)" when a lock is held','squid:S2276',153,'2019-04-25 14:12:05.054'),
+('"Cloneables" should implement "clone"','squid:S2157',105,'2019-04-25 14:12:05.054'),
+('"hashCode" and "toString" should not be called on array instances','squid:S2116',71,'2019-04-25 14:12:05.054'),
+('"Iterator.next()" methods should throw "NoSuchElementException"','squid:S2272',205,'2019-04-25 14:12:05.054'),
+('Neither DES (Data Encryption Standard) nor DESede (3DES) should be used','squid:S2278',169,'2019-04-25 14:12:05.054'),
+('".equals()" should not be used to test the values of "Atomic" classes','squid:S2204',104,'2019-04-25 14:12:05.054'),
+('"Double.longBitsToDouble" should not be used for "int"','squid:S2127',215,'2019-04-25 14:12:05.054'),
 ('"wait", "notify" and "notifyAll" should only be called when a lock is obviously held on an object','squid:S2273',1,'2019-04-25 14:12:05.054'),
 ('Constructors should only call non-overridable methods','squid:S1699',1,'2019-04-25 14:12:05.054'),
 ('Reflection should not be used to check non-runtime annotations','squid:S2109',1,'2019-04-25 14:12:05.054'),
