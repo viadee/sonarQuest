@@ -35,3 +35,7 @@ height: 90%;
 .pointer{
 	cursor: pointer;
 }
+
+.not-allowed{
+	cursor: not-allowed;
+}

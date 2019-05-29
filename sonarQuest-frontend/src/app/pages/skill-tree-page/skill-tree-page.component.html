@@ -35,8 +35,22 @@
           </ng-template>
 
           <ng-template #nodeTemplate let-node>
-            <svg:g class="node pointer" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'"
-              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate" (click)="navigatToInnerSkilLTree(node.id)">
+            <svg:g class="node not-allowed" ngx-tooltip [tooltipPlacement]="'top'" *ngIf="node.root" [tooltipType]="'tooltip'"
+              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_ROOT_NODE'| translate" (click)="navigatToInnerSkilLTree(node)">
+
+              <svg:rect [attr.width]="node.width+40" [attr.height]="node.height+10" style="fill:#fff"
+              [attr.stroke]="nodecolor" stroge-width="3" rx="15" ry="15"/>
+              <svg:path fill="#c0c0c0" transform="scale(0.04,-0.04) translate(100,-1110)"
+                [attr.d]="getSkillGroupIcon(node.groupIcon)">
+              </svg:path>
+              <svg:text alignment-baseline="central" [attr.x]="50" [attr.y]="(node.height+10) / 2">{{node.label}}
+              </svg:text>
+
+            </svg:g>  
+
+      
+            <svg:g class="node pointer" ngx-tooltip [tooltipPlacement]="'top'" *ngIf="!node.root" [tooltipType]="'tooltip'"
+              [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate"  (click)="navigatToInnerSkilLTree(node)">
 
               <svg:rect [attr.width]="node.width+40" [attr.height]="node.height+10" style="fill:#fff"
               [attr.stroke]="nodecolor" stroge-width="3" rx="15" ry="15"/>

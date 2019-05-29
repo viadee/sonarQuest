@@ -29,6 +29,12 @@ public class SkillTreeObjectDTO {
 		this.label = label;
 		this.groupIcon = groupIcon;
 	}
+	public SkillTreeObjectDTO(String id, String label, String groupIcon,boolean isRoot) {
+		this.id = id;
+		this.label = label;
+		this.groupIcon = groupIcon;
+		this.isRoot = isRoot;
+	}
 
 	public SkillTreeObjectDTO(String id, String label, int repeats, int requiredRepetitions) {
 		this.id = id;

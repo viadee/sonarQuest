@@ -49,7 +49,7 @@ public class SkillTreeService {
 
 		for (UserSkillGroup userSkillGroup : userSkillGroups) {
 			skillTreeDiagramDTO.addNode(new SkillTreeObjectDTO(String.valueOf(userSkillGroup.getId()),
-					String.valueOf(userSkillGroup.getName()), userSkillGroup.getIcon()));
+					String.valueOf(userSkillGroup.getName()), userSkillGroup.getIcon(), userSkillGroup.isRoot()));
 			for (UserSkillGroup followingUserSkillGroup : userSkillGroup.getFollowingUserSkillGroups()) {
 				skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSkillGroup.getId()),
 						String.valueOf(followingUserSkillGroup.getId())));

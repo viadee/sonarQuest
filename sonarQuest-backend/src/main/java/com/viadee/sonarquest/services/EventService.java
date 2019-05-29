@@ -294,8 +294,11 @@ public class EventService {
 
 	public boolean checkForUnseenEvents(String username) {
 		User user = userService.findByUsername(username);
-		if (user.getLastTavernVisit() != null) {
-			List<Event> unseenEvents = eventRepository.findByWorld(user.getCurrentWorld()).stream().filter(event -> event.getTimestamp().after(user.getLastTavernVisit())).collect(Collectors.toList());
+		if (user.getLastTavernVisit() != null && user.getCurrentWorld() != null) {
+			List<Event> unseenEvents = eventRepository.findByWorld(user.getCurrentWorld());
+			if(!unseenEvents.isEmpty()) {
+				unseenEvents = unseenEvents.stream().filter(event -> event.getTimestamp().after(user.getLastTavernVisit())).collect(Collectors.toList());
+			}
 			if (!unseenEvents.isEmpty()) {
 				return true;
 			}
