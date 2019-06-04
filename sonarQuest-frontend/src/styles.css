@@ -110,6 +110,25 @@ div.little-avatar-frame{
   margin:auto !important;
 }
 
+span.severity.BLOCKER{
+  color: red !important;
+  font-weight: 900;
+}
+span.severity.CRITICAL{
+  color: rgb(255, 80, 0) !important;
+  font-weight: 600;
+}
+span.severity.MAJOR{
+  color: rgb(255, 175, 0) !important;
+}
+span.severity.MINOR{
+  color: rgb(230, 230, 0) !important;
+}
+span.severity.INFO{
+  color: green !important;
+}
+
+
 /*------------------DESIGN-END------------------*/
 
 
