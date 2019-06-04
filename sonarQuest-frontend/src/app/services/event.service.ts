@@ -138,7 +138,7 @@ export class EventService implements OnChanges {
 
     this.eventDtosSubject.next(this.eventDtos)
     this.userDtosSubject.next(this.userDtos)
-    this.checkForUnseenEvents();
+    //this.checkForUnseenEvents();
   }
 
   getEventsForCurrentWorldEfficient(): Observable<EventUserDto> {

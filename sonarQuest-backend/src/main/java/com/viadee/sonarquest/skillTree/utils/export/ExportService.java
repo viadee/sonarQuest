@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -58,6 +59,46 @@ public class ExportService {
 			Files.deleteIfExists(file.toPath());
 			out = new FileOutputStream(file);
 			workbookUserSkill.write(out);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void exportUserSkillsWhereRuleNull() {
+		XSSFSheet sheet = workbookUserSkill.createSheet("UserSkillsRuleIstNull");// creating a blank sheet
+		List<UserSkill> userSkills = userSkillRepository.findAll();
+		List<UserSkill> ruleIsNull = new ArrayList<UserSkill>();
+		for(UserSkill userSkill :userSkills) {
+			if(userSkill.getSonarRules().isEmpty() && !userSkill.isRoot()) {
+				ruleIsNull.add(userSkill);
+
+			}
+		}
+		int rownum = 0;
+		Row header = sheet.createRow(rownum++);
+		Cell cell = header.createCell(0);
+		cell.setCellValue("ID");
+
+		cell = header.createCell(1);
+		cell.setCellValue("Name");
+
+		cell = header.createCell(2);
+		cell.setCellValue("Group");
+		for (UserSkill userSkill : ruleIsNull) {
+			Row row = sheet.createRow(rownum++);
+			createListUserSkill(userSkill, row);
+
+		}
+
+		FileOutputStream out = null;
+		try {
+			File file = new File("src/main/resources/export/UserSkillsRuleNull.xlsx");
+			Files.deleteIfExists(file.toPath());
+			out = new FileOutputStream(file);
+			workbookUserSkill.write(out);
+			System.out.println("export done");
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();

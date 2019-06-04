@@ -77,6 +77,7 @@ public class SonarQuestApplication implements CommandLineRunner {
     	//exportService.exportUserSkills();
     	//exportService.exportSonarRules();
     	//exportService.createSonarRuleSQLScript();
+    	exportService.exportUserSkillsWhereRuleNull();
     	
     }
 
