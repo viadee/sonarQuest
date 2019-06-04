@@ -78,17 +78,23 @@
               [matTooltip]="'APP_COMPONENT.USER_PROFILE' | translate"
               [matTooltipClass]="'tooltipMultiline'"
               matTooltipPosition="below">
-        <mat-icon>person</mat-icon>
-        <span>{{user?.username}}</span>
+              
+              
+        <div class="little-avatar-frame">
+          <div class="little-avatar">
+            <img class="little-avatar" [src]="imageToShow">
+          </div>
+        </div>
+              
       </button>
+      
     </div>
-    <div flex="5"></div>
     <div class="lightning-login-align">
       <button mat-icon-button (click)="clickToggleDesign()"
               [matTooltip]="'APP_COMPONENT.BACKGROUND' | translate"
               [matTooltipClass]="'tooltipMultiline'"
               matTooltipPosition="below">
-        <i mat-list-icon class="ra ra-lightning-bolt ra-2x navlist"></i>
+        <i mat-list-icon class="ra ra-lightning-bolt ra-2x navlist mcenter"></i>
       </button>
       <button *ngIf="user" mat-icon-button (click)="logout()"
               [matTooltip]="'APP_COMPONENT.LOGOUT' | translate"
@@ -100,4 +106,3 @@
   </div>
   <router-outlet></router-outlet>
 </td-layout-nav-list>
-

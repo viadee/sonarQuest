@@ -25,6 +25,7 @@ export class MainLayoutComponent implements OnInit {
   public pageNames: any;
   public selected: World;
   public user: User = null;
+  public imageToShow: any = "";
   private ui: UiDesign = null;
   private clickToggleDesignButton = false;
 
@@ -44,7 +45,6 @@ export class MainLayoutComponent implements OnInit {
   public isGamemasterVisible: boolean;
   public isAdminVisible: boolean;
   public isEventVisible: boolean;
-
 
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
@@ -71,18 +71,22 @@ export class MainLayoutComponent implements OnInit {
     this.worlds = null;
     this.user = null;
     this.ui = null;
+    this.imageToShow = null;
     this.updateMenu(false);
     this.setBackground();
   }
 
   ngOnInit() {
     this.userService.user$.subscribe(user => {
+      
+        this.userService.avatar$.subscribe(avatar => this.imageToShow = avatar)
         this.user = user;
         this.updateMenu();
         this.susbcribeWorlds();
         this.setDesign();
         this.subscribeUnseenEvents();
     });
+    
     this.setPreDesign();
     this.setBackground();
     this.userService.loadUser();

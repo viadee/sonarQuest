@@ -6,20 +6,28 @@ import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { ImageService } from './image.service';
 
 @Injectable()
 export class UserService {
 
   private userSubject: Subject<User> = new ReplaySubject(1);
   user$ = this.userSubject.asObservable();
+  private avatarSubject: Subject<any> = new ReplaySubject(1);
+  avatar$ = this.avatarSubject.asObservable();
 
-  constructor(private httpClient: HttpClient
-  ) { }
+  constructor(
+    private httpClient: HttpClient,
+    private imageService: ImageService
+  ) {
+    this.loadAvatar();
+  }
 
   public loadUser(): void {
     const url = `${environment.endpoint}/user`;
     this.httpClient.get<User>(url).subscribe(user => {
       this.userSubject.next(user);
+      this.loadAvatar();
     });
   }
 
@@ -37,6 +45,12 @@ export class UserService {
        // user.lastTavernVisit = user.lastTavernVisit ? moment(new Date(user.lastTavernVisit)).format('DD.MM.YYYY HH:mm:ss') : null
       })
     }));
+  }
+
+  public loadAvatar() {
+    this.getImage().subscribe((blob) => {
+      this.imageService.createImageFromBlob(blob).subscribe(image => this.avatarSubject.next(image));
+    });
   }
 
   public getImage(): Observable<Blob> {

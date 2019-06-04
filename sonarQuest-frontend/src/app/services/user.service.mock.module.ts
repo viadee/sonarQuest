@@ -40,6 +40,7 @@ export class UserServiceMock {
   };
 
   user$ = of(this.user);
+  avatar$ = new Observable<any>();
 
   public onUserChange(): Observable<boolean> {
     return new Observable<boolean>();

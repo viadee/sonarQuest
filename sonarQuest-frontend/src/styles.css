@@ -89,6 +89,27 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
   cursor: pointer !important;
 }
 
+div.little-avatar{
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  
+  border-radius: 20px;
+}
+
+img.little-avatar{
+  max-width: 42px;
+}
+
+div.little-avatar-frame{
+  
+  display: inline-flex;
+}
+
+.mcenter{
+  margin:auto !important;
+}
+
 /*------------------DESIGN-END------------------*/
 
 
