@@ -282,5 +282,11 @@
   "STATUS": {
     "OPEN": "Open",
     "SOLVED": "Solved"
+  },
+  "TYPE": {
+    "CODE_SMELL": "Code Smell",
+    "BUG": "Bug",
+    "VULNERABILITY": "Vulnerability",
+    "SECURITY_HOTSPOT": "Security hotspot"
   }
 }

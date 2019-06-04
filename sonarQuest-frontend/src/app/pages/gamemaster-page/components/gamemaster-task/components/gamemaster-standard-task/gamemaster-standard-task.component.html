@@ -27,6 +27,27 @@
           </button>
         </div>
       </ng-template>
+      <ng-template tdDataTableTemplate="type" let-value="value" let-row="row" let-column="column">
+        <mat-icon *ngIf="value=='CODE_SMELL'"
+          [matTooltip]="'TYPE.CODE_SMELL' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below"><i class="ra ra-turd" ></i></mat-icon>
+
+        <mat-icon *ngIf="value=='BUG'"
+          [matTooltip]="'TYPE.BUG' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below"><i class="ra ra-beetle" ></i></mat-icon>
+        
+        <mat-icon *ngIf="value=='VULNERABILITY'"
+          [matTooltip]="'TYPE.VULNERABILITY' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below"><i class="ra ra-broken-shield " ></i></mat-icon>
+
+        <mat-icon *ngIf="value=='SECURITY_HOTSPOT'"
+          [matTooltip]="'TYPE.SECURITY_HOTSPOT' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below"><i class="material-icons">lock_open</i></mat-icon>
+      </ng-template>
       <ng-template tdDataTableTemplate="status" let-value="value" let-row="row" let-column="column">
         <mat-icon *ngIf="value=='OPEN'"
           [matTooltip]="'STATUS.OPEN' | translate"
