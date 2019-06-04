@@ -16,21 +16,21 @@
     <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy"
       [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
-        <mat-icon *ngIf="value"  (click)="toggleActive(row)" class="icon-as-button" style="color:#29c429" 
+        <mat-icon *ngIf="value"  (click)="toggleActive(row)" class="icon-as-button" style="color:#29c429 !important" 
           [matTooltip]="'ADMIN_PAGE.ACTIVE' | translate"
           [matTooltipClass]="'tooltipMultiline'" 
           matTooltipPosition="below">check_circle</mat-icon>
-        <mat-icon *ngIf="!value" (click)="toggleActive(row)" class="icon-as-button" style="color:#C62828"
+        <mat-icon *ngIf="!value" (click)="toggleActive(row)" class="icon-as-button" style="color:#C62828 !important"
           [matTooltip]="'ADMIN_PAGE.DEACTIVE' | translate"
           [matTooltipClass]="'tooltipMultiline'" 
           matTooltipPosition="below">cancel</mat-icon>
       </ng-template>
       <ng-template tdDataTableTemplate="usequestcards" let-value="value" let-row="row" let-column="column">
-        <mat-icon *ngIf="value"  (click)="toggleUsequestcards(row)" class="icon-as-button" style="color:#29c429"
+        <mat-icon *ngIf="value"  (click)="toggleUsequestcards(row)" class="icon-as-button" style="color:#29c429 !important"
         [matTooltip]="'ADMIN_PAGE.ACTIVE' | translate"
         [matTooltipClass]="'tooltipMultiline'" 
         matTooltipPosition="below">check_circle</mat-icon>
-        <mat-icon *ngIf="!value" (click)="toggleUsequestcards(row)" class="icon-as-button" style="color:#C62828"
+        <mat-icon *ngIf="!value" (click)="toggleUsequestcards(row)" class="icon-as-button" style="color:#C62828 !important"
         [matTooltip]="'ADMIN_PAGE.DEACTIVE' | translate"
         [matTooltipClass]="'tooltipMultiline'" 
         matTooltipPosition="below">cancel</mat-icon>

@@ -19,29 +19,29 @@
 }
 
 .QUEST .timestamp{
-    background-color: rgba(102, 51, 153,0.35);
+    background-color: #b469ff59;
 }
 .MESSAGE .timestamp{
     background-color: rgba(204, 173,0,0.35);
 }
 .ADVENTURE .timestamp{
-    background-color: rgba(0, 129, 204, 0.35);
+    background-color: #00a1ff59;
 }
 .ARTEFACT .timestamp{
     background-color: rgba(114, 177, 255, 0.35);
 }
 
 .QUEST span.state{
-    color: rebeccapurple !important;
+    color: #b469ff !important;
 }
 .MESSAGE span.author{
     color: rgb(204, 173, 0)    !important;
 }
 .ADVENTURE span.state{
-    color: rgb(0, 129, 204)    !important;
+    color: #00a1ff !important;
 }
 .ARTEFACT span.state{
-    color: rgb(0, 76, 171) !important;
+    color: #72b1ff !important;
 }
 
 .timestamp{

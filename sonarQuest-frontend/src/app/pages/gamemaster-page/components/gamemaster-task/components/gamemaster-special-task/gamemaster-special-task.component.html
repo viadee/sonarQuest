@@ -32,6 +32,16 @@
           </button>
         </div>
       </ng-template>
+      <ng-template tdDataTableTemplate="status" let-value="value" let-row="row" let-column="column">
+        <mat-icon *ngIf="value=='OPEN'"
+          [matTooltip]="'STATUS.OPEN' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">check_box_outline_blank</mat-icon>
+        <mat-icon *ngIf="value=='SOLVED'"
+          [matTooltip]="'STATUS.SOLVED' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">check_box</mat-icon>
+      </ng-template>
     </td-data-table>
     <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>

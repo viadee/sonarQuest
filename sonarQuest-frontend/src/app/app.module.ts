@@ -110,6 +110,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { SvgIconsModule } from './components/svg-icons/svg-icons.module';
+import { TabService } from './services/tab.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -261,6 +262,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WizardService,
     EventService,
     WebsocketService,
+    TabService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

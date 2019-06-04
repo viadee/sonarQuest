@@ -24,6 +24,26 @@
       <ng-template tdDataTableTemplate="image" let-value="value" let-row="row" let-column="column">
         <img style="max-width:100px; margin-right: -16px;" [src]="value">
       </ng-template>
+      <ng-template tdDataTableTemplate="visible" let-value="value" let-row="row" let-column="column">
+        <mat-icon *ngIf="value"  (click)="toggleActive(row)" class="icon-as-button" style="color:#29c429 !important" 
+          [matTooltip]="'ADMIN_PAGE.ACTIVE' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">check_circle</mat-icon>
+        <mat-icon *ngIf="!value" (click)="toggleActive(row)" class="icon-as-button" style="color:#C62828 !important"
+          [matTooltip]="'ADMIN_PAGE.DEACTIVE' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">cancel</mat-icon>
+      </ng-template>
+      <ng-template tdDataTableTemplate="status" let-value="value" let-row="row" let-column="column">
+        <mat-icon *ngIf="value=='OPEN'"
+          [matTooltip]="'STATUS.OPEN' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">check_box_outline_blank</mat-icon>
+        <mat-icon *ngIf="value=='SOLVED'"
+          [matTooltip]="'STATUS.SOLVED' | translate"
+          [matTooltipClass]="'tooltipMultiline'" 
+          matTooltipPosition="below">check_box</mat-icon>
+      </ng-template>
       <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <button mat-icon-button (click)="editQuest(row)" [matTooltip]="'GLOBAL.EDIT' | translate"
@@ -38,6 +58,7 @@
           <swal #deleteSuccessQuestSwal [options]=swalOptionsDeleteSuccess> </swal>
         </div>
       </ng-template>
+      
     </td-data-table>
     <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>

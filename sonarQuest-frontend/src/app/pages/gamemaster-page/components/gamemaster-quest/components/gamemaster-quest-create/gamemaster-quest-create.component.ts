@@ -25,6 +25,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
   story: string;
   visible: boolean;
   currentWorld: World;
+  selectedWorld: World;
   worlds: World[];
   tasks: Task[] = [];
   images: any[];
@@ -45,6 +46,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
       this.worlds = worlds;
       this.loadImages();
       this.selectedImage = 'http://via.placeholder.com/200x200';
+      this.selectWorld();
     })
 
     this.userService.user$.subscribe(user => this.user = user)
@@ -82,7 +84,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.currentWorld, this.tasks]})
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', width: '80%' , data: [this.currentWorld, this.tasks]})
       .afterClosed().subscribe(result => {
       if (result) {
         this.tasks.push(result)
@@ -125,6 +127,13 @@ export class GamemasterQuestCreateComponent implements OnInit {
       this.images[i] = {};
       this.images[i].src = 'assets/images/quest/hero' + (i + 1) + '.jpg';
       this.images[i].name = 'hero' + (i + 1);
+    }
+  }
+
+  
+  selectWorld() {
+    if (this.worlds && this.currentWorld) {
+      this.selectedWorld = this.worlds.filter(world => world.id === this.currentWorld.id)[0]
     }
   }
 }

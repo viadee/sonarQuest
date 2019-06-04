@@ -9,6 +9,8 @@ import {Adventure} from "../Interfaces/Adventure";
 @Injectable()
 export class QuestServiceMock {
 
+  quests$ = new Observable<any>();
+
   getQuestsForWorld(world: World): Observable<Quest[]> {
     return new Observable<Quest[]>();
   }

@@ -1,3 +1,4 @@
+import { TabService } from 'app/services/tab.service';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {GamemasterPageComponent} from './gamemaster-page.component';
@@ -79,7 +80,8 @@ describe('GamemasterPageComponent', () => {
         SweetAlert2Module
       ],
       providers: [
-        LoadingService
+        LoadingService,
+        TabService
       ]
     })
     .compileComponents();

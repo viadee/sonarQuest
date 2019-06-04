@@ -18,11 +18,10 @@ import {TranslateService} from '@ngx-translate/core';
 export class GamemasterAddFreeTaskComponent implements OnInit {
 
   freeStandardTasksColumns: ITdDataTableColumn[] = [
-    {name: 'title', label: 'Title', width: 600},
+    {name: 'title', label: 'Title'},
     {name: 'severity', label: 'Severity'},
     {name: 'gold', label: 'Gold'},
     {name: 'xp', label: 'XP'},
-    {name: 'open_issue', label: ''},
     {name: 'add_task', label: ''}
   ];
   fromRowStandardTasks = 1;
@@ -33,7 +32,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     {name: 'title', label: 'Title'},
     {name: 'gold', label: 'Gold'},
     {name: 'xp', label: 'XP'},
-    {name: 'message', label: 'Message', width: 500},
+    {name: 'message', label: 'Message'},
     {name: 'add_task', label: ''}
   ];
   fromRowSpecialTasks = 1;
@@ -71,20 +70,19 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   private translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeStandardTasksColumns = [
-        {name: 'title', label: col_names.TITLE, width: 600},
+        {name: 'title', label: col_names.TITLE},
         {name: 'severity', label: col_names.SEVERITY},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'xp', label: col_names.XP},
-        {name: 'open_issue', label: ''},
+        {name: 'gold', label: col_names.GOLD, width: 40 },
+        {name: 'xp', label: col_names.XP, width: 40 },
         {name: 'add_task', label: ''}
       ]
     });
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.freeSpecialTasksColumns = [
         {name: 'title', label: col_names.TITLE},
-        {name: 'gold', label: col_names.GOLD},
-        {name: 'xp', label: col_names.XP},
-        {name: 'message', label: col_names.MISSION, width: 500},
+        {name: 'gold', label: col_names.GOLD, width: 40 },
+        {name: 'xp', label: col_names.XP, width: 40 },
+        {name: 'message', label: col_names.MISSION},
         {name: 'add_task', label: ''}
       ]
     });    

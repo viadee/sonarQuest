@@ -10,7 +10,7 @@
   </mat-card>
 </ng-container>
 <mat-card>
-  <mat-tab-group>
+  <mat-tab-group  (selectedTabChange)="onTabChange($event)" [selectedIndex]="selectedTab"> 
     <mat-tab [label]="'ADMIN_PAGE.SONAR_QUBE_HEADER' | translate" class="tab">
       <sq-admin-sonar-qube></sq-admin-sonar-qube>
     </mat-tab>

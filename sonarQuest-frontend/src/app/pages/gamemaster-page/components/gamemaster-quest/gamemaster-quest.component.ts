@@ -69,9 +69,14 @@ export class GamemasterQuestComponent implements OnInit {
 
     this.worldService.currentWorld$.subscribe(world => {
       this.currentWorld = world
-      this.subscribeToQuests();
+    })
+
+    this.questService.quests$.subscribe(quests => {
+      this.data = quests;
+      this.filter();
     })
   }
+
   initSweetAlert(): void {
     this.swalOptionsConfirmDelete = {
       title: this.translate('GLOBAL.DELETE'),
@@ -98,25 +103,18 @@ export class GamemasterQuestComponent implements OnInit {
   private translateTable() {
     this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
-        { name: 'image', label: '' },
+        { name: 'image', label: '', width: 100  },
         { name: 'title', label: col_names.TITLE },
-        { name: 'visible', label: col_names.VISIBLE },
+        { name: 'visible', label: col_names.VISIBLE, width: 50  },
         { name: 'gold', label: col_names.GOLD, width: 40 },
         { name: 'xp', label: col_names.XP, width: 40 },
-        { name: 'adventure.title', label: col_names.ADVENTURE },
-        { name: 'status', label: col_names.STATUS },
+        { name: 'status', label: col_names.STATUS, width: 40  },
         { name: 'participants', label: col_names.PLAYERS },
         { name: 'edit', label: '', width: 100 }
       ]
     });
   }
 
-  private subscribeToQuests() {
-    return this.questService.getQuestsForWorld(this.currentWorld).subscribe(quests => {
-      this.data = quests;
-      this.filter();
-    });
-  }
 
   newQuest() {
     this.dialog.open(GamemasterQuestCreateComponent, { panelClass: 'dialog-sexy', width: '500px' }).afterClosed()
@@ -194,5 +192,10 @@ export class GamemasterQuestComponent implements OnInit {
     let msg = '';
     this.translateService.get(messageString).subscribe(translateMsg => msg = translateMsg);
     return msg;
+  }
+  
+  toggleActive(quest: Quest){
+    quest.visible = !quest.visible
+    this.questService.updateQuest(quest)
   }
 }

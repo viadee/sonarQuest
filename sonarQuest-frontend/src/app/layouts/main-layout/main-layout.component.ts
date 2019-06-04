@@ -45,6 +45,7 @@ export class MainLayoutComponent implements OnInit {
   public isAdminVisible: boolean;
   public isEventVisible: boolean;
 
+
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
   public unseenEventsAvailable: boolean;
@@ -274,4 +275,5 @@ export class MainLayoutComponent implements OnInit {
     this.unseenEventsAvailable = false;
     this.userService.updateLastTavernVisit();
   }
+
 }

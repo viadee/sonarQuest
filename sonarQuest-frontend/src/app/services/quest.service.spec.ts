@@ -5,6 +5,7 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {ParticipationServiceTestingModule} from "./participation.service.mock.module";
 import {TaskServiceTestingModule} from "./task.service.mock.module";
 import {UserServiceTestingModule} from "./user.service.mock.module";
+import { WorldService } from './world.service';
 
 describe('QuestService', () => {
   beforeEach(() => {
@@ -15,7 +16,7 @@ describe('QuestService', () => {
         TaskServiceTestingModule,
         UserServiceTestingModule
       ],
-      providers: [QuestService]
+      providers: [QuestService, WorldService]
     });
   });
 

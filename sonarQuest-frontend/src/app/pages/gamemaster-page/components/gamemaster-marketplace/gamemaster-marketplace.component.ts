@@ -199,4 +199,9 @@ export class GamemasterMarketplaceComponent implements OnInit {
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
   }
+
+  toggleActive(artefact: Artefact){
+    artefact.onMarketplace = !artefact.onMarketplace
+    this.artefactService.updateArtefact(artefact)
+  }
 }

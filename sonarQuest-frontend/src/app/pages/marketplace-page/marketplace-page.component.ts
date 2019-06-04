@@ -55,6 +55,10 @@ export class MarketplacePageComponent implements OnInit {
     private translateService: TranslateService,
     private _dataTableService: TdDataTableService
   ) {
+    this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
+      this.artefacts = artefacts;
+      this.filter();
+    });
   }
 
   ngOnInit() {
@@ -88,15 +92,6 @@ export class MarketplacePageComponent implements OnInit {
       }
     })
     
-  }
-
-  subscribtion(){
-
-
-    this.artefactService.artefactsforMarkteplace$.subscribe(artefacts => {
-      this.artefacts = artefacts;
-      this.filter();
-    });
   }
 
   buyArtefact(artefact: Artefact) {

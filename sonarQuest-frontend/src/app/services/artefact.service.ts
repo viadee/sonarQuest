@@ -15,6 +15,7 @@ export class ArtefactService {
   artefactsforMarkteplace$ = this.artefactsforMarkteplaceSubject.asObservable();
 
   constructor(public http: HttpClient) {
+    this.getData()
   }
 
   getData(): void {

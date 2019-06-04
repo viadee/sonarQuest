@@ -79,7 +79,8 @@
     },
     "ARTEFACT": {
       "CREATED": "has added a new item to the marketplace",
-      "DELETED": "has deleted the artefact"
+      "DELETED": "has deleted the artefact",
+      "UPDATED": "has updated the artefact"
     },
     "MESSAGE": {
       "MESSAGE" : "Message",
@@ -277,5 +278,9 @@
     "HINT_NO_QUESTS_FOUND": "The gamemaster should hit the tab 'quests' and create a quest with solvable tasks for the players!",
     "MSG_NO_WORLD_SELECTED": "No active world selected",
     "HINT_NO_WORLD_SELECTED": "In the top left menu item select your preferred world to get even more hints from the wizard! If that is not possible the admin has to activate players for that world first."
+  },
+  "STATUS": {
+    "OPEN": "Open",
+    "SOLVED": "Solved"
   }
 }

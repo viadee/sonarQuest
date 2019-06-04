@@ -1,3 +1,5 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { WorldService } from './world.service';
 import { User } from './../Interfaces/User';
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject, Observable} from 'rxjs';
@@ -15,24 +17,32 @@ import { UserService } from './user.service';
 @Injectable()
 export class QuestService {
 
-  private questSubject;
+  private questsSubject: Subject<Quest[]> = new ReplaySubject(1);
+  quests$ = this.questsSubject.asObservable();
+
+  currentWorld: World;
   user: User;
 
   constructor(private http: HttpClient,
               private participationService: ParticipationService,
               private taskService: TaskService,
-              private userService: UserService) {
-    this.questSubject = new Subject();
+              private userService: UserService,
+              private worldService: WorldService) {
     userService.user$.subscribe(user => {this.user = user})
+
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world;
+      this.getQuestsForWorld(world);
+    })
   }
 
   getQuestsForWorld(world: World): Observable<Quest[]> {
     this.http.get<Quest[]>(`${environment.endpoint}/quest/world/${world.id}`)
       .subscribe(
-        result => this.questSubject.next(result),
-        err => this.questSubject.error(err)
+        result => this.questsSubject.next(result),
+        err => this.questsSubject.error(err)
       );
-    return this.questSubject;
+    return this.questsSubject;
   }
 
   public getQuest(id: number): Promise<Quest> {
@@ -49,22 +59,6 @@ export class QuestService {
         return quest;
       });
   }
-
-  solveQuestDummy(quest: Quest): Promise<Quest> {
-    return this.http.put<Quest>(`${environment.endpoint}/quest/${quest.id}/solveQuestDummy`, this.user)
-      .toPromise()
-      .catch(this.handleError);
-  }
-  
-  solveQuestDummyy(quest: Quest): Observable<Quest[]> {
-    this.http.get<Quest[]>(`${environment.endpoint}/quest/${quest.id}/solveQuestDummy`)
-      .subscribe(
-        result => console.log(result),
-        err => console.log(err)
-      );
-    return this.questSubject;
-  }
-
 
   createQuest(quest: any): Promise<Quest> {
     return this.http.post<Quest>(`${environment.endpoint}/quest`, quest)

@@ -1,13 +1,13 @@
 <div class="background">
   <mat-card>
-    <mat-tab-group (selectedTabChange)="onTabChange($event)">
+    <mat-tab-group (selectedTabChange)="onTabChange($event)" [selectedIndex]="selectedTab">
       <mat-tab [label]="'ADVENTURE.ADVENTURES' | translate">
-        <app-gamemaster-adventure [isSelected]="selectedTab === 0"></app-gamemaster-adventure>
+        <app-gamemaster-adventure ></app-gamemaster-adventure>
       </mat-tab>
       <mat-tab [label]="'QUEST.QUESTS' | translate">
-        <app-gamemaster-quest></app-gamemaster-quest>
+        <app-gamemaster-quest ></app-gamemaster-quest>
       </mat-tab>
-      <mat-tab [label]="'TASK.TASKS' | translate">
+      <mat-tab [label]="'TASK.TASKS' | translate" >
         <app-gamemaster-task></app-gamemaster-task>
       </mat-tab>
       <div *ngIf="isMarketplaceVisible">

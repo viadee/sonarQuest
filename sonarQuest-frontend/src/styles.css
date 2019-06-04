@@ -72,7 +72,10 @@ mat-toolbar.mat-toolbar.mat-primary i.navlist.mat-list-icon{
 .dark td-paging-bar mat-icon,
 .dark .td-data-table-column-row span
 .dark span.mat-select-placeholder,
-.dark th span{
+.dark th span,
+.dark .mat-list-base .mat-list-item .mat-list-text,
+.dark p.mat-line,
+.dark mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color{
   color: rgba(200, 200, 200, 0.87) !important;
 }
 
