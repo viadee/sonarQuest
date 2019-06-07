@@ -177,29 +177,6 @@ export class MainLayoutComponent implements OnInit {
     }
   }
 
-  ddeterminePageTitle() {
-    let url = this.router.url
-      if (url == '/start') {
-          return this.pageNames.STARTPAGE;
-      } else if (url == '/myAvatar') {
-          return this.pageNames.MY_AVATAR;
-      } else if (url == '/adventures') {
-          return this.pageNames.ADVENTURES;
-      } else if (url == '/quests') {
-          return this.pageNames.QUESTS;
-      } else if (url == '/marketplace') {
-          return this.pageNames.MARKETPLACE;
-      } else if (url == '/gamemaster') {
-          return this.pageNames.GAMEMASTER;
-      } else if (url == '/admin') {
-          return this.pageNames.ADMIN;
-      } else if (url == '/events') {
-          return this.pageNames.EVENTS;
-      } else {
-          return '';
-      }
-  }
-
   updateWorld(world: World) {
     this.worldService.setCurrentWorld(world);
   }

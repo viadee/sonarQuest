@@ -23,6 +23,9 @@ export class ArtefactService {
     this.getArtefactsforMarkteplace();
   }
 
+  getArtefact(id: number): Promise<Artefact>  {
+    return this.http.get<Artefact>(`${environment.endpoint}/artefact/${id}`).toPromise();
+  }
   getArtefacts(): Observable<Artefact[]> {
     this.http.get<Artefact[]>(`${environment.endpoint}/artefact/`)
       .subscribe(

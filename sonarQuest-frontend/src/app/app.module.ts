@@ -1,3 +1,4 @@
+import { ViewArtefactComponent } from './pages/event-page/components/view-artefact/view-artefact.component';
 // tslint:disable:max-line-length
 import {UiDesignService} from './services/ui-design.service';
 import {SkillService} from './services/skill.service';
@@ -111,6 +112,7 @@ import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { SvgIconsModule } from './components/svg-icons/svg-icons.module';
 import { TabService } from './services/tab.service';
+import { ViewQuestComponent } from './pages/event-page/components/view-quest/view-quest.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -149,6 +151,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AvailableQuestsComponent,
     ViewAvailableQuestComponent,
     ViewParticipatedQuestComponent,
+    ViewQuestComponent,
+    ViewArtefactComponent,
     AdminDeveloperComponent,
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
@@ -183,6 +187,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamemasterQuestEditComponent,
     ViewAvailableQuestComponent,
     ViewParticipatedQuestComponent,
+    ViewQuestComponent,
+    ViewArtefactComponent,
     AdminDeveloperCreateComponent,
     AdminDeveloperEditComponent,
     AdminDeveloperDeleteComponent,

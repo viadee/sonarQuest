@@ -1,3 +1,6 @@
+import { ViewArtefactComponent } from './components/view-artefact/view-artefact.component';
+import { ViewQuestComponent } from './components/view-quest/view-quest.component';
+import { MatDialog } from '@angular/material';
 import {EventDto} from '../../Interfaces/EventDto';
 import {UserDto} from '../../Interfaces/UserDto';
 import {Event} from '../../Interfaces/Event';
@@ -27,9 +30,9 @@ export class EventPageComponent implements OnInit {
   @ViewChildren('commentDiv') commentDivs: QueryList<ElementRef>;
 
   constructor(
-
     private eventService: EventService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private dialog: MatDialog
   ) {
       this.eventService.eventDtos$.subscribe(eventDtos => { 
         this.eventDtos = eventDtos;
@@ -82,28 +85,14 @@ export class EventPageComponent implements OnInit {
   sendChat() {
     if (this.message != ""){
       this.websocketService.sendMessage(this.message)
-      /*
-      this.eventService.sendChat(this.message).then(event => {
-        this.getImageForMessage(event)
-        this.events.push(event)
-      }).then(()=>{
-        //var i = document.getElementsByClassName('event').length;
-        //document.getElementsByClassName('event')[i-1].scrollIntoView(false)
-      })
-      */
     }
     this.message = '';
-
   }
 
   onKeyDown(event) {
     if (event.key === 'Enter') {
       this.sendChat();
     }
-  }
-
-  click() {
-    this.websocketService.initializeWebSocketConnection();
   }
 
   something() {
@@ -121,4 +110,34 @@ export class EventPageComponent implements OnInit {
     return name;
   }
 
+  openView(e: Event){
+    console.log(e)
+    if (e.type == "QUEST"){
+      this.viewQuest(e)
+    } else if (e.type == "ARTEFACT"){
+      this.viewArtefact(e)
+    } else {
+      console.log('No View for Event Type: ' + e.type)
+    }
+    
+  }
+
+
+  viewQuest(e: Event) {
+      this.dialog.open(ViewQuestComponent, {
+        panelClass: 'dialog-sexy',
+        data: e,
+        width: '500px'
+      }).afterClosed().subscribe(() => {
+      });
+  }
+
+  viewArtefact(e: Event){
+    this.dialog.open(ViewArtefactComponent, {
+      panelClass: 'dialog-sexy',
+      data: e,
+      width: '500px'
+    }).afterClosed().subscribe(() => {
+    });
+  }
 }

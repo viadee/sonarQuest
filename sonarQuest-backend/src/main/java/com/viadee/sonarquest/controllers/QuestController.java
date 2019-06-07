@@ -93,8 +93,9 @@ public class QuestController {
         questDto.setStartdate(new Date(System.currentTimeMillis()));
         questDto.setStatus(QuestState.OPEN);
         questDto.setCreatorName(user.getUsername());
-        webSocketController.onCreateQuest(questDto, principal);
-        return questRepository.save(questDto);
+        Quest quest = questRepository.save(questDto);
+        webSocketController.onCreateQuest(quest, principal);
+        return quest;
     }
 
     @PutMapping(value = "/{id}")
@@ -128,13 +129,13 @@ public class QuestController {
 
     @PutMapping(value = "/{questId}/solveQuest/")
     public void solveQuest(final Principal principal, @PathVariable(value = "questId") final Long questId) {
-        final Quest quest = questRepository.findOne(questId);
+        Quest quest = questRepository.findOne(questId);
         if (quest != null) {
             gratificationService.rewardUsersForSolvingQuest(quest);
             adventureService.updateAdventure(quest.getAdventure());
             quest.setEnddate(new Date(System.currentTimeMillis()));
             quest.setStatus(QuestState.SOLVED);
-            questRepository.save(quest);
+            quest = questRepository.save(quest);
             webSocketController.onSolveQuest(quest, principal);
         }
     }

@@ -27,7 +27,6 @@ import com.viadee.sonarquest.repositories.AdventureRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.services.AdventureService;
-import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.UserService;
 
@@ -54,9 +53,9 @@ public class AdventureController {
 
     @Autowired
     private GratificationService gratificationService;
-
-    @Autowired
-    private EventService eventService;
+	
+	@Autowired
+	private WebSocketController webSocketController;
 
     @GetMapping
     public List<Adventure> getAllAdventures() {
@@ -95,8 +94,11 @@ public class AdventureController {
     public Adventure createAdventure(final Principal principal, @RequestBody final Adventure adventure) {
         adventure.setStatus(AdventureState.OPEN);
         adventure.setStartdate(new Date(System.currentTimeMillis()));
-        eventService.createEventForCreatedAdventure(adventure, principal);
-        return adventureRepository.save(adventure);
+        Adventure a = adventureRepository.save(adventure);
+        webSocketController.onCreateAdventure(a, principal);
+        return a;
+        
+
     }
 
     @PutMapping(value = "/{id}")
@@ -131,7 +133,7 @@ public class AdventureController {
             adventure.setEnddate(new Date(System.currentTimeMillis()));
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
-            eventService.createEventForSolvedAdventure(adventure, principal);
+            webSocketController.onSolveAdventure(adventure, principal);
         }
         return adventure;
     }

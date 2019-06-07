@@ -8,6 +8,7 @@ export enum EventState {
 export interface EventDto {
     id: number,
     type: string,
+    type_id: number,
     title: string,
     story: string,
     state: EventState,

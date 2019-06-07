@@ -67,12 +67,13 @@ public class EventService {
     }
     private Event adventureToEvent(Adventure adventure, Principal principal, EventState state) {
     	 EventType type = EventType.ADVENTURE;
+    	 Long type_id = adventure.getId();
          String title = adventure.getTitle();
          String story = adventure.getStory();
          String image = StringUtils.EMPTY;
          World world = adventure.getWorld();
          String head = StringUtils.EMPTY;
-         return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+         return new Event(type, type_id, title, story, state, image, world, head, userService.getUser(principal));
     }
 
     public Event createEventForSolvedQuest(Quest quest, Principal principal) {
@@ -103,12 +104,13 @@ public class EventService {
     }
 	private Event questToEvent(Quest quest, Principal principal, EventState state) {
 		EventType type = EventType.QUEST;
+		Long type_id = quest.getId();
         String title = quest.getTitle();
         String story = quest.getStory();
         String image = quest.getImage();
         World world = quest.getWorld();
         String head = StringUtils.EMPTY;
-        return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+        return new Event(type, type_id, title, story, state, image, world, head, userService.getUser(principal));
 	}
     public Event createEventForCreatedArtefact(Artefact artefact, Principal principal) {
     	Event event = artefactToEvent(artefact, principal, EventState.CREATED);
@@ -130,10 +132,11 @@ public class EventService {
     
     private Event artefactToEvent(Artefact artefact, Principal principal, EventState state) {
     	EventType type = EventType.ARTEFACT;
+    	Long type_id = artefact.getId();
         String title = artefact.getName();
         String story = artefact.getDescription();
         String image = artefact.getIcon();
-        return new Event(type, title, story, state, image, userService.getUser(principal));
+        return new Event(type, type_id, title, story, state, image, userService.getUser(principal));
     }
 
 	public Event createEventForNewMessage(String message, Principal principal) {

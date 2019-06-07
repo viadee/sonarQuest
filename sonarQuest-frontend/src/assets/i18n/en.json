@@ -86,7 +86,8 @@
       "MESSAGE" : "Message",
       "HINT_CHARACTERS" : "Max 255 characters",
       "SEND" : "Send"
-    }
+    },
+    "OPEN": "Open"
   },
   "GAMEMASTER_PAGE": {
     "ADVENTURE": {
@@ -172,6 +173,7 @@
   "DEVELOPER": {
     "DEVELOPER": "Developer",
     "GOLD": "Gold",
+    "MY_GOLD": "My gold",
     "XP": "XP",
     "LEVEL": "Level",
     "ABOUTME": "About me",
@@ -239,7 +241,9 @@
     "ON_MARKETPLACE": "Visible on the marketplace",
     "CANNOT_DELETE_ARTEFACT": "The artifact could not be deleted. It is still assigned to a user. You can pay out the purchase price to the users and delete the artefact or you can remove the artefact from the marketplace. To cancel press ESC",
     "PAYOUT": "Pay out purchase price",
-    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace"
+    "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace",
+    "BUY": "Buy",
+    "IN_MY_INVENTORY": "Already in my inventory"
   },
   "SKILL": {
     "MORE_GOLD": "More Gold",

@@ -76,9 +76,15 @@ public class WebSocketController {
     
     
     
-    
+
     public void onCreateAdventure(final Adventure adventure, Principal principal) {
         Event event = eventService.createEventForCreatedAdventure(adventure, principal);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend(CHAT, eventUserDto);
+    }
+    
+    public void onSolveAdventure(final Adventure adventure, Principal principal) {
+        Event event = eventService.createEventForSolvedAdventure(adventure, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend(CHAT, eventUserDto);
     }

@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{"ARTEFACT_VIEW_PAGE.TITLE" | translate}}</h2>
+  <span class="toolbar-spacer"></span>
+
+  <div *ngIf="icon!=''" mat-button disabled>
+    <i *ngIf="icon!=''" class="ra ra-3x" [ngClass]="icon"></i>
+  </div>
+  
+</mat-toolbar>
+
+<mat-dialog-content>
+  <div layout="column" layout-padding>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'ARTEFACT.NAME' | translate" [(ngModel)]="name" disabled>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="min" disabled>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'ARTEFACT.PRICE' | translate" type="number" min="0" [(ngModel)]="price" disabled>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="quantity" disabled>
+      </mat-form-field>
+    </div>
+
+    <div flex>
+      <mat-form-field class="full-width">
+        <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="description" disabled></textarea>
+      </mat-form-field>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+<mat-toolbar>
+  <h2 mat-dialog-title>{{"SKILL.SKILLS" | translate}}</h2>
+</mat-toolbar>
+<td-data-table #dataTable [data]="artefact.skills" [columns]="columns">
+</td-data-table>
+<div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+  {{"TABLE.INFO.NO_ENTRIES" | translate}}
+</div>
+
+<mat-divider></mat-divider>
+
+<div *ngIf=!inMyInventory>
+<mat-dialog-actions>
+  <span class=my-gold>{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-button (click)="buy()" disabled *ngIf="user.gold<artefact.price">
+    <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+  </button>
+  
+  <button mat-button (click)="buy()"  *ngIf="user.gold>=artefact.price">
+      <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+    </button>
+</mat-dialog-actions>
+</div>
+
+<div *ngIf=inMyInventory>
+<mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
+  <button mat-button (click)="close()"> 
+    {{ "ARTEFACT.IN_MY_INVENTORY" | translate }}
+    </button>
+</mat-dialog-actions>
+</div>

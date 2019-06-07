@@ -86,7 +86,8 @@
       "MESSAGE" : "Nachricht",
       "HINT_CHARACTERS" : "maximal 255 Zeichen",
       "SEND" : "Senden"
-    }
+    },
+    "OPEN": "Öffnen"
   },
   "GAMEMASTER_PAGE": {
     "ADVENTURE": {
@@ -172,6 +173,7 @@
   "DEVELOPER": {
     "DEVELOPER": "Entwickler",
     "GOLD": "Gold",
+    "MY_GOLD": "Mein Gold",
     "XP": "XP",
     "LEVEL": "Stufe",
     "ABOUTME": "Über mich",
@@ -239,7 +241,9 @@
     "ON_MARKETPLACE": "Sichtbar auf dem Marktplatz",
     "CANNOT_DELETE_ARTEFACT": "Das Artefakt konnte nicht gelöscht werden. Ihm ist noch ein User zugeordnet. Du kannst den Kaufpreis den Usern erstatten und das Artefakt löschen oder du löscht das Artefakt vom Marktplatz. Um Abzubrechen drücke ESC.",
     "PAYOUT": "Kaufpreis auszahlen",
-    "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen"
+    "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen",
+    "BUY": "Kaufen",
+    "IN_MY_INVENTORY": "Bereits in meinem Inventar"
   },
   "SKILL": {
     "MORE_GOLD": "Mehr Gold",

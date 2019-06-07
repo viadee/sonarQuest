@@ -25,7 +25,9 @@ export class WorldService {
       
       this.getWorlds().subscribe(worlds => {
         if (user.currentWorld == null){
-          this.setCurrentWorld(worlds[0])
+          if (worlds[0] != null){
+            this.setCurrentWorld(worlds[0])
+          }
         } else {
           this.currentWorldSubject.next(user.currentWorld)
         }

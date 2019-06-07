@@ -55,8 +55,9 @@ public class ArtefactController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Artefact createArtefact(final Principal principal, @RequestBody final Artefact artefact) {
-        webSocketController.onCreateArtefact(artefact, principal);
-		return artefactService.createArtefact(artefact);
+		Artefact a = artefactService.createArtefact(artefact);
+        webSocketController.onCreateArtefact(a, principal);
+		return a;
 	}
 
 	@PutMapping(value = "/{id}")

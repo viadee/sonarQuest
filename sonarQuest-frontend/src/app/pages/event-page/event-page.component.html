@@ -36,7 +36,7 @@
                 <div layout="row">
                   <div flex class="innercontent">
                       <div layout="row" *ngIf=e.title>
-                        <span class="title">{{ e?.title }}</span>
+                        <span class="title icon-as-button" (click)="openView(e)">{{ e?.title }}</span>
                       </div>
                       <div layout="row" *ngIf=e.story>
                         <span class="text">{{ e?.story }}</span>
@@ -44,6 +44,10 @@
                   </div>
                 </div>
               </div>
+            </div>
+            
+            <div layout="column"  class="open" *ngIf=e.title>
+                <mat-icon [matTooltip]="'EVENT_PAGE.OPEN' | translate" matSuffix class="icon-as-button" (click)="openView(e)" ><i class="material-icons">open_in_new</i></mat-icon>
             </div>
           </div>
         </div>

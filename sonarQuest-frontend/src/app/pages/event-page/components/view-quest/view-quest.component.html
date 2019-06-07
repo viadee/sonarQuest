@@ -1,0 +1,68 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{quest.title}}</h2>
+  <span class="toolbar-spacer"></span>
+  <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="quest.image">
+</mat-toolbar>
+
+<mat-dialog-content>
+  <div layout-padding>
+    <div layout="row">
+      <div flex style="font-size: 2em">
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{quest.gold}}
+      </div>
+      <div flex style="font-size: 2em">
+        <i mat-list-icon class="ra ra-perspective-dice-random  ra-lg"></i>{{quest.xp}}
+      </div>
+    </div>
+
+    <div class="storyContainer">
+      {{quest.story}}
+    </div>
+  </div>
+
+  <mat-toolbar>
+    <h2 mat-dialog-title>{{"TASK.TASKS" | translate}}:</h2>
+  </mat-toolbar>
+
+  <mat-list>
+    <mat-list-item *ngFor="let task of tasks">
+      <h3 mat-line [class.strikethrough]="task.status==='SOLVED'"> {{task?.title}} </h3>
+      <p mat-line>
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
+        <i mat-list-icon class="ra ra-perspective-dice-random ra-lg"></i><span>{{task?.xp}}</span>
+        <span *ngIf="participatingDeveloper(task)">, </span>
+        <span *ngIf="participatingDeveloper(task)">{{"QUEST_PAGE.COMBATED_BY"| translate}}: {{participatingDeveloper(task)?.username}} </span>
+      </p>
+      <button mat-icon-button (click)="openIssue(task)"
+              [matTooltip]="'QUEST_PAGE.SHOW_ISSUE_TOOLTIP' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="after">
+        <i class="ra ra-chain ra-2x"></i>
+      </button>
+      <button mat-icon-button (click)="addParticipation(task)" 
+              *ngIf="!participatingDeveloper(task) && task.status !== 'SOLVED'"
+              [matTooltip]="'QUEST_PAGE.JOIN_ISSUE_TOOLTIP' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="after">
+        <i class="ra ra-sword ra-2x"></i>
+      </button>
+      <button mat-icon-button (click)="removeParticipation(task)"
+              *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status !== 'SOLVED'"
+              [matTooltip]="'QUEST_PAGE.CANCEL_ISSUE_TOOLTIP' | translate"
+              [matTooltipClass]="'tooltipMultiline'"
+              matTooltipPosition="after">
+        <mat-icon mat-list-icon>clear</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>
+
+<div *ngIf="!participated">
+<mat-divider></mat-divider>
+
+<mat-dialog-actions>
+  <span class="toolbar-spacer"></span>
+  <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
+</mat-dialog-actions>
+</div>
