@@ -60,11 +60,11 @@
   <span class=my-gold>{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
   <span class="toolbar-spacer"></span>
   <button mat-button (click)="buy()" disabled *ngIf="user.gold<artefact.price">
-    <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+    <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{ "ARTEFACT.BUY" | translate }}
   </button>
   
   <button mat-button (click)="buy()"  *ngIf="user.gold>=artefact.price">
-      <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+      <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{ "ARTEFACT.BUY" | translate }}
     </button>
 </mat-dialog-actions>
 </div>

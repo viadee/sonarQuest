@@ -39,7 +39,7 @@
                   <div flex></div>
                   <div flex-end>
                     <span>{{"GLOBAL.GOLD"| translate}}: {{user?.gold}}
-                      <i class="ra ra-gold-bar ra-lg"></i>
+                      <i mat-list-icon class="ra ra-gold-bar ra-lg"  [matTooltip]="'DEVELOPER.GOLD' | translate"></i>
                     </span>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
                   <div flex></div>
                   <div flex-end>
                     <span flex>{{"GLOBAL.XP"| translate}}: {{user?.xp}}/{{maxXp}}
-                      <i class="ra ra-perspective-dice-random ra-lg"></i>
+                        <i mat-list-icon class="ra ra-on-target  ra-lg"  [matTooltip]="'DEVELOPER.XP' | translate"></i>
                     </span>
                   </div>
                 </div>
