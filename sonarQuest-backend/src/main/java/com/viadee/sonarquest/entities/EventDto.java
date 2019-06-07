@@ -9,7 +9,7 @@ public class EventDto {
 
 	private Long id;
 	private EventType type;
-	private Long type_id;
+	private Long typeId;
 	private String title;
 	private String story;
 	private EventState state;
@@ -39,7 +39,7 @@ public class EventDto {
 		
 		this.id = event.getId();
 		this.type = event.getType();
-		this.type_id = event.getType_id();
+		this.typeId = event.gettypeId();
 		this.title = event.getTitle();
 		this.story = event.getStory();
 		this.state = event.getState();
@@ -148,13 +148,13 @@ public class EventDto {
 	}
 
 
-	public Long getType_id() {
-		return type_id;
+	public Long gettypeId() {
+		return typeId;
 	}
 
 
-	public void setType_id(Long type_id) {
-		this.type_id = type_id;
+	public void settypeId(Long typeId) {
+		this.typeId = typeId;
 	}	
 	
 	

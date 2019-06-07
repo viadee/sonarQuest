@@ -24,8 +24,8 @@ public class Event {
 	@Column(name = "type")
 	private EventType type;
 	
-	@Column(name = "type_id")
-	private Long type_id;
+	@Column(name = "typeId")
+	private Long typeId;
 
 	@Column(name = "title")
 	private String title;
@@ -61,9 +61,9 @@ public class Event {
 		this.title = title;
 	}
 
-	public Event(EventType type, Long type_id, String title, String story, EventState state, String image, World world, String headline) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world, String headline) {
 		this.type = type;
-		this.type_id = type_id;
+		this.typeId = typeId;
 		this.title = title;
 		this.story = story;
 		this.state = state;
@@ -73,9 +73,9 @@ public class Event {
 		this.headline = headline;
 	}
 
-	public Event(EventType type, Long type_id, String title, String story, EventState state, String image, World world, String headline, User user) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world, String headline, User user) {
 		this.type = type;
-		this.type_id = type_id;
+		this.typeId = typeId;
 		this.title = title;
 		this.story = story;
 		this.state = state;
@@ -86,9 +86,9 @@ public class Event {
 		this.user = user;
 	}
 
-	public Event(EventType type, Long type_id, String title, String story, EventState state, World world, String headline) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, World world, String headline) {
 		this.type = type;
-		this.type_id = type_id;
+		this.typeId = typeId;
 		this.title = title;
 		this.story = story;
 		this.state = state;
@@ -106,9 +106,9 @@ public class Event {
 		timestamp = new Timestamp(System.currentTimeMillis());
 	}
 
-	public Event(EventType type, Long type_id, String title, String story, EventState state, String image, User user) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, User user) {
 		this.type = type;
-		this.type_id = type_id;
+		this.typeId = typeId;
 		this.story = story;
 		this.title = title;
 		this.image = image;
@@ -198,12 +198,12 @@ public class Event {
 		this.headline = headline;
 	}
 
-    public Long getType_id() {
-		return type_id;
+    public Long gettypeId() {
+		return typeId;
 	}
 
-	public void setType_id(Long type_id) {
-		this.type_id = type_id;
+	public void settypeId(Long typeId) {
+		this.typeId = typeId;
 	}
 
 	@Override
