@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateTestingModule} from "../../services/translate.service.mock.module";
 import {
   MatCardModule,
+  MatDialogModule,
   MatDividerModule,
   MatFormFieldModule,
   MatIconModule,
@@ -39,6 +40,7 @@ describe('EventPageComponent', () => {
         MatDividerModule,
         MatCardModule,
         MatInputModule,
+        MatDialogModule,
         MatFormFieldModule,
         WorldServiceTestingModule,
         EventServiceTestingModule,

@@ -1,23 +1,23 @@
 <mat-toolbar color="primary">
-  <h2 mat-dialog-title>{{quest.title}}</h2>
+  <h2 mat-dialog-title >{{quest?.title}}</h2>
   <span class="toolbar-spacer"></span>
-  <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="quest.image">
+  <img style="max-width:100%; max-height:100%; margin-right: -16px;" [src]="quest?.image">
 </mat-toolbar>
 
 <mat-dialog-content>
   <div layout-padding>
     <div layout="row">
       <div flex style="font-size: 2em">
-        <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{quest.gold}}
+        <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{quest?.gold}}
       </div>
       <div flex style="font-size: 2em">
           <i mat-list-icon class="ra ra-on-target  ra-lg"  [matTooltip]="'DEVELOPER.XP' | translate"></i>
-        {{quest.xp}}
+        {{quest?.xp}}
       </div>
     </div>
 
     <div class="storyContainer">
-      {{quest.story}}
+      {{quest?.story}}
     </div>
   </div>
 

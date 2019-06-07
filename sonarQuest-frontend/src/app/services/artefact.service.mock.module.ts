@@ -12,6 +12,10 @@ export class ArtefactServiceMock {
 
   getData(): void {}
 
+  getArtefact(): Promise<Artefact>{
+    return new Promise<Artefact>(() => {});
+  }
+
   getArtefacts(): Observable<Artefact[]> {
     return new Observable<Artefact[]>();
   }

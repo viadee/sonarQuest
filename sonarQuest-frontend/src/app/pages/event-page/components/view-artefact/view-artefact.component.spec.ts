@@ -1,3 +1,5 @@
+import { ArtefactServiceMock, ArtefactServiceTestingModule } from './../../../../services/artefact.service.mock.module';
+import { ArtefactService } from './../../../../services/artefact.service';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ViewArtefactComponent} from "./view-artefact.component";
@@ -18,6 +20,7 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import {CovalentDataTableModule} from "@covalent/core";
+import { UserServiceTestingModule } from 'app/services/user.service.mock.module';
 
 describe('ViewArtefactComponent', () => {
   let component: ViewArtefactComponent;
@@ -47,7 +50,9 @@ describe('ViewArtefactComponent', () => {
         MatDividerModule,
         MatToolbarModule,
         MatDialogModule,
-        CovalentDataTableModule
+        CovalentDataTableModule,
+        ArtefactServiceTestingModule,
+        UserServiceTestingModule
       ],
       providers: [
         {provide: MAT_DIALOG_DATA, useValue: data},
