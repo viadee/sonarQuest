@@ -41,12 +41,12 @@
         <mat-icon *ngIf="value=='VULNERABILITY'"
           [matTooltip]="'TYPE.VULNERABILITY' | translate"
           [matTooltipClass]="'tooltipMultiline'" 
-          matTooltipPosition="below"><i class="ra ra-broken-shield " ></i></mat-icon>
+          matTooltipPosition="below"><i class="material-icons">lock_open</i></mat-icon>
 
         <mat-icon *ngIf="value=='SECURITY_HOTSPOT'"
           [matTooltip]="'TYPE.SECURITY_HOTSPOT' | translate"
           [matTooltipClass]="'tooltipMultiline'" 
-          matTooltipPosition="below"><i class="material-icons">lock_open</i></mat-icon>
+          matTooltipPosition="below"><i class="ra ra-broken-shield"></i></mat-icon>
       </ng-template>
       
       <ng-template tdDataTableTemplate="severity" let-value="value" let-row="row" let-column="column">
