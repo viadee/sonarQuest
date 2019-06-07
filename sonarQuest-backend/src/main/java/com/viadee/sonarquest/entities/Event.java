@@ -39,6 +39,7 @@ public class Event {
 	@Column(name = "image")
 	private String image;
 
+	// FREE to Use
 	@Column(name = "headline")
 	private String headline;
 
@@ -61,7 +62,7 @@ public class Event {
 		this.title = title;
 	}
 
-	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world, String headline) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world) {
 		this.type = type;
 		this.typeId = typeId;
 		this.title = title;
@@ -70,10 +71,9 @@ public class Event {
 		this.image = image;
 		this.world = world;
 		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
 	}
 
-	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world, String headline, User user) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, String image, World world, User user) {
 		this.type = type;
 		this.typeId = typeId;
 		this.title = title;
@@ -82,11 +82,10 @@ public class Event {
 		this.image = image;
 		this.world = world;
 		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
 		this.user = user;
 	}
 
-	public Event(EventType type, Long typeId, String title, String story, EventState state, World world, String headline) {
+	public Event(EventType type, Long typeId, String title, String story, EventState state, World world) {
 		this.type = type;
 		this.typeId = typeId;
 		this.title = title;
@@ -94,7 +93,6 @@ public class Event {
 		this.state = state;
 		this.world = world;
 		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
 	}
 
 	public Event(EventType type, String story, World world, User user) {

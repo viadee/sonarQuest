@@ -14,7 +14,7 @@ public class EventDto {
 	private String story;
 	private EventState state;
 	private String image;
-	private String headline;
+	private String headline;	// FREE to Use
 	private Long worldId;
 	private Long userId;
 	private Timestamp timestamp;
