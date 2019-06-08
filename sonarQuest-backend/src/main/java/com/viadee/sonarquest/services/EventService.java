@@ -24,6 +24,7 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
+import com.viadee.sonarquest.repositories.UserRepository;
 
 @Service
 public class EventService {
@@ -34,6 +35,9 @@ public class EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private UserService userService;
@@ -54,6 +58,12 @@ public class EventService {
         return checkStoryAndSave(event);
     }
 
+    public Event createEventForUpdatedAdventure(Adventure adventure, Principal principal) {
+    	Event event = adventureToEvent(adventure, principal, EventState.UPDATED);
+        LOGGER.info(String.format("New event because of a updated adventure '%s'", adventure.getTitle()));
+        return checkStoryAndSave(event);
+    }
+
     public Event createEventForDeletedAdventure(Adventure adventure, Principal principal) {
     	Event event = adventureToEvent(adventure, principal, EventState.DELETED);
         LOGGER.info(String.format("New event because of deleted adventure '%s'", adventure.getTitle()));
@@ -65,6 +75,13 @@ public class EventService {
         LOGGER.info(String.format("New event because of a newly created adventure '%s'", adventure.getTitle()));
         return checkStoryAndSave(event);
     }
+    
+	public Event createEventForUserJoinAdventure(Adventure adventure, Principal principal) {
+    	Event event = adventureToEvent(adventure, principal, EventState.NEW_MEMBER);
+        LOGGER.info("New Event because UserId " + userRepository.findByUsername(principal.getName()).getId() + " joined Adventure " + adventure.getId());
+        return checkStoryAndSave(event);
+	}
+    
     private Event adventureToEvent(Adventure adventure, Principal principal, EventState state) {
     	 EventType type = EventType.ADVENTURE;
     	 Long typeId = adventure.getId();
@@ -96,9 +113,9 @@ public class EventService {
         LOGGER.info(String.format("New event because of a updated quest '%s'", quest.getTitle()));
         return checkStoryAndSave(event);
 	}
-    public Event createEventForUserJoinQuest(Quest quest, Principal principal, User user) { 
+    public Event createEventForUserJoinQuest(Quest quest, Principal principal) { 
     	Event event = questToEvent(quest, principal, EventState.NEW_MEMBER);
-        LOGGER.info("New Event because UserId " + user.getId() + " joined Quest " + quest.getId());
+        LOGGER.info("New Event because UserId " + userRepository.findByUsername(principal.getName()).getId() + " joined Quest " + quest.getId());
         return checkStoryAndSave(event);
     }
 	private Event questToEvent(Quest quest, Principal principal, EventState state) {

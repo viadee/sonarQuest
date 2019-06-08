@@ -60,7 +60,7 @@
 
 <div *ngIf=!inMyInventory>
   <mat-dialog-actions>
-    <span class=my-gold>{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
+    <span class="dialog-footer">{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
     <span class="toolbar-spacer"></span>
     <div *ngIf="user.gold<artefact?.price" [matTooltip]="'ARTEFACT.NO_MONEY' | translate">
       <button mat-button (click)="buy()" disabled>

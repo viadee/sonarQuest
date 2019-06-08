@@ -59,11 +59,18 @@
 
 </mat-dialog-content>
 
-<div *ngIf="!participated">
 <mat-divider></mat-divider>
 
-<mat-dialog-actions>
-  <span class="toolbar-spacer"></span>
-  <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
-</mat-dialog-actions>
-</div>
+<div *ngIf="!participated">
+  <mat-dialog-actions>
+    <span class="toolbar-spacer"></span>
+    <button mat-raised-button color="primary" (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
+  </mat-dialog-actions>
+  </div>
+  <div *ngIf="participated">
+  <mat-dialog-actions>
+    <span class="dialog-footer">{{ "QUEST_PAGE.JOINED" | translate }}</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-raised-button color="primary" disabled (click)="participateInQuest()">{{"QUEST_PAGE.JOIN_QUEST"| translate}}</button>
+  </mat-dialog-actions>
+  </div>

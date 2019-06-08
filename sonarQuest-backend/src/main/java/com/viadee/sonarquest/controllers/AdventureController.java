@@ -102,7 +102,7 @@ public class AdventureController {
     }
 
     @PutMapping(value = "/{id}")
-    public Adventure updateAdventure(@PathVariable(value = "id") final Long id, @RequestBody final Adventure data) {
+    public Adventure updateAdventure(final Principal principal, @PathVariable(value = "id") final Long id, @RequestBody final Adventure data) {
         Adventure adventure = adventureRepository.findOne(id);
         if (adventure != null) {
             adventure.setTitle(data.getTitle());
@@ -111,6 +111,7 @@ public class AdventureController {
             adventure.setStory(data.getStory());
             adventure.setVisible(data.getVisible());
             adventure = adventureRepository.save(adventure);
+            webSocketController.onUpdateAdventure(adventure, principal);
         }
         return adventure;
     }
@@ -156,12 +157,14 @@ public class AdventureController {
         return adventure;
     }
 
-    @PostMapping(value = "/{adventureId}/join")
+    @PostMapping(value = "/{adventureId}/join") 
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure join(final Principal principal, @PathVariable(value = "adventureId") final Long adventureId) {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
-        return adventureService.addUserToAdventure(adventureId, user.getId());
+        Adventure a = adventureService.addUserToAdventure(adventureId, user.getId());
+        webSocketController.onUserJoinAdventure(a, principal);
+        return a;
     }
 
     /**

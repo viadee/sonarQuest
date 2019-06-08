@@ -15,7 +15,6 @@ import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.EventService;
 
 @Controller
@@ -68,8 +67,8 @@ public class WebSocketController {
         template.convertAndSend(CHAT, eventUserDto);
     }
     
-    public void onUserJoinQuest(final Quest quest, Principal principal, User user) {
-        Event event = eventService.createEventForUserJoinQuest(quest, principal, user);
+    public void onUserJoinQuest(final Quest quest, Principal principal) {
+        Event event = eventService.createEventForUserJoinQuest(quest, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend(CHAT, eventUserDto);
     }
@@ -89,10 +88,22 @@ public class WebSocketController {
         template.convertAndSend(CHAT, eventUserDto);
     }
     
+    public void onUpdateAdventure(final Adventure adventure, Principal principal) {
+        Event event = eventService.createEventForUpdatedAdventure(adventure, principal);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend(CHAT, eventUserDto);
+    }
+    
     public void onDeleteAdventure(final Adventure adventure, Principal principal) {
         Event event = eventService.createEventForDeletedAdventure(adventure, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
         template.convertAndSend("/chat", eventUserDto);
+    }
+    
+    public void onUserJoinAdventure(final Adventure adventure, Principal principal) {
+        Event event = eventService.createEventForUserJoinAdventure(adventure, principal);
+        EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+        template.convertAndSend(CHAT, eventUserDto);
     }
     
     

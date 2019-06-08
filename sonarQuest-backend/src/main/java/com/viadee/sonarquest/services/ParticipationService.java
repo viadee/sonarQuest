@@ -64,7 +64,7 @@ public class ParticipationService {
             participation = new Participation(foundQuest, user);
             participation = participationRepository.save(participation);
             // Create Event for User join Quest
-            webSocketController.onUserJoinQuest(foundQuest, principal, user);
+            webSocketController.onUserJoinQuest(foundQuest, principal);
         }
 		return participation;
 	}
