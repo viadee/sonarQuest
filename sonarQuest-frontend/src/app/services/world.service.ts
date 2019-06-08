@@ -86,4 +86,9 @@ export class WorldService {
     return this.http.get<World[]>(`${environment.endpoint}/world/generate`).toPromise();
   }
 
+  logout(){
+    this.worldsSubject.next(null);
+    this.currentWorldSubject.next(null);
+  }
+
 }

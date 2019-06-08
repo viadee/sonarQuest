@@ -1,11 +1,10 @@
-import { Observable, ReplaySubject, Subject, Subscriber } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../Interfaces/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { ImageService } from './image.service';
 
 @Injectable()
@@ -78,4 +77,8 @@ export class UserService {
     return this.httpClient.delete(url).toPromise();
   }
 
+  logout(){
+    this.userSubject.next(null);
+    this.avatarSubject.next(null);
+  }
 }

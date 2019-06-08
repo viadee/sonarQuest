@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { World } from "../../Interfaces/World";
 import { User } from "../../Interfaces/User";
 import { RoutingUrls } from "../../app-routing/routing-urls";
@@ -23,7 +23,6 @@ export class MainLayoutComponent implements OnInit {
   public currentWorld: World = null;
   public worlds: World[];
   public pageNames: any;
-  public selected: World;
   public user: User = null;
   public imageToShow: any = "";
   private ui: UiDesign = null;
@@ -64,14 +63,10 @@ export class MainLayoutComponent implements OnInit {
 
   protected logout(): void {
     this.authService.logout();
+    this.worldService.logout();
+    this.userService.logout();
     this.router.navigate([RoutingUrls.login]);
-    this.userService.loadUser();
-    this.currentWorld = null;
-    this.selected = null;
-    this.worlds = null;
-    this.user = null;
     this.ui = null;
-    this.imageToShow = null;
     this.updateMenu(false);
     this.setBackground();
   }
