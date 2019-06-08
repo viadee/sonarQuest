@@ -39,7 +39,7 @@ public class EventDto {
 		
 		this.id = event.getId();
 		this.type = event.getType();
-		this.typeId = event.gettypeId();
+		this.typeId = event.getTypeId();
 		this.title = event.getTitle();
 		this.story = event.getStory();
 		this.state = event.getState();
@@ -148,12 +148,12 @@ public class EventDto {
 	}
 
 
-	public Long gettypeId() {
+	public Long getTypeId() {
 		return typeId;
 	}
 
 
-	public void settypeId(Long typeId) {
+	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}	
 	

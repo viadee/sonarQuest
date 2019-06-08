@@ -196,11 +196,11 @@ public class Event {
 		this.headline = headline;
 	}
 
-    public Long gettypeId() {
+    public Long getTypeId() {
 		return typeId;
 	}
 
-	public void settypeId(Long typeId) {
+	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 
