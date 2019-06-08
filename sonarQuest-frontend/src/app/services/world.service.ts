@@ -1,3 +1,4 @@
+import { Role } from 'app/Interfaces/Role';
 import {Observable, Subscriber, ReplaySubject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {World} from '../Interfaces/World';
@@ -22,6 +23,9 @@ export class WorldService {
   constructor(private http: HttpClient, private userService: UserService) {
 
     userService.user$.subscribe(user => {
+      if (user.role.name == 'ADMIN'){
+        this.getAllWorlds(); // You need a JWT
+      }
       
       this.getWorlds().subscribe(worlds => {
         if (user.currentWorld == null){
@@ -34,7 +38,6 @@ export class WorldService {
       });
     })
 
-    this.getAllWorlds();
   }
 
   public getWorlds(): Observable<World[]> {
@@ -87,8 +90,8 @@ export class WorldService {
   }
 
   logout(){
-    this.worldsSubject.next(null);
-    this.currentWorldSubject.next(null);
+    this.worldsSubject =  new ReplaySubject(1);
+    this.currentWorldSubject =  new ReplaySubject(1);
   }
 
 }

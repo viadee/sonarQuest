@@ -25,6 +25,7 @@ export class MainLayoutComponent implements OnInit {
   public pageNames: any;
   public user: User = null;
   public imageToShow: any = "";
+  public imageLoader = true;
   private ui: UiDesign = null;
   private clickToggleDesignButton = false;
 

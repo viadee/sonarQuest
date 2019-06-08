@@ -5,7 +5,8 @@
         <div flex>
           <div layout="row">
             <div class="avatar-image">
-              <img [src]="imageToShow" alt="The image of your avatar.">
+              <div [hidden]="!imageLoader"><mat-spinner></mat-spinner></div>
+              <img [hidden]="imageLoader" [src]="imageToShow" alt="The image of your avatar." (load)="this.imageLoader = false;">
             </div>
             <div flex>
               <div layout="column">

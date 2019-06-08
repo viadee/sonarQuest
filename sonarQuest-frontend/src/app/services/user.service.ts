@@ -78,7 +78,7 @@ export class UserService {
   }
 
   logout(){
-    this.userSubject.next(null);
-    this.avatarSubject.next(null);
+    this.userSubject =  new ReplaySubject(1);
+    this.avatarSubject =  new ReplaySubject(1);
   }
 }

@@ -1,4 +1,3 @@
-import { ImageService } from './../../services/image.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AvatarEditComponent } from './components/my-avatar-edit/my-avatar-edit.component';
@@ -18,6 +17,7 @@ export class MyAvatarPageComponent implements OnInit {
   public minXpForLevel2 = 10;
   public imageToShow: any = "";
   public user: User;
+  public imageLoader = true;
 
   constructor(private userService: UserService,
     private dialog: MatDialog) {
@@ -25,12 +25,13 @@ export class MyAvatarPageComponent implements OnInit {
 
   ngOnInit() {
     this.userService.user$.subscribe(user => {
-
-      this.userService.avatar$.subscribe(avatar => this.imageToShow = avatar)
-      this.user = user;
-      this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);
-      this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
-      this.xpPercent();
+      if (user != null) {
+        this.userService.avatar$.subscribe(avatar => this.imageToShow = avatar)
+        this.user = user;
+        this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);
+        this.maxXp = (this.level > 1 ? this.user.level.maxXp : this.minXpForLevel2);
+        this.xpPercent();
+      }
     })
   }
 
