@@ -24,7 +24,7 @@ export class EventPageComponent implements OnInit {
   events: Event[];
   eventDtos: EventDto[];
   userDtos: UserDto[];
-  previousEvent: Event = null;
+  previousEvent: EventDto = null;
   message = '';
 
   @ViewChildren('commentDiv') commentDivs: QueryList<ElementRef>;
@@ -63,7 +63,7 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  checkNewDay(event: Event): Boolean {
+  checkNewDay(event: EventDto): Boolean {
     if (this.previousEvent == null) {
       this.previousEvent = event;
       return true;
@@ -110,7 +110,7 @@ export class EventPageComponent implements OnInit {
     return name;
   }
 
-  openView(e: Event){
+  openView(e: EventDto){
     console.log(e)
     if (e.type == "QUEST"){
       this.viewQuest(e)
@@ -123,7 +123,7 @@ export class EventPageComponent implements OnInit {
   }
 
 
-  viewQuest(e: Event) {
+  viewQuest(e: EventDto) {
       this.dialog.open(ViewQuestComponent, {
         panelClass: 'dialog-sexy',
         data: e,
@@ -132,7 +132,8 @@ export class EventPageComponent implements OnInit {
       });
   }
 
-  viewArtefact(e: Event){
+  viewArtefact(e: EventDto){
+    console.log(e)
     this.dialog.open(ViewArtefactComponent, {
       panelClass: 'dialog-sexy',
       data: e,

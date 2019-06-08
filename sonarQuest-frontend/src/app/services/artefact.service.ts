@@ -24,6 +24,7 @@ export class ArtefactService {
   }
 
   getArtefact(id: number): Promise<Artefact>  {
+    console.log(id)
     return this.http.get<Artefact>(`${environment.endpoint}/artefact/${id}`).toPromise();
   }
   getArtefacts(): Observable<Artefact[]> {
