@@ -50,9 +50,7 @@ export class ViewArtefactComponent implements OnInit {
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public event: EventDto) {
 
-    
-
-    this.artefactService.getArtefact(event.type_id).then(artefact => {
+    this.artefactService.getArtefact(event.typeId).then(artefact => {
       this.artefact = artefact ;
 
       this.userService.user$.subscribe(user => {

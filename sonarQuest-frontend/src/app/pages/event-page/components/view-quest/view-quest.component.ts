@@ -38,7 +38,7 @@ export class ViewQuestComponent implements OnInit {
     public participationService: ParticipationService
 
   ) {
-    this.questService.getQuest(event.type_id).then(quest => {
+    this.questService.getQuest(event.typeId).then(quest => {
       this.quest = quest
       
       this.tasks = this.quest.tasks;
