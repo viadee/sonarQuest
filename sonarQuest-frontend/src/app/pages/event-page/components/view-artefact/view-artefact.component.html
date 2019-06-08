@@ -5,7 +5,7 @@
   <div *ngIf="icon!=''" mat-button disabled>
     <i *ngIf="icon!=''" class="ra ra-3x" [ngClass]="icon"></i>
   </div>
-  
+
 </mat-toolbar>
 
 <mat-dialog-content>
@@ -19,7 +19,8 @@
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="min" disabled>
+        <input matInput [placeholder]="'ARTEFACT.MIN_LEVEL' | translate" type="number" min="1" [(ngModel)]="min"
+          disabled>
       </mat-form-field>
     </div>
 
@@ -31,13 +32,15 @@
 
     <div flex>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="quantity" disabled>
+        <input matInput [placeholder]="'ARTEFACT.QUANTITY' | translate" type="number" min="0" [(ngModel)]="quantity"
+          disabled>
       </mat-form-field>
     </div>
 
     <div flex>
       <mat-form-field class="full-width">
-        <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="description" disabled></textarea>
+        <textarea matInput [placeholder]="'ARTEFACT.DESCRIPTION' | translate" maxlength="255" [(ngModel)]="description"
+          disabled></textarea>
       </mat-form-field>
     </div>
 
@@ -56,24 +59,28 @@
 <mat-divider></mat-divider>
 
 <div *ngIf=!inMyInventory>
-<mat-dialog-actions>
-  <span class=my-gold>{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
-  <span class="toolbar-spacer"></span>
-  <button mat-button (click)="buy()" disabled *ngIf="user.gold<artefact?.price">
-    <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{ "ARTEFACT.BUY" | translate }}
-  </button>
-  
-  <button mat-button (click)="buy()"  *ngIf="user.gold>=artefact?.price">
-      <i mat-list-icon class="ra ra-gold-bar ra-lg" [matTooltip]="'DEVELOPER.GOLD' | translate"></i>{{ "ARTEFACT.BUY" | translate }}
-    </button>
-</mat-dialog-actions>
+  <mat-dialog-actions>
+    <span class=my-gold>{{ "DEVELOPER.MY_GOLD" | translate }}: {{user.gold}}</span>
+    <span class="toolbar-spacer"></span>
+    <div *ngIf="user.gold<artefact?.price" [matTooltip]="'ARTEFACT.NO_MONEY' | translate">
+      <button mat-button (click)="buy()" disabled>
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+      </button>
+    </div>
+
+    <div *ngIf="user.gold>=artefact?.price" [matTooltip]="'ARTEFACT.BUY_NOW' | translate">
+      <button mat-button (click)="buy()">
+        <i mat-list-icon class="ra ra-gold-bar ra-lg"></i>{{ "ARTEFACT.BUY" | translate }}
+      </button>
+    </div>
+  </mat-dialog-actions>
 </div>
 
 <div *ngIf=inMyInventory>
-<mat-dialog-actions>
-  <span class="toolbar-spacer"></span>
-  <button mat-button (click)="close()"> 
-    {{ "ARTEFACT.IN_MY_INVENTORY" | translate }}
+  <mat-dialog-actions>
+    <span class="toolbar-spacer"></span>
+    <button mat-button (click)="close()">
+      {{ "ARTEFACT.IN_MY_INVENTORY" | translate }}
     </button>
-</mat-dialog-actions>
+  </mat-dialog-actions>
 </div>

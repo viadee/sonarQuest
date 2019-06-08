@@ -243,6 +243,8 @@
     "PAYOUT": "Kaufpreis auszahlen",
     "REMOVE_FROM_MARKETPLACE": "Artefakt vom Markplatz entfernen",
     "BUY": "Kaufen",
+    "BUY_NOW": "Jetzt kaufen",
+    "NO_MONEY": "Nicht genug Gold",
     "IN_MY_INVENTORY": "Bereits in meinem Inventar"
   },
   "SKILL": {

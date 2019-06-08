@@ -243,6 +243,8 @@
     "PAYOUT": "Pay out purchase price",
     "REMOVE_FROM_MARKETPLACE": "Remove Artefact from marketplace",
     "BUY": "Buy",
+    "BUY_NOW": "Buy now",
+    "NO_MONEY": "Not enough gold",
     "IN_MY_INVENTORY": "Already in my inventory"
   },
   "SKILL": {
