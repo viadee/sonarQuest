@@ -21,12 +21,13 @@ import { WorldService } from 'app/services/world.service';
 })
 export class AdminDeveloperEditComponent implements OnInit {
 
-  imageToShow: any;
+  imageToShow: any = null;
   userToWorlds: UserToWorld[];
   roles: Role[];
   nameTaken: boolean;
   mailTaken: boolean;
   user: User;
+  imageLoader = true;
 
   columns: ITdDataTableColumn[] = [
     { name: 'userId', label: 'UserId', hidden: true },
@@ -89,7 +90,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   loadImages() {
     this.userService.getImageForUser(this.data.user).subscribe((blob) => {
-      this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
+      this.imageService.createImageFromBlob2(blob).subscribe(image => this.imageToShow = image);
     });
   }
 

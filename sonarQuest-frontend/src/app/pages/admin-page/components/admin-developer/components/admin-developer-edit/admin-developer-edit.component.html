@@ -29,13 +29,18 @@
     </div>
     <hr/>
     <div>
-      <img [src]="imageToShow">
+        <div class="avatar-image"> 
+            <div [hidden]="!imageLoader"><mat-spinner></mat-spinner></div>
+            <img [hidden]="imageLoader" [src]="imageToShow" alt="The image of this avatar." (load)="this.imageLoader = false;">
+        </div>
     </div>
+    <!--
     <div>
       <mat-form-field class="full-width">
         <input matInput placeholder="{{'GLOBAL.FILENAME_IMAGE' | translate}}" [(ngModel)]="data.user.picture" class="form-control" formControlName="picture">
       </mat-form-field>
     </div>
+    -->
     <div>
       <td-data-table #dataTable [data]="userToWorlds" [sortable]="true" [columns]="columns">
         <ng-template tdDataTableTemplate="editJoined" let-value="value" let-row="row" let-column="column">

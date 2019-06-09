@@ -23,21 +23,17 @@ export class WorldService {
   constructor(private http: HttpClient, private userService: UserService) {
 
     userService.user$.subscribe(user => {
-      if (user.role.name == 'ADMIN'){
-        this.getAllWorlds(); // You need a JWT
-      }
-      
-      this.getWorlds().subscribe(worlds => {
-        if (user.currentWorld == null){
-          if (worlds[0] != null){
-            this.setCurrentWorld(worlds[0])
+        
+        this.getWorlds().subscribe(worlds => {
+          if (user.currentWorld == null){
+            if (worlds[0] != null){
+              this.setCurrentWorld(worlds[0])
+            }
+          } else {
+            this.currentWorldSubject.next(user.currentWorld)
           }
-        } else {
-          this.currentWorldSubject.next(user.currentWorld)
-        }
-      });
+        });
     })
-
   }
 
   public getWorlds(): Observable<World[]> {
@@ -90,8 +86,8 @@ export class WorldService {
   }
 
   logout(){
-    this.worldsSubject =  new ReplaySubject(1);
-    this.currentWorldSubject =  new ReplaySubject(1);
+    this.worldsSubject.next();
+    this.currentWorldSubject.next();
   }
 
 }

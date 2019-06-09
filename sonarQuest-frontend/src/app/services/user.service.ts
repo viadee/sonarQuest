@@ -19,7 +19,6 @@ export class UserService {
     private httpClient: HttpClient,
     private imageService: ImageService
   ) {
-    this.loadAvatar();
   }
 
   public loadUser(): void {
@@ -78,7 +77,7 @@ export class UserService {
   }
 
   logout(){
-    this.userSubject =  new ReplaySubject(1);
-    this.avatarSubject =  new ReplaySubject(1);
+    this.userSubject.next();
+    this.avatarSubject.next();
   }
 }
