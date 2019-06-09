@@ -121,7 +121,7 @@ export class MainLayoutComponent implements OnInit {
       if (world) this.currentWorld = world;
       this.setBackground();
     })
-    this.worldService.worlds$.subscribe(worlds => {
+    this.worldService.getWorlds().subscribe(worlds => {
       if (this.currentWorld == null) {
         this.currentWorld = worlds[0]
         this.setBackground();

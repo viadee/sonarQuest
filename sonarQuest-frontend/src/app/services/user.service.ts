@@ -1,3 +1,4 @@
+import { WorldService } from './world.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../Interfaces/User';
@@ -77,7 +78,7 @@ export class UserService {
   }
 
   logout(){
-    this.userSubject.next();
-    this.avatarSubject.next();
+    this.userSubject.next(null);
+    this.avatarSubject.next(null);
   }
 }

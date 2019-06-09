@@ -37,6 +37,7 @@ export class WorldService {
   }
 
   public getWorlds(): Observable<World[]> {
+    console.log('get current world')
     this.http.get<World[]>(`${environment.endpoint}/world/worlds`).subscribe(
       result => this.worldsSubject.next(result),
       err => this.worldsSubject.error(err)
@@ -92,8 +93,8 @@ export class WorldService {
   }
 
   logout(){
-    this.worldsSubject.next();
-    this.currentWorldSubject.next();
+    this.worldsSubject.next(null);
+    this.currentWorldSubject.next(null);
   }
 
 }
