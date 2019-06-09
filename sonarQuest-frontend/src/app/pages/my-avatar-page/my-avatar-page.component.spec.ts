@@ -20,6 +20,7 @@ import {
 } from "@angular/material";
 import {UserServiceTestingModule} from "../../services/user.service.mock.module";
 import {ImageService} from "../../services/image.service";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('MyAvatarPageComponent', () => {
   let component: MyAvatarPageComponent;
@@ -47,6 +48,7 @@ describe('MyAvatarPageComponent', () => {
         MatGridListModule,
         UserServiceTestingModule,
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         ImageService
       ]

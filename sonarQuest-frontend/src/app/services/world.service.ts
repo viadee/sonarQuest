@@ -44,6 +44,12 @@ export class WorldService {
     return this.worldsSubject;
   }
 
+  public getWorldsForUser(userId: number): Promise <World[]> {
+   return this.http.get<World[]>(`${environment.endpoint}/world/worlds/${userId}`).toPromise();
+  }
+
+
+
   public getAllWorlds(): Observable<World[]> {
     this.http.get<World[]>(`${environment.endpoint}/world/all`).subscribe(
       result => this.allWorldsSubject.next(result),

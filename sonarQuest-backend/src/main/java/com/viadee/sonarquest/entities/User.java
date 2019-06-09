@@ -208,6 +208,10 @@ public class User {
 		Validate.isTrue(xp >= 0);
 		this.xp += xp;
 	}
+	
+	public void addArtefact(final Artefact artefact) {
+		this.artefacts.add(artefact);
+	}
 
 	public Level getLevel() {
 		return level;

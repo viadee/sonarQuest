@@ -28,6 +28,7 @@ import {RoleServiceTestingModule} from "../../../../../../services/role.service.
 import {ImageService} from "../../../../../../services/image.service";
 import {UserToWorldServiceTestingModule} from "../../../../../../services/user-to-world.service.mock.module";
 import {WorldServiceTestingModule} from "../../../../../../services/world.service.mock.module";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AdminDeveloperEditComponent', () => {
   let component: AdminDeveloperEditComponent;
@@ -84,6 +85,7 @@ describe('AdminDeveloperEditComponent', () => {
         UserToWorldServiceTestingModule,
         WorldServiceTestingModule
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         {provide: MAT_DIALOG_DATA, useValue: data},
         {provide: MatDialogRef, useValue: {}},

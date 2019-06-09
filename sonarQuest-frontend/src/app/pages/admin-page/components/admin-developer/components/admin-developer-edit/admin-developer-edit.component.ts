@@ -56,7 +56,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.loadImages();
+    this.loadImage();
     this.userService.user$.subscribe(user => this.user = user)
     this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
@@ -78,9 +78,6 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.updateUserToWorld(this.userToWorlds);
       this.dialogRef.close(true);
-      if(this.data.user.id === this.user.id){
-        this.worldService.getWorlds()
-      }
     })
   }
 
@@ -88,7 +85,7 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  loadImages() {
+  loadImage() {
     this.userService.getImageForUser(this.data.user).subscribe((blob) => {
       this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
     });

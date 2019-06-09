@@ -121,7 +121,7 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setXp(user.getXp());
 				toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
 				toBeSaved.setAdventures(user.getAdventures());
-				toBeSaved.setArtefacts(user.getArtefacts());
+				// toBeSaved.setArtefacts(user.getArtefacts());
 				toBeSaved.setAvatarClass(user.getAvatarClass());
 				toBeSaved.setParticipations(user.getParticipations());
 				toBeSaved.setUiDesign(user.getUiDesign());

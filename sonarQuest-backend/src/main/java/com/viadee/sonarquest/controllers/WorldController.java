@@ -46,6 +46,12 @@ public class WorldController {
         return user.getWorlds();
     }
 
+    @GetMapping(value = "/worlds/{userId}")
+    public List<World> getWorldsForUser(@PathVariable(value = "userId") final Long userId) {
+        final User user = userService.findById(userId);
+        return user.getWorlds();
+    }
+
     @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @GetMapping(value = "/all")
     public List<World> getAllWorlds() {
