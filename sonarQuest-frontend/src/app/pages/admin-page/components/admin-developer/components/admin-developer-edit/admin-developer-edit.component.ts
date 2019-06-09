@@ -90,7 +90,7 @@ export class AdminDeveloperEditComponent implements OnInit {
 
   loadImages() {
     this.userService.getImageForUser(this.data.user).subscribe((blob) => {
-      this.imageService.createImageFromBlob2(blob).subscribe(image => this.imageToShow = image);
+      this.imageService.createImageFromBlob(blob).subscribe(image => this.imageToShow = image);
     });
   }
 

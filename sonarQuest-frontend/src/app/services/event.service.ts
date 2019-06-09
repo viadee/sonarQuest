@@ -77,7 +77,7 @@ export class EventService implements OnChanges {
     localUserDtos.forEach((userDto: UserDto) => {
 
       this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
-        this.imageService.createImageFromBlob2(blob).subscribe(image => {
+        this.imageService.createImageFromBlob(blob).subscribe(image => {
           userDto.picture = image
 
           localEventDtos.forEach((eventDto: EventDto) => {
@@ -115,7 +115,7 @@ export class EventService implements OnChanges {
       localUserDtos.forEach((userDto: UserDto) => {
 
         this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
-          this.imageService.createImageFromBlob2(blob).subscribe(image => {
+          this.imageService.createImageFromBlob(blob).subscribe(image => {
             userDto.picture = image
 
             localEventDtos.forEach((eventDto: EventDto) => {
