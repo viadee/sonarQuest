@@ -8,7 +8,7 @@ INSERT INTO User_Skill_Group(group_name,is_root, group_icon) VALUES
 ('Security',0,'ra-shield'),
 ('Spring Framework',0,'ra-leaf'),
 ('File Handling',0,'ra-book'),
-('GUI/MVC',0,'ra-telescope'),
+('GUI',0,'ra-telescope'),
 ('Testing',0,'ra-broken-bone'),
 ('',1,'ra-dead-tree');
 
@@ -178,7 +178,7 @@ INSERT INTO USER_SKILL(ID, DESCRIPTION, SKILL_NAME, IS_ROOT, REQUIRED_REPETITION
 (191, '', 'Transient', FALSE, 3, 9),
 (192, '', 'Externalizable', FALSE, 3, 9),
 (193, '', 'GUI/MVC', TRUE, 3, 10),
-(194, '', 'MVC Pattern', FALSE, 3, 10),
+(194, '', 'ActionForm', FALSE, 3, 10),
 (195, '', 'Struts', FALSE, 3, 10),
 (197, '', 'ActionSupport', FALSE, 3, 10),
 (200, '', 'Testing', TRUE, 3, 11),
@@ -231,7 +231,7 @@ INSERT INTO USER_SKILL(ID, DESCRIPTION, SKILL_NAME, IS_ROOT, REQUIRED_REPETITION
 (247, '', 'toHexString', FALSE, 3, 4),
 (248, '', 'Dead stores', FALSE, 3, 4),
 (249, '', 'Closeable', FALSE, 3, 9),
-(250, '', 'Unicode2', FALSE, 3, 3);  
+(250, '', 'Unicode', FALSE, 3, 3);  
 
 INSERT INTO USER_SKILL_FOLLOWING(ID, USER_SKILL_ID, FOLLOWING_USER_SKILL_ID) VALUES
 (1, 1, 2),
@@ -352,7 +352,7 @@ INSERT INTO USER_SKILL_FOLLOWING(ID, USER_SKILL_ID, FOLLOWING_USER_SKILL_ID) VAL
 (174, 183, 191),
 (175, 183, 192),
 (176, 181, 183),
-(177, 193, 194),
+(177, 195, 194),
 (178, 193, 195),
 (180, 195, 197),
 (182, 200, 201),
@@ -548,7 +548,7 @@ INSERT INTO USER_SKILL_PREVIOUS(ID, USER_SKILL_ID, PREVIOUS_USER_SKILL_ID) VALUE
 (172, 191, 183),
 (173, 192, 183),
 (174, 183, 181),
-(175, 194, 193),
+(175, 194, 195),
 (176, 195, 193),
 (178, 197, 195),
 (180, 201, 200),
@@ -889,7 +889,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (259, 'squid:S2301', 'Public methods should not contain selector arguments', TIMESTAMP '2019-04-25 14:12:05.055', 53),
 (260, 'squid:S2259', 'Null pointers should not be dereferenced', TIMESTAMP '2019-04-25 14:12:05.055', 205),
 (261, 'squid:S2674', 'The value returned from a stream read should be checked', TIMESTAMP '2019-04-25 14:12:05.055', 198),
-(262, 'squid:S2696', 'Instance methods should not write to "static" fields', TIMESTAMP '2019-04-25 14:12:05.055', 79),
+(262, 'squid:S2696', 'Instance methods should not write to "static" fields', TIMESTAMP '2019-04-25 14:12:05.055', 158),
 (263, 'squid:S2718', '"DateUtils.truncate" from Apache Commons Lang library should not be used', TIMESTAMP '2019-04-25 14:12:05.055', 88),
 (264, 'squid:S1939', 'Extensions and implementations should not be redundant', TIMESTAMP '2019-04-25 14:12:05.055', 78),
 (265, 'squid:S2112', '"URL.hashCode" and "URL.equals" should be avoided', TIMESTAMP '2019-04-25 14:12:05.055', 117),
