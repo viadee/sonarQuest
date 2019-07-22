@@ -28,6 +28,7 @@ import com.viadee.sonarquest.entities.UserToWorldDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
+import com.viadee.sonarquest.skillTree.services.SkillTreeUserService;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
@@ -54,7 +55,7 @@ public class UserService implements UserDetailsService {
 	private WorldRepository worldRepository;
 
 	@Autowired
-	private UserSkillService userSkilLService;
+	private SkillTreeUserService skillTreeUserService;
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
@@ -110,7 +111,7 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setXp(0l);
 				toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
 				if (toBeSaved.getMail() != null) {
-					if(userSkilLService.createSkillTreeUser(toBeSaved.getMail()) == null) {
+					if(skillTreeUserService.createSkillTreeUser(toBeSaved.getMail()) == null) {
 						return null;
 					}
 				}
@@ -129,7 +130,7 @@ public class UserService implements UserDetailsService {
 				setMail(toBeSaved, mail);
 				setPassword(user, toBeSaved, encoder);
 				if (toBeSaved.getMail() != null && !oldMail.equalsIgnoreCase(mail)) {
-					if(!userSkilLService.updateSkillTreeUser(oldMail, mail)) {
+					if(!skillTreeUserService.updateSkillTreeUser(oldMail, mail)) {
 						return null;
 					}
 				}

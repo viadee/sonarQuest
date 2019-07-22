@@ -67,10 +67,10 @@ public class ExternalRessourceService {
 
 	@Autowired
 	private SonarRuleService sonarRuleService;
-	
-	@Autowired 
+
+	@Autowired
 	private UserSkillService userSkillService;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
 	private static final String ERROR_NO_CONNECTION = "No connection to backend - please adjust the url to the SonarQube server";
@@ -135,7 +135,7 @@ public class ExternalRessourceService {
 			// new issue from SonarQube: Create new task
 			savedTask = new StandardTask(sonarQubeIssue.getMessage(), newStatus, gold, xp, null, world,
 					sonarQubeIssue.getKey(), sonarQubeIssue.getComponent(), sonarQubeIssue.getSeverity(),
-					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey(),sonarQubeIssue.getRule());
+					sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey(), sonarQubeIssue.getRule());
 		} else {
 			final SonarQuestStatus lastStatus = savedTask.getStatus();
 			if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {
@@ -260,6 +260,8 @@ public class ExternalRessourceService {
 			final List<SonarQubeRule> sonarQubeRules = new ArrayList<>();
 			SonarQubeRuleRessource sonarQubeRuleRessource;
 			List<SonarRule> currentRules = sonarRuleService.findAll();
+			LOGGER.info("Trying to get SonarQube rules with language {} ", language);
+			sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
 			if (currentRules.isEmpty() || currentRules == null) {
 				LOGGER.info("Trying to get SonarQube rules with language {} ", language);
 				sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
@@ -268,6 +270,7 @@ public class ExternalRessourceService {
 				sonarQubeRuleRessource = getSonarQubeRulesByLanguageAndCreatedSince(sonarConfig, language,
 						sonarRuleService.getLastAddedDate());
 			}
+
 			sonarQubeRules.addAll(sonarQubeRuleRessource.getRules());
 			LOGGER.info("Retrieved {} SonarQube rules in total for language {}", sonarQubeRules.size(), language);
 			return sonarQubeRules;

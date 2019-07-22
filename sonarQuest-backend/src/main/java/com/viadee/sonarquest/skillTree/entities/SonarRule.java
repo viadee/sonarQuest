@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,8 +33,7 @@ public class SonarRule {
     private UserSkill userSkill;
     
     @Column(name="added_at")
-    private Timestamp addedAt;
-    
+    private Timestamp addedAt;   
 
     public SonarRule() {
     }

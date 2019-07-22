@@ -12,7 +12,6 @@ import com.viadee.sonarquest.skillTree.entities.UserSkill;
 
 public interface UserSkillRepository extends JpaRepository<UserSkill, Long> {
     
-    //UserSkill findById(Long id);
     @Query("SELECT u FROM UserSkill u WHERE isRoot = :isRoot")
     public List<UserSkill> findAllRootUserSkills(@Param("isRoot") boolean isRoot);
     

@@ -19,8 +19,7 @@ public class SonarRuleTask {
 	@Autowired
 	private WebSocketController webSocketController;
 
-	// TODO as sonarquest.properties
-	@Scheduled(cron = "0 0 6,12,18 * * *")
+	@Scheduled(cron = "${cron.expression.sonarrule.update.rate}")
 	public void updateSonarRulesFromServer() {
 		List<SonarRule> sonarRules = sonarRuleService.update("Java");
 		sonarRules.forEach(sonarRule -> webSocketController.onUpdateSonarRule(sonarRule));

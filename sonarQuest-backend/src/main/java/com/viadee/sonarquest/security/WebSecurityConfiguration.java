@@ -81,26 +81,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
-
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                //.antMatchers(HttpMethod.GET, "/*").permitAll()
-                //.antMatchers(HttpMethod.POST, "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/userskill/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/skilltree/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/sonarrule/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/sonarrule/**").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/sonarrule/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/userskillgroup/**").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/userskill/**").permitAll()
                 .anyRequest().authenticated();
 
         if (corsHeaderActive) {
             http.cors();
         }
-
+        http.headers().frameOptions().sameOrigin();
         http.addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class);
     }
 

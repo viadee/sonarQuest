@@ -83,8 +83,6 @@ public class TaskController {
 
     @GetMapping(value = "/quest/{id}")
     public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId, @RequestParam(value = "mail", required = false) final Optional<String> mail) {
-//        final Quest quest = questService.findById(questId);
-        //return quest.getTasks();
     
     	return taskService.getTasksForQuest(questId,mail);
     }

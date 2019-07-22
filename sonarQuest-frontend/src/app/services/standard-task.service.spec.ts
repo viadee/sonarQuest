@@ -16,4 +16,8 @@ describe('StandardTaskService', () => {
   it('should be created', inject([StandardTaskService], (service: StandardTaskService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should be load quests', inject([StandardTaskService], (service: StandardTaskService) => {
+    expect(service).toBeTruthy();
+  }));
 });

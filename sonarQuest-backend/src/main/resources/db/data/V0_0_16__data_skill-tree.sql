@@ -79,11 +79,11 @@ INSERT INTO USER_SKILL(ID, DESCRIPTION, SKILL_NAME, IS_ROOT, REQUIRED_REPETITION
 (68, '', 'Varargs parameters', FALSE, 3, 4),
 (70, '', 'Method overwriting', FALSE, 3, 4),
 (71, '', 'hashCode', FALSE, 3, 4),
-(73, '', 'Annotations', FALSE, 3, 4),
+(73, '', 'Simple Annotations', FALSE, 3, 1),
 (74, '', 'Assertion', FALSE, 3, 11),
 (75, '', 'Throwable', FALSE, 3, 4),
 (76, '', 'Try-with-resources', FALSE, 3, 4),
-(77, '', 'Suppress Warnings', FALSE, 3, 4),
+(77, '', 'Complex Annotations', FALSE, 3, 4),
 (78, '', 'Inheritence', FALSE, 3, 4),
 (79, '', 'Static', FALSE, 3, 4),
 (80, '', 'Imports', FALSE, 3, 4),
@@ -271,9 +271,8 @@ INSERT INTO USER_SKILL_FOLLOWING(ID, USER_SKILL_ID, FOLLOWING_USER_SKILL_ID) VAL
 (60, 65, 68),
 (62, 78, 70),
 (63, 65, 71),
-(65, 78, 73),
 (66, 67, 76),
-(67, 73, 77),
+(67, 213, 77),
 (68, 65, 78),
 (71, 78, 81),
 (73, 79, 83),
@@ -428,7 +427,8 @@ INSERT INTO USER_SKILL_FOLLOWING(ID, USER_SKILL_ID, FOLLOWING_USER_SKILL_ID) VAL
 (259, 122, 133),
 (260, 128, 146),
 (263, 183, 188),
-(264, 183, 189);           
+(264, 183, 189),
+(265,2,73);          
 
 INSERT INTO USER_SKILL_PREVIOUS(ID, USER_SKILL_ID, PREVIOUS_USER_SKILL_ID) VALUES
 (1, 2, 1),
@@ -468,9 +468,8 @@ INSERT INTO USER_SKILL_PREVIOUS(ID, USER_SKILL_ID, PREVIOUS_USER_SKILL_ID) VALUE
 (60, 68, 65),
 (62, 70, 78),
 (63, 71, 65),
-(65, 73, 78),
 (66, 76, 67),
-(67, 77, 73),
+(67, 77, 213),
 (68, 78, 65),
 (71, 81, 78),
 (73, 83, 79),
@@ -625,7 +624,8 @@ INSERT INTO USER_SKILL_PREVIOUS(ID, USER_SKILL_ID, PREVIOUS_USER_SKILL_ID) VALUE
 (263, 203, 188),
 (264, 169, 166),
 (265, 238, 188),
-(266, 239, 183);       
+(266, 239, 183),
+(267,73,2);     
 
 INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) VALUES
 (1, 'squid:UndocumentedApi', 'Public types, methods and fields (API) should be documented with Javadoc', TIMESTAMP '2019-04-25 14:12:05.048', 4),
@@ -837,7 +837,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (207, 'squid:S2127', '"Double.longBitsToDouble" should not be used for "int"', TIMESTAMP '2019-04-25 14:12:05.054', 215),
 (208, 'squid:S2273', '"wait", "notify" and "notifyAll" should only be called when a lock is obviously held on an object', TIMESTAMP '2019-04-25 14:12:05.054', 157),
 (209, 'squid:S1699', 'Constructors should only call non-overridable methods', TIMESTAMP '2019-04-25 14:12:05.054', 70),
-(210, 'squid:S2109', 'Reflection should not be used to check non-runtime annotations', TIMESTAMP '2019-04-25 14:12:05.054', 73),
+(210, 'squid:S2109', 'Reflection should not be used to check non-runtime annotations', TIMESTAMP '2019-04-25 14:12:05.054', 77),
 (211, 'squid:S2197', 'Modulus results should not be checked for direct equality', TIMESTAMP '2019-04-25 14:12:05.054', 65),
 (212, 'squid:S2178', 'Short-circuit logic should be used in boolean contexts', TIMESTAMP '2019-04-25 14:12:05.054', 39),
 (213, 'squid:S2078', 'LDAP queries should not be vulnerable to injection attacks', TIMESTAMP '2019-04-25 14:12:05.054', 168),
@@ -853,7 +853,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (223, 'squid:S2183', 'Ints and longs should not be shifted by zero or more than their number of bits-1', TIMESTAMP '2019-04-25 14:12:05.054', 217),
 (224, 'squid:S2257', 'Using non-standard cryptographic algorithms is security-sensitive', TIMESTAMP '2019-04-25 14:12:05.054', 161),
 (225, 'squid:S2386', 'Mutable fields should not be "public static"', TIMESTAMP '2019-04-25 14:12:05.054', 79),
-(226, 'squid:S1309', 'Track uses of "@SuppressWarnings" annotations', TIMESTAMP '2019-04-25 14:12:05.054', 77),
+(226, 'squid:S1309', 'Track uses of "@SuppressWarnings" annotations', TIMESTAMP '2019-04-25 14:12:05.054', 73),
 (227, 'squid:S2055', 'The non-serializable super class of a "Serializable" class should have a no-argument constructor', TIMESTAMP '2019-04-25 14:12:05.054', 216),
 (228, 'squid:S2065', 'Fields in non-serializable classes should not be "transient"', TIMESTAMP '2019-04-25 14:12:05.054', 191),
 (229, 'squid:S2059', '"Serializable" inner classes of "Serializable" classes should be static', TIMESTAMP '2019-04-25 14:12:05.055', 216),
@@ -1039,7 +1039,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (409, 'squid:S4032', 'Packages containing only "package-info.java" should be removed', TIMESTAMP '2019-04-25 14:12:05.06', 53),
 (410, 'squid:S4034', '"Stream" call chains should be simplified when possible', TIMESTAMP '2019-04-25 14:12:05.06', 227),
 (411, 'squid:S4042', '"java.nio.Files#delete" should be preferred', TIMESTAMP '2019-04-25 14:12:05.06', 203),
-(412, 'squid:S3254', 'Default annotation parameter values should not be passed as arguments', TIMESTAMP '2019-04-25 14:12:05.06', 73),
+(412, 'squid:S3254', 'Default annotation parameter values should not be passed as arguments', TIMESTAMP '2019-04-25 14:12:05.06', 77),
 (413, 'squid:S2196', 'Switches should be used for sequences of simple "String" tests', TIMESTAMP '2019-04-25 14:12:05.06', 7),
 (414, 'squid:S4065', '"ThreadLocal.withInitial" should be preferred', TIMESTAMP '2019-04-25 14:12:05.06', 151),
 (415, 'squid:S3972', 'Conditionals should start on new lines', TIMESTAMP '2019-04-25 14:12:05.06', 50),

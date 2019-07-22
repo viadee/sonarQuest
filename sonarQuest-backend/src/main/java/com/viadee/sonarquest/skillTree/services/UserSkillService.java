@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.controllers.WebSocketController;
@@ -21,17 +20,13 @@ import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
-import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.StandardTaskService;
-import com.viadee.sonarquest.services.UserService;
-import com.viadee.sonarquest.services.WorldService;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
-import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
@@ -40,6 +35,7 @@ import com.viadee.sonarquest.skillTree.utils.mapper.UserSkillDtoEntityMapper;
 
 @Service
 public class UserSkillService {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserSkillService.class);
 
 	@Autowired
@@ -49,7 +45,7 @@ public class UserSkillService {
 	private SonarRuleRepository sonarRuleRepository;
 
 	@Autowired
-	private SkillTreeUserRepository skillTreeUserRepository;
+	private SkillTreeUserService skillTreeUserService;
 
 	@Autowired
 	private UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
@@ -73,19 +69,14 @@ public class UserSkillService {
 	private List<Map<String, Object>> resultFollowingCalculateScore = new ArrayList<Map<String, Object>>();
 	private List<Map<String, Object>> resultPreviousCalculateScore = new ArrayList<Map<String, Object>>();
 
-	// TODO Eventuell nicht notwendig
+	@Transactional
 	public List<UserSkillDTO> findUserSkillsFromTeam(List<String> mails) {
 
 		List<UserSkillDTO> userSkills = new ArrayList<UserSkillDTO>();
 		for (String mail : mails) {
 			if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
-				SkillTreeUser skillTreeUser = skillTreeUserRepository.findByMail(mail);
+				SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
 				if (skillTreeUser != null) {
-					/*
-					 * List<UserSkillToSkillTreeUser> learnedUserSkillsToSkillTreeUsers =
-					 * skillTreeUser .getUserSkillToSkillTreeUser().stream() .filter(skillToUser ->
-					 * skillToUser.getLearnedOn() != null).collect(Collectors.toList());
-					 */
 					for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : skillTreeUser
 							.getUserSkillToSkillTreeUser()) {
 						UserSkillDTO userSkillDTO = mapper.entityToDto(userSkillToSkillTreeUser.getUserSkill());
@@ -113,7 +104,7 @@ public class UserSkillService {
 				int amountDevelopersInTeam = 0;
 				for (String mail : mails) {
 					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
-						SkillTreeUser skillTreeUser = skillTreeUserRepository.findByMail(mail);
+						SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
 						if (skillTreeUser != null) {
 							if (userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
 								amountDevelopersInTeam++;
@@ -125,7 +116,6 @@ public class UserSkillService {
 											teamScore = 0.0;
 										}
 										teamScore = teamScore + userSkillToSkillTreeUser.getScore();
-										// memeberWithSkill++;
 									}
 
 								}
@@ -134,7 +124,6 @@ public class UserSkillService {
 						}
 					}
 				}
-				// return teamScore / memeberWithSkill;
 				if (teamScore != null) {
 					return teamScore / amountDevelopersInTeam;
 				}
@@ -144,6 +133,7 @@ public class UserSkillService {
 		return null;
 	}
 
+	@Transactional
 	public UserSkill createUserSkill(final UserSkill newUserSkill, final Long groupID, final Principal principal) {
 		UserSkill userSkill = newUserSkill;
 		List<UserSkill> newFollowingUserSkills = new ArrayList<UserSkill>();
@@ -179,7 +169,7 @@ public class UserSkillService {
 		userSkill = userSkillRepository.save(userSkill);
 		LOGGER.info("Creating new userskill '{}'", userSkill.getName());
 
-		List<SkillTreeUser> users = skillTreeUserRepository.findAll();
+		List<SkillTreeUser> users = skillTreeUserService.findAll();
 		for (SkillTreeUser user : users) {
 			UserSkillToSkillTreeUser userSkillToSkillTreeUser = new UserSkillToSkillTreeUser();
 			userSkillToSkillTreeUser.setLearnedOn(null);
@@ -189,7 +179,7 @@ public class UserSkillService {
 			userSkillToSkillTreeUser.setUserSkill(userSkill);
 			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
 			user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
-			skillTreeUserRepository.save(user);
+			skillTreeUserService.save(user);
 		}
 		User user = userRepository.findByUsername(principal.getName());
 		if (user != null) {
@@ -199,18 +189,7 @@ public class UserSkillService {
 		return userSkill;
 	}
 
-	public boolean delete(final Long id) {
-		final UserSkill skill = userSkillRepository.findOne(id);
-		if (skill != null) {
-			userSkillRepository.delete(skill);
-			return true;
-		}
-
-		return false;
-	}
-
-	@Transactional
-	public Double calculateUserSkillScore(UserSkill userSkill, SkillTreeUser skillTreeUser) {
+	private Double calculateUserSkillScore(UserSkill userSkill, SkillTreeUser skillTreeUser) {
 		double score = 0;
 		double distanzFollowing = 0;
 		double distanzPrevious = 0;
@@ -295,11 +274,10 @@ public class UserSkillService {
 		return null;
 	}
 
-	public void getDistanzFollowing(List<UserSkill> userSkills, SkillTreeUser skillTreeUser) {
+	private void getDistanzFollowing(List<UserSkill> userSkills, SkillTreeUser skillTreeUser) {
 		recursionCount++;
 		Map<String, Object> result;
 		for (UserSkill userSkill : userSkills) {
-
 			// Necessary due to the recursion. It may be that the first recursion count ++
 			// is not triggered
 			if (recursionCount == 0) {
@@ -328,7 +306,7 @@ public class UserSkillService {
 		resultFollowingCalculateScore.add(result);
 	}
 
-	public void getDistanzPrevious(List<UserSkill> userSkills, SkillTreeUser skillTreeUser) {
+	private void getDistanzPrevious(List<UserSkill> userSkills, SkillTreeUser skillTreeUser) {
 		recursionCount++;
 		Map<String, Object> result;
 		for (UserSkill userSkill : userSkills) {
@@ -385,7 +363,7 @@ public class UserSkillService {
 		return newUserSkill;
 	}
 
-	public void recalculateWholeUserSkillScore() {
+	private void recalculateWholeUserSkillScore() {
 		List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = userSkillToSkillTreeUserRepository.findAll();
 		for (UserSkillToSkillTreeUser skillToSkillTreeUser : userSkillToSkillTreeUsers) {
 			skillToSkillTreeUser.setScore(calculateUserSkillScore(skillToSkillTreeUser.getUserSkill(),
@@ -396,12 +374,12 @@ public class UserSkillService {
 
 	@Transactional
 	public UserSkill learnUserSkill(String mail, String key) {
-		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
+		SkillTreeUser user = skillTreeUserService.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
 		UserSkill learnedUserSkill = null;
 		if (user == null) {
 			LOGGER.info("SkillTreeUser with mail: {}  does not exist yet - creating it...", mail);
-			user = this.createSkillTreeUser(mail);
+			user = skillTreeUserService.createSkillTreeUser(mail);
 		}
 
 		outter: for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : user.getUserSkillToSkillTreeUser()) {
@@ -435,45 +413,10 @@ public class UserSkillService {
 
 			}
 		}
-		skillTreeUserRepository.save(user);
+		skillTreeUserService.save(user);
 		return learnedUserSkill;
 	}
 
-	@Transactional
-	public SkillTreeUser createSkillTreeUser(String mail) {
-		SkillTreeUser user = null;
-		if (skillTreeUserRepository.findByMail(mail) == null) {
-			user = skillTreeUserRepository.save(new SkillTreeUser(mail));
-			List<UserSkill> userSkills = userSkillRepository.findAllRootUserSkills(false);
-			for (UserSkill userSkill : userSkills) {
-				UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-						.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));
-				user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
-			}
-			skillTreeUserRepository.save(user);
-		}
-
-		return user;
-	}
-
-	@Transactional
-	public boolean updateSkillTreeUser(final String oldMail, final String newMail) {
-		SkillTreeUser user = skillTreeUserRepository.findByMail(oldMail);
-		if (user != null) {
-			if (skillTreeUserRepository.findByMail(newMail) == null) {
-				user.setMail(newMail);
-				skillTreeUserRepository.save(user);
-			} else {
-				LOGGER.info("SkillTreeUser with mail '{}' already exist ", newMail);
-				return false;
-			}
-		} else {
-			createSkillTreeUser(newMail);
-		}
-		return true;
-	}
-
-	@Transactional
 	private void updateSkillTreeScoring(SkillTreeUser skillTreeUser) {
 		for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : skillTreeUser.getUserSkillToSkillTreeUser()) {
 			userSkillToSkillTreeUser
@@ -492,12 +435,6 @@ public class UserSkillService {
 		} else {
 			LOGGER.info("No SQUser participations found for task {}, so no skills are learned", task.getKey());
 		}
-	}
-
-	// TODO löschen
-	public void calculateSkillTreeByMail(String mail) {
-		SkillTreeUser user = skillTreeUserRepository.findByMail(mail);
-		updateSkillTreeScoring(user);
 	}
 
 }

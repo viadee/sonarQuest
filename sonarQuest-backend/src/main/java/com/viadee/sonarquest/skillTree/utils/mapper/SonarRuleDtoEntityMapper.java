@@ -7,7 +7,7 @@ import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 
 @Component
-public class SonarRuleSDtoEntityMapper {
+public class SonarRuleDtoEntityMapper {
 
 	@Autowired
 	private UserSkillDtoEntityMapper userSkillMapper;

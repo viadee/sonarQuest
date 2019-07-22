@@ -62,6 +62,6 @@ public class SonarQubeRule {
 
 	public void setLang(String lang) {
 		this.lang = lang;
-	}
+	}	
 
 }

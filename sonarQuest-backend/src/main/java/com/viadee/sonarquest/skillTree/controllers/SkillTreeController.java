@@ -20,7 +20,6 @@ public class SkillTreeController {
 	@GetMapping(value = "/fromgroup/user/")
 	public SkillTreeDiagramDTO getSkillTreeForUserByGroupID(@RequestParam(value = "id") final Long id,
 			@RequestParam(value = "mail", required = false) final String mail) {
-
 		return skillTreeService.generateSkillTreeForUserByGroupID(id, mail);
 
 	}
