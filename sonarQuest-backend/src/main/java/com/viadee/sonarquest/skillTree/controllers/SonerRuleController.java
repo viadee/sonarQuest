@@ -20,32 +20,22 @@ public class SonerRuleController {
 
 	@Autowired
 	private SonarRuleService sonarRuleService;
-
-	@GetMapping(value = "/update/")
-	public List<SonarRule> updateSonarRulesByLanguage(@RequestParam(value = "language") final String language) {
-		return sonarRuleService.update(language);
-	}
-
-	@GetMapping(value = "/all/")
-	public List<SonarRule> getAll() {
-		return sonarRuleService.findAll();
-	}
+	
+	
+//TODO Remove
+//	@GetMapping(value = "/update/")
+//	public List<SonarRule> updateSonarRulesByLanguage(@RequestParam(value = "language") final String language) {
+//		return sonarRuleService.update(language);
+//	}
+//
+//	@GetMapping(value = "/all/")
+//	public List<SonarRule> getAll() {
+//		return sonarRuleService.findAll();
+//	}
 	
 	@GetMapping(value="/unassignedRules")
 	public List<SonarRuleDTO> getUnassignedRules() {
 		return this.sonarRuleService.getUnassignedRules();
 	}
-	
-	//TODO Remove
-	@PostMapping
-	public void createSonarRule() {
-		this.sonarRuleService.createSonarRule("test", "test");
-	}
-	
-	//TODO Remove
-		@DeleteMapping
-		public void deleteSonarRule(@RequestParam(value = "id") final Long id) {
-			this.sonarRuleService.deleteSonarRule(id);
-		}
 
 }
