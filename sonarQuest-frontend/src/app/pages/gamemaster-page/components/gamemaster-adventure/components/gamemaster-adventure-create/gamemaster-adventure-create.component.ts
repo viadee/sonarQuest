@@ -33,8 +33,8 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentWorld = this.worldService.getCurrentWorld();
-    this.worldService.getWorlds().subscribe(worlds => {
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
+    this.worldService.worlds$.subscribe(worlds => {
       this.worlds = worlds;
       this.selectWorld();
     })

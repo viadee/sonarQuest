@@ -17,6 +17,7 @@ import { UserService } from '../../../../services/user.service';
 export class AdminDeveloperComponent implements OnInit {
 
   public users: User[];
+  user: User;
 
   columns: ITdDataTableColumn[] = [
     { name: 'username', label: 'Username'},
@@ -52,6 +53,7 @@ export class AdminDeveloperComponent implements OnInit {
   ngOnInit() {
     this.translateTable();
     this.userService.getUsers().subscribe(users => this.setUsers(users));
+    this.userService.user$.subscribe(user => this.user = user)
   }
 
   translateTable() {
@@ -89,7 +91,7 @@ export class AdminDeveloperComponent implements OnInit {
       .subscribe(bool => {
         this.ngOnInit();
 
-        if ( bool && this.userService.getUser().id == user.id){
+        if ( bool && this.user.id == user.id){
           this.worldService.getWorlds()
         } 
         

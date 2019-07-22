@@ -31,11 +31,6 @@ export class MyAvatarPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.init();
-    this.userService.onUserChange().subscribe(() => this.init());
-  }
-
-  private init() {
     this.userService.user$.subscribe(user =>{
       this.user = user;
       this.level = (this.user.level == undefined ? 1 : this.user.level.levelNumber);

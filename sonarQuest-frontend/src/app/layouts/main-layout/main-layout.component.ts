@@ -89,16 +89,17 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.userService.onUserChange().subscribe(() => {
-      if (this.userService.getUser()) {
-        this.user = this.userService.getUser();
+    this.userService.user$.subscribe(user => {
+        this.user = user;
         this.updateMenu();
         this.susbcribeWorlds();
         this.setDesign();
         this.updateWorldsFromCurrentUser();
         //this.checkForUnseenEvents();
         //this.eventService.checkForUnseenEvents();
+         this.subscribeUnseenEvents();
       }
+       
     });
     this.susbcribeUnassignedSonarRules();
     this.loadUnassignedSonarRules();
@@ -106,6 +107,12 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.setBackground();
     this.userService.loadUser();
     this.initSwal();
+    
+    this.media.broadcast();
+    this.translate.get('APP_COMPONENT').subscribe((page_names) => {
+      this.pageNames = page_names;
+    })
+   
   }
 
   private initSwal() {
@@ -157,7 +164,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
       this.worlds = worlds;
     })
   }
-  private checkForUnseenEvents() {
+
+  private subscribeUnseenEvents() {
     this.eventService.unseenEvents$.subscribe(unseenEventsAvailable => {
       this.unseenEventsAvailable = unseenEventsAvailable;
     })
@@ -248,6 +256,29 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ddeterminePageTitle() {
+    let url = this.router.url
+      if (url == '/start') {
+          return this.pageNames.STARTPAGE;
+      } else if (url == '/myAvatar') {
+          return this.pageNames.MY_AVATAR;
+      } else if (url == '/adventures') {
+          return this.pageNames.ADVENTURES;
+      } else if (url == '/quests') {
+          return this.pageNames.QUESTS;
+      } else if (url == '/marketplace') {
+          return this.pageNames.MARKETPLACE;
+      } else if (url == '/gamemaster') {
+          return this.pageNames.GAMEMASTER;
+      } else if (url == '/admin') {
+          return this.pageNames.ADMIN;
+      } else if (url == '/events') {
+          return this.pageNames.EVENTS;
+      } else {
+          return '';
+      }
+  }
+
   updateWorld(world: World) {
     this.worldService.setCurrentWorld(world);
   }
@@ -300,7 +331,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.clickToggleDesignButton = false;
       }
     } else { // If no design is choosen
-      console.log('3')
       this.addClass(this.body, light);
     }
     this.addClass(this.body, "background-image");
@@ -323,11 +353,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
     return element;
   }
-
-  button(I) {
-    //this.eventService.getEventsForCurrentWorldEfficient()
-  }
-
+  
   updateLastTavernVisit(): void {
     this.unseenEventsAvailable = false;
     this.userService.updateLastTavernVisit();

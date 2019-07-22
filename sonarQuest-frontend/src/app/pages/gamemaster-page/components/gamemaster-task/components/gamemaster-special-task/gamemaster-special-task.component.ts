@@ -57,15 +57,10 @@ export class GamemasterSpecialTaskComponent implements OnInit {
 
   ngOnInit() {
     this.translateTable();
-    this.init();
-    this.worldService.onWorldChange().subscribe(() => this.init());
-  }
-
-  private init() {
-    if (this.worldService.getCurrentWorld()) {
-      this.currentWorld = this.worldService.getCurrentWorld();
+    this.worldService.currentWorld$.subscribe(world => {
+      this.currentWorld = world
       this.loadTasks();
-    }
+    })
   }
 
   private translateTable() {

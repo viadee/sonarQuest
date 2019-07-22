@@ -26,6 +26,7 @@ export class AdminDeveloperEditComponent implements OnInit {
   roles: Role[];
   nameTaken: boolean;
   mailTaken: boolean;
+  user: User;
   mail: string = null;
 
   columns: ITdDataTableColumn[] = [
@@ -56,6 +57,7 @@ export class AdminDeveloperEditComponent implements OnInit {
   ngOnInit() {
     this.translateTable();
     this.loadImages();
+    this.userService.user$.subscribe(user => this.user = user)
     this.userToWorldService.getUserToWorlds(this.data.user).then(userToWorlds => {
       this.userToWorlds = userToWorlds
     });
@@ -82,7 +84,7 @@ export class AdminDeveloperEditComponent implements OnInit {
     this.userService.updateUser(this.data.user).then(() => {
       this.userToWorldService.updateUserToWorld(this.userToWorlds);
       this.dialogRef.close(true);
-      if (this.data.user.id === this.userService.getUser().id) {
+      if(this.data.user.id === this.user.id){
         this.worldService.getWorlds()
       }
     })

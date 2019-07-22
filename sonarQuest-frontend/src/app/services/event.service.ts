@@ -66,6 +66,7 @@ export class EventService implements OnChanges {
   subscribeEventUserDto() {
     this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
       this.eventUserDtosToData(eventUserDto)
+      this.checkForUnseenEvents();
     })
   }
 

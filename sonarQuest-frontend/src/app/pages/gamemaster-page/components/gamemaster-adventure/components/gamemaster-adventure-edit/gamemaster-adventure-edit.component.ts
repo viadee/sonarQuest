@@ -35,7 +35,7 @@ export class GamemasterAdventureEditComponent implements OnInit {
   ngOnInit() {
     // TODO: MAT_DIALOG_DATA makes it hard to see where the data is coming from. Use Events/Services instead?
     this.isSolved = this.adventure.status === AdventureState.SOLVED;
-    this.currentWorld = this.worldService.getCurrentWorld();
+    this.worldService.currentWorld$.subscribe(world => this.currentWorld = world)
     this.calculateGoldAmountOfQuests();
     this.calculateXpAmountOfQuests();
   }
