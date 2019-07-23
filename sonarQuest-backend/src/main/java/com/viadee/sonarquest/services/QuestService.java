@@ -2,7 +2,6 @@ package com.viadee.sonarquest.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +19,6 @@ import com.viadee.sonarquest.dto.StandardTaskDTO;
 import com.viadee.sonarquest.dto.TaskDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
@@ -29,7 +27,6 @@ import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @Service
 public class QuestService implements QuestSuggestion {

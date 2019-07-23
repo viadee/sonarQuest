@@ -1,12 +1,8 @@
 package com.viadee.sonarquest.repositories;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-
 import com.viadee.sonarquest.constants.EventType;
 import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.World;

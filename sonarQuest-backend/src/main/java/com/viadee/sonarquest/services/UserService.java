@@ -29,7 +29,6 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.skillTree.services.SkillTreeUserService;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
 
 @Service
 public class UserService implements UserDetailsService {

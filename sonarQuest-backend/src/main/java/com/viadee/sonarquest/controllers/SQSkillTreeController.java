@@ -1,8 +1,6 @@
 package com.viadee.sonarquest.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.RoleName;
-import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.services.WorldService;
 import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeDiagramDTO;

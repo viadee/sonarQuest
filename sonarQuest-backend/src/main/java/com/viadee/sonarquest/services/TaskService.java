@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.SpecialTask;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
-import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;

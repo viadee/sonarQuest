@@ -1,7 +1,5 @@
 package com.viadee.sonarquest.dto;
 
-import javax.persistence.Column;
-
 public class SpecialTaskDTO extends TaskDTO {
 	private String message;
 

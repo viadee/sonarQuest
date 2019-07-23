@@ -37,7 +37,6 @@ import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.repositories.SonarRuleRepository;
 import com.viadee.sonarquest.skillTree.services.SonarRuleService;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
 

@@ -33,9 +33,6 @@ public class ArtefactService {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private EventService eventService;
-
 	public List<Artefact> getArtefacts() {
 		return  artefactRepository.findAll();
 		

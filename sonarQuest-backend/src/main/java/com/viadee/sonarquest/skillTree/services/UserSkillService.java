@@ -74,20 +74,22 @@ public class UserSkillService {
 
 		List<UserSkillDTO> userSkills = new ArrayList<UserSkillDTO>();
 		for (String mail : mails) {
-			if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
-				SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
-				if (skillTreeUser != null) {
-					for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : skillTreeUser
-							.getUserSkillToSkillTreeUser()) {
-						UserSkillDTO userSkillDTO = mapper.entityToDto(userSkillToSkillTreeUser.getUserSkill());
-						userSkillDTO.setScore(userSkillToSkillTreeUser.getScore());
-						if (userSkills.stream().filter(dto -> userSkillDTO.getId() == dto.getId()).findAny()
-								.orElse(null) == null) {
-							userSkills.add(userSkillDTO);
+			if (mail != null) {
+				if (!mail.isEmpty() || !mail.equalsIgnoreCase("null")) {
+					SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
+					if (skillTreeUser != null) {
+						for (UserSkillToSkillTreeUser userSkillToSkillTreeUser : skillTreeUser
+								.getUserSkillToSkillTreeUser()) {
+							UserSkillDTO userSkillDTO = mapper.entityToDto(userSkillToSkillTreeUser.getUserSkill());
+							userSkillDTO.setScore(userSkillToSkillTreeUser.getScore());
+							if (userSkills.stream().filter(dto -> userSkillDTO.getId().equals(dto.getId())).findAny()
+									.orElse(null) == null) {
+								userSkills.add(userSkillDTO);
 
+							}
 						}
-					}
 
+					}
 				}
 			}
 		}
@@ -103,24 +105,26 @@ public class UserSkillService {
 				Double teamScore = null;
 				int amountDevelopersInTeam = 0;
 				for (String mail : mails) {
-					if (mail != null || mail != "" || !mail.equalsIgnoreCase("null")) {
-						SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
-						if (skillTreeUser != null) {
-							if (userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
-								amountDevelopersInTeam++;
-								UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-										.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
-								if (userSkillToSkillTreeUser != null) {
-									if (userSkillToSkillTreeUser.getScore() != null) {
-										if (teamScore == null) {
-											teamScore = 0.0;
+					if (mail != null) {
+						if (mail != "" || !mail.equalsIgnoreCase("null")) {
+							SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
+							if (skillTreeUser != null) {
+								if (userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
+									amountDevelopersInTeam++;
+									UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
+											.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
+									if (userSkillToSkillTreeUser != null) {
+										if (userSkillToSkillTreeUser.getScore() != null) {
+											if (teamScore == null) {
+												teamScore = 0.0;
+											}
+											teamScore = teamScore + userSkillToSkillTreeUser.getScore();
 										}
-										teamScore = teamScore + userSkillToSkillTreeUser.getScore();
+
 									}
-
 								}
-							}
 
+							}
 						}
 					}
 				}
@@ -232,8 +236,8 @@ public class UserSkillService {
 				}
 			}
 		}
-		resultFollowingCalculateScore.removeAll(resultFollowingCalculateScore);
-		resultPreviousCalculateScore.removeAll(resultPreviousCalculateScore);
+		resultFollowingCalculateScore.clear();
+		resultPreviousCalculateScore.clear();
 
 		return calculateScore(userSkillToSkillTreeUserFollwing, userSkillToSkillTreeUserPrevious, distanzFollowing,
 				distanzPrevious);

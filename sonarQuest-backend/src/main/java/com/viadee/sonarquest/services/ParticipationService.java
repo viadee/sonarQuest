@@ -27,9 +27,6 @@ public class ParticipationService {
     private UserService userService;
     
     @Autowired
-    private EventService eventService;
-    
-    @Autowired
     private WebSocketController webSocketController;
 
     public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
