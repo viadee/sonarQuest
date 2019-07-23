@@ -1,6 +1,8 @@
 package com.viadee.sonarquest.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -15,75 +17,95 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.viadee.sonarquest.dto.StandardTaskDTO;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StandardTaskServiceTest {
 
-    @Mock
-    private StandardTaskRepository standardTaskRepository;
+	@Mock
+	private StandardTaskRepository standardTaskRepository;
 
-    @Mock
-    private GratificationService gratificationService;
+	@Mock
+	private StandardTaskDtoEntityMapper standardTaskMapper;
 
-    @Mock
-    private NamedParameterJdbcTemplate template;
+	@Mock
+	private GratificationService gratificationService;
 
-    @InjectMocks
-    private StandardTaskService standardTaskService;
+	@Mock
+	private UserSkillService userSkillService;
 
-    @Test
-    public void testUpdateStandardTask() {
-        StandardTask task = new StandardTask();
-        task.setKey("Color of Magic!");
-        task.setStatus(SonarQuestStatus.OPEN);
-        when(standardTaskRepository.save(Matchers.any(StandardTask.class))).thenReturn(task);
-        when(standardTaskRepository.saveAndFlush(Matchers.any(StandardTask.class))).thenReturn(task);
-        when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
-        when(template.queryForObject(Matchers.anyString(),
-                Matchers.any(SqlParameterSource.class),
-                Matchers.<Class<String>>any())).thenReturn("OPEN");
+	@Mock
+	private NamedParameterJdbcTemplate template;
 
-        task = standardTaskService.updateStandardTask(task);
+	@InjectMocks
+	private StandardTaskService standardTaskService;
 
-        assertEquals(SonarQuestStatus.OPEN, task.getStatus());
+	@Test
+	public void testUpdateStandardTask() {
+		StandardTask task = new StandardTask();
+		task.setKey("Color of Magic!");
+		task.setStatus(SonarQuestStatus.OPEN);
+		when(standardTaskRepository.save(Matchers.any(StandardTask.class))).thenReturn(task);
+		when(standardTaskRepository.saveAndFlush(Matchers.any(StandardTask.class))).thenReturn(task);
+		when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
+		when(template.queryForObject(Matchers.anyString(), Matchers.any(SqlParameterSource.class),
+				Matchers.<Class<String>>any())).thenReturn("OPEN");
 
-        // case: existing created task -> no external changes
-        final StandardTask createdStandardTask = new StandardTask();
-        createdStandardTask.setKey("createdStandardTask");
-        createdStandardTask.setStatus(SonarQuestStatus.OPEN);
+		task = standardTaskService.updateStandardTask(task);
 
-        when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
-        standardTaskService.updateStandardTask(createdStandardTask);
+		assertEquals(SonarQuestStatus.OPEN, task.getStatus());
 
-        assertEquals(SonarQuestStatus.OPEN, createdStandardTask.getStatus());
+		// case: existing created task -> no external changes
+		final StandardTask createdStandardTask = new StandardTask();
+		createdStandardTask.setKey("createdStandardTask");
+		createdStandardTask.setStatus(SonarQuestStatus.OPEN);
 
-        // case: existing created task -> no external changes
-    }
+		when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
+		standardTaskService.updateStandardTask(createdStandardTask);
 
-    @Test
-    public void testGetLastState() throws Exception {
-        StandardTask task = new StandardTask();
-        SonarQuestStatus lastState = standardTaskService.getLastState(task);
-        assertEquals(SonarQuestStatus.OPEN, lastState);
-    }
+		assertEquals(SonarQuestStatus.OPEN, createdStandardTask.getStatus());
+
+		// case: existing created task -> no external changes
+	}
+
+	@Test
+	public void testGetLastState() throws Exception {
+		StandardTask task = new StandardTask();
+		SonarQuestStatus lastState = standardTaskService.getLastState(task);
+		assertEquals(SonarQuestStatus.OPEN, lastState);
+	}
 
 	@Test
 	public void testFindByWorld() throws Exception {
 		// Given
 		World world = new World();
-		List<StandardTask> unsortedTasks = new ArrayList<>();
-		unsortedTasks.add(mockStandardTask("BLOCKER"));
-		unsortedTasks.add(mockStandardTask("MAJOR"));
-		unsortedTasks.add(mockStandardTask("CRITICAL"));
-		unsortedTasks.add(mockStandardTask("MAJOR"));
+
+		List<StandardTask> emptyStandardTasks = new ArrayList<>();
+		emptyStandardTasks.add(mockStandardTask("BLOCKER"));
+		when(standardTaskMapper.enitityToDto(Matchers.any(StandardTask.class)))
+		.thenReturn(mockStandardTaskDTO("BLOCKER"));
+		when(standardTaskRepository.findByWorld(Matchers.any(World.class))).thenReturn(emptyStandardTasks);
+		
+
+		when(userSkillService.getScoringForRuleFromTeam(anyString(), Matchers.anyListOf(String.class))).thenReturn(1.0);
+
+		List<StandardTaskDTO> unsortedTasks = new ArrayList<>();
+
+		unsortedTasks.add(mockStandardTaskDTO("BLOCKER"));
+		unsortedTasks.add(mockStandardTaskDTO("MAJOR"));
+		unsortedTasks.add(mockStandardTaskDTO("CRITICAL"));
+		unsortedTasks.add(mockStandardTaskDTO("MAJOR"));
 		when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
+
 		// When
-		List<StandardTask> tasks = standardTaskService.findByWorld(world);
+		List<StandardTaskDTO> tasks = standardTaskService.findByWorld(world);
 		// Then
 		assertEquals(SonarQubeSeverity.BLOCKER.name(), tasks.get(0).getSeverity());
 		assertEquals(SonarQubeSeverity.CRITICAL.name(), tasks.get(1).getSeverity());
@@ -93,6 +115,12 @@ public class StandardTaskServiceTest {
 
 	private StandardTask mockStandardTask(String severity) {
 		StandardTask task = new StandardTask();
+		task.setSeverity(severity);
+		return task;
+	}
+
+	private StandardTaskDTO mockStandardTaskDTO(String severity) {
+		StandardTaskDTO task = new StandardTaskDTO();
 		task.setSeverity(severity);
 		return task;
 	}

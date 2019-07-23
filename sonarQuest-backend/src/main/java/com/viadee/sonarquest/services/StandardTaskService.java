@@ -26,6 +26,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.viadee.sonarquest.dto.StandardTaskDTO;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
@@ -34,6 +35,7 @@ import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @Service
 public class StandardTaskService {
@@ -62,6 +64,9 @@ public class StandardTaskService {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+
+	@Autowired
+	private StandardTaskDtoEntityMapper standardTaskMapper;
 
 	@Transactional
 	public void updateStandardTasks(final World world) {
@@ -109,42 +114,45 @@ public class StandardTaskService {
 		return standardTaskRepository.findAll();
 	}
 
-	@Cacheable(value="taskScoringCache", key="#w.id")
-	public List<StandardTask> findByWorld(final World w) {
-		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
+	@Cacheable(value = "taskScoringCache", key = "#w.id")
+	public List<StandardTaskDTO> findByWorld(final World world) {
+		List<StandardTask> tasks = standardTaskRepository.findByWorld(world);
 		List<String> teamMails = new ArrayList<String>();
-		if (w.getUsers() != null) {
-			teamMails = w.getUsers().stream().filter(user -> user.getMail() != null).map(user -> user.getMail())
-					.collect(Collectors.toList());
-			if (tasks != null) {
-				Map<String, Double> scores = calculateScoringForTasksFromTeam(tasks, teamMails);
-				for (StandardTask task : tasks) {
-					task.setUserSkillScoring(scores.get(task.getIssueRule()));
+		List<StandardTaskDTO> standardTaskDtos = new ArrayList<StandardTaskDTO>();
+		if (!tasks.isEmpty() || tasks != null) {
+			standardTaskDtos = tasks.stream().map(standardTaskMapper::enitityToDto).collect(Collectors.toList());
+
+			if (world.getUsers() != null) {
+				teamMails = world.getUsers().stream().filter(user -> user.getMail() != null).map(user -> user.getMail())
+						.collect(Collectors.toList());
+				if (tasks != null) {
+					Map<String, Double> scores = calculateScoringForTasksFromTeam(tasks, teamMails);
+					for (StandardTaskDTO standardTaskDto : standardTaskDtos) {
+						standardTaskDto.setUserSkillScoring(scores.get(standardTaskDto.getIssueRule()));
+					}
 				}
 			}
+
+			Collections.sort(standardTaskDtos, new Comparator<StandardTaskDTO>() {
+
+				@Override
+				public int compare(StandardTaskDTO task1, StandardTaskDTO task2) {
+					SonarQubeSeverity severity1 = SonarQubeSeverity.fromString(task1.getSeverity());
+					SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
+					return severity2.getRank().compareTo(severity1.getRank());
+				}
+			});
 		}
-
-		Collections.sort(tasks, new Comparator<StandardTask>() {
-
-			@Override
-			public int compare(StandardTask task1, StandardTask task2) {
-				SonarQubeSeverity severity1 = SonarQubeSeverity.fromString(task1.getSeverity());
-				SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
-				return severity2.getRank().compareTo(severity1.getRank());
-			}
-		});
-
-		return tasks;
+		return standardTaskDtos;
 	}
-	
-	@CachePut(value="taskScoringCache", key="#w.id")
-	public List<StandardTask> updateFindByWorldCache(final World w) {
-		LOGGER.info("Cache 'taskScoringCache' for world '{}' has been updated",w.getName());
+
+	@CachePut(value = "taskScoringCache", key = "#w.id")
+	public List<StandardTaskDTO> updateFindByWorldCache(final World w) {
+		LOGGER.info("Cache 'taskScoringCache' for world '{}' has been updated", w.getName());
 		return findByWorld(w);
 	}
-	
-	
-	private Map<String,Double> calculateScoringForTasksFromTeam(List<StandardTask> tasks, List<String>teamMails) {
+
+	private Map<String, Double> calculateScoringForTasksFromTeam(List<StandardTask> tasks, List<String> teamMails) {
 		List<String> ruleKeys = tasks.stream().filter(distinctByKey(StandardTask::getIssueRule))
 				.map(StandardTask::getIssueRule).collect(Collectors.toList());
 		Map<String, Double> scores = new HashMap<String, Double>();
@@ -152,7 +160,7 @@ public class StandardTaskService {
 			scores.put(key, userSkillService.getScoringForRuleFromTeam(key, teamMails));
 		}
 		return scores;
-	}	
+	}
 
 	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
 		Set<Object> seen = ConcurrentHashMap.newKeySet();

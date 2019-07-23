@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viadee.sonarquest.dto.SpecialTaskDTO;
+import com.viadee.sonarquest.dto.StandardTaskDTO;
+import com.viadee.sonarquest.dto.TaskDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.SpecialTask;
@@ -73,28 +76,28 @@ public class TaskController {
     }
 
     @GetMapping(value = "/world/{id}")
-    public List<List<? extends Task>> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+    public List<List<? extends TaskDTO>> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
-        final List<List<? extends Task>> taskDtos = new ArrayList<>();
+        final List<List<? extends TaskDTO>> taskDtos = new ArrayList<>();
         taskDtos.add(specialTaskService.findByWorld(w));
         taskDtos.add(standardTaskService.findByWorld(w));
         return taskDtos;
     }
 
     @GetMapping(value = "/quest/{id}")
-    public List<Task> getTasksForQuest(@PathVariable(value = "id") final Long questId, @RequestParam(value = "mail", required = false) final Optional<String> mail) {
+    public List<TaskDTO> getTasksForQuest(@PathVariable(value = "id") final Long questId, @RequestParam(value = "mail", required = false) final String mail) {
     
     	return taskService.getTasksForQuest(questId,mail);
     }
 
     @GetMapping(value = "/special/world/{id}")
-    public List<SpecialTask> getSpecialTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+    public List<SpecialTaskDTO> getSpecialTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
         return specialTaskService.findByWorld(w);
     }
 
     @GetMapping(value = "/standard/world/{id}")
-    public List<StandardTask> getStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+    public List<StandardTaskDTO> getStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
         return standardTaskService.findByWorld(w);
     }

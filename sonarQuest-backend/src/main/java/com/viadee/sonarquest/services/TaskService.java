@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.dto.StandardTaskDTO;
+import com.viadee.sonarquest.dto.TaskDTO;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.SpecialTask;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
@@ -21,6 +24,8 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.utils.mapper.SpecialTaskDtoMapper;
+import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @Service
 public class TaskService {
@@ -41,6 +46,12 @@ public class TaskService {
 
 	@Autowired
 	private UserSkillService userSkillService;
+
+	@Autowired
+	private static StandardTaskDtoEntityMapper standardTaskMapper;
+
+	@Autowired
+	private static SpecialTaskDtoMapper specialTaskMapper;
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
@@ -96,18 +107,22 @@ public class TaskService {
 		}
 	}
 
-	public List<Task> getTasksForQuest(Long questId, Optional<String> mail) {
+	public List<TaskDTO> getTasksForQuest(Long questId, String mail) {
 		final Quest quest = questService.findById(questId);
-
-		if (mail.isPresent()) {
+		List<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
+		if (quest != null) {
 			for (Task task : quest.getTasks()) {
 				if (task instanceof StandardTask) {
-					((StandardTask) task).setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(
-							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(mail.get()))));
+					StandardTaskDTO standardTaskDTO = standardTaskMapper.enitityToDto((StandardTask) task);
+					standardTaskDTO.setUserSkillScoring(userSkillService.getScoringForRuleFromTeam(
+							((StandardTask) task).getIssueRule(), new ArrayList<String>(Arrays.asList(mail))));
+					taskDtos.add(standardTaskDTO);
+				} else if (task instanceof SpecialTask) {
+					taskDtos.add(specialTaskMapper.entityToDto((SpecialTask) task));
 				}
 			}
 		}
 
-		return quest.getTasks();
+		return taskDtos;
 	}
 }

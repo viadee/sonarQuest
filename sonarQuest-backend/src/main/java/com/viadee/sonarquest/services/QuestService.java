@@ -1,8 +1,6 @@
 package com.viadee.sonarquest.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -18,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.dto.StandardTaskDTO;
+import com.viadee.sonarquest.dto.TaskDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.StandardTask;
@@ -29,7 +29,7 @@ import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @Service
 public class QuestService implements QuestSuggestion {
@@ -48,9 +48,6 @@ public class QuestService implements QuestSuggestion {
 
 	@Autowired
 	private ParticipationRepository participationRepository;
-
-	@Autowired
-	private EventService eventService;
 
 	@Autowired
 	private TaskService taskService;
@@ -135,22 +132,25 @@ public class QuestService implements QuestSuggestion {
 
 	private Double getHighestScoringByQuest(Quest quest, String mail) {
 		Double highestScoring = -1.0;
-		Optional<String> optional = Optional.of(mail);
-		for (Task task : taskService.getTasksForQuest(quest.getId(), optional)) {
-			if (task instanceof StandardTask) {
-				Double score = ((StandardTask) task).getUserSkillScoring();
-				if (score != null && score > highestScoring) {
-					highestScoring = ((StandardTask) task).getUserSkillScoring();
+		if (quest != null && mail != null) {
+			List<TaskDTO> tasks = taskService.getTasksForQuest(quest.getId(), mail);
+			for (TaskDTO task : tasks) {
+				if (task instanceof StandardTaskDTO) {
+					Double score = ((StandardTaskDTO) task).getUserSkillScoring();
+					if (score != null && score > highestScoring) {
+						highestScoring = ((StandardTaskDTO) task).getUserSkillScoring();
+					}
 				}
 			}
 		}
-		if(highestScoring == -1.0) {
+
+		if (highestScoring == -1.0) {
 			highestScoring = null;
 		}
 		return highestScoring;
 	}
 
-	public List<Task> suggestTasksByScoring(World world, int scoring, int taskAmount) {
+	public List<TaskDTO> suggestTasksByScoring(World world, int scoring, int taskAmount) {
 		int scoringMin;
 		int scoringMax;
 		switch (scoring) {
@@ -181,13 +181,14 @@ public class QuestService implements QuestSuggestion {
 			break;
 		}
 		}
-		List<StandardTask> standardtasks = standardTaskService.findByWorld(world).stream()
-				.filter(distinctByKey(StandardTask::getIssueRule)).collect(Collectors.toList());
-		List<Task> tasks = standardtasks.stream()
+		List<StandardTaskDTO> standardTaskDtos = standardTaskService.findByWorld(world).stream()
+				.filter(distinctByKey(StandardTaskDTO::getIssueRule)).collect(Collectors.toList());
+
+		List<TaskDTO> taskDtos = standardTaskDtos.stream()
 				.filter(task -> task.getUserSkillScoring() != null && task.getUserSkillScoring() > scoringMin
 						&& task.getUserSkillScoring() <= scoringMax)
-				.limit(taskAmount).map(task -> (Task) task).collect(Collectors.toList());
-		return tasks;
+				.limit(taskAmount).map(task -> (TaskDTO) task).collect(Collectors.toList());
+		return taskDtos;
 	}
 
 	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

@@ -1,15 +1,18 @@
 package com.viadee.sonarquest.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viadee.sonarquest.dto.SpecialTaskDTO;
 import com.viadee.sonarquest.entities.SpecialTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.SpecialTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.utils.mapper.SpecialTaskDtoMapper;
 
 @Service
 public class SpecialTaskService {
@@ -19,6 +22,9 @@ public class SpecialTaskService {
 
     @Autowired
     private WorldRepository worldRepository;
+    
+    @Autowired
+    private SpecialTaskDtoMapper specialTaskMapper;
 
     public void saveDto(final SpecialTask specialTaskDto) {
 
@@ -49,8 +55,8 @@ public class SpecialTaskService {
         return specialTaskRepository.findAll();
     }
 
-    public List<SpecialTask> findByWorld(final World w) {
-        return specialTaskRepository.findByWorld(w);
+    public List<SpecialTaskDTO> findByWorld(final World w) {
+        return specialTaskRepository.findByWorld(w).stream().map(specialTaskMapper::entityToDto).collect(Collectors.toList());
     }
 
     public SpecialTask findById(final Long id) {

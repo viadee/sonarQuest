@@ -22,7 +22,6 @@ import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
 import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
 import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
-import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillGroupRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 
@@ -33,13 +32,10 @@ public class SkillTreeService {
 	private SkillTreeUserService skillTreeUserService;
 
 	@Autowired
-	public UserSkillGroupRepository userSkillGroupRepository;
+	private UserSkillGroupRepository userSkillGroupRepository;
 
 	@Autowired
 	private UserSkillRepository userSkillRepository;
-
-	@Autowired
-	private UserSkillService userSkillService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArtefactService.class);
 
@@ -93,8 +89,10 @@ public class SkillTreeService {
 				SkillTreeObjectDTO object = this.buildSkillTreeObject(
 						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromUserByGroupID(user, id),
 								isGroupLearnedCompletlyFromUserByGroupID(user, id), user));
+				
+				//-1 because the root UserSkill doesn't matter
 				object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromUserByGroupID(user, id),
-						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size())));
+						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size()-1)));
 				skillTreeDiagramDTO.addNode(object);
 				for (UserSkill followingUserSkill : userSKill.getFollowingUserSkills()) {
 					skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(String.valueOf(userSKill.getId()),
@@ -300,8 +298,9 @@ public class SkillTreeService {
 				SkillTreeObjectDTO object = this.buildSkillTreeObject(
 						new UserSkillToSkillTreeUser(userSKill, getColorForRootObjectFromTeamByGroupID(mails, id),
 								isGroupLearnedCompletlyFromTeamByGroupID(mails, id), new SkillTreeUser()));
+				//-1 because the root UserSkill doesn't matter
 				object.setLearnCoverage(calculateCoverage(this.getAmountOfLearndSkillsFromTeamByGroupID(mails, id),
-						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size())));
+						Double.valueOf(userSkillRepository.findUserSkillsByGroup(id).size()-1)));
 				skillTreeDiagramDTO.addNode(object);
 				for (UserSkill followingUserSkill : userSKill.getFollowingUserSkills()) {
 					skillTreeDiagramDTO.addLine(new SkillTreeLinksDTO(userSKill.getId(), followingUserSkill.getId()));
@@ -376,5 +375,7 @@ public class SkillTreeService {
 
 		return skillTreeObjectDTO;
 	}
+	
+	
 
 }

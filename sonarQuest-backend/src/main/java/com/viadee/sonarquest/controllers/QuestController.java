@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.dto.TaskDTO;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
@@ -32,7 +32,6 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.services.AdventureService;
-import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.QuestService;
 import com.viadee.sonarquest.services.UserService;
@@ -64,8 +63,6 @@ public class QuestController {
     @Autowired
     private UserService userService;
     
-    @Autowired
-    private EventService eventService;
     
     @Autowired
     private WebSocketController webSocketController;
@@ -209,10 +206,10 @@ public class QuestController {
     }
     
     @GetMapping(value="/suggestTasksForQuestByScoring/{worldId}/{scoring}/{taskAmount}")
-	public List<Task> suggestTasksForQuestByXpAmount(@PathVariable("worldId") final Long worldId,
+	public List<TaskDTO> suggestTasksForQuestByXpAmount(@PathVariable("worldId") final Long worldId,
             @PathVariable("scoring") final int scoring, @PathVariable("taskAmount") final int taskAmount){
     	 final World world = worldRepository.findOne(worldId);
-         List<Task> suggestedTasks = null;
+         List<TaskDTO> suggestedTasks = null;
          if (world != null) {
              suggestedTasks = questService.suggestTasksByScoring(world, scoring, taskAmount);
          }

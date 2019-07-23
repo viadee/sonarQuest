@@ -59,7 +59,7 @@ public class UserSkill {
 	@JsonIgnore
 	@OneToMany(mappedBy = "userSkill", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, orphanRemoval = true)
-	private List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers;
+	private List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = new ArrayList<UserSkillToSkillTreeUser>(0);
 
 	public UserSkill() {
 
@@ -171,7 +171,7 @@ public class UserSkill {
 		this.userSkillToSkillTreeUsers = userSkillToSkillTreeUsers;
 	}
 
-	public void addUserSkillToSkilLTreeUsers(UserSkillToSkillTreeUser userSkillToSkillTreeUser) {
+	public void addUserSkillToSkillTreeUsers(UserSkillToSkillTreeUser userSkillToSkillTreeUser) {
 		this.userSkillToSkillTreeUsers.add(userSkillToSkillTreeUser);
 	}
 

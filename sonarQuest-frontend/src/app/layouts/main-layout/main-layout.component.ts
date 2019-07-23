@@ -95,11 +95,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.susbcribeWorlds();
         this.setDesign();
         this.updateWorldsFromCurrentUser();
-        //this.checkForUnseenEvents();
-        //this.eventService.checkForUnseenEvents();
          this.subscribeUnseenEvents();
-      }
-       
     });
     this.susbcribeUnassignedSonarRules();
     this.loadUnassignedSonarRules();
@@ -107,12 +103,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.setBackground();
     this.userService.loadUser();
     this.initSwal();
-    
     this.media.broadcast();
     this.translate.get('APP_COMPONENT').subscribe((page_names) => {
       this.pageNames = page_names;
-    })
-   
+    });
   }
 
   private initSwal() {
@@ -153,7 +147,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   private susbcribeWorlds() {
     this.worldService.currentWorld$.subscribe(world => {
-      if (world) this.currentWorld = world;
+      if (world){
+        this.currentWorld = world;
+      } 
       this.setBackground();
     })
     this.worldService.worlds$.subscribe(worlds => {

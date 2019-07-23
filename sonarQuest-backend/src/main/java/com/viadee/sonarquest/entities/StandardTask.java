@@ -35,8 +35,6 @@ public class StandardTask extends Task {
 	@Column(name = "issue_rule")
 	private String issueRule;
 
-	@Transient
-	private Double userSkillScoring;
 
 	public StandardTask() {
 	}
@@ -105,14 +103,6 @@ public class StandardTask extends Task {
 
 	public void setIssueRule(String issueRule) {
 		this.issueRule = issueRule;
-	}
-
-	public Double getUserSkillScoring() {
-		return userSkillScoring;
-	}
-
-	public void setUserSkillScoring(Double userSkillScoring) {
-		this.userSkillScoring = userSkillScoring;
 	}
 
 }

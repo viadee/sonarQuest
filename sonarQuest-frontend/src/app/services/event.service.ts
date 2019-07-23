@@ -110,11 +110,8 @@ export class EventService implements OnChanges {
     var eventDto: EventDto = this.eventDtos.filter(eDto => ((eDto.type == localEventDtos[0].type) &&
       ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
 
-    if (eventDto != null) {
-      console.log(eventUserDto.eventDtos[0])
-      console.log(eventDto)
+    if (eventDto != null) {     
       eventUserDto.eventDtos[0].image = eventDto.image
-      console.log(localEventDtos[0].type)
     } else if (localEventDtos[0].type === "MESSAGE" || localEventDtos[0].type === "USER_SKILL") {
       localUserDtos.forEach((userDto: UserDto) => {
 
@@ -139,7 +136,6 @@ export class EventService implements OnChanges {
 
     this.eventDtosSubject.next(this.eventDtos)
     this.userDtosSubject.next(this.userDtos)
-    //this.checkForUnseenEvents();
   }
 
   getEventsForCurrentWorldEfficient(): Observable<EventUserDto> {

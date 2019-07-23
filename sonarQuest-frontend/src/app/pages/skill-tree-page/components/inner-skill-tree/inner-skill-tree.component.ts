@@ -12,6 +12,7 @@ import { WorldService } from 'app/services/world.service';
 import { InnerSkillTreeAddSkillDialogComponent } from './components/inner-skill-tree-add-skill-dialog/inner-skill-tree-add-skill-dialog.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { SonarRuleService } from 'app/services/sonar-rule.service';
+import { User } from 'app/Interfaces/User';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class InnerSkillTreeComponent implements OnInit {
   value = 50;
   bufferValue = 75;
   public unassignedSonarRules;
+  private user: User;
 
   public swalOptionsAddedRuleSuccess: {};
 
@@ -47,8 +49,10 @@ export class InnerSkillTreeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.user$.subscribe(user => {
+      this.user = user;
+    });
     this.id = +this._route.snapshot.params['id'];
-
     this.isAdmin = true && this.permissionService.isUrlVisible(RoutingUrls.admin);
     this.isGamemaster = true && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
     if (this.isAdmin) {
@@ -60,12 +64,12 @@ export class InnerSkillTreeComponent implements OnInit {
       this.skillTreeService.userSkillTreeForTeam$.subscribe(userSkillTreeForTeam => {
         this.userSkillTree = userSkillTreeForTeam;
       });
-        this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.worldService.getCurrentWorld());
+        this.skillTreeService.getUserSkillTreeFromTeam(this.id, this.user.currentWorld);
     } else {
       this.skillTreeService.userSkillTreeForUser$.subscribe(userSkillTreeForUser => {
         this.userSkillTree = userSkillTreeForUser;
       });
-      this.skillTreeService.getUserSkillTreeFromUser(this.id, this.userService.getUser());
+      this.skillTreeService.getUserSkillTreeFromUser(this.id, this.user);
     }
     this.initSwal();
     this.subscribeUnassignedSonarRules();
@@ -133,7 +137,7 @@ export class InnerSkillTreeComponent implements OnInit {
   }
 
   isThereACurrentWorld(): boolean {
-    if (this.worldService.getCurrentWorld() !== null) {
+    if (this.user.currentWorld !== null) {
       return true;
     }
     return false;

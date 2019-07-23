@@ -22,7 +22,6 @@ export class WorldService {
   constructor(private http: HttpClient, private userService: UserService) {
 
     userService.user$.subscribe(user => {
-      
       this.getWorlds().subscribe(worlds => {
         if (user.currentWorld == null){
           this.setCurrentWorld(worlds[0])
