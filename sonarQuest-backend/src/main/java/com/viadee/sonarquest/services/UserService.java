@@ -129,7 +129,7 @@ public class UserService implements UserDetailsService {
 				setMail(toBeSaved, mail);
 				setPassword(user, toBeSaved, encoder);
 				if (toBeSaved.getMail() != null && !oldMail.equalsIgnoreCase(mail)) {
-					if(!skillTreeUserService.updateSkillTreeUser(oldMail, mail)) {
+					if(skillTreeUserService.updateSkillTreeUser(oldMail, mail) == null) {
 						return null;
 					}
 				}

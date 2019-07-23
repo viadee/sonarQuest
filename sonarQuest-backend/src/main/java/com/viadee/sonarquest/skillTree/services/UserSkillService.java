@@ -376,7 +376,7 @@ public class UserSkillService {
 		}
 	}
 
-	@Transactional
+	
 	public UserSkill learnUserSkill(String mail, String key) {
 		SkillTreeUser user = skillTreeUserService.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
@@ -428,7 +428,7 @@ public class UserSkillService {
 			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
 		}
 	}
-
+	
 	public void learnUserSkillFromTask(StandardTask task) {
 		final Participation participation = task.getParticipation();
 		if (participation != null) {

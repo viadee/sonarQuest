@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.ExternalRessourceService;
 import com.viadee.sonarquest.skillTree.dto.SonarRuleDTO;
@@ -67,10 +65,13 @@ public class SonarRuleService {
 		return sonarRuleRepository.findAll();
 	}
 
-	@Transactional
 	public List<SonarRuleDTO> getUnassignedRules() {
-		return this.sonarRuleRepository.findByUserSkillIsNull().stream().map(sonarRuleMapper::entityToDto)
-				.collect(Collectors.toList());
+		List<SonarRule> sonarRules = sonarRuleRepository.findByUserSkillIsNull();
+		return sonarRules.stream().map(sonarRuleMapper::entityToDto).collect(Collectors.toList());
+	}
+
+	public String getLastRuleUpdateFromProperty() {
+		return lastRuleUpdateFromProperty;
 	}
 
 }

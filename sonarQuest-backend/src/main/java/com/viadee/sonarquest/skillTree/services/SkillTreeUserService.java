@@ -16,26 +16,27 @@ import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepo
 
 @Service
 public class SkillTreeUserService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(SkillTreeUserService.class);
 
 	@Autowired
 	private SkillTreeUserRepository skillTreeUserRepository;
-	
+
 	@Autowired
 	private UserSkillRepository userSkillRepository;
-	
+
 	@Autowired
-	private  UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
-	
+	private UserSkillToSkillTreeUserRepository userSkillToSkillTreeUserRepository;
+
 	public SkillTreeUser createSkillTreeUser(String mail) {
 		SkillTreeUser user = null;
 		if (skillTreeUserRepository.findByMail(mail) == null) {
 			user = skillTreeUserRepository.save(new SkillTreeUser(mail));
 			List<UserSkill> userSkills = userSkillRepository.findAllRootUserSkills(false);
 			for (UserSkill userSkill : userSkills) {
-				UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-						.save(new UserSkillToSkillTreeUser(null, 0, userSkill, user, null));
+				UserSkillToSkillTreeUser userSkillToSkillTreeUser = new UserSkillToSkillTreeUser(null, 0, userSkill,
+						user, null);
+				userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
 				user.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
 			}
 			skillTreeUserRepository.save(user);
@@ -43,8 +44,8 @@ public class SkillTreeUserService {
 
 		return user;
 	}
-	
-	public boolean updateSkillTreeUser(final String oldMail, final String newMail) {
+
+	public SkillTreeUser updateSkillTreeUser(final String oldMail, final String newMail) {
 		SkillTreeUser user = findByMail(oldMail);
 		if (user != null) {
 			if (findByMail(newMail) == null) {
@@ -52,18 +53,18 @@ public class SkillTreeUserService {
 				save(user);
 			} else {
 				LOGGER.info("SkillTreeUser with mail '{}' already exist ", newMail);
-				return false;
+				return null;
 			}
 		} else {
-			createSkillTreeUser(newMail);
+			return createSkillTreeUser(newMail);
 		}
-		return true;
+		return user;
 	}
-	
+
 	public SkillTreeUser findByMail(String mail) {
 		return skillTreeUserRepository.findByMail(mail);
 	}
-	
+
 	public List<SkillTreeUser> findAll() {
 		return skillTreeUserRepository.findAll();
 	}
