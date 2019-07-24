@@ -260,12 +260,32 @@ public class UserSkillServiceTest {
 		/*
 		 * When
 		 */
-		Double score = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(2).getUserSkill(), user1);
+		Double scoreSkill3 = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(2).getUserSkill(),
+				user1);
+		Double scoreSkill2 = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(1).getUserSkill(),
+				user1);
+		Double scoreSkill5 = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(4).getUserSkill(),
+				user1);
+		Double scoreSkill6 = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(5).getUserSkill(),
+				user1);
+		Double scoreSkill7 = service.calculateUserSkillScore(user1.getUserSkillToSkillTreeUser().get(6).getUserSkill(),
+				user1);
+
 		/*
 		 * Then
 		 */
-		
-		assertTrue(6.0 == score);
+
+		// Distanz 2 Weight 1/3
+		assertTrue(6.0 == scoreSkill3);
+		// Distanz 1 Weight 2/3
+		assertTrue(1.5 == scoreSkill2);
+		// Distanz 1 Weight 1/3
+		assertTrue(3.0 == scoreSkill5);
+		// Distanz 1 Weight 1/3
+		assertTrue(3.0 == scoreSkill6);
+		// Distanz 0, already learned one time
+		assertTrue(0.0 == scoreSkill7);
+
 	}
 
 	private void mockDataForCalculateUserSkillScoreTest() {
@@ -276,9 +296,9 @@ public class UserSkillServiceTest {
 		for (int i = 0; i < 7; i++) {
 			UserSkill userSkill = new UserSkill();
 			userSkill.setDescription("Test description" + i);
-			userSkill.setId(Long.valueOf(i));
+			userSkill.setId(Long.valueOf(i + 1));
 			userSkill.addSonarRule(new SonarRule());
-			userSkill.setName("Test UserSkill" + i);
+			userSkill.setName("Test UserSkill calculate score" + i);
 			userSkill.setRequiredRepetitions(3);
 			userSkill.setRoot(false);
 			userSkill.setUserSkillGroup(userSkillGroup);
@@ -305,13 +325,21 @@ public class UserSkillServiceTest {
 			UserSkillToSkillTreeUser userSkillToSkillTreeUser = new UserSkillToSkillTreeUser();
 			userSkillToSkillTreeUser.setId(Long.valueOf(i + 10));
 			userSkillToSkillTreeUser.setLearnedOn(null);
-			userSkillToSkillTreeUser.setRepeats(i == 0 ? 1 : 0);
+			if (i == 0 || i == 6) {
+				userSkillToSkillTreeUser.setRepeats(1);
+
+			} else if (i == 3) {
+				userSkillToSkillTreeUser.setRepeats(2);
+
+			} else {
+				userSkillToSkillTreeUser.setRepeats(0);
+
+			}
 			userSkillToSkillTreeUser.setScore(5.0);
 			userSkillToSkillTreeUser.setSkillTreeUser(user1);
 			userSkillToSkillTreeUser.setUserSkill(userSkills.get(i));
 			userSkills.get(i).addUserSkillToSkillTreeUsers(userSkillToSkillTreeUser);
 			user1.addUserSkillToSkillTreeUser(userSkillToSkillTreeUser);
-			user1.getUserSkillToSkillTreeUser().add(userSkillToSkillTreeUser);
 		}
 
 	}
