@@ -100,19 +100,19 @@ public class UserSkillService {
 	public Double getScoringForRuleFromTeam(String ruleKey, List<String> mails) {
 		SonarRule rule = sonarRuleRepository.findSonarRuleByKey(ruleKey);
 		if (rule != null) {
-			UserSkill userSkill = userSkillRepository.findUserSkillBySonarRule(rule);
+			UserSkill userSkill = rule.getUserSkill();
 			if (userSkill != null) {
 				Double teamScore = null;
 				int amountDevelopersInTeam = 0;
 				for (String mail : mails) {
 					if (mail != null) {
-						if (mail != "" || !mail.equalsIgnoreCase("null")) {
+						if (!mail.isEmpty() || !mail.equalsIgnoreCase("null")) {
 							SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
 							if (skillTreeUser != null) {
 								if (userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
 									amountDevelopersInTeam++;
-									UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-											.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
+									UserSkillToSkillTreeUser userSkillToSkillTreeUser = findUserSkillToSkillTreeUserByUserSkillAndUser(
+											userSkill, skillTreeUser);
 									if (userSkillToSkillTreeUser != null) {
 										if (userSkillToSkillTreeUser.getScore() != null) {
 											if (teamScore == null) {
@@ -135,6 +135,12 @@ public class UserSkillService {
 
 		}
 		return null;
+	}
+
+	private UserSkillToSkillTreeUser findUserSkillToSkillTreeUserByUserSkillAndUser(UserSkill userSkill,
+			SkillTreeUser skillTreeUser) {
+		return skillTreeUser.getUserSkillToSkillTreeUser().stream()
+				.filter(uststu -> uststu.getUserSkill().getId().equals(userSkill.getId())).findFirst().orElse(null);
 	}
 
 	@Transactional
@@ -160,15 +166,12 @@ public class UserSkillService {
 
 		for (UserSkill followingUserSkill : userSkill.getFollowingUserSkills()) {
 			followingUserSkill.addPreviousUserSkill(userSkill);
-			// userSkillRepository.save(followingUserSkill);
 		}
 		for (UserSkill previousUserSkill : userSkill.getPreviousUserSkills()) {
 			previousUserSkill.addFollowingUserSkill(userSkill);
-			// userSkillRepository.save(previousUserSkill);
 		}
 		for (SonarRule sonarRule : userSkill.getSonarRules()) {
 			sonarRule.setUserSkill(userSkill);
-			// sonarRuleRepository.save(sonarRule);
 		}
 		userSkill = userSkillRepository.save(userSkill);
 		LOGGER.info("Creating new userskill '{}'", userSkill.getName());
@@ -193,12 +196,11 @@ public class UserSkillService {
 		return userSkill;
 	}
 
-	private Double calculateUserSkillScore(UserSkill userSkill, SkillTreeUser skillTreeUser) {
+	protected Double calculateUserSkillScore(UserSkill userSkill, SkillTreeUser skillTreeUser) {
 		double score = 0;
 		double distanzFollowing = 0;
 		double distanzPrevious = 0;
-		if (userSkillToSkillTreeUserRepository.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser)
-				.getRepeats() >= 1) {
+		if (findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser).getRepeats() >= 1) {
 			return score;
 		}
 		UserSkillToSkillTreeUser userSkillToSkillTreeUserFollwing = null;
@@ -287,8 +289,8 @@ public class UserSkillService {
 			if (recursionCount == 0) {
 				recursionCount++;
 			}
-			UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-					.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
+			UserSkillToSkillTreeUser userSkillToSkillTreeUser = findUserSkillToSkillTreeUserByUserSkillAndUser(
+					userSkill, skillTreeUser);
 			if (userSkillToSkillTreeUser != null) {
 				if (userSkillToSkillTreeUser.getRepeats() >= 1) {
 					result = new HashMap<String, Object>();
@@ -319,8 +321,8 @@ public class UserSkillService {
 			if (recursionCount == 0) {
 				recursionCount++;
 			}
-			UserSkillToSkillTreeUser userSkillToSkillTreeUser = userSkillToSkillTreeUserRepository
-					.findUserSkillToSkillTreeUserByUserSkillAndUser(userSkill, skillTreeUser);
+			UserSkillToSkillTreeUser userSkillToSkillTreeUser = findUserSkillToSkillTreeUserByUserSkillAndUser(
+					userSkill, skillTreeUser);
 
 			if (userSkillToSkillTreeUser != null) {
 				if (userSkillToSkillTreeUser.getRepeats() >= 1) {
@@ -367,7 +369,7 @@ public class UserSkillService {
 		return newUserSkill;
 	}
 
-	private void recalculateWholeUserSkillScore() {
+	protected void recalculateWholeUserSkillScore() {
 		List<UserSkillToSkillTreeUser> userSkillToSkillTreeUsers = userSkillToSkillTreeUserRepository.findAll();
 		for (UserSkillToSkillTreeUser skillToSkillTreeUser : userSkillToSkillTreeUsers) {
 			skillToSkillTreeUser.setScore(calculateUserSkillScore(skillToSkillTreeUser.getUserSkill(),
@@ -376,7 +378,6 @@ public class UserSkillService {
 		}
 	}
 
-	
 	public UserSkill learnUserSkill(String mail, String key) {
 		SkillTreeUser user = skillTreeUserService.findByMail(mail);
 		SkillTreeObjectDTO skillTreeObjectDTO = new SkillTreeObjectDTO();
@@ -428,7 +429,7 @@ public class UserSkillService {
 			userSkillToSkillTreeUserRepository.save(userSkillToSkillTreeUser);
 		}
 	}
-	
+
 	public void learnUserSkillFromTask(StandardTask task) {
 		final Participation participation = task.getParticipation();
 		if (participation != null) {
