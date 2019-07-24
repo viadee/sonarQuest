@@ -87,14 +87,11 @@ public class StandardTaskServiceTest {
 		// Given
 		World world = new World();
 
-		List<StandardTask> emptyStandardTasks = new ArrayList<>();
-		emptyStandardTasks.add(mockStandardTask("BLOCKER"));
-		when(standardTaskMapper.enitityToDto(Matchers.any(StandardTask.class)))
-		.thenReturn(mockStandardTaskDTO("BLOCKER"));
-		when(standardTaskRepository.findByWorld(Matchers.any(World.class))).thenReturn(emptyStandardTasks);
-		
-
-		when(userSkillService.getScoringForRuleFromTeam(anyString(), Matchers.anyListOf(String.class))).thenReturn(1.0);
+		List<StandardTask> standardTasks = new ArrayList<>();
+		standardTasks.add(mockStandardTask("BLOCKER"));
+		standardTasks.add(mockStandardTask("MAJOR"));
+		standardTasks.add(mockStandardTask("CRITICAL"));
+		standardTasks.add(mockStandardTask("MAJOR"));
 
 		List<StandardTaskDTO> unsortedTasks = new ArrayList<>();
 
@@ -102,7 +99,15 @@ public class StandardTaskServiceTest {
 		unsortedTasks.add(mockStandardTaskDTO("MAJOR"));
 		unsortedTasks.add(mockStandardTaskDTO("CRITICAL"));
 		unsortedTasks.add(mockStandardTaskDTO("MAJOR"));
-		when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
+
+		when(standardTaskMapper.enitityToDto(Matchers.any(StandardTask.class))).thenReturn(unsortedTasks.get(0))
+				.thenReturn(unsortedTasks.get(1)).thenReturn(unsortedTasks.get(2)).thenReturn(unsortedTasks.get(3));
+		
+		when(standardTaskRepository.findByWorld(Matchers.any(World.class))).thenReturn(standardTasks);
+
+		when(userSkillService.getScoringForRuleFromTeam(anyString(), Matchers.anyListOf(String.class))).thenReturn(1.0);
+
+		//when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
 
 		// When
 		List<StandardTaskDTO> tasks = standardTaskService.findByWorld(world);

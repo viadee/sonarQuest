@@ -28,7 +28,7 @@ import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.utils.mapper.UserSkillDtoEntityMapper;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserSkilServicetest {
+public class UserSkillServiceTest {
 
 	@Mock
 	private SkillTreeUserService skillTreeUserService;
