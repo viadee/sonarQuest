@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.viadee.sonarquest.skillTree.entities.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +23,6 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
-import com.viadee.sonarquest.skillTree.entities.UserSkill;
-import com.viadee.sonarquest.skillTree.entities.UserSkillGroup;
-import com.viadee.sonarquest.skillTree.entities.UserSkillToSkillTreeUser;
 import com.viadee.sonarquest.skillTree.repositories.SkillTreeUserRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillRepository;
 import com.viadee.sonarquest.skillTree.repositories.UserSkillToSkillTreeUserRepository;
@@ -182,6 +179,7 @@ public class SkillTreeUserServiceTest {
 					new UserSkillGroup(Long.valueOf(1L), "Group1", false), 3);
 			userSkill.setId(Long.valueOf(i));
 			skillMocks.add(userSkill);
+
 			if (i > 0) {
 				skillMocks.get(i - 1).addFollowingUserSkill(skillMocks.get(i));
 				skillMocks.get(i).addPreviousUserSkill(skillMocks.get(i - 1));
