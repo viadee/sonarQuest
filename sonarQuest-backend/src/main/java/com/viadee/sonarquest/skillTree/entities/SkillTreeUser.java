@@ -34,13 +34,6 @@ public class SkillTreeUser {
 		this.mail = mail;
 	}
 
-	public SkillTreeUser(Long id, String mail, List<UserSkillToSkillTreeUser> userSkillToSkillTreeUser) {
-		super();
-		this.id = id;
-		this.mail = mail;
-		this.userSkillToSkillTreeUser = userSkillToSkillTreeUser;
-	}
-
 	public Long getId() {
 		return id;
 	}
