@@ -69,7 +69,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    //TODO 
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.httpBasic().disable();

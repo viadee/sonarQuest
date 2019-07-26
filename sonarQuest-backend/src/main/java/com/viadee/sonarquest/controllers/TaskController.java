@@ -73,15 +73,6 @@ public class TaskController {
         return taskDtos;
     }
 
-    @GetMapping(value = "/world/{id}")
-    public List<List> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
-        final World w = worldService.findById(worldId);
-        final List<List> taskDtos = new ArrayList<List>();
-        taskDtos.add(specialTaskService.findByWorld(w));
-        taskDtos.add(standardTaskService.getByWorld(w));
-        return taskDtos;
-    }
-
     @GetMapping(value = "/quest/{id}")
     public List<TaskDTO> getTasksForQuest(@PathVariable(value = "id") final Long questId, @RequestParam(value = "mail", required = false) final String mail) {
     

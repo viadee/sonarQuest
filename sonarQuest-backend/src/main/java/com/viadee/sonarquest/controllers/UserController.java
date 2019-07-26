@@ -1,14 +1,7 @@
 package com.viadee.sonarquest.controllers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.Principal;
-import java.sql.Array;
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.services.UserService;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,17 +10,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.services.UserService;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.Principal;
+import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping(PathConstants.USER_URL)
@@ -105,8 +95,8 @@ public class UserController {
                 LOGGER.error("Avatar file not found: " + avatarFileName, ex);
             }
         }
-        byte[] returnArray = {};
-        return returnArray;
+
+        return new byte[]{};
     }
 
 	public String getAvatarDirectoryPath() {

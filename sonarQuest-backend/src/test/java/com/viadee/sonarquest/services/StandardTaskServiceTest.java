@@ -22,7 +22,7 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.skilltree.services.UserSkillService;
 import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @RunWith(MockitoJUnitRunner.class)

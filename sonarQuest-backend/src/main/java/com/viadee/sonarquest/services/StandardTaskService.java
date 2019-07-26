@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.viadee.sonarquest.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.skilltree.services.UserSkillService;
 import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
 @Service
@@ -123,22 +124,21 @@ public class StandardTaskService {
 
     private List<StandardTaskDTO> findByWorld(List<StandardTask> tasks, World world) {
         List<String> teamMails;
-        List<StandardTaskDTO> standardTaskDtos = new ArrayList<StandardTaskDTO>();
-        if (!tasks.isEmpty() || tasks != null) {
+        List<StandardTaskDTO> standardTaskDtos = new ArrayList<>();
+        if (tasks != null && !tasks.isEmpty()) {
             standardTaskDtos = tasks.stream().map(standardTaskMapper::enitityToDto).collect(Collectors.toList());
 
             if (world.getUsers() != null) {
-                teamMails = world.getUsers().stream().filter(user -> user.getMail() != null).map(user -> user.getMail())
+                teamMails = world.getUsers().stream().filter(user -> user.getMail() != null).map(User::getMail)
                         .collect(Collectors.toList());
-                if (tasks != null) {
+
                     Map<String, Double> scores = calculateScoringForTasksFromTeam(tasks, teamMails);
                     for (StandardTaskDTO standardTaskDto : standardTaskDtos) {
                         standardTaskDto.setUserSkillScoring(scores.get(standardTaskDto.getIssueRule()));
                     }
-                }
-            }
 
-            Collections.sort(standardTaskDtos, new Comparator<StandardTaskDTO>() {
+            }
+            Collections.sort(standardTaskDtos,  new Comparator<StandardTaskDTO>() {
 
                 @Override
                 public int compare(StandardTaskDTO task1, StandardTaskDTO task2) {
@@ -166,7 +166,7 @@ public class StandardTaskService {
     private Map<String, Double> calculateScoringForTasksFromTeam(List<StandardTask> tasks, List<String> teamMails) {
         List<String> ruleKeys = tasks.stream().filter(distinctByKey(StandardTask::getIssueRule))
                 .map(StandardTask::getIssueRule).collect(Collectors.toList());
-        Map<String, Double> scores = new HashMap<String, Double>();
+        Map<String, Double> scores = new HashMap<>();
         for (String key : ruleKeys) {
             scores.put(key, userSkillService.getScoringForRuleFromTeam(key, teamMails));
         }

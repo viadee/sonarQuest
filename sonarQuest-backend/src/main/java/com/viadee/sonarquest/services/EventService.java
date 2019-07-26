@@ -26,8 +26,8 @@ import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.entities.UserSkill;
+import com.viadee.sonarquest.skilltree.entities.SonarRule;
+import com.viadee.sonarquest.skilltree.entities.UserSkill;
 
 @Service
 public class EventService {
@@ -87,7 +87,7 @@ public class EventService {
 
 	
 	public Event createEventForLearnedUserSkill(UserSkill userSkill, User user) {
-		String story = String.format("User '%s' has learned Skill '%s'", user.getUsername(), userSkill.getName());;
+		String story = String.format("User '%s' has learned Skill '%s'", user.getUsername(), userSkill.getName());
 		Event event = userSkillToEvent(EventType.USER_SKILL,userSkill, user, EventState.SKILL_LEARNED, story);
 		LOGGER.info(String.format("New event because of a learned UserSkill '%s'", event.getTitle()));
 		return checkStoryAndSave(event);
@@ -113,7 +113,7 @@ public class EventService {
 
 	public List<Event> createEventForNewSonarRule(SonarRule sonarRule) {
 		List<World> worlds = worldRepository.findAll();
-		List<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (World world : worlds) {
 			Event event = sonarRuleToEvent(sonarRule, world, EventState.NEW_RULE);
 			LOGGER.info(String.format("New event because of a new  SonarQube Rule '%s'", sonarRule.getKey()));

@@ -19,7 +19,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarquest.entities.Level;
 import com.viadee.sonarquest.entities.Permission;
 import com.viadee.sonarquest.entities.Role;
 import com.viadee.sonarquest.entities.RoleName;
@@ -28,7 +27,7 @@ import com.viadee.sonarquest.entities.UserToWorldDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.skillTree.services.SkillTreeUserService;
+import com.viadee.sonarquest.skilltree.services.SkillTreeUserService;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -87,67 +86,75 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public synchronized User save(final User user) {
-        User toBeSaved = null;
-        final String username = user.getUsername();
-        String mail = user.getMail();
+        User toBeSaved;
         final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String mail = user.getMail();
+        final String username = user.getUsername();
         if (user.getId() == null) {
-            // Only the password hash needs to be saved
-            final String password = encoder.encode(user.getPassword());
+            toBeSaved = createNewUser(user, encoder, mail, username);
+        } else {
+            toBeSaved = updateUser(user, mail, username, encoder);
+        }
+        return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
+    }
+
+    private User createNewUser(User user, BCryptPasswordEncoder encoder, String mail, String username) {
+        // Only the password hash needs to be saved
+
+        User toBeSaved;
+        final String password = encoder.encode(user.getPassword());
+        final Role role = user.getRole();
+        final RoleName roleName = role.getName();
+        final Role userRole = roleService.findByName(roleName);
+        toBeSaved = usernameFree(username) ? user : null;
+        if (toBeSaved != null) {
+            if (mail == null || mail.isEmpty()) {
+                mail = username + "@sonarQuest.local";
+            }
+            setMail(toBeSaved, mail);
+            toBeSaved.setPassword(password);
+            toBeSaved.setRole(userRole);
+            toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setGold(0l);
+            toBeSaved.setXp(0l);
+            toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+            if (toBeSaved.getMail() != null && skillTreeUserService.createSkillTreeUser(toBeSaved.getMail()) == null) {
+                return null;
+            }
+        }
+        return toBeSaved;
+    }
+
+    private User updateUser(User user, String mail, String username, BCryptPasswordEncoder encoder) {
+        User toBeSaved = findById(user.getId());
+        if (toBeSaved != null) {
+            final String oldMail = toBeSaved.getMail();
             final Role role = user.getRole();
             final RoleName roleName = role.getName();
             final Role userRole = roleService.findByName(roleName);
-            toBeSaved = usernameFree(username) ? user : null;
-            if (toBeSaved != null) {
-                if (mail == null || mail.isEmpty()) {
-                    mail = username + "@sonarQuest.local";
-                }
-                setMail(toBeSaved, mail);
-                toBeSaved.setPassword(password);
-                toBeSaved.setRole(userRole);
-                toBeSaved.setCurrentWorld(user.getCurrentWorld());
-                toBeSaved.setGold(0l);
-                toBeSaved.setXp(0l);
-                toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
-                if (toBeSaved.getMail() != null && skillTreeUserService.createSkillTreeUser(toBeSaved.getMail()) == null) {
-                    return null;
-                }
+            if (mail == null || mail.isEmpty() || !toBeSaved.getUsername().equalsIgnoreCase(username)) {
+                mail = username + "@sonarQuest.local";
             }
-        } else {
-            toBeSaved = findById(user.getId());
-            if (toBeSaved != null) {
-                final String oldMail = toBeSaved.getMail();
-                final Role role = user.getRole();
-                final RoleName roleName = role.getName();
-                final Role userRole = roleService.findByName(roleName);
-                if (mail == null || mail.isEmpty() || !toBeSaved.getUsername().equalsIgnoreCase(username)) {
-                    mail = username + "@sonarQuest.local";
-                }
-                setUsername(toBeSaved, username);
-                setMail(toBeSaved, mail);
-                setPassword(user, toBeSaved, encoder);
-                if (toBeSaved.getMail() != null && !oldMail.equalsIgnoreCase(mail)) {
-                    if (skillTreeUserService.updateSkillTreeUser(oldMail, mail) == null) {
-                        return null;
-                    }
-                }
-                toBeSaved.setRole(userRole);
-                toBeSaved.setAboutMe(user.getAboutMe());
-                toBeSaved.setPicture(user.getPicture());
-                toBeSaved.setCurrentWorld(user.getCurrentWorld());
-                //toBeSaved.setWorlds(user.getWorlds());
-                toBeSaved.setGold(user.getGold());
-                toBeSaved.setXp(user.getXp());
-                toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
-                toBeSaved.setAdventures(user.getAdventures());
-                toBeSaved.setArtefacts(user.getArtefacts());
-                toBeSaved.setAvatarClass(user.getAvatarClass());
-                toBeSaved.setParticipations(user.getParticipations());
-                toBeSaved.setUiDesign(user.getUiDesign());
+            setUsername(toBeSaved, username);
+            setMail(toBeSaved, mail);
+            setPassword(user, toBeSaved, encoder);
+            if (toBeSaved.getMail() != null && !oldMail.equalsIgnoreCase(mail) && skillTreeUserService.updateSkillTreeUser(oldMail, mail) == null) {
+                return null;
             }
+            toBeSaved.setRole(userRole);
+            toBeSaved.setAboutMe(user.getAboutMe());
+            toBeSaved.setPicture(user.getPicture());
+            toBeSaved.setCurrentWorld(user.getCurrentWorld());
+            toBeSaved.setGold(user.getGold());
+            toBeSaved.setXp(user.getXp());
+            toBeSaved.setLevel(levelService.getLevelByUserXp(user.getXp()));
+            toBeSaved.setAdventures(user.getAdventures());
+            toBeSaved.setArtefacts(user.getArtefacts());
+            toBeSaved.setAvatarClass(user.getAvatarClass());
+            toBeSaved.setParticipations(user.getParticipations());
+            toBeSaved.setUiDesign(user.getUiDesign());
         }
-
-        return toBeSaved != null ? userRepository.saveAndFlush(toBeSaved) : null;
+        return toBeSaved;
     }
 
     private void setUsername(User toBeSaved, final String username) {
@@ -200,14 +207,6 @@ public class UserService implements UserDetailsService {
 
     public List<User> findAll() {
         return userRepository.findAll();
-    }
-
-    public List<User> findByRole(final RoleName roleName) {
-        return findAll().stream().filter(user -> user.getRole().getName() == roleName).collect(Collectors.toList());
-    }
-
-    public Level getLevel(final long xp) {
-        return levelService.getLevelByUserXp(xp);
     }
 
     @Transactional
