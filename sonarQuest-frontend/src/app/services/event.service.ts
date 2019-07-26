@@ -110,7 +110,7 @@ export class EventService implements OnChanges {
     var eventDto: EventDto = this.eventDtos.filter(eDto => ((eDto.type == localEventDtos[0].type) &&
       ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
 
-    if (eventDto != null) {     
+    if (eventDto != null) {
       eventUserDto.eventDtos[0].image = eventDto.image
     } else if (localEventDtos[0].type === "MESSAGE" || localEventDtos[0].type === "USER_SKILL") {
       localUserDtos.forEach((userDto: UserDto) => {
@@ -142,7 +142,6 @@ export class EventService implements OnChanges {
     this.http.get<EventUserDto>(`${environment.endpoint}/event/getEventsForCurrentWorldEfficient`).subscribe(
       result => {
         this.eventUserDtoSubject.next(result)
-        console.log(result)
       },
       err => this.eventUserDtoSubject.error(err)
     );

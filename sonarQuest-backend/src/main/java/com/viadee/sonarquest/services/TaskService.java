@@ -45,10 +45,10 @@ public class TaskService {
 	private UserSkillService userSkillService;
 
 	@Autowired
-	private static StandardTaskDtoEntityMapper standardTaskMapper;
+	private  StandardTaskDtoEntityMapper standardTaskMapper;
 
 	@Autowired
-	private static SpecialTaskDtoMapper specialTaskMapper;
+	private  SpecialTaskDtoMapper specialTaskMapper;
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);

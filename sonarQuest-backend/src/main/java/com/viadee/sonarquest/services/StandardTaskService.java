@@ -112,10 +112,10 @@ public class StandardTaskService {
 		return standardTaskRepository.findAll();
 	}
 
-	@Cacheable(value = "taskScoringCache", key = "#w.id")
+	@Cacheable(value = "taskScoringCache", key = "#world.id")
 	public List<StandardTaskDTO> findByWorld(final World world) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(world);
-		List<String> teamMails = new ArrayList<String>();
+		List<String> teamMails;
 		List<StandardTaskDTO> standardTaskDtos = new ArrayList<StandardTaskDTO>();
 		if (!tasks.isEmpty() || tasks != null) {
 			standardTaskDtos = tasks.stream().map(standardTaskMapper::enitityToDto).collect(Collectors.toList());

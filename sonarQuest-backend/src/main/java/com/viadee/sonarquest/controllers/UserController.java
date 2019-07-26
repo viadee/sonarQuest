@@ -3,6 +3,7 @@ package com.viadee.sonarquest.controllers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -104,7 +105,8 @@ public class UserController {
                 LOGGER.error("Avatar file not found: " + avatarFileName, ex);
             }
         }
-        return null;
+        byte[] returnArray = {};
+        return returnArray;
     }
 
 	public String getAvatarDirectoryPath() {
