@@ -261,7 +261,7 @@ public class ExternalRessourceService {
 			List<SonarRule> currentRules = sonarRuleService.findAll();
 			LOGGER.info("Trying to get SonarQube rules with language {} ", language);
 			sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
-			if (currentRules.isEmpty() || currentRules == null) {
+			if (currentRules == null || currentRules.isEmpty()) {
 				LOGGER.info("Trying to get SonarQube rules with language {} ", language);
 				sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
 			} else {

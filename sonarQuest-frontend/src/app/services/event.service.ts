@@ -55,6 +55,7 @@ export class EventService implements OnChanges {
     });
 
     this.subscribeEventUserDto()
+    this.checkUnseenEvents();
 
     userService.user$.subscribe(user => { this.user = user });
 
@@ -66,7 +67,6 @@ export class EventService implements OnChanges {
   subscribeEventUserDto() {
     this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
       this.eventUserDtosToData(eventUserDto)
-      this.checkForUnseenEvents();
     })
   }
 
@@ -169,12 +169,9 @@ export class EventService implements OnChanges {
     })
   }
 
-  public checkForUnseenEvents(): Observable<boolean> {
-    const currentUrl = this.router.url.substring(1);
-    if (currentUrl !== RoutingUrls.events) {
-      this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`).subscribe(result => this.unseenEventsSubject.next(result));
-      return this.unseenEventsSubject.asObservable();
-    }
+  public checkUnseenEvents() {
+      this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`)
+      .subscribe(result => this.unseenEventsSubject.next(result));
   }
 
   private handleError(error: Response | any) {

@@ -95,8 +95,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
         this.susbcribeWorlds();
         this.setDesign();
         this.updateWorldsFromCurrentUser();
-         this.subscribeUnseenEvents();
     });
+    this.subscribeUnseenEvents();
+    this.eventService.checkUnseenEvents();
     this.susbcribeUnassignedSonarRules();
     this.loadUnassignedSonarRules();
     this.setPreDesign();

@@ -178,7 +178,7 @@ public class QuestService implements QuestSuggestion {
 			break;
 		}
 		}
-		List<StandardTaskDTO> standardTaskDtos = standardTaskService.getByWorld(world).stream()
+		List<StandardTaskDTO> standardTaskDtos = standardTaskService.getFreeByWorld(world).stream()
 				.filter(distinctByKey(StandardTaskDTO::getIssueRule)).collect(Collectors.toList());
 
 		List<TaskDTO> taskDtos = standardTaskDtos.stream()

@@ -26,6 +26,8 @@ import com.viadee.sonarquest.controllers.PathConstants;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static  final String USERSKILL = "/userskill/**";
+
     private final UserDetailsService userDetailsService;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -81,12 +83,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/userskill/**").permitAll()
-                .antMatchers(HttpMethod.PUT,"/userskill/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/userskill/**").permitAll()
+                .antMatchers(HttpMethod.GET,USERSKILL).permitAll()
+                .antMatchers(HttpMethod.PUT,USERSKILL).permitAll()
+                .antMatchers(HttpMethod.POST,USERSKILL).permitAll()
                 .antMatchers(HttpMethod.GET,"/skilltree/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/sonarrule/**").permitAll()
                 .anyRequest().authenticated();

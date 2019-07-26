@@ -21,7 +21,7 @@ public class SonarQuestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-    	
+        // Application is started via main()
     }
 
     @Bean

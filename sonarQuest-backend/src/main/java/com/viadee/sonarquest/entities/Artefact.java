@@ -97,21 +97,6 @@ public class Artefact {
         this.onMarketplace = true;
     }
 
-    public Artefact(final Long id, final String name, final String icon, final Long price, final Long quantity,
-            final String description, final Level minLevel,
-            final List<Skill> skills, final List<User> users) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description;
-        this.minLevel = minLevel;
-        this.skills = skills;
-        this.users = users;
-        this.onMarketplace = true;
-    }
-
     public Long getId() {
         return id;
     }

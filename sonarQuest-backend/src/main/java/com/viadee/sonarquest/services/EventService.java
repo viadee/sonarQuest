@@ -80,7 +80,9 @@ public class EventService {
 		String image = StringUtils.EMPTY;
 		World world = adventure.getWorld();
 		String head = StringUtils.EMPTY;
-		return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+		Event event = new Event(type, title, story, state, world, head, userService.getUser(principal));
+		event.setImage(image);
+		return  event;
 	}
 
 	
@@ -104,7 +106,9 @@ public class EventService {
 		String image = StringUtils.EMPTY;
 		World world = user.getCurrentWorld();
 		String head = StringUtils.EMPTY;
-		return new Event(type, title, story, state, image, world, head, user);
+		Event event =  new Event(type, title, story, state, world, head, user);
+		event.setImage(image);
+		return event;
 	}
 
 	public List<Event> createEventForNewSonarRule(SonarRule sonarRule) {
@@ -164,7 +168,9 @@ public class EventService {
 		String image = quest.getImage();
 		World world = quest.getWorld();
 		String head = StringUtils.EMPTY;
-		return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+		Event event = new Event(type, title, story, state, world, head, userService.getUser(principal));
+		event.setImage(image);
+		return event;
 	}
 
 	public Event createEventForCreatedArtefact(Artefact artefact, Principal principal) {

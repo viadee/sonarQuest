@@ -74,9 +74,9 @@ public class TaskController {
     }
 
     @GetMapping(value = "/world/{id}")
-    public List<List<? extends TaskDTO>> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+    public List<List> getAllTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
-        final List<List<? extends TaskDTO>> taskDtos = new ArrayList<>();
+        final List<List> taskDtos = new ArrayList<List>();
         taskDtos.add(specialTaskService.findByWorld(w));
         taskDtos.add(standardTaskService.getByWorld(w));
         return taskDtos;
