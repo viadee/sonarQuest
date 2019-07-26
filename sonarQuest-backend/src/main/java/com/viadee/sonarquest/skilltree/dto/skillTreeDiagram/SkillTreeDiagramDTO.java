@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
+package com.viadee.sonarquest.skilltree.dto.skillTreeDiagram;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +12,12 @@ public class SkillTreeDiagramDTO {
 		super();
 	}
 
-	public SkillTreeDiagramDTO(List<SkillTreeObjectDTO> nodes, List<SkillTreeLinksDTO> links) {
-		super();
-		this.nodes = nodes;
-		this.links = links;
-	}
 
 	public List<SkillTreeObjectDTO> getNodes() {
 		if (nodes == null) {
-			nodes = new ArrayList<SkillTreeObjectDTO>();
+			nodes = new ArrayList<>();
 		}
 		return nodes;
-	}
-
-	public void setNodes(List<SkillTreeObjectDTO> nodes) {
-		this.nodes = nodes;
 	}
 
 	public void addNode(SkillTreeObjectDTO skillTreeObjectDTO) {
@@ -36,13 +27,9 @@ public class SkillTreeDiagramDTO {
 
 	public List<SkillTreeLinksDTO> getLinks() {
 		if (links == null) {
-			links = new ArrayList<SkillTreeLinksDTO>();
+			links = new ArrayList<>();
 		}
 		return links;
-	}
-
-	public void setLinks(List<SkillTreeLinksDTO> links) {
-		this.links = links;
 	}
 
 	public void addLine(SkillTreeLinksDTO skillTreeLineDTO) {

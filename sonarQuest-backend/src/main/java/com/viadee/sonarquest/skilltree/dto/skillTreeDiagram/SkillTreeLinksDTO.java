@@ -1,13 +1,9 @@
-package com.viadee.sonarquest.skillTree.dto.skillTreeDiagram;
+package com.viadee.sonarquest.skilltree.dto.skillTreeDiagram;
 
 public class SkillTreeLinksDTO {
 
 	private String source;
 	private String target;
-
-	public SkillTreeLinksDTO() {
-		super();
-	}
 
 	public SkillTreeLinksDTO(String source, String target) {
 		super();
