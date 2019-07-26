@@ -61,7 +61,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
         story: this.story,
         world: this.currentWorld,
         image: this.selectedImage,
-        creatorName: this.user.username 
+        creatorName: this.user.username
       };
       this.questService.createQuest(quest).then((createdQuest) => {
         if (createdQuest.id) {
@@ -82,7 +82,7 @@ export class GamemasterQuestCreateComponent implements OnInit {
 
 
   addFreeTask() {
-    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.currentWorld, this.tasks]})
+    this.dialog.open(GamemasterAddFreeTaskComponent, {panelClass: 'dialog-sexy', data: [this.currentWorld]})
       .afterClosed().subscribe(result => {
       if (result) {
         this.tasks.push(result)

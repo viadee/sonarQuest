@@ -2,7 +2,6 @@ package com.viadee.sonarquest.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -107,10 +106,10 @@ public class StandardTaskServiceTest {
 
 		when(userSkillService.getScoringForRuleFromTeam(anyString(), Matchers.anyListOf(String.class))).thenReturn(1.0);
 
-		//when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
+		//when(standardTaskService.getByWorld(world)).thenReturn(unsortedTasks);
 
 		// When
-		List<StandardTaskDTO> tasks = standardTaskService.findByWorld(world);
+		List<StandardTaskDTO> tasks = standardTaskService.getByWorld(world);
 		// Then
 		assertEquals(SonarQubeSeverity.BLOCKER.name(), tasks.get(0).getSeverity());
 		assertEquals(SonarQubeSeverity.CRITICAL.name(), tasks.get(1).getSeverity());

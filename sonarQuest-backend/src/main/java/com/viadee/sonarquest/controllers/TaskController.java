@@ -78,7 +78,7 @@ public class TaskController {
         final World w = worldService.findById(worldId);
         final List<List<? extends TaskDTO>> taskDtos = new ArrayList<>();
         taskDtos.add(specialTaskService.findByWorld(w));
-        taskDtos.add(standardTaskService.findByWorld(w));
+        taskDtos.add(standardTaskService.getByWorld(w));
         return taskDtos;
     }
 
@@ -97,7 +97,13 @@ public class TaskController {
     @GetMapping(value = "/standard/world/{id}")
     public List<StandardTaskDTO> getStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
         final World w = worldService.findById(worldId);
-        return standardTaskService.findByWorld(w);
+        return standardTaskService.getByWorld(w);
+    }
+
+    @GetMapping(value = "/standard/free/world")
+    public List<StandardTaskDTO> getFreeStandardTasksForWorld(@RequestParam(value = "id") final String worldId) {
+        final World w = worldService.findById(Long.valueOf(worldId));
+        return standardTaskService.getFreeByWorld(w);
     }
 
     @GetMapping(value = "/{id}")

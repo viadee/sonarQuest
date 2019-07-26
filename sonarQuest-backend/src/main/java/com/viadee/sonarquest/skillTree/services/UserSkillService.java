@@ -22,7 +22,6 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.UserRepository;
 import com.viadee.sonarquest.services.StandardTaskService;
 import com.viadee.sonarquest.skillTree.dto.UserSkillDTO;
-import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skillTree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skillTree.entities.SonarRule;
 import com.viadee.sonarquest.skillTree.entities.UserSkill;
@@ -413,7 +412,8 @@ public class UserSkillService {
         User sqUser = userRepository.findByMail(mail);
         if (sqUser != null) {
             for (World world : sqUser.getWorlds()) {
-                standardTaskService.updateFindByWorldCache(world);
+                standardTaskService.updateGetByWorldCache(world);
+                standardTaskService.updateGetFreeByWorldCache(world);
 
             }
         }
