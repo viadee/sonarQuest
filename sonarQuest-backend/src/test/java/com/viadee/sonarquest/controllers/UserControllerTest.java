@@ -1,6 +1,6 @@
 package com.viadee.sonarquest.controllers;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,7 +48,7 @@ public class UserControllerTest {
                 "avatar");
         HttpServletResponse response = mock(HttpServletResponse.class);
         byte[] avatar = userController.avatar(principal, response);
-        assertNull(avatar);
+        assertTrue(avatar.length == 0);
     }
 
 }
