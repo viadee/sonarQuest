@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.skilltree.sheduledTasks;
+package com.viadee.sonarquest.skilltree.sheduledtasks;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import com.viadee.sonarquest.skilltree.services.UserSkillService;
-
-import javax.security.auth.callback.CallbackHandler;
 
 @Component
 public class CachingTask {

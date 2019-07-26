@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.services.WorldService;
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeDiagramDTO;
 import com.viadee.sonarquest.skilltree.services.SkillTreeService;
 
 @RestController

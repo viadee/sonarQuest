@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viadee.sonarquest.services.ArtefactService;
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeLinksDTO;
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeObjectDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeLinksDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skilltree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skilltree.entities.SonarRule;
 import com.viadee.sonarquest.skilltree.entities.UserSkill;

@@ -76,7 +76,7 @@ public class UserSkillService {
 
         List<UserSkillDTO> userSkills = new ArrayList<>();
         for (String mail : mails) {
-            if (mail != null || !mail.isEmpty() || !mail.equalsIgnoreCase("null")) {
+            if (mail != null && !mail.isEmpty() && !mail.equalsIgnoreCase("null")) {
 
                 SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
                 if (skillTreeUser != null) {
@@ -107,7 +107,7 @@ public class UserSkillService {
                 Double teamScore = null;
                 int amountDevelopersInTeam = 0;
                 for (String mail : mails) {
-                    if (mail != null || !mail.isEmpty() || !mail.equalsIgnoreCase("null")) {
+                    if (mail != null && !mail.isEmpty() && !mail.equalsIgnoreCase("null")) {
                         SkillTreeUser skillTreeUser = skillTreeUserService.findByMail(mail);
                         if (skillTreeUser != null && userRepository.findByMail(mail).getRole().getName().equals(RoleName.DEVELOPER)) {
                             amountDevelopersInTeam++;

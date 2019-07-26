@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeDiagramDTO;
 import com.viadee.sonarquest.skilltree.services.SkillTreeService;
 
 @RestController

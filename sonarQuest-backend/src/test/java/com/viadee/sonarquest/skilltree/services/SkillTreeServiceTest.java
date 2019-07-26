@@ -19,8 +19,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
-import com.viadee.sonarquest.skilltree.dto.skillTreeDiagram.SkillTreeObjectDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeObjectDTO;
 import com.viadee.sonarquest.skilltree.entities.SkillTreeUser;
 import com.viadee.sonarquest.skilltree.entities.UserSkill;
 import com.viadee.sonarquest.skilltree.entities.UserSkillGroup;
