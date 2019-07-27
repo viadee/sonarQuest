@@ -1,4 +1,4 @@
-FROM node:9.11.1 as build_container
+FROM node:10.16.0 as build_container
 
 COPY  . /usr/src/sonarQuest
 WORKDIR /usr/src/sonarQuest
