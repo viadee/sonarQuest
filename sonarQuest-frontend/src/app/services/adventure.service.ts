@@ -1,10 +1,9 @@
 import {Subject, Observable, ReplaySubject} from 'rxjs';
 import {Adventure} from './../Interfaces/Adventure';
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {World} from '../Interfaces/World';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class AdventureService {
@@ -68,7 +67,7 @@ export class AdventureService {
     return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}/solveAdventure`, adventure)
       .toPromise()
       .catch(this.handleError);
-  }  
+  }
 
   updateAdventure(adventure: Adventure): Promise<any> {
     return this.httpClient.put<Adventure>(`${environment.endpoint}/adventure/${adventure.id}`, adventure)
@@ -91,12 +90,10 @@ export class AdventureService {
       .toPromise()
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof HttpErrorResponse) {
+      errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
