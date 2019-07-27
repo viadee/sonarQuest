@@ -77,7 +77,7 @@ export class EventService implements OnChanges {
 
       this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
         this.imageService.createImageFromBlob2(blob).subscribe(image => {
-          userDto.picture = image‚√
+          userDto.picture = image;
 
           localEventDtos.forEach((eventDto: EventDto) => {
             if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE') {
