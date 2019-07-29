@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.entities.RoleName;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.services.WorldService;
-import com.viadee.sonarquest.skillTree.dto.skillTreeDiagram.SkillTreeDiagramDTO;
-import com.viadee.sonarquest.skillTree.services.SkillTreeService;
+import com.viadee.sonarquest.skilltree.dto.skilltreediagram.SkillTreeDiagramDTO;
+import com.viadee.sonarquest.skilltree.services.SkillTreeService;
 
 @RestController
 @RequestMapping("/sqskilltree")
@@ -31,7 +31,7 @@ public class SQSkillTreeController {
 		World world = worldService.findById(worldID);
 		List<String> mails = null;
 		if(world != null) {
-			mails = world.getUsers().stream().filter(user-> user.getMail()!= null && user.getRole().getName().equals(RoleName.DEVELOPER)).map(user-> user.getMail()).collect(Collectors.toList());		
+			mails = world.getUsers().stream().filter(user-> user.getMail()!= null && user.getRole().getName().equals(RoleName.DEVELOPER)).map(user-> user.getMail()).collect(Collectors.toList());
 		}
 		return skillTreeService.generateSkillTreeForTeamByGroupID(id, mails);
 

@@ -76,7 +76,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
       this.freeSpecialTasks = freeTasks;
       this.pageSpecialTaskData();
     });
-    this.standardTaskService.getFreeStandardTasksForWorldExcept(this.data[0], this.data[1]).then(freeTasks => {
+    this.standardTaskService.getFreeStandardTasksForWorldExcept(this.data[0]).then(freeTasks => {
       this.freeStandardTasks = freeTasks;
       this.pageStandardTaskData();
     });

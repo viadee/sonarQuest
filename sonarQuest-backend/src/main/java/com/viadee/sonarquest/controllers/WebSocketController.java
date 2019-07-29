@@ -17,8 +17,8 @@ import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.EventService;
-import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.entities.UserSkill;
+import com.viadee.sonarquest.skilltree.entities.SonarRule;
+import com.viadee.sonarquest.skilltree.entities.UserSkill;
 
 @Controller
 public class WebSocketController {
@@ -82,7 +82,7 @@ public class WebSocketController {
 	public void onDeleteAdventure(final Adventure adventure, Principal principal) {
 		Event event = eventService.createEventForDeletedAdventure(adventure, principal);
 		EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
-		template.convertAndSend("/chat", eventUserDto);
+		template.convertAndSend(CHAT, eventUserDto);
 	}
 
 	public void onCreateArtefact(final Artefact artefact, Principal principal) {

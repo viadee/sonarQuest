@@ -68,17 +68,7 @@ public class Event {
 		this.headline = headline;
 	}
 
-	public Event(EventType type, String title, String story, EventState state, String image, World world, String headline, User user) {
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.state = state;
-		this.image = image;
-		this.world = world;
-		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-		this.user = user;
-	}
+
 	public Event(EventType type, String title, String story, EventState state,  World world, String headline, User user) {
 		this.type = type;
 		this.title = title;

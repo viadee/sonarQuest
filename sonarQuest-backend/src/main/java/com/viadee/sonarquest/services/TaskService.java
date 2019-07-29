@@ -20,7 +20,7 @@ import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.skilltree.services.UserSkillService;
 import com.viadee.sonarquest.utils.mapper.SpecialTaskDtoMapper;
 import com.viadee.sonarquest.utils.mapper.StandardTaskDtoEntityMapper;
 
@@ -45,10 +45,10 @@ public class TaskService {
 	private UserSkillService userSkillService;
 
 	@Autowired
-	private static StandardTaskDtoEntityMapper standardTaskMapper;
+	private  StandardTaskDtoEntityMapper standardTaskMapper;
 
 	@Autowired
-	private static SpecialTaskDtoMapper specialTaskMapper;
+	private  SpecialTaskDtoMapper specialTaskMapper;
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
@@ -106,7 +106,7 @@ public class TaskService {
 
 	public List<TaskDTO> getTasksForQuest(Long questId, String mail) {
 		final Quest quest = questService.findById(questId);
-		List<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
+		List<TaskDTO> taskDtos = new ArrayList<>();
 		if (quest != null) {
 			for (Task task : quest.getTasks()) {
 				if (task instanceof StandardTask) {

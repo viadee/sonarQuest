@@ -36,9 +36,9 @@ import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
-import com.viadee.sonarquest.skillTree.entities.SonarRule;
-import com.viadee.sonarquest.skillTree.services.SonarRuleService;
-import com.viadee.sonarquest.skillTree.services.UserSkillService;
+import com.viadee.sonarquest.skilltree.entities.SonarRule;
+import com.viadee.sonarquest.skilltree.services.SonarRuleService;
+import com.viadee.sonarquest.skilltree.services.UserSkillService;
 
 /**
  * Service to access SonarQube server.
@@ -260,8 +260,7 @@ public class ExternalRessourceService {
 			SonarQubeRuleRessource sonarQubeRuleRessource;
 			List<SonarRule> currentRules = sonarRuleService.findAll();
 			LOGGER.info("Trying to get SonarQube rules with language {} ", language);
-			sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
-			if (currentRules.isEmpty() || currentRules == null) {
+			if (currentRules == null || currentRules.isEmpty()) {
 				LOGGER.info("Trying to get SonarQube rules with language {} ", language);
 				sonarQubeRuleRessource = getSonarQubeRulesByLanguage(sonarConfig, language);
 			} else {

@@ -55,6 +55,7 @@ export class EventService implements OnChanges {
     });
 
     this.subscribeEventUserDto()
+    this.checkUnseenEvents();
 
     userService.user$.subscribe(user => { this.user = user });
 
@@ -66,7 +67,6 @@ export class EventService implements OnChanges {
   subscribeEventUserDto() {
     this.eventUserDto$.subscribe((eventUserDto: EventUserDto) => {
       this.eventUserDtosToData(eventUserDto)
-      this.checkForUnseenEvents();
     })
   }
 
@@ -110,7 +110,7 @@ export class EventService implements OnChanges {
     var eventDto: EventDto = this.eventDtos.filter(eDto => ((eDto.type == localEventDtos[0].type) &&
       ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
 
-    if (eventDto != null) {     
+    if (eventDto != null) {
       eventUserDto.eventDtos[0].image = eventDto.image
     } else if (localEventDtos[0].type === "MESSAGE" || localEventDtos[0].type === "USER_SKILL") {
       localUserDtos.forEach((userDto: UserDto) => {
@@ -142,7 +142,6 @@ export class EventService implements OnChanges {
     this.http.get<EventUserDto>(`${environment.endpoint}/event/getEventsForCurrentWorldEfficient`).subscribe(
       result => {
         this.eventUserDtoSubject.next(result)
-        console.log(result)
       },
       err => this.eventUserDtoSubject.error(err)
     );
@@ -170,12 +169,9 @@ export class EventService implements OnChanges {
     })
   }
 
-  public checkForUnseenEvents(): Observable<boolean> {
-    const currentUrl = this.router.url.substring(1);
-    if (currentUrl !== RoutingUrls.events) {
-      this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`).subscribe(result => this.unseenEventsSubject.next(result));
-      return this.unseenEventsSubject.asObservable();
-    }
+  public checkUnseenEvents() {
+      this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`)
+      .subscribe(result => this.unseenEventsSubject.next(result));
   }
 
   private handleError(error: Response | any) {

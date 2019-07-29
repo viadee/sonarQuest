@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface StandardTaskRepository extends TaskBaseRepository<StandardTask>
     StandardTask findByKey(String key);
     
     List<StandardTask> findByWorld(World world);
+
+    List<StandardTask> findByWorldAndStatusAndQuestIsNull(World world, SonarQuestStatus status);
 }
