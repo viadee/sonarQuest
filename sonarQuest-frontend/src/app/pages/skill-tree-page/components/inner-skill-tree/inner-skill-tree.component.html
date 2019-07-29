@@ -57,7 +57,7 @@
               [tooltipCloseOnMouseLeave]="true">
               <svg:rect [attr.width]="node.width+16 " [attr.height]="node.height * 1.3" style="fill:#fff"
                 [attr.stroke]="node.backgroundColor" stroge-width="3" rx="15" ry="15" />
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+             <!--  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                 id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
                 style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
                 *ngIf="node.learnCoverage==100 && !isAdmin">
@@ -84,7 +84,7 @@
                   style="fill:#D50000;" width="36.8" height="4" />
                 <path style="fill:#D50000;"
                   d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z M24,40c-8.8,0-16-7.2-16-16S15.2,8,24,8  s16,7.2,16,16S32.8,40,24,40z" />
-              </svg>
+              </svg> -->
               <svg:text alignment-baseline="central" [attr.x]="(node.width+16) / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
@@ -96,7 +96,7 @@
               [tooltipCloseOnMouseLeave]="true" (click)="openDialog(node)">
               <svg:rect [attr.width]="node.width+16" [attr.height]="node.height * 1.3" style="fill:#fff"
                 [attr.stroke]="node.backgroundColor" stroge-width="3" rx="15" ry="15" />
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                 id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
                 style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
                 *ngIf="node.learnCoverage==100 && !isAdmin">
@@ -114,8 +114,8 @@
                   <path style=" fill:#FFA000;"
                     d="M 41.898438 15.300781 C 42 14.800781 42 14.398438 42 14 C 42 13.601563 42 13.199219 41.898438 12.699219 L 44.398438 10.898438 C 44.699219 10.699219 44.699219 10.398438 44.601563 10.101563 L 42.101563 5.800781 C 41.898438 5.5 41.601563 5.398438 41.300781 5.601563 L 38.398438 6.898438 C 37.699219 6.398438 37 6 36.199219 5.601563 L 35.898438 2.5 C 36 2.199219 35.800781 2 35.5 2 L 30.601563 2 C 30.300781 2 30 2.199219 30 2.5 L 29.699219 5.601563 C 28.898438 5.898438 28.199219 6.300781 27.5 6.898438 L 24.601563 5.601563 C 24.300781 5.5 24 5.601563 23.800781 5.800781 L 21.300781 10.101563 C 21.101563 10.398438 21.199219 10.699219 21.5 10.898438 L 24 12.699219 C 24 13.199219 24 13.601563 24 14 C 24 14.398438 24 14.800781 24.101563 15.300781 L 21.601563 17.101563 C 21.300781 17.300781 21.300781 17.601563 21.398438 17.898438 L 23.898438 22.199219 C 24.101563 22.5 24.398438 22.601563 24.699219 22.398438 L 27.601563 21.101563 C 28.300781 21.601563 29 22 29.800781 22.398438 L 30.101563 25.5 C 30.101563 25.800781 30.398438 26 30.699219 26 L 35.601563 26 C 35.898438 26 36.199219 25.800781 36.199219 25.5 L 36.5 22.398438 C 37.300781 22.101563 38 21.699219 38.699219 21.101563 L 41.601563 22.398438 C 41.898438 22.5 42.199219 22.398438 42.398438 22.199219 L 44.898438 17.898438 C 45.101563 17.601563 45 17.300781 44.699219 17.101563 Z M 33 19 C 30.199219 19 28 16.800781 28 14 C 28 11.199219 30.199219 9 33 9 C 35.800781 9 38 11.199219 38 14 C 38 16.800781 35.800781 19 33 19 Z " />
                 </g>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+              </svg> -->
+            <!--   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                 id="Layer_1" [attr.x]="node.width-8" [attr.y]="node.height-10" viewBox="0 0 48 48"
                 style="enable-background:new 0 0 48 48;" xml:space="preserve" width="16px" height="16px"
                 *ngIf="node.learnCoverage==0 && !isAdmin">
@@ -123,7 +123,7 @@
                   style="fill:#D50000;" width="36.8" height="4" />
                 <path style="fill:#D50000;"
                   d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z M24,40c-8.8,0-16-7.2-16-16S15.2,8,24,8  s16,7.2,16,16S32.8,40,24,40z" />
-              </svg>
+              </svg> -->
               <svg:text alignment-baseline="central" [attr.x]="(node.width+16) / 2" [attr.y]="node.height / 2"
                 text-anchor="middle" [attr.fill]="node.textColor">{{node.label}}</svg:text>
               <svg:text alignment-baseline="central" *ngIf="!isAdmin" [attr.x]="node.width / 2" [attr.y]="node.height"
