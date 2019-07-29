@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.skilltree.sheduledtasks;
+package com.viadee.sonarquest.skillTree.sheduledtasks;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.skilltree.sheduledtasks;
+package com.viadee.sonarquest.skillTree.sheduledtasks;
 
 import java.util.List;
 
