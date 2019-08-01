@@ -43,11 +43,8 @@ public class SonarConfigService {
     private SonarConfig updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
         currentConfig.setName(config.getName());
         currentConfig.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
-        if (config.hasHttpBasicAuth()) {
-            LOGGER.info("New basic auth has been added!");
-            currentConfig.setHttpBasicAuthUsername(config.getHttpBasicAuthUsername());
-            currentConfig.setHttpBasicAuthPassword(config.getHttpBasicAuthPassword());
-        }
+        currentConfig.setHttpBasicAuthUsername(config.getHttpBasicAuthUsername());
+        currentConfig.setHttpBasicAuthPassword(config.getHttpBasicAuthPassword());
         return saveNewConfig(currentConfig);
     }
 
