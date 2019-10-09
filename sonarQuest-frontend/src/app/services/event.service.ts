@@ -10,10 +10,9 @@ import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { Injectable, OnChanges, SimpleChanges } from '@angular/core';
-import { Response } from '@angular/http';
 import { environment } from "../../environments/environment";
 import { Event } from '../Interfaces/Event';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RoutingUrls } from 'app/app-routing/routing-urls';
 
@@ -78,7 +77,7 @@ export class EventService implements OnChanges {
 
       this.userService.getImageForUserId(userDto.id).subscribe((blob) => {
         this.imageService.createImageFromBlob2(blob).subscribe(image => {
-          userDto.picture = image
+          userDto.picture = image;
 
           localEventDtos.forEach((eventDto: EventDto) => {
             if (eventDto.userId == userDto.id && eventDto.type == 'MESSAGE') {
@@ -177,12 +176,10 @@ export class EventService implements OnChanges {
     }
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof HttpErrorResponse) {
+      errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

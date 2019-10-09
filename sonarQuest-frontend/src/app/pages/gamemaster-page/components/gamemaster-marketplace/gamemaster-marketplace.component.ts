@@ -22,8 +22,8 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 export class GamemasterMarketplaceComponent implements OnInit {
 
-  @ViewChild('cannotDeleteArtefactSwal') private cannotDeleteArtefactSwal: SwalComponent;
-  @ViewChild('deleteSuccessArtefactSwal') private deleteSuccessArtefactSwal: SwalComponent;
+  @ViewChild('cannotDeleteArtefactSwal', { static: false }) private cannotDeleteArtefactSwal: SwalComponent;
+  @ViewChild('deleteSuccessArtefactSwal', { static: false }) private deleteSuccessArtefactSwal: SwalComponent;
 
   artefacts: Artefact[];
 

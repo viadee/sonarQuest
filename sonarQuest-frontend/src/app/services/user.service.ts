@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Injectable()
 export class UserService {

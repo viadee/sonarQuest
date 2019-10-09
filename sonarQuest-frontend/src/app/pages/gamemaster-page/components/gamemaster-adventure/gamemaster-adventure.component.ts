@@ -23,7 +23,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 })
 export class GamemasterAdventureComponent implements OnInit {
   @Input() isSelected: boolean;
-  @ViewChild('deleteSuccessAdventureSwal') private deleteSuccessAdventureSwal: SwalComponent;
+  @ViewChild('deleteSuccessAdventureSwal', { static: false }) private deleteSuccessAdventureSwal: SwalComponent;
 
 
   currentWorld: World;
