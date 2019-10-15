@@ -1,11 +1,9 @@
 import { EventUserDto } from './../Interfaces/EventUserDto';
-import { EventDto } from './../Interfaces/EventDto';
 import { World } from '../Interfaces/World';
 import { WorldService } from './world.service';
 import { EventService } from 'app/services/event.service';
 import { UserService } from 'app/services/user.service';
 import { Message } from '../Interfaces/Message';
-import { Event } from '../Interfaces/Event';
 import * as SockJS from 'sockjs-client';
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';

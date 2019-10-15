@@ -1,16 +1,14 @@
-import { Quest } from './../Interfaces/Quest';
-import { Task } from './../Interfaces/Task';
-import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import {Quest} from './../Interfaces/Quest';
+import {Task} from './../Interfaces/Task';
+import {Injectable} from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { World } from '../Interfaces/World';
 
 
-import { StandardTaskService } from './standard-task.service';
-import { SpecialTaskService } from './special-task.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { User } from 'app/Interfaces/User';
+import {StandardTaskService} from './standard-task.service';
+import {SpecialTaskService} from './special-task.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class TaskService {
@@ -101,18 +99,14 @@ export class TaskService {
     return array1.filter(x => !array2.includes(x));
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof HttpErrorResponse) {
+      errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
-
-
 }

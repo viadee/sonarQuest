@@ -1,10 +1,9 @@
 import {ReplaySubject, Subject, Observable} from 'rxjs';
-import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Skill} from './../Interfaces/Skill';
 import {Injectable} from '@angular/core';
 import {Artefact} from '../Interfaces/Artefact';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SkillService {
@@ -48,12 +47,10 @@ export class SkillService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof HttpErrorResponse) {
+      errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

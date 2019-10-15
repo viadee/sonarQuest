@@ -2,11 +2,10 @@ import { User } from './../Interfaces/User';
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Quest} from '../Interfaces/Quest';
 import {World} from '../Interfaces/World';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {Task} from '../Interfaces/Task';
 import {ParticipationService} from './participation.service';
 import {TaskService} from './task.service';
@@ -54,7 +53,7 @@ export class QuestService {
       .toPromise()
       .catch(this.handleError);
   }
-  
+
   solveQuestDummyy(quest: Quest): Observable<Quest[]> {
     this.http.get<Quest[]>(`${environment.endpoint}/quest/${quest.id}/solveQuestDummy`)
       .subscribe(
@@ -131,12 +130,10 @@ export class QuestService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof HttpErrorResponse) {
+      errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

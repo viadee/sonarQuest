@@ -17,7 +17,7 @@ A tool for extending [SonarQube](https://www.sonarqube.org/) by a gamification s
 
 ## Goal
 
-Reduce technical debts in your code project by converting the refactoring process into a game. Create quests from SonarQube issues and write your own story.
+Reduce technical debts in your code project by changing the refactoring process into a game. Create quests from SonarQube issues and write your own story.
 
 An example: a team defines the solvation of issues with priority levels "blocker" and "critical" as goals on a fictious adventure map in a game they call "travel through the wild Codeistan". They can reach the respective targets in the adventure by decreasing the number of code smells, bugs and security vulnerabilities detected by SonarQube.
 

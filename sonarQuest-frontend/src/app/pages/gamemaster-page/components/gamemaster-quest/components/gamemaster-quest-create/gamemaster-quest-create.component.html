@@ -9,7 +9,6 @@
 
     <div flex>
       <mat-select placeholder="Welt"
-                  [(ngModel)]="selectedWorld"
                   floatPlaceholder="true"
                   name="world"
                   class="full-width"
@@ -27,7 +26,7 @@
     </div>
 
     <div flex>
-      <mat-checkbox 
+      <mat-checkbox
         [matTooltip]="'QUEST.TOOLTIP_VISIBLE' | translate" matTooltipPosition="after"
         [(ngModel)]="visible">{{"QUEST.VISIBLE"| translate}}</mat-checkbox>
     </div>
