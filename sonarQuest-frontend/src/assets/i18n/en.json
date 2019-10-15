@@ -89,7 +89,8 @@
     },
     "ARTEFACT": {
       "CREATED": "has added a new item to the marketplace",
-      "DELETED": "has deleted the artefact"
+      "DELETED": "has deleted the artefact",
+      "UPDATED": "has edited an Artefact"
     },
     "MESSAGE": {
       "MESSAGE" : "Message",

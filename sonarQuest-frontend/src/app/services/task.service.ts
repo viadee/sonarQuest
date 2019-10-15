@@ -8,7 +8,8 @@ import { World } from '../Interfaces/World';
 
 import {StandardTaskService} from './standard-task.service';
 import {SpecialTaskService} from './special-task.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { User } from 'app/Interfaces/User';
 
 @Injectable()
 export class TaskService {

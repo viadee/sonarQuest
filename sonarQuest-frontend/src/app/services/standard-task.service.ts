@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 
 import {Observable, ReplaySubject} from 'rxjs';
 import {StandardTask} from '../Interfaces/StandardTask';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import {Task} from '../Interfaces/Task';
 
 @Injectable()

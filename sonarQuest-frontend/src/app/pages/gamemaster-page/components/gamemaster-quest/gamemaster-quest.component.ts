@@ -23,7 +23,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 })
 export class GamemasterQuestComponent implements OnInit {
 
-  @ViewChild('deleteSuccessQuestSwal', { static: false }) private deleteSuccessQuestSwal: SwalComponent;
+  @ViewChild('deleteSuccessQuestSwal') private deleteSuccessQuestSwal: SwalComponent;
 
   currentWorld: World;
   data: any[] = [];

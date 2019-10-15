@@ -89,7 +89,8 @@
     },
     "ARTEFACT": {
       "CREATED": "hat dem Marktplatz ein neues Item hinzugefügt",
-      "DELETED": "hat das Item entfernt"
+      "DELETED": "hat das Item entfernt",
+      "UPDATED": "hat ein Artefakt bearbeitet"
     },
     "MESSAGE": {
       "MESSAGE" : "Nachricht",
@@ -336,6 +337,6 @@
     "OVERVIEW": "Überblick",
     "EDIT": "Bearbeiten",
     "REQUIRED_REPETITIONS": "Erforderliche Wiederholungen"
-  
+
   }
 }
