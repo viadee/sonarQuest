@@ -26,7 +26,7 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
     { name: 'gold', label: 'Gold' },
     { name: 'xp', label: 'XP' },
     { name: 'userSkillScoring', label: 'Scoring', width: 25, tooltip: '' },
-    { name: 'open_issue', label: '', sortable:false },
+    { name: 'open_issue', label: '', sortable: false },
     { name: 'add_task', label: '', sortable: false },
 
   ];
@@ -112,6 +112,11 @@ export class GamemasterAddFreeTaskComponent implements OnInit {
   }
 
   filterStandardTask(): void {
+    for (const task of this.freeStandardTasks) {
+      if (task.userSkillScoring == null) {
+        task.userSkillScoring = 999;
+      }
+    }
     let newData: StandardTask[] = this.freeStandardTasks;
     const excludedColumns: string[] = this.freeStandardTasksColumns
       .filter((column: ITdDataTableColumn) => {

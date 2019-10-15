@@ -97,6 +97,7 @@ export class AvailableQuestsComponent implements OnInit {
   }
 
   participateInQuest(quest: Quest) {
+    console.log(quest);
     return this.participationService.createParticipation(quest)
       .then((msg) => {
         this.loadQuests();

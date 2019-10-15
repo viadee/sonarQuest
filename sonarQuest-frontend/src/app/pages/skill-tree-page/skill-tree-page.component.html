@@ -25,7 +25,8 @@
       <mat-divider></mat-divider>
       <div class="graph-viewbox" *ngIf="isSkillTreeLoaded()">
         <ngx-graph class="chart-container" [links]="userSkillGroupTree.links" [nodes]="userSkillGroupTree.nodes"
-          [legend]="false" [curve]="curve" [draggingEnabled]="false" [orientation]="TopToBottom" scheme="fire">
+          [legend]="false" [curve]="curve" [draggingEnabled]="false" [orientation]="TopToBottom" scheme="fire" [autoZoom]="true"
+          [autoCenter]="true">
 
           <ng-template #defsTemplate>
             <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4"
@@ -46,9 +47,9 @@
               <svg:text alignment-baseline="central" [attr.x]="50" [attr.y]="(node.height+10) / 2">{{node.label}}
               </svg:text>
 
-            </svg:g>  
+            </svg:g>
 
-      
+
             <svg:g class="node pointer" ngx-tooltip [tooltipPlacement]="'top'" *ngIf="!node.root" [tooltipType]="'tooltip'"
               [tooltipTitle]="'SKILL_TREE_PAGE.TOOLTIP_DETAILS'| translate"  (click)="navigatToInnerSkilLTree(node)">
 

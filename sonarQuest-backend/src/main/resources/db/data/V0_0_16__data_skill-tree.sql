@@ -899,7 +899,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (269, 'squid:S2185', 'Silly math should not be performed', TIMESTAMP '2019-04-25 14:12:05.056', 89),
 (270, 'squid:S2675', '"readObject" should not be "synchronized"', TIMESTAMP '2019-04-25 14:12:05.056', 183),
 (271, 'squid:S2786', 'Nested "enum"s should not be declared static', TIMESTAMP '2019-04-25 14:12:05.056', 79),
-(272, 'squid:S2187', 'TestCases should contain tests', TIMESTAMP '2019-04-25 14:12:05.056', 56),
+(272, 'squid:S2187', 'TestCases should contain tests', TIMESTAMP '2019-04-25 14:12:05.056', 201),
 (273, 'squid:S2186', 'JUnit assertions should not be used in "run" methods', TIMESTAMP '2019-04-25 14:12:05.056', 202),
 (274, 'squid:S2677', '"read" and "readLine" return values should be used', TIMESTAMP '2019-04-25 14:12:05.056', 188),
 (275, 'squid:S2676', 'Neither "Math.abs" nor negation should be used on numbers that could be "MIN_VALUE"', TIMESTAMP '2019-04-25 14:12:05.056', 89),
@@ -1167,7 +1167,7 @@ INSERT INTO PUBLIC.SONAR_RULE(ID, RULE_KEY, RULE_NAME, ADDED_AT, USER_SKILL_ID) 
 (537, 'squid:S5131', 'Endpoints should not be vulnerable to reflected cross-site scripting (XSS) attacks', TIMESTAMP '2019-04-25 14:12:05.063', 245),
 (538, 'squid:S5167', 'HTTP response headers should not be vulnerable to injection attacks', TIMESTAMP '2019-04-25 14:12:05.063', 168),
 (539, 'squid:S5128', '"Bean Validation" (JSR 380) should be properly configured', TIMESTAMP '2019-04-25 14:12:05.063', 168),
-(540, 'squid:S5194', 'Use Java 12 "switch" expression', TIMESTAMP '2019-04-25 14:12:05.063', 7); 
+(540, 'squid:S5194', 'Use Java 12 "switch" expression', TIMESTAMP '2019-04-25 14:12:05.063', 7);
 
 -- INSERT INTO Sonar_Rule(rule_name,rule_key,user_skill_id, added_at) VALUES 
 -- ('Public types, methods and fields (API) should be documented with Javadoc','squid:UndocumentedApi',4,'2019-04-25 14:12:05.048'),
