@@ -22,4 +22,14 @@ public class SonarRuleDtoEntityMapper {
 		return dto;
 	}
 
+	public SonarRule dtoToEntity(SonarRuleDTO dto){
+		SonarRule sonarRule = new SonarRule();
+		sonarRule.setId(dto.getId());
+		sonarRule.setKey(dto.getKey());
+		sonarRule.setName(dto.getName());
+		sonarRule.setAddedAt(dto.getAddedAt());
+		sonarRule.setUserSkill(userSkillMapper.dtoToEntity(dto.getUserSkilLDto()));
+		return  sonarRule;
+	}
+
 }

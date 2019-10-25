@@ -4,64 +4,94 @@ import java.util.List;
 
 public class UserSkillDTO {
 
-	private String description;
-	private String name;
-	private Long id;
-	private List<String> ruleKey;
-	private Double score;
-	private boolean isRoot;
+    private Long id;
+    private String description;
+    private String name;
+    private boolean isRoot;
+    private int requiredRepetitions;
+    private UserSkillGroupDTO userSkillGroup;
+    private List<SonarRuleDTO> sonarRules;
+    private List<UserSkillDTO> followingUserSkills;
+    private List<UserSkillDTO> previousUserSkills;
+    private Double score;
 
-	public String getDescription() {
-		return description;
-	}
+    public Double getScore() {
+        return score;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<String> getRuleKey() {
-		return ruleKey;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setRuleKey(List<String> ruleKey) {
-		this.ruleKey = ruleKey;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void addRuleKey(String ruleKey) {
-		this.ruleKey.add(ruleKey);
-	}
+    public boolean isRoot() {
+        return isRoot;
+    }
 
-	public Double getScore() {
-		return score;
-	}
+    public void setRoot(boolean root) {
+        isRoot = root;
+    }
 
-	public void setScore(Double score) {
-		this.score = score;
-	}
+    public int getRequiredRepetitions() {
+        return requiredRepetitions;
+    }
 
-	public boolean isRoot() {
-		return isRoot;
-	}
+    public void setRequiredRepetitions(int requiredRepetitions) {
+        this.requiredRepetitions = requiredRepetitions;
+    }
 
-	public void setRoot(boolean isRoot) {
-		this.isRoot = isRoot;
-	}
-	
-	
+    public UserSkillGroupDTO getUserSkillGroup() {
+        return userSkillGroup;
+    }
+
+    public void setUserSkillGroup(UserSkillGroupDTO userSkillGroup) {
+        this.userSkillGroup = userSkillGroup;
+    }
+
+    public List<SonarRuleDTO> getSonarRules() {
+        return sonarRules;
+    }
+
+    public void setSonarRules(List<SonarRuleDTO> sonarRules) {
+        this.sonarRules = sonarRules;
+    }
+
+    public List<UserSkillDTO> getFollowingUserSkills() {
+        return followingUserSkills;
+    }
+
+    public void setFollowingUserSkills(List<UserSkillDTO> followingUserSkills) {
+        this.followingUserSkills = followingUserSkills;
+    }
+
+    public List<UserSkillDTO> getPreviousUserSkills() {
+        return previousUserSkills;
+    }
+
+    public void setPreviousUserSkills(List<UserSkillDTO> previousUserSkills) {
+        this.previousUserSkills = previousUserSkills;
+    }
 }

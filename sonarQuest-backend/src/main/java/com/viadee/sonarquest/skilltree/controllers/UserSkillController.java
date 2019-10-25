@@ -67,8 +67,8 @@ public class UserSkillController {
 
 	@PutMapping(value = "/update")
 	@ResponseStatus(HttpStatus.OK)
-	public UserSkill updateUserSkill(@RequestBody UserSkill userSkill) {
-		return userSkillService.updateUserSkill(userSkill);
+	public UserSkill updateUserSkill(@RequestBody UserSkillDTO userSkillDTO) {
+		return userSkillService.updateUserSkill(userSkillMapper.dtoToEntity(userSkillDTO));
 	}
 
 	@PostMapping(value = "/learn")
@@ -81,8 +81,8 @@ public class UserSkillController {
 	@PostMapping(value = "/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserSkill createUserSkill(Principal principal ,@RequestParam(value = "groupid") final Long groupid,
-			@RequestBody UserSkill userSkill) {
-		return userSkillService.createUserSkill(userSkill, groupid, principal);
+			@RequestBody UserSkillDTO userSkillDTO) {
+		return userSkillService.createUserSkill(userSkillMapper.dtoToEntity(userSkillDTO), groupid, principal);
 	}
 
 }

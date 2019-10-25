@@ -77,6 +77,7 @@ public class SkillTreeService {
                 }
             }
         } else {
+            mail = mail.replaceAll("[\n|\r|\t]", "");
             /**
              * Generate Skill-Tree for user
              */
