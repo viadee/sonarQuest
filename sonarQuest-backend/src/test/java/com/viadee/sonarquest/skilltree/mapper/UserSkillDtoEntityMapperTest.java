@@ -3,10 +3,13 @@ package com.viadee.sonarquest.skilltree.mapper;
 import com.viadee.sonarquest.skilltree.dto.UserSkillDTO;
 import com.viadee.sonarquest.skilltree.entities.SonarRule;
 import com.viadee.sonarquest.skilltree.entities.UserSkill;
+import com.viadee.sonarquest.skilltree.utils.mapper.SonarRuleDtoEntityMapper;
 import com.viadee.sonarquest.skilltree.utils.mapper.UserSkillDtoEntityMapper;
+import com.viadee.sonarquest.skilltree.utils.mapper.UserSkillGroupDtoEntitiyMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -17,6 +20,13 @@ public class UserSkillDtoEntityMapperTest {
 
     @InjectMocks
     private UserSkillDtoEntityMapper mapper;
+
+
+    @Mock
+    private UserSkillGroupDtoEntitiyMapper userSkillGroupDtoEntitiyMapper;
+
+    @Mock
+    private SonarRuleDtoEntityMapper sonarRuleDtoEntityMapper;
 
     @Test
     public void testEntityToDto(){
@@ -55,8 +65,9 @@ public class UserSkillDtoEntityMapperTest {
 
         assertNotNull(dto);
         assertEquals(userSkill.getId(),dto.getId());
-        /*assertEquals(userSkill.getSonarRules().get(0).getKey(),dto.getRuleKey().get(0));
-        assertEquals(userSkill.getSonarRules().get(1).getKey(),dto.getRuleKey().get(1));*/
+
+        assertEquals(userSkill.getSonarRules().get(0).getKey(),dto.getSonarRules().get(0).getKey());
+        assertEquals(userSkill.getSonarRules().get(1).getKey(),dto.getSonarRules().get(1).getKey());
 
     }
 
