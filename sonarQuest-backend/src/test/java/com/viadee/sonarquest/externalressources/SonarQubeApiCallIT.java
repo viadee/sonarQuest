@@ -1,6 +1,7 @@
 package com.viadee.sonarquest.externalressources;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +21,7 @@ import com.viadee.sonarquest.services.SonarConfigService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
+//@Ignore
 public class SonarQubeApiCallIT {
 
     @Autowired
@@ -45,6 +46,25 @@ public class SonarQubeApiCallIT {
                 apiCall.asString(),
                 SonarQubeProjectRessource.class);
         assertEquals(1, response.getBody().getSonarQubeProjects().size());
+    }
+    
+    @Test
+    public void projectStatus() {
+    	SonarConfig sonarConfig = sonarConfigService.getConfig();
+    	String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
+        String projectKey = "org.synyx:urlaubsverwaltung";
+        SonarQubeApiCall apiCall = SonarQubeApiCall
+                .onServer(sonarQubeServerUrl)
+                .projectStatus()
+                .withProjectKey(projectKey)
+                .build();
+        RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
+        
+        final ResponseEntity<SonarQubeProjectStatusRessource> response = restTemplate.getForEntity(
+                apiCall.asString(),
+                SonarQubeProjectStatusRessource.class);
+        
+        assertNotNull(response.getBody().getProjectStatus());
     }
 
 }

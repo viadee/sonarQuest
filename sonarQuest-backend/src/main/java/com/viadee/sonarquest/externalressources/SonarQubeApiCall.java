@@ -63,7 +63,26 @@ public class SonarQubeApiCall {
         withQualifiers(qualifier);
         return this;
     }
-
+    
+    /**
+     * Appends the call for the project status function (e.g. /api/qualitygates/project_status)  in the SonarQube REST API to
+     * the sonarQubeRestApiCall.
+     * 
+     * @see https://sonarcloud.io/web_api/api/qualitygates
+     */
+    public SonarQubeApiCall projectStatus() {
+    	sonarQubeRestApiCall += "/api/qualitygates/project_status?";
+    	return this;
+    }
+    
+    /**
+     * Appends the parameter "projectId" with the value projectKey to the sonarQubeRestApiCall. 
+     */
+    public SonarQubeApiCall withProjectKey(String projectKey) {
+    	appendSearchParameter("projectKey=" + projectKey);
+        return this;
+    }
+    
     /**
      * Appends the parameter "componentKeys" with the value projectKey to the sonarQubeRestApiCall.
      */

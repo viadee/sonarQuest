@@ -67,7 +67,12 @@ public class Quest {
 	@ManyToOne()
 	@JoinColumn(name = "adventure_id")
 	private Adventure adventure;
-
+	
+	@JsonIgnore
+	@ManyToOne()
+	@JoinColumn(name = "raid_id")
+	private Raid raid;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "quest")
 	private List<Task> tasks;
@@ -238,4 +243,12 @@ public class Quest {
     public void setCreatorName(String creatorname) {
         this.creatorname = creatorname;
     }
+
+	public Raid getRaid() {
+		return raid;
+	}
+
+	public void setRaid(Raid raid) {
+		this.raid = raid;
+	}
 }

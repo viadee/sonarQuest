@@ -2,6 +2,8 @@ package com.viadee.sonarquest.services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.viadee.sonarquest.repositories.WorldRepository;
 
 @Service
 public class WorldService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WorldService.class);
 
     @Autowired
     private ExternalRessourceService externalRessourceService;
@@ -19,7 +22,7 @@ public class WorldService {
 
     @Autowired
     private StandardTaskService standardTaskService;
-
+    
     public List<World> findAll() {
         return worldRepository.findAll();
     }
@@ -29,6 +32,7 @@ public class WorldService {
     }
 
     public void updateWorlds() {
+    	LOGGER.info("update worlds");
         final List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
         externalWorlds.forEach(this::saveWorldIfNotExists);
     }
@@ -53,6 +57,7 @@ public class WorldService {
     }
 
     public World updateWorld(final World world) {
+    	LOGGER.info("update World");
         World currentWorld = null;
         if (world != null) {
             currentWorld = worldRepository.findOne(world.getId());

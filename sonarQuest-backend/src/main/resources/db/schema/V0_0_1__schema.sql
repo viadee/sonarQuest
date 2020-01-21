@@ -76,6 +76,31 @@ CREATE TABLE Adventure (
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+
+CREATE TABLE Raid (
+  id       BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  raid_type VARCHAR(256),
+  title    VARCHAR(64),
+  gold     BIGINT,
+  xp       BIGINT,
+  status   VARCHAR(64),
+  story    VARCHAR(256),
+  startdate DATE,
+  enddate DATE,
+  visible BOOLEAN,
+  world_id BIGINT,
+  FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+
+CREATE TABLE quality_raid (
+ id       			BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ sonar_qube_status  VARCHAR(64) NOT NULL,
+ amount_Of_Error 	INTEGER,
+ amount_Of_Warn 	INTEGER,
+ amount_Of_Ok 		INTEGER,
+);
+
 CREATE TABLE Quest (
   id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title        VARCHAR(64),
@@ -83,11 +108,13 @@ CREATE TABLE Quest (
   xp           BIGINT,
   status       VARCHAR(64),
   world_id     BIGINT,
-  adventure_id BIGINT,
+  adventure_id BIGINT, /*TODO DELETE THIS */
+  raid_id 	   BIGINT,
   story        VARCHAR(256),
   image        VARCHAR(256),
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (adventure_id) REFERENCES Adventure (id) ON DELETE SET NULL ON UPDATE CASCADE
+  FOREIGN KEY (adventure_id) REFERENCES Adventure (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (raid_id) REFERENCES Raid (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE Role (
@@ -168,9 +195,6 @@ CREATE TABLE Ui_Design (
   FOREIGN KEY (user_id) REFERENCES SQUser (id) 
 );
 
-
-
-
 CREATE TABLE Task (
   id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title            VARCHAR(256),
@@ -188,8 +212,10 @@ CREATE TABLE Task (
   message          VARCHAR(256),
   participation_id BIGINT,
   issue_key        VARCHAR(256),
-  `key`              VARCHAR(256),
+  `key`            VARCHAR(256),
   FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+

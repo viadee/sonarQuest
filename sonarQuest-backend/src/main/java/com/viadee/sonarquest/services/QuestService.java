@@ -1,5 +1,7 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Participation;
@@ -38,6 +41,9 @@ public class QuestService implements QuestSuggestion {
     
     @Autowired
     private EventService eventService;
+    
+    @Autowired
+    private UserService userService;
 
     final Random random = new Random();
     
@@ -86,6 +92,21 @@ public class QuestService implements QuestSuggestion {
     public void updateQuests() {
         final List<Quest> quests = questRepository.findAll();
         quests.forEach(this::updateQuest);
+    }
+    
+    /**
+     * Create an new Quest with status open
+     * @param principal
+     * @param questDto
+     * @return
+     */
+    public Quest createQuest(final Principal principal, final Quest questDto) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        questDto.setStartdate(new Date(System.currentTimeMillis()));
+        questDto.setStatus(QuestState.OPEN);
+        questDto.setCreatorName(user.getUsername());
+        return questRepository.save(questDto);
     }
 
     @Transactional // Quest updates are not to be mixed

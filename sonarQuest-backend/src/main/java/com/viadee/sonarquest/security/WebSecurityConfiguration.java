@@ -71,22 +71,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.httpBasic().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // h2 console to work
+        http.headers().frameOptions().sameOrigin();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, PathConstants.LOGIN_URL).permitAll()
-
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers("/socket").permitAll()
                 .antMatchers("/app").permitAll()
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
-
+                // h2 console
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 //.antMatchers(HttpMethod.GET, "/*").permitAll()
                 //.antMatchers(HttpMethod.POST, "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
                 .anyRequest().authenticated();
-
         if (corsHeaderActive) {
             http.cors();
         }
