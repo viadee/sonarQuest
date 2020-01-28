@@ -32,6 +32,15 @@
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
+
+    <div *ngIf="isAdventuresVisible">
+      <a mat-list-item routerLink="/raids">
+        <i mat-list-icon class="ra ra-blade-bite ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.RAIDS"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+
     <div *ngIf="isQuestsVisible">
       <a mat-list-item routerLink="/{{questsUrl}}">
         <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>

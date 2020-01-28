@@ -10,6 +10,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,85 +25,94 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.interfaces.RaidI;
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "Raid_TYPE")
 @Entity
 @Table(name = "raid")
-public class Raid {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Raid implements RaidI {
 
-    @Column(name = "startdate")
-    private Date startdate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @Column(name = "enddate")
-    private Date enddate;
+	@Column(name = "startdate")
+	private Date startdate;
 
-    @Column(name = "visible")
-    private Boolean visible;
+	@Column(name = "enddate")
+	private Date enddate;
 
-    @Column(name = "title")
-    private String title;
+	@Column(name = "visible")
+	private Boolean visible;
 
-    @Column(name = "story")
-    private String story;
+	@Column(name = "title")
+	private String title;
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private AdventureState status;
-    
-    @Column(name = "gold")
-    private Long gold;
+	@Column(name = "description")
+	private String description;
+	
+	@Column(name="monster_name")
+	private String monsterName;
+	
+	@Column(name="monster_image")
+	private String monsterImage;
 
-    @Column(name = "xp")
-    private Long xp;
+	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
+	private AdventureState status;
 
-    @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name = "world_id")
-    private World world;
+	@Column(name = "gold")
+	private Long gold;
 
-    @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
-    private List<Quest> quests;
+	@Column(name = "xp")
+	private Long xp;
 
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Adventure_User", joinColumns = @JoinColumn(name = "adventure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
-    
-    public Raid() {
+	@Column(name = "goldLoss")
+	private Long goldLoss;
+
+	@Column(name = "xpLoss")
+	private Long xpLoss;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "world_id")
+	private World world;
+
+	@OneToMany(mappedBy = "raid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Quest> quests;
+
+	@JsonIgnore
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "Raid_User", joinColumns = @JoinColumn(name = "raid_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+	private List<User> users;
+
+	public Raid() {
 	}
-    
-    public Raid(final String title, final String story, final AdventureState status, final Long gold,
-            final Long xp, World world) {
-    	super();
-        this.title = title;
-        this.story = story;
-        this.status = status;
-        this.gold = gold;
-        this.xp = xp;
-        this.world = world;
-        this.setStartdate(new Date(System.currentTimeMillis()));
-    }
-    
-    public Raid(final Long id, final String title, final String story, final AdventureState status,
-            final Long gold,
-            final Long xp, final World world,
-            final List<Quest> quests, final List<User> users) {
-        this.id = id;
-        this.title = title;
-        this.story = story;
-        this.status = status;
-        this.gold = gold;
-        this.xp = xp;
-        this.world = world;
-        this.quests = quests;
-        this.users = users;
-    }
+	
+	public Raid(String title, String monsterName, String monsterImage, Long gold, Long xp, World world) {
+		super();
+		this.title = title;
+		this.monsterName = monsterName;
+		this.monsterImage = monsterImage;
+		this.gold = gold;
+		this.xp = xp;
+		this.world = world;
+		this.status = AdventureState.OPEN;
+		this.setStartdate(new Date(System.currentTimeMillis()));
+	}
 
-    public Long getGold() {
+	public Raid(final String title, final String description, final AdventureState status, final Long gold,
+			final Long xp, World world) {
+		this.title = title;
+		this.description = description;
+		this.status = status;
+		this.gold = gold;
+		this.xp = xp;
+		this.world = world;
+		this.setStartdate(new Date(System.currentTimeMillis()));
+	}
+
+	public Long getGold() {
 		return gold;
 	}
 
@@ -119,90 +129,137 @@ public class Raid {
 	}
 
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(final String title) {
-        this.title = title;
-    }
+	public void setTitle(final String title) {
+		this.title = title;
+	}
 
-    public String getStory() {
-        return story;
-    }
+	public AdventureState getStatus() {
+		return status;
+	}
 
-    public void setStory(final String story) {
-        this.story = story;
-    }
+	public void setStatus(final AdventureState status) {
+		this.status = status;
+	}
 
-    public AdventureState getStatus() {
-        return status;
-    }
+	public List<Quest> getQuests() {
+		if (quests == null)
+			quests = new ArrayList<Quest>();
+		return quests;
+	}
 
-    public void setStatus(final AdventureState status) {
-        this.status = status;
-    }
+	public void setQuests(List<Quest> quests) {
+		this.quests = quests;
+	}
 
-    public List<Quest> getQuests() {
-        return quests;
-    }
+	public void addQuest(final Quest quest) {
+		getQuests().add(quest);
+		quest.setRaid(this);
+	}
 
-    public void setQuests(final List<Quest> quests) {
-        this.quests = quests;
-    }
+//	@JsonIgnore
+//	public List<User> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(final List<User> users) {
+//		this.users = users;
+//	}
+//
+//	public synchronized void addUser(final User user) {
+//		if (users == null) {
+//			users = new ArrayList<>();
+//		}
+//		users.add(user);
+//	}
 
-    @JsonIgnore
-    public List<User> getUsers() {
-        return users;
-    }
+	public World getWorld() {
+		return world;
+	}
 
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
+	public void setWorld(final World world) {
+		this.world = world;
+	}
 
-    public synchronized void addUser(final User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        users.add(user);
-    }
+	public Boolean getVisible() {
+		return visible;
+	}
 
-    public World getWorld() {
-        return world;
-    }
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
 
-    public void setWorld(final World world) {
-        this.world = world;
-    }
+	public Date getEnddate() {
+		return enddate;
+	}
 
-    public Boolean getVisible() {
-        return visible;
-    }
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
 
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
+	public Date getStartdate() {
+		return startdate;
+	}
 
-    public Date getEnddate() {
-        return enddate;
-    }
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
 
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getStartdate() {
-        return startdate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
+	public Long getGoldLoss() {
+		return goldLoss;
+	}
+
+	public void setGoldLoss(Long goldLoss) {
+		this.goldLoss = goldLoss;
+	}
+
+	public Long getXpLoss() {
+		return xpLoss;
+	}
+
+	public void setXpLoss(Long xpLoss) {
+		this.xpLoss = xpLoss;
+	}
+	
+	public String getMonsterName() {
+		return monsterName;
+	}
+
+	public void setMonsterName(String monsterName) {
+		this.monsterName = monsterName;
+	}
+
+	public String getMonsterImage() {
+		return monsterImage;
+	}
+
+	public void setMonsterImage(String monsterImage) {
+		this.monsterImage = monsterImage;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }

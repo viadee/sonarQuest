@@ -212,7 +212,7 @@ public class QuestController {
         final World world = worldRepository.findOne(worldId);
         List<Quest> freeQuests = null;
         if (world != null) {
-            freeQuests = questRepository.findByWorldAndAdventure(world, null);
+            freeQuests = questRepository.findByWorldAndAdventure(world, null); //TODO free for raid
             freeQuests.removeIf(q -> q.getStatus() == QuestState.SOLVED);
         }
         return freeQuests;
@@ -247,5 +247,10 @@ public class QuestController {
         }
         return quests;
     }
-
+        
+    @GetMapping(value = "/getQuestProgress/{questId}")
+    public double calculateQuestProgress(@PathVariable(value = "questId") final Long questId) {
+    	double result = questService.calculateQuestProgress(questId);
+    	return result;
+    }
 }

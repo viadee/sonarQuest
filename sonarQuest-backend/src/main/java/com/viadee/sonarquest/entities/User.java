@@ -93,6 +93,11 @@ public class User {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
 	private List<Adventure> adventures = new ArrayList<>(0);
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+	private List<Raid> raids = new ArrayList<>(0);
+	
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -323,6 +328,14 @@ public class User {
 		return this.getId() == null ? this == that
 				: that != null && this.getClass().isInstance(that)
 						&& Objects.equal(this.getId(), ((User) that).getId());
+	}
+
+	public List<Raid> getRaids() {
+		return raids;
+	}
+
+	public void setRaids(List<Raid> raids) {
+		this.raids = raids;
 	}
 
 }

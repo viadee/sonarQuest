@@ -1,6 +1,9 @@
 <div class="background">
   <mat-card>
     <mat-tab-group (selectedTabChange)="onTabChange($event)">
+      <mat-tab [label]="'RAID.RAIDS' | translate">
+        <app-gamemaster-raid></app-gamemaster-raid>
+      </mat-tab>
       <mat-tab [label]="'ADVENTURE.ADVENTURES' | translate">
         <app-gamemaster-adventure [isSelected]="selectedTab === 0"></app-gamemaster-adventure>
       </mat-tab>

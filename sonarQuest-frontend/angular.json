@@ -24,6 +24,7 @@
               "src/styles.css",
               "src/theme.scss",
               "node_modules/rpg-awesome/css/rpg-awesome.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@covalent/core/common/platform.scss"
             ],
             "scripts": []

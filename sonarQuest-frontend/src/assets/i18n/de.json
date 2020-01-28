@@ -3,6 +3,7 @@
     "STARTPAGE": "Startseite-de",
     "MY_AVATAR": "Mein Avatar",
     "ADVENTURES": "Abenteuer",
+    "RAIDS": "Raids",
     "QUESTS": "Quests",
     "MARKETPLACE": "Marktplatz",
     "GAMEMASTER": "Spielleiter",
@@ -91,6 +92,10 @@
     "ADVENTURE": {
       "CREATE_ADVENTURE": "Abenteuer anlegen",
       "EDIT_ADVENTURE": "Abenteuer bearbeiten"
+    },
+    "RAID": {
+      "CREATE_RAID": "Raid anlegen",
+      "EDIT_RAID": "Raid bearbeiten"
     },
     "QUEST": {
       "SUGGEST_TASKS": "Auftrag vorschlagen",
@@ -193,6 +198,15 @@
     "ADVENTURES": "Abenteuer",
     "NEW_ADVENTURE": "Neues Abenteuer",
     "SOLVEADVENTURE": "Abenteuer abschließen"
+  },
+  "RAID": {
+    "RAID": "Raid",
+    "RAIDS": "Raids",
+    "NEW_RAID": "Neues Raid",
+    "SOLVERAID": "Raid abschließen",
+    "GOLDLOSS": "Gold verlust bei nicht bestehen",
+    "XPLOSS": "XP verlust bei nicht bestehen",
+    "DESCRIPTION": "Beschreibung"
   },
   "WORLD": {
     "WORLD": "Welt",

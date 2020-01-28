@@ -1,0 +1,45 @@
+.monster-container {
+    position: relative;
+    overflow: hidden;
+}
+  
+.monster-container img {
+    min-width: 100%;
+    max-width: 100%;
+}
+  
+.monster-info {
+    position: absolute;
+    z-index: 99;
+    background: transparent;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    bottom: 25px;
+}
+  
+.monster-info-heading {
+    background-color: #FFF;
+    width: 75%;
+    margin: auto;
+}
+  
+.monster-info-healthbar-container {
+    background-color: #FFF;
+    width: 75%;
+    margin: auto;
+}
+ 
+.monster-info-healthbar {
+    border: 1px solid #000;
+    height: 20px;
+}
+  
+.monster-info-health {
+    text-align: right;
+    background-color: #C00;
+    box-sizing: border-box;
+    transition: ease-in-out 400ms;
+    height: 100%;
+}
+  

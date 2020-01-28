@@ -79,16 +79,20 @@ CREATE TABLE Adventure (
 
 CREATE TABLE Raid (
   id       BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  raid_type VARCHAR(256),
-  title    VARCHAR(64),
-  gold     BIGINT,
-  xp       BIGINT,
-  status   VARCHAR(64),
-  story    VARCHAR(256),
-  startdate DATE,
-  enddate DATE,
-  visible BOOLEAN,
-  world_id BIGINT,
+  raid_type 	VARCHAR(256),
+  title    		VARCHAR(64),
+  gold     		BIGINT,
+  xp       		BIGINT,
+  gold_Loss    	BIGINT,
+  xp_Loss      	BIGINT,
+  status   		VARCHAR(64),
+  description   VARCHAR(256),
+  startdate 	DATE,
+  enddate 		DATE,
+  visible 		BOOLEAN,
+  world_id 		BIGINT,
+  monster_name	VARCHAR(256),
+  monster_image	VARCHAR(256),
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
@@ -108,10 +112,11 @@ CREATE TABLE Quest (
   xp           BIGINT,
   status       VARCHAR(64),
   world_id     BIGINT,
-  adventure_id BIGINT, /*TODO DELETE THIS */
+  adventure_id BIGINT,
   raid_id 	   BIGINT,
   story        VARCHAR(256),
   image        VARCHAR(256),
+  
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (adventure_id) REFERENCES Adventure (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (raid_id) REFERENCES Raid (id) ON DELETE SET NULL ON UPDATE CASCADE
@@ -179,6 +184,15 @@ CREATE TABLE Adventure_User (
   FOREIGN KEY (adventure_id) REFERENCES Adventure (id),
   FOREIGN KEY (user_id) REFERENCES SQUser (id)
 );
+
+CREATE TABLE Raid_User (
+  raid_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  PRIMARY KEY (raid_id, user_id),
+  FOREIGN KEY (raid_id) REFERENCES Raid (id),
+  FOREIGN KEY (user_id) REFERENCES SQUser (id)
+);
+
 
 CREATE TABLE Participation (
   id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,

@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+    <h2 mat-dialog-title>{{"RAID.NEW_RAID" | translate}}</h2>
+</mat-toolbar>
+
+<mat-dialog-content>
+
+    <div layout="column" layout-padding>
+        
+        <div flex>
+            <mat-list-item disableRipple>
+                <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
+                <div flex></div>
+                <mat-select mat-line [placeholder]="raid.world?.name" [(ngModel)]="raid.world" floatPlaceholder="never">
+                </mat-select>
+            </mat-list-item>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div flex>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="'Raid Titel' | translate" [(ngModel)]="raid.title">
+            </mat-form-field>
+        </div>
+        <div flex>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="raid.gold">
+            </mat-form-field>
+        </div>
+        <div flex>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="raid.xp">
+            </mat-form-field>
+        </div>
+        <div flex>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="'Monster Bezeichnung'" [(ngModel)]="raid.monsterName">
+            </mat-form-field>
+        </div>
+        <div flex layout="row">
+            <span>{{"GLOBAL.IMAGE" | translate}}:</span>
+            <span class="vertical-spacer-10"></span>
+            <mat-select placeholder="Monster wählen" [(ngModel)]="raid.monsterImage">
+              <mat-option *ngFor="let image of images" [value]="image.src">
+                <img [src]="image.src">
+                <span>{{image.name}}</span>
+              </mat-option>
+            </mat-select>
+          </div>
+    </div>
+
+    <mat-toolbar>
+        <h3>{{"QUEST.QUESTS" | translate}}</h3>
+        <span class="toolbar-spacer"></span>
+        <button color="accent" mat-icon-button (click)="addFreeQuest()"> 
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-toolbar>
+    
+    <mat-list>
+        <mat-list-item *ngFor="let quest of raid.quests">
+            <h3 mat-line> {{quest?.title}} </h3>
+            <p mat-line>
+                <span>{{"DEVELOPER.GOLD" | translate}}: {{quest?.gold}}, </span>
+                <span>{{"DEVELOPER.XP" | translate}}: {{quest?.xp}}</span>
+            </p>
+            <button mat-icon-button (click)="removeQuest(quest)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
+
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions>
+    <span class="toolbar-spacer"></span>
+    <button mat-raised-button color="primary" (click)="saveRaid()">Raid speichern</button>
+</mat-dialog-actions>

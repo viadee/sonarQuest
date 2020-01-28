@@ -87,7 +87,7 @@ export class MarketplacePageComponent implements OnInit {
         this.gold = 0;
       }
     })
-    
+    this.subscribtion();
   }
 
   subscribtion(){

@@ -1,0 +1,15 @@
+<ul class="questlog">
+    <li class="questlog-quest d-flex justify-content-start align-items-center" *ngFor="let quest of questList">
+        <img [src]="quest.image" [alt]="quest.title" class="d-none" #questImage>
+        <div class="questlog-quest-image overflow-hidden border m-2 rounded-circle"
+            [style.background-image]="'url(' + questImage.src + ')'">
+        </div>
+        <div class="questlog-quest-info p-2">
+            <p class="quest-title">{{ quest.title }}</p>
+            <p class="quest-mission">{{ quest.story }}</p>
+            <div class="quest-progress-bar" matTooltip="Quest zu {{ quest.questProgress }}% gelöst">
+                <div class="quest-progress" [style.width]="quest.questProgress + '%'"></div>
+              </div>
+        </div>
+    </li>
+</ul>

@@ -1,3 +1,5 @@
+import { RaidService } from 'app/services/raid.service';
+
 // tslint:disable:max-line-length
 import {UiDesignService} from './services/ui-design.service';
 import {SkillService} from './services/skill.service';
@@ -108,8 +110,14 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GamemasterSkillEditComponent } from './pages/gamemaster-page/components/gamemaster-marketplace/components/gamemaster-artefact-edit/components/gamemaster-skill-edit/gamemaster-skill-edit.component';
-import {FlexLayoutModule} from "@angular/flex-layout";
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { SvgIconsModule } from './components/svg-icons/svg-icons.module';
+import { RaidPageComponent } from './pages/raid-page/raid-page.component';
+import { MonsterStageComponent } from './pages/raid-page/components/monster-stage/monster-stage.component';
+import { QuestlogComponent } from './pages/raid-page/components/questlog/questlog.component';
+import { GamemasterRaidComponent } from './pages/gamemaster-page/components/gamemaster-raid/gamemaster-raid.component';
+import { GamemasterRaidCreateComponent } from './pages/gamemaster-page/components/gamemaster-raid/components/gamemaster-raid-create/gamemaster-raid-create.component';
+import { RaidsPageComponent } from './pages/raids-page/raids-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -167,6 +175,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginPageComponent,
     MainLayoutComponent,
     GamemasterSkillEditComponent,
+    RaidPageComponent,
+    MonsterStageComponent,
+    QuestlogComponent,
+    GamemasterRaidComponent,
+    GamemasterRaidCreateComponent,
+    RaidsPageComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -194,7 +208,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBackgroundComponent,
     EmptyPageComponent,
     LoadingComponent,
-    GamemasterSkillEditComponent
+    GamemasterSkillEditComponent,
+    GamemasterRaidCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -237,6 +252,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [TdMediaService,
     WorldService,
+    RaidService,
     AdventureService,
     QuestService,
     TaskService,

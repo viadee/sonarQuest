@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Participation;
@@ -23,6 +22,7 @@ import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.util.ProgressDTO;
 
 @Service
 public class QuestService implements QuestSuggestion {
@@ -133,5 +133,46 @@ public class QuestService implements QuestSuggestion {
         result.add(freeQuests);
         return result;
     }
-
+    
+    
+    /**
+     * Save an quest
+     * @param quest to save
+     * @return Quest
+     */
+    public synchronized Quest saveQuest(Quest quest) {
+    	return questRepository.save(quest);
+    }
+    
+    // TODO refactoring
+	public ProgressDTO calculateQuestProgress(Quest quest) {
+		if(quest == null) {
+			return new ProgressDTO(0, 0);
+		}
+		long openTaks = quest.getTasks().stream().filter(task -> SonarQuestStatus.OPEN.equals(task.getStatus())).count();
+		int taskSize = quest.getTasks().size();
+		
+		ProgressDTO progressDTO = new ProgressDTO(taskSize, openTaks);
+		progressDTO.setCalculatedProgress(Math.round(100- (100*(double)openTaks/taskSize)));
+		return progressDTO;
+	}
+    
+    
+    /**
+     * Calculate quest progress from closed tasks
+     * 
+     * @param questId to find quest
+     * @return rounded value
+     */
+	public double calculateQuestProgress(Long questId) {
+		Quest quest = findById(questId);
+		if(quest == null) {
+			return 0;
+		}
+			
+		long openTaks = quest.getTasks().stream().filter(task -> SonarQuestStatus.OPEN.equals(task.getStatus())).count();
+		int taskSize = quest.getTasks().size();
+		
+		return Math.round(100- (100*(double)openTaks/taskSize));
+	}
 }

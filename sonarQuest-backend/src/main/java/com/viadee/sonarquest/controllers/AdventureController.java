@@ -93,6 +93,7 @@ public class AdventureController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure createAdventure(final Principal principal, @RequestBody final Adventure adventure) {
+    	LOGGER.info("Create new adventure");
         adventure.setStatus(AdventureState.OPEN);
         adventure.setStartdate(new Date(System.currentTimeMillis()));
         eventService.createEventForCreatedAdventure(adventure, principal);
@@ -140,6 +141,7 @@ public class AdventureController {
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addQuest(@PathVariable(value = "adventureId") final Long adventureId,
             @PathVariable(value = "questId") final Long questId) {
+    	LOGGER.info("Add Quest to adventure");
         Adventure adventure = adventureRepository.findOne(adventureId);
         if (adventure != null) {
             final Quest quest = questRepository.findOne(questId);

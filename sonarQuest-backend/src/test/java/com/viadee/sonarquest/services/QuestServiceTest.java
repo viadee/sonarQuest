@@ -1,6 +1,7 @@
 package com.viadee.sonarquest.services;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -14,11 +15,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
-import com.viadee.sonarquest.services.QuestService;
+import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuestServiceTest {
@@ -77,5 +79,30 @@ public class QuestServiceTest {
         assertTrue(result.get(0).contains(mockQuest2));
         assertTrue(result.get(1).contains(mockQuest3));
     }
-
+    
+    @Test
+    public void calculateQuestProgress() {
+    	// given quest with tasks
+    	Quest quest = new Quest();
+    	
+    	List<Task> tasks = new ArrayList<Task>();
+    	tasks.add(createTask(SonarQuestStatus.CLOSED));
+    	tasks.add(createTask(SonarQuestStatus.CLOSED));
+    	tasks.add(createTask(SonarQuestStatus.OPEN));
+    	quest.setTasks(tasks);
+    	
+    	when(questRepository.findOne(any())).thenReturn(quest);
+    	
+    	// call test method
+    	double progressResult = questService.calculateQuestProgress(1L);
+    	
+    	// verify
+    	assertTrue(progressResult == 67);
+    }
+    
+    private Task createTask(SonarQuestStatus status) {
+    	Task task = new Task();
+    	task.setStatus(status);
+    	return task;
+    }
 }

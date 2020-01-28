@@ -40,10 +40,10 @@ public class QualityRaidController {
     private EventService eventService;
     
     
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public QualityRaid createQualityRaid(@RequestBody final Raid raid) {
-    	return qualityRaidService.createAndSaveQualityRaid(raid.getWorld().getId(), raid.getTitle(), raid.getStory(), raid.getGold(), raid.getXp());
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public QualityRaid createQualityRaid(@RequestBody final Raid raid) {
+//    	return qualityRaidService.createAndSaveQualityRaid(raid.getWorld().getId(), raid.getTitle(), raid.getStory(), raid.getGold(), raid.getXp());
+//    }
 
 }

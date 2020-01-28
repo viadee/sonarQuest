@@ -9,5 +9,7 @@ export const RoutingUrls = {
   gamemaster: 'gamemaster',
   admin: 'admin',
   events: 'events',
-  login: 'login'
+  login: 'login',
+  raids: 'raids',
+  raid: 'raid/:id'
 };

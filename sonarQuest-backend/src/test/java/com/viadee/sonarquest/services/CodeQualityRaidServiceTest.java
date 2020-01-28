@@ -60,7 +60,7 @@ public class CodeQualityRaidServiceTest {
 	public void test_saveQualityRaid() {
 		QualityRaid toSaveObject = createQualityRaidData();
 		QualityRaid result = qualityRaidService.save(toSaveObject);
-		assertThat(toSaveObject.getStory()).isEqualTo(result.getStory());
+		assertThat(toSaveObject.getDescription()).isEqualTo(result.getDescription());
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class CodeQualityRaidServiceTest {
 		// verify
 		assertTrue(SonarQubeProjectStatusType.OK.equals(result.getSonarQubeStatus()));
 		assertTrue("TITEL".equals(result.getTitle()));
-		assertTrue("STORY".equals(result.getStory()));
+		assertTrue("STORY".equals(result.getDescription()));
 		assertTrue(world.getProject().equals(result.getWorld().getProject()));
 	}
 	
