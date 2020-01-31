@@ -34,7 +34,7 @@ public class RestTemplateService {
 
         if (sonarConfig.hasHttpBasicAuth()) {
             LOGGER.debug("Connecting using HTTP Basic Auth");
-            return restTemplateBuilder.basicAuthorization(sonarConfig.getHttpBasicAuthUsername(),
+            return restTemplateBuilder.basicAuthentication(sonarConfig.getHttpBasicAuthUsername(),
                     sonarConfig.getHttpBasicAuthPassword())
                     .requestFactory(requestFactory()).build();
         } else {

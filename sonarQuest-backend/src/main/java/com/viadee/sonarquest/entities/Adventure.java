@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.AdventureState;
@@ -164,6 +165,10 @@ public class Adventure {
             users = new ArrayList<>();
         }
         users.add(user);
+    }
+
+    public synchronized void removeUser(final User user) {
+        users.remove(user);
     }
 
     public World getWorld() {

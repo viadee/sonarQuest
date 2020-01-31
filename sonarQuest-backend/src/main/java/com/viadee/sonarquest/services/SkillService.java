@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.Artefact;
@@ -15,11 +16,14 @@ import com.viadee.sonarquest.repositories.SkillRepository;
 @Service
 public class SkillService {
 
-    @Autowired
-    private SkillRepository skillRepository;
+    private final SkillRepository skillRepository;
 
-    @Autowired
-    private ArtefactRepository artefactRepository;
+    private final ArtefactRepository artefactRepository;
+
+    public SkillService(SkillRepository skillRepository, ArtefactRepository artefactRepository) {
+        this.skillRepository = skillRepository;
+        this.artefactRepository = artefactRepository;
+    }
 
     @Transactional
     public Skill createSkill(final Skill skillDto) {
@@ -31,7 +35,7 @@ public class SkillService {
     }
 
     public List<Skill> getSkillsForArtefact(final Artefact a) {
-        return artefactRepository.findOne(a.getId()).getSkills();
+        return artefactRepository.findById(a.getId()).orElseThrow(ResourceNotFoundException::new).getSkills();
     }
 
     @Transactional

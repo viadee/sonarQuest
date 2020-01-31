@@ -1,17 +1,11 @@
 package com.viadee.sonarquest.services;
 
-import java.security.Principal;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
+import com.viadee.sonarquest.entities.*;
+import com.viadee.sonarquest.repositories.UserRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,58 +13,59 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarquest.entities.Level;
-import com.viadee.sonarquest.entities.Permission;
-import com.viadee.sonarquest.entities.Role;
-import com.viadee.sonarquest.entities.RoleName;
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.entities.UserToWorldDto;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.repositories.UserRepository;
-import com.viadee.sonarquest.repositories.WorldRepository;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
 
 	protected static final Log LOGGER = LogFactory.getLog(UserService.class);
 
-	@Autowired
-	private RoleService roleService;
+	private final RoleService roleService;
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	@Autowired
-	private WorldService worldService;
+	private final WorldService worldService;
 
-	@Autowired
-	private LevelService levelService;
+	private final LevelService levelService;
 
-	@Autowired
-	private PermissionService permissionService;
+	private final PermissionService permissionService;
 
-	@Autowired
-	private WorldRepository worldRepository;
+	private final WorldRepository worldRepository;
+
+	public UserService(RoleService roleService, UserRepository userRepository, WorldService worldService, LevelService levelService, PermissionService permissionService, WorldRepository worldRepository) {
+		this.roleService = roleService;
+		this.userRepository = userRepository;
+		this.worldService = worldService;
+		this.levelService = levelService;
+		this.permissionService = permissionService;
+		this.worldRepository = worldRepository;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final User user = findByUsername(username);
 		final Set<Permission> permissions = permissionService.getAccessPermissions(user);
 
-		final List<SimpleGrantedAuthority> authoritys = permissions.stream()
+		final List<SimpleGrantedAuthority> authorities = permissions.stream()
 				.map(berechtigung -> new SimpleGrantedAuthority(berechtigung.getPermission()))
 				.collect(Collectors.toList());
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
-				true, true, true, authoritys);
+				true, true, true, authorities);
 	}
 
 	public User findByUsername(final String username) {
 		return userRepository.findByUsername(username);
 	}
 
-	private User findById(final Long id) {
-		return userRepository.findOne(id);
+	private User findById(final Long id) throws ResourceNotFoundException{
+		return userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
 	}
 
 	public World updateUsersCurrentWorld(final User user, final Long worldId) {
@@ -83,7 +78,7 @@ public class UserService implements UserDetailsService {
 
 	@Transactional
 	public synchronized User save(final User user) {
-		User toBeSaved = null;
+		User toBeSaved;
 		final String username = user.getUsername();
 		final String mail = user.getMail();
 		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -99,9 +94,9 @@ public class UserService implements UserDetailsService {
 				toBeSaved.setPassword(password);
 				toBeSaved.setRole(userRole);
 				toBeSaved.setCurrentWorld(user.getCurrentWorld());
-				toBeSaved.setGold(0l);
-				toBeSaved.setXp(0l);
-				toBeSaved.setLevel(levelService.getLevelByUserXp(0l));
+				toBeSaved.setGold(0L);
+				toBeSaved.setXp(0L);
+				toBeSaved.setLevel(levelService.getLevelByUserXp(0L));
 			}
 		} else {
 			toBeSaved = findById(user.getId());
@@ -175,8 +170,9 @@ public class UserService implements UserDetailsService {
 		userRepository.delete(user);
 	}
 
-	public User findById(final long userId) {
-		return userRepository.findOne(userId);
+	@NotNull
+	public User findById(final long userId) throws ResourceNotFoundException {
+		return userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
 	}
 
 	public List<User> findAll() {
@@ -198,35 +194,23 @@ public class UserService implements UserDetailsService {
 		save(user);
 	}
 
-	public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) {
+	public Boolean updateUserToWorld(List<UserToWorldDto> userToWorlds) throws ResourceNotFoundException {
 		userToWorlds.forEach(userToWorld -> {
-			User user = userRepository.findOne(userToWorld.getUserId());
+			User user = userRepository.findById(userToWorld.getUserId()).orElseThrow(ResourceNotFoundException::new);
 			if (userToWorld.getJoined()) {
-				user.addWorld(worldRepository.findOne(userToWorld.getWorldId()));
+				World world = worldRepository.findById(userToWorld.getWorldId()).orElseThrow(ResourceNotFoundException::new);
+				user.addWorld(world);
 			} else {
 				if (user.getCurrentWorld() != null && user.getCurrentWorld().getId().equals(userToWorld.getWorldId())) {
 					user.setCurrentWorld(null);
 				}
-				user.removeWorld(worldRepository.findOne(userToWorld.getWorldId()));
+				user.removeWorld(worldRepository.findById(userToWorld.getWorldId()).orElseThrow(ResourceNotFoundException::new));
 			}
 
 			userRepository.save(user);
 		});
 
 		return true;
-	}
-
-	public UserRepository getUserRepository() {
-		return userRepository;
-	}
-
-	public void setUserRepository(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
-	public User getUser(Principal principal) {
-		final String username = principal.getName();
-		return findByUsername(username);
 	}
 
 	public void updateLastTavernVisit(String username, Timestamp lastVisit) {

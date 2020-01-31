@@ -1,24 +1,26 @@
 package com.viadee.sonarquest.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.WorldRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WorldService {
 
-    @Autowired
-    private ExternalRessourceService externalRessourceService;
+    private final ExternalRessourceService externalRessourceService;
 
-    @Autowired
-    private WorldRepository worldRepository;
+    private final WorldRepository worldRepository;
 
-    @Autowired
-    private StandardTaskService standardTaskService;
+    private final StandardTaskService standardTaskService;
+
+    public WorldService(ExternalRessourceService externalRessourceService, WorldRepository worldRepository, StandardTaskService standardTaskService) {
+        this.externalRessourceService = externalRessourceService;
+        this.worldRepository = worldRepository;
+        this.standardTaskService = standardTaskService;
+    }
 
     public List<World> findAll() {
         return worldRepository.findAll();
@@ -40,22 +42,18 @@ public class WorldService {
         }
     }
 
-    public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
-        this.externalRessourceService = externalRessourceService;
-    }
-
     public List<World> findAllActiveWorlds() {
         return worldRepository.findByActiveTrue();
     }
 
-    public World findById(final Long id) {
-        return worldRepository.findOne(id);
+    public World findById(final Long id) throws ResourceNotFoundException {
+        return worldRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     public World updateWorld(final World world) {
         World currentWorld = null;
         if (world != null) {
-            currentWorld = worldRepository.findOne(world.getId());
+            currentWorld = worldRepository.findById(world.getId()).orElseThrow(ResourceNotFoundException::new);
             currentWorld.setName(world.getName());
             currentWorld.setActive(world.getActive());
             currentWorld.setUsequestcards(world.getUsequestcards());

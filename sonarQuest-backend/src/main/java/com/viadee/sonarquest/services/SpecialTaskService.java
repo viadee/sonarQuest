@@ -3,6 +3,7 @@ package com.viadee.sonarquest.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.SpecialTask;
@@ -37,7 +38,7 @@ public class SpecialTaskService {
     }
 
     public SpecialTask updateSpecialTask(final SpecialTask taskDto) {
-        final SpecialTask task = specialTaskRepository.findOne(taskDto.getId());
+        final SpecialTask task = specialTaskRepository.findById(taskDto.getId()).orElseThrow(ResourceNotFoundException::new);
         task.setTitle(taskDto.getTitle());
         task.setGold(taskDto.getGold());
         task.setXp(taskDto.getXp());
@@ -54,7 +55,7 @@ public class SpecialTaskService {
     }
 
     public SpecialTask findById(final Long id) {
-        return specialTaskRepository.findOne(id);
+        return specialTaskRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
 }

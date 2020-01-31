@@ -12,5 +12,4 @@ public interface WorldRepository extends JpaRepository<World, Long> {
 
     List<World> findByActiveTrue();
 
-	World findFirst1By();
 }

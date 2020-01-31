@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +42,8 @@ public class TaskService {
 		return taskRepository.save(task);
 	}
 
-	public Task find(final Long id) {
-		return taskRepository.findById(id);
+	public Task find(final Long taskId) throws ResourceNotFoundException {
+		return taskRepository.findById(taskId).orElseThrow(ResourceNotFoundException::new);
 	}
 
 	public void delete(final Task task) {

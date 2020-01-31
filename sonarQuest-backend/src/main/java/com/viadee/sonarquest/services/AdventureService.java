@@ -2,8 +2,10 @@ package com.viadee.sonarquest.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.AdventureRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class AdventureService {
@@ -81,46 +85,33 @@ public class AdventureService {
 
     /**
      * Removes the developer from adventure
-     * 
-     * @param adventureId
-     * @param developerId
+     *
+     * @param adventureId The ID of the adventure to which a developer should be added
+     * @param userId The user ID of the developer to be added
      * @return adventure
      */
-    public Adventure removeUserFromAdventure(final long adventureId, final long userId) {
-        Adventure adventure = adventureRepository.findOne(adventureId);
+    public Adventure removeUserFromAdventure(final long adventureId, final long userId) throws ResourceNotFoundException {
+        final Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
         final User user = userService.findById(userId);
-        if (adventure != null && user != null) {
-            final List<User> developerList = adventure.getUsers();
-            if (developerList.contains(user)) {
-                developerList.remove(user);
-            }
-            adventure = adventureRepository.save(adventure);
-        }
-
-        return adventure;
-
+        adventure.removeUser(user);
+        return adventureRepository.save(adventure);
     }
 
     /**
      * Add a developer to adventure
-     * 
-     * @param adventureId
-     * @param userId
+     *
+     * @param adventureId The ID of the adventure from which a developer should be removed
+     * @param userId The user ID of the developer to be removed
      * @return adventure
      */
     public Adventure addUserToAdventure(final long adventureId, final long userId) {
-        Adventure adventure = adventureRepository.findOne(adventureId);
+        final Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
         final User user = userService.findById(userId);
-        if (adventure != null && user != null) {
-            final List<User> userList = adventure.getUsers();
-            if (!userList.contains(user)) {
-                userList.add(user);
-            }
-            adventure = adventureRepository.save(adventure);
+        final List<User> userList = adventure.getUsers();
+        if (!userList.contains(user)) {
+            adventure.addUser(user);
         }
-
-        return adventure;
-
+        return adventureRepository.save(adventure);
     }
 
 }
