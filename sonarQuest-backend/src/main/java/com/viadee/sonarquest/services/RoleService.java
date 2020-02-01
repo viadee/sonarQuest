@@ -13,7 +13,7 @@ import com.viadee.sonarquest.repositories.RoleRepository;
 public class RoleService {
 
     @Autowired
-    private RoleRepository roleRepository;
+    RoleRepository roleRepository;
 
     public Role findByName(final RoleName name) {
         return roleRepository.findByName(name);

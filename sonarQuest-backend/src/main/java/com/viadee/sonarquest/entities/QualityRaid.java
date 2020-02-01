@@ -7,7 +7,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import com.viadee.sonarquest.constants.AdventureState;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
 
 @Entity
@@ -37,12 +36,6 @@ public class QualityRaid extends Raid {
 		this.amountOfError = amountOfError;
 		this.amountOfWarn = amountOfWarn;
 		this.amountOfOk = amountOfOk;
-	}
-	
-	public QualityRaid(final String title, final String story, final AdventureState status, final Long gold,
-            final Long xp, World world) {
-		super(title, story, status, gold, xp, world);
-		this.sonarQubeStatus = SonarQubeProjectStatusType.NONE;
 	}
 	
 	public SonarQubeProjectStatusType getSonarQubeStatus() {

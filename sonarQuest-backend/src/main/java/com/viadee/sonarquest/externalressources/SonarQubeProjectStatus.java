@@ -5,6 +5,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ *	Represent the SonarQubeProjectStatus
+ *	@see https://sonarcloud.io/web_api/api/qualitygates/project_status 
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SonarQubeProjectStatus {
 	

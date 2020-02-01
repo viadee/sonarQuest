@@ -53,7 +53,11 @@ public class QualityRaidService {
 		
 		SonarQubeProjectStatus sonarQubeProjectStatus = externalRessourceService.generateSonarQubeProjectStatusFromWorld(world);
 		
-		QualityRaid qualityRaid = new QualityRaid(titel, story, AdventureState.OPEN, gold, xp, world);
+		QualityRaid qualityRaid = new QualityRaid();
+		qualityRaid.setTitle(titel);
+		qualityRaid.setDescription(story);
+		qualityRaid.setGold(gold);
+		qualityRaid.setXp(xp);
 		qualityRaid.setSonarQubeStatus(SonarQubeProjectStatusType.fromString(sonarQubeProjectStatus.getStatus()));
 		qualityRaid.setQuests(generateQualityRaidQuests(sonarQubeProjectStatus));
 		return qualityRaid;

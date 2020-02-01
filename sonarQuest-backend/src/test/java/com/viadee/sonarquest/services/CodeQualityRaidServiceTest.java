@@ -118,7 +118,8 @@ public class CodeQualityRaidServiceTest {
 	// ------------------------ TESTDATA SECTION ------------------------------------------------------------------- 
 	
 	private QualityRaid createQualityRaidData() {
-		QualityRaid qualityRaid = new QualityRaid("TEST", "TEST", AdventureState.OPEN, 1L, 1L, createWorldData());
+		QualityRaid qualityRaid = new QualityRaid();
+		qualityRaid.setWorld(createWorldData());
 		return qualityRaid;
 	}
 	

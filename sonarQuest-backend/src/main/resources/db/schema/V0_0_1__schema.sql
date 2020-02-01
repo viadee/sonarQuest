@@ -83,8 +83,6 @@ CREATE TABLE Raid (
   title    		VARCHAR(64),
   gold     		BIGINT,
   xp       		BIGINT,
-  gold_Loss    	BIGINT,
-  xp_Loss      	BIGINT,
   status   		VARCHAR(64),
   description   VARCHAR(256),
   startdate 	DATE,
@@ -185,21 +183,15 @@ CREATE TABLE Adventure_User (
   FOREIGN KEY (user_id) REFERENCES SQUser (id)
 );
 
-CREATE TABLE Raid_User (
-  raid_id BIGINT NOT NULL,
-  user_id BIGINT NOT NULL,
-  PRIMARY KEY (raid_id, user_id),
-  FOREIGN KEY (raid_id) REFERENCES Raid (id),
-  FOREIGN KEY (user_id) REFERENCES SQUser (id)
-);
-
-
 CREATE TABLE Participation (
   id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  quest_id     BIGINT NOT NULL,
+  participation_type  VARCHAR(256),
+  quest_id     BIGINT,
+  raid_id     BIGINT,
   user_id BIGINT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES SQUser (id),
-  FOREIGN KEY (quest_id) REFERENCES Quest (id)
+  FOREIGN KEY (quest_id) REFERENCES Quest (id),
+  FOREIGN KEY (raid_id) REFERENCES Raid (id),
 );
 
 CREATE TABLE Ui_Design (
@@ -216,6 +208,7 @@ CREATE TABLE Task (
   xp               BIGINT,
   status           VARCHAR(256),
   quest_id         BIGINT,
+  raid_id          BIGINT,
   world_id         BIGINT,
   task_type        VARCHAR(256),
   task_key         VARCHAR(256),
@@ -228,6 +221,7 @@ CREATE TABLE Task (
   issue_key        VARCHAR(256),
   `key`            VARCHAR(256),
   FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (raid_id) REFERENCES Raid (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );

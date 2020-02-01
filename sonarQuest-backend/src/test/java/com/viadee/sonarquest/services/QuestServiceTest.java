@@ -1,7 +1,6 @@
 package com.viadee.sonarquest.services;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.viadee.sonarquest.dto.ProgressDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Task;
@@ -91,13 +91,14 @@ public class QuestServiceTest {
     	tasks.add(createTask(SonarQuestStatus.OPEN));
     	quest.setTasks(tasks);
     	
-    	when(questRepository.findOne(any())).thenReturn(quest);
     	
     	// call test method
-    	double progressResult = questService.calculateQuestProgress(1L);
+    	ProgressDTO progressResult = questService.calculateQuestProgress(quest);
     	
     	// verify
-    	assertTrue(progressResult == 67);
+    	assertTrue(progressResult.getCalculatedProgress() == 67);
+    	assertTrue(progressResult.getNumberOfVariable() == 1);
+    	assertTrue(progressResult.getTotalAmount() == 3);
     }
     
     private Task createTask(SonarQuestStatus status) {

@@ -8,19 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.viadee.sonarquest.constants.AdventureState;
-import com.viadee.sonarquest.controllers.QualityRaidController;
-import com.viadee.sonarquest.entities.QualityRaid;
-import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeApiResponse;
 import com.viadee.sonarquest.repositories.SonarConfigRepository;
 
 @Service
 public class SonarConfigService {
-	@Autowired
-	private QualityRaidController controller;
     private static final Logger LOGGER = LoggerFactory.getLogger(SonarConfigService.class);
 
     @Autowired
@@ -57,18 +50,6 @@ public class SonarConfigService {
 
     public boolean checkSonarQubeURL(final SonarConfig sonarConfig) {
         boolean result = false;
-        //TODO DELETE
-        	// Given
-     		String title = "Testadventure";
-     		String story = "My story";
-     		long gold = 10L;
-     		long xp = 10L;
-     		World world = new World("testng", "org.testng:testng", true, true);
-     		Raid raid = new Raid(title, story, AdventureState.OPEN, gold, xp, world);
-     		// when
-     		QualityRaid newAdventure = controller.createQualityRaid(raid);
-        
-        
         final String apiAddress = sonarConfig.getSonarServerUrl() + "/api";
         LOGGER.info("Testing server at {}", apiAddress);
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);

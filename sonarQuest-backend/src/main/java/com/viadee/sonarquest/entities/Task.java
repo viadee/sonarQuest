@@ -55,6 +55,11 @@ public class Task {
     @ManyToOne()
     @JoinColumn(name = "quest_id")
     private Quest quest;
+    
+    @JsonIgnore
+    @ManyToOne()
+    @JoinColumn(name = "raid_id")
+    private Raid raid;
 
     @ManyToOne
     @JoinColumn(name = "world_id")
@@ -152,5 +157,13 @@ public class Task {
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
+
+	public Raid getRaid() {
+		return raid;
+	}
+
+	public void setRaid(Raid raid) {
+		this.raid = raid;
+	}
 
 }

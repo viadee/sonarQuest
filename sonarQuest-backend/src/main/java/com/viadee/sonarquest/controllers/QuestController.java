@@ -247,10 +247,4 @@ public class QuestController {
         }
         return quests;
     }
-        
-    @GetMapping(value = "/getQuestProgress/{questId}")
-    public double calculateQuestProgress(@PathVariable(value = "questId") final Long questId) {
-    	double result = questService.calculateQuestProgress(questId);
-    	return result;
-    }
 }

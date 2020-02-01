@@ -2,6 +2,11 @@ package com.viadee.sonarquest.externalressources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * The Condition response from SonarQube project status.
+ * 
+ * @see https://sonarcloud.io/web_api/api/qualitygates/project_status
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SonarQubeCondition {
 

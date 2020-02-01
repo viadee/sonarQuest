@@ -1,4 +1,4 @@
-package com.viadee.sonarquest.util;
+package com.viadee.sonarquest.dto;
 
 public class ProgressDTO {
 	private double totalAmount;

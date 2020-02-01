@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.viadee.sonarquest.dto.ProgressDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarquest.repositories.RaidRepository;
-import com.viadee.sonarquest.util.ProgressDTO;
 
 @Service
 public class RaidService {
@@ -74,7 +74,8 @@ public class RaidService {
     }
 	
     /**
-     * Calculate raid progress from closed tasks in quests
+     * TODO Maybe to refactor and to expand!
+     * Calculate raid progress from open tasks in quests
      * 
      * @param raid
      * @return rounded progress solved value

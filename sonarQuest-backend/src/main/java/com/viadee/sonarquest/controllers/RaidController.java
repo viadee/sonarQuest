@@ -1,6 +1,5 @@
 package com.viadee.sonarquest.controllers;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import com.viadee.sonarquest.dto.RaidDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.services.RaidService;
-import com.viadee.sonarquest.util.ProgressDTO;
 
 @RestController
 @RequestMapping("/raid")
@@ -36,7 +34,6 @@ public class RaidController {
 	@GetMapping(value = "/{id}")
 	public RaidDTO findRaidById(@PathVariable(value = "id") final Long id) {
 		Raid raidDAO = raidService.findRaidById(id);
-		// RaidDTO from raid and set progress details
 		RaidDTO raidDTO = new RaidDTO(raidDAO);
 		raidDTO.setRaidProgress(raidService.calculateRaidProgress(raidDAO));
 		return raidDTO;
@@ -49,8 +46,7 @@ public class RaidController {
 		
 		for (Raid raid : raids) {
 			RaidDTO raidDTO = new RaidDTO(raid);
-			ProgressDTO progressCalc = raidService.calculateRaidProgress(raid);
-			raidDTO.setRaidProgress(progressCalc);
+			raidDTO.setRaidProgress(raidService.calculateRaidProgress(raid));
 			raidDTOs.add(raidDTO);
 		}
 		return raidDTOs; 
@@ -66,28 +62,5 @@ public class RaidController {
 			@PathVariable(value = "questId") final Long questId) {
 		return raidService.addRaidToQuest(raidId, questId);
 	}
-
-	@PostMapping(value = "/{raidId}/join")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Raid joinRaid(final Principal principal, @PathVariable(value = "raidId") final Long raidId) {
-//		final String username = principal.getName();
-//		final User user = userService.findByUsername(username);
-//		return adventureService.addUserToAdventure(adventureId, user.getId());
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param adventureId The id of the adventure
-	 * @param developerId The id of the developer to remove
-	 * @return Gives the adventure where the Developer was removed
-	 */
-	@PostMapping(value = "/{raidId}/leave")
-	public Raid leaveRaid(final Principal principal, @PathVariable(value = "raidId") final Long raidId) {
-//		final String username = principal.getName();
-//		final User user = userService.findByUsername(username);
-//		return adventureService.removeUserFromAdventure(adventureId, user.getId());
-		return null;
-	}
-
+	
 }

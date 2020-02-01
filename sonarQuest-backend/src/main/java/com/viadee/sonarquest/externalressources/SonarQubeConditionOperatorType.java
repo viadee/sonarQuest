@@ -1,5 +1,10 @@
 package com.viadee.sonarquest.externalressources;
 
+/**
+ * The Condition Type from SonarQube project status.
+ * 
+ * @see https://sonarcloud.io/web_api/api/qualitygates/project_status
+ */
 public enum SonarQubeConditionOperatorType {
 	EQ (1), NE (2), LT (3), GT (4);
 	

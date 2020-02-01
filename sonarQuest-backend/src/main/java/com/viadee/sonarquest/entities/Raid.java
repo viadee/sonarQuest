@@ -17,21 +17,22 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.AdventureState;
-import com.viadee.sonarquest.interfaces.RaidI;
 
+/**
+ *	A raid is a special game mode to fight a monster.
+ *	The raid consists of tasks and quest that have to be solved.
+ */
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "Raid_TYPE")
 @Entity
 @Table(name = "raid")
-public class Raid implements RaidI {
+public class Raid {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,7 +61,7 @@ public class Raid implements RaidI {
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
-	private AdventureState status;
+	private AdventureState status; // TODO Create RaidState
 
 	@Column(name = "gold")
 	private Long gold;
@@ -68,24 +69,22 @@ public class Raid implements RaidI {
 	@Column(name = "xp")
 	private Long xp;
 
-	@Column(name = "goldLoss")
-	private Long goldLoss;
-
-	@Column(name = "xpLoss")
-	private Long xpLoss;
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "world_id")
 	private World world;
 
+	// TODO maybe to delete and get quests by tasks
 	@OneToMany(mappedBy = "raid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Quest> quests;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "raid", fetch = FetchType.LAZY)
+	private List<Task> tasks;
 
 	@JsonIgnore
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "Raid_User", joinColumns = @JoinColumn(name = "raid_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-	private List<User> users;
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "raid")
+	private List<RaidParticipation> participations;
+	
 	public Raid() {
 	}
 	
@@ -98,17 +97,6 @@ public class Raid implements RaidI {
 		this.xp = xp;
 		this.world = world;
 		this.status = AdventureState.OPEN;
-		this.setStartdate(new Date(System.currentTimeMillis()));
-	}
-
-	public Raid(final String title, final String description, final AdventureState status, final Long gold,
-			final Long xp, World world) {
-		this.title = title;
-		this.description = description;
-		this.status = status;
-		this.gold = gold;
-		this.xp = xp;
-		this.world = world;
 		this.setStartdate(new Date(System.currentTimeMillis()));
 	}
 
@@ -167,22 +155,6 @@ public class Raid implements RaidI {
 		quest.setRaid(this);
 	}
 
-//	@JsonIgnore
-//	public List<User> getUsers() {
-//		return users;
-//	}
-//
-//	public void setUsers(final List<User> users) {
-//		this.users = users;
-//	}
-//
-//	public synchronized void addUser(final User user) {
-//		if (users == null) {
-//			users = new ArrayList<>();
-//		}
-//		users.add(user);
-//	}
-
 	public World getWorld() {
 		return world;
 	}
@@ -223,22 +195,6 @@ public class Raid implements RaidI {
 		this.description = description;
 	}
 
-	public Long getGoldLoss() {
-		return goldLoss;
-	}
-
-	public void setGoldLoss(Long goldLoss) {
-		this.goldLoss = goldLoss;
-	}
-
-	public Long getXpLoss() {
-		return xpLoss;
-	}
-
-	public void setXpLoss(Long xpLoss) {
-		this.xpLoss = xpLoss;
-	}
-	
 	public String getMonsterName() {
 		return monsterName;
 	}
@@ -255,11 +211,24 @@ public class Raid implements RaidI {
 		this.monsterImage = monsterImage;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<RaidParticipation> getParticipations() {
+		if(participations == null) {
+			this.participations = new ArrayList<RaidParticipation>();
+		}
+		return participations;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setParticipations(List<RaidParticipation> participations) {
+		this.participations = participations;
+	}
+
+	public List<Task> getTasks() {
+		if(tasks == null)
+			this.tasks = new ArrayList<Task>();
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 }

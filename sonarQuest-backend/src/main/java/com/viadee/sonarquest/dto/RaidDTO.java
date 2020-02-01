@@ -5,8 +5,8 @@ import java.util.List;
 import com.viadee.sonarquest.constants.AdventureState;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.util.ProgressDTO;
 
 public class RaidDTO {
 	private Long id;
@@ -17,19 +17,18 @@ public class RaidDTO {
 	private AdventureState status;
 	private Long gold;
 	private Long xp;
-	private Long goldLoss;
-	private Long xpLoss;
 	private World world;
 	private List<Quest> quests;
+	private List<Task>	tasks;
 	private ProgressDTO raidProgress;
 	
 	public RaidDTO(Raid raid) {
 		this(raid.getId(), raid.getVisible(), raid.getTitle(), raid.getMonsterName(), raid.getMonsterImage(), raid.getStatus(), 
-				raid.getGold(), raid.getXp(), raid.getGoldLoss(), raid.getXpLoss(), raid.getWorld(), raid.getQuests());
+				raid.getGold(), raid.getXp(), raid.getWorld(), raid.getQuests(), raid.getTasks());
 	}
 	
 	public RaidDTO(Long id, Boolean visible, String title, String monsterName, String monsterImage,
-			AdventureState status, Long gold, Long xp, Long goldLoss, Long xpLoss, World world, List<Quest> quests) {
+			AdventureState status, Long gold, Long xp, World world, List<Quest> quests, List<Task> tasks) {
 		super();
 		this.id = id;
 		this.visible = visible;
@@ -39,11 +38,10 @@ public class RaidDTO {
 		this.status = status;
 		this.gold = gold;
 		this.xp = xp;
-		this.goldLoss = goldLoss;
-		this.xpLoss = xpLoss;
 		this.world = world;
 		this.quests = quests;
 		this.raidProgress = new ProgressDTO(0, 0);
+		this.tasks = tasks;
 	}
 
 	public Long getId() {
@@ -110,22 +108,6 @@ public class RaidDTO {
 		this.xp = xp;
 	}
 
-	public Long getGoldLoss() {
-		return goldLoss;
-	}
-
-	public void setGoldLoss(Long goldLoss) {
-		this.goldLoss = goldLoss;
-	}
-
-	public Long getXpLoss() {
-		return xpLoss;
-	}
-
-	public void setXpLoss(Long xpLoss) {
-		this.xpLoss = xpLoss;
-	}
-
 	public World getWorld() {
 		return world;
 	}
@@ -148,5 +130,13 @@ public class RaidDTO {
 
 	public void setRaidProgress(ProgressDTO raidProgress) {
 		this.raidProgress = raidProgress;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 }
