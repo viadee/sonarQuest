@@ -3,12 +3,18 @@ package com.viadee.sonarquest.entities;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 
-//@Entity
-//@DiscriminatorValue("CONDITION")
-public class ConditionTask extends SpecialTask {
+/**
+ * Extends a task with condition (= SonarQube Condition)
+ *
+ */
+@Entity
+@DiscriminatorValue("CONDITION")
+@Table(name = "ConditionTask")
+public class ConditionTask extends Task {
 	
 	@Column(name = "metricKey")
 	private String metricKey;
@@ -25,35 +31,34 @@ public class ConditionTask extends SpecialTask {
 	public ConditionTask() {
 	}
 	
-	public ConditionTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp, final Quest quest,
-            final String message, final World world, final String metricKey, final String comparator, final double acceptedValue, final double errorThreshold) {
-		super(title, status, gold, xp, quest, message, world);
-		this.metricKey = metricKey;
-		this.comparator = comparator;
-		this.acceptedValue = acceptedValue;
-		this.errorThreshold = errorThreshold;
-	}
-	
-	/**
-	 * Create default specailTask with zero gold and xp
-	 * @param title
-	 * @param quest
-	 * @param message
-	 * @param world
-	 * @param metricKey 
-	 * @param comparator
-	 * @param acceptedValue
-	 * @param errorThreshold
-	 */
-	public ConditionTask(final String title, final Quest quest, final String message, final World world, 
-			final String metricKey, final String comparator, final double acceptedValue, final double errorThreshold) {
-		super(title, SonarQuestStatus.OPEN, 0L, 0L, quest, message, world);
+	public ConditionTask(String metricKey, String comparator, double acceptedValue, double errorThreshold) {
+		super();
 		this.metricKey = metricKey;
 		this.comparator = comparator;
 		this.acceptedValue = acceptedValue;
 		this.errorThreshold = errorThreshold;
 	}
 
+	public ConditionTask(ConditionTask qualityTask) {
+		super(qualityTask.getTitle(), qualityTask.getStatus(), qualityTask.getGold(), qualityTask.getXp(), qualityTask.getWorld());
+		this.metricKey = qualityTask.getMetricKey();
+		this.comparator = qualityTask.getComparator();
+		this.acceptedValue = qualityTask.getAcceptedValue();
+		this.errorThreshold = qualityTask.getErrorThreshold();
+	}
+	
+	public ConditionTask(String title, SonarQuestStatus status, Long gold, Long xp, World world) {
+		super(title, status, gold, xp, world);
+	}
+	
+	public ConditionTask(String title, SonarQuestStatus status, Long gold, Long xp, World world, String metricKey, String comparator, double acceptedValue, double errorThreshold) {
+		super(title, status, gold, xp, world);
+		this.metricKey = metricKey;
+		this.comparator = comparator;
+		this.acceptedValue = acceptedValue;
+		this.errorThreshold = errorThreshold;
+	}
+	
 	public String getMetricKey() {
 		return metricKey;
 	}

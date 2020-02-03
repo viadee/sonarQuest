@@ -2,6 +2,8 @@ package com.viadee.sonarquest.rules;
 
 import org.springframework.stereotype.Component;
 
+import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
+
 /**
  * This class maps the status from an external SonarQube "issue" to an internal
  * SonarQuest task status.
@@ -37,6 +39,24 @@ public class SonarQubeStatusMapper implements StatusMapper {
             } else {
                 mappedStatus = SonarQuestStatus.OPEN;
             }
+            break;
+        default:
+            mappedStatus = SonarQuestStatus.OPEN;
+            break;
+        }
+        return mappedStatus;
+    }
+    
+    @Override
+    public SonarQuestStatus mapSonarQubeProjectStatus(SonarQubeProjectStatusType sonarQubeStatus) {
+    	final SonarQuestStatus mappedStatus;
+        switch (sonarQubeStatus) {
+        case OK:
+            mappedStatus = SonarQuestStatus.CLOSED;
+            break;
+        case ERROR:
+        case WARN:
+            mappedStatus = SonarQuestStatus.OPEN;
             break;
         default:
             mappedStatus = SonarQuestStatus.OPEN;

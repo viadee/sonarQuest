@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- *	Represent the SonarQubeProjectStatus
+ *	Represent the QualityGate
  *	@see https://sonarcloud.io/web_api/api/qualitygates/project_status 
  *
  */

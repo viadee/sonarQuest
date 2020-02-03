@@ -1,5 +1,7 @@
 package com.viadee.sonarquest.rules;
 
+import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
+
 /**
  * Class for mapping status from an external system that SonarQuest draws data
  * from (e.g. SonarQube) to a SonarQuest task status.
@@ -18,5 +20,6 @@ public interface StatusMapper {
      * @return
      */
     SonarQuestStatus mapExternalStatus(final IssueWithStatus sourceIssue);
-
+    
+    SonarQuestStatus mapSonarQubeProjectStatus(final SonarQubeProjectStatusType sonarQubeStatus);
 }

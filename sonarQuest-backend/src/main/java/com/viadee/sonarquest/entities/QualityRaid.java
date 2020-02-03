@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
 
+/**
+ *	A quality raid is a special raid game mode. It represent the SonarQube quality gate with conditions (=QualityTask).
+ *	The main goal is to solve quality task immediately. 
+ */
 @Entity
 @DiscriminatorValue("QUALITY")
 @Table(name = "quality_raid")
@@ -28,6 +32,7 @@ public class QualityRaid extends Raid {
 	private int amountOfOk = 0;
 
 	public QualityRaid() {
+		super();
 	}
 
 	public QualityRaid(SonarQubeProjectStatusType sonarQubeStatus, int amountOfError, int amountOfWarn,

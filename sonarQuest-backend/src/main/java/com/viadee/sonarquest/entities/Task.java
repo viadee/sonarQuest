@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "task_type")
 @Table(name = "Task")
 public class Task {
@@ -69,8 +69,20 @@ public class Task {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "participation_id")
     private Participation participation;
+    
+    public Task() {
+	}
 
-    public Long getId() {
+    public Task(String title, SonarQuestStatus status, Long gold, Long xp, World world) {
+		super();
+		this.title = title;
+		this.status = status;
+		this.gold = gold;
+		this.xp = xp;
+		this.world = world;
+	}
+
+	public Long getId() {
         return id;
     }
 

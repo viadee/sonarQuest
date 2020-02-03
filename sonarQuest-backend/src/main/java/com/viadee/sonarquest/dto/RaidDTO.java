@@ -2,7 +2,7 @@ package com.viadee.sonarquest.dto;
 
 import java.util.List;
 
-import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.constants.RaidState;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.entities.Task;
@@ -14,7 +14,7 @@ public class RaidDTO {
 	private String title;
 	private String monsterName;
 	private String monsterImage;
-	private AdventureState status;
+	private RaidState status;
 	private Long gold;
 	private Long xp;
 	private World world;
@@ -28,7 +28,7 @@ public class RaidDTO {
 	}
 	
 	public RaidDTO(Long id, Boolean visible, String title, String monsterName, String monsterImage,
-			AdventureState status, Long gold, Long xp, World world, List<Quest> quests, List<Task> tasks) {
+			RaidState status, Long gold, Long xp, World world, List<Quest> quests, List<Task> tasks) {
 		super();
 		this.id = id;
 		this.visible = visible;
@@ -84,11 +84,11 @@ public class RaidDTO {
 		this.monsterImage = monsterImage;
 	}
 
-	public AdventureState getStatus() {
+	public RaidState getStatus() {
 		return status;
 	}
 
-	public void setStatus(AdventureState status) {
+	public void setStatus(RaidState status) {
 		this.status = status;
 	}
 

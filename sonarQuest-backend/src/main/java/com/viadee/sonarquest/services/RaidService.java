@@ -45,7 +45,7 @@ public class RaidService {
 	}
 	
 	@Transactional
-	public synchronized Raid createRaid(Raid raid) {
+	public synchronized Raid createRaid(final Raid raid) {
 		World worldDAO = worldService.findById(raid.getWorld().getId());
 		if(worldDAO==null) {
 			new BackendServiceRuntimeException("World not found", new NullPointerException());

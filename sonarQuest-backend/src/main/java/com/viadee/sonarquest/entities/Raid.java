@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.constants.RaidState;
 
 /**
  *	A raid is a special game mode to fight a monster.
@@ -61,7 +61,7 @@ public class Raid {
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
-	private AdventureState status; // TODO Create RaidState
+	private RaidState status;
 
 	@Column(name = "gold")
 	private Long gold;
@@ -73,7 +73,7 @@ public class Raid {
 	@JoinColumn(name = "world_id")
 	private World world;
 
-	// TODO maybe to delete and get quests by tasks
+	// TODO Refactoring: Maybe to delete and get quests by tasks or create new model with task and quest
 	@OneToMany(mappedBy = "raid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Quest> quests;
 	
@@ -96,7 +96,7 @@ public class Raid {
 		this.gold = gold;
 		this.xp = xp;
 		this.world = world;
-		this.status = AdventureState.OPEN;
+		this.status = RaidState.OPEN;
 		this.setStartdate(new Date(System.currentTimeMillis()));
 	}
 
@@ -132,11 +132,11 @@ public class Raid {
 		this.title = title;
 	}
 
-	public AdventureState getStatus() {
+	public RaidState getStatus() {
 		return status;
 	}
 
-	public void setStatus(final AdventureState status) {
+	public void setStatus(final RaidState status) {
 		this.status = status;
 	}
 

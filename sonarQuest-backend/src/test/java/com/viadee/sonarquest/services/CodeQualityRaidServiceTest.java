@@ -18,15 +18,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.viadee.sonarquest.constants.AdventureState;
-import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.QualityRaid;
-import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.ConditionTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeCondition;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatus;
-import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
 import com.viadee.sonarquest.repositories.QualityRaidRepository;
+import com.viadee.sonarquest.repositories.ConditionTaskRepository;
+import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
+import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @RunWith(SpringRunner.class)
 public class CodeQualityRaidServiceTest {
@@ -36,6 +36,14 @@ public class CodeQualityRaidServiceTest {
 		@Bean
 		public QualityRaidService qualityRaidService() {
 			return new QualityRaidService();
+		}
+	}
+	
+	@TestConfiguration
+	static class SonarQubeStatusMapperTestContextConfiguration {
+		@Bean
+		public SonarQubeStatusMapper statusMapper() {
+			return new SonarQubeStatusMapper();
 		}
 	}
 	
@@ -51,9 +59,13 @@ public class CodeQualityRaidServiceTest {
 	@MockBean
 	private QualityRaidRepository qualitiyRaidRepository;
 	
+	@MockBean
+	private ConditionTaskRepository qualityTaskService;
+	
 	@Before
 	public void setUp() {
 		Mockito.when(qualitiyRaidRepository.save(any(QualityRaid.class))).thenReturn(createQualityRaidData());
+		Mockito.when(qualityTaskService.save(any(ConditionTask.class))).thenReturn(new ConditionTask());
 	}
 	
 	@Test
@@ -68,29 +80,13 @@ public class CodeQualityRaidServiceTest {
 		// given
 		givenWorld(null);
 		// Test
-		QualityRaid result = qualityRaidService.createQualityRaid(null, null, null, null, null);
+		QualityRaid result = qualityRaidService.createQualityRaid(null, null, null, null);
 		// verify
 		assertNull(result);
 	}
 	
 	@Test
-	public void test_createQualityRaid_createQualityRaid_VerifyAttributes() {
-		// given
-		World world = createWorldData();
-		SonarQubeProjectStatus projectStatus = createSonarQubeProjectStatus("OK", null);
-		givenWorld(world);
-		givenExternalResource(projectStatus);
-		// test
-		QualityRaid result = qualityRaidService.createQualityRaid(1L, "TITEL", "STORY", 1L, 2L);
-		// verify
-		assertTrue(SonarQubeProjectStatusType.OK.equals(result.getSonarQubeStatus()));
-		assertTrue("TITEL".equals(result.getTitle()));
-		assertTrue("STORY".equals(result.getDescription()));
-		assertTrue(world.getProject().equals(result.getWorld().getProject()));
-	}
-	
-	@Test
-	public void test_createQualityRaid_VerifyConditionState_Solved() {
+	public void test_generateQualityRaidTasks_VerifyConditionStatus_Closed() {
 		// given
 		World world = createWorldData();
 		List<SonarQubeCondition> conditions =  new ArrayList<SonarQubeCondition>();
@@ -100,10 +96,10 @@ public class CodeQualityRaidServiceTest {
 		givenWorld(world);
 		givenExternalResource(projectStatus);
 		// test
-		QualityRaid result = qualityRaidService.createQualityRaid(1L, "TITEL", "STORY", 1L, 2L);
+		List<ConditionTask> result = qualityRaidService.generateQualityRaidTasks(projectStatus);
 		// verify
-		Quest quest = result.getQuests().get(0);
-		assertTrue(QuestState.SOLVED.equals(quest.getStatus()));
+		ConditionTask task = result.get(0);
+		assertTrue(SonarQuestStatus.CLOSED.equals(task.getStatus()));
 	}
 	
 	// ----------------------- GIVEN ----------------------------------------------------------------------------

@@ -15,14 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import com.viadee.sonarquest.constants.QuestState;
-import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.SonarConfig;
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeApiCall;
 import com.viadee.sonarquest.externalressources.SonarQubeComponentQualifier;
-import com.viadee.sonarquest.externalressources.SonarQubeConditionOperatorType;
 import com.viadee.sonarquest.externalressources.SonarQubeIssue;
 import com.viadee.sonarquest.externalressources.SonarQubeIssueRessource;
 import com.viadee.sonarquest.externalressources.SonarQubeIssueType;
@@ -31,7 +28,6 @@ import com.viadee.sonarquest.externalressources.SonarQubeProject;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectRessource;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatus;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusRessource;
-import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
@@ -245,42 +241,8 @@ public class ExternalRessourceService {
 		}
     }
     
-    public SonarQubeProjectStatus generateSonarQubeProjectStatusFromWorld(World world) {
+    public SonarQubeProjectStatus generateSonarQubeProjectStatusFromWorld(final World world) {
     	SonarQubeProjectStatusRessource ressource = getSonarQubeProjectStatusRessource(world.getProject());
     	return ressource.getProjectStatus();
     }
-    
-    /**
-     * Generate quests from sonarqube code quality gate
-     * 
-     * @param projectStatus
-     * @return List<Quest>
-     */
-    public List<Quest> generateQuestsFromSonarQubeProjectStatus(World world) {
-    	SonarQubeProjectStatus projectStatus = generateSonarQubeProjectStatusFromWorld(world);
-    	
-		LOGGER.info("Generate Quests from SonarQubeProjectStatus-Quality Gate");
-		if(projectStatus.getConditions() == null) {
-			LOGGER.info("No quests to generate.");
-			return null;
-		}
-		final String seperator = " ";
-		List<Quest> quests = new ArrayList<Quest>();
-		
-		projectStatus.getConditions().forEach(sonarQubeCondition -> {
-			// generate quest title from metric, status and value
-			String titelText = "";
-			titelText += sonarQubeCondition.getMetricKey() + seperator; // TODO use service to get metric description
-			titelText += SonarQubeConditionOperatorType.generateText(sonarQubeCondition.getComparator()) + seperator;
-			titelText += sonarQubeCondition.getErrorThreshold();
-			
-			// generate quest status from sonarqube 
-			SonarQubeProjectStatusType conditionStatus = SonarQubeProjectStatusType.fromString(sonarQubeCondition.getStatus());
-			QuestState questState = SonarQubeProjectStatusType.OK.equals(conditionStatus) ?  QuestState.SOLVED : QuestState.OPEN;
-			
-			quests.add(new Quest(titelText, "Story of your live", questState, 1L, 1L, null, true));
-		});
-		return quests;
-	}
-    
 }

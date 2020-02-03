@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.dto.RaidDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
+import com.viadee.sonarquest.services.QualityRaidService;
 import com.viadee.sonarquest.services.RaidService;
 
 @RestController
@@ -24,10 +25,16 @@ public class RaidController {
 
 	@Autowired
 	private RaidService raidService;
+	
+	@Autowired
+	QualityRaidService qualityRaidService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Raid createRaid(@RequestBody Raid raid) {
+		
+		qualityRaidService.createQualityRaid(raid.getWorld().getId(), raid.getTitle(), raid.getGold(), raid.getXp());
+		
 		return raidService.createRaid(raid);
 	}
 
