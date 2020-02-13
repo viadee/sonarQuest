@@ -24,21 +24,17 @@ import com.viadee.sonarquest.entities.Skill;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.interfaces.UserGratification;
-import com.viadee.sonarquest.repositories.StandardTaskRepository;
 
 @Service
 public class GratificationService implements UserGratification {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private LevelService levelService;
-
-    @Autowired
-    private StandardTaskRepository taskRepo;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
 
     @Override
     @Transactional

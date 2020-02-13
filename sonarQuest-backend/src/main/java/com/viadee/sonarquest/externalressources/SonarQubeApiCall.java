@@ -15,9 +15,6 @@ public class SonarQubeApiCall {
 
     private String sonarQubeRestApiCall;
 
-    private SonarQubeApiCall() {
-    }
-
     private void appendSearchParameter(String parameter) {
         if (!sonarQubeRestApiCall.endsWith("?")) {
             sonarQubeRestApiCall += "&";
