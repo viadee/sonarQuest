@@ -2,10 +2,9 @@ package com.viadee.sonarquest.entities;
 
 import java.sql.Timestamp;
 
-
 public class UserDto {
-	
-	private Long id;
+
+    private Long id;
     private String username;
     private String mail;
     private Role role;
@@ -18,134 +17,134 @@ public class UserDto {
     private Level level;
     private Long currentWorldId;
     private Timestamp lastLogin;
-    
-    public UserDto() {}
-    
-	public UserDto(User user) {		
-		
-		if (user.getCurrentWorld() != null) {
-			this.currentWorldId = user.getCurrentWorld().getId();
-		} else {
-			this.currentWorldId = null;
-		}
-		
-		this.id = user.getId();
-		this.username = user.getUsername();
-		this.mail = user.getMail();
-		this.role = user.getRole();
-		this.aboutMe = user.getAboutMe();
-		this.avatarClass = user.getAvatarClass();
-		this.avatarRace = user.getAvatarRace();
-		this.gold = user.getGold();
-		this.xp = user.getXp();
-		this.level = user.getLevel();
-		this.lastLogin = user.getLastLogin();
-		this.picture = user.getPicture();
-	}
 
-	public Long getId() {
-		return id;
-	}
+    public UserDto() {
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public UserDto(User user) {
 
-	public String getUsername() {
-		return username;
-	}
+        if (user.getCurrentWorld() != null) {
+            this.currentWorldId = user.getCurrentWorld().getId();
+        } else {
+            this.currentWorldId = null;
+        }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.mail = user.getMail();
+        this.role = user.getRole();
+        this.aboutMe = user.getAboutMe();
+        this.avatarClass = user.getAvatarClass();
+        this.avatarRace = user.getAvatarRace();
+        this.gold = user.getGold();
+        this.xp = user.getXp();
+        this.level = user.getLevel();
+        this.lastLogin = user.getLastLogin();
+        this.picture = user.getPicture();
+    }
 
-	public String getMail() {
-		return mail;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public String getMail() {
+        return mail;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
-	public String getAboutMe() {
-		return aboutMe;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public void setAboutMe(String aboutMe) {
-		this.aboutMe = aboutMe;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-	public AvatarClass getAvatarClass() {
-		return avatarClass;
-	}
+    public String getPicture() {
+        return picture;
+    }
 
-	public void setAvatarClass(AvatarClass avatarClass) {
-		this.avatarClass = avatarClass;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	public AvatarRace getAvatarRace() {
-		return avatarRace;
-	}
+    public String getAboutMe() {
+        return aboutMe;
+    }
 
-	public void setAvatarRace(AvatarRace avatarRace) {
-		this.avatarRace = avatarRace;
-	}
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
 
-	public Long getGold() {
-		return gold;
-	}
+    public AvatarClass getAvatarClass() {
+        return avatarClass;
+    }
 
-	public void setGold(Long gold) {
-		this.gold = gold;
-	}
+    public void setAvatarClass(AvatarClass avatarClass) {
+        this.avatarClass = avatarClass;
+    }
 
-	public Long getXp() {
-		return xp;
-	}
+    public AvatarRace getAvatarRace() {
+        return avatarRace;
+    }
 
-	public void setXp(Long xp) {
-		this.xp = xp;
-	}
+    public void setAvatarRace(AvatarRace avatarRace) {
+        this.avatarRace = avatarRace;
+    }
 
-	public Level getLevel() {
-		return level;
-	}
+    public Long getGold() {
+        return gold;
+    }
 
-	public void setLevel(Level level) {
-		this.level = level;
-	}
+    public void setGold(Long gold) {
+        this.gold = gold;
+    }
 
-	public Long getCurrentWorldId() {
-		return currentWorldId;
-	}
+    public Long getXp() {
+        return xp;
+    }
 
-	public void setCurrentWorldId(Long currentWorldId) {
-		this.currentWorldId = currentWorldId;
-	}
+    public void setXp(Long xp) {
+        this.xp = xp;
+    }
 
-	public Timestamp getLastLogin() {
-		return lastLogin;
-	}
+    public Level getLevel() {
+        return level;
+    }
 
-	public void setLastLogin(Timestamp lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-	
-	
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Long getCurrentWorldId() {
+        return currentWorldId;
+    }
+
+    public void setCurrentWorldId(Long currentWorldId) {
+        this.currentWorldId = currentWorldId;
+    }
+
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
 }

@@ -35,7 +35,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private boolean corsHeaderActive;
 
     public WebSecurityConfiguration(final UserDetailsService userDetailsService, final JwtHelper jwtHelper) {
-        super();
         this.userDetailsService = userDetailsService;
         this.jwtHelper = jwtHelper;
     }
