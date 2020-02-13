@@ -18,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarquest.controllers.PathConstants;
 import com.viadee.sonarquest.security.JwtHelper;
 import com.viadee.sonarquest.services.UserService;
 
 @RestController
-@RequestMapping(PathConstants.LOGIN_URL)
+@RequestMapping("/login")
 public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);

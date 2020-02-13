@@ -29,7 +29,7 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.UserService;
 
 @RestController
-@RequestMapping(PathConstants.USER_URL)
+@RequestMapping("/user")
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);

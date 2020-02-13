@@ -2,6 +2,7 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,8 @@ import com.viadee.sonarquest.repositories.LevelRepository;
 @RequestMapping("/level")
 public class LevelController {
 
+    @Autowired
     private LevelRepository levelRepository;
-
-    public LevelController(final LevelRepository levelRepository) {
-        this.levelRepository = levelRepository;
-    }
 
     @GetMapping
     public List<Level> getAllLevels() {
