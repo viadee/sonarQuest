@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.google.common.collect.ImmutableList;
-import com.viadee.sonarquest.controllers.PathConstants;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -36,7 +35,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private boolean corsHeaderActive;
 
     public WebSecurityConfiguration(final UserDetailsService userDetailsService, final JwtHelper jwtHelper) {
-        super();
         this.userDetailsService = userDetailsService;
         this.jwtHelper = jwtHelper;
     }
@@ -72,7 +70,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, PathConstants.LOGIN_URL).permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
 
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers("/socket").permitAll()

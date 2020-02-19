@@ -80,16 +80,16 @@ public class Task {
     public void setTitle(final String title) {
         this.title = title;
     }
-    
+
     public SonarQuestStatus getStatus() {
-		return status;
-	}
+        return status;
+    }
 
-	public void setStatus(SonarQuestStatus status) {
-		this.status = status;
-	}
+    public void setStatus(SonarQuestStatus status) {
+        this.status = status;
+    }
 
-	public Long getGold() {
+    public Long getGold() {
         return gold;
     }
 

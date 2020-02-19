@@ -24,6 +24,7 @@ import com.viadee.sonarquest.services.SkillService;
 @RequestMapping("/skill")
 public class SkillController {
 
+    @Autowired
     private SkillRepository skillRepository;
 
     @Autowired
@@ -32,48 +33,44 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    public SkillController(final SkillRepository skillRepository) {
-        this.skillRepository = skillRepository;
-    }
-
     @GetMapping
     public List<Skill> getAllSkills() {
-        return this.skillRepository.findAll();
+        return skillRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
     public Skill getSkillById(@PathVariable(value = "id") final Long id) {
-        return this.skillRepository.findOne(id);
+        return skillRepository.findOne(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Skill createSkill(@RequestBody final Skill skillDto) {
-        return this.skillRepository.save(skillDto);
+        return skillRepository.save(skillDto);
 
     }
 
     @PutMapping(value = "/{id}")
     public Skill updateSkill(@PathVariable(value = "id") final Long id, @RequestBody final Skill data) {
-        Skill skill = this.skillRepository.findOne(id);
+        Skill skill = skillRepository.findOne(id);
         if (skill != null) {
             skill.setName(data.getName());
             skill.setType(data.getType());
             skill.setValue(data.getValue());
-            skill = this.skillRepository.save(skill);
+            skill = skillRepository.save(skill);
         }
         return skill;
     }
 
     @DeleteMapping(value = "/{id}")
     public void deleteSkill(@PathVariable(value = "id") final Long id) {
-        this.skillService.deleteSkill(this.skillRepository.findOne(id));
+        skillService.deleteSkill(skillRepository.findOne(id));
     }
 
     @GetMapping(value = "artefact/{artefact_id}")
     public List<Skill> getSkillsForArtefact(@PathVariable(value = "artefact_id") final Long id) {
-        final Artefact a = this.artefactService.getArtefact(id);
-        return this.skillService.getSkillsForArtefact(a);
+        final Artefact a = artefactService.getArtefact(id);
+        return skillService.getSkillsForArtefact(a);
     }
 
 }

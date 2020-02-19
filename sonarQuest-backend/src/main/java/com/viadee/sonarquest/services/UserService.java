@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
-	protected static final Log LOGGER = LogFactory.getLog(UserService.class);
+    private static final Log LOGGER = LogFactory.getLog(UserService.class);
 
 	private final RoleService roleService;
 

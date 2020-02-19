@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,23 +23,19 @@ import com.viadee.sonarquest.entities.Skill;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.interfaces.UserGratification;
-import com.viadee.sonarquest.repositories.StandardTaskRepository;
 
 @Service
 public class GratificationService implements UserGratification {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
 
     private final UserService userService;
 
     private final LevelService levelService;
 
-    private final StandardTaskRepository taskRepo;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
-
-    public GratificationService(UserService userService, LevelService levelService, StandardTaskRepository taskRepo) {
+    public GratificationService(UserService userService, LevelService levelService) {
         this.userService = userService;
         this.levelService = levelService;
-        this.taskRepo = taskRepo;
     }
 
     @Override

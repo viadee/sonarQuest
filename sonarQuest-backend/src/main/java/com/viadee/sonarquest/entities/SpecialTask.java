@@ -16,7 +16,8 @@ public class SpecialTask extends Task {
     public SpecialTask() {
     }
 
-    public SpecialTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp, final Quest quest,
+    public SpecialTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp,
+            final Quest quest,
             final String message, final World world) {
         this.setTitle(title);
         this.setStatus(status);

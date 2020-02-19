@@ -19,13 +19,7 @@ public class ExternalRessourceController {
 
     @GetMapping(value = "/project")
     public List<SonarQubeProject> getAllSonarQubeProjects() {
-        return this.externalRessourceService.getSonarQubeProjects();
+        return externalRessourceService.getSonarQubeProjects();
     }
-
-
-
-
-
-
 
 }

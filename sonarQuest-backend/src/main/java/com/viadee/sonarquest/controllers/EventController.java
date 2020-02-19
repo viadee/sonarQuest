@@ -26,7 +26,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
     
-    protected static final Log LOGGER = LogFactory.getLog(EventController.class);
+    private static final Log LOGGER = LogFactory.getLog(EventController.class);
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -43,7 +43,7 @@ public class EventController {
     @CrossOrigin
     @GetMapping(value = "/getEventsForCurrentWorldEfficient")
     public EventUserDto getEventsForCurrentWorldEfficient(final Principal principal) {
-    	return this.eventService.principalToEvents(principal);	
+    	return eventService.principalToEvents(principal);	
     }
     
 

@@ -25,13 +25,12 @@ import com.viadee.sonarquest.entities.SonarConfig;
 @Service
 public class RestTemplateService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
+
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
-
     public RestTemplate getRestTemplate(final SonarConfig sonarConfig) {
-
         if (sonarConfig.hasHttpBasicAuth()) {
             LOGGER.debug("Connecting using HTTP Basic Auth");
             return restTemplateBuilder.basicAuthentication(sonarConfig.getHttpBasicAuthUsername(),

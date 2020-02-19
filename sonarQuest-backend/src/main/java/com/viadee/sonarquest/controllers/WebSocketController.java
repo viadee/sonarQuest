@@ -2,8 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import java.security.Principal;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,18 +19,13 @@ import com.viadee.sonarquest.services.EventService;
 @Controller
 public class WebSocketController {
 
-    protected static final Log LOGGER = LogFactory.getLog(WebSocketController.class);
     private static final String CHAT = "/chat";
 
-    private final SimpMessagingTemplate template;
+    @Autowired
+    private SimpMessagingTemplate template;
     
     @Autowired
     private EventService eventService;
-
-    @Autowired
-    public WebSocketController(final SimpMessagingTemplate template) {
-        this.template = template;
-    }
 
     @MessageMapping("/send/message")
     public void onReceivedMessage(final MessageDto messageDto) {
