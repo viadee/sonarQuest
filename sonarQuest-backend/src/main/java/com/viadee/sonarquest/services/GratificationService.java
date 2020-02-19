@@ -29,16 +29,19 @@ import com.viadee.sonarquest.repositories.StandardTaskRepository;
 @Service
 public class GratificationService implements UserGratification {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private LevelService levelService;
+    private final LevelService levelService;
 
-    @Autowired
-    private StandardTaskRepository taskRepo;
+    private final StandardTaskRepository taskRepo;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GratificationService.class);
+
+    public GratificationService(UserService userService, LevelService levelService, StandardTaskRepository taskRepo) {
+        this.userService = userService;
+        this.levelService = levelService;
+        this.taskRepo = taskRepo;
+    }
 
     @Override
     @Transactional
