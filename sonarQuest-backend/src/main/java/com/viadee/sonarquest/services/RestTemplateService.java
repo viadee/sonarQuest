@@ -27,8 +27,11 @@ public class RestTemplateService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
 
-    @Autowired
-    private RestTemplateBuilder restTemplateBuilder;
+    private final RestTemplateBuilder restTemplateBuilder;
+
+    public RestTemplateService(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplateBuilder = restTemplateBuilder;
+    }
 
     public RestTemplate getRestTemplate(final SonarConfig sonarConfig) {
         if (sonarConfig.hasHttpBasicAuth()) {
