@@ -1,10 +1,12 @@
 package com.viadee.sonarquest.services;
 
-import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.viadee.sonarquest.entities.SonarConfig;
+import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.externalressources.*;
+import com.viadee.sonarquest.repositories.StandardTaskRepository;
+import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
+import com.viadee.sonarquest.rules.SonarQuestStatus;
 import org.apache.commons.collections4.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,21 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.entities.StandardTask;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.externalressources.SonarQubeApiCall;
-import com.viadee.sonarquest.externalressources.SonarQubeComponentQualifier;
-import com.viadee.sonarquest.externalressources.SonarQubeIssue;
-import com.viadee.sonarquest.externalressources.SonarQubeIssueRessource;
-import com.viadee.sonarquest.externalressources.SonarQubeIssueType;
-import com.viadee.sonarquest.externalressources.SonarQubePaging;
-import com.viadee.sonarquest.externalressources.SonarQubeProject;
-import com.viadee.sonarquest.externalressources.SonarQubeProjectRessource;
-import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
-import com.viadee.sonarquest.repositories.StandardTaskRepository;
-import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service to access SonarQube server.
@@ -37,23 +28,17 @@ import com.viadee.sonarquest.rules.SonarQuestStatus;
 @Service
 public class ExternalRessourceService {
 
-    @Autowired
-    private StandardTaskEvaluationService standardTaskEvaluationService;
+    private final StandardTaskEvaluationService standardTaskEvaluationService;
 
-    @Autowired
-    private SonarQubeStatusMapper statusMapper;
+    private final SonarQubeStatusMapper statusMapper;
 
-    @Autowired
-    private StandardTaskRepository standardTaskRepository;
+    private final StandardTaskRepository standardTaskRepository;
 
-    @Autowired
-    private SonarConfigService sonarConfigService;
+    private final SonarConfigService sonarConfigService;
 
-    @Autowired
-    private RestTemplateService restTemplateService;
+    private final RestTemplateService restTemplateService;
 
-    @Autowired
-    private GratificationService gratificationService;
+    private final GratificationService gratificationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRessourceService.class);
 
@@ -67,6 +52,15 @@ public class ExternalRessourceService {
 
     @Value("#{'${issue.severities}'.split(',')}")
     private List<SonarQubeSeverity> issueSeverities;
+
+    public ExternalRessourceService(StandardTaskEvaluationService standardTaskEvaluationService, SonarQubeStatusMapper statusMapper, StandardTaskRepository standardTaskRepository, SonarConfigService sonarConfigService, RestTemplateService restTemplateService, GratificationService gratificationService) {
+        this.standardTaskEvaluationService = standardTaskEvaluationService;
+        this.statusMapper = statusMapper;
+        this.standardTaskRepository = standardTaskRepository;
+        this.sonarConfigService = sonarConfigService;
+        this.restTemplateService = restTemplateService;
+        this.gratificationService = gratificationService;
+    }
 
     public List<World> generateWorldsFromSonarQubeProjects() {
         return getSonarQubeProjects().stream().map(this::toWorld).collect(Collectors.toList());
@@ -131,13 +125,12 @@ public class ExternalRessourceService {
     public List<SonarQubeProject> getSonarQubeProjects() {
         try {
             final SonarConfig sonarConfig = sonarConfigService.getConfig();
-            final List<SonarQubeProject> sonarQubeProjects = new ArrayList<>();
             final SonarQubeProjectRessource sonarQubeProjectRessource = getSonarQubeProjectRessourceForPageIndex(
                     sonarConfig, 1);
 
-            sonarQubeProjects.addAll(sonarQubeProjectRessource.getSonarQubeProjects());
+            final List<SonarQubeProject> sonarQubeProjects = new ArrayList<>(sonarQubeProjectRessource.getSonarQubeProjects());
 
-            final Integer pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(
+            final int pagesOfExternalProjects = determinePagesOfExternalRessourcesToBeRequested(
                     sonarQubeProjectRessource.getPaging());
             for (int i = 2; i <= pagesOfExternalProjects; i++) {
                 sonarQubeProjects
@@ -156,10 +149,9 @@ public class ExternalRessourceService {
                     issueSeverities, projectKey);
             final SonarConfig sonarConfig = sonarConfigService.getConfig();
             final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
-            final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
             SonarQubeIssueRessource sonarQubeIssueRessource = getSonarQubeIssuesWithDefaultSeverities(restTemplate,
                     sonarConfig.getSonarServerUrl(), projectKey);
-            sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
+            final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>(sonarQubeIssueRessource.getIssues());
             LOGGER.info("Retrieved {} SonarQube issues in total for projectKey {}",
                     sonarQubeIssueList.size(), projectKey);
             return sonarQubeIssueList;
