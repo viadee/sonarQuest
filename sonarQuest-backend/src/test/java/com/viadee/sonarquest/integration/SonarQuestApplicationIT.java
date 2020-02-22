@@ -30,7 +30,7 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 import com.viadee.sonarquest.services.LevelService;
 import com.viadee.sonarquest.services.RoleService;
 import com.viadee.sonarquest.services.StandardTaskService;
@@ -131,7 +131,7 @@ public class SonarQuestApplicationIT {
         assertEquals("user not properly mapped to task participation", USERNAME,
                 taskParticipation.getUser().getUsername());
 
-        coerceDeathOutOfRetirementTask.setStatus(SonarQuestStatus.SOLVED);
+        coerceDeathOutOfRetirementTask.setStatus(SonarQuestTaskStatus.SOLVED);
         standardTaskService.updateStandardTask(coerceDeathOutOfRetirementTask);
 
         rinceWind = userService.findByUsername(USERNAME);
@@ -156,7 +156,7 @@ public class SonarQuestApplicationIT {
         task.setTitle("coercing Death out of his impromptu retirement");
         task.setWorld(discWorld);
         task.setQuest(magicQuest);
-        task.setStatus(SonarQuestStatus.OPEN);
+        task.setStatus(SonarQuestTaskStatus.OPEN);
         return taskRepository.save(task);
     }
 
@@ -203,7 +203,7 @@ public class SonarQuestApplicationIT {
         task.setTitle("coercing Death out of his impromptu retirement");
         task.setWorld(discWorld);
         task.setQuest(magicQuest);
-        task.setStatus(SonarQuestStatus.OPEN);
+        task.setStatus(SonarQuestTaskStatus.OPEN);
         taskRepository.save(task);
         
         assertNull("unexpected Task", standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTC"));

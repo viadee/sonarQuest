@@ -20,14 +20,17 @@ import com.viadee.sonarquest.services.UserService;
 @RequestMapping("/ui")
 public class UiDesignController {
 
-    @Autowired
-    private UiDesignService uiDesignService;
+    private final UiDesignService uiDesignService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UiDesignRepository uiDesignRepository;
+    private final UiDesignRepository uiDesignRepository;
+
+    public UiDesignController(UiDesignService uiDesignService, UserService userService, UiDesignRepository uiDesignRepository) {
+        this.uiDesignService = uiDesignService;
+        this.userService = userService;
+        this.uiDesignRepository = uiDesignRepository;
+    }
 
     @GetMapping
     public UiDesign getUiDesign(final Principal principal) {

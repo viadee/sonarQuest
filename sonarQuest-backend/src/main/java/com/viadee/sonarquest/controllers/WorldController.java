@@ -83,7 +83,7 @@ public class WorldController {
     @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @GetMapping(value = "/generate")
     public List<World> generateWorlds() {
-        worldService.updateWorlds();
+        worldService.retrieveExternalWorlds();
         return worldService.findAll();
     }
 

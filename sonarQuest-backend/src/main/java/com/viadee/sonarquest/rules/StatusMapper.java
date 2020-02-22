@@ -17,6 +17,6 @@ public interface StatusMapper {
      * @param sourceIssue
      * @return
      */
-    SonarQuestStatus mapExternalStatus(final IssueWithStatus sourceIssue);
+    SonarQuestTaskStatus mapExternalStatus(final IssueWithStatus sourceIssue);
 
 }

@@ -1,32 +1,34 @@
 package com.viadee.sonarquest.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.stereotype.Service;
-
 import com.viadee.sonarquest.entities.SpecialTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.SpecialTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SpecialTaskService {
 
-    @Autowired
-    private SpecialTaskRepository specialTaskRepository;
+    private final SpecialTaskRepository specialTaskRepository;
 
-    @Autowired
-    private WorldRepository worldRepository;
+    private final WorldRepository worldRepository;
+
+    public SpecialTaskService(SpecialTaskRepository specialTaskRepository, WorldRepository worldRepository) {
+        this.specialTaskRepository = specialTaskRepository;
+        this.worldRepository = worldRepository;
+    }
 
     public void saveDto(final SpecialTask specialTaskDto) {
         final World world = worldRepository.findByProject(specialTaskDto.getWorld().getProject());
 
         final SpecialTask sp = new SpecialTask(
                 specialTaskDto.getTitle(),
-                SonarQuestStatus.OPEN,
+                SonarQuestTaskStatus.OPEN,
                 specialTaskDto.getGold(),
                 specialTaskDto.getXp(),
                 specialTaskDto.getQuest(),

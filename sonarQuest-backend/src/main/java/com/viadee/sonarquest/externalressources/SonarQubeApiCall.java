@@ -26,7 +26,7 @@ public class SonarQubeApiCall {
      * Initializes a new Ressources Object (all values reset) and sets the server URL as a basis for a new REST API
      * Call.
      * 
-     * @param sonarQubeServerUrl
+     * @param sonarQubeServerUrl THe URL of the Sonar Qube server to be contacted
      * @return the new instance
      */
     public static SonarQubeApiCall onServer(String sonarQubeServerUrl) {

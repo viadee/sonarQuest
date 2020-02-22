@@ -1,29 +1,18 @@
 package com.viadee.sonarquest.services;
 
+import com.viadee.sonarquest.constants.EventState;
+import com.viadee.sonarquest.constants.EventType;
+import com.viadee.sonarquest.entities.*;
+import com.viadee.sonarquest.repositories.EventRepository;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Service;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.viadee.sonarquest.constants.EventState;
-import com.viadee.sonarquest.constants.EventType;
-import com.viadee.sonarquest.entities.Adventure;
-import com.viadee.sonarquest.entities.Artefact;
-import com.viadee.sonarquest.entities.Event;
-import com.viadee.sonarquest.entities.EventDto;
-import com.viadee.sonarquest.entities.EventUserDto;
-import com.viadee.sonarquest.entities.MessageDto;
-import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.entities.UserDto;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.repositories.EventRepository;
 
 @Service
 public class EventService {
@@ -32,18 +21,21 @@ public class EventService {
 
 	private static final int EVENT_STORY_MAX_LENGTH = 255;
 
-	@Autowired
-	private EventRepository eventRepository;
+	private final EventRepository eventRepository;
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
+
+	public EventService(EventRepository eventRepository, UserService userService) {
+		this.eventRepository = eventRepository;
+		this.userService = userService;
+	}
 
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
 	}
 
     public List<Event> getEventsForWorld(Principal principal) {
-        User user = userService.getUser(principal);
+        User user = userService.findByUsername(principal.getName());
         World currentWorld = user.getCurrentWorld();
         return eventRepository.findByWorldOrWorldIsNull(currentWorld);
     }
@@ -72,7 +64,8 @@ public class EventService {
          String image = StringUtils.EMPTY;
          World world = adventure.getWorld();
          String head = StringUtils.EMPTY;
-         return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+         User user = userService.findByUsername(principal.getName());
+         return new Event(type, title, story, state, image, world, head, user);
     }
 
     public Event createEventForSolvedQuest(Quest quest, Principal principal) {
@@ -102,13 +95,14 @@ public class EventService {
         return checkStoryAndSave(event);
     }
 	private Event questToEvent(Quest quest, Principal principal, EventState state) {
-		EventType type = EventType.QUEST;
-        String title = quest.getTitle();
-        String story = quest.getStory();
-        String image = quest.getImage();
-        World world = quest.getWorld();
-        String head = StringUtils.EMPTY;
-        return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
+		final EventType type = EventType.QUEST;
+        final String title = quest.getTitle();
+        final String story = quest.getStory();
+        final String image = quest.getImage();
+        final World world = quest.getWorld();
+        final String head = StringUtils.EMPTY;
+        final User user = userService.findByUsername(principal.getName());
+        return new Event(type, title, story, state, image, world, head, user);
 	}
     public Event createEventForCreatedArtefact(Artefact artefact, Principal principal) {
     	Event event = artefactToEvent(artefact, principal, EventState.CREATED);
@@ -133,15 +127,15 @@ public class EventService {
         String title = artefact.getName();
         String story = artefact.getDescription();
         String image = artefact.getIcon();
-        return new Event(type, title, story, state, image, userService.getUser(principal));
+		final User user = userService.findByUsername(principal.getName());
+        return new Event(type, title, story, state, image, user);
     }
 
 	public Event createEventForNewMessage(String message, Principal principal) {
-		User user = userService.getUser(principal);
-		EventType type = EventType.MESSAGE;
-		String story = message;
-		World world = user.getCurrentWorld();
-		return checkStoryAndSave(new Event(type, story, world, user));
+		final User user = userService.findByUsername(principal.getName());
+		final EventType type = EventType.MESSAGE;
+		final World world = user.getCurrentWorld();
+		return checkStoryAndSave(new Event(type, message, world, user));
 	}
 
 	public Event createEventForNewMessage(MessageDto messageDto) {
@@ -196,10 +190,8 @@ public class EventService {
 	}
 
 	public Boolean hasUserDto(List<UserDto> userDtos, UserDto userDto) {
-		Iterator<UserDto> i = userDtos.iterator();
 
-		while (i.hasNext()) {
-			UserDto dto = i.next();
+		for (UserDto dto : userDtos) {
 			if (dto.getId().equals(userDto.getId())) {
 				return true;
 			}
@@ -231,17 +223,11 @@ public class EventService {
 		return eventRepository.findFirst3ByOrderByTimestampDesc();
 	}
 
-	public List<Event> get10LatestEvents() {
-		return eventRepository.findFirst10ByOrderByTimestampDesc();
-	}
-
-	public boolean checkForUnseenEvents(String username) {
+	public boolean areUnseenEventsAvailable(String username) {
 		User user = userService.findByUsername(username);
 		if (user.getLastTavernVisit() != null) {
 			List<Event> unseenEvents = eventRepository.findAllWithTimestampAfter(user.getLastTavernVisit());
-			if(!unseenEvents.isEmpty()) {
-				return true;
-			}
+			return !unseenEvents.isEmpty();
 		}
 		return false;
 	}

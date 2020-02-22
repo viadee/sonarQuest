@@ -70,7 +70,7 @@ public class QuestServiceTest {
         when(questRepository.findByWorld(mockWorld)).thenReturn(mockQuests);
 
         // call method to be tested
-        final List<List<Quest>> result = questService.getAllQuestsForWorldAndUser(mockWorld, mockDeveloper);
+        final List<List<Quest>> result = questService.getAllQuestsForWorldAndUser(mockWorld.getId(), mockDeveloper);
 
         // verify result
         assertTrue(result.get(0).contains(mockQuest1));

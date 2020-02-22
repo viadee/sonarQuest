@@ -30,7 +30,7 @@ public class WorldService {
         return worldRepository.save(world);
     }
 
-    public void updateWorlds() {
+    public void retrieveExternalWorlds() {
         final List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
         externalWorlds.forEach(this::saveWorldIfNotExists);
     }
@@ -51,15 +51,13 @@ public class WorldService {
     }
 
     public World updateWorld(final World world) {
-        World currentWorld = null;
-        if (world != null) {
-            currentWorld = worldRepository.findById(world.getId()).orElseThrow(ResourceNotFoundException::new);
-            currentWorld.setName(world.getName());
-            currentWorld.setActive(world.getActive());
-            currentWorld.setUsequestcards(world.getUsequestcards());
-            currentWorld = worldRepository.save(currentWorld);
-            standardTaskService.updateStandardTasks(currentWorld);
-        }
+        World currentWorld;
+        currentWorld = worldRepository.findById(world.getId()).orElseThrow(ResourceNotFoundException::new);
+        currentWorld.setName(world.getName());
+        currentWorld.setActive(world.getActive());
+        currentWorld.setUsequestcards(world.getUsequestcards());
+        currentWorld = worldRepository.save(currentWorld);
+        standardTaskService.updateStandardTasks(currentWorld);
         return currentWorld;
     }
 

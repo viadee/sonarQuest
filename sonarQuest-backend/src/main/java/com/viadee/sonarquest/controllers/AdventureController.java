@@ -1,23 +1,5 @@
 package com.viadee.sonarquest.controllers;
 
-import java.security.Principal;
-import java.sql.Date;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.viadee.sonarquest.constants.AdventureState;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Quest;
@@ -30,6 +12,15 @@ import com.viadee.sonarquest.services.AdventureService;
 import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.sql.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/adventure")
@@ -37,26 +28,29 @@ public class AdventureController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdventureController.class);
 
-    @Autowired
-    private AdventureRepository adventureRepository;
+    private final AdventureRepository adventureRepository;
 
-    @Autowired
-    private QuestRepository questRepository;
+    private final QuestRepository questRepository;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private WorldRepository worldRepository;
+    private final WorldRepository worldRepository;
 
-    @Autowired
-    private AdventureService adventureService;
+    private final AdventureService adventureService;
 
-    @Autowired
-    private GratificationService gratificationService;
+    private final GratificationService gratificationService;
 
-    @Autowired
-    private EventService eventService;
+    private final EventService eventService;
+
+    public AdventureController(AdventureRepository adventureRepository, QuestRepository questRepository, UserService userService, WorldRepository worldRepository, AdventureService adventureService, GratificationService gratificationService, EventService eventService) {
+        this.adventureRepository = adventureRepository;
+        this.questRepository = questRepository;
+        this.userService = userService;
+        this.worldRepository = worldRepository;
+        this.adventureService = adventureService;
+        this.gratificationService = gratificationService;
+        this.eventService = eventService;
+    }
 
     @GetMapping
     public List<Adventure> getAllAdventures() {
@@ -64,28 +58,28 @@ public class AdventureController {
     }
 
     @GetMapping(value = "/world/{id}")
-    public List<Adventure> getAllAdventuresForWorld(@PathVariable(value = "id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
+    public List<Adventure> getAllAdventuresForWorld(@PathVariable(value = "id") final Long worldId) {
+        final World w = worldRepository.findById(worldId).orElseThrow(ResourceNotFoundException::new);
         return adventureRepository.findByWorld(w);
     }
 
     @GetMapping(value = "/{id}")
-    public Adventure getAdventureById(@PathVariable(value = "id") final Long id) {
-        return adventureRepository.findOne(id);
+    public Adventure getAdventureById(@PathVariable(value = "id") final Long adventureId) {
+        return adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
     }
 
     @GetMapping(value = "/getJoined/{world_id}")
     public List<Adventure> getJoinedAdventures(final Principal principal,
-            @PathVariable(value = "world_id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
+            @PathVariable(value = "world_id") final Long worldId) {
+        final World w = worldRepository.findById(worldId).orElseThrow(ResourceNotFoundException::new);
         final User user = userService.findByUsername(principal.getName());
         return adventureService.getJoinedAdventuresForUserInWorld(w, user);
     }
 
     @GetMapping(value = "/getFree/{world_id}")
     public List<Adventure> getFreeAdventures(final Principal principal,
-            @PathVariable(value = "world_id") final Long world_id) {
-        final World w = worldRepository.findOne(world_id);
+            @PathVariable(value = "world_id") final Long worldId) {
+        final World w = worldRepository.findById(worldId).orElseThrow(ResourceNotFoundException::new);
         final User user = userService.findByUsername(principal.getName());
         return adventureService.getFreeAdventuresForUserInWorld(w, user);
     }
@@ -100,39 +94,35 @@ public class AdventureController {
     }
 
     @PutMapping(value = "/{id}")
-    public Adventure updateAdventure(@PathVariable(value = "id") final Long id, @RequestBody final Adventure data) {
-        Adventure adventure = adventureRepository.findOne(id);
-        if (adventure != null) {
+    public Adventure updateAdventure(@PathVariable(value = "id") final Long adventureId, @RequestBody final Adventure data) {
+        Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
+
             adventure.setTitle(data.getTitle());
             adventure.setGold(data.getGold());
             adventure.setXp(data.getXp());
             adventure.setStory(data.getStory());
             adventure.setVisible(data.getVisible());
             adventure = adventureRepository.save(adventure);
-        }
+
         return adventure;
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteAdventure(@PathVariable(value = "id") final Long id) {
-        final Adventure adventure = adventureRepository.findOne(id);
-        if (adventure != null) {
+    public void deleteAdventure(@PathVariable(value = "id") final Long adventureId) {
+        final Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
             adventureRepository.delete(adventure);
-            LOGGER.info("Deleted adventure with id {}", id);
-        }
+            LOGGER.info("Deleted adventure with id {}", adventureId);
     }
 
     @PutMapping(value = "/{adventureId}/solveAdventure")
     public Adventure solveAdventure(final Principal principal,
             @PathVariable(value = "adventureId") final Long adventureId) {
-        final Adventure adventure = adventureRepository.findOne(adventureId);
-        if (adventure != null) {
+        final Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
             adventure.setStatus(AdventureState.SOLVED);
             adventure.setEnddate(new Date(System.currentTimeMillis()));
             adventureRepository.save(adventure);
             gratificationService.rewardUsersForSolvingAdventure(adventure);
             eventService.createEventForSolvedAdventure(adventure, principal);
-        }
         return adventure;
     }
 
@@ -140,17 +130,15 @@ public class AdventureController {
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addQuest(@PathVariable(value = "adventureId") final Long adventureId,
             @PathVariable(value = "questId") final Long questId) {
-        Adventure adventure = adventureRepository.findOne(adventureId);
-        if (adventure != null) {
-            final Quest quest = questRepository.findOne(questId);
+        Adventure adventure = adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
+
+            final Quest quest = questRepository.findById(questId).orElseThrow(ResourceNotFoundException::new);
             quest.setAdventure(adventure);
             questRepository.save(quest);
             if (adventure.getWorld() == null) {
                 adventure.setWorld(quest.getWorld());
                 adventureRepository.save(adventure);
             }
-            adventure = adventureRepository.findOne(adventureId);
-        }
         return adventure;
     }
 

@@ -16,8 +16,11 @@ import com.viadee.sonarquest.services.SonarConfigService;
 @RequestMapping("/sonarconfig")
 public class SonarConfigController {
 
-    @Autowired
-    private SonarConfigService sonarConfigService;
+    private final SonarConfigService sonarConfigService;
+
+    public SonarConfigController(SonarConfigService sonarConfigService) {
+        this.sonarConfigService = sonarConfigService;
+    }
 
     @GetMapping
     public SonarConfig getSonarConfigs() {

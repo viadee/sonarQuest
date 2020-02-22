@@ -1,11 +1,11 @@
 package com.viadee.sonarquest.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.viadee.sonarquest.entities.Level;
+import com.viadee.sonarquest.repositories.LevelRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarquest.entities.Level;
-import com.viadee.sonarquest.repositories.LevelRepository;
+import java.util.List;
 
 @Service
 public class LevelService {
@@ -14,6 +14,10 @@ public class LevelService {
 
 	public LevelService(LevelRepository levelRepository) {
 		this.levelRepository = levelRepository;
+	}
+
+	public List<Level> getAllLevels() {
+		return levelRepository.findAll();
 	}
 
 	public Level getLevelByUserXp(final Long xp) {

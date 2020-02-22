@@ -12,8 +12,11 @@ import com.viadee.sonarquest.entities.World;
 @Service
 public class WizardService {
 
-	@Autowired
-	private WorldService worldService;
+	private final WorldService worldService;
+
+	public WizardService(WorldService worldService) {
+		this.worldService = worldService;
+	}
 
 	/**
 	 * The WizardState keeps solution message key and message key together. These

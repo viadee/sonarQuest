@@ -18,11 +18,11 @@ public class SkillService {
 
     private final SkillRepository skillRepository;
 
-    private final ArtefactRepository artefactRepository;
+    private final ArtefactService artefactService;
 
-    public SkillService(SkillRepository skillRepository, ArtefactRepository artefactRepository) {
+    public SkillService(SkillRepository skillRepository, ArtefactService artefactService) {
         this.skillRepository = skillRepository;
-        this.artefactRepository = artefactRepository;
+        this.artefactService = artefactService;
     }
 
     @Transactional
@@ -34,15 +34,32 @@ public class SkillService {
         return skillRepository.save(skill);
     }
 
-    public List<Skill> getSkillsForArtefact(final Artefact a) {
-        return artefactRepository.findById(a.getId()).orElseThrow(ResourceNotFoundException::new).getSkills();
+    @Transactional
+    public List<Skill> getSkillsForArtefact(final Long artefactId) {
+        return artefactService.getArtefact(artefactId).getSkills();
     }
 
     @Transactional
-    public void deleteSkill(final Skill skill) {
-        if (skill != null) {
-            skillRepository.delete(skill);
-        }
+    public void deleteSkillById(final Long skillId) {
+            skillRepository.deleteById(skillId);
     }
 
+    @Transactional
+    public List<Skill> getAllSkills() {
+        return skillRepository.findAll();
+    }
+
+    @Transactional
+    public Skill getSkillById(final Long skillId) {
+        return skillRepository.findById(skillId).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @Transactional
+    public Skill updateSkill(final Long skillId, final Skill newSkill) {
+        Skill skill = skillRepository.findById(skillId).orElseThrow(ResourceNotFoundException::new);
+        skill.setName(newSkill.getName());
+        skill.setType(newSkill.getType());
+        skill.setValue(newSkill.getValue());
+        return skillRepository.save(skill);
+    }
 }

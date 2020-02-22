@@ -6,11 +6,10 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.*;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 import org.apache.commons.collections4.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -99,12 +98,12 @@ public class ExternalRessourceService {
         final Long gold = standardTaskEvaluationService.evaluateGoldAmount(sonarQubeIssue.getDebt());
         final Long xp = standardTaskEvaluationService.evaluateXP(sonarQubeIssue.getSeverity());
         final Integer debt = Math.toIntExact(standardTaskEvaluationService.getDebt(sonarQubeIssue.getDebt()));
-        final SonarQuestStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
+        final SonarQuestTaskStatus status = statusMapper.mapExternalStatus(sonarQubeIssue);
         return loadTask(sonarQubeIssue, world, gold, xp, debt, status);
     }
 
     private StandardTask loadTask(final SonarQubeIssue sonarQubeIssue, final World world, final Long gold,
-            final Long xp, final Integer debt, final SonarQuestStatus newStatus) {
+            final Long xp, final Integer debt, final SonarQuestTaskStatus newStatus) {
         StandardTask savedTask = standardTaskRepository.findByKey(sonarQubeIssue.getKey());
         if (savedTask == null) {
             // new issue from SonarQube: Create new task
@@ -113,8 +112,8 @@ public class ExternalRessourceService {
                     sonarQubeIssue.getType(), debt, sonarQubeIssue.getKey(),sonarQubeIssue.getRule());
         }
         else {
-            final SonarQuestStatus lastStatus = savedTask.getStatus();
-            if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {
+            final SonarQuestTaskStatus lastStatus = savedTask.getStatus();
+            if (newStatus == SonarQuestTaskStatus.SOLVED && lastStatus == SonarQuestTaskStatus.OPEN) {
                 gratificationService.rewardUserForSolvingTask(savedTask);
             }
             savedTask.setStatus(newStatus);

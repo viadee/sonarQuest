@@ -23,17 +23,20 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class AdventureService {
 
-    @Autowired
-    private AdventureRepository adventureRepository;
+    private final AdventureRepository adventureRepository;
 
-    @Autowired
-    private QuestRepository questRepository;
+    private final QuestRepository questRepository;
 
-    @Autowired
-    private GratificationService gratificationService;
+    private final GratificationService gratificationService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public AdventureService(AdventureRepository adventureRepository, QuestRepository questRepository, GratificationService gratificationService, UserService userService) {
+        this.adventureRepository = adventureRepository;
+        this.questRepository = questRepository;
+        this.gratificationService = gratificationService;
+        this.userService = userService;
+    }
 
     public void updateAdventures() {
         final List<Adventure> adventures = adventureRepository.findAll();
@@ -51,6 +54,10 @@ public class AdventureService {
                 adventureRepository.save(adventure);
             }
         }
+    }
+
+    public Adventure findById(final Long adventureId) {
+        return adventureRepository.findById(adventureId).orElseThrow(ResourceNotFoundException::new);
     }
 
     /**

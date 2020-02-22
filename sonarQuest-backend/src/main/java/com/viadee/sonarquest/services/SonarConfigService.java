@@ -16,11 +16,14 @@ public class SonarConfigService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SonarConfigService.class);
 
-    @Autowired
-    private SonarConfigRepository sonarConfigRepository;
+    private final SonarConfigRepository sonarConfigRepository;
 
-    @Autowired
-    private RestTemplateService restTemplateService;
+    private final RestTemplateService restTemplateService;
+
+    public SonarConfigService(SonarConfigRepository sonarConfigRepository, RestTemplateService restTemplateService) {
+        this.sonarConfigRepository = sonarConfigRepository;
+        this.restTemplateService = restTemplateService;
+    }
 
     public SonarConfig getConfig() {
         return sonarConfigRepository.findFirstBy();

@@ -64,7 +64,7 @@ public class EventController {
     
     @GetMapping(value="/checkForUnseenEvents")
     public boolean checkForUnseenEvents(final Principal principal) {
-    	return eventService.checkForUnseenEvents(principal.getName());
+    	return eventService.areUnseenEventsAvailable(principal.getName());
     }
 
 }

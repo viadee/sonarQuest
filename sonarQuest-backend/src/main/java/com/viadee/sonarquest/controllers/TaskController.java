@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 import com.viadee.sonarquest.services.AdventureService;
 import com.viadee.sonarquest.services.ParticipationService;
 import com.viadee.sonarquest.services.QuestService;
@@ -38,29 +37,32 @@ import com.viadee.sonarquest.services.WorldService;
 @RequestMapping("/task")
 public class TaskController {
 
-    @Autowired
-    private ParticipationService participationService;
+    private final ParticipationService participationService;
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
-    @Autowired
-    private StandardTaskService standardTaskService;
+    private final StandardTaskService standardTaskService;
 
-    @Autowired
-    private SpecialTaskService specialTaskService;
+    private final SpecialTaskService specialTaskService;
 
-    @Autowired
-    private WorldService worldService;
+    private final WorldService worldService;
 
-    @Autowired
-    private QuestService questService;
+    private final QuestService questService;
 
-    @Autowired
-    private AdventureService adventureService;
+    private final AdventureService adventureService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public TaskController(ParticipationService participationService, TaskService taskService, StandardTaskService standardTaskService, SpecialTaskService specialTaskService, WorldService worldService, QuestService questService, AdventureService adventureService, UserService userService) {
+        this.participationService = participationService;
+        this.taskService = taskService;
+        this.standardTaskService = standardTaskService;
+        this.specialTaskService = specialTaskService;
+        this.worldService = worldService;
+        this.questService = questService;
+        this.adventureService = adventureService;
+        this.userService = userService;
+    }
 
     @GetMapping
     public List<List<? extends Task>> getAllTasks() {
@@ -137,9 +139,9 @@ public class TaskController {
     public Task closeSpecialTask(@PathVariable(value = "taskId") final Long taskId) {
         Task task = taskService.find(taskId);
         if (task instanceof SpecialTask) {
-            task.setStatus(SonarQuestStatus.CLOSED);
+            task.setStatus(SonarQuestTaskStatus.CLOSED);
             task = taskService.save(task);
-            questService.updateQuest(task.getQuest());
+            questService.closeQuestWhenAllOfItsTasksAreClosed(task.getQuest());
             adventureService.updateAdventure(task.getQuest().getAdventure());
         }
         return task;
@@ -153,7 +155,7 @@ public class TaskController {
         if (task != null) {
             final Quest quest = questService.findById(questId);
             task.setQuest(quest);
-            task.setStatus(SonarQuestStatus.OPEN);
+            task.setStatus(SonarQuestTaskStatus.OPEN);
             task.setStartdate(new Date(System.currentTimeMillis()));
             task = taskService.save(task);
         }
@@ -165,7 +167,7 @@ public class TaskController {
         final Task task = taskService.find(taskId);
         if (task != null) {
             task.setQuest(null);
-            task.setStatus(SonarQuestStatus.OPEN);
+            task.setStatus(SonarQuestTaskStatus.OPEN);
             task.setStartdate(null);
             taskService.save(task);
         }
@@ -193,7 +195,7 @@ public class TaskController {
         final Task task = taskService.find(taskId);
         if (task != null) {
             task.setParticipation(null);
-            task.setStatus(SonarQuestStatus.OPEN);
+            task.setStatus(SonarQuestTaskStatus.OPEN);
             taskService.save(task);
         }
     }

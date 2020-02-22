@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -40,7 +40,7 @@ public class Task {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private SonarQuestStatus status;
+    private SonarQuestTaskStatus status;
 
     @Column(name = "gold")
     private Long gold;
@@ -81,11 +81,11 @@ public class Task {
         this.title = title;
     }
 
-    public SonarQuestStatus getStatus() {
+    public SonarQuestTaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(SonarQuestStatus status) {
+    public void setStatus(SonarQuestTaskStatus status) {
         this.status = status;
     }
 

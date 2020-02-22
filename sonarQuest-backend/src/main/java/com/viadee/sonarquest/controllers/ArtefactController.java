@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,93 +26,68 @@ import com.viadee.sonarquest.services.UserService;
 @RequestMapping("/artefact")
 public class ArtefactController {
 
-	@Autowired
-	private ArtefactRepository artefactRepository;
+    private final ArtefactService artefactService;
 
-	@Autowired
-	private ArtefactService artefactService;
+    private final UserService userService;
 
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private WebSocketController webSocketController;
+    private final WebSocketController webSocketController;
 
-	@GetMapping
-	public List<Artefact> getAllArtefacts() {
-		return artefactService.getArtefacts();
-	}
+    public ArtefactController(ArtefactService artefactService, UserService userService, WebSocketController webSocketController) {
+        this.artefactService = artefactService;
+        this.userService = userService;
+        this.webSocketController = webSocketController;
+    }
 
-	@GetMapping(value = "/forMarketplace/")
-	public List<Artefact> getArtefactsforMarketplace() {
-		return artefactService.getArtefactsForMarketplace();
-	}
+    @GetMapping
+    public List<Artefact> getAllArtefacts() {
+        return artefactService.getArtefacts();
+    }
 
-	@GetMapping(value = "/{id}")
-	public Artefact getArtefactById(@PathVariable(value = "id") final Long id) {
-		return artefactService.getArtefact(id);
-	}
+    @GetMapping(value = "/forMarketplace/")
+    public List<Artefact> getArtefactsforMarketplace() {
+        return artefactService.getArtefactsForMarketplace();
+    }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Artefact createArtefact(final Principal principal, @RequestBody final Artefact artefact) {
+    @GetMapping(value = "/{artefactId}")
+    public Artefact getArtefactById(@PathVariable(value = "artefactId") final Long id) {
+        return artefactService.getArtefact(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Artefact createArtefact(final Principal principal, @RequestBody final Artefact artefact) {
         webSocketController.onCreateArtefact(artefact, principal);
-		return artefactService.createArtefact(artefact);
-	}
+        return artefactService.createArtefact(artefact);
+    }
 
-	@PutMapping(value = "/{id}")
-	public Artefact updateArtefact(final Principal principal, @PathVariable(value = "id") final Long id, @RequestBody final Artefact data) {
-		Artefact artefact = artefactRepository.findOne(data.getId());
-		if (artefact != null) {
-			artefact.setDescription(data.getDescription());
-			artefact.setIcon(data.getIcon());
-			artefact.setMinLevel(data.getMinLevel());
-			artefact.setName(data.getName());
-			artefact.setPrice(data.getPrice());
-			artefact.setQuantity(data.getQuantity());
-			artefact.setSkills(data.getSkills());
-			artefact.setUsers(data.getUsers());
-			artefact.setOnMarketplace(data.isOnMarketplace());
-			artefactService.updateArtefact(id, artefact);
-	        webSocketController.onUpdateArtefact(artefact, principal);
-		}
-		return artefact;
-	}
+    @PutMapping(value = "/{artefactId}")
+    public Artefact updateArtefact(final Principal principal, @PathVariable(value = "artefactId") final Long artefactId, @RequestBody final Artefact artefact) {
+        Artefact savedArtefact = artefactService.updateArtefact(artefactId, artefact);
+        webSocketController.onUpdateArtefact(artefact, principal);
+        return savedArtefact;
+    }
 
-	@PutMapping(value = "/{artefact_id}/buy")
-	public boolean buyArtefact(final Principal principal, @PathVariable(value = "artefact_id") final Long artefact_id) {
-		User user = userService.findByUsername(principal.getName());
-		user = userService.findById(user.getId());
-		final Artefact artefact = artefactRepository.findOne(artefact_id);
+    @PutMapping(value = "/{artefactId}/buy")
+    public Artefact buyArtefact(final Principal principal, @PathVariable(value = "artefactId") final Long artefactId) {
+        final User user = userService.findByUsername(principal.getName());
+        return artefactService.buyArtefact(artefactId, user);
+    }
 
-		return artefactService.buyArtefact(artefact, user) != null;
-	}
+    @DeleteMapping(value = "/{artefactId}")
+    public void deleteArtefact(final Principal principal, @PathVariable(value = "artefactId") final Long artefactId) {
+        final Artefact artefact = artefactService.getArtefact(artefactId);
+        webSocketController.onDeleteArtefact(artefact, principal);
+        artefactService.deleteArtefact(artefactId);
+    }
 
-	@DeleteMapping(value = "/{id}")
-	public boolean deleteArtefact(final Principal principal, @PathVariable(value = "id") final Long id) {
-		Artefact artefact = artefactRepository.findOne(id);
-		if (artefact != null) {
-			if (artefact.getUsers().size() != 0) {
-				return false;
-			} else {
-				artefactRepository.delete(id);
-		        webSocketController.onDeleteArtefact(artefact, principal);
-				return true;
-			}
-		}
-		return false;
-	}
+    @DeleteMapping(value = "/{artefactId}/payout")
+    public void payoutArtefact(@PathVariable(value = "artefactId") final Long artefactId) {
+        artefactService.payoutArtefact(artefactId);
+    }
 
-	@DeleteMapping(value = "/{id}/payout")
-	public void payoutArtefact(@PathVariable(value = "id") final Long id) {
-		Artefact artefact = artefactRepository.findOne(id);
-		artefactService.payoutArtefact(artefact);
-	}
-	
-	@PutMapping(value = "/{id}/removeFromMarketplace")
-	public void removeArtefactFromMarketplace(@PathVariable(value = "id") final Long id) {
-		Artefact artefact = artefactRepository.findOne(id);
-		artefactService.removeArtefactFromMarketplace(artefact);
-	}
+    @PutMapping(value = "/{artefactId}/removeFromMarketplace")
+    public void removeArtefactFromMarketplace(@PathVariable(value = "artefactId") final Long artefactId) {
+        artefactService.removeArtefactFromMarketplace(artefactId);
+    }
 
 }

@@ -12,8 +12,11 @@ import com.viadee.sonarquest.repositories.RoleRepository;
 @Service
 public class RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     public Role findByName(final RoleName name) {
         return roleRepository.findByName(name);
