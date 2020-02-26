@@ -12,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserManagementIT {
 

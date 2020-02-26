@@ -27,7 +27,6 @@ import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.springframework.test.util.AssertionErrors.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class SonarQuestApplicationIT {
 

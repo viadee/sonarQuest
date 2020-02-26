@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
 public class ArtefactServiceIT {

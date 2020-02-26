@@ -14,8 +14,6 @@ import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
 public class AdventureControllerTest {
