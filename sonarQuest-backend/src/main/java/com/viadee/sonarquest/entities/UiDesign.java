@@ -11,7 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
 @Entity
 @Table(name = "Ui_Design")
 public class UiDesign {
@@ -28,29 +31,4 @@ public class UiDesign {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public UiDesignName getName() {
-        return name;
-    }
-
-    public void setName(final UiDesignName name) {
-        this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(final User user) {
-        this.user = user;
-    }
-
 }

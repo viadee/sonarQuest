@@ -5,7 +5,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import lombok.Data;
 
+@Data
 @Entity
 @DiscriminatorValue("SPECIAL")
 public class SpecialTask extends Task {
@@ -26,13 +28,5 @@ public class SpecialTask extends Task {
         this.setQuest(quest);
         this.message = message;
         this.setWorld(world);
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(final String message) {
-        this.message = message;
     }
 }

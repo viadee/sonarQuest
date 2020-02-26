@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "SQLevel")
 public class Level {
@@ -53,53 +55,5 @@ public class Level {
 
     public Level(final Long minLevel) {
         minXp = minLevel;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public Long getMinXp() {
-        return minXp;
-    }
-
-    public void setMinXp(final Long min) {
-        minXp = min;
-    }
-
-    public Long getMaxXp() {
-        return maxXp;
-    }
-
-    public void setMaxXp(final Long max) {
-        maxXp = max;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
-
-    public List<Artefact> getArtefacts() {
-        return artefacts;
-    }
-
-    public void setArtefacts(final List<Artefact> artefacts) {
-        this.artefacts = artefacts;
-    }
-
-    public int getLevelNumber() {
-        return levelNumber;
-    }
-
-    public void setLevelNumber(int level) {
-        levelNumber = level;
     }
 }

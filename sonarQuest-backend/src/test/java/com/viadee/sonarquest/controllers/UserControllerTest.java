@@ -1,24 +1,23 @@
 package com.viadee.sonarquest.controllers;
 
-import static org.junit.Assert.assertNull;
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.services.UserService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.security.Principal;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.services.UserService;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
 
     @Mock
@@ -28,7 +27,7 @@ public class UserControllerTest {
     private UserController userController;
 
     @Test
-    public void testAvatar_userServiceFindetUserNicht() throws Exception {
+    public void testAvatar_userServiceDoesntFindUser() {
         Principal principal = mock(Principal.class);
         when(principal.getName()).thenReturn("Aria");
         when(userService.findByUsername("Aria")).thenReturn(null);
@@ -38,7 +37,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testAvatar_userServiceMitUserOhnePicture() throws Exception {
+    public void testAvatar_userServiceWithUserWithoutAvatar() {
         Principal principal = mock(Principal.class);
         when(principal.getName()).thenReturn("Aria");
         User user = mock(User.class);

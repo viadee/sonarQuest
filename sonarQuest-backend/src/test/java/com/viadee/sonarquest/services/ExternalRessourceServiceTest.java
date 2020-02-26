@@ -1,19 +1,22 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
+
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+
 
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExternalRessourceServiceTest {
 
     @Test
-    public void sonarQubeIssuesWithSeverity_constructUrl() throws Exception {
+    public void sonarQubeIssuesWithSeverity_constructUrl() {
         List<SonarQubeSeverity> severities = Arrays.asList(SonarQubeSeverity.BLOCKER, SonarQubeSeverity.CRITICAL,
                 SonarQubeSeverity.MAJOR);
         String sonarServerUrl = "http://www.fantasyurl.io:8080";

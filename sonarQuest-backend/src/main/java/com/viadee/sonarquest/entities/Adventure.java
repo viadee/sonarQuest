@@ -21,7 +21,9 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.AdventureState;
+import lombok.*;
 
+@Data
 @Entity
 @Table(name = "Adventure")
 public class Adventure {
@@ -95,71 +97,6 @@ public class Adventure {
         this.users = users;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public void setStory(final String story) {
-        this.story = story;
-    }
-
-    public AdventureState getStatus() {
-        return status;
-    }
-
-    public void setStatus(final AdventureState status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
-        return gold;
-    }
-
-    public void setGold(final Long gold) {
-        this.gold = gold;
-    }
-
-    public Long getXp() {
-        return xp;
-    }
-
-    public void setXp(final Long xp) {
-        this.xp = xp;
-    }
-
-    public List<Quest> getQuests() {
-        return quests;
-    }
-
-    public void setQuests(final List<Quest> quests) {
-        this.quests = quests;
-    }
-
-    @JsonIgnore
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
-
     public synchronized void addUser(final User user) {
         if (users == null) {
             users = new ArrayList<>();
@@ -171,35 +108,4 @@ public class Adventure {
         users.remove(user);
     }
 
-    public World getWorld() {
-        return world;
-    }
-
-    public void setWorld(final World world) {
-        this.world = world;
-    }
-
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
 }

@@ -1,28 +1,16 @@
 package com.viadee.sonarquest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.Validate;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.apache.commons.lang3.Validate;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Objects;
-
+@EqualsAndHashCode
 @Entity
 @Table(name = "SQUser")
 public class User {
@@ -313,17 +301,4 @@ public class User {
             return new ArrayList<>();
         }
     }
-
-    @Override
-    public int hashCode() {
-        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
-    }
-
-    @Override
-    public boolean equals(final Object that) {
-        return this.getId() == null ? this == that
-                : that != null && this.getClass().isInstance(that)
-                        && Objects.equal(this.getId(), ((User) that).getId());
-    }
-
 }

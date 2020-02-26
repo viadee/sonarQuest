@@ -1,5 +1,10 @@
 package com.viadee.sonarquest.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class MessageDto {
     private String message;
     private Long userId;
@@ -11,21 +16,4 @@ public class MessageDto {
         this.message = message;
         this.userId = userId;
     }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
 }

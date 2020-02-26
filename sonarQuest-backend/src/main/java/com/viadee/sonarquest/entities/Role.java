@@ -15,7 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "Role")
 public class Role {
@@ -33,29 +35,4 @@ public class Role {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Role_To_Permission", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     private List<Permission> permissions;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public RoleName getName() {
-        return name;
-    }
-
-    public void setName(final RoleName name) {
-        this.name = name;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(final List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
 }

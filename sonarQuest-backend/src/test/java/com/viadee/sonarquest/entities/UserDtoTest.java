@@ -1,19 +1,15 @@
 package com.viadee.sonarquest.entities;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import com.viadee.sonarquest.repositories.UserRepository;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.viadee.sonarquest.repositories.UserRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserDtoTest {	
-	
-	@Autowired
-	private UserRepository userRepository ;
-	
-	@Test
-    public void testConstructUserDto() throws Exception {
+public class UserDtoTest {
+
+    @Test
+    public void testConstructUserDto() {
 		// Given
 		User user = new User();
 		

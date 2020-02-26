@@ -14,7 +14,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.SkillType;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "Skill")
 public class Skill {
@@ -50,46 +52,6 @@ public class Skill {
         this.name = name;
         this.type = type;
         this.value = value;
-        this.avatarClasses = avatarClasses;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public SkillType getType() {
-        return type;
-    }
-
-    public void setType(final SkillType type) {
-        this.type = type;
-    }
-
-    public Long getValue() {
-        return value;
-    }
-
-    public void setValue(final Long value) {
-        this.value = value;
-    }
-
-    public List<AvatarClass> getAvatarClasses() {
-        return avatarClasses;
-    }
-
-    public void setAvatarClasses(final List<AvatarClass> avatarClasses) {
         this.avatarClasses = avatarClasses;
     }
 }

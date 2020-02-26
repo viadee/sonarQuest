@@ -1,41 +1,28 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
+import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.entities.*;
+import com.viadee.sonarquest.repositories.EventRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.viadee.sonarquest.constants.QuestState;
-import com.viadee.sonarquest.entities.Event;
-import com.viadee.sonarquest.entities.EventUserDto;
-import com.viadee.sonarquest.entities.MessageDto;
-import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.entities.UserDto;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.repositories.EventRepository;
-import com.viadee.sonarquest.repositories.UserRepository;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class EventServiceIT {
-	
-	@Autowired
-	private UserRepository userRepository;
 
     @Autowired
     private EventService eventService;
@@ -55,7 +42,7 @@ public class EventServiceIT {
         List<Event> events1 = eventService.getLatestEvent();
 
         // verify result
-        assertTrue(events1.get(0).equals(event1));
+        assertEquals(events1.get(0), event1);
 
         Event event2 = new Event();
         event2.setTimestamp(new Timestamp(System.currentTimeMillis()));
@@ -84,7 +71,7 @@ public class EventServiceIT {
     }
 
     @Test
-    public void testCreateEventForCreatedQuest_shortStory() throws Exception {
+    public void testCreateEventForCreatedQuest_shortStory() {
         // Given
         String longStory = createStoryWithLength(25);
         Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
@@ -98,7 +85,7 @@ public class EventServiceIT {
     }
 
     @Test
-    public void testCreateEventForCreatedQuest_storyMoreThen255CharsLong() throws Exception {
+    public void testCreateEventForCreatedQuest_storyMoreThen255CharsLong() {
         // Given
         String longStory = createStoryWithLength(300);
         Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
@@ -112,7 +99,7 @@ public class EventServiceIT {
     }
     
     @Test
-    public void testEventToEventUserDto() throws Exception {
+    public void testEventToEventUserDto() {
     	User user1 		= new User();
     	Event event1 	= new Event();
     	event1.setUser(user1);
@@ -190,13 +177,7 @@ public class EventServiceIT {
     }
 
     private Principal createPrincipal() {
-        return new Principal() {
-
-            @Override
-            public String getName() {
-                return "admin";
-            }
-        };
+        return () -> "admin";
     }
 
     private Quest createQuest(String title, String story) {

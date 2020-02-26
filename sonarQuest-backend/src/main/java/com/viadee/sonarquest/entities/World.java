@@ -1,21 +1,12 @@
 package com.viadee.sonarquest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Objects;
-
+@Data
 @Entity
 @Table(name = "World")
 public class World {
@@ -65,93 +56,4 @@ public class World {
         this.active = active;
         this.usequestcards = usequestcards;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(final String project) {
-        this.project = project;
-    }
-
-    public List<Quest> getQuests() {
-        return quests;
-    }
-
-    public void setQuests(final List<Quest> quests) {
-        this.quests = quests;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(final Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean getUsequestcards() {
-        return usequestcards;
-    }
-
-    public void setUsequestcards(Boolean usequestcards) {
-        this.usequestcards = usequestcards;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(final List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
-
-    public boolean hasQuests() {
-        return !getQuests().isEmpty();
-    }
-
-    @Override
-    public int hashCode() {
-        return getId() == null ? super.hashCode() : Objects.hashCode(getId());
-    }
-
-    @Override
-    public boolean equals(final Object that) {
-        return getId() == null ? this == that
-                : that != null && this.getClass().isInstance(that)
-                        && Objects.equal(getId(), ((World) that).getId());
-    }
-
 }

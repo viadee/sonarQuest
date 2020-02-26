@@ -1,34 +1,31 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Matchers;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class StandardTaskServiceTest {
 
     @Mock
     private StandardTaskRepository standardTaskRepository;
-
-    @Mock
-    private GratificationService gratificationService;
 
     @Mock
     private NamedParameterJdbcTemplate template;
@@ -41,12 +38,12 @@ public class StandardTaskServiceTest {
         StandardTask task = new StandardTask();
         task.setKey("Color of Magic!");
         task.setStatus(SonarQuestTaskStatus.OPEN);
-        when(standardTaskRepository.save(Matchers.any(StandardTask.class))).thenReturn(task);
-        when(standardTaskRepository.saveAndFlush(Matchers.any(StandardTask.class))).thenReturn(task);
+        when(standardTaskRepository.save(ArgumentMatchers.any(StandardTask.class))).thenReturn(task);
+        when(standardTaskRepository.saveAndFlush(ArgumentMatchers.any(StandardTask.class))).thenReturn(task);
         when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
-        when(template.queryForObject(Matchers.anyString(),
-                Matchers.any(SqlParameterSource.class),
-                Matchers.<Class<String>>any())).thenReturn("OPEN");
+        when(template.queryForObject(ArgumentMatchers.anyString(),
+                ArgumentMatchers.any(SqlParameterSource.class),
+                ArgumentMatchers.<Class<String>>any())).thenReturn("OPEN");
 
         task = standardTaskService.updateStandardTask(task);
 
@@ -66,14 +63,14 @@ public class StandardTaskServiceTest {
     }
 
     @Test
-    public void testGetLastState() throws Exception {
+    public void testGetLastState() {
         StandardTask task = new StandardTask();
         SonarQuestTaskStatus lastState = standardTaskService.getLastState(task);
         assertEquals(SonarQuestTaskStatus.OPEN, lastState);
     }
 
 	@Test
-	public void testFindByWorld() throws Exception {
+	public void testFindByWorld() {
 		// Given
 		World world = new World();
 		List<StandardTask> unsortedTasks = new ArrayList<>();

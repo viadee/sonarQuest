@@ -1,32 +1,26 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.AdventureRepository;
-import com.viadee.sonarquest.repositories.ParticipationRepository;
-import com.viadee.sonarquest.services.AdventureService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class AdventureServiceTest {
 
     @Mock
     private AdventureRepository adventureRepository;
-
-    @Mock
-    private ParticipationRepository participationRepository;
 
     @InjectMocks
     private AdventureService adventureService;

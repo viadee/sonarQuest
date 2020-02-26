@@ -1,22 +1,19 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import com.viadee.sonarquest.entities.WizardMessage;
+import com.viadee.sonarquest.entities.World;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
-import com.viadee.sonarquest.entities.WizardMessage;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.services.WizardService;
-import com.viadee.sonarquest.services.WorldService;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class WizardServiceTest {
 
 	@InjectMocks

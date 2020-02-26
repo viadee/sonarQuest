@@ -1,26 +1,23 @@
 package com.viadee.sonarquest.externalressources;
 
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.viadee.sonarquest.entities.SonarConfig;
+import com.viadee.sonarquest.services.RestTemplateService;
+import com.viadee.sonarquest.services.SonarConfigService;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
-import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.externalressources.SonarQubeApiCall;
-import com.viadee.sonarquest.externalressources.SonarQubeComponentQualifier;
-import com.viadee.sonarquest.externalressources.SonarQubeProjectRessource;
-import com.viadee.sonarquest.services.RestTemplateService;
-import com.viadee.sonarquest.services.SonarConfigService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Ignore
+@Disabled
 public class SonarQubeApiCallIT {
 
     @Autowired
@@ -30,7 +27,7 @@ public class SonarQubeApiCallIT {
     private SonarConfigService sonarConfigService;
 
     @Test
-    public void searchComponents() throws Exception {
+    public void searchComponents() {
         SonarConfig sonarConfig = sonarConfigService.getConfig();
         String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
         String projectKey = "assertj";

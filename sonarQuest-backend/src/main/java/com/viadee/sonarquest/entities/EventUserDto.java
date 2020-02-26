@@ -1,34 +1,17 @@
 package com.viadee.sonarquest.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class EventUserDto {
-
     private List<UserDto> userDtos;
     private List<EventDto> eventDtos;
-
-    public EventUserDto() {
-    }
-
-    public EventUserDto(List<UserDto> userDtos, List<EventDto> eventDtos) {
-        this.userDtos = userDtos;
-        this.eventDtos = eventDtos;
-    }
-
-    public List<UserDto> getUserDtos() {
-        return userDtos;
-    }
-
-    public void setUserDtos(List<UserDto> userDtos) {
-        this.userDtos = userDtos;
-    }
-
-    public List<EventDto> getEventDtos() {
-        return eventDtos;
-    }
-
-    public void setEventDtos(List<EventDto> eventDtos) {
-        this.eventDtos = eventDtos;
-    }
-
 }

@@ -1,26 +1,22 @@
 package com.viadee.sonarquest.rules;
 
-import static org.junit.Assert.assertSame;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SonarQuestTaskStatusTest {
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Test
-    public void testFromStatusText() throws Exception {
+    public void testFromStatusText() {
         SonarQuestTaskStatus sonarQuestTaskStatus = SonarQuestTaskStatus.fromStatusText("SOLVED");
         assertSame(SonarQuestTaskStatus.SOLVED, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testFromStatusText_unknownStatusFail() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        SonarQuestTaskStatus.fromStatusText("UNMAPPED_STATUS");
+    public void testFromStatusText_unknownStatusFail() {
+        assertThrows(IllegalArgumentException.class, () -> SonarQuestTaskStatus.fromStatusText("UNMAPPED_STATUS"));
+
     }
 
 }

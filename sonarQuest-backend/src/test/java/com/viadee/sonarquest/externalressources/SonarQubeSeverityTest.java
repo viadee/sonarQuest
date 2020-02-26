@@ -1,13 +1,14 @@
 package com.viadee.sonarquest.externalressources;
 
-import static org.junit.Assert.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class SonarQubeSeverityTest {
 
 	@Test
-	public void testFromString() throws Exception {
+	public void testFromString() {
 		SonarQubeSeverity severity = SonarQubeSeverity.fromString("BLOCKER");
 		assertSame(SonarQubeSeverity.BLOCKER, severity);
 	}

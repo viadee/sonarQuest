@@ -1,25 +1,27 @@
 package com.viadee.sonarquest.entities;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class UserTest {
 
 	@Test
-	public void testGetJoinedWorlds_noWorlds() throws Exception {
+	public void testGetJoinedWorlds_noWorlds() {
 		User user = new User();
 		List<String> joinedWorlds = user.getJoinedWorlds();
 		assertEquals(Collections.emptyList(), joinedWorlds);
 	}
 
 	@Test
-	public void testGetJoinedWorlds_twoActiveWorlds() throws Exception {
+	public void testGetJoinedWorlds_twoActiveWorlds() {
 		// Given
 		User user = new User();
 		List<World> activeWorlds = new ArrayList<>();

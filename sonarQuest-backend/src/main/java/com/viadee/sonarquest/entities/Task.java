@@ -18,7 +18,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import lombok.Data;
 
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "task_type")
@@ -64,93 +66,4 @@ public class Task {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "participation_id")
     private Participation participation;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public SonarQuestTaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(SonarQuestTaskStatus status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
-        return gold;
-    }
-
-    public void setGold(final Long gold) {
-        this.gold = gold;
-    }
-
-    public Long getXp() {
-        return xp;
-    }
-
-    public void setXp(final Long xp) {
-        this.xp = xp;
-    }
-
-    public Quest getQuest() {
-        return quest;
-    }
-
-    public void setQuest(final Quest quest) {
-        this.quest = quest;
-    }
-
-    public Participation getParticipation() {
-        return participation;
-    }
-
-    public void setParticipation(final Participation participation) {
-        this.participation = participation;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public void setWorld(final World world) {
-        this.world = world;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(final String key) {
-        this.key = key;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
 }
