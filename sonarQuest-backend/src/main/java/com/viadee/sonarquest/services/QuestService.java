@@ -145,7 +145,7 @@ public class QuestService implements QuestSuggestion {
     }
     
     /**
-     * TODO Maybe to refactor! Find tasks from quest by repository
+     * 
      * Calculate quest progress from open tasks
      * @param quest with tasks
      * @return ProgressDTO to save progress information

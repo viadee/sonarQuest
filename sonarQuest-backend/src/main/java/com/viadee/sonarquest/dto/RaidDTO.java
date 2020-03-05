@@ -1,11 +1,13 @@
 package com.viadee.sonarquest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.viadee.sonarquest.constants.RaidState;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
-import com.viadee.sonarquest.entities.Task;
+import com.viadee.sonarquest.entities.RaidLeaderboard;
 import com.viadee.sonarquest.entities.World;
 
 public class RaidDTO {
@@ -19,16 +21,17 @@ public class RaidDTO {
 	private Long xp;
 	private World world;
 	private List<Quest> quests;
-	private List<Task>	tasks;
 	private ProgressDTO raidProgress;
-	
+	private List<RaidLeaderboardDTO> raidLeaderboardList;
+
 	public RaidDTO(Raid raid) {
-		this(raid.getId(), raid.getVisible(), raid.getTitle(), raid.getMonsterName(), raid.getMonsterImage(), raid.getStatus(), 
-				raid.getGold(), raid.getXp(), raid.getWorld(), raid.getQuests(), raid.getTasks());
+		this(raid.getId(), raid.getVisible(), raid.getTitle(), raid.getMonsterName(), raid.getMonsterImage(),
+				raid.getStatus(), raid.getGold(), raid.getXp(), raid.getWorld(), raid.getQuests(),
+				raid.getRaidLeaderboadList());
 	}
-	
-	public RaidDTO(Long id, Boolean visible, String title, String monsterName, String monsterImage,
-			RaidState status, Long gold, Long xp, World world, List<Quest> quests, List<Task> tasks) {
+
+	public RaidDTO(Long id, Boolean visible, String title, String monsterName, String monsterImage, RaidState status,
+			Long gold, Long xp, World world, List<Quest> quests, List<RaidLeaderboard> raidLeaderboardList) {
 		super();
 		this.id = id;
 		this.visible = visible;
@@ -41,7 +44,8 @@ public class RaidDTO {
 		this.world = world;
 		this.quests = quests;
 		this.raidProgress = new ProgressDTO(0, 0);
-		this.tasks = tasks;
+		this.raidLeaderboardList = raidLeaderboardList.stream().map(score -> new RaidLeaderboardDTO(score))
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	public Long getId() {
@@ -132,11 +136,11 @@ public class RaidDTO {
 		this.raidProgress = raidProgress;
 	}
 
-	public List<Task> getTasks() {
-		return tasks;
+	public List<RaidLeaderboardDTO> getRaidLeaderboardList() {
+		return raidLeaderboardList;
 	}
 
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
+	public void setRaidLeaderboardList(List<RaidLeaderboardDTO> raidLeaderboardList) {
+		this.raidLeaderboardList = raidLeaderboardList;
 	}
 }

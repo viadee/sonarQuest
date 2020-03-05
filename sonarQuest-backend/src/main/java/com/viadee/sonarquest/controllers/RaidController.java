@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.dto.RaidDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
-import com.viadee.sonarquest.services.QualityRaidService;
 import com.viadee.sonarquest.services.RaidService;
 
 @RestController
@@ -25,16 +24,10 @@ public class RaidController {
 
 	@Autowired
 	private RaidService raidService;
-	
-	@Autowired
-	QualityRaidService qualityRaidService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Raid createRaid(@RequestBody Raid raid) {
-		
-		qualityRaidService.createQualityRaid(raid.getWorld().getId(), raid.getTitle(), raid.getGold(), raid.getXp());
-		
 		return raidService.createRaid(raid);
 	}
 
@@ -47,27 +40,25 @@ public class RaidController {
 	}
 
 	@GetMapping(value = "/world/{id}")
-	public List<RaidDTO> getAllRaidsFromWorld(@PathVariable(value = "id") Long world_id) {
+	public List<RaidDTO> findAllRaidsFromWorld(@PathVariable(value = "id") Long world_id) {
 		List<Raid> raids = raidService.findAllRaidsFromWorld(world_id);
 		List<RaidDTO> raidDTOs = new ArrayList<RaidDTO>();
-		
+
 		for (Raid raid : raids) {
 			RaidDTO raidDTO = new RaidDTO(raid);
 			raidDTO.setRaidProgress(raidService.calculateRaidProgress(raid));
 			raidDTOs.add(raidDTO);
 		}
-		return raidDTOs; 
+		return raidDTOs;
 	}
 
 	public void deleteRaid(Long raidId) {
-	}
-
-	public void solveRaid() {
+		raidService.deleteRaid(raidId);
 	}
 
 	public Quest addRaidToQuest(@PathVariable(value = "raidId") final Long raidId,
 			@PathVariable(value = "questId") final Long questId) {
 		return raidService.addRaidToQuest(raidId, questId);
 	}
-	
+
 }

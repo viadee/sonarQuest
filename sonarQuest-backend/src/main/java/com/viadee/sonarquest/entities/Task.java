@@ -56,11 +56,6 @@ public class Task {
     @JoinColumn(name = "quest_id")
     private Quest quest;
     
-    @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name = "raid_id")
-    private Raid raid;
-
     @ManyToOne
     @JoinColumn(name = "world_id")
     private World world;
@@ -133,6 +128,12 @@ public class Task {
     public Participation getParticipation() {
         return participation;
     }
+    
+	public String getParticipant() {
+		if(participation == null)
+			return "";
+		return participation.getUser().getUsername();
+	}
 
     public void setParticipation(final Participation participation) {
         this.participation = participation;
@@ -169,13 +170,87 @@ public class Task {
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
+    
+    public static class TaskBuilder {
+        
+        private Date startdate;
+        private Date enddate;
+        private String title;
+        private SonarQuestStatus status;
+        private World world;
+        private Long xp;
+        private Long gold;
+        private Quest quest;
 
-	public Raid getRaid() {
-		return raid;
-	}
+        public TaskBuilder() {    
+        }
+          
+        public TaskBuilder(Date startdate, Date enddate, String title, SonarQuestStatus status, World world, Long xp, Long gold, Quest quest) {    
+          this.startdate = startdate; 
+          this.enddate = enddate; 
+          this.title = title; 
+          this.status = status; 
+          this.world = world; 
+          this.xp = xp; 
+          this.gold = gold; 
+          this.quest = quest;             
+        }
+            
+        public TaskBuilder startdate(Date startdate){
+          this.startdate = startdate;
+          return TaskBuilder.this;
+        }
 
-	public void setRaid(Raid raid) {
-		this.raid = raid;
-	}
+        public TaskBuilder enddate(Date enddate){
+          this.enddate = enddate;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder title(String title){
+          this.title = title;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder status(SonarQuestStatus status){
+          this.status = status;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder world(World world){
+          this.world = world;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder xp(Long xp){
+          this.xp = xp;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder gold(Long gold){
+          this.gold = gold;
+          return TaskBuilder.this;
+        }
+
+        public TaskBuilder quest(Quest quest){
+          this.quest = quest;
+          return TaskBuilder.this;
+        }
+
+        public Task build() {
+
+            return new Task(this);
+        }
+      }
+
+      private Task(TaskBuilder builder) {
+        this.startdate = builder.startdate; 
+        this.enddate = builder.enddate; 
+        this.title = builder.title; 
+        this.status = builder.status; 
+        this.world = builder.world; 
+        this.xp = builder.xp; 
+        this.gold = builder.gold; 
+        this.quest = builder.quest;     
+      }
 
 }

@@ -21,5 +21,12 @@ public interface StatusMapper {
      */
     SonarQuestStatus mapExternalStatus(final IssueWithStatus sourceIssue);
     
+    
+    /**
+     * Maps the Status from an external "quality gate status" to a SonarQuestStatus.
+     * 
+     * @param sonarQubeStatus
+     * @return
+     */
     SonarQuestStatus mapSonarQubeProjectStatus(final SonarQubeProjectStatusType sonarQubeStatus);
 }

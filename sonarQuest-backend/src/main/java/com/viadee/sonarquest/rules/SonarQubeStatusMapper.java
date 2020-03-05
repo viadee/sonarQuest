@@ -48,7 +48,7 @@ public class SonarQubeStatusMapper implements StatusMapper {
     }
     
     @Override
-    public SonarQuestStatus mapSonarQubeProjectStatus(SonarQubeProjectStatusType sonarQubeStatus) {
+    public SonarQuestStatus mapSonarQubeProjectStatus(final SonarQubeProjectStatusType sonarQubeStatus) {
     	final SonarQuestStatus mappedStatus;
         switch (sonarQubeStatus) {
         case OK:
