@@ -1,6 +1,5 @@
 package com.viadee.sonarquest.security;
 
-import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,9 +21,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtHelper {
+
     private static final String AUTHORITIES = "authorities";
 
-    private final byte[] key = generateKey();
+    @Value("${security.jwt.privatekey}")
+    private String key;
 
     @Value("${security.jwt.algorithm}")
     private String algorithm;
@@ -66,9 +67,4 @@ public class JwtHelper {
         return new UsernameAndAuthorities(username, authorities);
     }
 
-    private static byte[] generateKey() {
-        byte[] generatedKey = new byte[64];
-        new SecureRandom().nextBytes(generatedKey);
-        return generatedKey;
-    }
 }

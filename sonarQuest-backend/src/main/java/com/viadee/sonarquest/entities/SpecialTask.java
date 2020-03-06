@@ -5,9 +5,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("SPECIAL")
 public class SpecialTask extends Task {

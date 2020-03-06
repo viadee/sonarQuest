@@ -3,8 +3,6 @@ package com.viadee.sonarquest.controllers;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.repositories.ArtefactRepository;
 import com.viadee.sonarquest.services.ArtefactService;
 import com.viadee.sonarquest.services.UserService;
 
@@ -32,7 +29,7 @@ public class ArtefactController {
 
     private final WebSocketController webSocketController;
 
-    public ArtefactController(ArtefactService artefactService, UserService userService, WebSocketController webSocketController) {
+    public ArtefactController(final ArtefactService artefactService, final UserService userService, final WebSocketController webSocketController) {
         this.artefactService = artefactService;
         this.userService = userService;
         this.webSocketController = webSocketController;
@@ -62,7 +59,7 @@ public class ArtefactController {
 
     @PutMapping(value = "/{artefactId}")
     public Artefact updateArtefact(final Principal principal, @PathVariable(value = "artefactId") final Long artefactId, @RequestBody final Artefact artefact) {
-        Artefact savedArtefact = artefactService.updateArtefact(artefactId, artefact);
+        final Artefact savedArtefact = artefactService.updateArtefact(artefactId, artefact);
         webSocketController.onUpdateArtefact(artefact, principal);
         return savedArtefact;
     }

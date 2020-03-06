@@ -4,13 +4,10 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Skill;
-import com.viadee.sonarquest.repositories.ArtefactRepository;
 import com.viadee.sonarquest.repositories.SkillRepository;
 
 @Service
@@ -20,7 +17,7 @@ public class SkillService {
 
     private final ArtefactService artefactService;
 
-    public SkillService(SkillRepository skillRepository, ArtefactService artefactService) {
+    public SkillService(final SkillRepository skillRepository, final ArtefactService artefactService) {
         this.skillRepository = skillRepository;
         this.artefactService = artefactService;
     }
@@ -56,7 +53,7 @@ public class SkillService {
 
     @Transactional
     public Skill updateSkill(final Long skillId, final Skill newSkill) {
-        Skill skill = skillRepository.findById(skillId).orElseThrow(ResourceNotFoundException::new);
+        final Skill skill = skillRepository.findById(skillId).orElseThrow(ResourceNotFoundException::new);
         skill.setName(newSkill.getName());
         skill.setType(newSkill.getType());
         skill.setValue(newSkill.getValue());

@@ -3,7 +3,6 @@ package com.viadee.sonarquest.controllers;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.services.ExternalRessourceService;
+import com.viadee.sonarquest.services.StandardTaskService;
 import com.viadee.sonarquest.services.UserService;
 import com.viadee.sonarquest.services.WorldService;
 
@@ -22,11 +23,21 @@ import com.viadee.sonarquest.services.WorldService;
 @RequestMapping("/world")
 public class WorldController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private WorldService worldService;
+    private final WorldService worldService;
+
+    private final StandardTaskService standardTaskService;
+
+    private final ExternalRessourceService externalRessourceService;
+
+    public WorldController(final UserService userService, final WorldService worldService,
+            final StandardTaskService standardTaskService, final ExternalRessourceService externalRessourceService) {
+        this.userService = userService;
+        this.worldService = worldService;
+        this.standardTaskService = standardTaskService;
+        this.externalRessourceService = externalRessourceService;
+    }
 
     @GetMapping(value = "/current")
     public World getCurrentWorld(final Principal principal) {
@@ -37,7 +48,10 @@ public class WorldController {
     @PostMapping(value = "/current")
     public World setCurrentWorld(final Principal principal, @RequestBody final World world) {
         final User user = userService.findByUsername(principal.getName());
-        return userService.updateUsersCurrentWorld(user, world.getId());
+        final World currentWorld = worldService.findById(world.getId());
+        user.setCurrentWorld(currentWorld);
+        user.setLastTavernVisit(null);
+        return userService.updateUser(user).getCurrentWorld();
     }
 
     @GetMapping(value = "/worlds")
@@ -66,7 +80,10 @@ public class WorldController {
     @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @PostMapping(value = "/world")
     public World updateWorld(@RequestBody final World data) {
-        return worldService.updateWorld(data);
+         final World world = worldService.updateWorld(data);
+         // TODO Der Name ist recht unpassend
+         standardTaskService.updateStandardTasks(world);
+         return world;
     }
 
     @PreAuthorize("hasAuthority('ACTIVE_WORLD_ACCESS')")
@@ -83,7 +100,8 @@ public class WorldController {
     @PreAuthorize("hasAuthority('FULL_WORLD_ACCESS')")
     @GetMapping(value = "/generate")
     public List<World> generateWorlds() {
-        worldService.retrieveExternalWorlds();
+        final List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
+        worldService.saveWorlds(externalWorlds);
         return worldService.findAll();
     }
 

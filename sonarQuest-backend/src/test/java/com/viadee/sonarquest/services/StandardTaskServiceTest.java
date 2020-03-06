@@ -1,25 +1,25 @@
 package com.viadee.sonarquest.services;
 
-import com.viadee.sonarquest.entities.StandardTask;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
-import com.viadee.sonarquest.repositories.StandardTaskRepository;
-import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
+import com.viadee.sonarquest.repositories.StandardTaskRepository;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
 @ExtendWith(MockitoExtension.class)
 public class StandardTaskServiceTest {
@@ -64,23 +64,23 @@ public class StandardTaskServiceTest {
 
     @Test
     public void testGetLastState() {
-        StandardTask task = new StandardTask();
-        SonarQuestTaskStatus lastState = standardTaskService.getLastState(task);
+        final StandardTask task = new StandardTask();
+        final SonarQuestTaskStatus lastState = standardTaskService.getLastState(task);
         assertEquals(SonarQuestTaskStatus.OPEN, lastState);
     }
 
 	@Test
 	public void testFindByWorld() {
 		// Given
-		World world = new World();
-		List<StandardTask> unsortedTasks = new ArrayList<>();
+		final World world = new World();
+		final List<StandardTask> unsortedTasks = new ArrayList<>();
 		unsortedTasks.add(mockStandardTask("BLOCKER"));
 		unsortedTasks.add(mockStandardTask("MAJOR"));
 		unsortedTasks.add(mockStandardTask("CRITICAL"));
 		unsortedTasks.add(mockStandardTask("MAJOR"));
 		when(standardTaskService.findByWorld(world)).thenReturn(unsortedTasks);
 		// When
-		List<StandardTask> tasks = standardTaskService.findByWorld(world);
+		final List<StandardTask> tasks = standardTaskService.findByWorld(world);
 		// Then
 		assertEquals(SonarQubeSeverity.BLOCKER.name(), tasks.get(0).getSeverity());
 		assertEquals(SonarQubeSeverity.CRITICAL.name(), tasks.get(1).getSeverity());
@@ -88,8 +88,8 @@ public class StandardTaskServiceTest {
 		assertEquals(SonarQubeSeverity.MAJOR.name(), tasks.get(3).getSeverity());
 	}
 
-	private StandardTask mockStandardTask(String severity) {
-		StandardTask task = new StandardTask();
+	private StandardTask mockStandardTask(final String severity) {
+		final StandardTask task = new StandardTask();
 		task.setSeverity(severity);
 		return task;
 	}

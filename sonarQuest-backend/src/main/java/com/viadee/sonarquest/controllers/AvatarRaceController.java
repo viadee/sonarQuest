@@ -2,7 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,7 @@ public class AvatarRaceController {
 
     private final AvatarRaceRepository avatarRaceRepository;
 
-    public AvatarRaceController(AvatarRaceRepository avatarRaceRepository) {
+    public AvatarRaceController(final AvatarRaceRepository avatarRaceRepository) {
         this.avatarRaceRepository = avatarRaceRepository;
     }
 
@@ -47,7 +46,7 @@ public class AvatarRaceController {
 
     @PutMapping(value = "/{id}")
     public AvatarRace updateAvatarRace(@PathVariable(value = "id") final Long avatarRaceId, @RequestBody final AvatarRace avatarRaceInput) {
-        AvatarRace avatarRace = avatarRaceRepository.findById(avatarRaceId).orElseThrow(ResourceNotFoundException::new);
+        final AvatarRace avatarRace = avatarRaceRepository.findById(avatarRaceId).orElseThrow(ResourceNotFoundException::new);
         avatarRace.setName(avatarRaceInput.getName());
         return avatarRaceRepository.save(avatarRace);
 

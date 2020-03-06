@@ -2,7 +2,6 @@ package com.viadee.sonarquest.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.Role;
@@ -14,7 +13,7 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(final RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 

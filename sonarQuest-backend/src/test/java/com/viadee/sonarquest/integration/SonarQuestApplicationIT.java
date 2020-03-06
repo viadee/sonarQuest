@@ -1,31 +1,41 @@
 package com.viadee.sonarquest.integration;
 
-
-import com.viadee.sonarquest.controllers.ParticipationController;
-import com.viadee.sonarquest.controllers.TaskController;
-import com.viadee.sonarquest.entities.*;
-import com.viadee.sonarquest.repositories.*;
-import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
-import com.viadee.sonarquest.services.LevelService;
-import com.viadee.sonarquest.services.RoleService;
-import com.viadee.sonarquest.services.StandardTaskService;
-import com.viadee.sonarquest.services.UserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
+import static org.springframework.test.util.AssertionErrors.assertNull;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.util.AssertionErrors.assertEquals;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
-import static org.springframework.test.util.AssertionErrors.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.viadee.sonarquest.controllers.ParticipationController;
+import com.viadee.sonarquest.controllers.TaskController;
+import com.viadee.sonarquest.entities.Level;
+import com.viadee.sonarquest.entities.Participation;
+import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.RoleName;
+import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.repositories.AvatarClassRepository;
+import com.viadee.sonarquest.repositories.AvatarRaceRepository;
+import com.viadee.sonarquest.repositories.LevelRepository;
+import com.viadee.sonarquest.repositories.QuestRepository;
+import com.viadee.sonarquest.repositories.StandardTaskRepository;
+import com.viadee.sonarquest.repositories.TaskRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import com.viadee.sonarquest.services.LevelService;
+import com.viadee.sonarquest.services.RoleService;
+import com.viadee.sonarquest.services.StandardTaskService;
+import com.viadee.sonarquest.services.UserService;
 
 @SpringBootTest
 public class SonarQuestApplicationIT {
@@ -78,7 +88,7 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private StandardTaskRepository standardTaskRepository;
-    
+
     /**
      * Walk through the participation on the backend with a developer perspective. This test assumes a spring
      * environment including a simulated sonar server and database access.
@@ -179,17 +189,17 @@ public class SonarQuestApplicationIT {
         world.setActive(true);
         return worldRepository.save(world);
     }
-    
+
     /**
      * Regression test for issue #162.
      */
     @Test
     @Transactional
     public void caseSensitiveTaskKeys() {
-        
+
         final World discWorld = createWorld();
-        Quest magicQuest = createQuest(discWorld);
-        
+        final Quest magicQuest = createQuest(discWorld);
+
         final StandardTask task = new StandardTask();
         task.setGold(10L);
         task.setXp(20L);
@@ -199,7 +209,7 @@ public class SonarQuestApplicationIT {
         task.setQuest(magicQuest);
         task.setStatus(SonarQuestTaskStatus.OPEN);
         taskRepository.save(task);
-        
+
         assertNull("unexpected Task", standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTC"));
         standardTaskRepository.findAll().forEach(t -> System.out.println(">>>" + t.getId() + " " + t.getKey()));
         Assertions.assertNotNull(standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTc"));

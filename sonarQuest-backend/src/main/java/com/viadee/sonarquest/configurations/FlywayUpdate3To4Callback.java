@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 public class FlywayUpdate3To4Callback implements Callback {
     private final Flyway flyway;
 
-    public FlywayUpdate3To4Callback(@Lazy Flyway flyway) {
+    public FlywayUpdate3To4Callback(@Lazy final Flyway flyway) {
         this.flyway = flyway;
     }
 
-    private boolean checkColumnExists(Configuration flywayConfiguration) throws MetaDataAccessException {
+    private boolean checkColumnExists(final Configuration flywayConfiguration) throws MetaDataAccessException {
         return (boolean) JdbcUtils.extractDatabaseMetaData(flywayConfiguration.getDataSource(),
                 callback -> callback
                         .getColumns(null, null, flywayConfiguration.getTable(), "version_rank")
@@ -36,27 +36,27 @@ public class FlywayUpdate3To4Callback implements Callback {
     }
 
     @Override
-    public boolean supports(Event event, Context context) {
+    public boolean supports(final Event event, final Context context) {
         return event == Event.BEFORE_VALIDATE;
     }
 
     @Override
-    public boolean canHandleInTransaction(Event event, Context context) {
+    public boolean canHandleInTransaction(final Event event, final Context context) {
         return false;
     }
 
     @Override
-    public void handle(Event event, Context context) {
+    public void handle(final Event event, final Context context) {
         boolean versionRankColumnExists = false;
         try {
             versionRankColumnExists = checkColumnExists(context.getConfiguration());
-        } catch (MetaDataAccessException e) {
+        } catch (final MetaDataAccessException e) {
             log.error("Cannot obtain flyway metadata");
             return;
         }
         if (versionRankColumnExists) {
             log.info("Upgrading metadata table the Flyway 4.0 format ...");
-            Resource resource = new ClassPathResource("db/migration/flyway_upgradeMetaDataTable_V3_to_V4.sql",
+            final Resource resource = new ClassPathResource("db/migration/flyway_upgradeMetaDataTable_V3_to_V4.sql",
                     Thread.currentThread().getContextClassLoader());
             ScriptUtils.executeSqlScript(context.getConnection(), resource);
             log.info("Flyway metadata table updated successfully.");

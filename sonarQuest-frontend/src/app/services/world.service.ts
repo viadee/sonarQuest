@@ -4,7 +4,7 @@ import {World} from '../Interfaces/World';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class WorldService {
@@ -22,9 +22,9 @@ export class WorldService {
   constructor(private http: HttpClient, private userService: UserService) {
 
     userService.user$.subscribe(user => {
-      
+
       this.getWorlds().subscribe(worlds => {
-        if (user.currentWorld == null){
+        if (user.currentWorld == null) {
           this.setCurrentWorld(worlds[0])
         } else {
           this.currentWorldSubject.next(user.currentWorld)
@@ -59,12 +59,14 @@ export class WorldService {
   }
 
   public setCurrentWorld(world: World): Observable<World> {
-    this.http.post<World>(`${environment.endpoint}/world/current`, world).subscribe(
-      result => {
-        this.currentWorldSubject.next(result)
-      },
-      err => this.currentWorldSubject.error(err)
-    );
+    if (world) {
+      this.http.post<World>(`${environment.endpoint}/world/current`, world).subscribe(
+        result => {
+          this.currentWorldSubject.next(result)
+        },
+        err => this.currentWorldSubject.error(err)
+      );
+    }
     return this.currentWorldSubject;
   }
 

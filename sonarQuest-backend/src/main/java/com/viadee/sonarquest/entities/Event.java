@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,7 +13,9 @@ import javax.persistence.Table;
 
 import com.viadee.sonarquest.constants.EventState;
 import com.viadee.sonarquest.constants.EventType;
-import lombok.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -21,7 +24,7 @@ import lombok.*;
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "type")
@@ -53,12 +56,12 @@ public class Event {
     @Column(name = "timestamp")
     private Timestamp timestamp;
 
-    public Event(String title) {
+    public Event(final String title) {
         this.title = title;
     }
 
-    public Event(EventType type, String title, String story, EventState state, String image, World world,
-            String headline) {
+    public Event(final EventType type, final String title, final String story, final EventState state, final String image, final World world,
+            final String headline) {
         this.type = type;
         this.title = title;
         this.story = story;
@@ -69,8 +72,8 @@ public class Event {
         this.headline = headline;
     }
 
-    public Event(EventType type, String title, String story, EventState state, String image, World world,
-            String headline, User user) {
+    public Event(final EventType type, final String title, final String story, final EventState state, final String image, final World world,
+            final String headline, final User user) {
         this.type = type;
         this.title = title;
         this.story = story;
@@ -82,7 +85,7 @@ public class Event {
         this.user = user;
     }
 
-    public Event(EventType type, String title, String story, EventState state, World world, String headline) {
+    public Event(final EventType type, final String title, final String story, final EventState state, final World world, final String headline) {
         this.type = type;
         this.title = title;
         this.story = story;
@@ -92,7 +95,7 @@ public class Event {
         this.headline = headline;
     }
 
-    public Event(EventType type, String story, World world, User user) {
+    public Event(final EventType type, final String story, final World world, final User user) {
         this.type = type;
         this.story = story;
         this.world = world;
@@ -101,7 +104,7 @@ public class Event {
         timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Event(EventType type, String title, String story, EventState state, String image, User user) {
+    public Event(final EventType type, final String title, final String story, final EventState state, final String image, final User user) {
         this.type = type;
         this.story = story;
         this.title = title;

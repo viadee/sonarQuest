@@ -2,7 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import java.security.Principal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ public class UiDesignController {
 
     private final UiDesignRepository uiDesignRepository;
 
-    public UiDesignController(UiDesignService uiDesignService, UserService userService, UiDesignRepository uiDesignRepository) {
+    public UiDesignController(final UiDesignService uiDesignService, final UserService userService, final UiDesignRepository uiDesignRepository) {
         this.uiDesignService = uiDesignService;
         this.userService = userService;
         this.uiDesignRepository = uiDesignRepository;

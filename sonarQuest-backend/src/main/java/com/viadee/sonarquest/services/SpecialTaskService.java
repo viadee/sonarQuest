@@ -1,15 +1,15 @@
 package com.viadee.sonarquest.services;
 
+import java.util.List;
+
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
 import com.viadee.sonarquest.entities.SpecialTask;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.SpecialTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SpecialTaskService {
@@ -18,7 +18,7 @@ public class SpecialTaskService {
 
     private final WorldRepository worldRepository;
 
-    public SpecialTaskService(SpecialTaskRepository specialTaskRepository, WorldRepository worldRepository) {
+    public SpecialTaskService(final SpecialTaskRepository specialTaskRepository, final WorldRepository worldRepository) {
         this.specialTaskRepository = specialTaskRepository;
         this.worldRepository = worldRepository;
     }

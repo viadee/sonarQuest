@@ -1,20 +1,21 @@
 package com.viadee.sonarquest.services;
 
-import com.viadee.sonarquest.entities.Adventure;
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.repositories.AdventureRepository;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import com.viadee.sonarquest.entities.Adventure;
+import com.viadee.sonarquest.entities.User;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.repositories.AdventureRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AdventureServiceTest {
@@ -63,7 +64,7 @@ public class AdventureServiceTest {
         final List<User> users = new ArrayList<>();
         users.add(mockUser1);
 
-        when(adventureRepository.findByUsersAndWorld(users, mockWorld)).thenReturn(adventuresByUserAndWorld);
+//        when(adventureRepository.findByUsersAndWorld(users, mockWorld)).thenReturn(adventuresByUserAndWorld);
         when(adventureRepository.findByWorld(mockWorld)).thenReturn(adventuresByWorld);
 
         // call method to be tested

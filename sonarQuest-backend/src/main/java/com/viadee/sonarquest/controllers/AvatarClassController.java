@@ -2,7 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,7 @@ public class AvatarClassController {
 
     private final AvatarClassRepository avatarClassRepository;
 
-    public AvatarClassController(AvatarClassRepository avatarClassRepository) {
+    public AvatarClassController(final AvatarClassRepository avatarClassRepository) {
         this.avatarClassRepository = avatarClassRepository;
     }
 
@@ -48,7 +47,7 @@ public class AvatarClassController {
     @PutMapping(value = "/{id}")
     public AvatarClass updateAvatarClass(@PathVariable(value = "id") final Long avatarClassId,
                                          @RequestBody final AvatarClass avatarClassInput) {
-        AvatarClass avatarClass = avatarClassRepository.findById(avatarClassId).orElseThrow(ResourceNotFoundException::new);
+        final AvatarClass avatarClass = avatarClassRepository.findById(avatarClassId).orElseThrow(ResourceNotFoundException::new);
         avatarClass.setName(avatarClassInput.getName());
         avatarClass.setSkills(avatarClassInput.getSkills());
         return avatarClassRepository.save(avatarClass);

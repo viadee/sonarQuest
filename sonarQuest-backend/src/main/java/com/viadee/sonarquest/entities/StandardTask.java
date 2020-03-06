@@ -5,9 +5,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("STANDARD")
 public class StandardTask extends Task {
@@ -37,7 +40,7 @@ public class StandardTask extends Task {
                         final Quest quest,
                         final World world, final String key,
                         final String component, final String severity, final String type, final Integer debt,
-                        final String issueKey, String issueRule) {
+                        final String issueKey, final String issueRule) {
         setTitle(title);
         setStatus(status);
         setGold(gold);

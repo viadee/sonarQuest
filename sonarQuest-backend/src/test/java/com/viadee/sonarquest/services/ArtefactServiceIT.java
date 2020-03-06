@@ -1,22 +1,21 @@
 package com.viadee.sonarquest.services;
 
 
-import com.viadee.sonarquest.entities.Artefact;
-import com.viadee.sonarquest.entities.Level;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.viadee.sonarquest.entities.Artefact;
+import com.viadee.sonarquest.entities.Level;
 
 @SpringBootTest
 @Transactional
 public class ArtefactServiceIT {
-	
+
 	@Autowired
 	private ArtefactService service;
 
@@ -25,29 +24,29 @@ public class ArtefactServiceIT {
 
 	@Test
 	public void createArtefact_newLevel() {
-		Artefact artefact = new Artefact();
+		final Artefact artefact = new Artefact();
 		artefact.setDescription("Test");
 		artefact.setIcon("ra-chain");
 		artefact.setMinLevel(new Level(1L));
 		artefact.setName("Sword of Ogre Decapitation");
 		artefact.setPrice(1L);
 		artefact.setQuantity(1L);
-		Artefact createdArtefact = service.createArtefact(artefact);
+		final Artefact createdArtefact = service.createArtefact(artefact);
 		assertNotNull(createdArtefact);
 		assertNotNull(createdArtefact.getId());
 	}
 
 	@Test
 	public void createArtefact_existingLevel() {
-		Level level = levelService.findByLevel(1);
-		Artefact artefact = new Artefact();
+		final Level level = levelService.findByLevel(1);
+		final Artefact artefact = new Artefact();
 		artefact.setDescription("Test");
 		artefact.setIcon("ra-chain");
 		artefact.setMinLevel(level);
 		artefact.setName("Sword of Ogre Decapitation");
 		artefact.setPrice(1L);
 		artefact.setQuantity(1L);
-		Artefact createdArtefact = service.createArtefact(artefact);
+		final Artefact createdArtefact = service.createArtefact(artefact);
 		assertNotNull(createdArtefact);
 		assertNotNull(createdArtefact.getId());
 	}

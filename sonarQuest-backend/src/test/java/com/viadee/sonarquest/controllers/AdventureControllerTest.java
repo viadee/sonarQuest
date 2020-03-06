@@ -1,18 +1,19 @@
 package com.viadee.sonarquest.controllers;
 
-import com.viadee.sonarquest.constants.AdventureState;
-import com.viadee.sonarquest.entities.Adventure;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.transaction.Transactional;
 import java.security.Principal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import javax.transaction.Transactional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.viadee.sonarquest.constants.AdventureState;
+import com.viadee.sonarquest.entities.Adventure;
 
 @SpringBootTest
 @Transactional
@@ -24,13 +25,13 @@ public class AdventureControllerTest {
     @Test
     public void createAdventure() {
         // Given
-        String title = "Testadventure";
-        String story = "My story";
-        long gold = 10L;
-        long xp = 10L;
-        Adventure adventure = new Adventure(title, story, AdventureState.OPEN, gold, xp);
+        final String title = "Testadventure";
+        final String story = "My story";
+        final long gold = 10L;
+        final long xp = 10L;
+        final Adventure adventure = new Adventure(title, story, AdventureState.OPEN, gold, xp);
         // when
-        Adventure newAdventure = adventureController.createAdventure(createPrincipal(), adventure);
+        final Adventure newAdventure = adventureController.createAdventure(createPrincipal(), adventure);
         // then
         assertNotNull(newAdventure.getId());
         assertTrue(newAdventure.getId() > 0);

@@ -1,25 +1,20 @@
 package com.viadee.sonarquest.services;
 
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.repositories.WorldRepository;
+import java.util.List;
+
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.repositories.WorldRepository;
 
 @Service
 public class WorldService {
 
-    private final ExternalRessourceService externalRessourceService;
-
     private final WorldRepository worldRepository;
 
-    private final StandardTaskService standardTaskService;
-
-    public WorldService(ExternalRessourceService externalRessourceService, WorldRepository worldRepository, StandardTaskService standardTaskService) {
-        this.externalRessourceService = externalRessourceService;
+    public WorldService(final WorldRepository worldRepository) {
         this.worldRepository = worldRepository;
-        this.standardTaskService = standardTaskService;
     }
 
     public List<World> findAll() {
@@ -30,9 +25,8 @@ public class WorldService {
         return worldRepository.save(world);
     }
 
-    public void retrieveExternalWorlds() {
-        final List<World> externalWorlds = externalRessourceService.generateWorldsFromSonarQubeProjects();
-        externalWorlds.forEach(this::saveWorldIfNotExists);
+    public void saveWorlds(final List<World> worlds) {
+        worlds.forEach(this::saveWorldIfNotExists);
     }
 
     private void saveWorldIfNotExists(final World externalWorld) {
@@ -46,7 +40,7 @@ public class WorldService {
         return worldRepository.findByActiveTrue();
     }
 
-    public World findById(final Long id) throws ResourceNotFoundException {
+    public World findById(final Long id) {
         return worldRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
@@ -57,7 +51,6 @@ public class WorldService {
         currentWorld.setActive(world.getActive());
         currentWorld.setUsequestcards(world.getUsequestcards());
         currentWorld = worldRepository.save(currentWorld);
-        standardTaskService.updateStandardTasks(currentWorld);
         return currentWorld;
     }
 

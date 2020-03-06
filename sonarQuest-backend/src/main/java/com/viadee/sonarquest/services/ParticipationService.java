@@ -1,17 +1,18 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.viadee.sonarquest.controllers.WebSocketController;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
-import com.viadee.sonarquest.repositories.QuestRepository;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ParticipationService {
@@ -21,10 +22,10 @@ public class ParticipationService {
     private final UserService userService;
 
     private final QuestService questService;
-    
+
     private final WebSocketController webSocketController;
 
-    public ParticipationService(ParticipationRepository participationRepository, UserService userService, QuestService questService, WebSocketController webSocketController) {
+    public ParticipationService(final ParticipationRepository participationRepository, final UserService userService, final QuestService questService, final WebSocketController webSocketController) {
         this.participationRepository = participationRepository;
         this.userService = userService;
         this.questService = questService;
@@ -54,13 +55,13 @@ public class ParticipationService {
     }
 
     @Transactional
-	public Participation createParticipation(Principal principal, Long questId) {
+	public Participation createParticipation(final Principal principal, final Long questId) {
 		final Quest foundQuest = questService.findById(questId);
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         final Participation foundParticipation = participationRepository.findByQuestAndUser(foundQuest, user);
         Participation participation = null;
-        if ((foundQuest != null) && (user != null) && (foundParticipation == null)) {
+        if (foundQuest != null && user != null && foundParticipation == null) {
             participation = new Participation(foundQuest, user);
             participation = participationRepository.save(participation);
             // Create Event for User join Quest

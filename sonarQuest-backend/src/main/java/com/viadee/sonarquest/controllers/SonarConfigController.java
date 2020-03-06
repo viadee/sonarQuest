@@ -2,7 +2,6 @@ package com.viadee.sonarquest.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +17,7 @@ public class SonarConfigController {
 
     private final SonarConfigService sonarConfigService;
 
-    public SonarConfigController(SonarConfigService sonarConfigService) {
+    public SonarConfigController(final SonarConfigService sonarConfigService) {
         this.sonarConfigService = sonarConfigService;
     }
 

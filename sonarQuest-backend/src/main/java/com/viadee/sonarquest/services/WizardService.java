@@ -2,7 +2,6 @@ package com.viadee.sonarquest.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.User;
@@ -14,7 +13,7 @@ public class WizardService {
 
 	private final WorldService worldService;
 
-	public WizardService(WorldService worldService) {
+	public WizardService(final WorldService worldService) {
 		this.worldService = worldService;
 	}
 
@@ -36,13 +35,13 @@ public class WizardService {
 
 		private String solutionKey;
 
-		private WizardState(String messageKey, String solutionKey) {
+		private WizardState(final String messageKey, final String solutionKey) {
 			this.messageKey = messageKey;
 			this.solutionKey = solutionKey;
 		}
 
 		public WizardMessage toWizardMessage() {
-			WizardMessage wm = new WizardMessage();
+			final WizardMessage wm = new WizardMessage();
 			wm.setMessage(messageKey);
 			wm.setSolution(solutionKey);
 			return wm;
@@ -68,20 +67,20 @@ public class WizardService {
 	 * quest with tasks</li>
 	 * <li>NO_WORLD_SELECTED If no world is selected => show a hint</li>
 	 * </ol>
-	 * 
+	 *
 	 * @param world
 	 *            if the id of world is set, a current world has been selected in
 	 *            the UI. Only retrieve messages for this world then.
 	 */
-	public WizardMessage getMostImportantMessageFor(World world) {
-		WizardState state = determineGameState(world);
-		return (state == WizardState.NO_MESSAGES ? null : state.toWizardMessage());
+	public WizardMessage getMostImportantMessageFor(final World world) {
+		final WizardState state = determineGameState(world);
+		return state == WizardState.NO_MESSAGES ? null : state.toWizardMessage();
 	}
 
-	private WizardState determineGameState(World selectedWorld) {
+	private WizardState determineGameState(final World selectedWorld) {
 		// no active world
 		if (selectedWorld.getId() == null) {
-			List<World> allWorlds = worldService.findAll();
+			final List<World> allWorlds = worldService.findAll();
 			if (allWorlds.isEmpty()) {
 				return WizardState.NO_WORLDS_FOUND;
 			}
