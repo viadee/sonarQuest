@@ -64,12 +64,12 @@ public class Adventure {
     private World world;
 
     @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
-    private List<Quest> quests;
+    private List<Quest> quests = new ArrayList<>();
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Adventure_User", joinColumns = @JoinColumn(name = "adventure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     public Adventure() {
     }
@@ -99,9 +99,6 @@ public class Adventure {
     }
 
     public synchronized void addUser(final User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
         users.add(user);
     }
 

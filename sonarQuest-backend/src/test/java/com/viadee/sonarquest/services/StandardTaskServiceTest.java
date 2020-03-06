@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.viadee.sonarquest.entities.StandardTask;
 import com.viadee.sonarquest.entities.World;
@@ -38,12 +37,7 @@ public class StandardTaskServiceTest {
         StandardTask task = new StandardTask();
         task.setKey("Color of Magic!");
         task.setStatus(SonarQuestTaskStatus.OPEN);
-        when(standardTaskRepository.save(ArgumentMatchers.any(StandardTask.class))).thenReturn(task);
         when(standardTaskRepository.saveAndFlush(ArgumentMatchers.any(StandardTask.class))).thenReturn(task);
-        when(standardTaskRepository.findByKey(task.getKey())).thenReturn(task);
-        when(template.queryForObject(ArgumentMatchers.anyString(),
-                ArgumentMatchers.any(SqlParameterSource.class),
-                ArgumentMatchers.<Class<String>>any())).thenReturn("OPEN");
 
         task = standardTaskService.updateStandardTask(task);
 
@@ -54,11 +48,9 @@ public class StandardTaskServiceTest {
         createdStandardTask.setKey("createdStandardTask");
         createdStandardTask.setStatus(SonarQuestTaskStatus.OPEN);
 
-        when(standardTaskRepository.findByKey(createdStandardTask.getKey())).thenReturn(createdStandardTask);
         standardTaskService.updateStandardTask(createdStandardTask);
 
         assertEquals(SonarQuestTaskStatus.OPEN, createdStandardTask.getStatus());
-
         // case: existing created task -> no external changes
     }
 

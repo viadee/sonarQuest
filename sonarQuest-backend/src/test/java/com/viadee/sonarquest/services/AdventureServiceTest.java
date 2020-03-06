@@ -52,6 +52,7 @@ public class AdventureServiceTest {
         mockAdventure1.addUser(mockUser1);
         mockAdventure2.addUser(mockUser1);
 
+
         // init mock repos
         final List<Adventure> adventuresByUserAndWorld = new ArrayList<>();
         adventuresByUserAndWorld.add(mockAdventure1);
@@ -64,7 +65,6 @@ public class AdventureServiceTest {
         final List<User> users = new ArrayList<>();
         users.add(mockUser1);
 
-//        when(adventureRepository.findByUsersAndWorld(users, mockWorld)).thenReturn(adventuresByUserAndWorld);
         when(adventureRepository.findByWorld(mockWorld)).thenReturn(adventuresByWorld);
 
         // call method to be tested

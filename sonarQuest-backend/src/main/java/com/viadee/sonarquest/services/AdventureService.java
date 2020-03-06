@@ -67,7 +67,7 @@ public class AdventureService {
      */
     public List<Adventure> getJoinedAdventuresForUserInWorld(final World world, final User user) {
         return adventureRepository.findByWorld(world).stream()
-                .filter(w -> w.getUsers().contains(user))
+                .filter(adventure -> adventure.getUsers().contains(user))
                 .collect(Collectors.toList());
     }
 
