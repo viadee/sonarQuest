@@ -1,3 +1,4 @@
+import { QualitygatePageComponent } from './../pages/qualitygate-page/qualitygate-page.component';
 import { RaidsPageComponent } from './../pages/raids-page/raids-page.component';
 import {EventPageComponent} from '../pages/event-page/event-page.component';
 import {AdminPageComponent} from '../pages/admin-page/admin-page.component';
@@ -15,12 +16,10 @@ import {RoutingUrls} from './routing-urls';
 import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {MainLayoutComponent} from "../layouts/main-layout/main-layout.component";
 import { RaidPageComponent } from 'app/pages/raid-page/raid-page.component';
-// import {RaidPageComponent} from '../pages/raid-page/raid-page.component';
 
 
 const appRoutes: Routes = [
-  // canActivateChild: [AuthenticationGuard]
-  {path: '', component: MainLayoutComponent, children: [
+  {path: '', component: MainLayoutComponent, canActivateChild: [AuthenticationGuard], children: [
       {path: '', redirectTo: RoutingUrls.myAvatar, pathMatch: 'full'},
       {path: RoutingUrls.start, component: StartPageComponent},
       {path: RoutingUrls.myAvatar, component: MyAvatarPageComponent},
@@ -31,7 +30,8 @@ const appRoutes: Routes = [
       {path: RoutingUrls.admin, component: AdminPageComponent},
       {path: RoutingUrls.events, component: EventPageComponent},
       {path: RoutingUrls.raids, component: RaidsPageComponent},
-      {path: RoutingUrls.raid, component: RaidPageComponent}
+      {path: RoutingUrls.raid, component: RaidPageComponent},
+      {path: RoutingUrls.qualitygate, component: QualitygatePageComponent}
     ]
   },
   {path: RoutingUrls.login, component: LoginPageComponent},

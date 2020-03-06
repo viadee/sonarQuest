@@ -2,6 +2,9 @@
   <mat-card>
     <mat-tab-group (selectedTabChange)="onTabChange($event)">
       <mat-tab [label]="'RAID.RAIDS' | translate">
+        <app-gamemaster-quality-gate></app-gamemaster-quality-gate>
+      </mat-tab>
+      <mat-tab [label]="'RAID.RAIDS' | translate">
         <app-gamemaster-raid></app-gamemaster-raid>
       </mat-tab>
       <mat-tab [label]="'ADVENTURE.ADVENTURES' | translate">

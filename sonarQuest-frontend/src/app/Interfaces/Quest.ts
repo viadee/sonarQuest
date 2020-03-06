@@ -5,7 +5,6 @@ import {Adventure} from './Adventure';
 import { QuestState } from './QuestState';
 
 export interface Quest {
-  questProgress: () => number;
   id: number,
   title: string,
   story: string,

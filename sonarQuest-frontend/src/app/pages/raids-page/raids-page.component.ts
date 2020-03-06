@@ -38,7 +38,7 @@ export class RaidsPageComponent implements OnInit, OnDestroy {
   loadRaids() {
     this.raidSub = this.raidService.findAllRaidsByWorld(this.world.id).subscribe(raids => {
       raids.forEach(raid => {
-        raid.monster = new BaseMonster('Stephen', raid.monsterImage,
+        raid.monster = new BaseMonster(raid.monsterName, raid.monsterImage,
         raid.raidProgress.totalAmount, raid.raidProgress.numberOfVariable, raid.raidProgress.calculatedProgress);
         // Add raid
         this.raids.push(raid);

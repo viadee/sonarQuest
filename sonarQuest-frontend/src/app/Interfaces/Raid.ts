@@ -1,26 +1,16 @@
+import { Task } from 'app/Interfaces/Task';
+import { BaseRaid } from './BaseRaid';
 import { ProgressDTO } from './ProgressDTO';
-import { Monster } from 'app/Interfaces/Monster';
-import { World } from './World';
-import { AdventureState } from './AdventureState';
 import { Quest } from './Quest';
-
-export interface Raid {
-    id: number,
-    title: string,
-    description: string,
-    status: AdventureState,
-    visible: boolean,
-    gold: number,
-    xp: number,
-    goldLoss: number,
-    xpLoss: number,
+import { RaidLeaderboard } from './RaidLeaderboard';
+import { Monster } from './Monster';
+//TODO rename in RAIDDTO
+export interface Raid extends BaseRaid {
+    status: any,
     quests: Quest[],
-    users: any,
-    startdate: Date,
+    raidLeaderboadList: RaidLeaderboard[];
     enddate: Date,
-    monsterImage: string,
-    monsterName: string,
-    world: World,
+    tasks: Task[],
     raidProgress: ProgressDTO;
     monster: Monster;
 }

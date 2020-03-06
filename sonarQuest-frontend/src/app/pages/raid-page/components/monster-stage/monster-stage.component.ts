@@ -13,14 +13,13 @@ export class MonsterStageComponent implements OnInit {
 
   public monsterHealthProgress: number;
   public monsterProgressStyleWidth: string;
+  public monsterDamagedProgress: number;
 
   constructor() { }
 
   ngOnInit() {
     this.monsterHealthProgress = this.monster.progress;
     this.monsterProgressStyleWidth = this.monsterHealthProgress + '%';
+    this.monsterDamagedProgress = 100 - this.monsterHealthProgress;
   }
-
-
-
 }

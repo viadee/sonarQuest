@@ -1,0 +1,43 @@
+<div class="container-fluid h-100">
+    <div class="row h-80">
+        <div class="col-12 col-md-3 p-0 h-70">
+            <app-conditiontasklog [taskList]="taskList"></app-conditiontasklog>
+        </div>
+        <div class="col-12 col-md-6 p-0">
+            <img *ngIf="raid.sonarQubeStatus=='OK'" src="
+            assets/images/gate/fence-159411_1280.png" alt="gate">
+            <img *ngIf="raid.sonarQubeStatus=='ERROR'" src="
+            assets/images/monster/monster2.png" alt="gate">
+
+        </div>
+        <div class="col-12 col-md-3 p-0">
+            <mat-card>
+                <mat-card-content>
+                    <p>Highscore - Fehlerfreie Tage</p>
+                    <p *ngIf="highScore">Top Score: {{highScore.scorePoints}} Tage, Am {{highScore.scoreDay}}</p>
+                    <p *ngIf="actualScore">Aktueller Score: {{actualScore.scorePoints}} Tage, Am {{actualScore.scoreDay}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row h-20">
+        <div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
+            <div *ngFor="let history of historyList">
+                <mat-card>
+                    <mat-card-content>
+                        <img *ngIf="history.sonarQubeStatus=='OK'" src="assets/images/gate/Gold_Star.svg.png"
+                            class="history-goldStar-Img" alt="Stern">
+                        <i *ngIf="history.sonarQubeStatus=='ERROR'" mat-list-icon class="ra ra-player-shot ra-5x"></i>
+                        <p matLine>
+                            <span> {{history.statusDate}} </span>
+                        </p>
+                        <p matLine>
+                            <span>Bonus: {{history.gold}} Gold</span>
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
+</div>

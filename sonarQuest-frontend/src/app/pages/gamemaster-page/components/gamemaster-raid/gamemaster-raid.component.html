@@ -1,6 +1,40 @@
 <mat-card-content>
-    <div layout="row">
-      <div flex></div>
-      <button mat-raised-button color="primary" (click)="newRaid()">{{"RAID.NEW_RAID"|translate}}</button>
+  <div layout="row">
+    <div flex></div>
+    <button mat-raised-button color="primary" (click)="newRaid()">{{"RAID.NEW_RAID"|translate}}</button>
+  </div>
+
+  <div layout-padding>
+    <mat-divider></mat-divider>
+    <td-data-table #dataTable [data]="data" [columns]="columns" [sortable]="true"
+      [(ngModel)]="selectedRows" [sortOrder]="sortOrder">
+      <ng-template tdDataTableTemplate="monsterImage" let-value="value" let-row="row" let-column="column">
+        <img style="max-width:100px; margin-right: -16px;" [src]="value" alt="monster">
+      </ng-template>
+      <ng-template tdDataTableTemplate="edit">
+        <div layout="row">
+          <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate"
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-quill-ink ra-2x"></i>
+          </button>
+          <button mat-icon-button [swal]="deleteAdventureSwal" [matTooltip]="'GLOBAL.DELETE' | translate"
+            [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
+            <i class="ra ra-broken-skull ra-2x"></i>
+          </button>
+          <swal #deleteAdventureSwal [options]=swalOptionsConfirmDelete > </swal>
+          <swal #deleteSuccessAdventureSwal [options]=swalOptionsDeleteSuccess> </swal>
+        </div>
+      </ng-template>
+    </td-data-table>
+    <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>{{"TABLE.INFO.NO_ENTRIES" | translate}}</h3>
     </div>
+    <td-paging-bar *ngIf="dataTable.hasData" #pagingBar [pageSize]="5">
+      <span td-paging-bar-label hide-xs>{{"TABLE.INFO.ENTRIES_OF_THIS_PAGE" | translate}}</span>{{pagingBar.range}}<span
+        hide-xs>{{"TABLE.INFO.OF"| translate}} {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+
+
+
 </mat-card-content>

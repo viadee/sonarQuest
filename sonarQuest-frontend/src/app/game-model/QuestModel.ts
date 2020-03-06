@@ -6,7 +6,6 @@ import { Task } from 'app/Interfaces/Task';
 import { Participation } from 'app/Interfaces/Participation';
 
 export class QuestModel implements Quest {
-    questProgress: () => number;
     private _id: number;
 
     private _title: string;
@@ -141,12 +140,5 @@ export class QuestModel implements Quest {
     }
     public set title(value: string) {
         this._title = value;
-    }
-
-
-    calculateQuestProgress(): number {
-        const totalTasks = this._tasks.length;
-        const openTasks = this._tasks.filter(task => QuestState.OPEN == task.status).length;
-        return openTasks / totalTasks;
     }
 }

@@ -6,6 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Task } from 'app/Interfaces/Task';
 
 @Component({
   selector: 'app-raid-page',
@@ -16,6 +17,7 @@ export class RaidPageComponent implements OnInit, OnDestroy {
 
   public raid: Raid;
   public monster: Monster;
+  public tasks: Task[] = [];
   private raidSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService) { }
@@ -27,9 +29,10 @@ export class RaidPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.raidSubscription = this.raidService.findRaidById(id).subscribe(resp => {
-      this.monster = new BaseMonster('Stephen', resp.monsterImage,
+      this.monster = new BaseMonster(resp.monsterName, resp.monsterImage,
       resp.raidProgress.totalAmount, resp.raidProgress.numberOfVariable, resp.raidProgress.calculatedProgress);
       this.raid = resp;
+      this.tasks = resp.tasks;
     });
   }
 }

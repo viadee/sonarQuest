@@ -1,32 +1,33 @@
-  <mat-card>
-    <mat-card-content>
-      <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
-        <div *ngFor="let raid of raids" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)" fxFlex.lt-md="100%">
-          <mat-card id="questcard">
-            <mat-card-header>
-            </mat-card-header>
-            <mat-card-content>
-                <app-monster-stage [monster]="raid.monster"></app-monster-stage>
-                
-                <ul class="heros">
-                    <li class="" *ngFor="let quest of raid.quests">
-                        <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
-                    </li>
-                </ul>
-            </mat-card-content>
-            <mat-card-actions>
-                <div align="right">
-                  <button mat-icon-button [routerLink]="['/raid', raid.id]" [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate"
-                          [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="below">
-                    <i class="ra ra-quill-ink ra-2x"></i>
-                  </button>
-                </div>
-              </mat-card-actions>
-       
-          </mat-card>
-        </div>
-        </div>
-  
-    </mat-card-content>
-  </mat-card>
-  
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+      <div *ngFor="let raid of raids" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)"
+        fxFlex.lt-md="100%">
+        <mat-card id="questcard">
+          <mat-card-header>
+          </mat-card-header>
+          <mat-card-content>
+            <app-monster-stage [monster]="raid.monster"></app-monster-stage>
+
+            <ul class="heros">
+              <li class="" *ngFor="let quest of raid.quests">
+                <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
+              </li>
+            </ul>
+          </mat-card-content>
+          <mat-card-actions>
+            <div align="right">
+              <button mat-icon-button [routerLink]="['/raid', raid.id]"
+                [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate" [matTooltipClass]="'tooltipMultiline'"
+                matTooltipPosition="below">
+                <i class="ra ra-quill-ink ra-2x"></i>
+              </button>
+            </div>
+          </mat-card-actions>
+
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

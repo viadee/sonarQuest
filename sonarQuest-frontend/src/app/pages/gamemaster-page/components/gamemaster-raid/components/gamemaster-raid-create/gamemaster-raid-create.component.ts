@@ -51,7 +51,7 @@ export class GamemasterRaidCreateComponent implements OnInit {
   // TODO move in service
   loadMonsterImages() {
     this.images = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       this.images[i] = {};
       this.images[i].src = 'assets/images/monster/monster' + (i + 1) + '.png';
       this.images[i].name = 'monster' + (i + 1);

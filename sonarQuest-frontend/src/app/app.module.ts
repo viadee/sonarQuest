@@ -1,3 +1,4 @@
+
 import { RaidService } from 'app/services/raid.service';
 
 // tslint:disable:max-line-length
@@ -38,7 +39,10 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatTreeModule,
+  MatTableModule,
+  MatExpansionModule
 } from '@angular/material';
 import {MyAvatarPageComponent} from './pages/my-avatar-page/my-avatar-page.component';
 import {AdventurePageComponent} from './pages/adventure-page/adventure-page.component';
@@ -118,6 +122,11 @@ import { QuestlogComponent } from './pages/raid-page/components/questlog/questlo
 import { GamemasterRaidComponent } from './pages/gamemaster-page/components/gamemaster-raid/gamemaster-raid.component';
 import { GamemasterRaidCreateComponent } from './pages/gamemaster-page/components/gamemaster-raid/components/gamemaster-raid-create/gamemaster-raid-create.component';
 import { RaidsPageComponent } from './pages/raids-page/raids-page.component';
+import { TasklogComponent } from './pages/raid-page/components/tasklog/tasklog.component';
+import { QualitygatePageComponent } from './pages/qualitygate-page/qualitygate-page.component';
+import { ConditiontasklogComponent } from './pages/qualitygate-page/components/conditiontasklog/conditiontasklog.component';
+import { GamemasterQualityGateComponent } from './pages/gamemaster-page/components/gamemaster-quality-gate/gamemaster-quality-gate.component';
+import { RaidHighscoreComponent } from './pages/raid-page/components/raid-highscore/raid-highscore.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -180,7 +189,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     QuestlogComponent,
     GamemasterRaidComponent,
     GamemasterRaidCreateComponent,
-    RaidsPageComponent
+    RaidsPageComponent,
+    TasklogComponent,
+    QualitygatePageComponent,
+    ConditiontasklogComponent,
+    GamemasterQualityGateComponent,
+    RaidHighscoreComponent
   ],
   entryComponents: [
     EditWorldComponent,
@@ -223,6 +237,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     CovalentLayoutModule,
     MatListModule,
+    MatTableModule,
     MatIconModule,
     AppRoutingModule,
     MatToolbarModule,
@@ -231,6 +246,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressBarModule,
     MatGridListModule,
     MatTooltipModule,
+    MatTreeModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatProgressSpinnerModule,

@@ -2,10 +2,10 @@
     <img [src]="monster.Image" alt="test">
     <div class="monster-info">
         <div class="monster-info-heading rounded-top p-1">
-            <h2>Bazooka das Seeungeheuer</h2>
+        <h2>{{monster.Name}}</h2>
         </div>
         <div class="monster-info-healthbar-container rounded-bottom p-1">
-            <div class="monster-info-healthbar rounded">
+        <div class="monster-info-healthbar rounded" matTooltip="Monster {{monster.Name}} zu {{monsterDamagedProgress}}% besiegt">
                 <div class="monster-info-health pr-2" [style.width]="monsterProgressStyleWidth"></div>
             </div>
         </div>

@@ -11,5 +11,6 @@ export const RoutingUrls = {
   events: 'events',
   login: 'login',
   raids: 'raids',
-  raid: 'raid/:id'
+  raid: 'raid/:id',
+  qualitygate: 'qualitygate'
 };
