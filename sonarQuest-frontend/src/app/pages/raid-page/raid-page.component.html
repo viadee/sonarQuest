@@ -1,5 +1,5 @@
-<div class="container-fluid h-100">
-  <div class="row h-100">
+<div class="container-fluid h-100 position-relative">
+  <div class="row">
 
     <div class="col-12 col-md-3 p-0 h-100">
       <app-questlog [questList]="raid.quests"></app-questlog>
@@ -13,7 +13,10 @@
       </section>
     </div>
     <div class="col-12 col-md-3 p-0">
-      <app-raid-highscore [raidHighScores]="raid.raidHighScore"></app-raid-highscore>
+      <app-raid-highscore [raidHighScores]="raid.raidLeaderboardList"></app-raid-highscore>
     </div>
+  </div>
+  <div class="row position-absolute solved-tasks-history-component">
+    <app-solved-task-history></app-solved-task-history>
   </div>
 </div>

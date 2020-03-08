@@ -8,6 +8,7 @@ import { Task } from 'app/Interfaces/Task';
 import { RaidLeaderboard } from 'app/Interfaces/RaidLeaderboard';
 
 export class RaidModel implements Raid {
+    raidLeaderboardList: RaidLeaderboard[];
     monster: Monster;
     tasks: Task[];
     id: number;

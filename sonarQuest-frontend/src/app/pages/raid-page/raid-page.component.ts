@@ -1,3 +1,4 @@
+import { RaidLeaderboard } from 'app/Interfaces/RaidLeaderboard';
 import { Raid } from 'app/Interfaces/Raid';
 import { RaidService } from 'app/services/raid.service';
 import { BaseMonster } from './../../game-model/base-monster';
@@ -18,6 +19,7 @@ export class RaidPageComponent implements OnInit, OnDestroy {
   public raid: Raid;
   public monster: Monster;
   public tasks: Task[] = [];
+  public raidLeaderBoardList: RaidLeaderboard[] = [];
   private raidSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService) { }
@@ -33,6 +35,8 @@ export class RaidPageComponent implements OnInit, OnDestroy {
       resp.raidProgress.totalAmount, resp.raidProgress.numberOfVariable, resp.raidProgress.calculatedProgress);
       this.raid = resp;
       this.tasks = resp.tasks;
+      this.raidLeaderBoardList = resp.raidLeaderboardList;
+      console.log(this.raidLeaderBoardList);
     });
   }
 }

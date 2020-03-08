@@ -8,7 +8,7 @@ import { Monster } from './Monster';
 export interface Raid extends BaseRaid {
     status: any,
     quests: Quest[],
-    raidLeaderboadList: RaidLeaderboard[];
+    raidLeaderboardList: RaidLeaderboard[];
     enddate: Date,
     tasks: Task[],
     raidProgress: ProgressDTO;

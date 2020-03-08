@@ -1,0 +1,14 @@
+.history-wrapper {
+    height: 200px;
+}
+
+.task-history-bar {
+    display: inline-block;
+    background-color: #0D0;
+    align-self: flex-end;
+    width: 85px;
+}
+
+.task-history-date {
+    display: inline-block;
+}
