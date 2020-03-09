@@ -24,6 +24,8 @@ export class AdminSonarQubeComponent implements OnInit {
 
   sonarConfig: SonarQubeConfig;
 
+  organization: string;
+
   constructor(private sonarQubeService: SonarQubeService,
               private worldService: WorldService,
               private snackBar: MatSnackBar,
@@ -46,6 +48,7 @@ export class AdminSonarQubeComponent implements OnInit {
     this.sonarQubeUrl = this.sonarConfig.sonarServerUrl;
     this.httpBasicAuthUsername = this.sonarConfig.httpBasicAuthUsername;
     this.httpBasicAuthPassword = this.sonarConfig.httpBasicAuthPassword;
+    this.organization = this.sonarConfig.organization;
   }
 
   checkSonarQubeUrl() {
@@ -55,7 +58,8 @@ export class AdminSonarQubeComponent implements OnInit {
       name: this.configName,
       sonarServerUrl: this.sonarQubeUrl,
       httpBasicAuthPassword: this.httpBasicAuthPassword,
-      httpBasicAuthUsername: this.httpBasicAuthUsername
+      httpBasicAuthUsername: this.httpBasicAuthUsername,
+      organization: this.organization
     })
       .then(available => {
         if (available) {
@@ -88,7 +92,8 @@ export class AdminSonarQubeComponent implements OnInit {
       name: this.configName,
       sonarServerUrl: this.sonarQubeUrl,
       httpBasicAuthUsername: this.httpBasicAuthUsername,
-      httpBasicAuthPassword: this.httpBasicAuthPassword
+      httpBasicAuthPassword: this.httpBasicAuthPassword,
+      organization: this.organization
     };
     this.sonarQubeService.checkSonarQubeURL(config).then((available) => {
       if (!available) {

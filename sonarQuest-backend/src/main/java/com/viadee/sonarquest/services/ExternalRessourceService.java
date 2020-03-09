@@ -200,6 +200,7 @@ public class ExternalRessourceService {
         SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                 .onServer(sonarConfig.getSonarServerUrl())
                 .searchComponents(SonarQubeComponentQualifier.TRK)
+                .withOrganization(sonarConfig.getOrganization())
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(pageIndex)
                 .build();
