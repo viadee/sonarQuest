@@ -71,6 +71,14 @@ public class SonarQubeApiCall {
         appendSearchParameter("componentKeys=" + projectKey);
         return this;
     }
+    
+    /**
+     * Appends the parameter "organization" with the value organization to the sonarQubeRestApiCall.
+     */
+    public SonarQubeApiCall withOrganization(String organization) {
+        appendSearchParameter("organization=" + organization);
+        return this;
+    }
 
     /**
      * Appends the parameter "types" with the value issueType to the sonarQubeRestApiCall.
