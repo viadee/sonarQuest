@@ -30,6 +30,7 @@ export class MainLayoutComponent implements OnInit {
 
   public myAvatarUrl = RoutingUrls.myAvatar;
   public adventuresUrl = RoutingUrls.adventures;
+  public raidsUrl = RoutingUrls.raids;
   public questsUrl = RoutingUrls.quests;
   public marketplaceUrl = RoutingUrls.marketplace;
   public gamemasterUrl = RoutingUrls.gamemaster;
@@ -154,6 +155,8 @@ export class MainLayoutComponent implements OnInit {
           return this.pageNames.MY_AVATAR;
         case '/adventures':
           return this.pageNames.ADVENTURES;
+        case '/raids':
+            return this.pageNames.RAIDS;
         case '/quests':
           return this.pageNames.QUESTS;
         case '/marketplace':
@@ -180,6 +183,8 @@ export class MainLayoutComponent implements OnInit {
           return this.pageNames.MY_AVATAR;
       } else if (url == '/adventures') {
           return this.pageNames.ADVENTURES;
+      } else if (url == '/raids') {
+        return this.pageNames.RAIDS;
       } else if (url == '/quests') {
           return this.pageNames.QUESTS;
       } else if (url == '/marketplace') {

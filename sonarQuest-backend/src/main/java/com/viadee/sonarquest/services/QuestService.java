@@ -1,5 +1,7 @@
 package com.viadee.sonarquest.services;
 
+import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.dto.ProgressDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Task;
@@ -36,6 +39,9 @@ public class QuestService implements QuestSuggestion {
     @Autowired
     private ParticipationRepository participationRepository;
     
+    @Autowired
+    private UserService userService;
+
     final Random random = new Random();
     
     public Quest findById(final Long questId) {
@@ -84,6 +90,21 @@ public class QuestService implements QuestSuggestion {
         final List<Quest> quests = questRepository.findAll();
         quests.forEach(this::updateQuest);
     }
+    
+    /**
+     * Create an new Quest with status open
+     * @param principal
+     * @param questDto
+     * @return
+     */
+    public Quest createQuest(final Principal principal, final Quest questDto) {
+        final String username = principal.getName();
+        final User user = userService.findByUsername(username);
+        questDto.setStartdate(new Date(System.currentTimeMillis()));
+        questDto.setStatus(QuestState.OPEN);
+        questDto.setCreatorName(user.getUsername());
+        return questRepository.save(questDto);
+    }
 
     @Transactional // Quest updates are not to be mixed
     public synchronized void updateQuest(final Quest quest) {
@@ -109,5 +130,33 @@ public class QuestService implements QuestSuggestion {
         result.add(freeQuests);
         return result;
     }
-
+    
+    
+    /**
+     * Save an quest
+     * @param quest to save
+     * @return Quest
+     */
+    public synchronized Quest saveQuest(Quest quest) {
+    	return questRepository.save(quest);
+    }
+    
+    /**
+     * 
+     * Calculate quest progress from open tasks
+     * @param quest with tasks
+     * @return ProgressDTO to save progress information
+     */
+	public ProgressDTO calculateQuestProgress(Quest quest) {
+		if(quest == null) {
+			return new ProgressDTO(0, 0);
+		}
+		long openTaks = quest.getTasks().stream().filter(task -> SonarQuestStatus.OPEN.equals(task.getStatus())).count();
+		int taskSize = quest.getTasks().size();
+		
+		ProgressDTO progressDTO = new ProgressDTO(taskSize, openTaks);
+		progressDTO.setCalculatedProgress(Math.round(100-(100*(double)openTaks/taskSize)));
+		return progressDTO;
+	}
+  
 }

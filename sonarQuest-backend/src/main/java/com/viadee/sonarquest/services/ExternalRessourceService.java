@@ -26,6 +26,8 @@ import com.viadee.sonarquest.externalressources.SonarQubeIssueType;
 import com.viadee.sonarquest.externalressources.SonarQubePaging;
 import com.viadee.sonarquest.externalressources.SonarQubeProject;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectRessource;
+import com.viadee.sonarquest.externalressources.SonarQubeProjectStatus;
+import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusRessource;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
@@ -200,7 +202,8 @@ public class ExternalRessourceService {
         SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                 .onServer(sonarConfig.getSonarServerUrl())
                 .searchComponents(SonarQubeComponentQualifier.TRK)
-                .withOrganization(sonarConfig.getOrganization())
+
+                .withOrganization("default")
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(pageIndex)
                 .build();
@@ -209,5 +212,39 @@ public class ExternalRessourceService {
                 .getForEntity(sonarQubeApiCall.asString(), SonarQubeProjectRessource.class);
         return response.getBody();
     }
-
+    
+    
+    private SonarQubeProjectStatusRessource getSonarQubeProjectStatusRessource(final String projectKey) {
+    	final SonarConfig sonarConfig = sonarConfigService.getConfig();
+    	final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
+    	
+    	try {
+    		LOGGER.info("Trying to get SonarQubeProjectStatusRessource for projectKey {}",
+                    projectKey);
+    		
+    		String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
+            SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
+                    .onServer(sonarQubeServerUrl)
+                    .projectStatus()
+                    .withProjectKey(projectKey)
+                    .build();
+            
+            final ResponseEntity<SonarQubeProjectStatusRessource> response = restTemplate.getForEntity(
+            		sonarQubeApiCall.asString(),
+                    SonarQubeProjectStatusRessource.class);
+            
+            return response.getBody();
+    		
+		} catch (final ResourceAccessException e) {
+            if (e.getCause() instanceof ConnectException) {
+                LOGGER.error(ERROR_NO_CONNECTION, e);
+            }
+            throw e;
+		}
+    }
+    
+    public SonarQubeProjectStatus generateSonarQubeProjectStatusFromWorld(final World world) {
+    	SonarQubeProjectStatusRessource ressource = getSonarQubeProjectStatusRessource(world.getProject());
+    	return ressource.getProjectStatus();
+    }
 }

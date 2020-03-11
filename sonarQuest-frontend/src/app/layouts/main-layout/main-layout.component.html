@@ -32,6 +32,22 @@
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
+
+    <div>
+      <a mat-list-item routerLink="/raids">
+        <i mat-list-icon class="ra ra-monster-skull ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.RAIDS"| translate}} </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+    <div>
+      <a mat-list-item routerLink="/qualitygate">
+        <i mat-list-icon class="ra ra-metal-gate ra-lg navlist"></i>
+        <h3 mat-line> Quality Gate </h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+
     <div *ngIf="isQuestsVisible">
       <a mat-list-item routerLink="/{{questsUrl}}">
         <i mat-list-icon class="ra ra-scroll-unfurled ra-lg navlist"></i>

@@ -12,13 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.viadee.sonarquest.dto.ProgressDTO;
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
-import com.viadee.sonarquest.services.QuestService;
+import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuestServiceTest {
@@ -77,5 +79,31 @@ public class QuestServiceTest {
         assertTrue(result.get(0).contains(mockQuest2));
         assertTrue(result.get(1).contains(mockQuest3));
     }
-
+    
+    @Test
+    public void calculateQuestProgress() {
+    	// given quest with tasks
+    	Quest quest = new Quest();
+    	
+    	List<Task> tasks = new ArrayList<Task>();
+    	tasks.add(createTask(SonarQuestStatus.CLOSED));
+    	tasks.add(createTask(SonarQuestStatus.CLOSED));
+    	tasks.add(createTask(SonarQuestStatus.OPEN));
+    	quest.setTasks(tasks);
+    	
+    	
+    	// call test method
+    	ProgressDTO progressResult = questService.calculateQuestProgress(quest);
+    	
+    	// verify
+    	assertTrue(progressResult.getCalculatedProgress() == 67);
+    	assertTrue(progressResult.getNumberOfVariable() == 1);
+    	assertTrue(progressResult.getTotalAmount() == 3);
+    }
+    
+    private Task createTask(SonarQuestStatus status) {
+    	Task task = new Task();
+    	task.setStatus(status);
+    	return task;
+    }
 }

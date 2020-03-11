@@ -10,6 +10,7 @@ import {Task} from '../Interfaces/Task';
 import {ParticipationService} from './participation.service';
 import {TaskService} from './task.service';
 import { UserService } from './user.service';
+import { QuestState } from 'app/Interfaces/QuestState';
 
 @Injectable()
 export class QuestService {

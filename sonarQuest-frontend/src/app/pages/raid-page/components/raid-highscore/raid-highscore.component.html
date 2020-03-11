@@ -1,0 +1,7 @@
+<mat-card>
+<td-data-table #dataTable [data]="raidHighScores" [columns]="columns">
+    <ng-template tdDataTableTemplate="userImage" let-value="value" let-row="row" let-column="column">
+        <img style="max-width:100px; margin-right: -16px;" [src]="value" alt="user">
+      </ng-template>
+</td-data-table>
+</mat-card>

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {ParticipationService} from '../../../../services/participation.service';
 import {WorldService} from '../../../../services/world.service';
@@ -10,7 +11,7 @@ import {
   ITdDataTableSortChangeEvent,
   IPageChangeEvent
 } from '@covalent/core';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Quest} from '../../../../Interfaces/Quest';
 import {ViewAvailableQuestComponent} from './components/view-available-quest/view-available-quest.component';
 import {World} from '../../../../Interfaces/World';
@@ -20,7 +21,8 @@ import {World} from '../../../../Interfaces/World';
   templateUrl: './available-quests.component.html',
   styleUrls: ['./available-quests.component.css']
 })
-export class AvailableQuestsComponent implements OnInit {
+export class AvailableQuestsComponent implements OnInit, OnDestroy {
+  subscriptionList: Subscription[] = [];
 
   availableQuests: Quest[];
   columns: ITdDataTableColumn[] = [
@@ -55,7 +57,7 @@ export class AvailableQuestsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
+    this.subscriptionList.push(this.translateService.get('TABLE.COLUMNS').subscribe((col_names) => {
       this.columns = [
         {name: 'title', label: col_names.TITLE},
         {name: 'gold', label: col_names.GOLD},
@@ -63,12 +65,17 @@ export class AvailableQuestsComponent implements OnInit {
         {name: 'adventure.title', label: col_names.ADVENTURE},
         {name: 'status', label: col_names.STATUS},
         {name: 'edit', label: ''}]
-    });
+    }));
 
-    this.worldService.currentWorld$.subscribe(world => {
+    this.subscriptionList.push(this.worldService.currentWorld$.subscribe(world => {
       this.currentWorld = world
       this.loadQuests();
-    })
+    }));
+  }
+  ngOnDestroy(): void {
+    for (const s of this.subscriptionList){
+      s.unsubscribe();
+    }
   }
 
   loadQuests() {

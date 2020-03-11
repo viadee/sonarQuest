@@ -96,6 +96,12 @@ public class TaskController {
         final World w = worldService.findById(worldId);
         return standardTaskService.findByWorld(w);
     }
+    
+    @GetMapping(value = "/standard/getFreeStandardTasksForWorld/{id}")
+    public List<StandardTask> getFreeStandardTasksForWorld(@PathVariable(value = "id") final Long worldId) {
+        final World w = worldService.findById(worldId);
+        return standardTaskService.getFreeStandardTasksForWorld(w, SonarQuestStatus.OPEN);
+    }
 
     @GetMapping(value = "/{id}")
     public Task getTaskById(@PathVariable(value = "id") final Long id) {

@@ -1,3 +1,4 @@
+import { RaidService } from './../../../../../../services/raid.service';
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {GamemasterAdventureComponent} from '../../gamemaster-adventure.component';
@@ -7,7 +8,7 @@ import {GamemasterAddFreeQuestComponent} from './components/gamemaster-add-free-
 import {WorldService} from '../../../../../../services/world.service';
 import {World} from '../../../../../../Interfaces/World';
 import {Quest} from '../../../../../../Interfaces/Quest';
-import { AdventureState } from 'app/Interfaces/AdventureState';
+
 
 @Component({
   selector: 'app-gamemaster-adventure-create',
@@ -25,11 +26,14 @@ export class GamemasterAdventureCreateComponent implements OnInit {
   worlds: World[];
   selectedWorld: World;
 
+
+
   constructor(private dialog: MatDialog,
               private questService: QuestService,
               private adventureService: AdventureService,
               private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
-              private worldService: WorldService) {
+              private worldService: WorldService,
+              private raidService: RaidService) {
   }
 
   ngOnInit() {
@@ -70,19 +74,17 @@ export class GamemasterAdventureCreateComponent implements OnInit {
         world: this.selectedWorld
       }
       this.adventureService.createAdventure(adventure).then((newAdventure) => {
-        if (newAdventure.id) {
-          const promiseArray = [];
-          this.quests.forEach((value, index) => {
-            const addQuestToAdventure = this.adventureService.addQuest(newAdventure, value);
+      if (newAdventure.id) {
+         const promiseArray = [];
+         this.quests.forEach((value, index) => {
+         const addQuestToAdventure = this.adventureService.addQuest(newAdventure, value);
             promiseArray.push(addQuestToAdventure);
           });
           return Promise.all(promiseArray);
-        }
+      }
       }).then(() => {
         this.dialogRef.close(true);
-      })
-
+      });
     }
-
   }
 }
