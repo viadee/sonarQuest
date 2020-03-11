@@ -4,38 +4,43 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StandardTaskEvaluationService {
-
-
-    public Long evaluateXP(String severity) {
+    
+    private enum SeverityWithXp {
+        BLOCKER(10),
+        CRITICAL(7),
+        MAJOR(5),
+        MINOR(2),
+        DEFAULT(1);
+        
         Long xp;
-        switch (severity) {
-            case "BLOCKER":
-                xp = 10L;
-                break;
-            case "CRITICAL":
-                xp = 7L;
-                break;
-            case "MAJOR":
-                xp = 5L;
-                break;
-            case "MINOR":
-                xp = 2L;
-                break;
-            default:
-                xp = 1L;
-                break;
+        
+        private SeverityWithXp(int xp) {
+            this.xp = Long.valueOf(xp);
         }
-        return xp;
+        
+        static SeverityWithXp fromString(String severityName) {
+            for (SeverityWithXp sev : values()) {
+                if (sev.toString().equals(severityName)) {
+                    return sev;
+                }
+            }
+            return DEFAULT;
+        }
+    }
+
+    public Long evaluateXP(String sev) {
+        SeverityWithXp severity = SeverityWithXp.fromString(sev);
+        return severity.xp;
     }
 
     public Long evaluateGoldAmount(String debtString) {
         Long debt = getDebt(debtString);
-        return roundUp(debt,10);
+        return roundUp(debt, 10);
     }
 
     public Long getDebt(String debtString) {
         Long debt = 0L;
-        if (debtString != null){
+        if (debtString != null) {
             debtString = debtString.replaceAll("[^0-9]", "");
             debt = (long) Integer.parseInt(debtString);
         }

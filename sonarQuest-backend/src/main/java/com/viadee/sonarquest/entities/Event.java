@@ -17,179 +17,180 @@ import com.viadee.sonarquest.constants.EventType;
 @Table(name = "Event")
 public class Event {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(name = "type")
-	private EventType type;
+    @Column(name = "type")
+    private EventType type;
 
-	@Column(name = "title")
-	private String title;
+    @Column(name = "title")
+    private String title;
 
-	@Column(name = "story")
-	private String story;
+    @Column(name = "story")
+    private String story;
 
-	@Column(name = "state")
-	private EventState state;
+    @Column(name = "state")
+    private EventState state;
 
-	@Column(name = "image")
-	private String image;
+    @Column(name = "image")
+    private String image;
 
-	@Column(name = "headline")
-	private String headline;
+    @Column(name = "headline")
+    private String headline;
 
-	@ManyToOne()
-	@JoinColumn(name = "world_id")
-	private World world;
+    @ManyToOne()
+    @JoinColumn(name = "world_id")
+    private World world;
 
-	@ManyToOne()
-	@JoinColumn(name = "user_id")
-	private User user;
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	@Column(name = "timestamp")
-	private Timestamp timestamp;
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
 
-	public Event() {
-	}
+    public Event() {
+    }
 
-	public Event(String title) {
-		super();
-		this.title = title;
-	}
+    public Event(String title) {
+        this.title = title;
+    }
 
-	public Event(EventType type, String title, String story, EventState state, String image, World world, String headline) {
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.state = state;
-		this.image = image;
-		this.world = world;
-		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-	}
+    public Event(EventType type, String title, String story, EventState state, String image, World world,
+            String headline) {
+        this.type = type;
+        this.title = title;
+        this.story = story;
+        this.state = state;
+        this.image = image;
+        this.world = world;
+        timestamp = new Timestamp(System.currentTimeMillis());
+        this.headline = headline;
+    }
 
-	public Event(EventType type, String title, String story, EventState state, String image, World world, String headline, User user) {
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.state = state;
-		this.image = image;
-		this.world = world;
-		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-		this.user = user;
-	}
+    public Event(EventType type, String title, String story, EventState state, String image, World world,
+            String headline, User user) {
+        this.type = type;
+        this.title = title;
+        this.story = story;
+        this.state = state;
+        this.image = image;
+        this.world = world;
+        timestamp = new Timestamp(System.currentTimeMillis());
+        this.headline = headline;
+        this.user = user;
+    }
 
-	public Event(EventType type, String title, String story, EventState state, World world, String headline) {
-		this.type = type;
-		this.title = title;
-		this.story = story;
-		this.state = state;
-		this.world = world;
-		timestamp = new Timestamp(System.currentTimeMillis());
-		this.headline = headline;
-	}
+    public Event(EventType type, String title, String story, EventState state, World world, String headline) {
+        this.type = type;
+        this.title = title;
+        this.story = story;
+        this.state = state;
+        this.world = world;
+        timestamp = new Timestamp(System.currentTimeMillis());
+        this.headline = headline;
+    }
 
-	public Event(EventType type, String story, World world, User user) {
-		this.type = type;
-		this.story = story;
-		this.world = world;
-		this.user = user;
-		image = user.getPicture();
-		timestamp = new Timestamp(System.currentTimeMillis());
-	}
+    public Event(EventType type, String story, World world, User user) {
+        this.type = type;
+        this.story = story;
+        this.world = world;
+        this.user = user;
+        image = user.getPicture();
+        timestamp = new Timestamp(System.currentTimeMillis());
+    }
 
-	public Event(EventType type, String title, String story, EventState state, String image, User user) {
-		this.type = type;
-		this.story = story;
-		this.title = title;
-		this.image = image;
-		this.state = state;
-		timestamp = new Timestamp(System.currentTimeMillis());
-		this.user = user;
-		this.world = null;
-	}
+    public Event(EventType type, String title, String story, EventState state, String image, User user) {
+        this.type = type;
+        this.story = story;
+        this.title = title;
+        this.image = image;
+        this.state = state;
+        timestamp = new Timestamp(System.currentTimeMillis());
+        this.user = user;
+        world = null;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
 
-	public EventType getType() {
-		return type;
-	}
+    public EventType getType() {
+        return type;
+    }
 
-	public void setType(EventType type) {
-		this.type = type;
-	}
+    public void setType(EventType type) {
+        this.type = type;
+    }
 
-	public String getStory() {
-		return story;
-	}
+    public String getStory() {
+        return story;
+    }
 
-	public void setStory(String story) {
-		this.story = story;
-	}
+    public void setStory(String story) {
+        this.story = story;
+    }
 
-	public EventState getState() {
-		return state;
-	}
+    public EventState getState() {
+        return state;
+    }
 
-	public void setState(EventState state) {
-		this.state = state;
-	}
+    public void setState(EventState state) {
+        this.state = state;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public World getWorld() {
-		return world;
-	}
+    public World getWorld() {
+        return world;
+    }
 
-	public void setWorld(World world) {
-		this.world = world;
-	}
+    public void setWorld(World world) {
+        this.world = world;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getHeadline() {
-		return headline;
-	}
+    public String getHeadline() {
+        return headline;
+    }
 
-	public void setHeadline(String headline) {
-		this.headline = headline;
-	}
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
 
     @Override
     public int hashCode() {
@@ -220,8 +221,5 @@ public class Event {
         }
         return true;
     }
-	
-	
-	
 
 }

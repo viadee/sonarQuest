@@ -20,7 +20,6 @@ public class WizardService {
 	 * point to keys in the translation files, e.g. to en.json or de.json.
 	 */
 	private enum WizardState {
-
 		NO_MESSAGES("", ""),
 		NO_WORLDS_FOUND("WIZARD.MSG_NO_WORLDS_FOUND", "WIZARD.HINT_NO_WORLDS_FOUND"),
 		NO_ACTIVE_WORLD("WIZARD.MSG_NO_ACTIVE_WORLD", "WIZARD.HINT_NO_ACTIVE_WORLD"),

@@ -40,9 +40,6 @@ public class QuestService implements QuestSuggestion {
     private ParticipationRepository participationRepository;
     
     @Autowired
-    private EventService eventService;
-    
-    @Autowired
     private UserService userService;
 
     final Random random = new Random();

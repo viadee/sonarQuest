@@ -33,7 +33,10 @@ public class SonarConfig {
 
     @Column(name = "http_basic_auth_password")
     private String httpBasicAuthPassword;
-
+    
+    @Column(name="organization")
+    private String organization;
+    
     public Long getId() {
         return id;
     }
@@ -77,4 +80,12 @@ public class SonarConfig {
     public boolean hasHttpBasicAuth() {
         return StringUtils.isNotBlank(httpBasicAuthUsername) && StringUtils.isNotBlank(httpBasicAuthPassword);
     }
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
 }

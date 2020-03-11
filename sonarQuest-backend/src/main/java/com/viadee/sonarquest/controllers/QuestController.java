@@ -31,7 +31,6 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.services.AdventureService;
-import com.viadee.sonarquest.services.EventService;
 import com.viadee.sonarquest.services.GratificationService;
 import com.viadee.sonarquest.services.QuestService;
 import com.viadee.sonarquest.services.UserService;
@@ -62,9 +61,6 @@ public class QuestController {
 
     @Autowired
     private UserService userService;
-    
-    @Autowired
-    private EventService eventService;
     
     @Autowired
     private WebSocketController webSocketController;

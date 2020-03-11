@@ -23,25 +23,26 @@ public class StandardTask extends Task {
     private Integer debt;
 
     @Column(name = "issue_key")
-    protected String issueKey;
-    
+    private String issueKey;
+
     @Column(name = "issue_rule")
     private String issueRule;
 
     public StandardTask() {
     }
 
-    public StandardTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp, final Quest quest,
+    public StandardTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp,
+            final Quest quest,
             final World world, final String key,
             final String component, final String severity, final String type, final Integer debt,
             final String issueKey, String issueRule) {
-        this.setTitle(title);
-        this.setStatus(status);
-        this.setGold(gold);
-        this.setXp(xp);
-        this.setQuest(quest);
-        this.setWorld(world);
-        this.setKey(key);
+        setTitle(title);
+        setStatus(status);
+        setGold(gold);
+        setXp(xp);
+        setQuest(quest);
+        setWorld(world);
+        setKey(key);
         this.component = component;
         this.severity = severity;
         this.type = type;
@@ -90,12 +91,12 @@ public class StandardTask extends Task {
         this.issueKey = issueKey;
     }
 
-	public String getIssueRule() {
-		return issueRule;
-	}
+    public String getIssueRule() {
+        return issueRule;
+    }
 
-	public void setIssueRule(String issueRule) {
-		this.issueRule = issueRule;
-	}
+    public void setIssueRule(String issueRule) {
+        this.issueRule = issueRule;
+    }
 
 }

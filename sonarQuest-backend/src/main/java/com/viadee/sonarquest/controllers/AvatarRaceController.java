@@ -2,6 +2,7 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,8 @@ import com.viadee.sonarquest.repositories.AvatarRaceRepository;
 @RequestMapping("/avatarRace")
 public class AvatarRaceController {
 
+    @Autowired
     private AvatarRaceRepository avatarRaceRepository;
-
-    public AvatarRaceController(final AvatarRaceRepository avatarRaceRepository) {
-        this.avatarRaceRepository = avatarRaceRepository;
-    }
 
     @GetMapping
     public List<AvatarRace> getAllAvatarRaces() {

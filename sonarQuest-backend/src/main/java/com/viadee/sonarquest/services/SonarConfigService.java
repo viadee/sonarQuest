@@ -42,6 +42,7 @@ public class SonarConfigService {
 
     private SonarConfig updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
         currentConfig.setName(config.getName());
+        currentConfig.setOrganization(config.getOrganization());
         currentConfig.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
         currentConfig.setHttpBasicAuthUsername(config.getHttpBasicAuthUsername());
         currentConfig.setHttpBasicAuthPassword(config.getHttpBasicAuthPassword());

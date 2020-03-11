@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.google.common.collect.ImmutableList;
-import com.viadee.sonarquest.controllers.PathConstants;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -36,7 +35,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private boolean corsHeaderActive;
 
     public WebSecurityConfiguration(final UserDetailsService userDetailsService, final JwtHelper jwtHelper) {
-        super();
         this.userDetailsService = userDetailsService;
         this.jwtHelper = jwtHelper;
     }
@@ -71,23 +69,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.httpBasic().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // h2 console to work
-        http.headers().frameOptions().sameOrigin();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, PathConstants.LOGIN_URL).permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers("/socket").permitAll()
                 .antMatchers("/app").permitAll()
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
-                // h2 console
-                .antMatchers("/h2-console/**").permitAll()
+
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 //.antMatchers(HttpMethod.GET, "/*").permitAll()
                 //.antMatchers(HttpMethod.POST, "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**").permitAll()
                 .anyRequest().authenticated();
+
         if (corsHeaderActive) {
             http.cors();
         }
@@ -98,7 +95,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("*"));//ImmutableList.of("http://localhost:4200")
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:4200"));
         configuration.setAllowedMethods(ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));

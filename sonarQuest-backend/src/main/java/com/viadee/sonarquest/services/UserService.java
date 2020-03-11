@@ -32,7 +32,7 @@ import com.viadee.sonarquest.repositories.WorldRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-	protected static final Log LOGGER = LogFactory.getLog(UserService.class);
+    private static final Log LOGGER = LogFactory.getLog(UserService.class);
 
 	@Autowired
 	private RoleService roleService;

@@ -21,7 +21,6 @@ public class SpecialTaskService {
     private WorldRepository worldRepository;
 
     public void saveDto(final SpecialTask specialTaskDto) {
-
         final World world = worldRepository.findByProject(specialTaskDto.getWorld().getProject());
 
         final SpecialTask sp = new SpecialTask(

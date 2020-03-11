@@ -15,9 +15,6 @@ public class SonarQubeApiCall {
 
     private String sonarQubeRestApiCall;
 
-    private SonarQubeApiCall() {
-    }
-
     private void appendSearchParameter(String parameter) {
         if (!sonarQubeRestApiCall.endsWith("?")) {
             sonarQubeRestApiCall += "&";
@@ -82,20 +79,20 @@ public class SonarQubeApiCall {
     	appendSearchParameter("projectKey=" + projectKey);
         return this;
     }
-    
-    /**
-     * Appends the parameter "organization" with the value organizationKey to the sonarQubeRestApiCall. 
-     */
-    public SonarQubeApiCall withOrganization(String organizationKey) {
-    	appendSearchParameter("organization=" + organizationKey);
-        return this;
-    }
-    
+        
     /**
      * Appends the parameter "componentKeys" with the value projectKey to the sonarQubeRestApiCall.
      */
     public SonarQubeApiCall withComponentKeys(String projectKey) {
         appendSearchParameter("componentKeys=" + projectKey);
+        return this;
+    }
+    
+    /**
+     * Appends the parameter "organization" with the value organization to the sonarQubeRestApiCall.
+     */
+    public SonarQubeApiCall withOrganization(String organization) {
+        appendSearchParameter("organization=" + organization);
         return this;
     }
 

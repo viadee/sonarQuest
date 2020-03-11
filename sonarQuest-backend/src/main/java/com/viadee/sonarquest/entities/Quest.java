@@ -202,8 +202,7 @@ public class Quest {
 	}
 
 	/**
-	 * Looks up the usernames of all participants in this quests and returns them in
-	 * a list.
+     * Looks up the usernames of all participants in this quests and returns them in a list.
 	 */
 	public List<String> getParticipants() {
 		if (participations != null) {

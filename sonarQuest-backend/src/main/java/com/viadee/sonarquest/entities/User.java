@@ -192,7 +192,7 @@ public class User {
 	/**
 	 * Adds the specified amount of gold.
 	 * 
-	 * @param gold the amount to add, must be positive or zero.
+
 	 */
 	public void addGold(final long gold) {
 		Validate.isTrue(gold >= 0);
@@ -202,7 +202,7 @@ public class User {
 	/**
 	 * Adds the specified amount of XPerience Points.
 	 * 
-	 * @param xp the amount to add, must be positive or zero.
+
 	 */
 	public void addXp(final long xp) {
 		Validate.isTrue(xp >= 0);
@@ -302,8 +302,8 @@ public class User {
 	}
 
 	/**
-	 * Looks up the names of all joined ("active") worlds and returns them in a
-	 * list.
+
+     * Looks up the names of all joined ("active") worlds and returns them in a list.
 	 */
 	public List<String> getJoinedWorlds() {
 		if (worlds != null) {

@@ -38,23 +38,23 @@ public class Artefact {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST})
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
     @JoinColumn(name = "level_id")
     private Level minLevel;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinTable(name = "Artefact_Skill", joinColumns = @JoinColumn(name = "artefact_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
     private List<Skill> skills;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "artefacts", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "artefacts", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     private List<User> users;
-    
-    @Column(name="on_marketplace")
+
+    @Column(name = "on_marketplace")
     private boolean onMarketplace;
 
     public Artefact() {
-    	this.onMarketplace = true;
+        this.onMarketplace = true;
     }
 
     public Artefact(final String name, final String icon, final Long price, final Level minLevel,
@@ -185,14 +185,14 @@ public class Artefact {
     }
 
     public boolean isOnMarketplace() {
-		return onMarketplace;
-	}
+        return onMarketplace;
+    }
 
-	public void setOnMarketplace(boolean onMarketplace) {
-		this.onMarketplace = onMarketplace;
-	}
+    public void setOnMarketplace(boolean onMarketplace) {
+        this.onMarketplace = onMarketplace;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
