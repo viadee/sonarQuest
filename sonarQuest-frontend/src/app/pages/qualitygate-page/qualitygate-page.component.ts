@@ -8,8 +8,6 @@ import { World } from 'app/Interfaces/World';
 import { Subscription } from 'rxjs';
 import { QualityGateRaidRewardHistory } from 'app/Interfaces/QualityGateRaidRewardHistory';
 import { QualityGateRaid } from 'app/Interfaces/QualityGateRaid';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
@@ -25,37 +23,29 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
 
   world: World;
   raid: QualityGateRaid;
-  taskList: Condition[] = [];
-  historyList: QualityGateRaidRewardHistory[] = [];
+  conditionList: Condition[] = [];
+  rewardHistoryList: QualityGateRaidRewardHistory[] = [];
   highScore: HighScore;
   actualScore: HighScore;
-
-  config: SwiperConfigInterface = {
+  slideIndex = 0;
+  swiperConfig: SwiperConfigInterface = {
     a11y: true,
     direction: 'horizontal',
     slidesPerView: 3,
-    slideToClickedSlide: true,
-    mousewheel: true,
-    scrollbar: false,
-    watchSlidesProgress: true,
-    navigation: true,
-    keyboard: true,
-    pagination: false,
+    spaceBetween: 30,
     centeredSlides: true,
-    loop: true,
-    roundLengths: true,
-    slidesOffsetBefore: 100,
-    slidesOffsetAfter: 100,
-    spaceBetween: 50,
-    breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1
-        }
-    }
-};
+    height: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  };
 
-  constructor(private raidService: QualityGateRaidService, private worldService: WorldService) { }
+  constructor(private raidService: QualityGateRaidService, private worldService: WorldService) {}
 
   ngOnInit() {
     this.worldSub = this.worldService.currentWorld$.subscribe(world => {
@@ -75,7 +65,7 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
     this.raidSub = this.raidService.findByWorld(this.world.id).subscribe(
       resp => {
         this.raid = resp;
-        this.taskList = resp.conditions;
+        this.conditionList = resp.conditions;
         this.highScore = new HighScoreModel(resp.scoreDay, resp.scorePoints);
       },
       err => console.error('Qualitygate Observer got an error: ' + err),
@@ -84,14 +74,17 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
   }
 
   loadQualityGateHistory() {
+    const _this = this;
     this.historySub = this.raidSub = this.raidService.getHistory(this.raid.id).subscribe(resp => {
-      this.historyList = resp;
+      _this.rewardHistoryList = resp;
+      _this.slideIndex = resp.length;
     });
   }
 
   loadActualScore() {
+    const _this = this;
     this.highScoreSub = this.raidService.calculateActualScore(this.raid).subscribe(resp => {
-      this.actualScore = resp;
+      _this.actualScore = resp;
     });
   }
 }

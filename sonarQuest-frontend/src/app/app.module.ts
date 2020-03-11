@@ -1,5 +1,4 @@
 import { SwiperModule } from 'ngx-swiper-wrapper';
-
 import { RaidService } from 'app/services/raid.service';
 
 // tslint:disable:max-line-length
@@ -125,7 +124,6 @@ import { GamemasterRaidCreateComponent } from './pages/gamemaster-page/component
 import { RaidsPageComponent } from './pages/raids-page/raids-page.component';
 import { TasklogComponent } from './pages/raid-page/components/tasklog/tasklog.component';
 import { QualitygatePageComponent } from './pages/qualitygate-page/qualitygate-page.component';
-import { ConditiontasklogComponent } from './pages/qualitygate-page/components/conditiontasklog/conditiontasklog.component';
 import { GamemasterQualityGateComponent } from './pages/gamemaster-page/components/gamemaster-quality-gate/gamemaster-quality-gate.component';
 import { RaidHighscoreComponent } from './pages/raid-page/components/raid-highscore/raid-highscore.component';
 import { SolvedTaskHistoryComponent } from './pages/raid-page/components/solved-task-history/solved-task-history.component';
@@ -194,7 +192,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RaidsPageComponent,
     TasklogComponent,
     QualitygatePageComponent,
-    ConditiontasklogComponent,
     GamemasterQualityGateComponent,
     RaidHighscoreComponent,
     SolvedTaskHistoryComponent
