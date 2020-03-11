@@ -21,6 +21,7 @@ export interface Quest {
   tasks: Task[];
   participations: Participation[];
   participants: string[];
+  questProgress: number;
 }
 
 

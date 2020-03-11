@@ -127,6 +127,7 @@ export class QuestModel implements Quest {
         this._tasks = tasks;
         this._participations = participations;
     }
+    questProgress: number;
 
     public get id(): number {
         return this._id;

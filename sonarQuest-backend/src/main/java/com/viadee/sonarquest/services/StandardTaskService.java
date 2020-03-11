@@ -93,10 +93,21 @@ public class StandardTaskService {
     public List<StandardTask> findAll() {
         return standardTaskRepository.findAll();
     }
+    
+    public List<StandardTask> getFreeStandardTasksForWorld(final World w, final SonarQuestStatus status) {
+    	List<StandardTask> tasks = standardTaskRepository.findByWorldAndStatusAndQuestIsNull(w, status);
+    	Collections.sort(tasks, standardTaskComparator());
+    	return tasks;
+    }
 
     public List<StandardTask> findByWorld(final World w) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
-		Collections.sort(tasks, new Comparator<StandardTask>() {
+		Collections.sort(tasks, standardTaskComparator());
+		return tasks;
+    }
+    
+    private Comparator<StandardTask> standardTaskComparator(){
+    	Comparator<StandardTask> comparator = new Comparator<StandardTask>() {
 
 			@Override
 			public int compare(StandardTask task1, StandardTask task2) {
@@ -104,8 +115,8 @@ public class StandardTaskService {
 				SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
 				return severity2.getRank().compareTo(severity1.getRank());
 			}
-		});
-		return tasks;
+		};
+		return comparator;
     }
 
 }

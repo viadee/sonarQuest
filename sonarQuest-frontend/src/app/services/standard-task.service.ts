@@ -39,7 +39,7 @@ export class StandardTaskService {
   }
 
   public getFreeStandardTasksForWorldExcept(world: World, excludedTasks: Task[]): Promise<StandardTask[]> {
-    return this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/world/${world.id}`)
+    return this.http.get<StandardTask[]>(`${environment.endpoint}/task/standard/getFreeStandardTasksForWorld/${world.id}`)
       .toPromise().then(tasks => {
         const excludetTaskIds = excludedTasks.map(task => task.id);
         return tasks.filter(task => !excludetTaskIds.includes(task.id));
