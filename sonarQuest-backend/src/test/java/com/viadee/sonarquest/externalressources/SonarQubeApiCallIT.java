@@ -49,6 +49,7 @@ public class SonarQubeApiCallIT {
     }
     
     @Test
+    @Ignore
     public void projectStatus() {
     	SonarConfig sonarConfig = sonarConfigService.getConfig();
     	String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
