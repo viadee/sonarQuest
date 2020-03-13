@@ -4,8 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("STANDARD")
 public class StandardTask extends Task {
@@ -31,11 +36,11 @@ public class StandardTask extends Task {
     public StandardTask() {
     }
 
-    public StandardTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp,
-            final Quest quest,
-            final World world, final String key,
-            final String component, final String severity, final String type, final Integer debt,
-            final String issueKey, String issueRule) {
+    public StandardTask(final String title, final SonarQuestTaskStatus status, final Long gold, final Long xp,
+                        final Quest quest,
+                        final World world, final String key,
+                        final String component, final String severity, final String type, final Integer debt,
+                        final String issueKey, final String issueRule) {
         setTitle(title);
         setStatus(status);
         setGold(gold);
@@ -50,53 +55,4 @@ public class StandardTask extends Task {
         this.issueKey = issueKey;
         this.issueRule = issueRule;
     }
-
-    public String getComponent() {
-        return component;
-    }
-
-    public void setComponent(final String component) {
-        this.component = component;
-    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(final String severity) {
-        this.severity = severity;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    public Integer getDebt() {
-        return debt;
-    }
-
-    public void setDebt(final Integer debt) {
-        this.debt = debt;
-    }
-
-    public String getIssueKey() {
-        return issueKey;
-    }
-
-    public void setIssueKey(final String issueKey) {
-        this.issueKey = issueKey;
-    }
-
-    public String getIssueRule() {
-        return issueRule;
-    }
-
-    public void setIssueRule(String issueRule) {
-        this.issueRule = issueRule;
-    }
-
 }

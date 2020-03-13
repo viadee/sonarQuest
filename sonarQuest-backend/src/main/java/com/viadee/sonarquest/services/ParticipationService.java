@@ -4,7 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.controllers.WebSocketController;
@@ -12,37 +13,39 @@ import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
-import com.viadee.sonarquest.repositories.QuestRepository;
 
 @Service
 public class ParticipationService {
 
-    @Autowired
-    private QuestRepository questRepository;
+    private final ParticipationRepository participationRepository;
 
-    @Autowired
-    private ParticipationRepository participationRepository;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private WebSocketController webSocketController;
+    private final QuestService questService;
 
-    public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
-        final Quest quest = questRepository.findOne(questId);
-        final User user = userService.findById(userId);
-        if (quest != null && user != null) {
-            return participationRepository.findByQuestAndUser(quest, user);
-        }
-        return null;
+    private final WebSocketController webSocketController;
+
+    public ParticipationService(final ParticipationRepository participationRepository, final UserService userService, final QuestService questService, final WebSocketController webSocketController) {
+        this.participationRepository = participationRepository;
+        this.userService = userService;
+        this.questService = questService;
+        this.webSocketController = webSocketController;
     }
 
+    @Transactional
+    public Participation findParticipationByQuestIdAndUserId(final Long questId, final Long userId) {
+        final Quest quest = questService.findById(questId);
+        final User user = userService.findById(userId);
+        return participationRepository.findByQuestAndUser(quest, user);
+    }
+
+    @Transactional
     public List<Participation> findParticipationByQuestId(final Long questId) {
-        final Quest foundQuest = questRepository.findOne(questId);
+        final Quest foundQuest = questService.findById(questId);
         return participationRepository.findByQuest(foundQuest);
     }
 
+    @Transactional
     public List<Participation> findParticipationByUser(final User user) {
         List<Participation> participations = new ArrayList<>();
         if (user != null) {
@@ -51,13 +54,14 @@ public class ParticipationService {
         return participations;
     }
 
-	public Participation createParticipation(Principal principal, Long questid) {
-		final Quest foundQuest = questRepository.findOne(questid);
+    @Transactional
+	public Participation createParticipation(final Principal principal, final Long questId) {
+		final Quest foundQuest = questService.findById(questId);
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         final Participation foundParticipation = participationRepository.findByQuestAndUser(foundQuest, user);
         Participation participation = null;
-        if ((foundQuest != null) && (user != null) && (foundParticipation == null)) {
+        if (foundQuest != null && user != null && foundParticipation == null) {
             participation = new Participation(foundQuest, user);
             participation = participationRepository.save(participation);
             // Create Event for User join Quest

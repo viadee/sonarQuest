@@ -1,65 +1,61 @@
 package com.viadee.sonarquest.rules;
 
-import static org.junit.Assert.assertSame;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import com.viadee.sonarquest.rules.IssueWithStatus;
-import com.viadee.sonarquest.rules.SonarQubeStatusMapper;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SonarQubeStatusMapperTest {
 
     @InjectMocks
     private SonarQubeStatusMapper mapper;
 
     @Test
-    public void testMapExternalStatus_Open() throws Exception {
+    public void testMapExternalStatus_Open() {
         IssueWithStatus issueWithStatus = issue("OPEN");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.OPEN, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.OPEN, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testMapExternalStatus_Reopen() throws Exception {
+    public void testMapExternalStatus_Reopen() {
         IssueWithStatus issueWithStatus = issue("REOPENED");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.OPEN, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.OPEN, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testMapExternalStatus_Confirmed() throws Exception {
+    public void testMapExternalStatus_Confirmed() {
         IssueWithStatus issueWithStatus = issue("CONFIRMED");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.OPEN, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.OPEN, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testMapExternalStatus_Closed() throws Exception {
+    public void testMapExternalStatus_Closed() {
         IssueWithStatus issueWithStatus = issue("CLOSED");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.SOLVED, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.SOLVED, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testMapExternalStatus_Resolved_FalsePositive() throws Exception {
+    public void testMapExternalStatus_Resolved_FalsePositive() {
         IssueWithStatus issueWithStatus = issue("RESOLVED");
         when(issueWithStatus.getResolution()).thenReturn("FALSE-POSITIVE");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.CLOSED, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.CLOSED, sonarQuestTaskStatus);
     }
 
     @Test
-    public void testMapExternalStatus_Resolved() throws Exception {
+    public void testMapExternalStatus_Resolved() {
         IssueWithStatus issueWithStatus = issue("RESOLVED");
-        SonarQuestStatus sonarQuestStatus = mapper.mapExternalStatus(issueWithStatus);
-        assertSame(SonarQuestStatus.OPEN, sonarQuestStatus);
+        SonarQuestTaskStatus sonarQuestTaskStatus = mapper.mapExternalStatus(issueWithStatus);
+        assertSame(SonarQuestTaskStatus.OPEN, sonarQuestTaskStatus);
     }
 
     private IssueWithStatus issue(String sonarQubeStatus) {

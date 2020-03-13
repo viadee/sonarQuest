@@ -15,7 +15,7 @@ public class SonarQubeApiCall {
 
     private String sonarQubeRestApiCall;
 
-    private void appendSearchParameter(String parameter) {
+    private void appendSearchParameter(final String parameter) {
         if (!sonarQubeRestApiCall.endsWith("?")) {
             sonarQubeRestApiCall += "&";
         }
@@ -25,12 +25,13 @@ public class SonarQubeApiCall {
     /**
      * Initializes a new Ressources Object (all values reset) and sets the server URL as a basis for a new REST API
      * Call.
-     * 
+     *
      * @param sonarQubeServerUrl
+     *            THe URL of the Sonar Qube server to be contacted
      * @return the new instance
      */
-    public static SonarQubeApiCall onServer(String sonarQubeServerUrl) {
-        SonarQubeApiCall ressource = new SonarQubeApiCall();
+    public static SonarQubeApiCall onServer(final String sonarQubeServerUrl) {
+        final SonarQubeApiCall ressource = new SonarQubeApiCall();
         ressource.sonarQubeRestApiCall = sonarQubeServerUrl;
         return ressource;
     }
@@ -38,7 +39,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the call for the search issues function (e.g. /api/issues/search? ) in the SonarQube REST API to the
      * sonarQubeRestApiCall.
-     * 
+     *
      * @see https://sonarcloud.io/web_api/api/issues
      */
     public SonarQubeApiCall searchIssues() {
@@ -49,13 +50,13 @@ public class SonarQubeApiCall {
     /**
      * Appends the call for the search components function (e.g. /api/components/search? ) in the SonarQube REST API to
      * the sonarQubeRestApiCall.
-     * 
+     *
      * @param qualifier
      *            _required_ - the Qualifier to search for (e.g. TRK for "projects")
-     * 
+     *
      * @see https://sonarcloud.io/web_api/api/components
      */
-    public SonarQubeApiCall searchComponents(SonarQubeComponentQualifier qualifier) {
+    public SonarQubeApiCall searchComponents(final SonarQubeComponentQualifier qualifier) {
         sonarQubeRestApiCall += "/api/components/search?";
         withQualifiers(qualifier);
         return this;
@@ -64,7 +65,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "componentKeys" with the value projectKey to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall withComponentKeys(String projectKey) {
+    public SonarQubeApiCall withComponentKeys(final String projectKey) {
         appendSearchParameter("componentKeys=" + projectKey);
         return this;
     }
@@ -80,7 +81,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "types" with the value issueType to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall withTypes(SonarQubeIssueType issueType) {
+    public SonarQubeApiCall withTypes(final SonarQubeIssueType issueType) {
         appendSearchParameter("types=" + issueType);
         return this;
     }
@@ -88,7 +89,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "qualifiers" with the single value qualifier to the sonarQubeRestApiCall.
      */
-    private SonarQubeApiCall withQualifiers(SonarQubeComponentQualifier qualifier) {
+    private SonarQubeApiCall withQualifiers(final SonarQubeComponentQualifier qualifier) {
         appendSearchParameter("qualifiers=" + qualifier);
         return this;
     }
@@ -96,7 +97,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "q" (Query) as a text-based simple search param to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall withQuery(String query) {
+    public SonarQubeApiCall withQuery(final String query) {
         appendSearchParameter("q=" + query);
         return this;
     }
@@ -104,15 +105,23 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "severities" with the values in the severities-List to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall withSeverities(List<SonarQubeSeverity> severities) {
+    public SonarQubeApiCall withSeverities(final List<SonarQubeSeverity> severities) {
         appendSearchParameter("severities=" + StringUtils.join(severities, ","));
+        return this;
+    }
+
+    /**
+     * Appends the parameter "organization" with the values in the severities-List to the sonarQubeRestApiCall.
+     */
+    public SonarQubeApiCall withOrganization(final String organization) {
+        appendSearchParameter("organization=" + organization);
         return this;
     }
 
     /**
      * Appends the parameter "pageSize" with the value maxNumberOfIssuesOnPage to the sonarQubeRestApiCall.
      */
-    public SonarQubeApiCall pageSize(int maxNumberOfIssuesOnPage) {
+    public SonarQubeApiCall pageSize(final int maxNumberOfIssuesOnPage) {
         appendSearchParameter("pageSize=" + maxNumberOfIssuesOnPage);
         return this;
     }
@@ -120,7 +129,7 @@ public class SonarQubeApiCall {
     /**
      * Appends the parameter "pageIndex" with the value startIndex to the sonarQubeRestApiCall. Paging starts here.
      */
-    public SonarQubeApiCall pageIndex(int startIndex) {
+    public SonarQubeApiCall pageIndex(final int startIndex) {
         appendSearchParameter("pageIndex=" + startIndex);
         return this;
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.TaskRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
 @Service
 public class TaskService {
@@ -34,15 +35,15 @@ public class TaskService {
 	private AdventureService adventureService;
 
 	public List<Task> getFreeTasksForWorld(final World world) {
-		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
+		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestTaskStatus.OPEN);
 	}
 
 	public Task save(final Task task) {
 		return taskRepository.save(task);
 	}
 
-	public Task find(final Long id) {
-		return taskRepository.findById(id);
+	public Task find(final Long taskId) throws ResourceNotFoundException {
+		return taskRepository.findById(taskId).orElseThrow(ResourceNotFoundException::new);
 	}
 
 	public void delete(final Task task) {
@@ -55,12 +56,12 @@ public class TaskService {
 
 	@Transactional
 	public void solveTaskManually(final Task task) {
-		if (task != null && task.getStatus() != SonarQuestStatus.SOLVED) {
-			task.setStatus(SonarQuestStatus.SOLVED);
+		if (task != null && task.getStatus() != SonarQuestTaskStatus.SOLVED) {
+			task.setStatus(SonarQuestTaskStatus.SOLVED);
 			task.setEnddate(new Date(System.currentTimeMillis()));
 			save(task);
 			gratificationService.rewardUserForSolvingTask(task);
-			questService.updateQuest(task.getQuest());
+			questService.closeQuestWhenAllOfItsTasksAreClosed(task.getQuest());
 			adventureService.updateAdventure(task.getQuest().getAdventure());
 		}
 	}
@@ -72,11 +73,11 @@ public class TaskService {
 			List<Task> tasks = quest.getTasks();
 			for (Task task : tasks) {
 				gratificationService.rewardUserForSolvingTask(task);
-				task.setStatus(SonarQuestStatus.SOLVED);
+				task.setStatus(SonarQuestTaskStatus.SOLVED);
 				task.setEnddate(new Date(System.currentTimeMillis()));
 				save(task);
 			}
-			questService.updateQuest(quest);
+			questService.closeQuestWhenAllOfItsTasksAreClosed(quest);
 			adventureService.updateAdventure(quest.getAdventure());
 		}
 	}

@@ -1,16 +1,17 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.Quest;
@@ -18,9 +19,8 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
-import com.viadee.sonarquest.services.QuestService;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class QuestServiceTest {
 
     @Mock
@@ -28,6 +28,9 @@ public class QuestServiceTest {
 
     @Mock
     private ParticipationRepository participationRepository;
+
+    @Mock
+    private WorldService worldService;
 
     @InjectMocks
     private QuestService questService;
@@ -68,9 +71,9 @@ public class QuestServiceTest {
         // init mock repos
         when(participationRepository.findByUser(mockDeveloper)).thenReturn(mockParticipations);
         when(questRepository.findByWorld(mockWorld)).thenReturn(mockQuests);
-
+        when(worldService.findById(any())).thenReturn(mockWorld);
         // call method to be tested
-        final List<List<Quest>> result = questService.getAllQuestsForWorldAndUser(mockWorld, mockDeveloper);
+        final List<List<Quest>> result = questService.getAllQuestsForWorldAndUser(mockWorld.getId(), mockDeveloper);
 
         // verify result
         assertTrue(result.get(0).contains(mockQuest1));

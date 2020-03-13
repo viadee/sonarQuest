@@ -4,8 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("SPECIAL")
 public class SpecialTask extends Task {
@@ -16,9 +21,9 @@ public class SpecialTask extends Task {
     public SpecialTask() {
     }
 
-    public SpecialTask(final String title, final SonarQuestStatus status, final Long gold, final Long xp,
-            final Quest quest,
-            final String message, final World world) {
+    public SpecialTask(final String title, final SonarQuestTaskStatus status, final Long gold, final Long xp,
+                       final Quest quest,
+                       final String message, final World world) {
         this.setTitle(title);
         this.setStatus(status);
         this.setGold(gold);
@@ -26,13 +31,5 @@ public class SpecialTask extends Task {
         this.setQuest(quest);
         this.message = message;
         this.setWorld(world);
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(final String message) {
-        this.message = message;
     }
 }

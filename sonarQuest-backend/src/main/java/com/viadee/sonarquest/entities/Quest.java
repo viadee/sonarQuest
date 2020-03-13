@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,12 +21,15 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.QuestState;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "Quest")
 public class Quest {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "startdate")
@@ -44,7 +48,7 @@ public class Quest {
     private String story;
 
     @Column(name = "creator_name")
-    private String creatorname;
+    private String creatorName;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -106,94 +110,6 @@ public class Quest {
         this.image = image;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public void setStory(final String story) {
-        this.story = story;
-    }
-
-    public QuestState getStatus() {
-        return status;
-    }
-
-    public void setStatus(final QuestState status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
-        return gold;
-    }
-
-    public void setGold(final Long gold) {
-        this.gold = gold;
-    }
-
-    public Long getXp() {
-        return xp;
-    }
-
-    public void setXp(final Long xp) {
-        this.xp = xp;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public void setWorld(final World world) {
-        this.world = world;
-    }
-
-    public Adventure getAdventure() {
-        return adventure;
-    }
-
-    public void setAdventure(final Adventure adventure) {
-        this.adventure = adventure;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(final List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<Participation> getParticipations() {
-        return participations;
-    }
-
-    public void setParticipations(final List<Participation> participations) {
-        this.participations = participations;
-    }
-
     /**
      * Looks up the usernames of all participants in this quests and returns them in a list.
      */
@@ -204,37 +120,5 @@ public class Quest {
         } else {
             return new ArrayList<>();
         }
-    }
-
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
-
-    public String getCreatorName() {
-        return creatorname;
-    }
-
-    public void setCreatorName(String creatorname) {
-        this.creatorname = creatorname;
     }
 }

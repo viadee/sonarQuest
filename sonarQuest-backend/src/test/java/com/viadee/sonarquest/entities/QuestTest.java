@@ -1,29 +1,26 @@
 package com.viadee.sonarquest.entities;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.viadee.sonarquest.entities.Participation;
-import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.User;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuestTest {
 
     @Test
-    public void testGetParticipants_noParticipants() throws Exception {
+    public void testGetParticipants_noParticipants() {
         Quest quest = new Quest();
         List<String> participants = quest.getParticipants();
         assertEquals(Collections.emptyList(), participants);
     }
 
     @Test
-    public void testGetParticipants_twoParticipants() throws Exception {
+    public void testGetParticipants_twoParticipants() {
         // Given
         Quest quest = new Quest();
         List<Participation> participations = new ArrayList<>();

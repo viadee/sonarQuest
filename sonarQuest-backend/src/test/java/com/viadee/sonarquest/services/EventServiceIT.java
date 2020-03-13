@@ -1,8 +1,8 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -12,11 +12,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Event;
@@ -27,15 +25,10 @@ import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.EventRepository;
-import com.viadee.sonarquest.repositories.UserRepository;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class EventServiceIT {
-	
-	@Autowired
-	private UserRepository userRepository;
 
     @Autowired
     private EventService eventService;
@@ -46,30 +39,30 @@ public class EventServiceIT {
     @Test
     public void testServiceEvent() {
 
-        Event event1 = new Event();
+        final Event event1 = new Event();
         event1.setTimestamp(new Timestamp(System.currentTimeMillis()));
         event1.setTitle("event1");
         eventRepository.save(event1);
 
         // get Event lists
-        List<Event> events1 = eventService.getLatestEvent();
+        final List<Event> events1 = eventService.getLatestEvent();
 
         // verify result
-        assertTrue(events1.get(0).equals(event1));
+        assertEquals(events1.get(0), event1);
 
-        Event event2 = new Event();
+        final Event event2 = new Event();
         event2.setTimestamp(new Timestamp(System.currentTimeMillis()));
         event2.setTitle("event2");
         eventRepository.save(event2);
 
-        Event event3 = new Event();
+        final Event event3 = new Event();
         event3.setTimestamp(new Timestamp(System.currentTimeMillis()));
         event3.setTitle("event3");
         eventRepository.save(event3);
 
         // get Event lists
-        List<Event> events2 = eventService.get2LatestEvents();
-        List<Event> events3 = eventService.get3LatestEvents();
+        final List<Event> events2 = eventService.get2LatestEvents();
+        final List<Event> events3 = eventService.get3LatestEvents();
 
         // verify result
         assertTrue(events2.contains(event3));
@@ -84,63 +77,63 @@ public class EventServiceIT {
     }
 
     @Test
-    public void testCreateEventForCreatedQuest_shortStory() throws Exception {
+    public void testCreateEventForCreatedQuest_shortStory() {
         // Given
-        String longStory = createStoryWithLength(25);
-        Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
-        Principal principal = createPrincipal();
+        final String longStory = createStoryWithLength(25);
+        final Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
+        final Principal principal = createPrincipal();
         // When
         eventService.createEventForCreatedQuest(quest, principal);
         // Then
-        List<Event> events = eventService.getLatestEvent();
-        Event latestEvent = events.get(0);
+        final List<Event> events = eventService.getLatestEvent();
+        final Event latestEvent = events.get(0);
         assertEquals("A new quest in the land of Testiara!", latestEvent.getTitle());
     }
 
     @Test
-    public void testCreateEventForCreatedQuest_storyMoreThen255CharsLong() throws Exception {
+    public void testCreateEventForCreatedQuest_storyMoreThen255CharsLong() {
         // Given
-        String longStory = createStoryWithLength(300);
-        Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
-        Principal principal = createPrincipal();
+        final String longStory = createStoryWithLength(300);
+        final Quest quest = createQuest("A new quest in the land of Testiara!", longStory);
+        final Principal principal = createPrincipal();
         // When
         eventService.createEventForCreatedQuest(quest, principal);
         // Then
-        List<Event> events = eventService.getLatestEvent();
-        Event latestEvent = events.get(0);
+        final List<Event> events = eventService.getLatestEvent();
+        final Event latestEvent = events.get(0);
         assertEquals("A new quest in the land of Testiara!", latestEvent.getTitle());
     }
-    
+
     @Test
-    public void testEventToEventUserDto() throws Exception {
-    	User user1 		= new User();
-    	Event event1 	= new Event();
+    public void testEventToEventUserDto() {
+    	final User user1 		= new User();
+    	final Event event1 	= new Event();
     	event1.setUser(user1);
-        
+
         // When
-        EventUserDto eventUserDto = eventService.eventToEventUserDto(event1);
-        
+        final EventUserDto eventUserDto = eventService.eventToEventUserDto(event1);
+
         // Then
         assertEquals(eventUserDto.getEventDtos().get(0).getId(), event1.getId());
         assertEquals(eventUserDto.getEventDtos().get(0).getUserId(), user1.getId());
         assertEquals(eventUserDto.getUserDtos().get(0).getId(), user1.getId());
     }
-    
+
     @Test
     public void testEventsToEventUserDto() {
     	// Given
-    	List<Event> events = new ArrayList<>();
-    	World world	= new World();
-    	User user1   = createUser(1L,world);
-    	User user2   = createUser(2L,world);
-    	User user3   = createUser(3L,world);
-    	
-    	Event event1 			  = eventService.createEventForNewMessage(new MessageDto("Test Message1",user1.getId()));
-    	Event event2 			  = eventService.createEventForNewMessage(new MessageDto("Test Message2",user2.getId()));
-    	Event event3 			  = eventService.createEventForNewMessage(new MessageDto("Test Message3",user3.getId()));
-    	Event event4 			  = eventService.createEventForNewMessage(new MessageDto("Test Message4",user1.getId()));
-    	Event event5 			  = eventService.createEventForNewMessage(new MessageDto("Test Message5",user2.getId()));
-    	
+    	final List<Event> events = new ArrayList<>();
+    	final World world	= new World();
+    	final User user1   = createUser(1L,world);
+    	final User user2   = createUser(2L,world);
+    	final User user3   = createUser(3L,world);
+
+    	final Event event1 			  = eventService.createEventForNewMessage(new MessageDto("Test Message1",user1.getId()));
+    	final Event event2 			  = eventService.createEventForNewMessage(new MessageDto("Test Message2",user2.getId()));
+    	final Event event3 			  = eventService.createEventForNewMessage(new MessageDto("Test Message3",user3.getId()));
+    	final Event event4 			  = eventService.createEventForNewMessage(new MessageDto("Test Message4",user1.getId()));
+    	final Event event5 			  = eventService.createEventForNewMessage(new MessageDto("Test Message5",user2.getId()));
+
     	events.add(event1);
     	events.add(event2);
     	events.add(event3);
@@ -148,36 +141,36 @@ public class EventServiceIT {
     	events.add(event5);
 
     	// When
-    	EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
-    	
+    	final EventUserDto eventUserDto = eventService.eventsToEventUserDto(events);
+
     	// Then
         assertEquals(5, eventUserDto.getEventDtos().size());
         assertEquals(3, eventUserDto.getUserDtos().size());
     }
-    
-    private User createUser(Long id, World world) {
-    	User user = new User();
+
+    private User createUser(final Long id, final World world) {
+    	final User user = new User();
     	user.setId(id);
     	user.setPicture("pic");
     	user.setCurrentWorld(world);
     	return user;
     }
-    
+
 
 	@Test
 	public void hasUserDto() {
 		// Given
-		World world = new World();
-		User user1 = createUser(1L, world);
+		final World world = new World();
+		final User user1 = createUser(1L, world);
 		eventService.createEventForNewMessage(new MessageDto("Test Message1", user1.getId()));
 		eventService.createEventForNewMessage(new MessageDto("Test Message2", user1.getId()));
-		List<Event> events = eventRepository.findFirst2ByOrderByTimestampDesc();
+		final List<Event> events = eventRepository.findFirst2ByOrderByTimestampDesc();
 
-		UserDto userDto1 = new UserDto(events.get(0).getUser());
-		UserDto userDto2 = new UserDto(events.get(1).getUser());
+		final UserDto userDto1 = new UserDto(events.get(0).getUser());
+		final UserDto userDto2 = new UserDto(events.get(1).getUser());
 
 		// When
-		List<UserDto> userDtos = new ArrayList<>();
+		final List<UserDto> userDtos = new ArrayList<>();
 		userDtos.add(userDto1);
 		userDtos.add(userDto2);
 
@@ -185,21 +178,15 @@ public class EventServiceIT {
 		assertTrue(eventService.hasUserDto(userDtos, userDto1));
 	}
 
-    private String createStoryWithLength(int storyLength) {
+    private String createStoryWithLength(final int storyLength) {
         return RandomStringUtils.randomAlphabetic(storyLength);
     }
 
     private Principal createPrincipal() {
-        return new Principal() {
-
-            @Override
-            public String getName() {
-                return "admin";
-            }
-        };
+        return () -> "admin";
     }
 
-    private Quest createQuest(String title, String story) {
+    private Quest createQuest(final String title, final String story) {
         return new Quest(title, story, QuestState.OPEN, 1L, 1L, null, null, true, null, null, null);
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,12 +22,15 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.AdventureState;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "Adventure")
 public class Adventure {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "startdate")
@@ -60,12 +64,12 @@ public class Adventure {
     private World world;
 
     @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
-    private List<Quest> quests;
+    private List<Quest> quests = new ArrayList<>();
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Adventure_User", joinColumns = @JoinColumn(name = "adventure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     public Adventure() {
     }
@@ -94,107 +98,12 @@ public class Adventure {
         this.users = users;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public void setStory(final String story) {
-        this.story = story;
-    }
-
-    public AdventureState getStatus() {
-        return status;
-    }
-
-    public void setStatus(final AdventureState status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
-        return gold;
-    }
-
-    public void setGold(final Long gold) {
-        this.gold = gold;
-    }
-
-    public Long getXp() {
-        return xp;
-    }
-
-    public void setXp(final Long xp) {
-        this.xp = xp;
-    }
-
-    public List<Quest> getQuests() {
-        return quests;
-    }
-
-    public void setQuests(final List<Quest> quests) {
-        this.quests = quests;
-    }
-
-    @JsonIgnore
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
-
     public synchronized void addUser(final User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
         users.add(user);
     }
 
-    public World getWorld() {
-        return world;
+    public synchronized void removeUser(final User user) {
+        users.remove(user);
     }
 
-    public void setWorld(final World world) {
-        this.world = world;
-    }
-
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
 }

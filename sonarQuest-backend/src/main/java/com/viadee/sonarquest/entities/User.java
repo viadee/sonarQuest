@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,14 +22,16 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.Validate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Objects;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 @Entity
 @Table(name = "SQUser")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -121,7 +124,7 @@ public class User {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public void setMail(final String mail) {
         this.mail = mail;
     }
 
@@ -191,7 +194,7 @@ public class User {
 
     /**
      * Adds the specified amount of gold.
-     * 
+     *
      * @param gold
      *            the amount to add, must be positive or zero.
      */
@@ -202,7 +205,7 @@ public class User {
 
     /**
      * Adds the specified amount of XPerience Points.
-     * 
+     *
      * @param xp
      *            the amount to add, must be positive or zero.
      */
@@ -299,7 +302,7 @@ public class User {
         return lastTavernVisit;
     }
 
-    public void setLastTavernVisit(Timestamp lastTavernVisit) {
+    public void setLastTavernVisit(final Timestamp lastTavernVisit) {
         this.lastTavernVisit = lastTavernVisit;
     }
 
@@ -313,17 +316,4 @@ public class User {
             return new ArrayList<>();
         }
     }
-
-    @Override
-    public int hashCode() {
-        return this.getId() == null ? super.hashCode() : Objects.hashCode(this.getId());
-    }
-
-    @Override
-    public boolean equals(final Object that) {
-        return this.getId() == null ? this == that
-                : that != null && this.getClass().isInstance(that)
-                        && Objects.equal(this.getId(), ((User) that).getId());
-    }
-
 }

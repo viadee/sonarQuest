@@ -1,26 +1,29 @@
 package com.viadee.sonarquest.services;
 
-import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.externalressources.SonarQubeApiResponse;
-import com.viadee.sonarquest.repositories.SonarConfigRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import com.viadee.sonarquest.entities.SonarConfig;
+import com.viadee.sonarquest.externalressources.SonarQubeApiResponse;
+import com.viadee.sonarquest.repositories.SonarConfigRepository;
 
 @Service
 public class SonarConfigService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SonarConfigService.class);
 
-    @Autowired
-    private SonarConfigRepository sonarConfigRepository;
+    private final SonarConfigRepository sonarConfigRepository;
 
-    @Autowired
-    private RestTemplateService restTemplateService;
+    private final RestTemplateService restTemplateService;
+
+    public SonarConfigService(final SonarConfigRepository sonarConfigRepository, final RestTemplateService restTemplateService) {
+        this.sonarConfigRepository = sonarConfigRepository;
+        this.restTemplateService = restTemplateService;
+    }
 
     public SonarConfig getConfig() {
         return sonarConfigRepository.findFirstBy();

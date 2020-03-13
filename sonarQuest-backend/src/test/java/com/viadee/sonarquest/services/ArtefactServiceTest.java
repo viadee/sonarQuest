@@ -1,24 +1,25 @@
 package com.viadee.sonarquest.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Level;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ArtefactRepository;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ArtefactServiceTest {
 
 	@InjectMocks
@@ -34,78 +35,78 @@ public class ArtefactServiceTest {
 	private UserService userService;
 
 	private Artefact mockArtefact() {
-		Artefact artefact = new Artefact();
+		final Artefact artefact = new Artefact();
 		artefact.setName("Mighty staff of fiery doom");
 		return artefact;
 	}
 
 	@Test
-	public void testGetArtefacts() throws Exception {
+	public void testGetArtefacts() {
 		// given
-		List<Artefact> savedArtefacts = new ArrayList<>();
-		Artefact artefact = new Artefact();
+		final List<Artefact> savedArtefacts = new ArrayList<>();
+		final Artefact artefact = new Artefact();
 		savedArtefacts.add(artefact);
 		when(artefactRepository.findAll()).thenReturn(savedArtefacts);
 		// When
-		List<Artefact> artefacts = service.getArtefacts();
+		final List<Artefact> artefacts = service.getArtefacts();
 		// Then
 		assertEquals(artefact, artefacts.get(0));
 	}
 
 	@Test
-	public void testGetArtefactsForMarketplace() throws Exception {
+	public void testGetArtefactsForMarketplace() {
 		// Given
-		List<Artefact> savedArtefacts = new ArrayList<>();
-		Artefact artefact = new Artefact();
+		final List<Artefact> savedArtefacts = new ArrayList<>();
+		final Artefact artefact = new Artefact();
 		savedArtefacts.add(artefact);
 		when(artefactRepository.findByQuantityIsGreaterThanEqual(1L)).thenReturn(savedArtefacts);
 		// When
-		List<Artefact> artefactsForMarketplace = service.getArtefactsForMarketplace();
+		final List<Artefact> artefactsForMarketplace = service.getArtefactsForMarketplace();
 		// Then
 		assertEquals(artefact, artefactsForMarketplace.get(0));
 	}
 
 	@Test
-	public void testGetArtefact() throws Exception {
+	public void testGetArtefact() {
 		// given
-		Artefact savedArtefact = new Artefact();
-		when(artefactRepository.findOne(1L)).thenReturn(savedArtefact);
+		final Artefact savedArtefact = new Artefact();
+		when(artefactRepository.findById(1L)).thenReturn(Optional.of(savedArtefact));
 		// When
-		Artefact artefact = service.getArtefact(1L);
+		final Artefact artefact = service.getArtefact(1L);
 		// Then
 		assertSame(savedArtefact, artefact);
 	}
 
 	@Test
-	public void testCreateArtefact_minLevelDoesNotYetExist() throws Exception {
+	public void testCreateArtefact_minLevelDoesNotYetExist() {
 		// given
-		Artefact artefact = mockArtefact();
-		Level minLevel = mockLevel(1);
+		final Artefact artefact = mockArtefact();
+		final Level minLevel = mockLevel(1);
 		artefact.setMinLevel(minLevel);
 		when(levelService.findByLevel(1)).thenReturn(null);
 		when(artefactRepository.save(artefact)).thenReturn(artefact);
 		// when
-		Artefact newArtefact = service.createArtefact(artefact);
+		final Artefact newArtefact = service.createArtefact(artefact);
 		// then
 		assertSame(minLevel, newArtefact.getMinLevel());
 	}
 
 	@Test
-	public void testCreateArtefact_minLevelAlreadyExists() throws Exception {
-		Artefact artefact = mockArtefact();
-		Level minLevel = mockLevel(1);
+	public void testCreateArtefact_minLevelAlreadyExists() {
+		final Artefact artefact = mockArtefact();
+		final Level minLevel = mockLevel(1);
 		artefact.setMinLevel(minLevel);
-		Level savedLevel = mockLevel(1);
+		final Level savedLevel = mockLevel(1);
 		when(levelService.findByLevel(1)).thenReturn(savedLevel);
 		when(artefactRepository.save(artefact)).thenReturn(artefact);
 		// when
-		Artefact newArtefact = service.createArtefact(artefact);
+		final Artefact newArtefact = service.createArtefact(artefact);
 		// then
 		assertSame(savedLevel, newArtefact.getMinLevel());
 	}
 
-	private Level mockLevel(int level) {
-		Level minLevel = new Level();
+	private Level mockLevel(final int level) {
+		final Level minLevel = new Level();
 		minLevel.setLevelNumber(level);
 		return minLevel;
 	}
@@ -116,20 +117,22 @@ public class ArtefactServiceTest {
 	 * Result: user has 3 Gold left, Qty is 0 after purchase
 	 */
 	@Test
-	public void testBuyArtefact_Ok() throws Exception {
+	public void testBuyArtefact_Ok() {
 		// Given
-		Artefact artefact = mockArtefact();
+		final Artefact artefact = mockArtefact();
 		artefact.setId(69L);
 		artefact.setPrice(7L);
 		artefact.setQuantity(1L);
 		artefact.setMinLevel(mockLevel(1));
-		User user = new User();
+		final User user = new User();
 		user.setId(1L);
 		user.setGold(10L);
 		user.setLevel(mockLevel(2));
+		when(artefactRepository.findById(69L)).thenReturn(Optional.of(artefact));
 		when(artefactRepository.save(artefact)).thenReturn(artefact);
+		when(userService.save(user)).thenReturn(user);
 		// When
-		Artefact boughtArtefact = service.buyArtefact(artefact, user);
+		final Artefact boughtArtefact = service.buyArtefact(artefact.getId(), user);
 		// Then
 		assertSame(boughtArtefact, artefact);
 		assertEquals(Long.valueOf(0), boughtArtefact.getQuantity());
@@ -143,20 +146,20 @@ public class ArtefactServiceTest {
 	 * returned)
 	 */
 	@Test
-	public void testBuyArtefact_InStock_UserCannotAfford() throws Exception {
+	public void testBuyArtefact_InStock_UserCannotAfford() {
 		// Given
-		Artefact artefact = mockArtefact();
+		final Artefact artefact = mockArtefact();
 		artefact.setId(69L);
 		artefact.setPrice(19L);
 		artefact.setQuantity(1L);
 		artefact.setMinLevel(mockLevel(1));
-		User user = new User();
+		final User user = new User();
 		user.setId(1L);
 		user.setGold(10L);
 		user.setLevel(mockLevel(2));
-		when(artefactRepository.save(artefact)).thenReturn(artefact);
+		when(artefactRepository.findById(69L)).thenReturn(Optional.of(artefact));
 		// When
-		Artefact boughtArtefact = service.buyArtefact(artefact, user);
+		final Artefact boughtArtefact = service.buyArtefact(artefact.getId(), user);
 		// Then
 		assertSame(null, boughtArtefact);
 		assertEquals(Long.valueOf(1), artefact.getQuantity());
@@ -170,20 +173,20 @@ public class ArtefactServiceTest {
 	 * returned)
 	 */
 	@Test
-	public void testBuyArtefact_ItemSoldOut() throws Exception {
+	public void testBuyArtefact_ItemSoldOut() {
 		// Given
-		Artefact artefact = mockArtefact();
+		final Artefact artefact = mockArtefact();
 		artefact.setId(69L);
 		artefact.setPrice(7L);
 		artefact.setQuantity(0L);
 		artefact.setMinLevel(mockLevel(1));
-		User user = new User();
+		final User user = new User();
 		user.setId(1L);
 		user.setGold(10L);
 		user.setLevel(mockLevel(2));
-		when(artefactRepository.save(artefact)).thenReturn(artefact);
+		when(artefactRepository.findById(69L)).thenReturn(Optional.of(artefact));
 		// When
-		Artefact boughtArtefact = service.buyArtefact(artefact, user);
+		final Artefact boughtArtefact = service.buyArtefact(artefact.getId(), user);
 		// Then
 		assertSame(null, boughtArtefact);
 		assertEquals(Long.valueOf(0), artefact.getQuantity());
@@ -197,20 +200,20 @@ public class ArtefactServiceTest {
 	 * returned)
 	 */
 	@Test
-	public void testBuyArtefact_userLevelNotHighEnough() throws Exception {
+	public void testBuyArtefact_userLevelNotHighEnough() {
 		// Given
-		Artefact artefact = mockArtefact();
+		final Artefact artefact = mockArtefact();
 		artefact.setId(69L);
 		artefact.setPrice(7L);
 		artefact.setQuantity(1L);
 		artefact.setMinLevel(mockLevel(2));
-		User user = new User();
+		final User user = new User();
 		user.setId(1L);
 		user.setGold(10L);
 		user.setLevel(mockLevel(1));
-		when(artefactRepository.save(artefact)).thenReturn(artefact);
+		when(artefactRepository.findById(69L)).thenReturn(Optional.of(artefact));
 		// When
-		Artefact boughtArtefact = service.buyArtefact(artefact, user);
+		final Artefact boughtArtefact = service.buyArtefact(artefact.getId(), user);
 		// Then
 		assertSame(null, boughtArtefact);
 		assertEquals(Long.valueOf(1), artefact.getQuantity());
@@ -224,21 +227,21 @@ public class ArtefactServiceTest {
 	 * returned)
 	 */
 	@Test
-	public void testBuyArtefact_userAlreadyOwnsArtefact() throws Exception {
+	public void testBuyArtefact_userAlreadyOwnsArtefact() {
 		// Given
-		Artefact artefact = mockArtefact();
+		final Artefact artefact = mockArtefact();
 		artefact.setId(69L);
 		artefact.setPrice(7L);
 		artefact.setQuantity(1L);
 		artefact.setMinLevel(mockLevel(1));
-		User user = new User();
+		final User user = new User();
 		user.setId(1L);
 		user.setGold(10L);
 		user.setLevel(mockLevel(2));
 		user.getArtefacts().add(artefact);
-		when(artefactRepository.save(artefact)).thenReturn(artefact);
+		when(artefactRepository.findById(69L)).thenReturn(Optional.of(artefact));
 		// When
-		Artefact boughtArtefact = service.buyArtefact(artefact, user);
+		final Artefact boughtArtefact = service.buyArtefact(artefact.getId(), user);
 		// Then
 		assertSame(null, boughtArtefact);
 		assertEquals(Long.valueOf(1), artefact.getQuantity());

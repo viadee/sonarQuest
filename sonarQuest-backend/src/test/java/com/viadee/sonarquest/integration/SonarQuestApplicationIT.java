@@ -1,17 +1,18 @@
 package com.viadee.sonarquest.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
+import static org.springframework.test.util.AssertionErrors.assertNull;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.controllers.ParticipationController;
@@ -30,13 +31,12 @@ import com.viadee.sonarquest.repositories.QuestRepository;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.TaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 import com.viadee.sonarquest.services.LevelService;
 import com.viadee.sonarquest.services.RoleService;
 import com.viadee.sonarquest.services.StandardTaskService;
 import com.viadee.sonarquest.services.UserService;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class SonarQuestApplicationIT {
 
@@ -88,63 +88,67 @@ public class SonarQuestApplicationIT {
 
     @Autowired
     private StandardTaskRepository standardTaskRepository;
-    
+
     /**
      * Walk through the participation on the backend with a developer perspective. This test assumes a spring
      * environment including a simulated sonar server and database access.
      */
     @Transactional
-    @Test(timeout = 1000000) // There is hardly any data to fetch - this should be quick, altough there are
+    @Test // There is hardly any data to fetch - this should be quick, altough there are
                              // write operations included
     public void developersCanParticipateInQuestsAndIssues() {
-        final World discWorld = createWorld();
-        Quest magicQuest = createQuest(discWorld);
-        User rinceWind = createUser(discWorld);
-        createInitialLevel();
+        assertTimeout(Duration.ofSeconds(1000), () -> {
+            final World discWorld = createWorld();
+            Quest magicQuest = createQuest(discWorld);
+            User rinceWind;
+            createUser(discWorld);
+            createInitialLevel();
 
-        // XXX add test for adventure-participation
+            // XXX add test for adventure-participation
 
-        final Participation epicParticipation = participationController.createParticipation(() -> USERNAME,
-                magicQuest.getId());
-        final List<Participation> epicParticipations = new ArrayList<>();
-        epicParticipations.add(epicParticipation);
-        magicQuest.setParticipations(epicParticipations);
-        magicQuest = questRepository.save(magicQuest);
+            final Participation epicParticipation = participationController.createParticipation(() -> USERNAME,
+                    magicQuest.getId());
+            final List<Participation> epicParticipations = new ArrayList<>();
+            epicParticipations.add(epicParticipation);
+            magicQuest.setParticipations(epicParticipations);
+            magicQuest = questRepository.save(magicQuest);
 
-        // User can participate in quest
-        assertNotNull("quest without any participations", magicQuest.getParticipations());
-        final Participation activeParticipation = magicQuest.getParticipations().get(0);
-        assertNotNull("participation not added to quest", activeParticipation);
-        assertEquals("quest not properly mapped to quest participation", QUEST_NAME,
-                activeParticipation.getQuest().getTitle());
-        assertEquals("user not properly mapped to participation", USERNAME,
-                activeParticipation.getUser().getUsername());
+            // User can participate in quest
+            assertNotNull("quest without any participations", magicQuest.getParticipations());
+            final Participation activeParticipation = magicQuest.getParticipations().get(0);
+            assertNotNull("participation not added to quest", activeParticipation);
+            assertEquals("quest not properly mapped to quest participation", QUEST_NAME,
+                    activeParticipation.getQuest().getTitle());
+            assertEquals("user not properly mapped to participation", USERNAME,
+                    activeParticipation.getUser().getUsername());
 
-        // User can work on task
-        StandardTask coerceDeathOutOfRetirementTask = createTask(discWorld, magicQuest);
-        coerceDeathOutOfRetirementTask = (StandardTask) taskController.addParticipation(() -> USERNAME,
-                coerceDeathOutOfRetirementTask.getId(), magicQuest.getId());
+            // User can work on task
+            StandardTask coerceDeathOutOfRetirementTask = createTask(discWorld, magicQuest);
+            coerceDeathOutOfRetirementTask = (StandardTask) taskController.addParticipation(() -> USERNAME,
+                    coerceDeathOutOfRetirementTask.getId(), magicQuest.getId());
 
-        assertNotNull("task without any participations", coerceDeathOutOfRetirementTask.getParticipation());
-        final Participation taskParticipation = coerceDeathOutOfRetirementTask.getParticipation();
-        assertNotNull("participation not added to task", taskParticipation);
-        assertEquals("user not properly mapped to task participation", USERNAME,
-                taskParticipation.getUser().getUsername());
+            assertNotNull("task without any participations", coerceDeathOutOfRetirementTask.getParticipation());
+            final Participation taskParticipation = coerceDeathOutOfRetirementTask.getParticipation();
+            assertNotNull("participation not added to task", taskParticipation);
+            assertEquals("user not properly mapped to task participation", USERNAME,
+                    taskParticipation.getUser().getUsername());
 
-        coerceDeathOutOfRetirementTask.setStatus(SonarQuestStatus.SOLVED);
-        standardTaskService.updateStandardTask(coerceDeathOutOfRetirementTask);
+            coerceDeathOutOfRetirementTask.setStatus(SonarQuestTaskStatus.SOLVED);
+            standardTaskService.updateStandardTask(coerceDeathOutOfRetirementTask);
 
-        rinceWind = userService.findByUsername(USERNAME);
-        // since Rincewind is a magician he gets 2 extra gold coins for this task
-        assertEquals("reward: Gold not awarded to user", Long.valueOf(12l), rinceWind.getGold());
-        assertEquals("reward: XP not awarded to user", coerceDeathOutOfRetirementTask.getXp(), rinceWind.getXp());
+            rinceWind = userService.findByUsername(USERNAME);
+            // since Rincewind is a magician he gets 2 extra gold coins for this task
+            assertEquals("reward: Gold not awarded to user", 12L, rinceWind.getGold());
+            assertEquals("reward: XP not awarded to user", coerceDeathOutOfRetirementTask.getXp(), rinceWind.getXp());
+        });
+
     }
 
     private void createInitialLevel() {
         final Level level = new Level();
         level.setLevelNumber(1);
-        level.setMinXp(0l);
-        level.setMaxXp(10l);
+        level.setMinXp(0L);
+        level.setMaxXp(10L);
         levelRepository.save(level);
     }
 
@@ -156,7 +160,7 @@ public class SonarQuestApplicationIT {
         task.setTitle("coercing Death out of his impromptu retirement");
         task.setWorld(discWorld);
         task.setQuest(magicQuest);
-        task.setStatus(SonarQuestStatus.OPEN);
+        task.setStatus(SonarQuestTaskStatus.OPEN);
         return taskRepository.save(task);
     }
 
@@ -168,7 +172,7 @@ public class SonarQuestApplicationIT {
         user.setAvatarClass(avatarClassRepository.findByName(USER_AVATAR_CLASS));
         user.setAvatarRace(avatarRaceRepository.findByName(USER_AVATAR_RACE));
         user.setCurrentWorld(discWorld);
-        user.setLevel(levelService.getLevelByUserXp(0l));
+        user.setLevel(levelService.getLevelByUserXp(0L));
         return userService.save(user);
     }
 
@@ -185,17 +189,17 @@ public class SonarQuestApplicationIT {
         world.setActive(true);
         return worldRepository.save(world);
     }
-    
+
     /**
      * Regression test for issue #162.
      */
     @Test
     @Transactional
     public void caseSensitiveTaskKeys() {
-        
+
         final World discWorld = createWorld();
-        Quest magicQuest = createQuest(discWorld);
-        
+        final Quest magicQuest = createQuest(discWorld);
+
         final StandardTask task = new StandardTask();
         task.setGold(10L);
         task.setXp(20L);
@@ -203,11 +207,12 @@ public class SonarQuestApplicationIT {
         task.setTitle("coercing Death out of his impromptu retirement");
         task.setWorld(discWorld);
         task.setQuest(magicQuest);
-        task.setStatus(SonarQuestStatus.OPEN);
+        task.setStatus(SonarQuestTaskStatus.OPEN);
         taskRepository.save(task);
-        
+
         assertNull("unexpected Task", standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTC"));
         standardTaskRepository.findAll().forEach(t -> System.out.println(">>>" + t.getId() + " " + t.getKey()));
-        assertNotNull(standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTc"));
+        Assertions.assertNotNull(standardTaskRepository.findByKey("AWc3A2KEoXX3DuVBrVTc"));
+
     }
 }

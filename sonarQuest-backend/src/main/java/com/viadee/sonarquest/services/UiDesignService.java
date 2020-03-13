@@ -1,6 +1,5 @@
 package com.viadee.sonarquest.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viadee.sonarquest.entities.UiDesign;
@@ -11,8 +10,11 @@ import com.viadee.sonarquest.repositories.UiDesignRepository;
 @Service
 public class UiDesignService {
 
-    @Autowired
-    private UiDesignRepository uiDesignRepository;
+    private final UiDesignRepository uiDesignRepository;
+
+    public UiDesignService(final UiDesignRepository uiDesignRepository) {
+        this.uiDesignRepository = uiDesignRepository;
+    }
 
     private UiDesign createUiDesign(final User user, final UiDesignName name) {
         final UiDesign ui = new UiDesign();

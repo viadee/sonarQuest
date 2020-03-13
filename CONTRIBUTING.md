@@ -4,7 +4,7 @@ First of all: Thanks for your interest in joining us on our journey through the 
 
 The following is a set of guidelines for contributing to sonarQuest which is hosted by the viadee IT-Unternehmensberatung at GitHub. Guidelines are not meant to be rules. And as this is a community project - feel free to share your thoughts and experiences with the community and propose changes to this document in a pull request.
 
-This project and everyone participating in it is governed by the sonarQuest [Code of Conduct] (https://github.com/viadee/sonarQuest/...). By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by the sonarQuest [Code of Conduct](https://github.com/viadee/sonarQuest/...). By participating, you are expected to uphold this code.
 
 ## How Can I Contribute?
 
@@ -31,11 +31,20 @@ sonarQuest aims to be a tool with an active community. So wether if your'e a dev
 Here are some hints on what helps to get those approved and implemented as quick as possible:
 
 * check if it has already been [suggested](https://github.com/search?utf8=%E2%9C%93&q=+is%3Aissue+user%3Aviadee+repository%3AsonarQuest). If there are similar issues a discussion beforehand could make sense.
-* Also have a look at our [GitProject] (https://github.com/viadee/sonarQuest/projects) - maybe there are already cards you can turn into an issue. 
+* Also have a look at our [GitProject](https://github.com/viadee/sonarQuest/projects) - maybe there are already cards you can turn into an issue. 
 * open a new issue and label it as an enhancement  
-* see how our contribution ist discussed and start writing oder testing code ;)
+* see how our contribution ist discussed and start writing oder testing code :wink:
 
-### Coding Guidelines
+### Coding
+
+#### Requirements
+
+ ##### Lombok
+ This project uses [Lombok](https://projectlombok.org/) to avoid boilerplate code. While IntelliJ IDE users have an integrated support for Lombok (otherwise a plugin can be found in the in `File > Setting > Plugins`), Eclipse users have to install the extension manually.
+ You can find the installation instructions for you IDE [here](https://projectlombok.org/setup/overview).
+ Please open an issue, if there are any problems. 
+
+#### Coding Guidelines
 
 * styleguide: There are no strict styling rules. However, code should be easy to read as it makes reviewing a lot easier for everyone. 
   * the current state of the code is a good reference to start with
@@ -45,13 +54,13 @@ Here are some hints on what helps to get those approved and implemented as quick
 * there shouldn't be any TSLint warnings in the Angular parts of the code
 * we embrace Clean Code so when in doubt - take a look at Uncle Bob's book or [blog](http://blog.cleancoder.com/). 
 
-### Suggesting Pull Request
+#### Suggesting Pull Request
 
 When you are adding features or other enhancements please create a pull request with a clear documentation of what you've done and why you have done it. It helps, if you make make sure all of your commits are atomic (one feature per commit).
 
 Always include a useful log message for your commits. One-line messages are fine for small changes, but bigger changes should be commitetd with more comments, too.
 
-### Pull Request - Admission tests
+#### Pull Request - Admission tests
 
 Pull requests will only be merged when all integration tests and all ui tests are green. To ensure this run
 * the sonarquest-backend in your IDE of choice as Unit-Tests (this includes all integration tests) and

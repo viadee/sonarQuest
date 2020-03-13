@@ -18,7 +18,7 @@ import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
 import com.viadee.sonarquest.repositories.StandardTaskRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
 @Service
 public class StandardTaskService {
@@ -49,28 +49,28 @@ public class StandardTaskService {
         final List<StandardTask> externalStandardTasks = externalRessourceService
                 .generateStandardTasksFromSonarQubeIssuesForWorld(world);
         externalStandardTasks.forEach(this::updateStandardTask);
-        questService.updateQuests();
+        questService.checkAllQuestsAndCloseItWhenAllOfItsTasksAreClosed();
         adventureService.updateAdventures();
     }
 
     @Transactional
     public StandardTask updateStandardTask(final StandardTask task) {
-        final SonarQuestStatus oldStatus = getLastState(task);
-        final SonarQuestStatus newStatus = task.getStatus();
-        if (newStatus == SonarQuestStatus.SOLVED && oldStatus == SonarQuestStatus.OPEN) {
+        final SonarQuestTaskStatus oldStatus = getLastState(task);
+        final SonarQuestTaskStatus newStatus = task.getStatus();
+        if (newStatus == SonarQuestTaskStatus.SOLVED && oldStatus == SonarQuestTaskStatus.OPEN) {
             gratificationService.rewardUserForSolvingTask(task);
         }
         task.setStatus(newStatus);
         return standardTaskRepository.saveAndFlush(task);
     }
 
-    protected SonarQuestStatus getLastState(final StandardTask task) {
+    protected SonarQuestTaskStatus getLastState(final StandardTask task) {
         final SqlParameterSource params = new MapSqlParameterSource().addValue("id", task.getId());
         final String sql = "SELECT Status FROM Task WHERE id = :id";
         final RowMapper<String> rowmapper = new SingleColumnRowMapper<>();
         final List<String> statusTexte = template.query(sql, params, rowmapper);
         final String statusText = statusTexte.isEmpty() ? null : statusTexte.get(0);
-        return SonarQuestStatus.fromStatusText(statusText);
+        return SonarQuestTaskStatus.fromStatusText(statusText);
     }
 
     public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
@@ -82,7 +82,7 @@ public class StandardTaskService {
         final World world = worldRepository.findByProject(standardTask.getWorld().getProject());
         final StandardTask st = new StandardTask(
                 standardTask.getTitle(),
-                SonarQuestStatus.OPEN,
+                SonarQuestTaskStatus.OPEN,
                 standardTask.getGold(),
                 standardTask.getXp(),
                 standardTask.getQuest(),

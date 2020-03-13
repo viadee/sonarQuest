@@ -17,8 +17,8 @@ public class SonarQubeStatusMapper implements StatusMapper {
     }
 
     @Override
-    public SonarQuestStatus mapExternalStatus(final IssueWithStatus issueWithStatus) {
-        final SonarQuestStatus mappedStatus;
+    public SonarQuestTaskStatus mapExternalStatus(final IssueWithStatus issueWithStatus) {
+        final SonarQuestTaskStatus mappedStatus;
         final String externalStatus = issueWithStatus.getStatus();
         final SonarQubeStatus sonarQubeStatus = SonarQubeStatus.valueOf(externalStatus);
         final String resolution = issueWithStatus.getResolution();
@@ -26,20 +26,20 @@ public class SonarQubeStatusMapper implements StatusMapper {
         case OPEN:
         case REOPENED:
         case CONFIRMED:
-            mappedStatus = SonarQuestStatus.OPEN;
+            mappedStatus = SonarQuestTaskStatus.OPEN;
             break;
         case CLOSED:
-            mappedStatus = SonarQuestStatus.SOLVED;
+            mappedStatus = SonarQuestTaskStatus.SOLVED;
             break;
         case RESOLVED:
             if ("FALSE-POSITIVE".equals(resolution)) {
-                mappedStatus = SonarQuestStatus.CLOSED;
+                mappedStatus = SonarQuestTaskStatus.CLOSED;
             } else {
-                mappedStatus = SonarQuestStatus.OPEN;
+                mappedStatus = SonarQuestTaskStatus.OPEN;
             }
             break;
         default:
-            mappedStatus = SonarQuestStatus.OPEN;
+            mappedStatus = SonarQuestTaskStatus.OPEN;
             break;
         }
         return mappedStatus;

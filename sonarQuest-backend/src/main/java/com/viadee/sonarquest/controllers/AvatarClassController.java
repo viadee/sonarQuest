@@ -2,7 +2,7 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,11 @@ import com.viadee.sonarquest.repositories.AvatarClassRepository;
 @RequestMapping("/avatarClass")
 public class AvatarClassController {
 
-    @Autowired
-    private AvatarClassRepository avatarClassRepository;
+    private final AvatarClassRepository avatarClassRepository;
+
+    public AvatarClassController(final AvatarClassRepository avatarClassRepository) {
+        this.avatarClassRepository = avatarClassRepository;
+    }
 
     @GetMapping
     public List<AvatarClass> getAllAvatarClasses() {
@@ -30,8 +33,8 @@ public class AvatarClassController {
     }
 
     @GetMapping(value = "/{id}")
-    public AvatarClass getAvatarClassById(@PathVariable(value = "id") final Long id) {
-        return avatarClassRepository.findOne(id);
+    public AvatarClass getAvatarClassById(@PathVariable(value = "id") final Long avatarClassId) {
+        return avatarClassRepository.findById(avatarClassId).orElseThrow(ResourceNotFoundException::new);
     }
 
     @PostMapping
@@ -42,23 +45,18 @@ public class AvatarClassController {
     }
 
     @PutMapping(value = "/{id}")
-    public AvatarClass updateAvatarClass(@PathVariable(value = "id") final Long id,
-            @RequestBody final AvatarClass data) {
-        AvatarClass avatarClass = avatarClassRepository.findOne(id);
-        if (avatarClass != null) {
-            avatarClass.setName(data.getName());
-            avatarClass.setSkills(data.getSkills());
-            avatarClass = avatarClassRepository.save(avatarClass);
-        }
-        return avatarClass;
+    public AvatarClass updateAvatarClass(@PathVariable(value = "id") final Long avatarClassId,
+                                         @RequestBody final AvatarClass avatarClassInput) {
+        final AvatarClass avatarClass = avatarClassRepository.findById(avatarClassId).orElseThrow(ResourceNotFoundException::new);
+        avatarClass.setName(avatarClassInput.getName());
+        avatarClass.setSkills(avatarClassInput.getSkills());
+        return avatarClassRepository.save(avatarClass);
+
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteAvatarClass(@PathVariable(value = "id") final Long id) {
-        final AvatarClass level = avatarClassRepository.findOne(id);
-        if (level != null) {
-            avatarClassRepository.delete(level);
-        }
+    public void deleteAvatarClass(@PathVariable(value = "id") final Long avatarClassId) {
+        avatarClassRepository.deleteById(avatarClassId);
     }
 
 }

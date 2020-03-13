@@ -1,26 +1,20 @@
 package com.viadee.sonarquest.externalressources;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.viadee.sonarquest.entities.SonarConfig;
-import com.viadee.sonarquest.externalressources.SonarQubeApiCall;
-import com.viadee.sonarquest.externalressources.SonarQubeComponentQualifier;
-import com.viadee.sonarquest.externalressources.SonarQubeProjectRessource;
 import com.viadee.sonarquest.services.RestTemplateService;
 import com.viadee.sonarquest.services.SonarConfigService;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
+@Disabled
 public class SonarQubeApiCallIT {
 
     @Autowired
@@ -30,16 +24,16 @@ public class SonarQubeApiCallIT {
     private SonarConfigService sonarConfigService;
 
     @Test
-    public void searchComponents() throws Exception {
-        SonarConfig sonarConfig = sonarConfigService.getConfig();
-        String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
-        String projectKey = "assertj";
-        SonarQubeApiCall apiCall = SonarQubeApiCall
+    public void searchComponents() {
+        final SonarConfig sonarConfig = sonarConfigService.getConfig();
+        final String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
+        final String projectKey = "assertj";
+        final SonarQubeApiCall apiCall = SonarQubeApiCall
                 .onServer(sonarQubeServerUrl)
                 .searchComponents(SonarQubeComponentQualifier.TRK)
                 .withQuery(projectKey)
                 .build();
-        RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
+        final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
 
         final ResponseEntity<SonarQubeProjectRessource> response = restTemplate.getForEntity(
                 apiCall.asString(),

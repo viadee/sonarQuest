@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -17,8 +18,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "task_type")
@@ -26,7 +30,7 @@ import com.viadee.sonarquest.rules.SonarQuestStatus;
 public class Task {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "startdate")
@@ -40,7 +44,7 @@ public class Task {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private SonarQuestStatus status;
+    private SonarQuestTaskStatus status;
 
     @Column(name = "gold")
     private Long gold;
@@ -64,93 +68,4 @@ public class Task {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "participation_id")
     private Participation participation;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public SonarQuestStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(SonarQuestStatus status) {
-        this.status = status;
-    }
-
-    public Long getGold() {
-        return gold;
-    }
-
-    public void setGold(final Long gold) {
-        this.gold = gold;
-    }
-
-    public Long getXp() {
-        return xp;
-    }
-
-    public void setXp(final Long xp) {
-        this.xp = xp;
-    }
-
-    public Quest getQuest() {
-        return quest;
-    }
-
-    public void setQuest(final Quest quest) {
-        this.quest = quest;
-    }
-
-    public Participation getParticipation() {
-        return participation;
-    }
-
-    public void setParticipation(final Participation participation) {
-        this.participation = participation;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public void setWorld(final World world) {
-        this.world = world;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(final String key) {
-        this.key = key;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
 }

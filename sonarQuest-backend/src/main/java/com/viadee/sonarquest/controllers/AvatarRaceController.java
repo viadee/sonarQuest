@@ -2,7 +2,7 @@ package com.viadee.sonarquest.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,11 @@ import com.viadee.sonarquest.repositories.AvatarRaceRepository;
 @RequestMapping("/avatarRace")
 public class AvatarRaceController {
 
-    @Autowired
-    private AvatarRaceRepository avatarRaceRepository;
+    private final AvatarRaceRepository avatarRaceRepository;
+
+    public AvatarRaceController(final AvatarRaceRepository avatarRaceRepository) {
+        this.avatarRaceRepository = avatarRaceRepository;
+    }
 
     @GetMapping
     public List<AvatarRace> getAllAvatarRaces() {
@@ -30,8 +33,8 @@ public class AvatarRaceController {
     }
 
     @GetMapping(value = "/{id}")
-    public AvatarRace getAvatarRaceById(@PathVariable(value = "id") final Long id) {
-        return avatarRaceRepository.findOne(id);
+    public AvatarRace getAvatarRaceById(@PathVariable(value = "id") final Long avatarRaceId) {
+        return avatarRaceRepository.findById(avatarRaceId).orElseThrow(ResourceNotFoundException::new);
     }
 
     @PostMapping
@@ -42,21 +45,16 @@ public class AvatarRaceController {
     }
 
     @PutMapping(value = "/{id}")
-    public AvatarRace updateAvatarRace(@PathVariable(value = "id") final Long id, @RequestBody final AvatarRace data) {
-        AvatarRace avatarRace = avatarRaceRepository.findOne(id);
-        if (avatarRace != null) {
-            avatarRace.setName(data.getName());
-            avatarRace = avatarRaceRepository.save(avatarRace);
-        }
-        return avatarRace;
+    public AvatarRace updateAvatarRace(@PathVariable(value = "id") final Long avatarRaceId, @RequestBody final AvatarRace avatarRaceInput) {
+        final AvatarRace avatarRace = avatarRaceRepository.findById(avatarRaceId).orElseThrow(ResourceNotFoundException::new);
+        avatarRace.setName(avatarRaceInput.getName());
+        return avatarRaceRepository.save(avatarRace);
+
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteAvatarRace(@PathVariable(value = "id") final Long id) {
-        final AvatarRace level = avatarRaceRepository.findOne(id);
-        if (level != null) {
-            avatarRaceRepository.delete(level);
-        }
+    public void deleteAvatarRace(@PathVariable(value = "id") final Long avatarRaceId) {
+        avatarRaceRepository.deleteById(avatarRaceId);
     }
 
 }
