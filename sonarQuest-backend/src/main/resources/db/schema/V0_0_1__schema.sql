@@ -3,7 +3,8 @@ CREATE TABLE Sonar_Config (
   name             VARCHAR(128),
   sonar_server_url VARCHAR(128),
   http_basic_auth_username VARCHAR(128),
-  http_basic_auth_password VARCHAR(128)
+  http_basic_auth_password VARCHAR(128),
+  organization		VARCHAR(128)
 );
 
 CREATE TABLE SQLevel (
