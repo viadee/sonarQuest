@@ -40,7 +40,7 @@ public class SonarQubeApiCall {
      * Appends the call for the search issues function (e.g. /api/issues/search? ) in the SonarQube REST API to the
      * sonarQubeRestApiCall.
      *
-     * @see https://sonarcloud.io/web_api/api/issues
+     * @see <a href="https://sonarcloud.io/web_api/api/issues">Sonarcloud Issues</a>
      */
     public SonarQubeApiCall searchIssues() {
         sonarQubeRestApiCall += "/api/issues/search?";
@@ -54,7 +54,7 @@ public class SonarQubeApiCall {
      * @param qualifier
      *            _required_ - the Qualifier to search for (e.g. TRK for "projects")
      *
-     * @see https://sonarcloud.io/web_api/api/components
+     * @see <a href="https://sonarcloud.io/web_api/api/components">Sonarcloud Components</a>
      */
     public SonarQubeApiCall searchComponents(final SonarQubeComponentQualifier qualifier) {
         sonarQubeRestApiCall += "/api/components/search?";
@@ -107,14 +107,6 @@ public class SonarQubeApiCall {
      */
     public SonarQubeApiCall withSeverities(final List<SonarQubeSeverity> severities) {
         appendSearchParameter("severities=" + StringUtils.join(severities, ","));
-        return this;
-    }
-
-    /**
-     * Appends the parameter "organization" with the values in the severities-List to the sonarQubeRestApiCall.
-     */
-    public SonarQubeApiCall withOrganization(final String organization) {
-        appendSearchParameter("organization=" + organization);
         return this;
     }
 
