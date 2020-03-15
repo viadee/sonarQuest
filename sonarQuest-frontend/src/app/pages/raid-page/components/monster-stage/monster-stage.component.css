@@ -1,11 +1,12 @@
 .monster-container {
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
   
 .monster-container img {
-    min-width: 100%;
-    max-width: 100%;
+    margin: auto;
+    max-width: 70%;
 }
   
 .monster-info {
@@ -19,7 +20,6 @@
 }
   
 .monster-info-heading {
-    background-color:rgba(255, 255, 255, 0.75) !important;
     width: 75%;
     margin: auto;
 }

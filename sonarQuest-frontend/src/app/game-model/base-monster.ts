@@ -7,14 +7,31 @@ export class BaseMonster implements Monster {
   healthpoints: number;
   damageTaken: number;
   progress: number;
+  gold: number;
+  xp: number;
 
-  constructor(name: string, image: string, healthpoints: number, damageTaken: number, progress: number) {
+  constructor(name: string, image: string, healthpoints: number, damageTaken: number, progress: number, gold: number, xp: number) {
     this.name = name;
     this.image = image;
     this.progress = progress;
     this.healthpoints = healthpoints;
     this.damageTaken = damageTaken;
     this.progress = progress;
+    this.gold = gold;
+    this.xp = xp;
+  }
+
+  get Gold(): number {
+    return this.gold;
+  }
+  set Gold(value: number) {
+    this.gold = value;
+  }
+  get Xp(): number {
+    return this.xp;
+  }
+  set Xp(value: number) {
+    this.xp = value;
   }
 
   get Image(): string {

@@ -1,6 +1,7 @@
+import { Reward } from './Reward';
 import { ProgressDTO } from './ProgressDTO';
 
-export interface Monster {
+export interface Monster extends Reward {
   Image: string;
   Name: string;
   HealthPoints: number;
