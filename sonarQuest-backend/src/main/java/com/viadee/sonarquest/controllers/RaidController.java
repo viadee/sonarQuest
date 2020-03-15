@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viadee.sonarquest.dto.RaidDTO;
+import com.viadee.sonarquest.dto.SolvedTaskHistoryDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.services.RaidService;
@@ -59,6 +60,11 @@ public class RaidController {
 	public Quest addRaidToQuest(@PathVariable(value = "raidId") final Long raidId,
 			@PathVariable(value = "questId") final Long questId) {
 		return raidService.addRaidToQuest(raidId, questId);
+	}
+	
+	@GetMapping(value = "/getSolvedTaskHistoryList/{id}")
+	public List<SolvedTaskHistoryDTO> getSolvedTaskHistoryList(@PathVariable(value = "id") final Long raidId) {
+		return raidService.getSolvedTaskHistoryList(raidId);
 	}
 
 }

@@ -185,11 +185,14 @@ public class TaskController {
         final String username = principal.getName();
         final User user = userService.findByUsername(username);
         Task task = taskService.find(taskId);
-        final Participation participation = participationService.findParticipationByQuestIdAndUserId(questId,
+        Participation participation = participationService.findParticipationByQuestIdAndUserId(questId,
                 user.getId());
-        if (task != null && participation != null) {
-            task.setParticipation(participation);
-            task = taskService.save(task);
+        if (task != null) {
+        	if(participation == null) {
+        		participation = participationService.createParticipation(principal, task.getQuest().getId());
+        	}
+        		task.setParticipation(participation);
+                task = taskService.save(task);
         }
         return task;
     }

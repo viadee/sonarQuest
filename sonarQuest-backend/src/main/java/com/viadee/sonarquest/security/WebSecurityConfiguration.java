@@ -69,6 +69,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.httpBasic().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // h2 console to work
+        http.headers().frameOptions().sameOrigin();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
 
@@ -78,7 +80,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
-
+                // h2 console
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 //.antMatchers(HttpMethod.GET, "/*").permitAll()
                 //.antMatchers(HttpMethod.POST, "/*").permitAll()
@@ -94,14 +97,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:4200"));
-        configuration.setAllowedMethods(ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+    	 final CorsConfiguration configuration = new CorsConfiguration();
+         configuration.setAllowedOrigins(ImmutableList.of("*"));//ImmutableList.of("http://localhost:4200")
+         configuration.setAllowedMethods(ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+         configuration.setAllowCredentials(true);
+         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
+         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+         source.registerCorsConfiguration("/**", configuration);
+         return source;
     }
 
 }

@@ -1,20 +1,20 @@
 package com.viadee.sonarquest.services;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.viadee.sonarquest.dto.ProgressDTO;
+import com.viadee.sonarquest.dto.SolvedTaskHistoryDTO;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.exception.BackendServiceRuntimeException;
 import com.viadee.sonarquest.repositories.RaidRepository;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @Service
 public class RaidService {
@@ -27,6 +27,9 @@ public class RaidService {
 	
 	@Autowired
 	private WorldService worldService;
+	
+	@Autowired
+	private SolvedTaskHistoryService solvedTaskHistoryService;
 	
 	@Transactional
 	public synchronized Raid saveRaid(final Raid raid) {
@@ -109,29 +112,16 @@ public class RaidService {
 		return new ProgressDTO(taskSize, openTasks, raidProgress);
 	}
 	
-	/**
-	 * Calculate for each day the amount of finished tasks.
-	 * 
-	 * @param from analyze date
-	 * @param to analyze date
-	 * @param raid with quests (= amount of tasks)
-	 * @return map <date and amount of finished tasks>
-	 */
-	public Map<Date, Long> calculateFinishedTaskHistoryFromRaid(final LocalDate from, final LocalDate to, final Raid raid) {
-		if( from == null || to == null || raid==null)
+	public List<SolvedTaskHistoryDTO> getSolvedTaskHistoryList(final Long raidId){
+		Raid raid = raidRepository.findOne(raidId);
+		if(raid==null)
 			new BackendServiceRuntimeException("Could not calculate finishedTaskHistory!", new NullPointerException());
 		
-		Map<Date, Long> history = new TreeMap<Date, Long>();
-		
-		from.datesUntil(to.plusDays(1)).forEach(date -> {
-			history.put(Date.valueOf(date), 0l);
+		List<Task> tasks = new ArrayList<Task>();
+		raid.getQuests().stream().forEach(quest -> {
+			tasks.addAll(quest.getTasks());
 		});
 		
-		raid.getQuests().forEach(quest -> {
-			quest.getTasks().stream().filter(t -> !SonarQuestStatus.OPEN.equals(t.getStatus())).forEach(t-> {
-				history.merge(t.getEnddate(), 1l, (v1, v2) -> v1 + v2);
-			});
-		});
-		return history;
+		return solvedTaskHistoryService.getSolvedTaskHistory(tasks);
 	}
 }

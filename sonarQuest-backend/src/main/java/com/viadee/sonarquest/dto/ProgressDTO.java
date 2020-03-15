@@ -9,6 +9,7 @@ public class ProgressDTO {
 		super();
 		this.totalAmount = totalAmount;
 		this.numberOfVariable = numberOfVariable;
+		this.calculatedProgress = numberOfVariable / totalAmount;
 	}
 	
 	public ProgressDTO(double totalAmount, double numberOfVariable, double calculatedProgress) {
@@ -16,6 +17,11 @@ public class ProgressDTO {
 		this.totalAmount = totalAmount;
 		this.numberOfVariable = numberOfVariable;
 		this.calculatedProgress = calculatedProgress;
+	}
+	
+	public ProgressDTO update(double numberOfVariable) {
+		
+		return this;
 	}
 	
 	public double getTotalAmount() {
