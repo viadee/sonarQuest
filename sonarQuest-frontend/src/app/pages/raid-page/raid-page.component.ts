@@ -32,11 +32,10 @@ export class RaidPageComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     this.raidSubscription = this.raidService.findRaidById(id).subscribe(resp => {
       this.monster = new BaseMonster(resp.monsterName, resp.monsterImage,
-      resp.raidProgress.totalAmount, resp.raidProgress.numberOfVariable, resp.raidProgress.calculatedProgress);
+      resp.raidProgress.totalAmount, resp.raidProgress.numberOfVariable, resp.raidProgress.calculatedProgress, resp.gold, resp.xp);
       this.raid = resp;
       this.tasks = resp.tasks;
       this.raidLeaderBoardList = resp.raidLeaderboardList;
-      console.log(this.raidLeaderBoardList);
     });
   }
 }

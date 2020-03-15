@@ -1,4 +1,4 @@
-<div *ngFor="let quest of questList">
+<mat-card *ngFor="let quest of questList">
     <mat-card>
         <div class="d-flex justify-content-start align-items-center">
             <img [src]="quest.image" [alt]="quest.title" class="d-none" #questImage>
@@ -6,11 +6,13 @@
                 [style.background-image]="'url(' + questImage.src + ')'">
             </div>
             <div class="questlog-quest-info p-2 w-100">
-                <p class="quest-title">{{ quest.title }}</p>
-                <p class="quest-mission">{{ quest.story }}</p>
+                <p class="quest-title" matTooltip="{{quest.story}}">{{ quest.title }}</p>
                 <div class="quest-progress-bar w-100" matTooltip="Quest zu {{ quest.questProgress }}% gelöst">
                     <div class="quest-progress" [style.width]="quest.questProgress + '%'"></div>
                 </div>
+                <p mat-line>
+                <span *ngIf="quest.participants.includes(user.username)">Du hast die Quest angenommen!</span>
+                </p>
             </div>
         </div>
         <mat-expansion-panel>
@@ -23,4 +25,4 @@
             </app-tasklog>
         </mat-expansion-panel>
     </mat-card>
-</div>
+</mat-card>

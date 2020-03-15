@@ -2,3 +2,7 @@
     bottom: 0;
     width: 100%;
 }
+.questlog-component {
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+}

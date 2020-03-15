@@ -1,14 +1,103 @@
-.history-wrapper {
-    height: 200px;
+.title {
+    font-family: 'Indie Flower', cursive;
 }
-
+.history-wrapper {
+    height: 140px;
+}
 .task-history-bar {
     display: inline-block;
-    background-color: #0D0;
+    background-color: #00AA00;
     align-self: flex-end;
     width: 85px;
+    position: absolute;
+}
+.solved-task-bar {
+    z-index: 1;
+}
+
+.total-solved-task-bar {
+    z-index: -10;
+}
+
+.bar-wrapper {
+    height: calc(100% - 1.5em);
 }
 
 .task-history-date {
     display: inline-block;
+}
+
+.solvedTaskLegend {
+    width: 1.5em;
+    display: inline-block;
+    border: 1px solid black;
+    background-color: #00AA00;
+}
+.totalSolvedTaskLegend {
+    width: 1.5em;
+    display: inline-block;
+    border: 1px solid black;
+    background-color: #ade1ad;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import '~swiper/dist/css/swiper.min.css';
+
+.history-goldStar-Img {
+    width: 72px;
+}
+p.condition-title {
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: 2px;
+}  
+.condition-info p {
+    padding: 0;
+    margin: 0;
+    font-family: helvetica;
+}
+
+.highScore {
+    font-family: 'Indie Flower', cursive;
+}
+.highScore-Background {
+    height: 223px;
+    background-size: cover;
+}
+.highScore-Content {
+    position: absolute;
+    top: 5%;
+    right: 15%;
+    font-family: 'Indie Flower', cursive;
+}
+.mainstage {
+   position: relative;
+}
+.history-swiper {
+   position: relative;
+   height: auto;
+}
+.cards-container {
+   margin-bottom: 3em;
+}
+.ra-player-shot {
+   color: #ce0202;
 }

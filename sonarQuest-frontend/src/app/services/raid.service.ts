@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Raid } from 'app/Interfaces/Raid';
+import { SolvedTaskHistoryDto } from 'app/Interfaces/SolvedTaskHistoryDto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class RaidService {
   findAllRaidsByWorld(worldId: number): Observable<Raid[]>  {
     const url = `${environment.endpoint}/raid/world/${worldId}`;
     return this.httpClient.get<Raid[]>(url);
+  }
+
+  getSolvedTaskHistoryList(raidId: any): Observable< SolvedTaskHistoryDto[] > {
+    const url = `${environment.endpoint}/raid/getSolvedTaskHistoryList/${raidId}`;
+    return this.httpClient.get<SolvedTaskHistoryDto[]>(url);
   }
 
   private handleError(error: HttpErrorResponse | any) {

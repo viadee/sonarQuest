@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { SolvedTaskHistoryDto } from './../../../../Interfaces/SolvedTaskHistoryDto';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RaidService } from 'app/services/raid.service';
+import { Raid } from 'app/Interfaces/Raid';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
   selector: 'app-solved-task-history',
@@ -6,10 +11,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./solved-task-history.component.css']
 })
 export class SolvedTaskHistoryComponent implements OnInit {
+  @Input()
+  raid: Raid;
 
-  constructor() { }
+  historyList: SolvedTaskHistoryDto[];
+  amountOfTasks = 0;
+  slideIndex = 1;
+  swiperConfig: SwiperConfigInterface = {
+    a11y: true,
+    direction: 'horizontal',
+    slidesPerView: 6,
+    spaceBetween: 30,
+    centeredSlides: true,
+    height: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  };
+  constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    const _this = this;
+    this.raidService.getSolvedTaskHistoryList(id).subscribe(resp => {
+      _this.historyList = resp;
+      _this.amountOfTasks = this.raid.raidProgress.totalAmount;
+      _this.slideIndex = resp.length;
+    });
   }
 
+  calculateHeight(value: number) {
+    const progress = (value / this.amountOfTasks) * 100;
+    return progress + '%';
+  }
 }
