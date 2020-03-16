@@ -3,18 +3,14 @@
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
       <div *ngFor="let raid of raids" fxFlex="0 1 calc(33.3% -32px)" fxFlex.lt-lg="0 1 calc(50% - 32px)"
         fxFlex.lt-md="100%">
-        <mat-card id="questcard">
-          <mat-card-header>
-          </mat-card-header>
-          <mat-card-content>
-            <app-monster-stage [monster]="raid.monster"></app-monster-stage>
-
-            <ul class="heros">
-              <li class="" *ngFor="let quest of raid.quests">
-                <img mat-card-avatar [src]="quest.image" alt="Image of the Quest {{ quest.title }}">
-              </li>
-            </ul>
-          </mat-card-content>
+        <mat-card>
+          <app-monster-stage [monster]="raid.monster"></app-monster-stage>
+          <mat-grid-list cols="3" rowHeight="50px">
+            <mat-grid-tile *ngFor="let quest of raid.quests">
+              <img class="questlog-quest-image" mat-card-avatar [src]="quest.image"
+                alt="Image of the Quest {{ quest.title }}">
+            </mat-grid-tile>
+          </mat-grid-list>
           <mat-card-actions>
             <div align="right">
               <button mat-icon-button [routerLink]="['/raid', raid.id]"
@@ -24,10 +20,8 @@
               </button>
             </div>
           </mat-card-actions>
-
         </mat-card>
       </div>
     </div>
-
   </mat-card-content>
 </mat-card>

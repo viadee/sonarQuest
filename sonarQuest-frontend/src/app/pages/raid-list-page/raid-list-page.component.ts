@@ -1,20 +1,17 @@
 import { Subscription } from 'rxjs';
 import { RaidService } from 'app/services/raid.service';
-import { QuestModel } from 'app/game-model/QuestModel';
-import { RaidModel } from 'app/game-model/RaidModel';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Raid } from 'app/Interfaces/Raid';
-import { Monster } from 'app/interfaces/Monster';
 import { BaseMonster } from 'app/game-model/base-monster';
 import { WorldService } from 'app/services/world.service';
 import { World } from 'app/Interfaces/World';
 
 @Component({
   selector: 'app-raids-page',
-  templateUrl: './raids-page.component.html',
-  styleUrls: ['./raids-page.component.css']
+  templateUrl: './raid-list-page.component.html',
+  styleUrls: ['./raid-list-page.component.css']
 })
-export class RaidsPageComponent implements OnInit, OnDestroy {
+export class RaidListPageComponent implements OnInit, OnDestroy {
   private worldSub: Subscription;
   private raidSub: Subscription;
 

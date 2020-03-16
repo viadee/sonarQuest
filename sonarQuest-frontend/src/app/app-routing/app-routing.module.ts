@@ -1,5 +1,5 @@
 import { QualitygatePageComponent } from './../pages/qualitygate-page/qualitygate-page.component';
-import { RaidsPageComponent } from './../pages/raids-page/raids-page.component';
+import { RaidListPageComponent } from '../pages/raid-list-page/raid-list-page.component';
 import {EventPageComponent} from '../pages/event-page/event-page.component';
 import {AdminPageComponent} from '../pages/admin-page/admin-page.component';
 import {MarketplacePageComponent} from '../pages/marketplace-page/marketplace-page.component';
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
       {path: RoutingUrls.gamemaster, component: GamemasterPageComponent},
       {path: RoutingUrls.admin, component: AdminPageComponent},
       {path: RoutingUrls.events, component: EventPageComponent},
-      {path: RoutingUrls.raids, component: RaidsPageComponent},
+      {path: RoutingUrls.raids, component: RaidListPageComponent},
       {path: RoutingUrls.raid, component: RaidPageComponent},
       {path: RoutingUrls.qualitygate, component: QualitygatePageComponent}
     ]

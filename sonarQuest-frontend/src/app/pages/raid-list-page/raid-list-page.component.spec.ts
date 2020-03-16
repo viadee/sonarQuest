@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RaidsPageComponent } from './raids-page.component';
+import { RaidListPageComponent } from './raid-list-page.component';
 
 describe('RaidsPageComponent', () => {
-  let component: RaidsPageComponent;
-  let fixture: ComponentFixture<RaidsPageComponent>;
+  let component: RaidListPageComponent;
+  let fixture: ComponentFixture<RaidListPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RaidsPageComponent ]
+      declarations: [ RaidListPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RaidsPageComponent);
+    fixture = TestBed.createComponent(RaidListPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

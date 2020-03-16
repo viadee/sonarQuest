@@ -121,7 +121,7 @@ import { MonsterStageComponent } from './pages/raid-page/components/monster-stag
 import { QuestlogComponent } from './pages/raid-page/components/questlog/questlog.component';
 import { GamemasterRaidComponent } from './pages/gamemaster-page/components/gamemaster-raid/gamemaster-raid.component';
 import { GamemasterRaidCreateComponent } from './pages/gamemaster-page/components/gamemaster-raid/components/gamemaster-raid-create/gamemaster-raid-create.component';
-import { RaidsPageComponent } from './pages/raids-page/raids-page.component';
+import { RaidListPageComponent } from './pages/raid-list-page/raid-list-page.component';
 import { TasklogComponent } from './pages/raid-page/components/tasklog/tasklog.component';
 import { QualitygatePageComponent } from './pages/qualitygate-page/qualitygate-page.component';
 import { GamemasterQualityGateComponent } from './pages/gamemaster-page/components/gamemaster-quality-gate/gamemaster-quality-gate.component';
@@ -189,7 +189,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     QuestlogComponent,
     GamemasterRaidComponent,
     GamemasterRaidCreateComponent,
-    RaidsPageComponent,
+    RaidListPageComponent,
     TasklogComponent,
     QualitygatePageComponent,
     GamemasterQualityGateComponent,
