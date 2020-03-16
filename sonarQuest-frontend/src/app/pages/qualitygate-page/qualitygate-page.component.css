@@ -40,3 +40,30 @@ p.condition-title {
 .ra-player-shot {
    color: #ce0202;
 }
+
+
+.monster-container {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+  
+.monster-container img {
+    margin: auto;
+    max-width: 70%;
+}
+  
+.monster-info {
+    position: absolute;
+    z-index: 99;
+    background: transparent;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    bottom: 25px;
+}
+  
+.monster-info-heading {
+    width: 75%;
+    margin: auto;
+}

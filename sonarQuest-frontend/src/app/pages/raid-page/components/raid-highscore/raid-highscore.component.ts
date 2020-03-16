@@ -12,10 +12,9 @@ export class RaidHighscoreComponent implements OnInit {
   @Input()
   raidHighScores: RaidLeaderboard[];
 
-  // TODO use translateservice
   columns: ITdDataTableColumn[] = [
     { name: 'user.username', label: 'Name' },
-    { name: 'scorePoints', label: 'Anzahl Aufträge' },
+    { name: 'scoreSolvedTasks', label: 'Anzahl Aufträge' },
     { name: 'scoreXp', label: 'XP' },
     { name: 'scoreGold', label: 'Gold' }
   ]
@@ -23,7 +22,6 @@ export class RaidHighscoreComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.raidHighScores);
   }
 
 }
