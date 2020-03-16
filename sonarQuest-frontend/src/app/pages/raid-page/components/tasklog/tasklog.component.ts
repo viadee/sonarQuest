@@ -1,6 +1,5 @@
 import { Task } from './../../../../Interfaces/Task';
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { Participation } from 'app/Interfaces/Participation';
 import { User } from 'app/Interfaces/User';
 import { Quest } from 'app/Interfaces/Quest';
 import { UserService } from 'app/services/user.service';
