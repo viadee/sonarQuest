@@ -13,6 +13,7 @@ import com.viadee.sonarquest.entities.Event;
 import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.services.EventService;
 
@@ -20,6 +21,9 @@ import com.viadee.sonarquest.services.EventService;
 public class WebSocketController {
 
     private static final String CHAT = "/chat";
+    
+    // TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
+    private static final String RAID = "/raid";
 
     @Autowired
     private SimpMessagingTemplate template;
@@ -34,8 +38,17 @@ public class WebSocketController {
         template.convertAndSend(CHAT, eventUserDto);
     }
  
-    
-    
+    /**
+     * TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
+     * 
+     * @param task
+     * @param principal
+     */
+	public void onUpdateTask(final Task task, Principal principal) {
+		Event event = eventService.createEventForUpdatedQuest(task.getQuest(), principal);
+		EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
+		template.convertAndSend(RAID, eventUserDto);
+	}
     
     public void onCreateQuest(final Quest quest, Principal principal) {
         Event event = eventService.createEventForCreatedQuest(quest, principal);

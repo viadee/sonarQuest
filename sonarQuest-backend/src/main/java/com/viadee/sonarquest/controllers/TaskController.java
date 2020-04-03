@@ -61,6 +61,9 @@ public class TaskController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private WebSocketController webSocketController;
 
     @GetMapping
     public List<List<? extends Task>> getAllTasks() {
@@ -194,6 +197,8 @@ public class TaskController {
         		task.setParticipation(participation);
                 task = taskService.save(task);
         }
+        
+        webSocketController.onUpdateTask(task, principal);
         return task;
     }
 

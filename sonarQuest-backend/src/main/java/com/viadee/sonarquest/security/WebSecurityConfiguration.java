@@ -80,6 +80,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
                 .antMatchers("/chat").permitAll()
+                .antMatchers("/raid/**").permitAll()
+                .antMatchers("/raid").permitAll()
                 // h2 console
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
