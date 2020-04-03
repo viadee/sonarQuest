@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Task } from 'app/Interfaces/Task';
+import { EventService } from 'app/services/event.service';
 
 @Component({
   selector: 'app-raid-page',
@@ -22,13 +23,19 @@ export class RaidPageComponent implements OnInit, OnDestroy {
   public raidLeaderBoardList: RaidLeaderboard[] = [];
   private raidSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService, 
+    private eventService: EventService) { }
 
   ngOnDestroy(): void {
     this.raidSubscription.unsubscribe();
   }
 
   ngOnInit() {
+    this.getRaid();
+    this.subscribeTaskEvent();
+  }
+
+  getRaid() {
     const id = this.route.snapshot.paramMap.get('id');
     this.raidSubscription = this.raidService.findRaidById(id).subscribe(resp => {
       this.monster = new BaseMonster(resp.monsterName, resp.monsterImage,
@@ -36,6 +43,12 @@ export class RaidPageComponent implements OnInit, OnDestroy {
       this.raid = resp;
       this.tasks = resp.tasks;
       this.raidLeaderBoardList = resp.raidLeaderboardList;
+    });
+  }
+
+  private subscribeTaskEvent() {
+    this.eventService.taskEvents$.subscribe(updated => {
+      this.getRaid();
     });
   }
 }

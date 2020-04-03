@@ -1,3 +1,4 @@
+import { RaidService } from 'app/services/raid.service';
 import { EventUserDto } from './../Interfaces/EventUserDto';
 import { World } from '../Interfaces/World';
 import { WorldService } from './world.service';
@@ -39,6 +40,11 @@ export class WebsocketService {
       this.chatStomp = that.stompClient.subscribe('/chat', message => {
         const eventUserDto: EventUserDto = JSON.parse(message.body);
         that.eventService.addEvent(eventUserDto);
+      });
+    });
+    this.stompClient.connect({}, function(frame) {
+      this.chatStomp = that.stompClient.subscribe('/raid', raid => {
+        that.eventService.eventUpdateTask();
       });
     });
   }

@@ -30,6 +30,10 @@ export class EventService implements OnChanges {
   public userDtos$ = this.userDtosSubject.asObservable();
   private unseenEventsSubject: Subject<boolean> = new ReplaySubject(1);
   public unseenEvents$ = this.unseenEventsSubject.asObservable();
+
+  private taskEventsSubject: Subject<boolean> = new ReplaySubject(1);
+  public taskEvents$ = this.taskEventsSubject.asObservable();
+
   eventDtos: EventDto[] = [];
   userDtos: UserDto[] = [];
 
@@ -173,6 +177,15 @@ export class EventService implements OnChanges {
       console.log(this.router.url);
       this.http.get<boolean>(`${environment.endpoint}/event/checkForUnseenEvents`).subscribe(result => this.unseenEventsSubject.next(result));
       return this.unseenEventsSubject.asObservable();
+    }
+  }
+
+  //TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
+  public eventUpdateTask(): Observable<boolean> {
+    const currentUrl = this.router.url.substring(1);
+    if (currentUrl !== RoutingUrls.events) {
+      this.taskEventsSubject.next(true);
+      return this.taskEventsSubject.asObservable();
     }
   }
 
