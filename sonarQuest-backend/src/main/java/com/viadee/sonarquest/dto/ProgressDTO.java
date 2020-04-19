@@ -19,11 +19,6 @@ public class ProgressDTO {
 		this.calculatedProgress = calculatedProgress;
 	}
 	
-	public ProgressDTO update(double numberOfVariable) {
-		
-		return this;
-	}
-	
 	public double getTotalAmount() {
 		return totalAmount;
 	}

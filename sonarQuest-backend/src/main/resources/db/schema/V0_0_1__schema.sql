@@ -224,7 +224,6 @@ CREATE TABLE Adventure_User (
 
 CREATE TABLE Participation (
   id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  participation_type  VARCHAR(256),
   quest_id     BIGINT,
   raid_id     BIGINT,
   user_id BIGINT NOT NULL,
@@ -240,37 +239,28 @@ CREATE TABLE Ui_Design (
   FOREIGN KEY (user_id) REFERENCES SQUser (id) 
 );
 
-
 CREATE TABLE Task (
   id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  task_type        VARCHAR(256),
   title            VARCHAR(256),
   gold             BIGINT,
   xp               BIGINT,
   status           VARCHAR(256),
-  task_key         VARCHAR(256),
   quest_id         BIGINT,
   world_id         BIGINT,
-  participation_id BIGINT,
-  
-  FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-CREATE TABLE Special_Task (
-  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  message          VARCHAR(256)
-);
-
-CREATE TABLE Standard_Task (
-  id               BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  task_type        VARCHAR(256),
+  task_key         VARCHAR(256),
   component        VARCHAR(256),
   severity         VARCHAR(256),
   type             VARCHAR(256),
   debt             INTEGER,
+  message          VARCHAR(256),
+  participation_id BIGINT,
   issue_key        VARCHAR(256),
-  issue_rule	   VARCHAR(256)
+  issue_rule	   VARCHAR(256),
+  `key`              VARCHAR(256),
+  FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (world_id) REFERENCES World (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (participation_id) REFERENCES Participation (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE Condition (
@@ -294,7 +284,7 @@ create TABLE Raid_Leaderboard (
  raid_id				BIGINT,
  user_id				BIGINT,
  FOREIGN KEY (user_id) REFERENCES SQUser (id) ON DELETE SET NULL ON UPDATE CASCADE,
- FOREIGN KEY (raid_id) REFERENCES raid (id) ON DELETE CASCADE ON UPDATE CASCADE
+ FOREIGN KEY (raid_id) REFERENCES raid (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 

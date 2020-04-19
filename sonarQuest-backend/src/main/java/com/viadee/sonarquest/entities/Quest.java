@@ -18,11 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.constants.QuestState;
-import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @Entity
 @Table(name = "Quest")
@@ -254,22 +251,5 @@ public class Quest {
 
 	public void setRaid(Raid raid) {
 		this.raid = raid;
-	}
-	
-	@Value("${questProgress}")
-	public double getQuestProgress() {
-		long openTasks = 0;
-		int taskSize = this.getTasks().size();
-		
-		for (Task task : this.getTasks()) {
-			if(SonarQuestStatus.OPEN.equals(task.getStatus()))
-				openTasks++;
-		}
-		return Math.round(100 - (100*(double)openTasks/taskSize));
-	}
-	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
 	}
 }
