@@ -196,9 +196,9 @@ public class TaskController {
         	}
         		task.setParticipation(participation);
                 task = taskService.save(task);
+                // TODO Refactoring with issue 266 (= Websocket for tasks)
+                webSocketController.onUpdateTaskParticipation(task, principal);
         }
-        
-        webSocketController.onUpdateTask(task, principal);
         return task;
     }
 
@@ -209,6 +209,8 @@ public class TaskController {
             task.setParticipation(null);
             task.setStatus(SonarQuestStatus.OPEN);
             taskService.save(task);
+            
+            webSocketController.onUpdateTaskParticipation(task, null);
         }
     }
 

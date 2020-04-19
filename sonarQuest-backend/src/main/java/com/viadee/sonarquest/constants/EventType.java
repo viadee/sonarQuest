@@ -4,5 +4,8 @@ public enum EventType {
 	QUEST, 
     ADVENTURE,
     MESSAGE,
-    ARTEFACT
+    ARTEFACT,
+    TASK,
+    RAID,
+    QUALITYGATE
 }

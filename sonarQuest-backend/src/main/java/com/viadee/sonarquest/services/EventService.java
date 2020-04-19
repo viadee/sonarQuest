@@ -20,6 +20,7 @@ import com.viadee.sonarquest.entities.EventDto;
 import com.viadee.sonarquest.entities.EventUserDto;
 import com.viadee.sonarquest.entities.MessageDto;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.UserDto;
 import com.viadee.sonarquest.entities.World;
@@ -74,7 +75,31 @@ public class EventService {
          String head = StringUtils.EMPTY;
          return new Event(type, title, story, state, image, world, head, userService.getUser(principal));
     }
-
+    
+    /**
+     * TODO: Refactoring! Issue: https://github.com/viadee/sonarQuest/issues/266
+     * @param task
+     * @param principal
+     * @return
+     */
+    public Event createEventForUpdatedTaskParticipation(Task task, Principal principal) {
+    	Event event = taskParticipationToEvent(task, principal, EventState.UPDATED);
+        return event;
+    }
+    private Event taskParticipationToEvent(Task task, Principal principal, EventState state) {
+   	 	EventType type = EventType.TASK;
+        String title = task.getTitle();
+        String image = StringUtils.EMPTY;
+        World world = task.getWorld();
+        String head = StringUtils.EMPTY;
+        
+		if (principal != null) {
+			return new Event(type, title, "", state, image, world, head, userService.getUser(principal));
+		}
+        	
+        return new Event(type, title, "", state, image, world, head, null);
+   }
+    
     public Event createEventForSolvedQuest(Quest quest, Principal principal) {
     	Event event = questToEvent(quest, principal, EventState.SOLVED);
         LOGGER.info(String.format("New event because of a solved quest '%s'", quest.getTitle()));

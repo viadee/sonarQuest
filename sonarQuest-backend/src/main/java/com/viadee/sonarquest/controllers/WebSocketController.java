@@ -22,9 +22,6 @@ public class WebSocketController {
 
     private static final String CHAT = "/chat";
     
-    // TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
-    private static final String RAID = "/raid";
-
     @Autowired
     private SimpMessagingTemplate template;
     
@@ -39,15 +36,15 @@ public class WebSocketController {
     }
  
     /**
-     * TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
-     * 
+     * TODO: Refactoring with Issue: https://github.com/viadee/sonarQuest/issues/266
+     * onUpdateTaskParticipation
      * @param task
      * @param principal
      */
-	public void onUpdateTask(final Task task, Principal principal) {
-		Event event = eventService.createEventForUpdatedQuest(task.getQuest(), principal);
+	public void onUpdateTaskParticipation(final Task task, Principal principal) {
+		Event event = eventService.createEventForUpdatedTaskParticipation(task, principal);
 		EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
-		template.convertAndSend(RAID, eventUserDto);
+		template.convertAndSend(CHAT, eventUserDto);
 	}
     
     public void onCreateQuest(final Quest quest, Principal principal) {
