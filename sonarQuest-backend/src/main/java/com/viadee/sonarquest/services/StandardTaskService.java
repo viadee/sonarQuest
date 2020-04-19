@@ -1,5 +1,7 @@
 package com.viadee.sonarquest.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -59,6 +61,7 @@ public class StandardTaskService {
         final SonarQuestStatus newStatus = task.getStatus();
         if (newStatus == SonarQuestStatus.SOLVED && oldStatus == SonarQuestStatus.OPEN) {
             gratificationService.rewardUserForSolvingTask(task);
+            task.setEnddate(Date.valueOf(LocalDate.now()));
         }
         task.setStatus(newStatus);
         return standardTaskRepository.saveAndFlush(task);

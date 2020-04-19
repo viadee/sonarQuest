@@ -1,6 +1,8 @@
 package com.viadee.sonarquest.services;
 
 import java.net.ConnectException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -124,6 +126,7 @@ public class ExternalRessourceService {
             final SonarQuestStatus lastStatus = savedTask.getStatus();
             if (newStatus == SonarQuestStatus.SOLVED && lastStatus == SonarQuestStatus.OPEN) {
                 gratificationService.rewardUserForSolvingTask(savedTask);
+                savedTask.setEnddate(Date.valueOf(LocalDate.now()));
             }
             savedTask.setStatus(newStatus);
         }
@@ -202,8 +205,7 @@ public class ExternalRessourceService {
         SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                 .onServer(sonarConfig.getSonarServerUrl())
                 .searchComponents(SonarQubeComponentQualifier.TRK)
-
-                .withOrganization("default")
+                .withOrganization(sonarConfig.getOrganization())
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(pageIndex)
                 .build();
