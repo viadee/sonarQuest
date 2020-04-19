@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class RaidLeaderboard {
+public class RaidLeaderboard implements Comparable<RaidLeaderboard> {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -126,5 +126,11 @@ public class RaidLeaderboard {
 			this.scoreSolvedTasks = 0l;
 		}
 		this.scoreSolvedTasks += scorePoints;
+	}
+
+	@JsonIgnore
+	@Override
+	public int compareTo(RaidLeaderboard o) {
+		return (int) (this.getScoreXp() - o.getScoreXp());
 	}
 }

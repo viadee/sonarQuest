@@ -11,6 +11,6 @@ import com.viadee.sonarquest.entities.User;
 public interface RaidLeaderboardRepository extends CrudRepository<RaidLeaderboard, Long> {
 	
 	RaidLeaderboard findTopByRaidAndUser(Raid raid, User user);
-	List<RaidLeaderboard> findByRaidIdOrderByScoreSolvedTasks(Long raid_id);
+	List<RaidLeaderboard> findByRaidIdOrderByScoreXp(Long raid_id);
 }
 
