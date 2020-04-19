@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viadee.sonarquest.constants.QuestState;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.repositories.AdventureRepository;
 import com.viadee.sonarquest.repositories.QuestRepository;
+import com.viadee.sonarquest.repositories.RaidRepository;
 import com.viadee.sonarquest.repositories.WorldRepository;
 import com.viadee.sonarquest.rules.SonarQuestStatus;
 import com.viadee.sonarquest.services.AdventureService;
@@ -49,6 +51,9 @@ public class QuestController {
 
     @Autowired
     private AdventureRepository adventureRepository;
+    
+    @Autowired
+    private RaidRepository raidRepository;
 
     @Autowired
     private QuestService questService;
@@ -160,6 +165,19 @@ public class QuestController {
         }
         return quest;
     }
+    
+    @PostMapping(value = "/{questId}/addRaid/{raidId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Quest addRaid(@PathVariable(value = "questId") final Long questId,
+            @PathVariable(value = "raidId") final Long raidId) {
+        Quest quest = questRepository.findOne(questId);
+        if (quest != null) {
+            final Raid raid = raidRepository.findOne(raidId);
+            quest.setRaid(raid);
+            quest = questRepository.save(quest);
+        }
+        return quest;
+    }
 
     @DeleteMapping(value = "/{questId}/deleteWorld")
     public void deleteWorld(@PathVariable(value = "questId") final Long questId) {
@@ -175,6 +193,15 @@ public class QuestController {
         final Quest quest = questRepository.findOne(questId);
         if (quest != null) {
             quest.setAdventure(null);
+            questRepository.save(quest);
+        }
+    }
+    
+    @DeleteMapping(value = "/{questId}/removeRaid")
+    public void deleteRaid(@PathVariable(value = "questId") final Long questId) {
+        final Quest quest = questRepository.findOne(questId);
+        if (quest != null) {
+            quest.setRaid(null);
             questRepository.save(quest);
         }
     }
