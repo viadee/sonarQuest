@@ -29,6 +29,13 @@ public class RaidDTO {
 				raid.getStatus(), raid.getGold(), raid.getXp(), raid.getWorld(), raid.getQuests(),
 				raid.getRaidLeaderboadList());
 	}
+	
+	public RaidDTO(Raid raid, ProgressDTO raidProgress) {
+		this(raid.getId(), raid.getVisible(), raid.getTitle(), raid.getMonsterName(), raid.getMonsterImage(),
+				raid.getStatus(), raid.getGold(), raid.getXp(), raid.getWorld(), raid.getQuests(),
+				raid.getRaidLeaderboadList());
+		this.raidProgress = raidProgress;
+	}
 
 	public RaidDTO(Long id, Boolean visible, String title, String monsterName, String monsterImage, RaidState status,
 			Long gold, Long xp, World world, List<Quest> quests, List<RaidLeaderboard> raidLeaderboardList) {

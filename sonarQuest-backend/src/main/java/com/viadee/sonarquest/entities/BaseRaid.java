@@ -123,7 +123,7 @@ public abstract class BaseRaid extends Auditable implements Reward {
 	}
 	
 	/**
-	 * Update title, xp, gold, monster (= image and name)
+	 * Update title, xp, gold, monster (= image and name), visible
 	 * @param raid
 	 */
 	@JsonIgnore
@@ -133,5 +133,6 @@ public abstract class BaseRaid extends Auditable implements Reward {
 		this.gold = raid.getGold();
 		this.monsterImage = raid.getMonsterImage();
 		this.monsterName = raid.getMonsterName();
+		this.visible = raid.getVisible();
 	}
 }

@@ -9,4 +9,5 @@ import com.viadee.sonarquest.entities.World;
 
 public interface RaidRepository extends JpaRepository<Raid, Long> {
 	 List<Raid> findByWorld(World world);
+	 List<Raid> findByWorldAndVisible(World world, boolean visible);
 }
