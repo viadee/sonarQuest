@@ -72,6 +72,10 @@ public class UserService implements UserDetailsService {
 	private User findById(final Long id) {
 		return userRepository.findOne(id);
 	}
+	
+	public List<User> findByWorld(World world) {
+		return userRepository.findByCurrentWorld(world);
+	}
 
 	public World updateUsersCurrentWorld(final User user, final Long worldId) {
 		final World world = worldService.findById(worldId);

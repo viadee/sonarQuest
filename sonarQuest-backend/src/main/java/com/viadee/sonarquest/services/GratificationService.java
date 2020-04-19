@@ -2,6 +2,7 @@ package com.viadee.sonarquest.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.constants.AdventureState;
 import com.viadee.sonarquest.constants.QuestState;
+import com.viadee.sonarquest.constants.RaidState;
 import com.viadee.sonarquest.constants.SkillType;
 import com.viadee.sonarquest.entities.Adventure;
 import com.viadee.sonarquest.entities.Artefact;
 import com.viadee.sonarquest.entities.Participation;
+import com.viadee.sonarquest.entities.QualityGateRaid;
 import com.viadee.sonarquest.entities.Quest;
+import com.viadee.sonarquest.entities.Raid;
+import com.viadee.sonarquest.entities.RaidLeaderboard;
 import com.viadee.sonarquest.entities.Skill;
 import com.viadee.sonarquest.entities.Task;
 import com.viadee.sonarquest.entities.User;
@@ -35,7 +40,7 @@ public class GratificationService implements UserGratification {
 
     @Autowired
     private LevelService levelService;
-
+    
     @Override
     @Transactional
     public synchronized void rewardUserForSolvingTask(final Task task) {
@@ -50,6 +55,7 @@ public class GratificationService implements UserGratification {
             addSkillReward(user);
             user.setLevel(levelService.getLevelByUserXp(user.getXp()));
             userService.save(user);
+            
         } else {
             LOGGER.info("No SQUser participations found for task {}, so no rewards are paid out", task.getKey());
         }
@@ -96,6 +102,35 @@ public class GratificationService implements UserGratification {
         final List<User> users = adventure.getUsers();
         users.forEach(user -> rewardUserForSolvingAdventure(user, adventure));
     }
+    
+    @Override
+    public void rewardUsersForSolvingRaid(final Raid raid) {
+    	List<RaidLeaderboard> leaderBoardList = raid.getRaidLeaderboadList();
+    	Collections.sort(leaderBoardList);
+    	
+    	long amountOfXP = leaderBoardList.stream().mapToLong(RaidLeaderboard::getScoreXp).sum();
+    	
+    	for (RaidLeaderboard raidLeaderboard : leaderBoardList) {
+    		long percentage = raidLeaderboard.getScoreXp() / amountOfXP;
+    		rewardUserForSolvingRaid(raidLeaderboard.getUser(), raid, percentage);
+    	}
+    }
+    
+    private void rewardUserForSolvingRaid(final User user, final Raid raid, long percentage) {
+        if (raid.getStatus() != RaidState.SOLVED) {
+            LOGGER.info("Raid {} solved - Rewarding userID {} with {} gold and {} xp", 
+                    raid.getId(), user.getId(), raid.getGold(), raid.getXp());
+            long gold = raid.getGold() * percentage;
+            long xp = raid.getXp() * percentage;
+            user.addGold(gold);
+            user.addXp(xp);
+            user.setLevel(levelService.getLevelByUserXp(user.getXp()));
+            userService.save(user);
+        } else {
+            LOGGER.warn("Raid with ID {} is called for rewarding but is already solved. No rewards will be paid out.",
+                    raid.getId());
+        }
+    }
 
     private void rewardQuestParticipation(Quest quest, User user) {
         LOGGER.info("Rewarding participation in solving quest {} - Rewarding userID {} with {} gold and {} xp",
@@ -130,5 +165,19 @@ public class GratificationService implements UserGratification {
         rewardedUser.addXp(extraXP);
         return rewardedUser;
     }
+
+	@Override
+	public void rewardUsersForPassedQualityGate(QualityGateRaid raid) {
+		LOGGER.info("Rewarding all user in world {} with {} gold and {} xp - for passed quality gate!",
+				raid.getWorld().getId(), raid.getGold(), raid.getXp());
+		
+		List<User> userList = userService.findByWorld(raid.getWorld());
+		userList.forEach(user -> {
+			user.addGold(raid.getGold());
+			user.addXp(raid.getXp());
+			user.setLevel(levelService.getLevelByUserXp(user.getXp()));
+			userService.save(user);
+		});
+	}
 
 }

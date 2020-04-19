@@ -38,7 +38,7 @@ public class SolvedTaskHistoryServiceTest {
 		List<Task> tasks = givenTasks(openTask, solvedTaskToday, solvedTaskToday2, solvedTaskYesterday,
 				closedTaskFor4Days);
 
-		Map<Date, Long> map = underTest.calculateSolvedTaskHistory(tasks);
+		Map<Date, Long> map = underTest.mapSolvedTasks(tasks);
 
 		assertTrue(map.get(yesterday).equals(1l));
 		assertTrue(map.get(today).equals(2l));

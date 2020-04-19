@@ -14,33 +14,35 @@ import com.viadee.sonarquest.rules.SonarQuestStatus;
 
 @Service
 public class SolvedTaskHistoryService {
+	
 	/**
-	 * Calculate for each day the amount of finished tasks.
+	 * Maps the sum of the tasks solved by each day
 	 * 
-	 * @param from analyze date
-	 * @param to   analyze date
-	 * @param raid with quests (= amount of tasks)
 	 * @return map <date and amount of finished tasks>
 	 */
-	public Map<Date, Long> calculateSolvedTaskHistory(List<Task> tasks) {
+	public Map<Date, Long> mapSolvedTasks(final List<Task> tasks) {
 		TreeMap<Date, Long> history = new TreeMap<Date, Long>();
 
 		tasks.stream().filter(t -> !SonarQuestStatus.OPEN.equals(t.getStatus())).forEach(t -> {
 			history.merge(t.getEnddate(), 1l, (v1, v2) -> v1 + v2);
 		});
 
-		LocalDate from = history.firstKey().toLocalDate();
-		LocalDate to = history.lastKey().toLocalDate();
-		// Fill gaps
-		from.datesUntil(to.plusDays(1)).forEach(date -> {
-			history.computeIfAbsent(Date.valueOf(date), v -> 0l);
-		});
+		try {
+			LocalDate from = history.firstKey().toLocalDate();
+			LocalDate to = history.lastKey().toLocalDate();
+			// Fill gaps
+			from.datesUntil(to.plusDays(1)).forEach(date -> {
+				history.computeIfAbsent(Date.valueOf(date), v -> 0l);
+			});
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
 		return history;
 	}
 
 	public List<SolvedTaskHistoryDTO> getSolvedTaskHistory(List<Task> tasks) {
-		Map<Date, Long> mappedSolvedTaks = calculateSolvedTaskHistory(tasks);
+		Map<Date, Long> mappedSolvedTaks = mapSolvedTasks(tasks);
 		List<SolvedTaskHistoryDTO> result = new ArrayList<SolvedTaskHistoryDTO>();
 
 		long totalSolvedTasks = 0;
