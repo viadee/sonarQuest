@@ -23,7 +23,7 @@ public class SolvedTaskHistoryService {
 	public Map<Date, Long> mapSolvedTasks(final List<Task> tasks) {
 		TreeMap<Date, Long> history = new TreeMap<Date, Long>();
 
-		tasks.stream().filter(t -> !SonarQuestStatus.OPEN.equals(t.getStatus())).forEach(t -> {
+		tasks.stream().filter(t -> SonarQuestStatus.SOLVED.equals(t.getStatus()) && t.getEnddate() != null).forEach(t -> {
 			history.merge(t.getEnddate(), 1l, (v1, v2) -> v1 + v2);
 		});
 

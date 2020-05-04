@@ -23,6 +23,9 @@ public class WorldService {
     @Autowired
     private StandardTaskService standardTaskService;
     
+    @Autowired
+    private QualityGateRaidService qualityGateRaidService;
+    
     public List<World> findAll() {
         return worldRepository.findAll();
     }
@@ -66,6 +69,7 @@ public class WorldService {
             currentWorld.setUsequestcards(world.getUsequestcards());
             currentWorld = worldRepository.save(currentWorld);
             standardTaskService.updateStandardTasks(currentWorld);
+            qualityGateRaidService.updateDefaultQualityGateRaidFromWorld(currentWorld);
         }
         return currentWorld;
     }

@@ -28,11 +28,15 @@ public class QualityGateRaidRewardHistoryService {
 		return qualityGateRaidRewardHistoryRepository.findByRaidIdAndStatusDateBetweenOrderByStatusDate(raidId,
 				Date.valueOf(fromDate), Date.valueOf(toDate));
 	}
+	
+	public List<QualityGateRaidRewardHistory> findQualityGateRaidRewardHistoriesByStatusDate(LocalDate fromDate) {
+		return qualityGateRaidRewardHistoryRepository.findByStatusDate(Date.valueOf(fromDate));
+	}
 
 	/**
-	 * Update or create new QualityGateRaidStatusHistory:
+	 * Update or create new QualityGateRaidRewardHistory:
 	 * Create -> if no entry with current statusDate already exists!
-	 * Update -> if status changed to error!
+	 * Update -> if QualityGateRaid Status changed to error (Set reward null)!
 	 * 
 	 * @param gate
 	 * @return
@@ -40,8 +44,8 @@ public class QualityGateRaidRewardHistoryService {
 	public QualityGateRaidRewardHistory updateQualityGateRaidRewardHistory(final QualityGateRaid gate) {
 		QualityGateRaidRewardHistory newHistoryEntry = createQualityGateRaidRewardHistoryForDay(gate);
 
-		if (newHistoryEntry == null) // verify and update existing entry!
-			return verifyAndUpdateRewardFromToday(gate);
+		if (newHistoryEntry == null) 
+			return updateRewardFromToday(gate); // verify if status changed to error and update reward!
 
 		return newHistoryEntry;
 	}
@@ -50,10 +54,8 @@ public class QualityGateRaidRewardHistoryService {
 	 * Create new QualityGateRaidRewardHistory for day: 
 	 * Only if no entry with current statusDate already exists!
 	 * 
-	 * Calculate reward from lastEntry.
-	 * 
-	 * @param gate
-	 * @return saved QualityGateRaidStatusHistory or null
+	 * @param QualityGateRaid
+	 * @return saved QualityGateRaidRewardHistory or null
 	 */
 	@Transactional
 	private QualityGateRaidRewardHistory createQualityGateRaidRewardHistoryForDay(final QualityGateRaid gate) {
@@ -63,16 +65,16 @@ public class QualityGateRaidRewardHistoryService {
 		if (lastHistoryEntry == null) {
 			Reward bonus = calculateReward(gate, 0, 0);
 			
-			LOGGER.info("Create new QualityGateRaidStatusHistory entry with Gold:" + bonus.getGold() +"/ xp:" + bonus.getXp());
+			LOGGER.info("Create new QualityGateRaidRewardHistory entry with Gold: " + bonus.getGold() +"/ xp:" + bonus.getXp());
 			return qualityGateRaidRewardHistoryRepository.save(new QualityGateRaidRewardHistory(
 					Date.valueOf(LocalDate.now()), gate.getSonarQubeStatus(), gate, bonus.getGold(), bonus.getXp()));
 		}
 			
-		// Verify if historyEntry with statusDate already exists:
+		// Verify if entry with statusDate not already exists:
 		if (LocalDate.now().isAfter(lastHistoryEntry.getStatusDate().toLocalDate())) {
 			Reward bonus = calculateReward(gate, lastHistoryEntry.getGold(), lastHistoryEntry.getXp());
 			
-			LOGGER.info("Create new QualityGateRaidStatusHistory entry with Gold:" + bonus.getGold() +"/ xp:" + bonus.getXp());
+			LOGGER.info("Create new QualityGateRaidRewardHistory entry with Gold: " + bonus.getGold() +"/ xp:" + bonus.getXp());
 			return qualityGateRaidRewardHistoryRepository.save(new QualityGateRaidRewardHistory(
 					Date.valueOf(LocalDate.now()), gate.getSonarQubeStatus(), gate, bonus.getGold(), bonus.getXp()));
 		}
@@ -88,14 +90,15 @@ public class QualityGateRaidRewardHistoryService {
 	}
 
 	/**
-	 * Verify if the gate status from TODAY changed to error.
-	 * If the status changed->update reward (=Gold/XP) = 0.
+	 * Update QualityGateRaidRewardHistory from TODAY:
+	 * Verify if the QualityGateRaid Status changed to error,
+	 * If the status changed -> update QualityGateRaidRewardHistory (=Gold/XP) = 0.
 	 * 
 	 * @param QualityGateRaid
-	 * @return
+	 * @return saved(QualityGateRaidRewardHistory) or null
 	 */
 	@Transactional
-	private QualityGateRaidRewardHistory verifyAndUpdateRewardFromToday(final QualityGateRaid gate) {
+	private QualityGateRaidRewardHistory updateRewardFromToday(final QualityGateRaid gate) {
 		QualityGateRaidRewardHistory historyEntry = qualityGateRaidRewardHistoryRepository
 				.findTopByRaidIdAndStatusDate(gate.getId(), Date.valueOf(LocalDate.now()));
 
@@ -107,7 +110,7 @@ public class QualityGateRaidRewardHistoryService {
 			historyEntry.setXp(0l);
 			historyEntry.setSonarQubeStatus(gate.getSonarQubeStatus());
 
-			LOGGER.info("Updated QualityGateRaidStatusHistory with status=Error.");
+			LOGGER.info("Updated QualityGateRaidRewardHistory with status=Error and set reward (=Gold/XP) to 0.");
 			return qualityGateRaidRewardHistoryRepository.save(historyEntry);
 		}
 

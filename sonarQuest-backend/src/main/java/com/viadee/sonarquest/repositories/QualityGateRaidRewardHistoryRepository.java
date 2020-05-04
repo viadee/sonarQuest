@@ -13,6 +13,7 @@ public interface QualityGateRaidRewardHistoryRepository extends CrudRepository<Q
     List<QualityGateRaidRewardHistory> findByRaid(QualityGateRaid raid);
     QualityGateRaidRewardHistory findTopByRaidIdAndStatusDate(long raid_id, Date statusDate);
     QualityGateRaidRewardHistory findTopByRaidIdOrderByStatusDateDesc(long raid_id);
+    List<QualityGateRaidRewardHistory> findByStatusDate(Date statusDate);
     
     List<QualityGateRaidRewardHistory> findByRaidIdAndStatusDateBetweenOrderByStatusDate(long raid_id, Date fromDate, Date toDate);
 

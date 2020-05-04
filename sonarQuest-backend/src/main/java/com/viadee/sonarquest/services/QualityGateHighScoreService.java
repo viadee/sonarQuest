@@ -46,6 +46,7 @@ public class QualityGateHighScoreService {
 
 	/**
 	 * Calculate actual error-free-day score from QualityGateRaid.
+	 * (Only if the QualityGateRaid status = OK - because otherwise there is no current score)
 	 * 
 	 * Count dates between the last statusDate (with status=Error) and now.
 	 * 
@@ -58,16 +59,16 @@ public class QualityGateHighScoreService {
 
 		Date statusDate = null;
 		
-		LOGGER.info("Find last audit entry with status=Error for QualityGateRaid {id}", raid.getId());
+		LOGGER.debug("Find last audit entry with status=Error for QualityGateRaid {id}", raid.getId());
 		QualityGateRaid lastErrorResult = findQualityGateRaidAuditByIdAndStatusOrderByUpdated(raid.getId(), SonarQubeProjectStatusType.ERROR, Direction.DESC);
 		
 		if(lastErrorResult == null) { 
 			
-			LOGGER.info("There is no audit entry with status=Error! Find last audit entry with status=OK!");
+			LOGGER.debug("There is no audit entry with status=Error! Find last audit entry with status=OK!");
 			QualityGateRaid firstOkResult = findQualityGateRaidAuditByIdAndStatusOrderByUpdated(raid.getId(), SonarQubeProjectStatusType.OK, Direction.ASC);
 			
 			if(firstOkResult == null) {
-				LOGGER.info("There is no further audit entry found!");
+				LOGGER.debug("There is no further audit entry found!");
 				
 				return null;
 			}

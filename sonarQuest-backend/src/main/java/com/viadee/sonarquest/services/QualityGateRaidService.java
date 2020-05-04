@@ -1,12 +1,15 @@
 package com.viadee.sonarquest.services;
 
+import java.time.LocalDate;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.viadee.sonarquest.entities.QualityGateRaid;
+import com.viadee.sonarquest.entities.QualityGateRaidRewardHistory;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatus;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
@@ -23,7 +26,7 @@ public class QualityGateRaidService {
 	private ExternalRessourceService externalRessourceService;
 
 	@Autowired
-	private QualityGateRaidRewardHistoryService historyService;
+	private QualityGateRaidRewardHistoryService qualityGateRaidRewardHistoryService;
 
 	@Autowired
 	private QualityGateHighScoreService qualityGateHighScoreService;
@@ -33,13 +36,16 @@ public class QualityGateRaidService {
 
 	@Autowired
 	private ConditionService conditionService;
-
+	
+	@Autowired 
+	private GratificationService gratificationService; 
+	
 	
 	@Transactional
 	public QualityGateRaid save(final QualityGateRaid raid) {
 		QualityGateRaid qualityGateRaidDAO = qualityGateRaidRepository.save(raid);
 
-		historyService.updateQualityGateRaidRewardHistory(raid);
+		qualityGateRaidRewardHistoryService.updateQualityGateRaidRewardHistory(raid);
 		qualityGateHighScoreService.updateQualityGateHighScore(qualityGateRaidDAO);
 		
 		qualityGateRaidRepository.flush();
@@ -77,6 +83,28 @@ public class QualityGateRaidService {
 	}
 
 	/**
+	 * Create or update QualityGateRaid from world
+	 * With default reward (Gold/XP) = 2
+	 * 
+	 * @param world
+	 * @return
+	 */
+	public QualityGateRaid updateDefaultQualityGateRaidFromWorld(final World world) {
+		if (world == null) {
+			LOGGER.error("World is null!");
+			return null;
+		}
+
+		QualityGateRaid savedRaid = qualityGateRaidRepository.findTopByWorld(world);
+		if (savedRaid == null)
+			return createQualityRaid(world.getId(), "Default generated Quality Gate", 2l, 2l);
+		
+		updateQualityGateStatusAndConditions(savedRaid);
+		return savedRaid;
+	}
+
+	
+	/**
 	 * Update and save QualityGateRaid status and conditions from SonarQube
 	 * 
 	 * @param qualityGateRaid not null
@@ -90,7 +118,7 @@ public class QualityGateRaidService {
 				.generateSonarQubeProjectStatusFromWorld(qualityGateRaid.getWorld());
 		qualityGateRaid.setSonarQubeStatus(SonarQubeProjectStatusType.fromString(sonarQubeProjectStatus.getStatus()));
 		save(qualityGateRaid);
-		conditionService.updateQualityGateConditionFromSonarQube(sonarQubeProjectStatus, qualityGateRaid);
+		conditionService.updateQualityGateConditionFromSonarQube(sonarQubeProjectStatus, qualityGateRaid); // generate or update conditions
 	}
 
 	/**
@@ -113,5 +141,35 @@ public class QualityGateRaidService {
 
 		updateQualityGateStatusAndConditions(qualityGateRaid);
 		return qualityGateRaid;
+	}
+	
+	
+	
+	// ------------------ Scheduled functions ---------------------------------
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Update QualityGateRaids every hour
+	 */
+	@Scheduled(cron="0 0 * * * *")
+	protected void updateAllQualityGatesScheduled() {
+		LOGGER.info("Update all QualityGateRaids scheduled: ...");
+		List<QualityGateRaid> qualityGates = qualityGateRaidRepository.findAll();
+		qualityGates.forEach(gate -> {
+			updateQualityGateStatusAndConditions(gate);
+		});
+	}
+	
+	/**
+	 * Reward all users of a world at midnight for PASSED QualityGateRaid
+	 */
+	@Scheduled(cron="0 0 0 * * *" )
+	protected void rewardUserForPassedGate() {
+		List<QualityGateRaidRewardHistory> rewardHistoryList = qualityGateRaidRewardHistoryService.findQualityGateRaidRewardHistoriesByStatusDate(LocalDate.now());
+		rewardHistoryList.forEach(reward -> {
+			if(!SonarQubeProjectStatusType.ERROR.equals(reward.getSonarQubeStatus())) { // Reward user for Passed QualityGateRaid
+				gratificationService.rewardUsersForPassedQualityGate(reward.getRaid().getWorld(), reward);
+			}
+		});
 	}
 }

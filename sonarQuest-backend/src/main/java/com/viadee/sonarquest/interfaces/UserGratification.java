@@ -1,10 +1,10 @@
 package com.viadee.sonarquest.interfaces;
 
 import com.viadee.sonarquest.entities.Adventure;
-import com.viadee.sonarquest.entities.QualityGateRaid;
 import com.viadee.sonarquest.entities.Quest;
 import com.viadee.sonarquest.entities.Raid;
 import com.viadee.sonarquest.entities.Task;
+import com.viadee.sonarquest.entities.World;
 
 public interface UserGratification {
 
@@ -16,6 +16,6 @@ public interface UserGratification {
     
     void rewardUsersForSolvingRaid(final Raid raid);
     
-    void rewardUsersForPassedQualityGate(final QualityGateRaid raid);
+    void rewardUsersForPassedQualityGate(final World world, final Reward reward);
 
 }
