@@ -5,7 +5,10 @@
 <mat-dialog-content>
 
     <div layout="column" layout-padding>
-        
+        <div flex *ngIf="isSolved">
+            <p>{{"GAMEMASTER_PAGE.RAID.EDIT_SOLVED_RAID" | translate}}</p>
+        </div>
+
         <div flex>
             <mat-list-item disableRipple>
                 <i mat-list-icon class="ra ra-mountains ra-lg navlist"></i>
@@ -19,28 +22,34 @@
 
         <div flex>
             <mat-form-field class="full-width">
-                <input matInput [placeholder]="'Raid Titel' | translate" [(ngModel)]="raid.title">
+                <input matInput [placeholder]="'Raid Titel' | translate" [(ngModel)]="raid.title" [disabled]="isSolved">
+            </mat-form-field>
+        </div>
+        <div flex>
+            <mat-checkbox 
+              [matTooltip]="'RAID.TOOLTIP_VISIBLE' | translate" matTooltipPosition="after"
+              [(ngModel)]="raid.visible">{{"RAID.VISIBLE"| translate}}
+            </mat-checkbox>
+          </div>
+        <div flex>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="raid.gold" [disabled]="isSolved">
             </mat-form-field>
         </div>
         <div flex>
             <mat-form-field class="full-width">
-                <input matInput [placeholder]="'DEVELOPER.GOLD' | translate" type="number" [(ngModel)]="raid.gold">
+                <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="raid.xp" [disabled]="isSolved">
             </mat-form-field>
         </div>
         <div flex>
             <mat-form-field class="full-width">
-                <input matInput [placeholder]="'DEVELOPER.XP' | translate" type="number" [(ngModel)]="raid.xp">
-            </mat-form-field>
-        </div>
-        <div flex>
-            <mat-form-field class="full-width">
-                <input matInput [placeholder]="'Monster Bezeichnung'" [(ngModel)]="raid.monsterName">
+                <input matInput [placeholder]="'Monster Bezeichnung'" [(ngModel)]="raid.monsterName" [disabled]="isSolved">
             </mat-form-field>
         </div>
         <div flex layout="row">
             <span>{{"GLOBAL.IMAGE" | translate}}:</span>
             <span class="vertical-spacer-10"></span>
-            <mat-select placeholder="Monster wählen" [(ngModel)]="raid.monsterImage">
+            <mat-select placeholder="Monster wählen" [(ngModel)]="raid.monsterImage" [disabled]="isSolved">
               <mat-option *ngFor="let image of images" [value]="image.src">
                 <img [src]="image.src">
                 <span>{{image.name}}</span>
@@ -52,7 +61,7 @@
     <mat-toolbar>
         <h3>{{"QUEST.QUESTS" | translate}}</h3>
         <span class="toolbar-spacer"></span>
-        <button color="accent" mat-icon-button (click)="addFreeQuest()"> 
+        <button color="accent" mat-icon-button (click)="addFreeQuest()" [disabled]="isSolved"> 
             <mat-icon>add</mat-icon>
         </button>
     </mat-toolbar>
@@ -64,7 +73,7 @@
                 <span>{{"DEVELOPER.GOLD" | translate}}: {{quest?.gold}}, </span>
                 <span>{{"DEVELOPER.XP" | translate}}: {{quest?.xp}}</span>
             </p>
-            <button mat-icon-button (click)="removeQuest(quest)">
+            <button mat-icon-button (click)="removeQuest(quest)" [disabled]="isSolved">
                 <mat-icon>close</mat-icon>
             </button>
         </mat-list-item>
@@ -76,5 +85,7 @@
 
 <mat-dialog-actions>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="primary" (click)="saveRaid()">Raid speichern</button>
+    <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="solveRaid()">Raid manuell abschließen</button>
+    <button *ngIf="!isSolved" mat-raised-button color="primary" (click)="saveRaid()">Raid speichern</button>
+    <button *ngIf="isSolved" mat-raised-button color="primary" [mat-dialog-close]>{{"GLOBAL.CANCEL" | translate}}</button>
 </mat-dialog-actions>

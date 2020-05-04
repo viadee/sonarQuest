@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RaidHighscoreComponent } from './raid-highscore.component';
+import { RaidLeaderboardComponent } from './raid-leaderboard.component';
 
-describe('RaidHighscoreComponent', () => {
-  let component: RaidHighscoreComponent;
-  let fixture: ComponentFixture<RaidHighscoreComponent>;
+describe('RaidLeaderboardComponent', () => {
+  let component: RaidLeaderboardComponent;
+  let fixture: ComponentFixture<RaidLeaderboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RaidHighscoreComponent ]
+      declarations: [ RaidLeaderboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RaidHighscoreComponent);
+    fixture = TestBed.createComponent(RaidLeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

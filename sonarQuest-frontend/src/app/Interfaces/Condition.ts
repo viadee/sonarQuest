@@ -1,4 +1,3 @@
-import { Task } from './Task';
 
 export interface Condition {
     id: number,

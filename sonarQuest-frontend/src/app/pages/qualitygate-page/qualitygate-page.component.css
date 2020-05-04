@@ -50,7 +50,8 @@ p.condition-title {
   
 .monster-container img {
     margin: auto;
-    max-width: 70%;
+    max-width: 79%;
+    width: 75%;
 }
   
 .monster-info {
@@ -67,3 +68,9 @@ p.condition-title {
     width: 75%;
     margin: auto;
 }
+
+.condition-header {
+    margin: 0;
+    display: inline-block;
+  }
+ 

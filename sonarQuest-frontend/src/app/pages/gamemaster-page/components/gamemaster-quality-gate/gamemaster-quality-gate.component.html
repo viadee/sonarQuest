@@ -1,34 +1,42 @@
 <div layout="column" layout-padding>
-   <button mat-raised-button color="primary" *ngIf="raid == null" (click)="newQualityGateRaid()">Neues Quality Gate</button>
 
-   <div *ngIf="raid">
-   <div flex>
-        <mat-form-field class="full-width">
-            <input matInput [placeholder]="'Raid Titel' | translate" [(ngModel)]="raid.title">
-        </mat-form-field>
+  <div flex>
+    <mat-form-field class="full-width">
+      <input matInput [placeholder]="'Raid Titel' | translate" [(ngModel)]="raid.title">
+    </mat-form-field>
+  </div>
+  <div flex>
+    <mat-form-field>
+      <input matInput [placeholder]="'Gold pro fehlerfreien Tag' | translate" type="number" [(ngModel)]="raid.gold">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'XP pro fehlerfreien Tag' | translate" type="number" [(ngModel)]="raid.xp">
+    </mat-form-field>
+    <div flex layout="row">
+      <span>{{"GLOBAL.IMAGE" | translate}}:</span>
+      <span class="vertical-spacer-10"></span>
+      <mat-select placeholder="Monster wählen" [(ngModel)]="raid.monsterImage">
+        <mat-option *ngFor="let image of images" [value]="image.src">
+          <img [src]="image.src">
+          <span>{{image.name}}</span>
+        </mat-option>
+      </mat-select>
     </div>
-    <div flex>
-        <mat-form-field>
-            <input matInput [placeholder]="'Gold pro fehlerfreier Tag' | translate" type="number" [(ngModel)]="raid.gold">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput [placeholder]="'XP pro fehlerfreier Tag' | translate" type="number" [(ngModel)]="raid.xp">
-        </mat-form-field>
-        <mat-checkbox>Belohnung dynamisch wachsend</mat-checkbox>
+  </div>
+  <div layout="row">
+    <div flex></div>
+    <button mat-raised-button color="primary" (click)="updateQualityGateRaid()">Update Quality Gate vom SonaQube
+      Server</button>
+  </div>
+  <mat-card-content>
+    <div layout-padding>
+      <td-data-table #dataTable [data]="data" [columns]="columns" [sortable]="true">
+        <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
+        </ng-template>
+      </td-data-table>
+      <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
+      </div>
     </div>
-    </div>
-
-    <button mat-raised-button color="primary" (click)="updateQualityGateRaid()">Update Quality Gate vom SonaQube Server</button>
-    <mat-card-content>
-        <div layout-padding>
-          <td-data-table #dataTable [data]="filteredData" [columns]="columns"
-                         [sortable]="true">
-            <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
-            </ng-template>
-          </td-data-table>
-          <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-            <h3>{{"GLOBAL.NO_ENTRIES" | translate}}</h3>
-          </div>
-        </div>
-      </mat-card-content>
+  </mat-card-content>
 </div>

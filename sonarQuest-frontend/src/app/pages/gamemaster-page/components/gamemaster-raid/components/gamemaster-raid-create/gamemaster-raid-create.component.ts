@@ -1,11 +1,19 @@
-import { GamemasterRaidComponent } from './../../gamemaster-raid.component';
 import { Component, OnInit, Input, Optional, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { RaidService } from 'app/services/raid.service';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { GamemasterAddFreeQuestComponent } from '../../../gamemaster-adventure/components/gamemaster-adventure-create/components/gamemaster-add-free-quest/gamemaster-add-free-quest.component';
 import { Raid } from 'app/Interfaces/Raid';
+import {
+  GamemasterAddFreeQuestComponent
+} from '../../../gamemaster-adventure/components/gamemaster-adventure-create/components/gamemaster-add-free-quest/gamemaster-add-free-quest.component';
 
+// Can be expanded
+export const enum DialogResultType {
+  SAVE,
+  SOLVE
+}
+export interface RaidDialogResult {
+  raid: Raid;
+  dialogResult: DialogResultType;
+}
 @Component({
   selector: 'app-gamemaster-raid-create',
   templateUrl: './gamemaster-raid-create.component.html',
@@ -16,11 +24,14 @@ export class GamemasterRaidCreateComponent implements OnInit {
   @Input()
   raid: Raid;
 
+  isSolved: boolean;
   images: any[];
 
-  constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<GamemasterRaidCreateComponent>,  private raidService: RaidService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any){
+  constructor(private dialog: MatDialog,
+    public dialogRef: MatDialogRef<GamemasterRaidCreateComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     this.raid = data.raid;
+    this.isSolved = this.raid.status === 'SOLVED';
   }
 
   ngOnInit() {
@@ -41,11 +52,20 @@ export class GamemasterRaidCreateComponent implements OnInit {
     this.raid.quests.splice(questIndex, 1);
   }
 
+  solveRaid() {
+    const raidDialogResult: RaidDialogResult = {
+      raid: this.raid,
+      dialogResult: DialogResultType.SOLVE
+    };
+    this.dialogRef.close(raidDialogResult);
+  }
+
   saveRaid() {
-    this.raidService.createRaid(this.raid).then((newRaid) => {
-      console.log(newRaid);
-      // TODO show list or table
-    });
+    const raidDialogResult: RaidDialogResult = {
+      raid: this.raid,
+      dialogResult: DialogResultType.SAVE
+    };
+    this.dialogRef.close(raidDialogResult);
   }
 
   // TODO move in service

@@ -1,3 +1,5 @@
+import { QualityGateRaidModel } from './../../game-model/QualityGateRaidModel';
+import { RaidModel } from './../../game-model/RaidModel';
 import { QualityGateRaidService } from './../../services/quality-gate-raid.service';
 import { HighScoreModel } from './../../game-model/highScoreModel';
 import { HighScore } from './../../Interfaces/HighScore';
@@ -9,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { QualityGateRaidRewardHistory } from 'app/Interfaces/QualityGateRaidRewardHistory';
 import { QualityGateRaid } from 'app/Interfaces/QualityGateRaid';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SonarQubeService } from 'app/services/sonar-qube.service';
+import { SonarQubeProjectStatusType } from 'app/Enums/SonarQubeProjectStatusType';
 
 @Component({
   selector: 'app-qualitygate-page',
@@ -23,6 +27,8 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
 
   world: World;
   raid: QualityGateRaid;
+  qualityGateStatus: SonarQubeProjectStatusType;
+
   conditionList: Condition[] = [];
   rewardHistoryList: QualityGateRaidRewardHistory[] = [];
   highScore: HighScore;
@@ -45,7 +51,9 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
     },
   };
 
-  constructor(private raidService: QualityGateRaidService, private worldService: WorldService) {}
+  constructor(private raidService: QualityGateRaidService,
+    private worldService: WorldService,
+    private sonarQubeService: SonarQubeService) {}
 
   ngOnInit() {
     this.worldSub = this.worldService.currentWorld$.subscribe(world => {
@@ -62,11 +70,13 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
   }
 
   loadQualityGate() {
+    const _this = this;
     this.raidSub = this.raidService.findByWorld(this.world.id).subscribe(
       resp => {
-        this.raid = resp;
-        this.conditionList = resp.conditions;
-        this.highScore = new HighScoreModel(resp.scoreDay, resp.scorePoints);
+        _this.raid = resp;
+        _this.conditionList = resp.conditions;
+        _this.highScore = new HighScoreModel(resp.scoreDay, resp.scorePoints);
+        _this.qualityGateStatus = SonarQubeProjectStatusType[resp.sonarQubeStatus];
       },
       err => console.error('Qualitygate Observer got an error: ' + err),
       () => { this.loadActualScore(); this.loadQualityGateHistory() }
@@ -87,4 +97,9 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
       _this.actualScore = resp;
     });
   }
+
+  openDashboard() {
+    this.sonarQubeService.getDashboardLink(this.world).then(link => window.open(link, '_blank'));
+  }
+
 }

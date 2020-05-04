@@ -1,3 +1,4 @@
+import { Raid } from './../Interfaces/Raid';
 import { User } from './../Interfaces/User';
 import {Adventure} from './../Interfaces/Adventure';
 import {Subject, Observable} from 'rxjs';
@@ -168,6 +169,17 @@ export class QuestService {
 
   deleteFromAdventure(quest: any): Promise<any> {
     return this.http.delete(`${environment.endpoint}/quest/${quest.id}/removeAdventure`)
+      .toPromise()
+  }
+
+  addToRaid(quest: Quest, raid: Raid): Promise<any> {
+    return this.http.post(`${environment.endpoint}/quest/${quest.id}/addRaid/${raid.id}`, null)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deleteFromRaid(quest: any): Promise<any> {
+    return this.http.delete(`${environment.endpoint}/quest/${quest.id}/removeRaid`)
       .toPromise()
   }
 

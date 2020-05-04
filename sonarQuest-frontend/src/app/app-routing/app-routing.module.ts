@@ -19,8 +19,7 @@ import { RaidPageComponent } from 'app/pages/raid-page/raid-page.component';
 
 
 const appRoutes: Routes = [
-  // canActivateChild: [AuthenticationGuard], 
-  {path: '', component: MainLayoutComponent, children: [
+  {path: '', component: MainLayoutComponent, canActivateChild: [AuthenticationGuard], children: [
       {path: '', redirectTo: RoutingUrls.myAvatar, pathMatch: 'full'},
       {path: RoutingUrls.start, component: StartPageComponent},
       {path: RoutingUrls.myAvatar, component: MyAvatarPageComponent},

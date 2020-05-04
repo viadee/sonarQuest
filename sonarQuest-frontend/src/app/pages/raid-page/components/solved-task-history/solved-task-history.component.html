@@ -1,19 +1,19 @@
-<mat-card class="history-swiper">
-    <h5 class="pt-4 pl-4 title">Verlauf abgeschlossene Aufträge:</h5>
+<mat-card class="history-swiper" *ngIf="historyList.length > 0">
+    <h5 class="pt-4 pl-4">Verlauf abgeschlossene Aufträge:</h5>
     <swiper [config]="swiperConfig" [index]="slideIndex">
         <div *ngFor="let history of historyList">
             <mat-card>
                 <mat-card-content class="d-flex flex-column align-items-center">
                     <div class="history-wrapper">
                         <div class="d-flex flex-row justify-content-around bar-wrapper" style="position: relative;" >
-                            <span class="task-history-bar solved-task-bar" matTooltip="{{history.solvedTasksForDay}} abgeschlossene Aufträge" [ngStyle]="{'height':  calculateHeight(history.solvedTasksForDay)}"></span>
-                            <span class="task-history-bar total-solved-task-bar" matTooltip="{{history.totalSolvedTasks}} insgesamt abgeschlossene Aufträge" [ngStyle]="{'height': calculateHeight(history.totalSolvedTasks)}"></span>
+                            <span class="task-history-bar solved-task-bar" matTooltip="Abgeschlossene Aufträge am Tag: {{history.solvedTasksForDay}}" [ngStyle]="{'height':  calculateHeight(history.solvedTasksForDay)}"></span>
+                            <!-- <span class="task-history-bar total-solved-task-bar" matTooltip="Insgesamt abgeschlossene Aufträge: {{history.totalSolvedTasks}}" [ngStyle]="{'height': calculateHeight(history.totalSolvedTasks)}"></span> -->
                         </div>
                         <div class="d-flex flex-row justify-content-around">
                             <span>{{history.date | date: 'dd/MM/yyyy'}}</span>
                         </div>
                         <div class="d-flex flex-row justify-content-around">
-                            <span matTooltip="{{history.totalSolvedTasks}}/{{amountOfTasks}} insgesamt abgeschlossenen Aufträgen" >{{history.totalSolvedTasks}}/{{amountOfTasks}}</span>
+                            <span matTooltip="{{history.totalSolvedTasks}}/{{amountOfTasks}} insgesamt abgeschlossene Aufträge" >{{history.totalSolvedTasks}}/{{amountOfTasks}}</span>
                         </div>
                     </div>
                 </mat-card-content>
@@ -23,7 +23,7 @@
     <div class="pb-3 pt-3" style="text-align: center;">
         <span class="solvedTaskLegend">&nbsp;</span>
         <span class="pl-1 pr-1">Abgeschlossene Aufträge am Tag</span>
-        <span class="totalSolvedTaskLegend">&nbsp;</span>
-        <span class="pl-1 pr-1">Insgesamt abgeschlossene Aufträge</span>
+        <!-- <span class="totalSolvedTaskLegend">&nbsp;</span>
+        <span class="pl-1 pr-1">Insgesamt abgeschlossene Aufträge</span> -->
     </div>
 </mat-card>

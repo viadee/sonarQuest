@@ -4,8 +4,7 @@ import { RaidService } from 'app/services/raid.service';
 import { BaseMonster } from './../../game-model/base-monster';
 import { Monster } from './../../Interfaces/Monster';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Task } from 'app/Interfaces/Task';
 import { EventService } from 'app/services/event.service';
@@ -23,7 +22,7 @@ export class RaidPageComponent implements OnInit, OnDestroy {
   public raidLeaderBoardList: RaidLeaderboard[] = [];
   private raidSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService, 
+  constructor(private route: ActivatedRoute, private router: Router, private raidService: RaidService,
     private eventService: EventService) { }
 
   ngOnDestroy(): void {
@@ -38,10 +37,10 @@ export class RaidPageComponent implements OnInit, OnDestroy {
   getRaid() {
     const id = this.route.snapshot.paramMap.get('id');
     this.raidSubscription = this.raidService.findRaidById(id).subscribe(resp => {
+      // Generate Monster from raiddto
       this.monster = new BaseMonster(resp.monsterName, resp.monsterImage,
       resp.raidProgress.totalAmount, resp.raidProgress.numberOfVariable, resp.raidProgress.calculatedProgress, resp.gold, resp.xp);
       this.raid = resp;
-      this.tasks = resp.tasks;
       this.raidLeaderBoardList = resp.raidLeaderboardList;
     });
   }

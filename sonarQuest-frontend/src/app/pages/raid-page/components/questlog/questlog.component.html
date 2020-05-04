@@ -6,19 +6,25 @@
                 [style.background-image]="'url(' + questImage.src + ')'">
             </div>
             <div class="questlog-quest-info p-2 w-100">
-                <p class="quest-title" matTooltip="{{quest.story}}">{{ quest.title }}</p>
+                <h5 matTooltip="{{quest.story}}">{{ quest.title }}</h5>
                 <div class="quest-progress-bar w-100" matTooltip="Quest zu {{ quest.questProgress }}% gelöst">
                     <div class="quest-progress" [style.width]="quest.questProgress + '%'"></div>
                 </div>
                 <p mat-line>
-                <span *ngIf="quest.participants.includes(user.username)">Du hast die Quest angenommen!</span>
+                    <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span class="p-1">{{quest?.gold}}</span>
+                    <i mat-list-icon class="ra ra-perspective-dice-random ra-lg"></i><span
+                        class="p-1">{{quest?.xp}}</span>
+                    <button mat-icon-button (click)="viewQuest(quest)"
+                        [matTooltip]="'QUEST_PAGE.SHOW_QUEST' | translate" [matTooltipClass]="'tooltipMultiline'"
+                        matTooltipPosition="below" class="ra ra-quill-ink ra-2x">
+                    </button>
                 </p>
             </div>
         </div>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Aufträge:
+                    Quest Aufträge:
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-tasklog [quest]="quest" [taskList]="quest.tasks">

@@ -33,7 +33,12 @@ export class SonarQubeService {
     return this.http.post<boolean>(url, sonarQubeConfig).toPromise();
   }
 
+  public getDashboardLink(world: World): Promise<string> {
+    return this.getConfig().then(config => this.createDashboardLink(world, config));
+  }
 
-
+  private createDashboardLink(world: World, config: SonarQubeConfig): string {
+    return config.sonarServerUrl + '/dashboard?id=' + world.project;
+  }
 
 }

@@ -1,6 +1,6 @@
 <mat-card *ngFor="let task of taskList">
     <div class="questlog-quest-info p-2">
-        <p [class.strikethrough]="task.status==='SOLVED'" class="quest-title" matTooltip="{{task.title}}">{{ task.title }}</p>
+        <p [class.strikethrough]="task.status !== 'OPEN'" class="quest-title" matTooltip="Status: {{task.status}}">{{ task.title }}</p>
         <p mat-line>
             <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span>{{task?.gold}}</span>
             <i mat-list-icon class="ra ra-perspective-dice-random ra-lg"></i><span>{{task?.xp}}</span>
@@ -10,13 +10,13 @@
             [matTooltipClass]="'tooltipMultiline'" matTooltipPosition="after">
             <i class="ra ra-chain ra-2x"></i>
         </button>
-        <button mat-icon-button (click)="addParticipation(task)" *ngIf="!task.participant && task.status !== 'SOLVED'"
+        <button mat-icon-button (click)="addParticipation(task)" *ngIf="!task.participant && task.status === 'OPEN'"
             [matTooltip]="'QUEST_PAGE.JOIN_ISSUE_TOOLTIP' | translate" [matTooltipClass]="'tooltipMultiline'"
             matTooltipPosition="after">
             <i class="ra ra-sword ra-2x"></i>
         </button>
         <button mat-icon-button (click)="removeParticipation(task)"
-            *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status !== 'SOLVED'"
+            *ngIf="participatingDeveloperIsLoggedInDeveloper(task) && task.status === 'OPEN'"
             [matTooltip]="'QUEST_PAGE.CANCEL_ISSUE_TOOLTIP' | translate" [matTooltipClass]="'tooltipMultiline'"
             matTooltipPosition="after">
             <mat-icon mat-list-icon>clear</mat-icon>

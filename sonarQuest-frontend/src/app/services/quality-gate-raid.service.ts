@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HighScore } from './../Interfaces/HighScore';
 import { environment } from 'environments/environment';

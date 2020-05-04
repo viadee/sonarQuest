@@ -31,6 +31,7 @@ export class MainLayoutComponent implements OnInit {
   public myAvatarUrl = RoutingUrls.myAvatar;
   public adventuresUrl = RoutingUrls.adventures;
   public raidsUrl = RoutingUrls.raids;
+  public qualityGateRaidUrl = RoutingUrls.qualitygate;
   public questsUrl = RoutingUrls.quests;
   public marketplaceUrl = RoutingUrls.marketplace;
   public gamemasterUrl = RoutingUrls.gamemaster;
@@ -45,6 +46,8 @@ export class MainLayoutComponent implements OnInit {
   public isGamemasterVisible: boolean;
   public isAdminVisible: boolean;
   public isEventVisible: boolean;
+  public isRaidsVisible: boolean;
+  public isQualityGateRaidVisible: boolean;
 
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
@@ -108,6 +111,8 @@ export class MainLayoutComponent implements OnInit {
     this.isWorldSelectVisible = enable;
     this.isMyAvatarVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.myAvatar);
     this.isAdventuresVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.adventures);
+    this.isRaidsVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.raids);
+    this.isQualityGateRaidVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.qualitygate);
     this.isQuestsVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.quests);
     this.isMarketplaceVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.marketplace);
     this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);

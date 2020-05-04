@@ -39,12 +39,20 @@ export class WebsocketService {
     this.stompClient.connect({}, function(frame) {
       this.chatStomp = that.stompClient.subscribe('/chat', message => {
         const eventUserDto: EventUserDto = JSON.parse(message.body);
-        that.eventService.addEvent(eventUserDto);
-      });
-    });
-    this.stompClient.connect({}, function(frame) {
-      this.chatStomp = that.stompClient.subscribe('/raid', raid => {
-        that.eventService.eventUpdateTask();
+
+        // TODO: Refactoring this! Issue: https://github.com/viadee/sonarQuest/issues/266
+        let isTaskEvent = false;
+        eventUserDto.eventDtos.forEach(dto => {
+          if (dto.type === 'TASK') {
+              that.eventService.eventUpdateTask();
+              isTaskEvent = true;
+              return;
+          }
+        });
+
+        if (!isTaskEvent) {
+          that.eventService.addEvent(eventUserDto);
+        }
       });
     });
   }

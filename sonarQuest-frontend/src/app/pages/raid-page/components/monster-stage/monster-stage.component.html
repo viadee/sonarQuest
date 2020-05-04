@@ -10,7 +10,7 @@
                 <div class="monster-info-health pr-2" [style.width]="monsterProgressStyleWidth"></div>
             </div>
         </div>
-        <mat-card class="monster-info-heading rounded-top p-1">
+        <mat-card class="monster-info-heading rounded-top p-1" matTooltip="Belohnung wird anteilig (nach XP) verteilt!">
             Belohnung: 
             <i mat-list-icon class="ra ra-gold-bar ra-lg"></i><span class="p-1">{{monster?.gold}}</span>
             <i mat-list-icon class="ra ra-perspective-dice-random ra-lg"></i><span class="p-1">{{monster?.xp}}</span>

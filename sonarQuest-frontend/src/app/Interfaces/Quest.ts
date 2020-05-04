@@ -1,3 +1,4 @@
+import { Raid } from './Raid';
 import {World} from './World';
 import {Task} from './Task';
 import {Participation} from './Participation';
@@ -18,6 +19,7 @@ export interface Quest {
   enddate: Date,
   world: World,
   adventure: Adventure,
+  raid: Raid,
   tasks: Task[];
   participations: Participation[];
   participants: string[];

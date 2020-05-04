@@ -2,9 +2,6 @@
   <mat-card>
     <mat-tab-group (selectedTabChange)="onTabChange($event)">
       <mat-tab [label]="'RAID.RAIDS' | translate">
-        <app-gamemaster-quality-gate></app-gamemaster-quality-gate>
-      </mat-tab>
-      <mat-tab [label]="'RAID.RAIDS' | translate">
         <app-gamemaster-raid></app-gamemaster-raid>
       </mat-tab>
       <mat-tab [label]="'ADVENTURE.ADVENTURES' | translate">
@@ -15,6 +12,9 @@
       </mat-tab>
       <mat-tab [label]="'TASK.TASKS' | translate">
         <app-gamemaster-task></app-gamemaster-task>
+      </mat-tab>
+      <mat-tab [label]="'QualityGateRaid.QualityGateRaid' | translate">
+        <app-gamemaster-quality-gate></app-gamemaster-quality-gate>
       </mat-tab>
       <div *ngIf="isMarketplaceVisible">
         <mat-tab [label]="'APP_COMPONENT.MARKETPLACE' | translate">

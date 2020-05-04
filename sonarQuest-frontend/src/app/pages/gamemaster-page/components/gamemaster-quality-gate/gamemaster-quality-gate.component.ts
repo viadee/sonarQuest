@@ -22,19 +22,15 @@ import { QualityGateRaidService } from 'app/services/quality-gate-raid.service';
 })
 export class GamemasterQualityGateComponent implements OnInit {
   raid: QualityGateRaid;
-  conditions: Condition[];
   world: World;
-
+  images: any[];
   data: any[] = [];
   columns: ITdDataTableColumn[] = [
     {name: 'id', label: 'Id'},
     {name: 'title', label: 'Title', width: 200},
-    {name: 'gold', label: 'Gold'},
-    {name: 'xp', label: 'XP'},
     {name: 'status', label: 'Status'}
   ];
 
-  filteredData: any[] = this.data;
   constructor(private worldService: WorldService, private qualityGateService: QualityGateRaidService) { }
 
   ngOnInit() {
@@ -42,22 +38,29 @@ export class GamemasterQualityGateComponent implements OnInit {
       this.world = world;
     });
     this.loadQualityGateRaid();
+    this.loadMonsterImages();
   }
 
   loadQualityGateRaid() {
+    const _this = this;
     return this.qualityGateService.findByWorld(this.world.id).subscribe(raid => {
-      this.raid = raid;
+      _this.raid = raid;
+      _this.data = raid.conditions;
     });
-  }
-
-  newQualityGateRaid() {
-    this.raid = new QualityGateRaidModel(this.world);
-    this.updateQualityGateRaid();
   }
 
   updateQualityGateRaid() {
     this.qualityGateService.updateQualityGateRaid(this.raid).subscribe(raid => {
       this.raid = raid;
     });
+  }
+
+  loadMonsterImages() {
+    this.images = [];
+    for (let i = 0; i < 3; i++) {
+      this.images[i] = {};
+      this.images[i].src = 'assets/images/monster/monster' + (i + 1) + '.png';
+      this.images[i].name = 'monster' + (i + 1);
+    }
   }
 }

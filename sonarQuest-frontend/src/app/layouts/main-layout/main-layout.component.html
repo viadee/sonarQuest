@@ -33,15 +33,15 @@
       <mat-divider mat-inset></mat-divider>
     </div>
 
-    <div>
-      <a mat-list-item routerLink="/raids">
+    <div *ngIf="isRaidsVisible">
+      <a mat-list-item routerLink="/{{raidsUrl}}">
         <i mat-list-icon class="ra ra-monster-skull ra-lg navlist"></i>
         <h3 mat-line>{{"APP_COMPONENT.RAIDS"| translate}} </h3>
       </a>
       <mat-divider mat-inset></mat-divider>
     </div>
-    <div>
-      <a mat-list-item routerLink="/qualitygate">
+    <div *ngIf="isQualityGateRaidVisible">
+      <a mat-list-item routerLink="/{{qualityGateRaidUrl}}">
         <i mat-list-icon class="ra ra-metal-gate ra-lg navlist"></i>
         <h3 mat-line> Quality Gate </h3>
       </a>

@@ -13,7 +13,7 @@ export class AuthenticationGuard implements CanActivateChild {
   }
 
   canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-        return this.authenticate(next.url.toString());
+        return this.authenticate(next.url[0].toString());
   }
 
   authenticate(nextUrl: string): boolean | Promise<boolean> {

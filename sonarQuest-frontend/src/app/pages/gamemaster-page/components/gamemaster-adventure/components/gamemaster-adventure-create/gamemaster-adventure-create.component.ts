@@ -1,4 +1,3 @@
-import { RaidService } from './../../../../../../services/raid.service';
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {GamemasterAdventureComponent} from '../../gamemaster-adventure.component';
@@ -32,8 +31,7 @@ export class GamemasterAdventureCreateComponent implements OnInit {
               private questService: QuestService,
               private adventureService: AdventureService,
               private dialogRef: MatDialogRef<GamemasterAdventureComponent>,
-              private worldService: WorldService,
-              private raidService: RaidService) {
+              private worldService: WorldService) {
   }
 
   ngOnInit() {

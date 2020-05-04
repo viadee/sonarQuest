@@ -125,8 +125,8 @@ import { RaidListPageComponent } from './pages/raid-list-page/raid-list-page.com
 import { TasklogComponent } from './pages/raid-page/components/tasklog/tasklog.component';
 import { QualitygatePageComponent } from './pages/qualitygate-page/qualitygate-page.component';
 import { GamemasterQualityGateComponent } from './pages/gamemaster-page/components/gamemaster-quality-gate/gamemaster-quality-gate.component';
-import { RaidHighscoreComponent } from './pages/raid-page/components/raid-highscore/raid-highscore.component';
 import { SolvedTaskHistoryComponent } from './pages/raid-page/components/solved-task-history/solved-task-history.component';
+import { RaidLeaderboardComponent } from './pages/raid-page/components/raid-leaderboard/raid-leaderboard.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -193,8 +193,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TasklogComponent,
     QualitygatePageComponent,
     GamemasterQualityGateComponent,
-    RaidHighscoreComponent,
-    SolvedTaskHistoryComponent
+    SolvedTaskHistoryComponent,
+    RaidLeaderboardComponent
   ],
   entryComponents: [
     EditWorldComponent,

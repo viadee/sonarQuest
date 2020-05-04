@@ -33,12 +33,15 @@ export class RaidListPageComponent implements OnInit, OnDestroy {
   }
 
   loadRaids() {
-    this.raidSub = this.raidService.findAllRaidsByWorld(this.world.id).subscribe(raids => {
+    this.raidSub = this.raidService.findAllVisibleRaidsByWorld(this.world.id).subscribe(raids => {
       raids.forEach(raid => {
-        raid.monster = new BaseMonster(raid.monsterName, raid.monsterImage,
-        raid.raidProgress.totalAmount, raid.raidProgress.numberOfVariable, raid.raidProgress.calculatedProgress, raid.gold, raid.xp);
         this.raids.push(raid);
       });
     });
+  }
+
+  createMonster(raid: any) {
+    return new BaseMonster(raid.monsterName, raid.monsterImage,
+      raid.raidProgress.totalAmount, raid.raidProgress.numberOfVariable, raid.raidProgress.calculatedProgress, raid.gold, raid.xp);
   }
 }

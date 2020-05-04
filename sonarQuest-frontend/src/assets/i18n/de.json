@@ -95,7 +95,8 @@
     },
     "RAID": {
       "CREATE_RAID": "Raid anlegen",
-      "EDIT_RAID": "Raid bearbeiten"
+      "EDIT_RAID": "Raid bearbeiten",
+      "EDIT_SOLVED_RAID": "Dieses Raid ist gelöst. Du kannst es nicht mehr bearbeiten."
     },
     "QUEST": {
       "SUGGEST_TASKS": "Auftrag vorschlagen",
@@ -202,11 +203,24 @@
   "RAID": {
     "RAID": "Raid",
     "RAIDS": "Raids",
+    "SHOW_RAID": "Raid anzeigen",
     "NEW_RAID": "Neues Raid",
     "SOLVERAID": "Raid abschließen",
     "GOLDLOSS": "Gold verlust bei nicht bestehen",
     "XPLOSS": "XP verlust bei nicht bestehen",
-    "DESCRIPTION": "Beschreibung"
+    "DESCRIPTION": "Beschreibung",
+    "VISIBLE": "Sichtbar",
+    "TOOLTIP_VISIBLE": "Dieses Raid bei den Spielern sichtbar machen?"
+  },
+  "QualityGateRaid": {
+    "QualityGateRaid": "Quality Gate Raid",
+    "SHOW_DASHBOARD_TOOLTIP": "Zeige SonarQube Dashboard",
+    "Conditions": "Bedingungen",
+    "Status": {
+      "ERROR": "Failed",
+      "OK": "Passed",
+      "Warn": "Warning"
+    }
   },
   "WORLD": {
     "WORLD": "Welt",

@@ -1,20 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RaidLeaderboard } from 'app/Interfaces/RaidLeaderboard';
 import { ITdDataTableColumn } from '@covalent/core';
+import { UserService } from 'app/services/user.service';
+import { ImageService } from 'app/services/image.service';
 
 @Component({
-  selector: 'app-raid-highscore',
-  templateUrl: './raid-highscore.component.html',
-  styleUrls: ['./raid-highscore.component.css']
+  selector: 'app-raid-leaderboard',
+  templateUrl: './raid-leaderboard.component.html',
+  styleUrls: ['./raid-leaderboard.component.css']
 })
-export class RaidHighscoreComponent implements OnInit {
-
+export class RaidLeaderboardComponent implements OnInit {
   @Input()
-  raidHighScores: RaidLeaderboard[];
+  raidLeaderboard: RaidLeaderboard[];
 
   columns: ITdDataTableColumn[] = [
     { name: 'user.username', label: 'Name' },
-    { name: 'scoreSolvedTasks', label: 'Anzahl Aufträge' },
     { name: 'scoreXp', label: 'XP' },
     { name: 'scoreGold', label: 'Gold' }
   ]
@@ -23,5 +23,4 @@ export class RaidHighscoreComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
