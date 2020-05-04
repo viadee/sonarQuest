@@ -111,8 +111,6 @@ export class EventService implements OnChanges {
       ((eDto.type != "MESSAGE" && eDto.title == localEventDtos[0].title) || (eDto.type == "MESSAGE" && eDto.userId == localEventDtos[0].userId))))[0]
 
     if (eventDto != null) {
-      console.log(eventUserDto.eventDtos[0])
-      console.log(eventDto)
       eventUserDto.eventDtos[0].image = eventDto.image
     } else if (localEventDtos[0].type == "MESSAGE") {
       localUserDtos.forEach((userDto: UserDto) => {
