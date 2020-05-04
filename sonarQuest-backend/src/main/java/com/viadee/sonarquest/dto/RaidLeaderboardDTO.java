@@ -7,22 +7,20 @@ import com.viadee.sonarquest.entities.UserDto;
 
 public class RaidLeaderboardDTO {
 	private Date scoreDay;
-	private Long scoreSolvedTasks;
 	private Long scoreGold;
 	private Long scoreXp;
 	private UserDto user;
 	
 	public RaidLeaderboardDTO(RaidLeaderboard leaderBoard) {
 		this(leaderBoard.getScoreGold(), leaderBoard.getScoreXp(), new UserDto(leaderBoard.getUser()),
-				leaderBoard.getScoreDay(), leaderBoard.getScoreSolvedTasks());
+				leaderBoard.getScoreDay());
 	}
 
-	public RaidLeaderboardDTO(Long scoreGold, Long scoreXp, UserDto user, Date scoreDay, Long scoreSolvedTasks) {
+	public RaidLeaderboardDTO(Long scoreGold, Long scoreXp, UserDto user, Date scoreDay) {
 		this.scoreGold = scoreGold;
 		this.scoreXp = scoreXp;
 		this.user = user;
 		this.scoreDay = scoreDay;
-		this.scoreSolvedTasks = scoreSolvedTasks;
 	}
 
 	public Long getScoreGold() {
@@ -55,14 +53,6 @@ public class RaidLeaderboardDTO {
 
 	public void setScoreDay(Date scoreDay) {
 		this.scoreDay = scoreDay;
-	}
-
-	public Long getScoreSolvedTasks() {
-		return scoreSolvedTasks;
-	}
-
-	public void setScoreSolvedTasks(Long scoreSolvedTasks) {
-		this.scoreSolvedTasks = scoreSolvedTasks;
 	}
 
 }

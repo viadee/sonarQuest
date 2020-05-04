@@ -36,6 +36,9 @@ public class StandardTaskService {
 
     @Autowired
     private AdventureService adventureService;
+    
+    @Autowired
+	private RaidService raidService;
 
     @Autowired
     private WorldRepository worldRepository;
@@ -45,6 +48,8 @@ public class StandardTaskService {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
+    
+
 
     @Transactional
     public void updateStandardTasks(final World world) {
@@ -53,6 +58,7 @@ public class StandardTaskService {
         externalStandardTasks.forEach(this::updateStandardTask);
         questService.updateQuests();
         adventureService.updateAdventures();
+        raidService.updateRaids();
     }
 
     @Transactional

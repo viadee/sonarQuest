@@ -34,7 +34,7 @@ public class TaskService {
 	private AdventureService adventureService;
 	
 	@Autowired
-	private RaidLeaderboardService raidLeaderboardService;
+	private RaidService raidService;
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestStatus.OPEN);
@@ -65,7 +65,8 @@ public class TaskService {
 			gratificationService.rewardUserForSolvingTask(task);
 			questService.updateQuest(task.getQuest());
 			adventureService.updateAdventure(task.getQuest().getAdventure());
-			raidLeaderboardService.updateLeaderboard(task);
+			raidService.updateRaidStatus(task.getQuest().getRaid());
+			
 		}
 	}
 
@@ -82,7 +83,7 @@ public class TaskService {
 			}
 			questService.updateQuest(quest);
 			adventureService.updateAdventure(quest.getAdventure());
-			raidLeaderboardService.updateLeaderboard(quest);
+			raidService.updateRaidStatus(quest.getRaid());
 		}
 	}
 }

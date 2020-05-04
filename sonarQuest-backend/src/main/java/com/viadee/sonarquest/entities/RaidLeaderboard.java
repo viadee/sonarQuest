@@ -11,10 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.viadee.sonarquest.interfaces.LeaderboardScore;
 
 @Entity
 @Table
-public class RaidLeaderboard implements Comparable<RaidLeaderboard> {
+public class RaidLeaderboard implements Comparable<RaidLeaderboard>, LeaderboardScore {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -22,13 +23,10 @@ public class RaidLeaderboard implements Comparable<RaidLeaderboard> {
 	@Column(name = "scoreDay")
 	private Date scoreDay;
 	
-	@Column(name = "scoreSolvedTasks")
-	private Long scoreSolvedTasks;
-
-	@Column
+	@Column(name = "scoreGold")
 	private Long scoreGold;
 
-	@Column
+	@Column(name = "scoreXp")
 	private Long scoreXp;
 
 	@JsonIgnore
@@ -68,6 +66,14 @@ public class RaidLeaderboard implements Comparable<RaidLeaderboard> {
 	public User getUser() {
 		return user;
 	}
+	
+	
+	public String getUsername() {
+		if(user==null)
+			return "";
+		return user.getUsername();
+	}
+	
 
 	public void setUser(User user) {
 		this.user = user;
@@ -111,21 +117,6 @@ public class RaidLeaderboard implements Comparable<RaidLeaderboard> {
 
 	public void setScoreDay(Date scoreDay) {
 		this.scoreDay = scoreDay;
-	}
-
-	public Long getScoreSolvedTasks() {
-		return scoreSolvedTasks;
-	}
-
-	public void setScoreSolvedTasks(Long solvedTasks) {
-		this.scoreSolvedTasks = solvedTasks;
-	}
-
-	public void addScoreSolvedTasks(long scorePoints) {
-		if(this.scoreSolvedTasks==null) {
-			this.scoreSolvedTasks = 0l;
-		}
-		this.scoreSolvedTasks += scorePoints;
 	}
 
 	@JsonIgnore

@@ -84,30 +84,29 @@ public class RaidService {
 		}
 		
 		raidDAO.updateBaseRaid(raid);
-
-		boolean isRaidSolved = verifyRaidIsSolved(raidDAO);
-		// Rewarding user for solved raid
-		if (isRaidSolved && RaidState.OPEN.equals(raidDAO.getStatus())) {
-			gratificationService.rewardUsersForSolvingRaid(raidDAO);
-			raidDAO.setStatus( RaidState.SOLVED);
-		}
+		updateRaidStatus(raidDAO);
 		
 		return saveRaid(raidDAO);
 	}
 	
-	/**
-	 * Verify raid status= SOLVED
-	 * 
-	 * @param raid
-	 * @return true = if all quests from raid are solved
-	 */
-	private boolean verifyRaidIsSolved(final Raid raid) {
-		final List<Quest> quests = raid.getQuests();
-		final List<Quest> solvedQuests = questRepository.findByRaidAndStatus(raid, QuestState.SOLVED);
-		if (quests.size() == solvedQuests.size()) {
-			return true;
+	
+	
+	public void updateRaids() {
+		final List<Raid> raids = raidRepository.findAll();
+		raids.forEach(this::updateRaidStatus);
+	}
+
+	@Transactional // Raid updates are not to be mixed
+	public synchronized void updateRaidStatus(final Raid raid) {
+		if (raid != null && RaidState.OPEN.equals(raid.getStatus())) {
+			final List<Quest> quests = raid.getQuests();
+			final List<Quest> solvedQuests = questRepository.findByRaidAndStatus(raid, QuestState.SOLVED);
+			if (quests.size() == solvedQuests.size()) {
+				gratificationService.rewardUsersForSolvingRaid(raid);
+				raid.setStatus(RaidState.SOLVED);
+				saveRaid(raid);
+			}
 		}
-		return false;
 	}
 	
 	/**

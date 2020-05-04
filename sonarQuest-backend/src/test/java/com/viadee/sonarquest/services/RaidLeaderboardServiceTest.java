@@ -59,8 +59,7 @@ public class RaidLeaderboardServiceTest {
 			@Override
 			public boolean matches(Object argument) {
 				RaidLeaderboard history = (RaidLeaderboard) argument;
-				return scoreSolvedTasks.equals(history.getScoreSolvedTasks()) && gold.equals(history.getScoreGold())
-						&& xp.equals(history.getScoreXp());
+				return gold.equals(history.getScoreGold()) && xp.equals(history.getScoreXp());
 			}
 		};
 		return matcher;
