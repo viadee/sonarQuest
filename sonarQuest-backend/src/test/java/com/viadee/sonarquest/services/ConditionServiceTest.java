@@ -48,7 +48,7 @@ public class ConditionServiceTest {
 		
 		assertEquals("LT", result.get(0).getComparator());
 		assertEquals("METRICKEY", result.get(0).getMetricKey());
-		assertEquals("METRICKEY is lower than 3.0", result.get(0).getTitle());
+		assertEquals("METRICKEY is less than 3.0", result.get(0).getTitle());
 		assertTrue(SonarQuestStatus.CLOSED.equals(result.get(0).getStatus()));
 	}
 	

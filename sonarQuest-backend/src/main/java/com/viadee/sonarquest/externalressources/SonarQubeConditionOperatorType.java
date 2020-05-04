@@ -38,7 +38,7 @@ public enum SonarQubeConditionOperatorType {
 		case NE:
 			return "is not";
 		case LT: 
-			return "is lower than";
+			return "is less than";
 		case GT:
 			return "is greater than";
 		default:
