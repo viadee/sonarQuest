@@ -86,7 +86,7 @@ public class RaidController {
 	
 	@GetMapping(value = "/getSolvedTaskHistoryList/{id}")
 	public List<SolvedTaskHistoryDTO> getSolvedTaskHistoryList(@PathVariable(value = "id") final Long raidId) {
-		return raidService.getSolvedTaskHistoryList(raidId);
+		return raidService.getSolvedTaskHistory(raidId);
 	}
 
 }

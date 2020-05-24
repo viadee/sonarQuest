@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,8 +27,6 @@ import com.viadee.sonarquest.interfaces.Reward;
  */
 @Entity
 @Table(name = "quality_gate_raid")
-@Audited
-@AuditOverride(forClass = Auditable.class, name = "updated", isAudited = true)
 public class QualityGateRaid extends BaseRaid implements HighScore, Reward {
 
 	@Enumerated(EnumType.STRING)
@@ -50,13 +46,6 @@ public class QualityGateRaid extends BaseRaid implements HighScore, Reward {
 	private List<Condition> conditions;
 	
 	
-	/**
-	 * Field names sonarQubeStatusField, udatedField to find audit entry!
-	 * @see QualityGateHighScoreService.findQualityGateRaidAuditByIdAndStatusOrderByUpdated
-	 */
-	@JsonIgnore
-	public final static String sonarQubeStatusField = "sonarQubeStatus", udatedField = "updated";
-
 	public QualityGateRaid() {
 		super();
 	}

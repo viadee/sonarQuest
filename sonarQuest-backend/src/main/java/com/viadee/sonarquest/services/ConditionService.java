@@ -81,6 +81,7 @@ public class ConditionService {
 			lastCondition.setActualValue(condition.getActualValue());
 			lastCondition.setErrorThreshold(condition.getErrorThreshold());
 			lastCondition.setComparator(condition.getComparator());
+			lastCondition.setStatus(condition.getStatus());
 		}else {
 			lastCondition = condition;
 		}

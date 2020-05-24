@@ -23,8 +23,8 @@ public class SolvedTaskHistoryServiceTest {
 	private SolvedTaskHistoryService underTest;
 
 	@Test
-	public void calculateFinishedTaskHistory() {
-		// Given
+	public void calculateFinishedTaskProgress() {
+		// Given: Solved Tasks: 2 today, 1 yesterday, 1 for 4 Days 
 		LocalDate todayLocalDate = LocalDate.now();
 		Date yesterday = Date.valueOf(todayLocalDate.minusDays(1));
 		Date today = Date.valueOf(todayLocalDate);
@@ -48,7 +48,7 @@ public class SolvedTaskHistoryServiceTest {
 	}
 
 	@Test
-	public void getSolvedTaskHistory_verifyHistory() {
+	public void getSolvedTaskProgress_verifyProgress() {
 		// Given
 		final LocalDate todayLocalDate = LocalDate.now();
 		final Date today = Date.valueOf(todayLocalDate);

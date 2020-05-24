@@ -13,6 +13,7 @@ import com.viadee.sonarquest.entities.QualityGateRaidRewardHistory;
 import com.viadee.sonarquest.entities.World;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatus;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
+import com.viadee.sonarquest.interfaces.HighScore;
 import com.viadee.sonarquest.repositories.QualityGateRaidRepository;
 
 @Service
@@ -29,9 +30,6 @@ public class QualityGateRaidService {
 	private QualityGateRaidRewardHistoryService qualityGateRaidRewardHistoryService;
 
 	@Autowired
-	private QualityGateHighScoreService qualityGateHighScoreService;
-	
-	@Autowired
 	private WorldService worldService;
 
 	@Autowired
@@ -46,7 +44,9 @@ public class QualityGateRaidService {
 		QualityGateRaid qualityGateRaidDAO = qualityGateRaidRepository.save(raid);
 
 		qualityGateRaidRewardHistoryService.updateQualityGateRaidRewardHistory(raid);
-		qualityGateHighScoreService.updateQualityGateHighScore(qualityGateRaidDAO);
+		
+		HighScore numberOfErrorFreeDaysScore = qualityGateRaidRewardHistoryService.findHighScoreNumberOfErrorFreeDays(raid.getId());
+		qualityGateRaidDAO.updateHighScore(numberOfErrorFreeDaysScore.getScoreDay(), numberOfErrorFreeDaysScore.getScorePoints());
 		
 		qualityGateRaidRepository.flush();
 		return qualityGateRaidDAO;
@@ -80,6 +80,13 @@ public class QualityGateRaidService {
 		savedRaid.updateBaseRaid(raid);
 		updateQualityGateStatusAndConditions(savedRaid);
 		return savedRaid;
+	}
+	
+	public void updateAllQualityGates() {
+		List<QualityGateRaid> qualityGates = qualityGateRaidRepository.findAll();
+		qualityGates.forEach(gate -> {
+			updateQualityGateStatusAndConditions(gate);
+		});
 	}
 
 	/**
@@ -149,27 +156,27 @@ public class QualityGateRaidService {
 	// ------------------------------------------------------------------------
 	
 	/**
-	 * Update QualityGateRaids every hour
+	 * Update QualityGateRaids every hour (from 6-22 o'clock) 
 	 */
-	@Scheduled(cron="0 0 * * * *")
+	@Scheduled(cron="0 0/30 6-22 * * MON-FRI")
 	protected void updateAllQualityGatesScheduled() {
 		LOGGER.info("Update all QualityGateRaids scheduled: ...");
-		List<QualityGateRaid> qualityGates = qualityGateRaidRepository.findAll();
-		qualityGates.forEach(gate -> {
-			updateQualityGateStatusAndConditions(gate);
-		});
+		updateAllQualityGates();
 	}
 	
 	/**
 	 * Reward all users of a world at midnight for PASSED QualityGateRaid
 	 */
-	@Scheduled(cron="0 0 0 * * *" )
+	@Scheduled(cron="0 0 0 * * MON-FRI" )
 	protected void rewardUserForPassedGate() {
-		List<QualityGateRaidRewardHistory> rewardHistoryList = qualityGateRaidRewardHistoryService.findQualityGateRaidRewardHistoriesByStatusDate(LocalDate.now());
+		LOGGER.info("Update all QualityGateRaids reward scheduled: ...");
+		List<QualityGateRaidRewardHistory> rewardHistoryList = qualityGateRaidRewardHistoryService.findAllQualityGateRaidRewardsByStatusDate(LocalDate.now().minusDays(1)); // find from yesterday
 		rewardHistoryList.forEach(reward -> {
 			if(!SonarQubeProjectStatusType.ERROR.equals(reward.getSonarQubeStatus())) { // Reward user for Passed QualityGateRaid
 				gratificationService.rewardUsersForPassedQualityGate(reward.getRaid().getWorld(), reward);
 			}
 		});
+		
+		updateAllQualityGates();
 	}
 }

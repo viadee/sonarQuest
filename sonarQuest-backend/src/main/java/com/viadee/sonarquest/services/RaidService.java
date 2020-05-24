@@ -35,7 +35,7 @@ public class RaidService {
 	private WorldService worldService;
 	
 	@Autowired
-	private SolvedTaskHistoryService solvedTaskHistoryService;
+	private SolvedTaskHistoryService solvedTaskProgressService;
 	
 	@Autowired
 	private GratificationService gratificationService;
@@ -168,16 +168,16 @@ public class RaidService {
 	 * @param raidId to find raid
 	 * @return List<SolvedTaskHistoryDTO>
 	 */
-	public List<SolvedTaskHistoryDTO> getSolvedTaskHistoryList(final Long raidId){
+	public List<SolvedTaskHistoryDTO> getSolvedTaskHistory(final Long raidId){
 		Raid raid = raidRepository.findOne(raidId);
 		if(raid==null)
-			new BackendServiceRuntimeException("Could not calculate finishedTaskHistory!", new NullPointerException());
+			new BackendServiceRuntimeException("Could not calculate solved tasks - raid is null!", new NullPointerException());
 		
 		List<Task> tasks = new ArrayList<Task>();
 		raid.getQuests().stream().forEach(quest -> {
 			tasks.addAll(quest.getTasks());
 		});
 		
-		return solvedTaskHistoryService.getSolvedTaskHistory(tasks);
+		return solvedTaskProgressService.getSolvedTaskHistory(tasks);
 	}
 }
