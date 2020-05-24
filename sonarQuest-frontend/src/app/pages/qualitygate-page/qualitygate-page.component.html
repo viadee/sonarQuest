@@ -2,13 +2,15 @@
     <div class="row h-80" *ngIf="raid">
         <div class="col-12 col-md-3 p-0 h-70">
             <mat-card>
-                <h4 style="text-align: center;">SonarQube Bedingungen:</h4>           
+                <h4 style="text-align: center;">SonarQube Bedingungen:</h4>
             </mat-card>
             <div *ngFor="let condition of conditionList">
                 <mat-card>
                     <div class="d-flex justify-content-start align-items-center">
-                        <em *ngIf="condition.status=='OPEN'" mat-list-icon class="ra ra-player-shot ra-3x" [matTooltip]="'Condition Failed'"></em>
-                        <em *ngIf="condition.status=='CLOSED'" mat-list-icon class="ra ra-shield ra-3x" [matTooltip]="'Condition Passed'"></em>
+                        <em *ngIf="condition.status=='OPEN'" mat-list-icon class="ra ra-player-shot ra-3x"
+                            [matTooltip]="'Condition Failed'"></em>
+                        <em *ngIf="condition.status=='CLOSED'" mat-list-icon class="ra ra-shield ra-3x"
+                            [matTooltip]="'Condition Passed'"></em>
                         <div class="condition-info p-2">
                             <p class="condition-title">{{ condition.title }}</p>
                             <p> Aktuell: {{condition.actualValue}}</p>
@@ -23,13 +25,17 @@
                 <img *ngIf="raid.sonarQubeStatus=='ERROR'" [src]="raid.monsterImage" alt="monster">
                 <div class="monster-info">
                     <mat-card class="monster-info-heading rounded-top p-1">
-                        <h4 matLine (click)="openDashboard()" [matTooltip]="'QualityGateRaid.SHOW_DASHBOARD_TOOLTIP' | translate" class="condition-header">
+                        <h4 matLine (click)="openDashboard()"
+                            [matTooltip]="'QualityGateRaid.SHOW_DASHBOARD_TOOLTIP' | translate"
+                            class="condition-header">
                             Quality Gate {{qualityGateStatus}}
                         </h4>
-                        <p matLine *ngIf="raid.sonarQubeStatus=='OK'">
+                        <p matLine *ngIf="raid.sonarQubeStatus=='OK'" [matTooltip]="'Belohnung wird am Ende des Tages ausgezahlt!'">
                             Belohnung je fehlerfreien Tag:
-                            <em mat-list-icon class="ra ra-gold-bar ra-lg"></em><span class="p-1">+ {{raid?.gold}}</span>
-                            <em mat-list-icon class="ra ra-perspective-dice-random ra-lg"></em><span class="p-1">+ {{raid?.xp}}</span>
+                            <em mat-list-icon class="ra ra-gold-bar ra-lg"></em><span class="p-1">+
+                                {{raid?.gold}}</span>
+                            <em mat-list-icon class="ra ra-perspective-dice-random ra-lg"></em><span class="p-1">+
+                                {{raid?.xp}}</span>
                         </p>
                     </mat-card>
                 </div>
@@ -40,15 +46,17 @@
                     <div class="cards-container" *ngFor="let history of rewardHistoryList">
                         <mat-card>
                             <mat-card-content class="d-flex flex-column align-items-center">
-                                <img *ngIf="history.sonarQubeStatus=='OK'" src="assets/images/gate/Gold_Star.svg.png" class="history-goldStar-Img" alt="Stern"
-                                    [matTooltip]="'Quality Gate Passed'">
-                                <em *ngIf="history.sonarQubeStatus=='ERROR'" mat-list-icon class="ra ra-player-shot ra-5x"
-                                    [matTooltip]="'Quality Gate Failed'"></em>
+                                <img *ngIf="history.sonarQubeStatus=='OK'" src="assets/images/gate/Gold_Star.svg.png"
+                                    class="history-goldStar-Img" alt="Stern" [matTooltip]="'Quality Gate Passed'">
+                                <em *ngIf="history.sonarQubeStatus=='ERROR'" mat-list-icon
+                                    class="ra ra-player-shot ra-5x" [matTooltip]="'Quality Gate Failed'"></em>
                                 <p matLine><span> {{history.statusDate}} </span> </p>
                                 <p matLine matTooltip="Bonus: {{history?.gold}} Gold/ {{history?.xp}} XP">
                                     Bonus:
-                                    <em mat-list-icon class="ra ra-gold-bar ra-lg"></em><span class="p-1">{{history?.gold}}</span>
-                                    <em mat-list-icon class="ra ra-perspective-dice-random ra-lg"></em><span class="p-1">{{history?.xp}}</span>
+                                    <em mat-list-icon class="ra ra-gold-bar ra-lg"></em><span
+                                        class="p-1">{{history?.gold}}</span>
+                                    <em mat-list-icon class="ra ra-perspective-dice-random ra-lg"></em><span
+                                        class="p-1">{{history?.xp}}</span>
                             </mat-card-content>
                         </mat-card>
                     </div>
@@ -56,23 +64,25 @@
             </mat-card>
         </div>
         <div class="col-12 col-md-3 p-0">
-            <div class="highScore-Background" style="background-image: url('../assets/images/gate/scroll-34606_1280.png');">
-                <div class="highScore-Content">
-                    <h5>Highscore - Fehlerfreie Tage</h5>
-                    <span *ngIf="highScore"> Top Score: </span>
+            <mat-card style="text-align: center;">
+                <h4 style="text-shadow: 2px 2px 4px #c62828;" class="pb-2 pt-3">HIGHSCORE</h4>
+                <h5>Quality Gate fehlerfreie Tage</h5>
+                <div class="pb-3 pt-2">
+                    <em *ngIf="actualScore.scorePoints < highScore.scorePoints" mat-list-icon class="ra ra-trophy ra-lg"></em>
+                    <span *ngIf="highScore">Bester Score: </span>
                     <span *ngIf="highScore.scorePoints < 1"> - </span>
-                    <span *ngIf="highScore.scorePoints >= 1"> {{highScore.scorePoints}} am {{highScore.scoreDay}}
-                    </span>
+                    <span *ngIf="highScore.scorePoints >= 1"> {{highScore.scorePoints}} Tage, am {{highScore.scoreDay}}</span>
                     <p matLine>
                         <span *ngIf="actualScore">Aktueller Score: </span>
                         <span *ngIf="actualScore.scorePoints < 1"> - </span>
                         <span *ngIf="actualScore.scorePoints >= 1"
                             [style.font-weight]="actualScore.scorePoints >= highScore.scorePoints ? 'bold' : 'normal'">
-                            {{actualScore.scorePoints}}
+                            {{actualScore.scorePoints}} Tage
                         </span>
+                        <em *ngIf="actualScore.scorePoints >= 1 && actualScore.scorePoints >= highScore.scorePoints" mat-list-icon class="ra ra-trophy ra-lg"></em>
                     </p>
                 </div>
-            </div>
+            </mat-card>
         </div>
     </div>
 </div>

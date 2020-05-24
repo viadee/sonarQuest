@@ -1,4 +1,4 @@
-import { SolvedTaskHistoryDto } from './../../../../Interfaces/SolvedTaskHistoryDto';
+import { SolvedTaskHistoryDto } from '../../../../Interfaces/SolvedTaskHistoryDto';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RaidService } from 'app/services/raid.service';
