@@ -213,9 +213,9 @@ CREATE TABLE Participation (
   quest_id     BIGINT,
   raid_id     BIGINT,
   user_id BIGINT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES SQUser (id),
-  FOREIGN KEY (quest_id) REFERENCES Quest (id),
-  FOREIGN KEY (raid_id) REFERENCES Raid (id),
+  FOREIGN KEY (user_id) REFERENCES SQUser (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (quest_id) REFERENCES Quest (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (raid_id) REFERENCES Raid (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE Ui_Design (

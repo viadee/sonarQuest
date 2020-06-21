@@ -203,12 +203,19 @@ public class TaskController {
     }
 
     @DeleteMapping(value = "/{taskId}/deleteParticipation")
-    public void deleteParticipation(@PathVariable(value = "taskId") final Long taskId) {
+    public void deleteParticipation(final Principal principal, @PathVariable(value = "taskId") final Long taskId) {
         final Task task = taskService.find(taskId);
         if (task != null) {
+        	Participation participation = task.getParticipation();
+        	
             task.setParticipation(null);
             task.setStatus(SonarQuestStatus.OPEN);
             taskService.save(task);
+            
+            // Delete participation if user has no tasks in quest
+            if(participation.getTasks().isEmpty()) {
+            	participationService.deleteParticipation(participation);
+            }
             
             webSocketController.onUpdateTaskParticipation(task, null);
         }

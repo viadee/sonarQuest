@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viadee.sonarquest.controllers.WebSocketController;
 import com.viadee.sonarquest.entities.Participation;
@@ -64,5 +65,18 @@ public class ParticipationService {
             webSocketController.onUserJoinQuest(foundQuest, principal, user);
         }
 		return participation;
+	}
+	
+	@Transactional
+	public void deleteParticipation(Participation participation) {
+		if(participation==null)
+			return;
+		try {
+			 final Participation foundParticipation = participationRepository.findOne(participation.getId());
+		        if(foundParticipation != null)
+		        participationRepository.deleteById(foundParticipation.getId());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
