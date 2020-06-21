@@ -1,5 +1,5 @@
 import { SolvedTaskHistoryDto } from '../../../../Interfaces/SolvedTaskHistoryDto';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RaidService } from 'app/services/raid.service';
 import { Raid } from 'app/Interfaces/Raid';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './solved-task-history.component.html',
   styleUrls: ['./solved-task-history.component.css']
 })
-export class SolvedTaskHistoryComponent implements OnInit, OnDestroy {
+export class SolvedTaskHistoryComponent implements OnDestroy, OnChanges {
   @Input()
   raid: Raid;
 
@@ -38,14 +38,16 @@ export class SolvedTaskHistoryComponent implements OnInit, OnDestroy {
     this.raidSubscription.unsubscribe();
   }
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    const _this = this;
-    this.raidSubscription = this.raidService.getSolvedTaskHistoryList(id).subscribe(resp => {
-      _this.historyList = resp;
-      _this.amountOfTasks = this.raid.raidProgress.totalAmount;
-      _this.slideIndex = resp.length;
-    });
+  ngOnChanges() {
+    if (this.raid) {
+      const id = this.route.snapshot.paramMap.get('id');
+      const _this = this;
+      this.raidSubscription = this.raidService.getSolvedTaskHistoryList(id).subscribe(resp => {
+        _this.historyList = resp;
+        _this.amountOfTasks = this.raid.raidProgress.totalAmount;
+        _this.slideIndex = resp.length;
+      });
+    }
   }
 
   calculateHeight(value: number) {

@@ -1,4 +1,4 @@
-<mat-card class="history-swiper" *ngIf="historyList.length > 0">
+<mat-card class="history-swiper" *ngIf="historyList && historyList.length > 0">
     <h5 class="pt-4 pl-4">Verlauf abgeschlossene Aufträge:</h5>
     <swiper [config]="swiperConfig" [index]="slideIndex">
         <div class="pb-4" *ngFor="let history of historyList">

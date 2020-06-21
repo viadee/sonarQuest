@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component,OnChanges, OnInit, Input } from '@angular/core';
 import { Monster } from 'app/Interfaces/Monster';
 
 @Component({
@@ -6,7 +6,7 @@ import { Monster } from 'app/Interfaces/Monster';
   templateUrl: './monster-stage.component.html',
   styleUrls: ['./monster-stage.component.css']
 })
-export class MonsterStageComponent implements OnInit {
+export class MonsterStageComponent implements OnChanges {
 
   @Input()
   public monster: Monster;
@@ -14,12 +14,18 @@ export class MonsterStageComponent implements OnInit {
   public monsterHealthProgress: number;
   public monsterProgressStyleWidth: string;
   public monsterDamagedProgress: number;
+  public monsterName: string;
+  public monsterImage: string;
 
   constructor() { }
 
-  ngOnInit() {
-    this.monsterHealthProgress = this.monster.progress;
-    this.monsterProgressStyleWidth = this.monsterHealthProgress + '%';
-    this.monsterDamagedProgress = 100 - this.monsterHealthProgress;
+  ngOnChanges() {
+    if (this.monster) {
+      this.monsterImage = this.monster.Image;
+      this.monsterName = this.monster.Name;
+      this.monsterHealthProgress = this.monster.progress;
+      this.monsterProgressStyleWidth = this.monsterHealthProgress + '%';
+      this.monsterDamagedProgress = 100 - this.monsterHealthProgress;
+    }
   }
 }

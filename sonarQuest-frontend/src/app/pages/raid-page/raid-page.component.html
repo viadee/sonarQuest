@@ -1,14 +1,14 @@
 <div class="container-fluid h-100">
   <div class="row">
     <div class="col-12 col-md-3 p-0 questlog-component">
-      <app-questlog [questList]="raid.quests"></app-questlog>
+      <app-questlog [questList]="quests"></app-questlog>
     </div>
     <div class="col-12 col-md-6 p-0 mainstage">
       <app-monster-stage [monster]="monster"></app-monster-stage>
       <app-solved-task-history [raid]="raid" class="solved-tasks-history-component"></app-solved-task-history>
     </div>
     <div class="col-12 col-md-3 p-0">
-      <app-raid-leaderboard [raidLeaderboard]="raid.raidLeaderboardList"></app-raid-leaderboard>
+      <app-raid-leaderboard [raidLeaderboard]="raidLeaderBoardList"></app-raid-leaderboard>
     </div>
   </div>
 </div>

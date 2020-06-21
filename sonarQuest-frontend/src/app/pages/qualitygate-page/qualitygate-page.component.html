@@ -2,22 +2,28 @@
     <div class="row h-80" *ngIf="raid">
         <div class="col-12 col-md-3 p-0 h-70">
             <mat-card>
-                <h4 style="text-align: center;">SonarQube Bedingungen:</h4>
-            </mat-card>
-            <div *ngFor="let condition of conditionList">
-                <mat-card>
-                    <div class="d-flex justify-content-start align-items-center">
-                        <em *ngIf="condition.status=='OPEN'" mat-list-icon class="ra ra-player-shot ra-3x"
-                            [matTooltip]="'Condition Failed'"></em>
-                        <em *ngIf="condition.status=='CLOSED'" mat-list-icon class="ra ra-shield ra-3x"
-                            [matTooltip]="'Condition Passed'"></em>
-                        <div class="condition-info p-2">
-                            <p class="condition-title">{{ condition.title }}</p>
-                            <p> Aktuell: {{condition.actualValue}}</p>
-                        </div>
+                <mat-expansion-panel class="expansion-panel" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h5 class="pt-4 pb-4 pl-4">Quality Gate Bedingungen:</h5>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div *ngFor="let condition of conditionList">
+                        <mat-card>
+                            <div class="d-flex justify-content-start align-items-center">
+                                <em *ngIf="condition.status=='OPEN'" mat-list-icon class="ra ra-player-shot ra-3x"
+                                    [matTooltip]="'Condition Failed'"></em>
+                                <em *ngIf="condition.status=='CLOSED'" mat-list-icon class="ra ra-shield ra-3x"
+                                    [matTooltip]="'Condition Passed'"></em>
+                                <div class="condition-info p-2">
+                                    <p class="condition-title">{{ condition.title }}</p>
+                                    <p> Aktuell: {{condition.actualValue}}</p>
+                                </div>
+                            </div>
+                        </mat-card>
                     </div>
-                </mat-card>
-            </div>
+                </mat-expansion-panel>  
+        </mat-card>        
         </div>
         <div class="col-12 col-md-6 p-0 mainstage">
             <div class="monster-container">

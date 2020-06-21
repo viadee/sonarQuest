@@ -32,7 +32,7 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
   conditionList: Condition[] = [];
   rewardHistoryList: QualityGateRaidRewardHistory[] = [];
   highScore: HighScore;
-  actualScore: HighScore;
+  actualScore: HighScore = new HighScoreModel(new Date(), 0);
   slideIndex = 0;
   swiperConfig: SwiperConfigInterface = {
     a11y: true,
@@ -56,9 +56,12 @@ export class QualitygatePageComponent implements OnInit, OnDestroy {
     private sonarQubeService: SonarQubeService) {}
 
   ngOnInit() {
-    this.worldSub = this.worldService.currentWorld$.subscribe(world => {
-      this.world = world;
-    });
+    this.worldSub = this.worldService.currentWorld$.subscribe(
+      world => {
+        this.world = world;
+      },
+      err => console.error('World Observer got an error: ' + err)
+    );
     this.loadQualityGate();
   }
 
