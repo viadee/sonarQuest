@@ -82,7 +82,7 @@ public class ExternalRessourceService {
 
     public List<StandardTask> generateStandardTasksFromSonarQubeIssuesForWorld(final World world) {
         final List<StandardTask> standardTasks;
-        final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world.getProject());
+        final List<SonarQubeIssue> sonarQubeIssues = getIssuesForSonarQubeProject(world);
         int numberOfIssues = sonarQubeIssues.size();
         LOGGER.info("Mapping {} issues to SonarQuest tasks - this may take a while...", numberOfIssues);
         if (numberOfIssues > issueProcessingBatchSize) {
@@ -155,18 +155,18 @@ public class ExternalRessourceService {
         }
     }
 
-    private List<SonarQubeIssue> getIssuesForSonarQubeProject(final String projectKey) {
+    private List<SonarQubeIssue> getIssuesForSonarQubeProject(final World world) {
         try {
             LOGGER.info("Trying to get SonarQube issues with severities {} for projectKey {}",
-                    issueSeverities, projectKey);
+                    issueSeverities, world.getProject());
             final SonarConfig sonarConfig = sonarConfigService.getConfig();
             final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
             final List<SonarQubeIssue> sonarQubeIssueList = new ArrayList<>();
             SonarQubeIssueRessource sonarQubeIssueRessource = getSonarQubeIssuesWithDefaultSeverities(restTemplate,
-                    sonarConfig.getSonarServerUrl(), projectKey);
+                   world, sonarConfig.getSonarServerUrl());
             sonarQubeIssueList.addAll(sonarQubeIssueRessource.getIssues());
             LOGGER.info("Retrieved {} SonarQube issues in total for projectKey {}",
-                    sonarQubeIssueList.size(), projectKey);
+                    sonarQubeIssueList.size(), world.getProject());
             return sonarQubeIssueList;
         } catch (final ResourceAccessException e) {
             if (e.getCause() instanceof ConnectException) {
@@ -181,14 +181,14 @@ public class ExternalRessourceService {
     }
 
     private SonarQubeIssueRessource getSonarQubeIssuesWithDefaultSeverities(final RestTemplate restTemplate,
-            final String sonarQubeServerUrl, final String projectKey) {
+            final World world, final String sonarQubeServerUrl) {
         // @formatter: off
         SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                 .onServer(sonarQubeServerUrl)
                 .searchIssues()
-                .withComponentKeys(projectKey)
-                .withTypes(SonarQubeIssueType.CODE_SMELL)
+                .withComponentKeys(world.getProject())
                 .withSeverities(issueSeverities)
+                .withBranch(world.getBranch())
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(1)
                 .build();
@@ -216,19 +216,20 @@ public class ExternalRessourceService {
     }
     
     
-    private SonarQubeProjectStatusRessource getSonarQubeProjectStatusRessource(final String projectKey) {
+    private SonarQubeProjectStatusRessource getSonarQubeProjectStatusRessource(final World world) {
     	final SonarConfig sonarConfig = sonarConfigService.getConfig();
     	final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
     	
     	try {
     		LOGGER.info("Trying to get SonarQubeProjectStatusRessource for projectKey {}",
-                    projectKey);
+    				world.getProject());
     		
     		String sonarQubeServerUrl = sonarConfig.getSonarServerUrl();
             SonarQubeApiCall sonarQubeApiCall = SonarQubeApiCall
                     .onServer(sonarQubeServerUrl)
                     .projectStatus()
-                    .withProjectKey(projectKey)
+                    .withProjectKey(world.getProject())
+                    .withBranch(world.getBranch())
                     .build();
             
             final ResponseEntity<SonarQubeProjectStatusRessource> response = restTemplate.getForEntity(
@@ -246,7 +247,7 @@ public class ExternalRessourceService {
     }
     
     public SonarQubeProjectStatus generateSonarQubeProjectStatusFromWorld(final World world) {
-    	SonarQubeProjectStatusRessource ressource = getSonarQubeProjectStatusRessource(world.getProject());
+    	SonarQubeProjectStatusRessource ressource = getSonarQubeProjectStatusRessource(world);
     	return ressource.getProjectStatus();
     }
 }

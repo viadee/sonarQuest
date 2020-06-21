@@ -29,6 +29,9 @@ public class World {
 
     @Column(name = "project")
     private String project;
+    
+    @Column(name="branch")
+    private String branch;
 
     @Column(name = "image")
     private String image;
@@ -138,7 +141,15 @@ public class World {
         this.users = users;
     }
 
-    public boolean hasQuests() {
+    public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+	public boolean hasQuests() {
         return !getQuests().isEmpty();
     }
 

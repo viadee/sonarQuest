@@ -7,6 +7,11 @@
       </mat-form-field>
     </div>
     <div flex>
+      <mat-form-field>
+        <input matInput placeholder="Branch" [(ngModel)]="world.branch">
+      </mat-form-field>
+    </div>
+    <div flex>
       <mat-checkbox [(ngModel)]="world.active" 
         [matTooltip]="'WORLD.TOOLTIP_ACTIVE' | translate"
         [matTooltipClass]="'tooltipMultiline'" 

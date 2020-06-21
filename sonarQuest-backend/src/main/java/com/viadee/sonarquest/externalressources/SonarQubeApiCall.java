@@ -127,6 +127,17 @@ public class SonarQubeApiCall {
         appendSearchParameter("severities=" + StringUtils.join(severities, ","));
         return this;
     }
+    
+    /**
+     * Appends the parameter "branch" to the sonarQubeRestApiCall.
+     */
+    public SonarQubeApiCall withBranch(String branch) {
+    	if(branch != null)
+        appendSearchParameter("branch=" + branch);
+        
+    	return this;
+    }
+    
 
     /**
      * Appends the parameter "pageSize" with the value maxNumberOfIssuesOnPage to the sonarQubeRestApiCall.

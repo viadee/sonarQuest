@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.NotAudited;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.viadee.sonarquest.externalressources.SonarQubeProjectStatusType;
 import com.viadee.sonarquest.interfaces.HighScore;
@@ -33,18 +31,17 @@ public class QualityGateRaid extends BaseRaid implements HighScore, Reward {
 	@Column(name = "sonarQubeStatus")
 	private SonarQubeProjectStatusType sonarQubeStatus;
 
-	@NotAudited
 	@Column(name = "scoreDay")
 	private Date scoreDay;
 
-	@NotAudited
 	@Column(name = "scorePoints")
 	private Long scorePoints;
 
-	@NotAudited
 	@OneToMany(mappedBy = "qualityGateRaid", cascade = CascadeType.ALL)
 	private List<Condition> conditions;
 	
+	@OneToMany(mappedBy = "raid", cascade = CascadeType.ALL)
+	private List<QualityGateRaidRewardHistory> rewardHistory;	
 	
 	public QualityGateRaid() {
 		super();
@@ -53,7 +50,7 @@ public class QualityGateRaid extends BaseRaid implements HighScore, Reward {
 	public QualityGateRaid(World world) {
 		super("", "", "", 0l, 0l, world);
 	}
-
+	
 	public SonarQubeProjectStatusType getSonarQubeStatus() {
 		return sonarQubeStatus;
 	}
@@ -99,5 +96,13 @@ public class QualityGateRaid extends BaseRaid implements HighScore, Reward {
 
 	public void setConditions(List<Condition> conditions) {
 		this.conditions = conditions;
+	}
+
+	public List<QualityGateRaidRewardHistory> getRewardHistory() {
+		return rewardHistory;
+	}
+
+	public void setRewardHistory(List<QualityGateRaidRewardHistory> rewardHistory) {
+		this.rewardHistory = rewardHistory;
 	}
 }

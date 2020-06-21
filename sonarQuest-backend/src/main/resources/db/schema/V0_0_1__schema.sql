@@ -63,6 +63,7 @@ CREATE TABLE World (
   name    VARCHAR(255),
   image   VARCHAR(255),
   project VARCHAR(255),
+  branch  VARCHAR(255),
   active  BOOLEAN
 );
 
