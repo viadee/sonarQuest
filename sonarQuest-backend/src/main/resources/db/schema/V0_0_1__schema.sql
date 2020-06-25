@@ -62,6 +62,7 @@ CREATE TABLE World (
   id      BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name    VARCHAR(255),
   image   VARCHAR(255),
+  filter  VARCHAR(255),
   project VARCHAR(255),
   branch  VARCHAR(255),
   active  BOOLEAN

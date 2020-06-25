@@ -158,7 +158,7 @@ public class QualityGateRaidService {
 	/**
 	 * Update QualityGateRaids every hour (from 6-22 o'clock) 
 	 */
-	@Scheduled(cron="0 0/30 6-22 * * MON-FRI")
+	@Scheduled(cron="0 */15 * * * *")
 	protected void updateAllQualityGatesScheduled() {
 		LOGGER.info("Update all QualityGateRaids scheduled: ...");
 		updateAllQualityGates();
@@ -167,7 +167,7 @@ public class QualityGateRaidService {
 	/**
 	 * Reward all users of a world at midnight for PASSED QualityGateRaid
 	 */
-	@Scheduled(cron="0 0 0 * * MON-FRI" )
+	@Scheduled(cron="0 0 0 * * *" )
 	protected void rewardUserForPassedGate() {
 		LOGGER.info("Update all QualityGateRaids reward scheduled: ...");
 		List<QualityGateRaidRewardHistory> rewardHistoryList = qualityGateRaidRewardHistoryService.findAllQualityGateRaidRewardsByStatusDate(LocalDate.now().minusDays(1)); // find from yesterday

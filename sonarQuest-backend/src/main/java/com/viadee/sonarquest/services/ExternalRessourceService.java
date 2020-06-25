@@ -192,8 +192,12 @@ public class ExternalRessourceService {
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(1)
                 .build();
+        String search = sonarQubeApiCall.asString();
+        if(world.getFilter()!=null) {
+        	search += world.getFilter();
+        }
         // @formatter: on
-        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(sonarQubeApiCall.asString(),
+        final ResponseEntity<SonarQubeIssueRessource> response = restTemplate.getForEntity(search,
                 SonarQubeIssueRessource.class);
         return response.getBody();
     }

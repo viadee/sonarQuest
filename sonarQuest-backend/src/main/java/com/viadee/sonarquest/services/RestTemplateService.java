@@ -31,15 +31,16 @@ public class RestTemplateService {
     private RestTemplateBuilder restTemplateBuilder;
 
     public RestTemplate getRestTemplate(final SonarConfig sonarConfig) {
-        if (sonarConfig.hasHttpBasicAuth()) {
-            LOGGER.debug("Connecting using HTTP Basic Auth");
-            return restTemplateBuilder.basicAuthorization(sonarConfig.getHttpBasicAuthUsername(),
-                    sonarConfig.getHttpBasicAuthPassword())
-                    .requestFactory(requestFactory()).build();
-        } else {
-            LOGGER.debug("Connecting using the SSL Request Factory");
-            return restTemplateBuilder.requestFactory(requestFactory()).build();
-        }
+		try {
+			LOGGER.debug("Connecting using HTTP Basic Auth");
+			return restTemplateBuilder
+					.basicAuthorization(sonarConfig.getHttpBasicAuthUsername(), sonarConfig.getHttpBasicAuthPassword())
+					.requestFactory(requestFactory()).build();
+		} catch (Exception e) {
+			LOGGER.debug("Connecting using the SSL Request Factory");
+			return restTemplateBuilder.requestFactory(requestFactory()).build();
+		}
+        	
     }
 
     private ClientHttpRequestFactory requestFactory() {

@@ -66,6 +66,7 @@ public class WorldService {
             currentWorld = worldRepository.findOne(world.getId());
             currentWorld.setName(world.getName());
             currentWorld.setBranch(world.getBranch());
+            currentWorld.setFilter(world.getFilter());
             currentWorld.setActive(world.getActive());
             currentWorld.setUsequestcards(world.getUsequestcards());
             currentWorld = worldRepository.save(currentWorld);

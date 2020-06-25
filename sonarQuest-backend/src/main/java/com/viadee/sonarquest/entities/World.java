@@ -41,6 +41,9 @@ public class World {
 
     @Column(name = "usequestcards")
     private Boolean usequestcards;
+    
+    @Column(name="filter")
+    private String filter;
 
     @JsonIgnore
     @OneToMany(mappedBy = "world")
@@ -164,5 +167,13 @@ public class World {
                 : that != null && this.getClass().isInstance(that)
                         && Objects.equal(getId(), ((World) that).getId());
     }
+
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
 
 }
