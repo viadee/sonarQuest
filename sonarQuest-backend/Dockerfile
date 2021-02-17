@@ -1,11 +1,11 @@
-FROM maven:3.5.3-jdk-8 as build_container
+FROM maven:3.6.3-jdk-11 as build_container
 COPY  . /usr/src/sonarQuest
 WORKDIR /usr/src/sonarQuest
 RUN mvn clean package
-
-FROM openjdk:8-jdk-alpine
-RUN addgroup -g 1000 appuser && \
-    adduser -D -u 1000 -G appuser appuser
+# Alpine ist für Version 11 nicht verfügbar
+FROM openjdk:11-jdk
+RUN addgroup --gid 1000 appuser && \
+    adduser --system --disabled-password --uid 1000 --ingroup appuser appuser
 USER appuser
 WORKDIR /home/appuser
 COPY --from=build_container /usr/src/sonarQuest/target/sonarQuest.jar app.jar
