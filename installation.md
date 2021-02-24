@@ -1,3 +1,9 @@
+**!!This file needs to be updated and integrated in the [wiki](https://github.com/viadee/sonarQuest/wiki/Installation)!!**
+
+
+***
+
+
 # Technical documentation of SonarQuest
 Following, the components of SonarQuest are described.
 Firstly, the general architecture is explained, followed by the installation guide.

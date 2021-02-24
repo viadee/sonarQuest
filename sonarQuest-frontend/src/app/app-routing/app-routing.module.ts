@@ -11,8 +11,8 @@ import {GamemasterPageComponent} from '../pages/gamemaster-page/gamemaster-page.
 import {AuthenticationGuard} from '../authentication/authentication.guard';
 import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
-import {LoginPageComponent} from "../pages/login-page/login-page.component";
-import {MainLayoutComponent} from "../layouts/main-layout/main-layout.component";
+import {LoginPageComponent} from '../pages/login-page/login-page.component';
+import {MainLayoutComponent} from '../layouts/main-layout/main-layout.component';
 
 
 const appRoutes: Routes = [
@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   {path: RoutingUrls.empty, component: EmptyPageComponent}
 ];
 
-@NgModule({ 
+@NgModule({
   imports: [
     RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })
   ],

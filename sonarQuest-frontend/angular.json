@@ -124,11 +124,11 @@
   "defaultProject": "sonarquest-frontend",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
-      "styleext": "css"
+      "prefix": "sq",
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "sq"
     }
   }
 }
