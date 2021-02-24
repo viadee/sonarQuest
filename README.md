@@ -20,19 +20,17 @@ and optimization.
 Start your adventure with your team in 3 steps via Docker:
 1. Clone this repo in a destination of your choice.
 2. Run SonarQuest using Docker in the root project folder *sonarquest*: `docker-compose up --build` .
-3. Open SonarQuest at http://localhost:4200 and login with the following credentials:
-
-Don't want to use Docker? Check out the [Installation Guide](https://github.com/viadee/sonarQuest/wiki/Installation)
-in our wiki!
-
-### Initial users
-We added some initial users to play around with.
+3. We added some initial users to play around with.
+   Open SonarQuest at http://localhost:4200 and login with the following credentials:
 
 | Role               | Username | Password |
 |--------------------|----------|----------|
 | Admin              | admin    | test     |
 | Game Master        | gm       | test     |
 | Developer (Player) | dev      | test     |
+
+Don't want to use Docker? Check out the [Installation Guide](https://github.com/viadee/sonarQuest/wiki/Installation)
+in our wiki!
 
 ### Start the game
 
