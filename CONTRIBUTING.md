@@ -4,12 +4,11 @@ First of all: Thanks for your interest in joining us on our journey through the 
 
 The following is a set of guidelines for contributing to sonarQuest which is hosted by the viadee IT-Unternehmensberatung at GitHub. Guidelines are not meant to be rules. And as this is a community project - feel free to share your thoughts and experiences with the community and propose changes to this document in a pull request.
 
-This project and everyone participating in it is governed by the sonarQuest [Code of Conduct](https://github.com/viadee/sonarQuest/...). By participating, you are expected to uphold this code.
-
 ## How Can I Contribute?
 
 * Reporting Bugs
 * Suggesting Enhancements
+* Design Improvements 
 * Your First Code Contribution
 * Pull Requests
 

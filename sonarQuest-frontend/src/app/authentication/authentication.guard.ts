@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from './authentication.service';
 import {PermissionService} from '../services/permission.service';
-import {RoutingUrls} from "../app-routing/routing-urls";
+import {RoutingUrls} from '../app-routing/routing-urls';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivateChild {
