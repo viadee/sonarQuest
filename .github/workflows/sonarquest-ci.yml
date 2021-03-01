@@ -23,7 +23,39 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Build backend with Maven
-        run: mvn -f ./sonarQuest-backend/pom.xml --batch-mode --update-snapshots verify
+        run: mvn -f ./sonarQuest-backend/pom.xml --batch-mode --update-snapshots verify 
+        
+  frontend:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+    - name: Install dependencies
+      run: |
+        cd sonarQuest-frontend
+        npm ci
+    - name: Build Angular app
+      run: npm run buildy
+    - name: Test
+      run: npm test
 
