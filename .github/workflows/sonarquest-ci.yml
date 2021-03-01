@@ -58,7 +58,7 @@ jobs:
     - name: Build Angular app
       run: |
         cd sonarQuest-frontend
-        npm run buildy
+        npm run build
     - name: Test
       run: |
         cd sonarQuest-frontend
