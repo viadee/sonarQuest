@@ -19,11 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Set up JDK 1.8
+      - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
       - name: Build backend with Maven
-        run: mvn --batch-mode --update-snapshots verify
+        run: mvn -f ./sonarQuest-backend/pom.xml --batch-mode --update-snapshots verify
 
 
