@@ -68,7 +68,6 @@ testem.log
 
 # package-lock.json
 /sonarQubeSimulationServer/package-lock.json
-/sonarQuest-frontend/package-lock.json
 
 # System Files
 .DS_Store
