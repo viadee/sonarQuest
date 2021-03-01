@@ -1,4 +1,4 @@
-# This is the CI Action for SonarQuest to auztomatically build Docker immages on master push and release.
+# This is the CI Action for SonarQuest to automatically build Docker images on master push and release.
 
 name: SonarQuest-CI
 
