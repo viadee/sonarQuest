@@ -36,7 +36,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Setup node.js
       uses: actions/setup-node@v1
       with:
@@ -55,7 +56,10 @@ jobs:
         cd sonarQuest-frontend
         npm ci
     - name: Build Angular app
-      run: npm run buildy
+      run: |
+        cd sonarQuest-frontend
+        npm run buildy
     - name: Test
-      run: npm test
-
+      run: |
+        cd sonarQuest-frontend
+        npm test
