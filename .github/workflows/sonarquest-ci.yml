@@ -31,6 +31,11 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build backend with Maven
         run: mvn -f ./sonarQuest-backend/pom.xml --batch-mode --update-snapshots verify 
+      - name: Archive Backend Jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: sonarquest-backend
+          path: sonarQuest-backend/target/sonarquest.jar
         
   frontend:
     runs-on: ubuntu-latest
@@ -63,3 +68,8 @@ jobs:
       run: |
         cd sonarQuest-frontend
         npm test
+    - name: Archive Frontend artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: sonarquest-frontend
+        path: sonarQuest-frontend/dist
