@@ -1,3 +1,4 @@
+LABEL org.opencontainers.image.source=https://github.com/viadee/sonarQuest
 FROM nginx:1.14.0-alpine
 COPY ./dist/ /var/www/html/
 COPY nginx/sonarquest.conf /etc/nginx/conf.d/default.conf
