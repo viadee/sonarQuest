@@ -1,3 +1,4 @@
+LABEL org.opencontainers.image.source=https://github.com/viadee/sonarQuest
 FROM openjdk:11-jre
 RUN addgroup --gid 1000 appuser && \
     adduser --system --disabled-password --uid 1000 --ingroup appuser appuser
