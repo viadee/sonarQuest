@@ -82,6 +82,7 @@ jobs:
       uses: actions/download-artifact@v2
       with: 
         name: sonarquest-backend
+    - run: find .
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
