@@ -17,26 +17,38 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - 
+        uses: actions/checkout@v2
       
-      - name: Set up JDK
+      - 
+        name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Cache Maven packages
+      - 
+        name: Cache Maven packages
         uses: actions/cache@v2
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build backend with Maven
+      - 
+        name: Build backend with Maven
         run: mvn -f ./sonarQuest-backend/pom.xml --batch-mode --update-snapshots verify 
-      - name: Build and push Docker image
+      - 
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./sonarQuest-backend
-          push: false
-          tags: user/app:latest
+          push: true
+          tags: ghcr.io/viadee/sonarquest-backend:latest
         
   frontend:
     runs-on: ubuntu-latest
