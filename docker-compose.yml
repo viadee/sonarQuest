@@ -1,13 +1,11 @@
 version: '3'
 services:
   backend:
-    build:
-      context: sonarQuest-backend/
+    image: ghcr.io/viadee/sonarquest-backend:latest
     command: -DsimulateSonarServer=false
     ports:
      - "8080:8080"
   frontend:
-    build:
-      context: sonarQuest-frontend/
+    image: ghcr.io/viadee/sonarquest-frontend:latest
     ports:
       - "4200:80"
