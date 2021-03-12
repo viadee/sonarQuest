@@ -48,7 +48,7 @@ jobs:
         with:
           context: ./sonarQuest-backend
           push: true
-          tags: ghcr.io/viadee/sonarquest-backend:latest
+          tags: ghcr.io/viadee/sonarquest:latest
         
   frontend:
     runs-on: ubuntu-latest
