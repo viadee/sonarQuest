@@ -6,7 +6,7 @@
 
 	<groupId>com.viadee</groupId>
 	<artifactId>sonarQuest</artifactId>
-	<version>0.7.3-SNAPSHOT</version>
+	<version>0.8.0-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>SonarQuest</name>
 	<inceptionYear>2017</inceptionYear>
