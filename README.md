@@ -19,8 +19,9 @@ and optimization.
 ### Install
 Start your adventure with your team in 3 steps via Docker:
 1. Clone this repo in a destination of your choice.
-2. Run SonarQuest using Docker in the root project folder *sonarquest*: `docker-compose up --build` .
-3. We added some initial users to play around with.
+2. Run SonarQuest using Docker in the root project folder *sonarquest*: `docker-compose up` .
+(_This will install the latest Docker images_)
+4. We added some initial users to play around with.
    Open SonarQuest at http://localhost:4200 and login with the following credentials:
 
 | Role               | Username | Password |
