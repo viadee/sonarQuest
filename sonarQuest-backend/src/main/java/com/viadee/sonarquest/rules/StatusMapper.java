@@ -14,8 +14,8 @@ public interface StatusMapper {
      * an external source issue could have a status called "fresh" that would have
      * to be mapped to a SonarQuest status "CREATED".
      * 
-     * @param sourceIssue
-     * @return
+     * @param sourceIssue IssueWithStatus
+     * @return SonarQuestTaskStatus
      */
     SonarQuestTaskStatus mapExternalStatus(final IssueWithStatus sourceIssue);
 

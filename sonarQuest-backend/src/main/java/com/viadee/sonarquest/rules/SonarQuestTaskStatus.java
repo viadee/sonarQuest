@@ -14,9 +14,9 @@ public enum SonarQuestTaskStatus {
     SOLVED("SOLVED");
     //@formatter:on
 
-    private String text;
+    private final String text;
 
-    private SonarQuestTaskStatus(String text) {
+    SonarQuestTaskStatus(String text) {
         this.text = text;
     }
 
@@ -28,10 +28,10 @@ public enum SonarQuestTaskStatus {
      * Gets a corresponding SonarQuestStatus from a statusText. E.g. will retrieve
      * the Status Enum SOLVED when the text "SOLVED" is searched.
      * 
-     * @param statusText
-     * @return
+     * @param statusText String
+     * @return SonarQuestTaskStatus
      * @throws IllegalArgumentException
-     *             when no status is found, due to the game being inconsistant. All
+     *             when no status is found, due to the game being inconsistent. All
      *             status must be mapped.
      */
     public static SonarQuestTaskStatus fromStatusText(String statusText) {

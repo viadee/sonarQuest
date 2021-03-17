@@ -23,11 +23,6 @@ public class SonarQubeStatusMapper implements StatusMapper {
         final SonarQubeStatus sonarQubeStatus = SonarQubeStatus.valueOf(externalStatus);
         final String resolution = issueWithStatus.getResolution();
         switch (sonarQubeStatus) {
-        case OPEN:
-        case REOPENED:
-        case CONFIRMED:
-            mappedStatus = SonarQuestTaskStatus.OPEN;
-            break;
         case CLOSED:
             mappedStatus = SonarQuestTaskStatus.SOLVED;
             break;
