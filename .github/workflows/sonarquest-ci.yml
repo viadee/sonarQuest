@@ -19,6 +19,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
+      - name: Echo GitHub event
+        run: echo ${{ github.event_name }} ${{ github.event_name == 'release' }}
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
