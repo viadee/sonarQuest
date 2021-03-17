@@ -20,7 +20,7 @@ public enum SonarQubeSeverity {
 				return severity;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException("No matching SonarQubeSeverity found for severityName " + severityName);
 	}
 
 }

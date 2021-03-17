@@ -14,8 +14,8 @@ public class StandardTaskEvaluationService {
         
         Long xp;
         
-        private SeverityWithXp(int xp) {
-            this.xp = Long.valueOf(xp);
+        SeverityWithXp(int xp) {
+            this.xp = (long) xp;
         }
         
         static SeverityWithXp fromString(String severityName) {
@@ -28,27 +28,18 @@ public class StandardTaskEvaluationService {
         }
     }
 
-    public Long evaluateXP(String sev) {
+    public long evaluateXP(String sev) {
         SeverityWithXp severity = SeverityWithXp.fromString(sev);
         return severity.xp;
     }
 
-    public Long evaluateGoldAmount(String debtString) {
-        Long debt = getDebt(debtString);
-        return roundUp(debt, 10);
+    public long evaluateGoldAmount(String debtString) {
+        long debt = getDebt(debtString);
+        return (debt + 9) / 10;
     }
 
-    public Long getDebt(String debtString) {
-        Long debt = 0L;
-        if (debtString != null) {
-            debtString = debtString.replaceAll("[^0-9]", "");
-            debt = (long) Integer.parseInt(debtString);
-        }
-        return debt;
-    }
-
-    private static long roundUp(long num, long divisor) {
-        return (num + divisor - 1) / divisor;
+    public long getDebt(String debtString) {
+        return debtString == null ? 0 : Integer.parseInt(debtString.replaceAll("[^0-9]", ""));
     }
 
 }

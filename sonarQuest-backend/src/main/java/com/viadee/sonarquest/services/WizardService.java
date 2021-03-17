@@ -31,11 +31,11 @@ public class WizardService {
 		NO_QUESTS_FOUND("WIZARD.MSG_NO_QUESTS_FOUND", "WIZARD.HINT_NO_QUESTS_FOUND"),
 		NO_WORLD_SELECTED("WIZARD.MSG_NO_WORLD_SELECTED", "WIZARD.HINT_NO_WORLD_SELECTED");
 
-		private String messageKey;
+		private final String messageKey;
 
-		private String solutionKey;
+		private final String solutionKey;
 
-		private WizardState(final String messageKey, final String solutionKey) {
+		WizardState(final String messageKey, final String solutionKey) {
 			this.messageKey = messageKey;
 			this.solutionKey = solutionKey;
 		}

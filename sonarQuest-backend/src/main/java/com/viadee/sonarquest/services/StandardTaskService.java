@@ -1,9 +1,11 @@
 package com.viadee.sonarquest.services;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
+import com.viadee.sonarquest.entities.StandardTask;
+import com.viadee.sonarquest.entities.World;
+import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
+import com.viadee.sonarquest.repositories.StandardTaskRepository;
+import com.viadee.sonarquest.repositories.WorldRepository;
+import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
@@ -13,12 +15,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viadee.sonarquest.entities.StandardTask;
-import com.viadee.sonarquest.entities.World;
-import com.viadee.sonarquest.externalressources.SonarQubeSeverity;
-import com.viadee.sonarquest.repositories.StandardTaskRepository;
-import com.viadee.sonarquest.repositories.WorldRepository;
-import com.viadee.sonarquest.rules.SonarQuestTaskStatus;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class StandardTaskService {
@@ -73,10 +72,6 @@ public class StandardTaskService {
         return SonarQuestTaskStatus.fromStatusText(statusText);
     }
 
-    public void setExternalRessourceService(final ExternalRessourceService externalRessourceService) {
-        this.externalRessourceService = externalRessourceService;
-    }
-
     @Transactional
     public void save(final StandardTask standardTask) {
         final World world = worldRepository.findByProject(standardTask.getWorld().getProject());
@@ -96,15 +91,11 @@ public class StandardTaskService {
 
     public List<StandardTask> findByWorld(final World w) {
 		List<StandardTask> tasks = standardTaskRepository.findByWorld(w);
-		Collections.sort(tasks, new Comparator<StandardTask>() {
-
-			@Override
-			public int compare(StandardTask task1, StandardTask task2) {
-				SonarQubeSeverity severity1 = SonarQubeSeverity.fromString(task1.getSeverity());
-				SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
-				return severity2.getRank().compareTo(severity1.getRank());
-			}
-		});
+		tasks.sort((task1, task2) -> {
+            SonarQubeSeverity severity1 = SonarQubeSeverity.fromString(task1.getSeverity());
+            SonarQubeSeverity severity2 = SonarQubeSeverity.fromString(task2.getSeverity());
+            return severity2.getRank().compareTo(severity1.getRank());
+        });
 		return tasks;
     }
 

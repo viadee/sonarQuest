@@ -29,27 +29,31 @@ public class SonarConfigService {
         return sonarConfigRepository.findFirstBy();
     }
 
-    public SonarConfig saveConfig(final SonarConfig config) {
+    public void saveConfig(final SonarConfig config) {
         final SonarConfig currentConfig = getConfig();
-        return currentConfig == null ? saveNewConfig(config) : updateCurrentConfig(config, currentConfig);
+        if (currentConfig == null) {
+            saveNewConfig(config);
+        } else {
+            updateCurrentConfig(config, currentConfig);
+        }
     }
 
-    private SonarConfig saveNewConfig(final SonarConfig config) {
+    private void saveNewConfig(final SonarConfig config) {
         config.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
-        return sonarConfigRepository.save(config);
+        sonarConfigRepository.save(config);
     }
 
     private String configUrlWithoutSlash(final String url) {
         return StringUtils.removeEnd(url, "/");
     }
 
-    private SonarConfig updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
+    private void updateCurrentConfig(final SonarConfig config, final SonarConfig currentConfig) {
         currentConfig.setName(config.getName());
         currentConfig.setOrganization(config.getOrganization());
         currentConfig.setSonarServerUrl(configUrlWithoutSlash(config.getSonarServerUrl()));
         currentConfig.setHttpBasicAuthUsername(config.getHttpBasicAuthUsername());
         currentConfig.setHttpBasicAuthPassword(config.getHttpBasicAuthPassword());
-        return saveNewConfig(currentConfig);
+        saveNewConfig(currentConfig);
     }
 
     public boolean checkSonarQubeURL(final SonarConfig sonarConfig) {

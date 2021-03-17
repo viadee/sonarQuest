@@ -28,11 +28,11 @@ public class QuestService implements QuestSuggestion {
 
     private final ParticipationRepository participationRepository;
 
-    private WorldService worldService;
+    private final WorldService worldService;
 
-    private UserService userService;
+    private final UserService userService;
 
-    private AdventureService adventureService;
+    private final AdventureService adventureService;
     
     private final Random random = new Random();
 

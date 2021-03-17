@@ -44,7 +44,7 @@ public class GratificationService implements UserGratification {
         LOGGER.debug("Task ID {} has changed the status from OPEN to SOLVED, rewarding users...", task.getId());
         final Participation participation = task.getParticipation();
         if (participation != null) {
-            final User user = participation.getUser();
+            User user = participation.getUser();
             LOGGER.info("Task {} solved - Rewarding userID {} with {} gold and {} xp", 
                     task.getKey(), user.getId(), task.getGold(), task.getXp());
             user.addXp(task.getXp());
@@ -108,29 +108,27 @@ public class GratificationService implements UserGratification {
         userService.save(user);
     }
 
-    private User addSkillReward(final User user) {
-        final User rewardedUser = user;
-        final List<Skill> avatarClassSkills = rewardedUser.getAvatarClass().getSkills();
-        final List<Skill> artefactSkills = rewardedUser.getArtefacts().stream()
+    private void addSkillReward(final User user) {
+        final List<Skill> avatarClassSkills = user.getAvatarClass().getSkills();
+        final List<Skill> artefactSkills = user.getArtefacts().stream()
                 .map(Artefact::getSkills)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         final List<Skill> totalSkills = new ArrayList<>();
         totalSkills.addAll(avatarClassSkills);
         totalSkills.addAll(artefactSkills);
-        final Long extraGold = totalSkills.stream()
+        final long extraGold = totalSkills.stream()
                 .filter(skill -> skill.getType().equals(SkillType.GOLD))
                 .mapToLong(Skill::getValue)
                 .sum();
-        final Long extraXP = totalSkills.stream()
+        final long extraXP = totalSkills.stream()
                 .filter(skill -> skill.getType().equals(SkillType.XP))
                 .mapToLong(Skill::getValue)
                 .sum();
         LOGGER.info("Adding skill rewards to user ID {} - extra gold {} and extra xp {}", 
                 user.getId(), extraGold, extraXP);
-        rewardedUser.addGold(extraGold);
-        rewardedUser.addXp(extraXP);
-        return rewardedUser;
+        user.addGold(extraGold);
+        user.addXp(extraXP);
     }
 
 }

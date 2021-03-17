@@ -188,7 +188,7 @@ public class UserService implements UserDetailsService {
         userToWorldConnections.forEach(this::updateUserWorldConnection);
     }
 
-    private User updateUserWorldConnection(final UserToWorldConnection userToWorld) {
+    private void updateUserWorldConnection(final UserToWorldConnection userToWorld) {
         final User user = userToWorld.getUser();
         final World world = userToWorld.getWorld();
         if (userToWorld.getJoined()) {
@@ -199,7 +199,7 @@ public class UserService implements UserDetailsService {
                 user.setCurrentWorld(null);
             }
         }
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public void updateLastTavernVisit(final String username, final Timestamp lastVisit) {
