@@ -22,26 +22,29 @@ import java.util.List;
 @Service
 public class StandardTaskService {
 
-    @Autowired
-    private ExternalRessourceService externalRessourceService;
+    private final ExternalRessourceService externalRessourceService;
 
-    @Autowired
-    private StandardTaskRepository standardTaskRepository;
+    private final StandardTaskRepository standardTaskRepository;
 
-    @Autowired
-    private QuestService questService;
+    private final QuestService questService;
 
-    @Autowired
-    private AdventureService adventureService;
+    private final AdventureService adventureService;
 
-    @Autowired
-    private WorldRepository worldRepository;
+    private final WorldRepository worldRepository;
 
-    @Autowired
-    private GratificationService gratificationService;
+    private final GratificationService gratificationService;
 
-    @Autowired
-    private NamedParameterJdbcTemplate template;
+    private final NamedParameterJdbcTemplate template;
+
+    public StandardTaskService(ExternalRessourceService externalRessourceService, StandardTaskRepository standardTaskRepository, QuestService questService, AdventureService adventureService, WorldRepository worldRepository, GratificationService gratificationService, NamedParameterJdbcTemplate template) {
+        this.externalRessourceService = externalRessourceService;
+        this.standardTaskRepository = standardTaskRepository;
+        this.questService = questService;
+        this.adventureService = adventureService;
+        this.worldRepository = worldRepository;
+        this.gratificationService = gratificationService;
+        this.template = template;
+    }
 
     @Transactional
     public void updateStandardTasks(final World world) {

@@ -22,17 +22,20 @@ public class TaskService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TaskService.class);
 
-	@Autowired
-	private TaskRepository taskRepository;
+	private final TaskRepository taskRepository;
 
-	@Autowired
-	private GratificationService gratificationService;
+	private final GratificationService gratificationService;
 
-	@Autowired
-	private QuestService questService;
+	private final QuestService questService;
 
-	@Autowired
-	private AdventureService adventureService;
+	private final AdventureService adventureService;
+
+	public TaskService(TaskRepository taskRepository, GratificationService gratificationService, QuestService questService, AdventureService adventureService) {
+		this.taskRepository = taskRepository;
+		this.gratificationService = gratificationService;
+		this.questService = questService;
+		this.adventureService = adventureService;
+	}
 
 	public List<Task> getFreeTasksForWorld(final World world) {
 		return taskRepository.findByWorldAndStatusAndQuestIsNull(world, SonarQuestTaskStatus.OPEN);
