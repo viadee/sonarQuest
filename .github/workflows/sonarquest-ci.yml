@@ -42,6 +42,7 @@ jobs:
           push: true # Login with GitHub token at ghcr at the moment not possible. Packages must be pushed manually with PAT.
           tags: | 
             ghcr.io/viadee/sonarquest-backend:latest
+            ghcr.io/viadee/sonarquest-backend:0.8.0
 
             
           
@@ -90,5 +91,6 @@ jobs:
         push: true # Login with GitHub token at ghcr at the moment not possible. Packages must be pushed manually with PAT.
         tags: | 
             ghcr.io/viadee/sonarquest-frontend:latest
+            ghcr.io/viadee/sonarquest-backend:0.8.0
 
   
