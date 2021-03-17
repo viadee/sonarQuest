@@ -105,6 +105,5 @@ jobs:
       with:
         context: ./sonarQuest-frontend
         push: true
-        tags: | 
-            ghcr.io/viadee/sonarquest-frontend:nightly
+        tags: ghcr.io/viadee/sonarquest-frontend:nightly
   
