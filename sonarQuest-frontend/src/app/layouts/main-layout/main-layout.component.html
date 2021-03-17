@@ -61,6 +61,14 @@
       <mat-divider mat-inset></mat-divider>
     </div>
 
+    <div *ngIf="isSkillTreeVisible">
+      <a mat-list-item routerLink="/{{skillTreeUrl}}">
+        <i mat-list-icon class="ra ra-dead-tree ra-lg navlist"></i>
+        <h3 mat-line>{{"APP_COMPONENT.SKILLTREE"| translate}}</h3>
+      </a>
+      <mat-divider mat-inset></mat-divider>
+    </div>
+
     <div *ngIf="isEventVisible">
       <a mat-list-item routerLink="/{{eventUrl}}" (click)="updateLastTavernVisit()"> 
         <i mat-list-icon class="ra ra-beer ra-lg navlist"></i>

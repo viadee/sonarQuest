@@ -35,6 +35,7 @@ export class MainLayoutComponent implements OnInit {
   public gamemasterUrl = RoutingUrls.gamemaster;
   public adminUrl = RoutingUrls.admin;
   public eventUrl = RoutingUrls.events;
+  public skillTreeUrl = RoutingUrls.skillTree;
 
   public isWorldSelectVisible: boolean;
   public isMyAvatarVisible: boolean;
@@ -44,6 +45,7 @@ export class MainLayoutComponent implements OnInit {
   public isGamemasterVisible: boolean;
   public isAdminVisible: boolean;
   public isEventVisible: boolean;
+  public isSkillTreeVisible: boolean;
 
   public body = <HTMLScriptElement><any>document.getElementsByTagName('body')[0];
 
@@ -112,6 +114,7 @@ export class MainLayoutComponent implements OnInit {
     this.isGamemasterVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.gamemaster);
     this.isAdminVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.admin);
     this.isEventVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.events);
+    this.isSkillTreeVisible = enable && this.permissionService.isUrlVisible(RoutingUrls.skillTree)
   }
 
 

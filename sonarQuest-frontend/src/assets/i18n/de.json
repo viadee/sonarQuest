@@ -11,7 +11,8 @@
     "LOGOUT": "Abmelden",
     "BACKGROUND": "Schalte Hintergrund-Transparenz um",
     "USER_PROFILE": "Öffne Benutzerprofil",
-    "EVENTS": "Taverne"
+    "EVENTS": "Taverne",
+    "SKILLTREE":"Skill-Tree"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "Meine Abenteuer",

@@ -11,7 +11,8 @@
     "LOGOUT": "Logout",
     "BACKGROUND": "Switch transparency of background",
     "USER_PROFILE": "Open user profile",
-    "EVENTS": "Tavern"
+    "EVENTS": "Tavern",
+    "SKILLTREE":"Skill-Tree"
   },
   "ADVENTURE_PAGE": {
     "MY_ADVENTURES": "My Adventures",

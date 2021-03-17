@@ -13,6 +13,7 @@ import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
 import {LoginPageComponent} from '../pages/login-page/login-page.component';
 import {MainLayoutComponent} from '../layouts/main-layout/main-layout.component';
+import { SkillTreeComponent } from 'app/pages/skill-tree/skill-tree.component';
 
 
 const appRoutes: Routes = [
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
       {path: RoutingUrls.marketplace, component: MarketplacePageComponent},
       {path: RoutingUrls.gamemaster, component: GamemasterPageComponent},
       {path: RoutingUrls.admin, component: AdminPageComponent},
-      {path: RoutingUrls.events, component: EventPageComponent}
+      {path: RoutingUrls.events, component: EventPageComponent},
+      {path: RoutingUrls.skillTree, component: SkillTreeComponent}
     ]
   },
   {path: RoutingUrls.login, component: LoginPageComponent},
