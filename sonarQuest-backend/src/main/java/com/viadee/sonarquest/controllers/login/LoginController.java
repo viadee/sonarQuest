@@ -36,11 +36,6 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public String info() {
-        return "Dies ist eine Login Seite";
-    }
-
     @PostMapping
     public Token login(@Valid @RequestBody final UserCredentials credentials) {
 
