@@ -10,7 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "licenses": "npm-license-crawler --json ../sonarQuest-backend/src/main/resources/licenses/licenses.json"
+    "licenses": "npm-license-crawler --json ../sonarQuest-backend/src/main/resources/licenses/licenses.json",
+    "optimize-css": "gulp --gulpfile optimize-css.gulpfile.js",
+    "build-prod": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer"
   },
   "private": true,
   "dependencies": {
@@ -65,6 +67,13 @@
     "ts-node": "3.0.4",
     "tslint": "5.3.2",
     "typescript": "3.4.5",
-    "webpack": "4.38.0"
+    "webpack": "4.38.0",
+    "gulp": "^4.0.2",
+    "gulp-brotli": "^3.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-filter": "^6.0.0",
+    "gulp-gzip": "^1.4.2",
+    "gulp-purify-css": "^0.1.0",
+    "gulp-rename": "^2.0.0"
   }
 }

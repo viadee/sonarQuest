@@ -19,6 +19,11 @@ const appRoutes: Routes = [
   {path: '', component: MainLayoutComponent, canActivateChild: [AuthenticationGuard], children: [
       {path: '', redirectTo: RoutingUrls.myAvatar, pathMatch: 'full'},
       {path: RoutingUrls.start, component: StartPageComponent},
+      {
+        path: RoutingUrls.start,
+        loadChildren: () => import('../pages/start-page/start-page.routing.module')
+          .then(m => m.StartPageRoutingModule)
+      },
       {path: RoutingUrls.myAvatar, component: MyAvatarPageComponent},
       {path: RoutingUrls.adventures, component: AdventurePageComponent},
       {path: RoutingUrls.quests, component: QuestPageComponent},
