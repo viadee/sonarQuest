@@ -53,9 +53,25 @@ Here are some hints on what helps to get those approved and implemented as quick
 * there shouldn't be any TSLint warnings in the Angular parts of the code
 * we embrace Clean Code so when in doubt - take a look at Uncle Bob's book or [blog](http://blog.cleancoder.com/). 
 
+#### Branching
+We want to keep the repository as clean and structured as possible. To achieve this, we use GitFlow as our Git workflow. Follow this [Link](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow "Gitflow Workflow | Atlassian Git Tutorial") to get more information about GitFlow. 
+In short, this means the following for your collaboration on SonarQuest:
+
+##### Feature Branch
+If you want to add a great new feature to Sonar Quest or fix a major and minor issues, create a feature branch (`feature/<name>`) based on the `develop` branch. After you are done, please create a pull request to merge your feature into `develop`. After a bunch of new features and fixes, we will create a new release that includes your implementations.
+![Gitflow - Feature Branches](docs/images/gitflow_feature.svg)
+*Image source: https://wac-cdn.atlassian.com/dam/jcr:b5259cce-6245-49f2-b89b-9871f9ee3fa4/03%20(2).svg?cdnVersion=1515, no changes made*
+
+##### Hotfix Branch
+For quick patches of the release versions, please use hotfix branches (`hotfix/<name>`). If there is a bug or an error that needs to be fixed, you can create your hotfix branch as a fork of the `master`. After your fix is ready, please create a pull request to merge the branch into `develop` **and** `master`.
+![Gitflow - Feature Branches](docs/images/gitflow_hotfix.svg)
+*Image source: https://wac-cdn.atlassian.com/dam/jcr:61ccc620-5249-4338-be66-94d563f2843c/05%20(2).svg?cdnVersion=1515, no changes made*
+
+For all other tasks around branching the SonarQuest core team takes care. If not everything is clear yet, feel free to have a look at the existing branches *(Be careful, there are also some older branches that don't conform to Gitflow yet. But you will recognize that)*. If you still have questions, feel free to contact us or open an issue. We will answer you as soon as possible. 
+
 #### Suggesting Pull Request
 
-When you are adding features or other enhancements please create a pull request with a clear documentation of what you've done and why you have done it. It helps, if you make make sure all of your commits are atomic (one feature per commit).
+When you are adding features or other enhancements please create a pull request as described in the previous [section](#branching), with a clear documentation of what you've done and why you have done it. It helps, if you make sure all of your commits are atomic (one feature per commit).
 
 Always include a useful log message for your commits. One-line messages are fine for small changes, but bigger changes should be commitetd with more comments, too.
 
