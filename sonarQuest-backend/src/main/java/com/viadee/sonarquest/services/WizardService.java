@@ -73,8 +73,11 @@ public class WizardService {
 	 *            the UI. Only retrieve messages for this world then.
 	 */
 	public WizardMessage getMostImportantMessageFor(final World world) {
-		final WizardState state = determineGameState(world);
-		return state == WizardState.NO_MESSAGES ? null : state.toWizardMessage();
+		if( world != null){
+			final WizardState state = determineGameState(world);
+			return state == WizardState.NO_MESSAGES ? null : state.toWizardMessage();
+		}
+		return null;
 	}
 
 	private WizardState determineGameState(final World selectedWorld) {
