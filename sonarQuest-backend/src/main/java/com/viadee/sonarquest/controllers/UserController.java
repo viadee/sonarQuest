@@ -5,9 +5,11 @@ import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.viadee.sonarquest.entities.UserDto;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,19 +49,19 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public User getUser(final Principal principal) {
+    public UserDto getUser(final Principal principal) {
     	User user = null;
     	if(principal != null) {
 	        final String username = principal.getName();
 	        user =  userService.findByUsername(username);
     	} 
-    	return user;
+    	return new UserDto(user);
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
     @GetMapping(path = "/all")
-    public List<User> users(final Principal principal) {
-        return userService.findAll();
+    public List<UserDto> users(final Principal principal) {
+        return userService.findAll().stream().map(user -> new UserDto(user)).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -77,7 +79,7 @@ public class UserController {
     @GetMapping(path = "/avatar")
     public @ResponseBody byte[] avatar(final Principal principal, final HttpServletResponse response) {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
-        final User user = getUser(principal);
+        final UserDto user = getUser(principal);
         return user != null ? loadAvatar(avatarDirectoryPath, user.getPicture()) : null;
     }
 
