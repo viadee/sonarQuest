@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +24,9 @@ public class UserDto {
     private Level level;
     private Long currentWorldId;
     private Timestamp lastLogin;
+    private List<Artefact> artefacts;
+    private List<String> joinedWorlds;
+
 
     public UserDto() {
     }
@@ -46,5 +51,7 @@ public class UserDto {
         this.level = user.getLevel();
         this.lastLogin = user.getLastLogin();
         this.picture = user.getPicture();
+        this.artefacts = user.getArtefacts();
+        this.joinedWorlds = user.getJoinedWorlds();
     }
 }
