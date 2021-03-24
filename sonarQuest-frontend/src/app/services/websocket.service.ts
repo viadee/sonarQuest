@@ -13,7 +13,7 @@ import { User } from 'app/Interfaces/User';
 @Injectable()
 export class WebsocketService {
 
-  private serverUrl = 'http://localhost:8080/socket';
+  private serverUrl = '/api/socket';
   private stompClient;
   private user: User;
   private currentWorld: World;
