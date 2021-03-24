@@ -50,12 +50,14 @@ public class UserController {
 
     @GetMapping
     public UserDto getUser(final Principal principal) {
-    	User user = null;
     	if(principal != null) {
 	        final String username = principal.getName();
-	        user =  userService.findByUsername(username);
-    	} 
-    	return new UserDto(user);
+	        User user =  userService.findByUsername(username);
+	        if(user!= null) {
+                return new UserDto(user);
+            }
+    	}
+    	return null;
     }
 
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
