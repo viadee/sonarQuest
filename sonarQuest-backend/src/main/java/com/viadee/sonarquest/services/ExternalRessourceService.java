@@ -187,7 +187,6 @@ public class ExternalRessourceService {
                 .withComponentKeys(projectKey)
                 .withTypes(SonarQubeIssueType.CODE_SMELL)
                 .withSeverities(issueSeverities)
-                .withOrganization(organizationKey)
                 .pageSize(maxNumberOfIssuesOnPage)
                 .pageIndex(1)
                 .build();
