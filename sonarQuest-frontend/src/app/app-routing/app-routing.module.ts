@@ -17,24 +17,65 @@ import {MainLayoutComponent} from '../layouts/main-layout/main-layout.component'
 
 const appRoutes: Routes = [
   {path: '', component: MainLayoutComponent, canActivateChild: [AuthenticationGuard], children: [
-      {path: '', redirectTo: RoutingUrls.myAvatar, pathMatch: 'full'},
-      {path: RoutingUrls.start, component: StartPageComponent},
+      {
+        path: '',
+        redirectTo: RoutingUrls.myAvatar,
+        pathMatch: 'full',
+        loadChildren: () => import('../pages/my-avatar-page/my-avatar-page.routing.module')
+          .then(m => m.MyAvatarPageRoutingModule)
+      },
+      {
+        path: RoutingUrls.myAvatar,
+        loadChildren: () => import('../pages/my-avatar-page/my-avatar-page.routing.module')
+          .then(m => m.MyAvatarPageRoutingModule)
+      },
       {
         path: RoutingUrls.start,
         loadChildren: () => import('../pages/start-page/start-page.routing.module')
           .then(m => m.StartPageRoutingModule)
       },
-      {path: RoutingUrls.myAvatar, component: MyAvatarPageComponent},
-      {path: RoutingUrls.adventures, component: AdventurePageComponent},
-      {path: RoutingUrls.quests, component: QuestPageComponent},
-      {path: RoutingUrls.marketplace, component: MarketplacePageComponent},
-      {path: RoutingUrls.gamemaster, component: GamemasterPageComponent},
-      {path: RoutingUrls.admin, component: AdminPageComponent},
-      {path: RoutingUrls.events, component: EventPageComponent}
+      {
+        path: RoutingUrls.adventures,
+        loadChildren: () => import('../pages/adventure-page/adventure-page.routing.module')
+          .then(m => m.AdventurePageRoutingModule)
+      },
+      {
+        path: RoutingUrls.quests,
+        loadChildren: () => import('../pages/quest-page/quest-page.routing.module')
+          .then(m => m.QuestPageRoutingModule)
+      },
+      {
+        path: RoutingUrls.marketplace,
+        loadChildren: () => import('../pages/marketplace-page/marketplace-page.routing.module')
+          .then(m => m.MarketplacePageRoutingModule)
+      },
+      {
+        path: RoutingUrls.gamemaster,
+        loadChildren: () => import('../pages/gamemaster-page/gamemaster-page.routing.module')
+          .then(m => m.GamemasterPageRoutingModule)
+      },
+      {
+        path: RoutingUrls.admin,
+        loadChildren: () => import('../pages/admin-page/admin-page.routing.module')
+          .then(m => m.AdminPageRoutingModule)
+      },
+      {
+        path: RoutingUrls.events,
+        loadChildren: () => import('../pages/event-page/event-page.routing.module')
+          .then(m => m.EventPageRoutingModule)
+      },
     ]
   },
-  {path: RoutingUrls.login, component: LoginPageComponent},
-  {path: RoutingUrls.empty, component: EmptyPageComponent}
+  {
+    path: RoutingUrls.login,
+    loadChildren: () => import('../pages/login-page/login-page.routing.module')
+      .then(m => m.LoginPageRoutingModule)
+  },
+  {
+    path: RoutingUrls.empty,
+    loadChildren: () => import('../pages/empty-page/empty-page.routing.module')
+      .then(m => m.EmptyPageRoutingModule)
+  }
 ];
 
 @NgModule({
