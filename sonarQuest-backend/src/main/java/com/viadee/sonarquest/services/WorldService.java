@@ -41,7 +41,10 @@ public class WorldService {
     }
 
     public World findById(final Long id) {
-        return worldRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        if(id != null){
+            return worldRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        }
+        return null;
     }
 
     public World updateWorld(final World world) {
