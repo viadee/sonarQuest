@@ -1,36 +1,31 @@
 package com.viadee.sonarquest.controllers;
 
-import java.security.Principal;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.viadee.sonarquest.entities.Participation;
 import com.viadee.sonarquest.entities.User;
 import com.viadee.sonarquest.repositories.ParticipationRepository;
 import com.viadee.sonarquest.services.ParticipationService;
 import com.viadee.sonarquest.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/participation")
 public class ParticipationController {
 
-    @Autowired
-    private ParticipationRepository participationRepository;
+    private final ParticipationRepository participationRepository;
 
-    @Autowired
-    private ParticipationService participationService;
+    private final ParticipationService participationService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public ParticipationController(ParticipationRepository participationRepository, ParticipationService participationService, UserService userService) {
+        this.participationRepository = participationRepository;
+        this.participationService = participationService;
+        this.userService = userService;
+    }
 
     @GetMapping
     public Iterable<Participation> getAllParticipations() {

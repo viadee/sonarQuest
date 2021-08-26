@@ -81,7 +81,6 @@ public class WorldController {
     @PostMapping(value = "/world")
     public World updateWorld(@RequestBody final World data) {
          final World world = worldService.updateWorld(data);
-         // TODO Der Name ist recht unpassend
          standardTaskService.updateStandardTasks(world);
          return world;
     }
