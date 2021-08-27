@@ -1,21 +1,22 @@
 package com.viadee.sonarquest.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.viadee.sonarquest.entities.Role;
+import com.viadee.sonarquest.services.RoleService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarquest.entities.Role;
-import com.viadee.sonarquest.services.RoleService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/role")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping
     public List<Role> getAllAvatarRaces() {

@@ -1,31 +1,26 @@
 package com.viadee.sonarquest.controllers;
 
-import java.security.Principal;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.viadee.sonarquest.entities.*;
+import com.viadee.sonarquest.services.EventService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import com.viadee.sonarquest.entities.Adventure;
-import com.viadee.sonarquest.entities.Artefact;
-import com.viadee.sonarquest.entities.Event;
-import com.viadee.sonarquest.entities.EventUserDto;
-import com.viadee.sonarquest.entities.MessageDto;
-import com.viadee.sonarquest.entities.Quest;
-import com.viadee.sonarquest.entities.User;
-import com.viadee.sonarquest.services.EventService;
+import java.security.Principal;
 
 @Controller
 public class WebSocketController {
 
     private static final String CHAT = "/chat";
 
-    @Autowired
-    private SimpMessagingTemplate template;
+    private final SimpMessagingTemplate template;
     
-    @Autowired
-    private EventService eventService;
+    private final EventService eventService;
+
+    public WebSocketController(SimpMessagingTemplate template, EventService eventService) {
+        this.template = template;
+        this.eventService = eventService;
+    }
 
     @MessageMapping("/send/message")
     public void onReceivedMessage(final MessageDto messageDto) {
@@ -79,7 +74,7 @@ public class WebSocketController {
     public void onDeleteAdventure(final Adventure adventure, Principal principal) {
         Event event = eventService.createEventForDeletedAdventure(adventure, principal);
         EventUserDto eventUserDto = eventService.eventToEventUserDto(event);
-        template.convertAndSend("/chat", eventUserDto);
+        template.convertAndSend(CHAT, eventUserDto);
     }
     
     

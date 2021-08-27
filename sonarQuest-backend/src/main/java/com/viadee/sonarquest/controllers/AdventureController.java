@@ -153,7 +153,6 @@ public class AdventureController {
     /**
      * 
      * @param adventureId The id of the adventure
-     * @param developerId The id of the developer to remove
      * @return Gives the adventure where the Developer was removed
      */
     @PostMapping(value = "/{adventureId}/leave")

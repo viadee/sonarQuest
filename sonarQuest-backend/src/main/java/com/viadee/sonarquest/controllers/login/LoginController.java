@@ -1,25 +1,21 @@
 package com.viadee.sonarquest.controllers.login;
 
-import java.util.Objects;
-
-import javax.validation.Valid;
-
+import com.viadee.sonarquest.security.JwtHelper;
+import com.viadee.sonarquest.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viadee.sonarquest.security.JwtHelper;
-import com.viadee.sonarquest.services.UserService;
+import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/login")
@@ -27,14 +23,17 @@ public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtHelper jwtHelper;
+    private final JwtHelper jwtHelper;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public LoginController(AuthenticationManager authenticationManager, JwtHelper jwtHelper, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtHelper = jwtHelper;
+        this.userService = userService;
+    }
 
     @PostMapping
     public Token login(@Valid @RequestBody final UserCredentials credentials) {

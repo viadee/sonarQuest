@@ -9,5 +9,5 @@ public enum AdventureState {
     /**
      * The adventure has been resolved and closed (e.g. by the gm).
      */
-    SOLVED;
+    SOLVED
 }

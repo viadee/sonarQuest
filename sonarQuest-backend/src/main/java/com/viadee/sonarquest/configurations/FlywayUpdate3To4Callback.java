@@ -47,7 +47,7 @@ public class FlywayUpdate3To4Callback implements Callback {
 
     @Override
     public void handle(final Event event, final Context context) {
-        boolean versionRankColumnExists = false;
+        boolean versionRankColumnExists;
         try {
             versionRankColumnExists = checkColumnExists(context.getConfiguration());
         } catch (final MetaDataAccessException e) {

@@ -63,7 +63,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('FULL_USER_ACCESS')")
     @GetMapping(path = "/all")
     public List<UserDto> users(final Principal principal) {
-        return userService.findAll().stream().map(user -> new UserDto(user)).collect(Collectors.toList());
+        return userService.findAll().stream().map(UserDto::new).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -86,8 +86,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}/avatar")
-    public @ResponseBody byte[] avatarForUser(final Principal principal, @PathVariable(value = "id") final Long id, final HttpServletResponse response) 
-    		throws IOException {
+    public @ResponseBody byte[] avatarForUser(final Principal principal, @PathVariable(value = "id") final Long id, final HttpServletResponse response) {
         response.addHeader(HEADER_AVATAR_NAME, HEADER_AVATAR_VALUE);
         final User user = userService.findById(id);
         return loadAvatar(avatarDirectoryPath, user.getPicture());
@@ -103,12 +102,13 @@ public class UserController {
             String avatarFileName = avaDir + avatarPic;
             InputStream inputStream = SpringApplication.class.getResourceAsStream(avatarFileName);
             try {
+                assert inputStream != null;
                 return IOUtils.toByteArray(inputStream);
             } catch (IOException ex) {
                 LOGGER.error("Avatar file not found: " + avatarFileName, ex);
             }
         }
-        return null;
+        return new byte[0];
     }
 
 	public String getAvatarDirectoryPath() {
