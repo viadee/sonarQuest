@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +48,7 @@ public class UserControllerTest {
                 "avatar");
         HttpServletResponse response = mock(HttpServletResponse.class);
         byte[] avatar = userController.avatar(principal, response);
-        assertNull(avatar);
+        assertTrue(avatar.length == 0);
     }
 
 }
