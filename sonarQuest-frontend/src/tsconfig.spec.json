@@ -2,8 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "module": "esnext",
-    "target": "es5",
     "baseUrl": "",
     "types": [
       "jasmine",

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="SonarQuestApplicationIT" project="sonarQuest-backend" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="com.viadee.sonarQuest.integration.SonarQuestApplicationIT" time="0.948">
-    <testcase name="developersCanParticipateInQuestsAndIssues" classname="com.viadee.sonarQuest.integration.SonarQuestApplicationIT" time="0.902"/>
-    <testcase name="testWorldStructure" classname="com.viadee.sonarQuest.integration.SonarQuestApplicationIT" time="0.046"/>
-  </testsuite>
-</testrun>

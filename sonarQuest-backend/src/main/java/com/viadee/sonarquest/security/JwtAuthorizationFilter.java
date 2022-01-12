@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -77,6 +78,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         final String jwt = authHeader.replace(TOKEN_PREFIX, "");
         try {
             username = jwtHelper.getUsernameWithAuthorities(jwt);
+        } catch (ExpiredJwtException expiredJwtException) {
+            LOGGER.info("JWT token expired. Refresh token will be returned.");
         } catch (final JwtException e) {
             LOGGER.error("Validation error with the JWT: " + e.getMessage(), e);
         }

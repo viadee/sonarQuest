@@ -1,17 +1,7 @@
-import {EventPageComponent} from '../pages/event-page/event-page.component';
-import {AdminPageComponent} from '../pages/admin-page/admin-page.component';
-import {MarketplacePageComponent} from '../pages/marketplace-page/marketplace-page.component';
-import {QuestPageComponent} from '../pages/quest-page/quest-page.component';
-import {AdventurePageComponent} from '../pages/adventure-page/adventure-page.component';
-import {StartPageComponent} from '../pages/start-page/start-page.component';
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {MyAvatarPageComponent} from '../pages/my-avatar-page/my-avatar-page.component';
-import {GamemasterPageComponent} from '../pages/gamemaster-page/gamemaster-page.component';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthenticationGuard} from '../authentication/authentication.guard';
-import {EmptyPageComponent} from '../pages/empty-page/empty-page.component';
 import {RoutingUrls} from './routing-urls';
-import {LoginPageComponent} from '../pages/login-page/login-page.component';
 import {MainLayoutComponent} from '../layouts/main-layout/main-layout.component';
 
 
@@ -20,9 +10,7 @@ const appRoutes: Routes = [
       {
         path: '',
         redirectTo: RoutingUrls.myAvatar,
-        pathMatch: 'full',
-        loadChildren: () => import('../pages/my-avatar-page/my-avatar-page.routing.module')
-          .then(m => m.MyAvatarPageRoutingModule)
+        pathMatch: 'full'
       },
       {
         path: RoutingUrls.myAvatar,
@@ -80,7 +68,10 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })
+    RouterModule.forRoot(appRoutes, {
+        onSameUrlNavigation: 'reload',
+        preloadingStrategy: PreloadAllModules
+    })
   ],
   exports: [
     RouterModule
