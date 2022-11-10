@@ -61,9 +61,9 @@
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",
     "mini-css-extract-plugin": "0.5.0",
-    "protractor": "5.4.2",
+    "protractor": "5.4.4",
     "ts-node": "3.0.4",
-    "tslint": "5.3.2",
+    "tslint": "5.20.1",
     "typescript": "3.4.5",
     "webpack": "4.38.0"
   }
