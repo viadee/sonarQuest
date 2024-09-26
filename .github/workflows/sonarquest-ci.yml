@@ -61,7 +61,7 @@ jobs:
     - name: Setup node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
+        node-version: '12.0.0'
     - name: Cache Node.js modules
       uses: actions/cache@v2
       with:
