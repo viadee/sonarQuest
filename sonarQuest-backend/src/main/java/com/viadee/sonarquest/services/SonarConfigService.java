@@ -59,7 +59,7 @@ public class SonarConfigService {
     public boolean checkSonarQubeURL(final SonarConfig sonarConfig) {
         boolean result = false;
 
-        final String apiAddress = sonarConfig.getSonarServerUrl() + "/api";
+        final String apiAddress = sonarConfig.getSonarServerUrl() + "/api/";
         LOGGER.info("Testing server at {}", apiAddress);
         final RestTemplate restTemplate = restTemplateService.getRestTemplate(sonarConfig);
 
