@@ -57,24 +57,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Setup node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-        node-version: '12.0.0'
-    - name: Cache Node.js modules
-      uses: actions/cache@v2
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ~/.npm
-        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.OS }}-node-
-          ${{ runner.OS }}-
+        node-version: '14.21.3'
     - name: Install dependencies
       run: |
         cd sonarQuest-frontend
-        npm ci
+        npm i
     - name: Build Angular app
       run: |
         cd sonarQuest-frontend
