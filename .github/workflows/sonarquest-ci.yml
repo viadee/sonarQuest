@@ -50,7 +50,39 @@ jobs:
           push: true
           tags: ghcr.io/viadee/sonarquest-backend:nightly
             
-          
+  sonar-analysis-backend:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - app: sonarquest-backend
+            working-directory: ./backend
+            jacoco-report-dir: jacoco-report
+            sonar-project-key: viadee_sonarQuest
+            sonar-organization: viadee
+            sonar-host-url: https://sonarcloud.io
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download JaCoCo Report
+        uses: actions/download-artifact@master
+        with:
+          name: jacoco-report
+          path: ${{ matrix.jacoco-report-dir }}
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.projectKey=${{ matrix.sonar-project-key }} \
+          -Dsonar.organization=${{ matrix.sonar-organization }} \
+          -Dsonar.host.url=${{ matrix.sonar-host-url }} \
+          -Dsonar.sources=src/main/java,src/main/resources/templates \
+          -Dsonar.coverage.jacoco.xmlReportPaths=../${{ matrix.jacoco-report-dir }}/jacoco.xml
         
   frontend:
     runs-on: ubuntu-latest

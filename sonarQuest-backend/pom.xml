@@ -23,6 +23,11 @@
 		<url>http://www.viadee.de</url>
 	</organization>
 
+	<properties>
+		<sonar.organization>viadee</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	</properties>
+
 	<url>https://github.com/viadee/sonarQuest</url>
 
 	<parent>
