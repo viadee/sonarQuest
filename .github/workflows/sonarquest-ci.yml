@@ -61,20 +61,11 @@ jobs:
     - name: Setup node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
-    - name: Cache Node.js modules
-      uses: actions/cache@v2
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ~/.npm
-        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.OS }}-node-
-          ${{ runner.OS }}-
+        node-version: '10.9.0'
     - name: Install dependencies
       run: |
         cd sonarQuest-frontend
-        npm ci
+        npm i
     - name: Build Angular app
       run: |
         cd sonarQuest-frontend
