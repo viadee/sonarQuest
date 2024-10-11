@@ -74,10 +74,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -f ./sonarQuest-backend/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=${{ matrix.sonar-project-key }} \
-          -Dsonar.organization=${{ matrix.sonar-organization }} \
-          -Dsonar.host.url=${{ matrix.sonar-host-url }} \
-          -Dsonar.sources=src/main/java,src/main/resources/templates \
-          -Dsonar.coverage.jacoco.xmlReportPaths=../${{ matrix.jacoco-report-dir }}/jacoco.xml
+          -Dsonar.organization=${{ matrix.sonar-organization }}
         
   frontend:
     runs-on: ubuntu-latest
