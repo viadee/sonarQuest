@@ -64,4 +64,14 @@ public class FlywayUpdate3To4Callback implements Callback {
             flyway.repair();
         }
     }
+
+    @Override
+    public String getCallbackName() {
+        String name = this.getClass().getSimpleName();
+        if (name.contains("__")) {
+            name = name.split("__")[1];
+        }
+
+        return name;
+    }
 }
