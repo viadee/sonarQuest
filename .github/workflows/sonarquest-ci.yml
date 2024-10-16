@@ -50,35 +50,6 @@ jobs:
           context: ./sonarQuest-backend
           push: true
           tags: ghcr.io/viadee/sonarquest-backend:nightly
-            
-  sonar-analysis-backend:
-    name: SonarCloud Analysis
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        include:
-          - app: sonarquest-backend
-            working-directory: ./backend
-            sonar-project-key: viadee_sonarQuest
-            sonar-organization: viadee
-            sonar-host-url: https://sonarcloud.io
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
-      - name: Build and analyze
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -f ./sonarQuest-backend/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=${{ matrix.sonar-project-key }} \
-          -Dsonar.organization=${{ matrix.sonar-organization }}
         
   frontend:
     runs-on: ubuntu-latest
@@ -125,4 +96,34 @@ jobs:
         context: ./sonarQuest-frontend
         push: true
         tags: ghcr.io/viadee/sonarquest-frontend:nightly
+
+  analyze:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build and analyze
+        env:
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -f ./sonarQuest-backend/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=viadee_sonarQuest
   
